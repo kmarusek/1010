@@ -112,6 +112,11 @@ var ppcg_<?php echo $id; ?> = '';
 	PPContentGridOptions.current_author = '<?php echo get_queried_object()->ID; ?>';
 	<?php } ?>
 
+	<?php if ( is_search() ) { ?>
+	PPContentGridOptions.is_search = true;
+	PPContentGridOptions.search_term = '<?php echo isset( $_GET['s'] ) ? (string) $_GET['s'] : ''; ?>';
+	<?php } ?>
+
 	<?php if ( isset( $_GET['orderby'] ) && ! empty( $_GET['orderby'] ) ) { ?>
 	PPContentGridOptions.orderby = '<?php echo (string) $_GET['orderby']; ?>';
 	<?php } ?>

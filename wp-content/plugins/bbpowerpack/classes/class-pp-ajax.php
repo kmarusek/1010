@@ -157,6 +157,12 @@ class BB_PowerPack_Ajax {
 		$template_id        = isset( $_POST['template_id'] ) ? wp_unslash( $_POST['template_id'] ) : false;
 		$template_node_id   = isset( $_POST['template_node_id'] ) ? wp_unslash( $_POST['template_node_id'] ) : false;
 
+		if ( apply_filters( 'pp_post_grid_ajax_force_module_settings', false ) ) {
+			if ( isset( $_POST['settings'] ) ) {
+				unset( $_POST['settings'] );
+			}
+		}
+
 		if ( ! empty( self::$cg_settings ) && isset( self::$cg_settings[ $node_id ] ) ) {
 			$settings = self::$cg_settings[ $node_id ];
 		} elseif ( ! isset( $_POST['settings'] ) || empty( $_POST['settings'] ) ) {
@@ -178,16 +184,15 @@ class BB_PowerPack_Ajax {
 						$settings = $module->settings;
 					}
 				}
-
-				if ( isset( $settings ) && class_exists( 'FLThemeBuilderFieldConnections' ) ) {
-					$settings = FLThemeBuilderFieldConnections::connect_settings( $settings );
-				}
 			}
 		} else {
 			$settings = (object) $_POST['settings'];
 		}
 
 		if ( isset( $settings ) ) {
+			if ( class_exists( 'FLThemeBuilderFieldConnections' ) ) {
+				$settings = FLThemeBuilderFieldConnections::connect_settings( $settings );
+			}
 			self::$cg_settings[ $node_id ] = $settings;
 		} else {
 			wp_send_json_error();
@@ -243,6 +248,10 @@ class BB_PowerPack_Ajax {
 
 		if ( isset( $_POST['author_id'] ) && ! empty( $_POST['author_id'] ) ) {
 			$args['author__in'] = array( absint( wp_unslash( $_POST['author_id'] ) ) );
+		}
+
+		if ( isset( $_POST['search_term'] ) && ! empty( $_POST['search_term'] ) ) {
+			$args['s'] = wp_unslash( $_POST['search_term'] );
 		}
 
 		if ( 'no' !== $settings->post_grid_filters_display && 'none' !== $settings->post_grid_filters && isset( $_POST['term'] ) && ! isset( $_POST['is_tax'] ) ) {
@@ -489,6 +498,13 @@ class BB_PowerPack_Ajax {
 
 			if ( isset( $_POST['author_id'] ) && ! empty( $_POST['author_id'] ) ) {
 				$query->set( 'author__in', array( absint( wp_unslash( $_POST['author_id'] ) ) ) );
+			}
+
+			if ( isset( $_POST['search_term'] ) && ! empty( $_POST['search_term'] ) ) {
+				$query->is_search = true;
+				$query->set( 's', wp_unslash( $_POST['search_term'] ) );
+				$query->set( 'p', 0 );
+				$query->set( 'page_id', 0 );
 			}
 
 			$query = new WP_Query( $query->query_vars );

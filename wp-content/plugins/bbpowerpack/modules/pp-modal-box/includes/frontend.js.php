@@ -111,12 +111,11 @@ var pp_modal_<?php echo $id; ?> = false;
     	<?php } ?>
     <?php } ?>
 
-    <?php if ( 'onclick' == $settings->modal_load || 'other' == $settings->modal_load ) { // Click ?>
+	// Bind the click event to any element with the class.
     $(document).on('click', '.modal-<?php echo $id; ?>', function(e) {
         e.preventDefault();
         pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
     });
-    <?php } ?>
 
     <?php if ( FLBuilderModel::is_builder_active() ) { ?>
 		<?php if ( 'enabled' == $settings->modal_preview ) { ?>

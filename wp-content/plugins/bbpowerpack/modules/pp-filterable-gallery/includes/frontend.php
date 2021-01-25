@@ -39,7 +39,7 @@
 			</ul>
 		</div>
 
-	<div class="pp-photo-gallery<?php echo ( $settings->hover_effects != 'none' ) ? ' ' . $settings->hover_effects : ''; ?>">
+	<div class="pp-filterable-gallery pp-photo-gallery<?php echo ( $settings->hover_effects != 'none' ) ? ' ' . $settings->hover_effects : ''; ?>">
 
 	<?php
 

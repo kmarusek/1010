@@ -141,7 +141,7 @@
 
 				var node = $(this.nodeClass);
 				var base = this;
-				var postFilters = wrap.isotope(postFilterData);
+				var postFilters = ! wrap.data( 'isotope' ) ? wrap.isotope(postFilterData) : wrap;
 
                 if ( this.settings.filters || this.masonry ) {
 
@@ -343,6 +343,11 @@
 			if ( this.settings.is_author && this.settings.current_author ) {
 				data['is_author'] = true;
 				data['author_id'] = this.settings.current_author;
+			}
+
+			if ( this.settings.is_search ) {
+				data['is_search'] = true;
+				data['search_term'] = this.settings.search_term;
 			}
 
 			if ('undefined' !== typeof this.settings.orderby || '' !== this.settings.orderby) {
@@ -672,7 +677,7 @@
 				}
 			});
 
-			$button.on('click', function(e) {
+			$button.off('click').on('click', function(e) {
 				e.preventDefault();
 
 				$(this).addClass('disabled loading');
@@ -682,6 +687,7 @@
 
 				self._getPosts(activeFilter, self.filterData, currentPage);
 				self.currentPage = currentPage;
+				self.paginating = true;
 			});
 
 			$(self.nodeClass).on('grid.rendered', function() {
@@ -734,6 +740,7 @@
 					if ( currentPage <= self.totalPages ) {
 						loaded = true;
 						self._getPosts(activeFilter, self.filterData, currentPage);
+						self.paginating = true;
 					} else {
 						loaded = true;
 						$(self.nodeClass).find('.pp-content-grid-loader').hide();
@@ -809,6 +816,7 @@
 				if ( 'undefined' !== typeof FWPBB && 'undefined' !== typeof FWPBB.modules ) {
 					FWPBB.modules[ self.settings.id ] = self.settings;
 				}
+
 				wrap.imagesLoaded(function() {
 					if ( $('body').hasClass('fl-builder-active') ) {
 						return;
@@ -816,10 +824,13 @@
 					if ( ! self.masonry ) {
 						self._gridLayoutMatchHeight();
 					}
+
 					setTimeout(function() {
 						if ( wrap.data( 'isotope' ) ) {
 							wrap.isotope('destroy');
 						}
+						//wrap.isotope( self.filterData );
+						self.facetWPLoaded = true;
 						self._gridLayout();
 						self._initPagination();
 					}, 500);

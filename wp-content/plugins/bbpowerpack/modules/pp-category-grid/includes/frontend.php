@@ -152,7 +152,10 @@ $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->categ
 		$category_image = wp_get_attachment_image_src( $cat_thumb_id, $settings->category_image_size );
 		$term_link      = get_term_link( $cat, $taxonomy );
 
-		include $module->dir . 'includes/layout-1.php';
+		$layout_path = apply_filters( 'pp_category_grid_layout_path', $module->dir . 'includes/layout-1.php', $cat, $settings );
+		if ( ! empty( $layout_path ) ) {
+			include $layout_path;
+		}
 	}
 	?>
 	</div>

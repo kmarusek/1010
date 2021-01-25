@@ -263,16 +263,9 @@ final class PPModuleExtend {
 	 * @return string
 	 */
 	static public function post_grid_css( $css, $nodes ) {
-		// Better _supported_ Less compiler.
-		if ( ( version_compare( PHP_VERSION, '5.3.0', '>' ) || ! defined( 'FL_THEMER_DEPRECATED_LESSC' ) )
-			&& file_exists( FL_THEME_BUILDER_DIR . '/includes/vendor/Less/Autoloader.php' ) ) {
+		if ( ! class_exists( 'lessc' ) && defined( 'FL_THEME_BUILDER_DIR' ) && file_exists( FL_THEME_BUILDER_DIR . 'classes/class-lessc.php' ) ) {
 
-			require_once FL_THEME_BUILDER_DIR . '/includes/vendor/Less/Autoloader.php';
-			Less_Autoloader::register();
-
-			$parser = new Less_Parser( array(
-				'compress' => true,
-			) );
+			require_once FL_THEME_BUILDER_DIR . 'classes/class-lessc.php';
 
 			foreach ( $nodes['modules'] as $module ) {
 
@@ -292,6 +285,7 @@ final class PPModuleExtend {
 					}
 
 					$module_css = $module->settings->custom_layout->css;
+					$module_css = is_object( $module_css ) && isset( $module_css->css ) ? $module_css->css : $module_css;
 				}
 
 				if ( 'pp-custom-grid' == $module->settings->type ) {
@@ -310,11 +304,14 @@ final class PPModuleExtend {
 				}
 
 				try {
+					$less    = new lessc;
 					$custom  = '.fl-node-' . $module->node . ' { ';
 					$custom .= $module_css;
 					$custom .= ' }';
-					$parser->parse( $custom );
-					$css .= $parser->getCss();
+					if ( method_exists( 'FLBuilder', 'maybe_do_shortcode' ) ) {
+						$custom = FLBuilder::maybe_do_shortcode( $custom );
+					}
+					$css .= @$less->compile( $custom ); // @codingStandardsIgnoreLine
 				} catch ( Exception $e ) {
 					@error_log( 'bb-powerpack: ' . $e ); // @codingStandardsIgnoreLine
 					$css .= $module_css;
@@ -342,6 +339,7 @@ final class PPModuleExtend {
 					}
 
 					$module_css = $module->settings->custom_layout->css;
+					$module_css = is_object( $module_css ) && isset( $module_css->css ) ? $module_css->css : $module_css;
 				}
 
 				if ( 'pp-custom-grid' == $module->settings->type ) {
@@ -364,6 +362,9 @@ final class PPModuleExtend {
 					$custom  = '.fl-node-' . $module->node . ' { ';
 					$custom .= $module_css;
 					$custom .= ' }';
+					if ( method_exists( 'FLBuilder', 'maybe_do_shortcode' ) ) {
+						$custom = FLBuilder::maybe_do_shortcode( $custom );
+					}
 					$css    .= @$less->compile( $custom ); // @codingStandardsIgnoreLine
 				} catch ( Exception $e ) {
 					@error_log( 'bb-powerpack: ' . $e ); // @codingStandardsIgnoreLine

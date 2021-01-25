@@ -19,6 +19,14 @@
 	$(".fl-node-<?php echo $id; ?> table.pp-table-content tbody tr:nth-child(odd)").addClass("odd");
 	$(".fl-node-<?php echo $id; ?> table.pp-table-content tbody tr:nth-child(even)").addClass("even");
 
+	$(".fl-node-<?php echo $id; ?> table.pp-table-content").attr('data-tablesaw-mode', '<?php echo $settings->scrollable; ?>');
+
+	<?php if ( $settings->scrollable == 'swipe' && $settings->custom_breakpoint > 0 ) { ?>
+	if ( $(window).width() >= <?php echo $settings->custom_breakpoint; ?> && ! isTouch() ) {
+		$(".fl-node-<?php echo $id; ?> table.pp-table-content").removeAttr('data-tablesaw-mode');
+	}
+	<?php } ?>
+
 	$( document ).trigger( "enhance.tablesaw" );
 
 	$(document).on('pp-tabs-switched', function(e, selector) {
@@ -26,11 +34,5 @@
 			$( window ).trigger( "resize" );
 		}
 	});
-
-	<?php if ( $settings->scrollable == 'swipe' && $settings->custom_breakpoint > 0 ) { ?>
-	if ( $(window).width() >= <?php echo $settings->custom_breakpoint; ?> && ! isTouch() ) {
-		$(".fl-node-<?php echo $id; ?> table.pp-table-content").removeAttr('data-tablesaw-mode');
-	}
-	<?php } ?>
 
 })(jQuery);

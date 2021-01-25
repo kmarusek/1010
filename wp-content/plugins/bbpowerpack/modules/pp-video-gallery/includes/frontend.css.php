@@ -369,17 +369,17 @@ FLBuilderCSS::responsive_rule( array(
 		<?php } ?>
 	}
 	<?php if ( 'gallery' === $module->get_layout() ) { ?>
-		.fl-node-<?php echo $id; ?> .pp-video-gallery-item {
+		.fl-node-<?php echo $id; ?> .pp-video-gallery .pp-video-gallery-item {
 			width: calc((100% - <?php echo $spacing_medium * ( $columns_medium - 1 ); ?>%) / <?php echo $columns_medium; ?>);
 			<?php if ( ! $module->filters_enabled() ) { ?>
 			margin-right: <?php echo $spacing_medium; ?>%;
 			margin-bottom: <?php echo $spacing_medium; ?>%;
 			<?php } ?>
 		}
-		.fl-node-<?php echo $id; ?> .pp-video-gallery-item:nth-of-type(<?php echo $columns; ?>n) {
+		.fl-node-<?php echo $id; ?> .pp-video-gallery .pp-video-gallery-item:nth-of-type(<?php echo $columns; ?>n) {
 			margin-right: <?php echo $spacing; ?>%;
 		}
-		.fl-node-<?php echo $id; ?> .pp-video-gallery-item:nth-of-type(<?php echo $columns_medium; ?>n) {
+		.fl-node-<?php echo $id; ?> .pp-video-gallery .pp-video-gallery-item:nth-of-type(<?php echo $columns_medium; ?>n) {
 			margin-right: 0;
 		}
 	<?php } ?>
@@ -391,14 +391,14 @@ FLBuilderCSS::responsive_rule( array(
 		<?php } ?>
 	}
 	<?php if ( 'gallery' === $module->get_layout() ) { ?>
-		.fl-node-<?php echo $id; ?> .pp-video-gallery-item {
+		.fl-node-<?php echo $id; ?> .pp-video-gallery .pp-video-gallery-item {
 			width: calc((100% - <?php echo $spacing_responsive * ( $columns_responsive - 1 ); ?>%) / <?php echo $columns_responsive; ?>);
 			<?php if ( ! $module->filters_enabled() ) { ?>
 			margin-right: <?php echo $spacing_responsive; ?>%;
 			margin-bottom: <?php echo $spacing_responsive; ?>%;
 			<?php } ?>
 		}
-		.fl-node-<?php echo $id; ?> .pp-video-gallery-item:nth-of-type(<?php echo $columns_medium; ?>n) {
+		.fl-node-<?php echo $id; ?> .pp-video-gallery .pp-video-gallery-item:nth-of-type(<?php echo $columns_medium; ?>n) {
 			margin-right: <?php echo $spacing_medium; ?>%;
 		}
 		.fl-node-<?php echo $id; ?> .pp-video-gallery-item:nth-of-type(<?php echo $columns_responsive; ?>n) {

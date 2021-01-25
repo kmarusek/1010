@@ -236,7 +236,7 @@
 
 			// close modal box by clicking on outside of modal box element in document.
 			$(document).on('click', function(e) {
-                if ( self.settings.click_exit && $(e.target).parents(self.element.selector).length === 0 && self.isActive && ! self.isPreviewing && ! self.element.is(e.target) && self.element.has(e.target).length === 0 && e.which ) {
+                if ( self.settings.click_exit && $(e.target).parents('.pp-modal').length === 0 && self.isActive && ! self.isPreviewing && ! self.element.is(e.target) && self.element.has(e.target).length === 0 && e.which ) {
                     self.hide();
                 }
 			});

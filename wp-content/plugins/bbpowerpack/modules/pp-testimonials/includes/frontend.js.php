@@ -33,6 +33,16 @@
 	}
 	?>
 
+	var setCenterClass = function( e ) {
+		setTimeout(function() {
+			$( e.target ).find( '.owl-item' ).removeClass( 'pp-testimonial--center' );
+			var actives = $( e.target ).find( '.owl-item.active' );
+			if ( actives.length === 3 ) {
+				$( actives[1] ).addClass( 'pp-testimonial--center' );
+			}
+		}, 200);
+	};
+
 	var options = {
 		items: <?php echo $items; ?>,
 		responsive: {
@@ -74,10 +84,14 @@
 		responsiveBaseWidth: window,
 		margin: <?php echo ( 1 == $settings->carousel && ! empty( $settings->slide_margin ) ) ? $settings->slide_margin : '0'; ?>,
 		rtl: $('body').hasClass( 'rtl' ),
-		onInitialized: equalheight,
+		onInitialized: function(e) {
+			setCenterClass(e);
+			equalheight();
+		},
 		onResized: equalheight,
 		onRefreshed: equalheight,
 		onLoadedLazy: equalheight,
+		onChanged: setCenterClass,
 	};
 
 	$('.fl-node-<?php echo $id; ?> .owl-carousel').owlCarousel( options );

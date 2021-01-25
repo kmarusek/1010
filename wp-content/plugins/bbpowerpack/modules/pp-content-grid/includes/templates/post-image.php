@@ -1,6 +1,7 @@
 <?php
 	$has_featured_image = true;
 	$has_fallback_image = isset( $settings->fallback_image ) && 'custom' == $settings->fallback_image && ! empty( $settings->fallback_image_custom );
+	$using_dynamic_fallback = false;
 	$featured_image_src = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), $settings->image_thumb_size );
 	$featured_image_url = $featured_image_src ? $featured_image_src[0] : wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) );
 
@@ -12,7 +13,7 @@
 			$settings->fallback_image = 'custom';
 			$settings->fallback_image_custom = $first_img['id'];
 			$settings->fallback_image_custom_src = $featured_image_url;
-			$has_fallback_image = true;
+			$using_dynamic_fallback = true;
 		} else {
 			$featured_image_url = $settings->fallback_image_custom_src;
 		}
@@ -26,7 +27,14 @@
 			</div>
 		<?php } else { ?>
 			<div class="pp-post-featured-img">
-				<?php FLBuilder::render_module_html( 'photo', BB_PowerPack_Post_Helper::post_image_get_settings( get_the_ID(), $settings->image_thumb_crop, $settings, $has_featured_image ) ); ?>
+				<?php
+					FLBuilder::render_module_html( 'photo', BB_PowerPack_Post_Helper::post_image_get_settings( get_the_ID(), $settings->image_thumb_crop, $settings, $has_featured_image ) );
+					if ( $using_dynamic_fallback ) {
+						$settings->fallback_image = 'default';
+						$settings->fallback_image_custom = '';
+						unset( $settings->fallback_image_custom_src );
+					}
+				?>
 			</div>
 		<?php } ?>
     <?php } ?>

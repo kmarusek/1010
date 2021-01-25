@@ -1,4 +1,4 @@
-<?php if ( FLBuilderModel::is_builder_active() ) { ?>
+<?php if ( FLBuilderModel::is_builder_active() && isset( $_GET['fl_builder'] ) ) { ?>
 	<div class="pp-helper"><?php _e('Click here to edit the separator. This text is only for editing and will disappear after you publish the changes.', 'bb-powerpack'); ?></div>
 <?php } ?>
 <?php

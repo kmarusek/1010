@@ -119,6 +119,8 @@
 
 		_initTooltip: function (selector, triggerValue) {
 			var self = this;
+			var _id = $(selector).data( 'tooltop-content' );
+			_id = _id ? _id.replace( '#', '' ) : '';
 
 			$(selector).tooltipster({
 				theme: 				['tooltipster-noir', 'tooltipster-noir-customized'],
@@ -129,7 +131,7 @@
 				distance: 			self.tooltipDistance,
 				delay: 				300,
 				interactive: 		true,
-				ppclass: 			self.customClass,
+				ppclass: 			self.customClass + ' ' + _id,
 				animation: 			self.tooltipAnimation,
 				animationDuration:	self.animationDur,
 				zIndex: 			self.tooltipZindex,

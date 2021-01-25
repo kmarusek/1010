@@ -74,7 +74,7 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 							}
 						} elseif ( 'children' === $terms_to_show ) {
 							if ( ! $term->parent ) {
-								$filter_terms = get_term_children( $term->term_id, $term->taxonomy );
+								$filter_terms = array_merge( $filter_terms, get_term_children( $term->term_id, $term->taxonomy ) );
 								continue;	
 							} else {
 								$filter_terms[] = $term->term_id;

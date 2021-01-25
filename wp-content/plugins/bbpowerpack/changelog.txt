@@ -1,3 +1,28 @@
+== 2.13.4 ==
+Release date: January 21, 2020
+* Hotfix: Content Grid - Custom layout object parsing issue
+
+== 2.13.3 ==
+Release date: January 21, 2021
+* Hotfix: Content Grid - Custom layout broke after 2.13.2 update
+
+== 2.13.2 ==
+Release date: January 20, 2021
+* Fix: Content Grid - Module was unable to fetch the remote image from the post content where featured image was not set
+* Fix: Content Grid - Children of all parent terms were not showing in filter
+* Fix: Content Grid - Duplicate posts were appearing on pagination when using Load More pagination with FacetWP filters
+* Fix: Content Grid - Posts were not showing when paginating on the search results page
+* Fix: Content Grid - id and class properties were missing from the setting object passed in AJAX
+* Fix: Reviews - Module was getting translated version of reviews from Google Places despite the original
+* Fix: Dual Button - Medium and Responsive alignment issues
+* Fix: Photo Gallery - Layout issue when using the module inside Advanced Tabs
+* Fix: Filterable Gallery - PHP warnings in frontend.css.php
+* Fix: Video Gallery - Responsive columns were not working properly
+* Fix: Table - Swipe feature was not respecting the breakpoint after recent update
+* Fix: Modal Box - Click anywhere to exit feature was not working in some cases
+* Fix: Header/Footer - Header was getting hidden in the builder when duplicating any element when overlay setting is enabled
+* Development: Category Grid - Added filter pp_category_grid_layout_path
+
 == 2.13.1 ==
 Release date: December 15, 2020
 * Hotfix: Same version was showing on the plugin update page

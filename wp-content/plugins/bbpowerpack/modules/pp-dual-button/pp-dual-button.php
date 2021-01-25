@@ -438,6 +438,7 @@ BB_PowerPack::register_module(
 							'type'    => 'align',
 							'label'   => __( 'Alignment', 'bb-powerpack' ),
 							'default' => 'left',
+							'responsive' => true,
 						),
 						'button_padding'              => array(
 							'type'       => 'dimension',
@@ -552,11 +553,6 @@ BB_PowerPack::register_module(
 							'default' => '480',
 							'units'   => array( 'px' ),
 							'help'    => __( 'Buttons will be stacked on top of each other.', 'bb-powerpack' ),
-						),
-						'button_alignment_responsive' => array(
-							'type'    => 'align',
-							'label'   => __( 'Stack Buttons Alignment', 'bb-powerpack' ),
-							'default' => '',
 						),
 					),
 				),

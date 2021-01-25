@@ -281,23 +281,15 @@ FLBuilderCSS::typography_field_rule(
 	<?php } ?>
 }
 
-<?php if ( $global_settings->responsive_breakpoint > 768 ) { ?>
-@media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
-	.fl-node-<?php echo $id; ?> .pp-dual-button-content {
-		text-align: center;
-	}
+@media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
-		float: none;
+		float: <?php echo ( isset( $settings->button_alignment_medium ) && 'center' === $settings->button_alignment_medium ) ? 'none' : $settings->button_alignment_medium; ?>;
 	}
 }
-<?php } ?>
 
-@media only screen and ( max-width: 768px ) {
-	.fl-node-<?php echo $id; ?> .pp-dual-button-content {
-		text-align: center;
-	}
+@media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
-		float: none;
+		float: <?php echo ( isset( $settings->button_alignment_responsive ) && 'center' === $settings->button_alignment_responsive ) ? 'none' : $settings->button_alignment_responsive; ?>;
 	}
 }
 

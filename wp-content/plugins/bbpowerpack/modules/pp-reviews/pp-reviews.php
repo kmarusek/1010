@@ -243,6 +243,7 @@ class PPReviewsModule extends FLBuilderModule {
 				array(
 					'key'     => $api_key,
 					'placeid' => $this->settings->google_place_id,
+					'language' => get_locale(),
 				),
 				'https://maps.googleapis.com/maps/api/place/details/json'
 			);

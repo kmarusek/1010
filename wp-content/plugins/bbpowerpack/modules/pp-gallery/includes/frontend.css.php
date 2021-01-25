@@ -50,14 +50,6 @@ if ( 'justified' != $settings->gallery_layout ) {
 		margin-right: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['left'] : 0 ); ?>px;
 		margin-bottom: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['top'] : 0 ); ?>px;
 	<?php } ?>
-	
-	<?php if ( 'yes' == $settings->show_image_shadow_hover ) { ?>
-		-webkit-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
-			-moz-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
-				-ms-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
-					-o-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
-						transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
-	<?php } ?>
 }
 
 <?php

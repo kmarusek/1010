@@ -101,7 +101,7 @@ if ( 'csv_import' == $source ) {
 if ( ! empty( $tableheaders[0] ) ) {
 	do_action( 'pp_before_table_module', $settings );
 ?>
-<table class="pp-table-<?php echo $id; ?> pp-table-content tablesaw" <?php echo $settings->sortable; ?> data-tablesaw-mode="<?php echo $settings->scrollable; ?>" data-tablesaw-minimap>
+<table class="pp-table-<?php echo $id; ?> pp-table-content tablesaw" <?php echo $settings->sortable; ?> data-tablesaw-minimap>
 	<?php if ( 'manual' === $source || ( isset( $settings->first_row_header ) && 'yes' === $settings->first_row_header ) ) { ?>
 	<thead>
 		<tr>

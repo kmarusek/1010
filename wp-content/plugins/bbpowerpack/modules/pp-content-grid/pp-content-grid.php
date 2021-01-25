@@ -490,6 +490,13 @@ class PPContentGridModule extends FLBuilderModule {
 					}
 				}
 			}
+			// Reset ID and Class fields.
+			if ( $settings->id ) {
+				$js_fields->id = $settings->id;
+			}
+			if ( $settings->class ) {
+				$js_fields->class = $settings->class;
+			}
 		} catch ( Excption $e ) {
 			return $js_fields;
 		}

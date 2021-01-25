@@ -41,6 +41,7 @@ class BB_PowerPack_Post_Helper {
 		} else {
 			$has_fallback_image = isset( $settings->fallback_image ) && 'custom' == $settings->fallback_image && ! empty( $settings->fallback_image_custom );
 			$src = $has_fallback_image ? self::post_image_get_full_src( $id, $settings, $settings->fallback_image_custom ) : '';
+			$src = empty( $src ) && isset( $settings->fallback_image_custom_src ) ? $settings->fallback_image_custom_src : $src;
 			$photo_data = self::post_image_get_data( $id, $settings->fallback_image_custom );
 		}
 

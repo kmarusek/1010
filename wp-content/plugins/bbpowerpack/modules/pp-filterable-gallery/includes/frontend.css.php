@@ -117,10 +117,18 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 
 .fl-node-<?php echo $id; ?> .pp-gallery-item img,
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay {
-	<?php if ( $photo_border_radius['top_left'] >= 0 ) { ?> border-top-left-radius: <?php echo $photo_border_radius['top_left']; ?>px; <?php } ?>
-	<?php if ( $photo_border_radius['bottom_left'] >= 0 ) { ?> border-bottom-left-radius: <?php echo $photo_border_radius['bottom_left']; ?>px; <?php } ?>
-	<?php if ( $photo_border_radius['top_right'] >= 0 ) { ?> border-top-right-radius: <?php echo $photo_border_radius['top_right']; ?>px; <?php } ?>
-	<?php if ( $photo_border_radius['bottom_right'] >= 0 ) { ?> border-bottom-right-radius: <?php echo $photo_border_radius['bottom_right']; ?>px; <?php } ?>
+	<?php if ( isset( $photo_border_radius['top_left'] ) && $photo_border_radius['top_left'] >= 0 ) { ?>
+	border-top-left-radius: <?php echo $photo_border_radius['top_left']; ?>px;
+	<?php } ?>
+	<?php if ( isset( $photo_border_radius['bottom_left'] ) && $photo_border_radius['bottom_left'] >= 0 ) { ?>
+	border-bottom-left-radius: <?php echo $photo_border_radius['bottom_left']; ?>px;
+	<?php } ?>
+	<?php if ( isset( $photo_border_radius['top_right'] ) && $photo_border_radius['top_right'] >= 0 ) { ?>
+	border-top-right-radius: <?php echo $photo_border_radius['top_right']; ?>px;
+	<?php } ?>
+	<?php if ( isset( $photo_border_radius['bottom_right'] ) && $photo_border_radius['bottom_right'] >= 0 ) { ?>
+	border-bottom-right-radius: <?php echo $photo_border_radius['bottom_right']; ?>px;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-gallery-item .pp-photo-gallery-content > a {

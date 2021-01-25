@@ -60,11 +60,14 @@ var pp_gallery_<?php echo $id; ?>;
 	});
 
 	// tabs fix
-	var tabs_state = false;
 	$(document).on('pp-tabs-switched', function(e, selector) {
-		if ( selector.find('.pp-photo-gallery-content').length > 0 && ! tabs_state ) {
-			new PPGallery(options);
-			tabs_state = true;
+		if ( selector.find('.pp-photo-gallery-content').length > 0 ) {
+			if ( selector.find('.pp-photo-gallery').data('isotope') ) {
+				selector.find('.pp-photo-gallery').isotope('layout');
+			} else {
+				new PPGallery(options);
+				tabs_state = true;
+			}
 		}
 	});
 })(jQuery);
