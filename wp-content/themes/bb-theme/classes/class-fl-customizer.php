@@ -383,7 +383,7 @@ final class FLCustomizer {
 			fl_theme_filesystem()->mkdir( $dir_info['path'] );
 		}
 
-		return apply_filters( 'fl_theme_get_cache_dir', $dir_info );
+		return $dir_info;
 	}
 
 	/**
@@ -1386,10 +1386,7 @@ final class FLCustomizer {
 			$vars['woo-cats-add-button'] = 'hidden' === $mods['fl-woo-cart-button'] ? 'none' : 'inline-block';
 		}
 
-		$fa5_builder = class_exists( 'FLBuilder' ) ? FLBuilder::fa5_pro_enabled() : false;
-		$fa5_filter  = apply_filters( 'fl_enable_fa5_pro', false );
-
-		if ( $fa5_builder || $fa5_filter ) {
+		if ( true === apply_filters( 'fl_enable_fa5_pro', false ) ) {
 			$vars['font-awesome-family'] = "'Font Awesome 5 Pro'";
 		} else {
 			$vars['font-awesome-family'] = "'Font Awesome 5 Free'";

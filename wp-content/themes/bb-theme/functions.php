@@ -11,7 +11,7 @@ Appearance > Theme Settings > Code or create a child theme.
 */
 
 // Defines
-define( 'FL_THEME_VERSION', '1.7.8' );
+define( 'FL_THEME_VERSION', '1.7.7' );
 define( 'FL_THEME_DIR', get_template_directory() );
 define( 'FL_THEME_URL', get_template_directory_uri() );
 
@@ -26,7 +26,7 @@ require_once 'classes/class-fl-fonts.php';
 require_once 'classes/class-fl-layout.php';
 require_once 'classes/class-fl-theme.php';
 require_once 'classes/class-fl-theme-update.php';
-require_once 'classes/class-fl-compat.php';
+require_once 'classes/class-fi-compat.php';
 require_once 'classes/class-fl-shortcodes.php';
 require_once 'classes/class-fl-wp-editor.php';
 

@@ -27,7 +27,6 @@ final class FLLayout {
 		add_filter( 'body_class', __CLASS__ . '::filter_body_class' );
 		add_filter( 'nav_menu_css_class', __CLASS__ . '::filter_nav_menu_item_classes', 999, 4 );
 		add_filter( 'nav_menu_link_attributes', __CLASS__ . '::filter_nav_menu_link_classes', 999, 4 );
-		add_filter( 'fl_theme_framework_enqueue', __CLASS__ . '::fl_theme_framework_enqueue' );
 	}
 
 	/**
@@ -50,7 +49,7 @@ final class FLLayout {
 	 * @return void
 	 */
 	static public function enqueue_framework() {
-		$framework = apply_filters( 'fl_theme_framework_enqueue', self::get_framework() );
+		$framework = self::get_framework();
 		$css_path  = '/css/' . $framework . '.min.css';
 		$js_path   = '/js/' . $framework . '.min.js';
 
@@ -301,16 +300,6 @@ final class FLLayout {
 			$attrs['class'] = isset( $attrs['class'] ) ? $attrs['class'] . ' nav-link' : 'nav-link';
 		}
 		return $attrs;
-	}
-
-	/**
-	 * @since 1.7.7
-	 */
-	static public function fl_theme_framework_enqueue( $framework ) {
-		if ( isset( $_GET['fl_builder'] ) ) {
-			return str_replace( 'bootstrap', 'base', $framework );
-		}
-		return $framework;
 	}
 }
 

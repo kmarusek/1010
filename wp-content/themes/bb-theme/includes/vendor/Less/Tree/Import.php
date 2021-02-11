@@ -104,7 +104,7 @@ class Less_Tree_Import extends Less_Tree{
 		if ($this->path instanceof Less_Tree_Quoted) {
 			$path = $this->path->value;
 			$path = ( isset($this->css) || preg_match('/(\.[a-z]*$)|([\?;].*)$/',$path)) ? $path : $path . '.less';
-		} else if ($this->path instanceof Less_Tree_Url) {
+		} else if ($this->path instanceof Less_Tree_URL) {
 			$path = $this->path->value->value;
 		}else{
 			return null;
@@ -126,7 +126,7 @@ class Less_Tree_Import extends Less_Tree{
 		}
 
 
-		if( !($path instanceof Less_Tree_Url) ){
+		if( !($path instanceof Less_Tree_URL) ){
 			if( $rootpath ){
 				$pathValue = $path->value;
 				// Add the base path if the import is relative
@@ -214,12 +214,15 @@ class Less_Tree_Import extends Less_Tree{
 
 			if( Less_Environment::isPathRelative($evald_path) ){
 				//if the path is relative, the file should be in the current directory
-				$import_dirs[ $this->currentFileInfo['currentDirectory'] ] = $this->currentFileInfo['uri_root'];
+				if ( $this->currentFileInfo ){
+					$import_dirs[ $this->currentFileInfo['currentDirectory'] ] = $this->currentFileInfo['uri_root'];
+				}
 
 			}else{
 				//otherwise, the file should be relative to the server root
-				$import_dirs[ $this->currentFileInfo['entryPath'] ] = $this->currentFileInfo['entryUri'];
-
+				if( $this->currentFileInfo ) {
+					$import_dirs[ $this->currentFileInfo['entryPath'] ] = $this->currentFileInfo['entryUri'];
+				}
 				//if the user supplied entryPath isn't the actual root
 				$import_dirs[ $_SERVER['DOCUMENT_ROOT'] ] = '';
 
