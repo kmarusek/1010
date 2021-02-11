@@ -1,15 +1,5 @@
 <?php
 /**
- * Plugin Name: All-in-One WP Migration
- * Plugin URI: https://servmask.com/
- * Description: Migration tool for all your blog data. Import or Export your blog content with a single click.
- * Author: ServMask
- * Author URI: https://servmask.com/
- * Version: 7.36
- * Text Domain: all-in-one-wp-migration
- * Domain Path: /languages
- * Network: True
- *
  * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -37,45 +27,68 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
 
-// Check SSL Mode
-if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && ( $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ) ) {
-	$_SERVER['HTTPS'] = 'on';
+class Ai1wm_Export_Enumerate_Tables {
+
+	public static function execute( $params, Ai1wm_Database $mysql = null ) {
+		global $wpdb;
+
+		// Set exclude database
+		if ( isset( $params['options']['no_database'] ) ) {
+			return $params;
+		}
+
+		// Get total tables count
+		if ( isset( $params['total_tables_count'] ) ) {
+			$total_tables_count = (int) $params['total_tables_count'];
+		} else {
+			$total_tables_count = 0;
+		}
+
+		// Set progress
+		Ai1wm_Status::info( __( 'Retrieving a list of WordPress database tables...', AI1WM_PLUGIN_NAME ) );
+
+		// Get database client
+		if ( is_null( $mysql ) ) {
+			if ( empty( $wpdb->use_mysqli ) ) {
+				$mysql = new Ai1wm_Database_Mysql( $wpdb );
+			} else {
+				$mysql = new Ai1wm_Database_Mysqli( $wpdb );
+			}
+		}
+
+		// Include table prefixes
+		if ( ai1wm_table_prefix() ) {
+			$mysql->add_table_prefix_filter( ai1wm_table_prefix() );
+		} else {
+			foreach ( $mysql->get_tables() as $table_name ) {
+				$mysql->add_table_prefix_filter( $table_name );
+			}
+		}
+
+		// Include table prefixes (Webba Booking)
+		foreach ( array( 'wbk_services', 'wbk_days_on_off', 'wbk_locked_time_slots', 'wbk_appointments', 'wbk_cancelled_appointments', 'wbk_email_templates', 'wbk_service_categories', 'wbk_gg_calendars', 'wbk_coupons' ) as $table_name ) {
+			$mysql->add_table_prefix_filter( $table_name );
+		}
+
+		// Create tables list file
+		$tables_list = ai1wm_open( ai1wm_tables_list_path( $params ), 'w' );
+
+		// Write table line
+		foreach ( $mysql->get_tables() as $table_name ) {
+			if ( ai1wm_write( $tables_list, $table_name . PHP_EOL ) ) {
+				$total_tables_count++;
+			}
+		}
+
+		// Set progress
+		Ai1wm_Status::info( __( 'Done retrieving a list of WordPress database tables.', AI1WM_PLUGIN_NAME ) );
+
+		// Set total tables count
+		$params['total_tables_count'] = $total_tables_count;
+
+		// Close the tables list file
+		ai1wm_close( $tables_list );
+
+		return $params;
+	}
 }
-
-// Plugin Basename
-define( 'AI1WM_PLUGIN_BASENAME', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
-
-// Plugin Path
-define( 'AI1WM_PATH', dirname( __FILE__ ) );
-
-// Plugin URL
-define( 'AI1WM_URL', plugins_url( '', AI1WM_PLUGIN_BASENAME ) );
-
-// Plugin Storage URL
-define( 'AI1WM_STORAGE_URL', plugins_url( 'storage', AI1WM_PLUGIN_BASENAME ) );
-
-// Plugin Backups URL
-define( 'AI1WM_BACKUPS_URL', content_url( 'ai1wm-backups', AI1WM_PLUGIN_BASENAME ) );
-
-// Themes Absolute Path
-define( 'AI1WM_THEMES_PATH', get_theme_root() );
-
-// Include constants
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'constants.php';
-
-// Include deprecated
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'deprecated.php';
-
-// Include functions
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'functions.php';
-
-// Include exceptions
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'exceptions.php';
-
-// Include loader
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'loader.php';
-
-// =========================================================================
-// = All app initialization is done in Ai1wm_Main_Controller __constructor =
-// =========================================================================
-$main_controller = new Ai1wm_Main_Controller();
