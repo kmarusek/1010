@@ -2,8 +2,8 @@
 Contributors: WebFactory
 Tags: 301 redirect, redirects, redirect, 302 redirect, redirection, 302, seo, 302 redirect, 404, 404 redirect, 301, 307
 Requires at least: 4.0
-Tested up to: 5.5
-Stable tag: 2.53
+Tested up to: 5.6
+Stable tag: 2.55
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -26,6 +26,8 @@ Easily manage and create 301 & 302 redirects. Simple to use & validate redirects
 * Simple redirect stats so you know how much a redirection is used
 * Fully compatible with translation plugins (Weglot, TranslatePress, Gtranslate, Loco Translate) that use lang prefix in URL
 
+**Need more features?**
+<a href="https://wp301redirects.com/">WP 301 Redirects PRO</a> offers wildcard & regular expression URL matching, auto-typo fixing in URLs, complete redirect and 404 log, and a centralized SaaS dashboard to monitor redirects on all your sites from one place.
 
 **What is a 301 Redirect?**
 A redirect is a simple way to re-route traffic coming to a *Requested URL* to different *Destination URL*.
@@ -56,6 +58,11 @@ A 301 redirect indicates that the page requested has been permanently moved to t
 
 
 == Changelog ==
+
+= 2.55 =
+* 2021/01/30
+* Removed promo campaign for PRO version
+* Added flyout menu
 
 = 2.53 =
 * 2020/09/29

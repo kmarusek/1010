@@ -2,12 +2,12 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage 301 redirects.
-Version: 2.53
+Version: 2.55
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Text Domain: eps-301-redirects
 
-  Copyright 2015 - 2020  Web factory Ltd  (email: 301redirects@webfactoryltd.com)
+  Copyright 2015 - 2021  Web factory Ltd  (email: 301redirects@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -40,8 +40,8 @@ if (!defined('EPS_REDIRECT_PRO')) {
   include(EPS_REDIRECT_PATH . 'libs/eps-plugin-options.php');
   include(EPS_REDIRECT_PATH . 'plugin.php');
 
-  require_once 'wp301/wp301.php';
-  new wf_wp301(__FILE__, 'settings_page_eps_redirects');
+  require_once 'wf-flyout/wf-flyout.php';
+  new wf_flyout(__FILE__);
 
   register_activation_hook(__FILE__, array('EPS_Redirects_Plugin', '_activation'));
   register_deactivation_hook(__FILE__, array('EPS_Redirects_Plugin', '_deactivation'));
@@ -72,8 +72,6 @@ if (!defined('EPS_REDIRECT_PRO')) {
           add_action('admin_init', array($this, 'clear_cache'));
         }
 
-        add_filter('install_plugins_table_api_args_featured', array($this, 'featured_plugins_tab'));
-        add_filter('install_plugins_table_api_args_popular', array($this, 'featured_plugins_tab'));
         add_action('wp_ajax_eps_redirect_get_new_entry',            array($this, 'ajax_get_entry'));
         add_action('wp_ajax_eps_redirect_delete_entry',             array($this, 'ajax_eps_delete_entry'));
         add_action('wp_ajax_eps_redirect_get_inline_edit_entry',    array($this, 'ajax_get_inline_edit_entry'));
@@ -183,77 +181,6 @@ if (!defined('EPS_REDIRECT_PRO')) {
 
 	    return $original_request_uri;
     }
-
-    public function featured_plugins_tab($args)
-  {
-    add_filter('plugins_api_result', array($this, 'plugins_api_result'), 10);
-
-    return $args;
-  } // featured_plugins_tab
-
-
-  /**
-   * Append plugin favorites list with recommended addon plugins
-   *
-   * @since 1.5
-   *
-   * @return object API response
-   */
-  public function plugins_api_result($res)
-  {
-    remove_filter('plugins_api_result', array($this, 'plugins_api_result'), 10);
-    $res = $this->add_plugin_favs('wp-reset', $res);
-    $res = $this->add_plugin_favs('wp-external-links', $res);
-    $res = $this->add_plugin_favs('simple-author-box', $res);
-    return $res;
-  } // plugins_api_result
-
-
-  /**
-   * Create plugin favorites list plugin object
-   *
-   * @since 1.5
-   *
-   * @return object favorite plugins
-   */
-  public function add_plugin_favs($plugin_slug, $res)
-  {
-    if (!isset($res->plugins) || !is_array($res->plugins)) {
-      return $res;
-    }
-
-    if (!empty($res->plugins) && is_array($res->plugins)) {
-      foreach ($res->plugins as $plugin) {
-        if (is_object($plugin) && !empty($plugin->slug) && $plugin->slug == $plugin_slug) {
-          return $res;
-        }
-      } // foreach
-    }
-
-    $plugin_info = get_transient('wf-plugin-info-' . $plugin_slug);
-    if ($plugin_info && is_object($plugin_info)) {
-      array_unshift($res->plugins, $plugin_info);
-    } else {
-      $plugin_info = plugins_api('plugin_information', array(
-        'slug'   => $plugin_slug,
-        'is_ssl' => is_ssl(),
-        'fields' => array(
-          'banners'           => true,
-          'reviews'           => true,
-          'downloaded'        => true,
-          'active_installs'   => true,
-          'icons'             => true,
-          'short_description' => true,
-        )
-      ));
-      if (!is_wp_error($plugin_info) && is_object($plugin_info) && $plugin_info) {
-        array_unshift($res->plugins, $plugin_info);
-        set_transient('wf-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
-      }
-    }
-
-    return $res;
-  } // add_plugin_favs
 
 
     /**
