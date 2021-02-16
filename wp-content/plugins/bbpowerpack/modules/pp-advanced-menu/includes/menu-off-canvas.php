@@ -2,7 +2,7 @@
 <div class="pp-advanced-menu<?php if ( $settings->collapse ) echo ' pp-advanced-menu-accordion-collapse'; ?> <?php echo $settings->mobile_menu_type; ?>">
 	<div class="pp-clear"></div>
 	<div class="pp-off-canvas-menu pp-menu-<?php echo $settings->offcanvas_direction; ?>">
-		<div class="pp-menu-close-btn">×</div>
+		<a href="javascript:void(0)" class="pp-menu-close-btn">×</a>
 
 		<?php do_action( 'pp_advanced_menu_before', $settings->mobile_menu_type, $settings, $id ); ?>
 

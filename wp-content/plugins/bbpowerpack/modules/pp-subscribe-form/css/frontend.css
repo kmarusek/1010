@@ -20,6 +20,10 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.pp-subscribe-form label[for=pp-subscribe-form-name],
+.pp-subscribe-form label[for=pp-subscribe-form-email] {
+	display: block;
+}
 .pp-form-field.pp-checkbox-input input {
 	width: auto;
 	display: inline-block;
@@ -29,6 +33,10 @@
 	font-weight: 400;
 	display: inline-block;
 	cursor: pointer;
+}
+.pp-subscribe-form-inline .pp-subscribe-form-inner {
+	display: flex;
+    align-items: flex-end;
 }
 .pp-subscribe-form-inline .pp-form-field {
 	float: left;
@@ -47,6 +55,11 @@
 .pp-subscribe-form-inline a.fl-button {
 	width: 100%;
 	text-align: center;
+}
+.pp-subscribe-form-compact .pp-form-button {
+	margin-top: 10px;
+	float: left;
+    width: 100%;
 }
 
 .pp-subscribe-form a.fl-button {

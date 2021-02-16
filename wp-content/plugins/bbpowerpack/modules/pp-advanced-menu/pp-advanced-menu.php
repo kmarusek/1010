@@ -61,7 +61,7 @@ class PPAdvancedMenu extends FLBuilderModule {
 			if( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
 
 				echo '<div class="pp-advanced-menu-mobile-toggle '. $toggle .'">';
-				echo '<div class="pp-hamburger">';
+				echo '<div class="pp-hamburger" tabindex="0" role="button" aria-label="' . __( 'Menu', 'bb-powerpack' ) . '">';
 				echo '<div class="pp-hamburger-box">';
 				echo '<div class="pp-hamburger-inner"></div>';
 				echo '</div>';

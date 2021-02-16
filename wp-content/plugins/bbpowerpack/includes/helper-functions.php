@@ -712,6 +712,14 @@ function pp_get_yelp_api_key() {
 	return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_yelp_api_key' );
 }
 
+function pp_get_instagram_token() {
+	return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_instagram_access_token', true );
+}
+
+function pp_get_instagram_cache_duration() {
+	return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_instagram_cache_duration', true );
+}
+
 function pp_clear_enabled_templates() {
 	BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_page_templates', array('disabled') );
 	BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_templates', array('disabled') );

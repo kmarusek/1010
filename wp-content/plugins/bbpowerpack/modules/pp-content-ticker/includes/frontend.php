@@ -2,7 +2,8 @@
 	$items = $module->get_ticker_items();
 
 	if ( ! is_array( $items ) || empty( $items ) ) {
-		_e( 'No items found.', 'bb-powerpack' );
+		$msg = isset( $settings->not_found_msg ) && ! empty( $settings->not_found_msg ) ? $settings->not_found_msg : __( 'No items found.', 'bb-powerpack' );
+		echo $msg;
 		return;
 	}
 ?>

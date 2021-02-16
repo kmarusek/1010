@@ -89,6 +89,14 @@ FLBuilderCSS::typography_field_rule( array(
 						.fl-node-$id .pp-subscribe-form input[type=tel]",
 ) );
 
+// Form Input Label Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'label_typography',
+	'selector' 		=> ".fl-node-$id .pp-subscribe-form label[for=pp-subscribe-form-name],
+						.fl-node-$id .pp-subscribe-form label[for=pp-subscribe-form-email]",
+) );
+
 // Form Button Typography
 FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
@@ -118,6 +126,7 @@ if ( isset( $settings->placeholder_size ) && 'custom' == $settings->placeholder_
 		'unit'			=> 'px',
 	) );	
 }
+
 // Validation Error Font
 if ( isset( $settings->validation_error_size ) && 'custom' == $settings->validation_error_size ) {
 	FLBuilderCSS::responsive_rule( array(
@@ -213,6 +222,9 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
     overflow: hidden;
 }
 .fl-node-<?php echo $id; ?> .pp-subscribe-content {
+	<?php if ( isset( $settings->content_color ) && ! empty( $settings->content_color ) ) { ?>
+		color: #<?php echo $settings->content_color; ?>;
+	<?php } ?>
 	margin-top: <?php echo $settings->content_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->content_margin['bottom']; ?>px;
 }
@@ -268,8 +280,7 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
 
 .fl-node-<?php echo $id; ?> .pp-subscribe-form {
 	<?php if ( $settings->box_type != 'welcome_gate' ) { ?>
-		background-color: 
-		<?php echo ($settings->form_bg_color && $settings->form_bg_type == 'color') ? pp_get_color_value( $settings->form_bg_color ) : 'transparent'; ?>;
+		background-color: <?php echo ($settings->form_bg_color && $settings->form_bg_type == 'color') ? pp_get_color_value( $settings->form_bg_color ) : 'transparent'; ?>;
 	    <?php if( $settings->form_bg_image && $settings->form_bg_type == 'image' ) { ?>
 		background-image: url('<?php echo $settings->form_bg_image_src; ?>');
 	    <?php } ?>
@@ -377,10 +388,14 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
 	<?php if( $settings->input_field_text_color ) { ?>
     color: <?php echo pp_get_color_value($settings->input_field_text_color); ?>;
     <?php } ?>
-	background-color: <?php if ( '' != $settings->input_field_bg_color ) { echo pp_get_color_value( $settings->input_field_bg_color ); }else{ echo 'transparent'; }?>;
+	<?php if ( '' != $settings->input_field_bg_color ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->input_field_bg_color ); ?>;
+	<?php } ?>
 	border-width: 0;
 	border-style: solid;
-	border-color: <?php echo $settings->input_field_border_color ? pp_get_color_value($settings->input_field_border_color) : 'transparent'; ?>;
+	<?php if ( '' != $settings->input_field_border_color ) { ?>
+		border-color: <?php echo pp_get_color_value( $settings->input_field_border_color ); ?>;
+	<?php } ?>
     <?php if( $settings->input_field_border_radius >= 0 ) { ?>
 	border-radius: <?php echo $settings->input_field_border_radius; ?>px;
     -moz-border-radius: <?php echo $settings->input_field_border_radius; ?>px;
@@ -413,7 +428,9 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
 
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=text]:focus,
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=email]:focus {
-	border-color: <?php echo $settings->input_field_focus_color ? pp_get_color_value($settings->input_field_focus_color) : 'transparent'; ?>;
+	<?php if ( '' != $settings->input_field_focus_color ) { ?>
+		border-color: <?php echo pp_get_color_value( $settings->input_field_focus_color ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=text]::-webkit-input-placeholder {
@@ -483,6 +500,13 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
 	opacity: 0;
     <?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-name],
+.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-email] {
+	<?php
+	if ( isset( $settings->label_color ) ) { ?>
+		color: #<?php echo $settings->label_color; ?>;
+	<?php } ?>
+}
 
 <?php
 
@@ -515,20 +539,26 @@ FLBuilderCSS::border_field_rule( array(
 ?>
 .fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button,
 .fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button:visited {
+	<?php if ( ! empty( $settings->btn_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->btn_bg_color ); ?>;
+	<?php } ?>
 	text-decoration: none;
-	background-color: <?php echo $settings->btn_bg_color ? pp_get_color_value( $settings->btn_bg_color ) : 'transparent'; ?>;
 	display: block;
 	clear: both;
 	height: <?php echo $settings->btn_height; ?>px;
-	<?php if( $settings->layout == 'stacked' ) { ?>
-		margin-top: <?php echo $settings->btn_margin; ?>%;
+	<?php if( $settings->layout == 'stacked' || $settings->layout == 'inline' ) { ?>
+		<?php if ( isset( $settings->btn_margin ) && '' !== $settings->btn_margin ) { ?>
+			margin-top: <?php echo $settings->btn_margin; ?>%;
+		<?php } ?>
 	<?php } ?>
 }
 
 div.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button:hover {
-	background-color: <?php echo $settings->btn_bg_hover_color ? pp_get_color_value( $settings->btn_bg_hover_color ) : 'transparent'; ?>;
-	<?php if( $settings->btn_border_hover_color ) { ?>
-		border-color: <?php echo pp_get_color_value($settings->btn_border_hover_color); ?>;
+	<?php if ( ! empty( $settings->btn_bg_hover_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->btn_bg_hover_color ); ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->btn_border_hover_color ) ) { ?>
+		border-color: <?php echo pp_get_color_value( $settings->btn_border_hover_color ); ?>;
     <?php } ?>
 }
 
@@ -581,4 +611,13 @@ div.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button:hover {
 	color: <?php echo pp_get_color_value($settings->success_message_color); ?>;
     <?php } ?>
 	text-transform: <?php echo $settings->success_message_text_transform; ?>;
+}
+
+<?php
+if ( ( isset( $settings->name_label ) || isset( $settings->email_label ) ) && 'stacked' === $settings->layout ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-name], 
+.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-email] {
+		display: block;
+	}
+<?php
 }

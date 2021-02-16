@@ -300,15 +300,16 @@ class PPVideoModule extends FLBuilderModule {
 	public function get_video_url() {
 		$settings = $this->settings;
 		$video_type = $settings->video_type;
+		$video_url = false;
 
 		if ( 'hosted' == $video_type || 'external' == $video_type ) {
-			return $this->get_hosted_video_url();
+			$video_url = $this->get_hosted_video_url();
 		}
 		if ( isset( $settings->{$video_type . '_url'} ) ) {
-			return $settings->{$video_type . '_url'};
+			$video_url = $settings->{$video_type . '_url'};
 		}
 
-		return false;
+		return apply_filters( 'pp_video_video_url', $video_url, $settings );
 	}
 
 	/**
@@ -341,7 +342,7 @@ class PPVideoModule extends FLBuilderModule {
 			$video_html = $this->get_embed_html( $video_url, $embed_params, $embed_options );
 		}
 
-		return $video_html;
+		return apply_filters( 'pp_video_video_html', $video_html, $settings );
 	}
 
 	/**

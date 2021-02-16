@@ -1,3 +1,38 @@
+== 2.14.1 ==
+Release date: February 16, 2021
+* Hotfix: PHP notice in 2.14.0
+
+== 2.14.0 ==
+Release date: February 15, 2021
+* Enhancement: Instagram Feed - Updated the module with new API logic
+* Enhancement: Content Grid - Added an option Auto Height for carousel
+* Enhancement: Content Grid - Added field connection to custom image fallback
+* Enhancement: Advanced Menu - Added keyboard navigation support for hamburger icon
+* Enhancement: Content Ticker - Added an option to change No Items Found message
+* Enhancement: Card Slider - Added an option to change No Items Found message
+* Enhancement: Photo Gallery - Added options for lightbox - Toolbar Buttons, Thumbnail Position
+* Enhancement: Smart Headings - Added div, p, and span as heading HTML tags
+* Enhancement: Subscribe Form - Added options for input labels
+* Enhancement: Subscribe Form - Added an option to set content color
+* Enhancement: Testimonials - Added padding field for the box and top spacing field for the image
+* Enhancement: Info List - Added title hover color option
+* Fix: Logos Slider - Blur image issue when sliding
+* Fix: Content Tiles - HTML is breaking when there are only 2 posts available
+* Fix: Modal Box - Placeholder text was visible in search engine
+* Fix: Advanced Accordion - Post type field was getting reverted to "post"
+* Fix: Subscribe Form - Button was appearing transparent instead of default color from theme when not supplying background color
+* Fix: Subscribe Form - Added missing color reset option for input text color
+* Fix: Subscribe Form - Content field was not visible in some "types"
+* Fix: Info Box - Added missing role attribute to button anchor tag
+* Fix: Content Grid - Sometimes Pods fields added in custom content were not getting rendered in AJAX pagination results
+* Fix: Hover Cards 1 and 2 - Box shadow issue
+* Development: Contact Form - Added a filter pp_contact_form_strings_i18n to change validation and error messages
+* Development: Advanced Accordion - Added a filter pp_accordion_items
+* Development: Content Grid - Added a filter pp_cg_post_permalink (args - $permalink, $post_id, $settings)
+* Development: Video - Added a filter pp_video_video_url (args - $video_url, $settings) and pp_video_video_html (args - $video_html, $settings)
+* Development: Photo Gallery - Added a filter pp_gallery_photos_data (args - $photos, $settings)
+* Development: Filterable Gallery - Added a filter pp_filterable_gallery_photos_data (args - $photos, $settings)
+
 == 2.13.4 ==
 Release date: January 21, 2020
 * Hotfix: Content Grid - Custom layout object parsing issue

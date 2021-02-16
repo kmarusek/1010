@@ -716,6 +716,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			FLBuilder::render_settings_field('fallback_image_custom', array(
 				'type'		=> 'photo',
 				'label'		=> __('Custom Fallback Image', 'bb-powerpack'),
+				'connections' => array( 'photo' ),
 			), $settings);
 			?>
 		</table>

@@ -144,7 +144,7 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $card,
 		'setting_name' 	=> 'hover_card_box_border_group',
-		'selector' 		=> ".fl-node-$id .pp-hover-card-$i .pp-hover-card-inner",
+		'selector' 		=> ".fl-node-$id .pp-hover-card-wrap .pp-hover-card.pp-hover-card-$i",
 	) );
 ?>
 	<?php if ( isset($card->hover_card_box_border_group['radius']) ) { ?>

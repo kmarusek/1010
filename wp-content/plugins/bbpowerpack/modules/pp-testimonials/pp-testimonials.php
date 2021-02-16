@@ -522,6 +522,11 @@ BB_PowerPack::register_module(
 								'4' => BB_POWERPACK_URL . 'modules/pp-testimonials/images/layout-4.jpg',
 								'5' => BB_POWERPACK_URL . 'modules/pp-testimonials/images/layout-5.jpg',
 							),
+							'toggle' => array(
+								4 => array(
+									'fields' => array( 'padding_top' ),
+								),
+							),
 						),
 					),
 				),
@@ -530,7 +535,7 @@ BB_PowerPack::register_module(
 		'styles'       => array( // Tab
 			'title'    => __( 'Style', 'bb-powerpack' ), // Tab title
 			'sections' => array( // Tab Sections
-				'box_borders' => array(
+				'content_box' => array(
 					'title'  => __( 'Content Box', 'bb-powerpack' ),
 					'fields' => array( // Section Fields
 						'layout_4_content_bg' => array(
@@ -587,6 +592,14 @@ BB_PowerPack::register_module(
 								'property' => 'border',
 							),
 						),
+						'box_padding' => array(
+							'type'				=> 'dimension',
+							'label'				=> __('Padding', 'bb-powerpack'),
+							'default'			=> '',
+							'units'				=> array('px'),
+							'slider'			=> true,
+							'responsive'		=> true,
+						),
 						'show_arrow'          => array(
 							'type'    => 'pp-switch',
 							'default' => 'no',
@@ -598,7 +611,7 @@ BB_PowerPack::register_module(
 						),
 					),
 				),
-				'borders'     => array(
+				'image_box'     => array(
 					'title'  => __( 'Image Box', 'bb-powerpack' ),
 					'fields' => array( // Section Fields
 						'image_size'   => array(
@@ -616,6 +629,19 @@ BB_PowerPack::register_module(
 								'type'     => 'css',
 								'selector' => '.pp-testimonials-image img',
 								'property' => 'border',
+							),
+						),
+						'padding_top' => array(
+							'type'	=> 'unit',
+							'label' => __( 'Top Spacing', 'bb-powerpack' ),
+							'default' => '',
+							'description' => __( 'Only applicable for the layout 4', 'bb-powerpack' ),
+							'units' => array( 'px' ),
+							'prevuew'	=> array(
+								'type' => 'css',
+								'selector' => '.pp-testimonials .layout-4',
+								'property' => 'padding-top',
+								'unit' => 'px',
 							),
 						),
 					),

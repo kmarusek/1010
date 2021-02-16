@@ -22,9 +22,11 @@ var pp_gallery_<?php echo $id; ?>;
 		<?php } ?>
 		lastRow: '<?php echo $settings->last_row; ?>',
 		lightbox: <?php echo 'lightbox' == $settings->click_action ? 'true' : 'false'; ?>,
+		lightboxToolbarButtons:	'<?php echo isset( $settings->toolbar_buttons ) ? implode( ',', $settings->toolbar_buttons ) : 'zoom,slideShow,fullScreen,close'; ?>',
+		lightboxThumbs: <?php echo 'yes' == $settings->show_lightbox_thumb ? 'true' : 'false'; ?>,
+		lightboxThumbsPosition:	'<?php echo isset( $settings->thumbs_position ) ? $settings->thumbs_position : 'default'; ?>',
 		lightboxCaption: <?php echo ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) ? 'true' : 'false'; ?>,
 		lightboxCaptionSource: '<?php echo isset( $settings->lightbox_caption_source ) ? $settings->lightbox_caption_source : 'title'; ?>',
-		lightboxThumbs: <?php echo 'yes' == $settings->show_lightbox_thumb ? 'true' : 'false'; ?>,
 		lightboxAnimation: '<?php echo isset( $settings->lightbox_animation ) ? $settings->lightbox_animation : ''; ?>',
 		transitionEffect: '<?php echo isset( $settings->transition_effect ) ? $settings->transition_effect : ''; ?>',
 		<?php if ( isset( $settings->pagination ) ) { ?>

@@ -585,12 +585,12 @@ FLBuilder::register_settings_form('pp_hover_card_form', array(
             'title' => __('Style', 'bb-powerpack'),
             'sections'  => array(
                 'static_content_Styling'     => array(
-                    'title'     => 'Box',
+                    'title'     => __( 'Box', 'bb-powerpack' ),
                     'fields'    => array(
 						'card_box_border'	=> array(
 							'type'          => 'border',
 							'label'         => __( 'Border', 'bb-powerpack' ),
-							'responsive'	=> true,
+                            'responsive'	=> true,
 						),
 						'hover_card_box_padding'	=> array(
 							'type'				=> 'dimension',

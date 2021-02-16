@@ -216,6 +216,9 @@ class BB_PowerPack_Ajax {
 		$args = array(
 			'post_type'             => $post_type,
 			'post_status'           => 'publish',
+			'tax_query'           => array(
+				'relation' => 'AND',
+			),
 			'ignore_sticky_posts'   => true,
 			'pp_content_grid'       => true,
 			'pp_node_id'			=> $node_id,
@@ -469,6 +472,16 @@ class BB_PowerPack_Ajax {
 		$args = apply_filters( 'pp_post_grid_ajax_query_args', $args );
 
 		do_action( 'pp_post_grid_ajax_before_query', $settings );
+
+		/**
+		 * Custom Content Workaround for Pods fields.
+		 *
+		 * Before query is performed.
+		 * @see fl_builder_loop_before_query
+		 * 
+		 * @since 2.14.0
+		 */
+		do_action( 'fl_builder_loop_before_query', $settings );
 
 		if ( isset( $args['settings'] ) ) {
 			unset( $args['settings'] );

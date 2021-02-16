@@ -27,7 +27,7 @@
 					'type'    => 'select',
 					'label'   => __( 'Post Type', 'bb-powerpack' ),
 					'options' => $post_types,
-					'default' => isset( $settings->post_type ) ? $settings->post_type : 'post',
+					'default' => isset( $settings->post_slug ) ? $settings->post_slug : 'post',
 				)
 			);
 			?>

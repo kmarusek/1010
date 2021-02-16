@@ -221,6 +221,12 @@ BB_PowerPack::register_module(
 								'p'    => __( 'p', 'bb-powerpack' ),
 							),
 						),
+						'not_found_msg' => array(
+							'type'	=> 'text',
+							'label' => __( 'No Items Found Message', 'bb-powerpack' ),
+							'default' => __( 'No items found', 'bb-powerpack' ),
+							'connections' => array( 'string' ),
+						),
 					),
 				),
 				'post_meta_section'       => array(

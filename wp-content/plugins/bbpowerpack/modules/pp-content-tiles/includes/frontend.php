@@ -106,6 +106,7 @@ if ( $query->have_posts() ) :
 				( $count == 3 && $query->found_posts == 3 ) || 
 				( $count == 4 && $settings->layout == 1 ) || 
 				( $count == 4 && $query->found_posts == 4 ) || 
+				( $count == 2 && $query->found_posts == 2 ) || 
 				( $count == 5 && $settings->layout == 2 ) ) {
 				echo '</div>';
 			}

@@ -612,6 +612,14 @@
 					}
 				}
 			} );
+
+			// Keyboard navigation.
+			$(self.nodeClass).find('.pp-advanced-menu-mobile-toggle .pp-hamburger').on('keyup', function(e) {
+				if ( 13 === e.keyCode || 13 === e.which ) {
+					$(this).trigger('click');
+				}
+			});
+
 			// Close button click
 			$(self.nodeClass).find('.pp-advanced-menu .pp-menu-close-btn, .pp-clear').on( 'click', function() {
 				$(self.nodeClass).find('.pp-advanced-menu').removeClass('menu-open');

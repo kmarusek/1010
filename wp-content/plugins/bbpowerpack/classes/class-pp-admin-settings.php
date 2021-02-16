@@ -69,6 +69,7 @@ final class BB_PowerPack_Admin_Settings {
 		add_action( 'admin_enqueue_scripts', 	__CLASS__ . '::enqueue_script' );
 		add_action( 'admin_notices', 			__CLASS__ . '::render_latest_update_notice' );
 		add_action( 'network_admin_notices', 	__CLASS__ . '::render_latest_update_notice' );
+		add_action( 'admin_init',				__CLASS__ . '::refresh_instagram_token' );
 	}
 
 	/**
@@ -736,6 +737,13 @@ final class BB_PowerPack_Admin_Settings {
 			if ( isset( $_POST['bb_powerpack_yelp_api_key'] ) ) {
 				self::update_option( 'bb_powerpack_yelp_api_key', trim( $_POST['bb_powerpack_yelp_api_key'] ), false );
 			}
+
+			if ( isset( $_POST['bb_powerpack_instagram_access_token'] ) ) {
+				self::update_option( 'bb_powerpack_instagram_access_token', trim( $_POST['bb_powerpack_instagram_access_token'] ), false );
+			}
+			if ( isset( $_POST['bb_powerpack_instagram_cache_duration'] ) ) {
+				self::update_option( 'bb_powerpack_instagram_cache_duration', trim( $_POST['bb_powerpack_instagram_cache_duration'] ), false );
+			}
 		}
 	}
 
@@ -1028,6 +1036,57 @@ final class BB_PowerPack_Admin_Settings {
 				self::update_option( 'bb_powerpack_license_status', $license_status );
 			}
 		}
+	}
+
+	/**
+	* Refresh instagram token after 30 days.
+	*
+	* @since 2.14
+	*/
+	static public function refresh_instagram_token() {
+		$access_token = pp_get_instagram_token();
+		$transient_key = 'pp_instagram_token_status';
+
+		if ( empty( $access_token ) ) {
+			return;
+		}
+
+		$updated = get_transient( $transient_key );
+
+		if ( ! empty( $updated ) ) {
+			return;
+		}
+
+		$endpoint_url = add_query_arg(
+			array(
+				'access_token' => $access_token,
+				'grant_type'   => 'ig_refresh_token',
+			),
+			'https://graph.instagram.com/refresh_access_token'
+		);
+
+		$response = wp_remote_get( $endpoint_url );
+
+		if ( ! $response || 200 !== wp_remote_retrieve_response_code( $response ) || is_wp_error( $response ) ) {
+			set_transient( $transient_key, 'error', DAY_IN_SECONDS );
+			return;
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+
+		if ( ! $body ) {
+			set_transient( $transient_key, 'error', DAY_IN_SECONDS );
+			return;
+		}
+
+		$body = json_decode( $body, true );
+
+		if ( empty( $body['access_token'] ) || empty( $body['expires_in'] ) ) {
+			set_transient( $transient_key, 'error', DAY_IN_SECONDS );
+			return;
+		}
+
+		set_transient( $transient_key, 'updated', 30 * DAY_IN_SECONDS );
 	}
 }
 

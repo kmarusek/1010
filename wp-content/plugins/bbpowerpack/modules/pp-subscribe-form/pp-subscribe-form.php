@@ -304,11 +304,12 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 						),
 						'toggle'		=> array(
 							'standard'		=> array(
+								'sections'		=> array('box_content', 'box_content_typography'),
 								'fields'		=> array('show_content', 'form_border_radius')
 							),
 							'fixed_bottom'	=> array(
-								'sections'		=> array('box_content'),
-								'fields'		=> array('box_width', 'display_after')
+								'sections'		=> array('box_content', 'box_content_typography'),
+								'fields'		=> array('show_content', 'box_width', 'display_after')
 							),
 							'slidein'		=> array(
 								'sections'		=> array('box_content', 'content_style', 'box_content_typography', 'box_bg_setting'),
@@ -344,11 +345,6 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 							'yes'			=> __('Yes', 'bb-powerpack'),
 							'no'			=> __('No', 'bb-powerpack')
 						),
-						'toggle'		=> array(
-							'yes'			=> array(
-								'sections'		=> array('box_content', 'box_content_typography')
-							)
-						)
 					),
 					'box_scroll'	=> array(
 						'type'			=> 'unit',
@@ -460,7 +456,7 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 								'fields'	=> array('btn_align', 'input_custom_width', 'inputs_space', 'btn_margin')
 							),
 							'inline'	=> array(
-								'fields'	=> array('input_custom_width', 'inputs_space')
+								'fields'	=> array('input_custom_width', 'inputs_space', 'btn_margin')
 							),
 							'compact'	=> array(
 								'fields'	=> array('btn_margin')
@@ -523,11 +519,6 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 							'show'          => __( 'Show', 'bb-powerpack' ),
 							'hide'          => __( 'Hide', 'bb-powerpack' ),
 						),
-						'toggle'		=> array(
-							'show'			=> array(
-								'fields'		=> array('input_name_placeholder')
-							)
-						)
 					),
 					'checkbox_field'	=> array(
 						'type'          => 'pp-switch',
@@ -543,23 +534,59 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 							)
 						)
 					),
-					'input_name_placeholder' 	=> array(
-                        'type'          	=> 'text',
-                        'label'         	=> __('Name Field Placeholder Text', 'bb-powerpack'),
-                        'description'   	=> '',
-                        'default'       	=> __('Name', 'bb-powerpack'),
-                    ),
-					'input_email_placeholder' 	=> array(
-                        'type'          	=> 'text',
-                        'label'         	=> __('Email Field Placeholder Text', 'bb-powerpack'),
-                        'description'   	=> '',
-                        'default'       	=> __('Email Address', 'bb-powerpack'),
-					),
 					'checkbox_field_text'	=> array(
 						'type'					=> 'text',
 						'label'					=> __('Checkbox Field Text'),
 						'default'				=> __('I accept the Terms & Conditions', 'bb-powerpack')
 					)
+				),
+			),
+			'labels_placeholder' => array(
+				'title'	=> __( 'Labels & Placeholder' ),
+				'collapsed' => true,
+				'fields' => array(
+					'show_labels'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __( 'Input Labels', 'bb-powerpack' ),
+						'default'       => 'hide',
+						'options'       => array(
+							'show'          => __( 'Show', 'bb-powerpack' ),
+							'hide'          => __( 'Hide', 'bb-powerpack' ),
+						),
+						'toggle'		=> array(
+							'show'			=> array(
+								'fields'		=> array('input_name_label', 'input_email_label'),
+							)
+						)
+					),
+					'input_name_label' 	=> array(
+                        'type'          	=> 'text',
+                        'label'         	=> __('Name Field Label', 'bb-powerpack'),
+                        'description'   	=> '',
+                        'default'       	=> __('Name', 'bb-powerpack'),
+						'connections'		=> array( 'string' ),
+                    ),
+					'input_email_label' 	=> array(
+                        'type'          	=> 'text',
+                        'label'         	=> __('Email Field Label', 'bb-powerpack'),
+                        'description'   	=> '',
+                        'default'       	=> __('Email', 'bb-powerpack'),
+						'connections'		=> array( 'string' ),
+                    ),
+					'input_name_placeholder' 	=> array(
+                        'type'          	=> 'text',
+                        'label'         	=> __('Name Field Placeholder Text', 'bb-powerpack'),
+                        'description'   	=> '',
+                        'default'       	=> __('Name', 'bb-powerpack'),
+						'connections'		=> array( 'string' ),
+					),
+					'input_email_placeholder' 	=> array(
+                        'type'          	=> 'text',
+                        'label'         	=> __('Email Field Placeholder Text', 'bb-powerpack'),
+                        'description'   	=> '',
+                        'default'       	=> __('Email Address', 'bb-powerpack'),
+						'connections'		=> array( 'string' ),
+					),
 				),
 			),
 			'form_footer'	=> array(
@@ -712,7 +739,7 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 						'type'          	=> 'color',
 	                    'label'         	=> __('Color', 'bb-powerpack'),
 	                    'default'       	=> '000000',
-						'show_reset'    	=> false,
+						'show_reset'    	=> true,
 						'connections'		=> array('color'),
 	                    'preview'       	=> array(
 	                        'type'      		=> 'none',
@@ -838,6 +865,7 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
 						'default'               => '333333',
+						'show_reset'            => true,
 						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'css',
@@ -1020,6 +1048,25 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 						'slider'     	=> true,
 					),
                 )
+			),
+			'label_style'      => array( // Section
+				'title'         => __('Label', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+                'fields'        => array( // Section Fields
+                    'label_color'  => array(
+                        'type'                  => 'color',
+                        'label'                 => __('Color', 'bb-powerpack'),
+                        'default'               => '',
+						'show_reset'            => true,
+						'show_alpha'		    => false,
+						'connections'			=> array('color'),
+                        'preview'               => array(
+                            'type'              => 'css',
+                            'selector'          => '.pp-form-field label[for=pp-subscribe-form-name], .pp-form-field label[for="pp-subscribe-form-email"]',
+                            'property'          => 'color'
+                        )
+                    ),
+                )
             ),
             'placeholder_style'      => array( // Section
 				'title'         => __('Placeholder', 'bb-powerpack'), // Section Title
@@ -1052,7 +1099,7 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
                         )
                     ),
                 )
-            ),
+			),
         )
     ),
 	'button'        => array(
@@ -1232,9 +1279,14 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 					'btn_margin' => array(
 						'type'          => 'unit',
 						'label'         => __( 'Margin Top', 'bb-powerpack' ),
-						'default'       => '0',
+						'default'       => '',
 						'units'		    => array('%'),
 						'slider'	    => true,
+						'preview'			=> array(
+                            'type'				=> 'css',
+							'selector'  		=> '.pp-subscribe-form a.fl-button',
+							'property'  		=> 'margin-top',
+                        ),
 					),
 					'btn_height' => array(
 						'type'          => 'unit',
@@ -1260,6 +1312,17 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 						'preview'          => array(
 							'type'         		=> 'css',
 							'selector' 		    => '.pp-subscribe-content',
+						),
+					),
+					'content_color'	=> array(
+						'type' 	=> 'color',
+						'label'	=> __( 'Color', 'bb-powerpack' ),
+						'default' => '',
+						'connections' => array( 'color' ),
+						'preview'         => array(
+							'type'         	=> 'css',
+							'selector' 		=> '.pp-subscribe-content',
+							'property'		=> 'color',
 						),
 					),
 					'content_margin'       => array(
@@ -1349,6 +1412,21 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 							'type'					=> 'css',
 							'selector'      		=> '.pp-subscribe-form .pp-checkbox-input label',
 							'property'      		=> 'color',
+						),
+					),
+				)
+			),
+			'label_typography'	=> array(
+				'title'	=> __( 'Label', 'bb-powerpack' ),
+				'collapsed'	=> true,
+				'fields'	=> array(
+					'label_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-form-field label[for=pp-subscribe-form-name], .pp-form-field label[for="pp-subscribe-form-email"]',
 						),
 					),
 				)

@@ -129,6 +129,20 @@ FLBuilderCSS::responsive_rule( array(
 		'setting_name' 	=> 'box_border',
 		'selector' 		=> ".fl-node-$id .pp-testimonial.layout-1 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-2 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-3 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-4 .layout-4-content, .fl-node-$id .pp-testimonial.layout-5 .pp-content-wrapper",
 	) );
+
+	// Box - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'box_padding',
+		'selector' 		=> ".fl-node-$id .pp-testimonial.layout-1 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-2 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-3 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-4 .layout-4-content, .fl-node-$id .pp-testimonial.layout-5 .pp-content-wrapper",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'box_padding_top',
+			'padding-right' 	=> 'box_padding_right',
+			'padding-bottom' 	=> 'box_padding_bottom',
+			'padding-left' 		=> 'box_padding_left',
+		),
+	) );
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-testimonials-wrap .pp-testimonials-heading {
@@ -200,6 +214,12 @@ FLBuilderCSS::responsive_rule( array(
 	column-count: <?php echo $settings->grid_columns; ?>;
 	<?php } ?>
 }
+
+<?php if ( isset( $settings->padding_top ) && '' !== $settings->padding_top ) { ?>
+.fl-node-<?php echo $id; ?> .pp-testimonials .layout-4 {
+	padding-top: <?php echo $settings->padding_top; ?>px;
+}
+<?php } ?>
 
 @media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-md-1 .pp-testimonials {

@@ -76,18 +76,21 @@
 	text-decoration: none;
 }
 
-.pp-instagram-feed.pp-instagram-feed-hover .pp-overlay-container {
-    opacity: 0;
-    -webkit-transition: all 0.25s linear 0s;
-    transition: all 0.25s linear 0s;
+.pp-instagram-feed .pp-feed-item .pp-overlay-container {
+	opacity: 0;
+    transition: opacity 0.2s ease-in-out;
 }
-
-.pp-instagram-feed.pp-instagram-feed-hover .pp-feed-item:hover .pp-overlay-container {
-    opacity: 1;
+.pp-instagram-feed .pp-feed-item:hover  .pp-overlay-container {
+	opacity: 1;
 }
 
 .pp-instagram-feed .pp-swiper-button {
 	height: auto;
     width: auto;
     line-height: 0;
+}
+
+.pp-instagram-feed .pp-feed-item a {
+	display: block;
+    position: relative;
 }

@@ -440,6 +440,15 @@ BB_PowerPack::register_module('PPInfoListModule', array(
                             ),
                         )
 					),
+					'title_hover_color'    => array(
+						'type'          => 'color',
+						'label'         => __('Hover Color', 'bb-powerpack'),
+						'show_reset'    => true,
+						'connections'	=> array('color'),
+                        'preview'       => array(
+                            'type'          => 'none',
+                        )
+					),
                    'title_typography'	=> array(
 						'type'			=> 'typography',
 						'label'			=> __('Typography', 'bb-powerpack'),

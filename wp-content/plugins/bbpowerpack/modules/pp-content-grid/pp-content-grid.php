@@ -809,6 +809,15 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'type'		=> 'refresh'
 						),
 					),
+					'auto_height' => array(
+						'type'		=> 'pp-switch',
+						'label'		=> __( 'Auto Height', 'bb-powerpack' ),
+						'help'		=> __( 'In order to use Auto Height, you will need to disable Equal Heights option located under Layout tab.', 'bb-powerpack' ),
+						'default'	=> 'no',
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
+					),
 				)
 			),
 			'controls'       => array(

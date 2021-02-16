@@ -21,14 +21,19 @@
 		_swiper: {},
 
 		_init: function() {
-			if ( '' === this.username && ! this.settings.isBuilderActive ) {
-				console.error('PP Instagram Feed (' + this.id + '): No username provided.');
-				return;
-				//throw new Error( 'PP Instagram Feed (' + this.id + '): No username provided.' );
+			if ( 'carousel' === this.settings.layout ) {
+				this._initCarousel();
+			} else {
+				this._initMasonry();
 			}
+			// if ( '' === this.username && ! this.settings.isBuilderActive ) {
+			// 	console.error('PP Instagram Feed (' + this.id + '): No username provided.');
+			// 	return;
+			// 	//throw new Error( 'PP Instagram Feed (' + this.id + '): No username provided.' );
+			// }
 
-			var url = this.host + this.username + '/';
-			this._getData( url, $.proxy( this._renderData, this ) );
+			// var url = this.host + this.username + '/';
+			// this._getData( url, $.proxy( this._renderData, this ) );
 		},
 
 		_getData: function( url, callback ) {

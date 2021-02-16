@@ -98,21 +98,23 @@
 			}
 
 			var id = this.id;
+			var axis = 'default' === this.settings.lightboxThumbsPosition ? 'y' : 'x';
 			var options = {
 				modal			: false,
-				baseClass		: 'fancybox-' + id,
-				buttons			: [
-					'zoom',
-					'slideShow',
-					'fullScreen',
-					'close'
-				],
+				baseClass		: 'fancybox-' + id + ' pp-gallery-fancybox pp-gallery-fancybox-axis-' + axis,
+				buttons			: this.settings.lightboxToolbarButtons.split(','),
 				wheel			: false,
 				afterLoad		: function(current, previous) {
 					$('.fancybox-' + id).find('.fancybox-bg').addClass('fancybox-' + id + '-overlay');
 				},
 				animationEffect: this.lightboxAnimation,
 				transitionEffect: this.transitionEffect,
+				thumbs: {
+					autoStart: this.settings.lightboxThumbs, // Display thumbnails on opening
+					hideOnClose: true, // Hide thumbnail grid when closing animation starts
+					parentEl: ".fancybox-container", // Container is injected into this element
+					axis: axis // Vertical (y) or horizontal (x) scrolling
+				}
 			};
 
 			if ( this.settings.lightboxCaption ) {
@@ -127,16 +129,6 @@
                 };
 			} else {
 				options.caption = '';
-			}
-
-			if ( this.settings.lightboxThumbs ) {
-				options.buttons.push( 'thumbs' );
-				options['thumbs'] = {
-					autoStart: true, // Display thumbnails on opening
-					hideOnClose: true, // Hide thumbnail grid when closing animation starts
-					parentEl: ".fancybox-container", // Container is injected into this element
-					axis: "y" // Vertical (y) or horizontal (x) scrolling
-				}
 			}
 
 			$(this.nodeClass).find('a[data-fancybox="images"]').fancybox( options );

@@ -144,6 +144,9 @@
     background-color: transparent;
     line-height: 0;
 }
+.pp-advanced-menu-mobile-toggle .pp-hamburger:focus {
+	outline: none;
+}
 
 .pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box {
 	position: relative;

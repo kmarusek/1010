@@ -19,7 +19,7 @@
 	</a>
 </div>
 <?php } else { ?>
-	<?php if ( FLBuilderModel::is_builder_active() ) { ?>
+	<?php if ( pp_is_builder_active() ) { ?>
 	<div class="pp-helper" style="text-align: center;">
 		<h4><?php echo $module->name; ?></h4>
 		<h5>modal-<?php echo $module->node; ?></h5>

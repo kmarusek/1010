@@ -19,9 +19,17 @@
 	margin-bottom: 0;
 }
 .fl-node-<?php echo $id; ?> .pp-infolist-title .pp-infolist-title-text {
-	<?php if( $settings->title_color ) { ?>color: #<?php echo $settings->title_color; ?>;<?php } ?>
+	<?php if ( $settings->title_color ) { ?>
+		color: #<?php echo $settings->title_color; ?>;
+	<?php } ?>
 	margin-top: <?php echo $settings->title_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
+	transition: color 0.2s ease-in-out;
+}
+.fl-node-<?php echo $id; ?> .pp-infolist-title .pp-infolist-title-text:hover {
+	<?php if ( isset( $settings->title_hover_color ) && ! empty( $settings->title_hover_color ) ) { ?>
+		color: #<?php echo $settings->title_hover_color; ?>;
+	<?php } ?>
 }
 
 <?php

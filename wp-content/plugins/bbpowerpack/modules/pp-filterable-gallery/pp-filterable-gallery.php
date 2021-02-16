@@ -352,7 +352,7 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 
 		}
 
-		return $photos;
+		return apply_filters( 'pp_filterable_gallery_photos_data', $photos, $this->settings );
 	}
 
 }

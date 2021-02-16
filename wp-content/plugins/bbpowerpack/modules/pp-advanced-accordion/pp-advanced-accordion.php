@@ -231,25 +231,21 @@ class PPAccordionModule extends FLBuilderModule {
 
 	public function get_accordion_items() {
 		$source = $this->settings->accordion_source;
-
-		if ( ! isset( $source ) || empty( $source ) ) {
-			return $this->settings->items;
-		}
+		$items = array();
 
 		if ( 'acf' === $source ) {
-			return $this->get_acf_data();
+			$items = $this->get_acf_data();
+		} elseif ( 'acf_options_page' === $source ) {
+			$items = $this->get_acf_options_page_data();
+		} elseif ( 'post' === $source ) {
+			$items = $this->get_cpt_data();
+		} else {
+			$items = $this->settings->items;
 		}
 
-		if ( 'acf_options_page' === $source ) {
-			return $this->get_acf_options_page_data();
-		}
-
-		if ( 'post' === $source ) {
-			return $this->get_cpt_data();
-		}
-
-		return $this->settings->items;
+		return apply_filters( 'pp_accordion_items', $items );
 	}
+
 	/**
 	 * Render content.
 	 *

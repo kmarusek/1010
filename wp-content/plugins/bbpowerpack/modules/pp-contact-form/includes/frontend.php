@@ -9,6 +9,8 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
 	$recaptcha_site_key = $settings->recaptcha_site_key;
 	$recaptcha_secret_key = $settings->recaptcha_secret_key;
 }
+
+$messages = $module->get_strings_i18n();
 ?>
 
 <form class="pp-contact-form pp-form-<?php echo $settings->form_layout; ?>" <?php if ( isset( $module->template_id ) ) echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"'; ?>>
@@ -30,7 +32,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
     	<?php if ($settings->name_toggle == 'show') : ?>
     	<div class="pp-input-group pp-name<?php echo ! isset( $settings->name_required ) || 'yes' === $settings->name_required ? ' pp-input-required' : ''; ?>">
     		<label for="pp-name-<?php echo $id; ?>"><?php echo ( ! isset( $settings->name_label ) ) ? _x( 'Name', 'Contact form Name field label.', 'bb-powerpack' ) : $settings->name_label;?></label>
-    		<span class="pp-contact-error"><?php esc_html_e('Please enter your name.', 'bb-powerpack');?></span>
+    		<span class="pp-contact-error"><?php echo $messages['empty_name']; ?></span>
     		<input type="text" name="pp-name" id="pp-name-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->name_label) ? $settings->name_label : esc_attr__( 'Name', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
@@ -38,7 +40,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
     	<?php if ($settings->email_toggle == 'show') : ?>
     	<div class="pp-input-group pp-email<?php echo ! isset( $settings->email_required ) || 'yes' === $settings->email_required ? ' pp-input-required' : ''; ?>">
     		<label for="pp-email-<?php echo $id; ?>"><?php echo ( ! isset( $settings->email_label ) ) ? _x( 'Email', 'Contact form Email field label.', 'bb-powerpack' ) : $settings->email_label;?></label>
-    		<span class="pp-contact-error"><?php esc_html_e('Please enter a valid email.', 'bb-powerpack');?></span>
+    		<span class="pp-contact-error"><?php echo $messages['empty_email']; ?></span>
     		<input type="email" name="pp-email" id="pp-email-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->email_label) ? $settings->email_label : esc_attr__( 'Email', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
@@ -46,7 +48,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
     	<?php if ($settings->phone_toggle == 'show') : ?>
     	<div class="pp-input-group pp-phone<?php echo ! isset( $settings->phone_required ) || 'yes' === $settings->phone_required ? ' pp-input-required' : ''; ?>">
     		<label for="pp-phone-<?php echo $id; ?>"><?php echo ( ! isset( $settings->phone_label ) ) ? _x( 'Phone', 'Contact form Phone field label.', 'bb-powerpack' ) : $settings->phone_label;?></label>
-    		<span class="pp-contact-error"><?php esc_html_e('Please enter a valid phone number.', 'bb-powerpack');?></span>
+    		<span class="pp-contact-error"><?php echo $messages['empty_phone']; ?></span>
     		<input type="tel" name="pp-phone" id="pp-phone-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->phone_label) ? $settings->phone_label : esc_attr__( 'Phone', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
@@ -62,7 +64,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
     	<?php if ($settings->subject_toggle == 'show') : ?>
     	<div class="pp-input-group pp-subject<?php echo ! isset( $settings->subject_required ) || 'yes' === $settings->subject_required ? ' pp-input-required' : ''; ?>">
     		<label for="pp-subject-<?php echo $id; ?>"><?php echo ( ! isset( $settings->subject_label ) ) ? _x( 'Subject', 'Contact form Subject field label.', 'bb-powerpack' ) : $settings->subject_label;?></label>
-    		<span class="pp-contact-error"><?php esc_html_e('Please enter a subject.', 'bb-powerpack');?></span>
+    		<span class="pp-contact-error"><?php echo $messages['empty_subject']; ?></span>
     		<input type="text" name="pp-subject" id="pp-subject-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->subject_label) ? $settings->subject_label : esc_attr__( 'Subject', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
@@ -70,7 +72,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
         <?php if ($settings->message_toggle == 'show') : ?>
     	<div class="pp-input-group pp-message<?php echo ! isset( $settings->message_required ) || 'yes' === $settings->message_required ? ' pp-input-required' : ''; ?>">
     		<label for="pp-message-<?php echo $id; ?>"><?php echo ( ! isset( $settings->message_label ) ) ? _x( 'Message', 'Contact form Message field label.', 'bb-powerpack' ) : $settings->message_label;?></label>
-    		<span class="pp-contact-error"><?php esc_html_e('Please enter a message.', 'bb-powerpack');?></span>
+    		<span class="pp-contact-error"><?php echo $messages['empty_message']; ?></span>
     		<textarea name="pp-message" id="pp-message-<?php echo $id; ?>" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->message_label) ? $settings->message_label : esc_attr__( 'Message', 'bb-powerpack' ); ?>" <?php } ?>></textarea>
     	</div>
         <?php endif; ?>
@@ -83,7 +85,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
 		if ( 'show' == $settings->recaptcha_toggle && ( isset( $recaptcha_site_key ) && ! empty( $recaptcha_site_key ) ) ) :
 		?>
 		<div class="pp-input-group pp-recaptcha">
-			<p class="pp-contact-error"><?php _e( 'Please check the captcha to verify you are not a robot.', 'bb-powerpack' );?></p>
+			<p class="pp-contact-error"><?php echo $messages['captcha_error']; ?></p>
 			<div id="<?php echo $id; ?>-pp-grecaptcha" class="pp-grecaptcha" data-sitekey="<?php echo $recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
 		</div>
 		<?php endif; ?>
@@ -93,7 +95,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
     	<div class="pp-input-group pp-checkbox<?php echo ! isset( $settings->checkbox_required ) || 'yes' === $settings->checkbox_required ? ' pp-input-required' : ''; ?>">
 		<input type="checkbox" name="pp-checkbox" id="pp-checkbox_<?php echo $id; ?>" value="1"<?php echo ( isset( $settings->checked_default ) && 'yes' == $settings->checked_default ) ? ' checked="checked"' : ''; ?> />
 		<label for="pp-checkbox_<?php echo $id; ?>"><?php echo ( ! isset( $settings->checkbox_label ) ) ? _x( 'I accept the Terms & Conditions', 'Contact form custom checkbox field label.', 'bb-powerpack' ) : $settings->checkbox_label;?></label>
-		<span class="pp-contact-error"><?php esc_html_e('Please check this field.', 'bb-powerpack');?></span>
+		<span class="pp-contact-error"><?php echo $messages['checkbox_error']; ?></span>
 	</div>
 	<?php endif; ?>
 
@@ -111,14 +113,14 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
     	</a>
     </div>
 
-	<?php if ($settings->success_action == 'redirect') : ?>
+	<?php if ( $settings->success_action == 'redirect' ) : ?>
 		<input type="text" value="<?php echo $settings->success_url; ?>" style="display: none;" class="pp-success-url">
 	<?php elseif($settings->success_action == 'none') : ?>
-		<span class="pp-success-none" style="display:none;"><?php esc_html_e( 'Message Sent!', 'bb-powerpack' ); ?></span>
+		<span class="pp-success-none" style="display:none;"><?php echo $messages['sent_message']; ?></span>
 	<?php endif; ?>
-	<?php $error_msg = isset( $settings->error_message ) && ! empty( $settings->error_message ) ? $settings->error_message : __( 'Message failed. Please try again.', 'bb-powerpack' ); ?>
+	<?php $error_msg = isset( $settings->error_message ) && ! empty( $settings->error_message ) ? $settings->error_message : $messages['failed_message']; ?>
 	<span class="pp-send-error" style="display:none;"><?php echo $error_msg; ?></span>
 </form>
-<?php if($settings->success_action == 'show_message') : ?>
+<?php if ($settings->success_action == 'show_message' ) : ?>
   <span class="pp-success-msg" style="display:none;"><?php echo $settings->success_message; ?></span>
 <?php endif; ?>

@@ -366,7 +366,7 @@ class PPGalleryModule extends FLBuilderModule {
 
 				/* Add Custom field attachment data to object */
 				$cta_link = get_post_meta( $id, 'gallery_external_link', true );
-				if(!empty($cta_link) && $this->settings->click_action == 'custom-link' ) {
+				if ( ! empty( $cta_link ) && $this->settings->click_action == 'custom-link' ) {
 					$data->cta_link = esc_url( $cta_link );
 				}
 
@@ -377,7 +377,7 @@ class PPGalleryModule extends FLBuilderModule {
 			}
 		}
 
-		return $photos;
+		return apply_filters( 'pp_gallery_photos_data', $photos, $this->settings );
 	}
 
 	public function get_item_class()
@@ -492,56 +492,16 @@ BB_PowerPack::register_module('PPGalleryModule', array(
 						),
 						'toggle'	=> array(
 							'lightbox'	=> array(
-								'fields'	=> array('show_lightbox_thumb', 'lightbox_image_size', 'lightbox_caption'),
-								'sections'	=> array('lightbox_style'),
+								'sections'	=> array('lightbox_settings', 'lightbox_style'),
 							),
 							'custom-link'	=> array(
-								'fields'	=> array('custom_link_target')
+								'fields'	=> array('custom_link_target', 'custom_link_nofollow')
 							)
 						),
 						'preview'       => array(
 							'type'          => 'none'
 						),
 						'help'		=> __('Custom URL field is available in media uploader modal where you have added the images.', 'bb-powerpack')
-					),
-					'show_lightbox_thumb' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Show Thumbnail Navigation in Lightbox?', 'bb-powerpack'),
-						'default'	=> 'no',
-						'options'	=> array(
-							'yes'		=> __('Yes', 'bb-powerpack'),
-							'no'		=> __('No', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'none'
-						)
-					),
-					'lightbox_image_size'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Lightbox Image Size', 'bb-powerpack'),
-						'default'	=> 'large',
-						'options'	=> array(
-							'large'		=> __('Large', 'bb-powerpack'),
-							'full'		=> __('Full', 'bb-powerpack')
-						)
-					),
-					'lightbox_caption'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Show Caption in Lightbox', 'bb-powerpack'),
-						'default'	=> 'yes',
-						'options'	=> array(
-							'yes'		=> __('Yes', 'bb-powerpack'),
-							'no'		=> __('No', 'bb-powerpack')
-						)
-					),
-					'lightbox_caption_source'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __('Caption Source', 'bb-powerpack'),
-						'default'		=> 'title',
-						'options'		=> array(
-							'title'			=> __( 'Title', 'bb-powerpack' ),
-							'caption'		=> __( 'Caption', 'bb-powerpack' ),
-						),
 					),
 					'custom_link_target' => array(
 						'type'		=> 'select',
@@ -774,6 +734,70 @@ BB_PowerPack::register_module('PPGalleryModule', array(
 							'tube'          	=> __( 'Tube', 'bb-powerpack' ),
 							'zoom-in-out'   	=> __( 'Zoom in Out', 'bb-powerpack' ),
 							'rotate'        	=> __( 'Rotate', 'bb-powerpack' ),
+						),
+					),
+					'lightbox_image_size'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Lightbox Image Size', 'bb-powerpack'),
+						'default'	=> 'large',
+						'options'	=> array(
+							'large'		=> __('Large', 'bb-powerpack'),
+							'full'		=> __('Full', 'bb-powerpack')
+						)
+					),
+					'lightbox_caption'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Show Caption in Lightbox', 'bb-powerpack'),
+						'default'	=> 'yes',
+						'options'	=> array(
+							'yes'		=> __('Yes', 'bb-powerpack'),
+							'no'		=> __('No', 'bb-powerpack')
+						)
+					),
+					'lightbox_caption_source'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __('Caption Source', 'bb-powerpack'),
+						'default'		=> 'title',
+						'options'		=> array(
+							'title'			=> __( 'Title', 'bb-powerpack' ),
+							'caption'		=> __( 'Caption', 'bb-powerpack' ),
+						),
+					),
+					'toolbar_buttons'	=> array(
+						'type'				=> 'select',
+						'label'				=> __( 'Toolbar Buttons', 'bb-powerpack'),
+						'default'			=> array( 'zoom', 'slideShow', 'fullScreen', 'close' ),
+						'multi-select'		=> true,
+						'options'			=> array(
+							'zoom'          	=> __( 'Zoom', 'bb-powerpack' ),
+							'share'         	=> __( 'Share', 'bb-powerpack' ),
+							'slideShow'     	=> __( 'Slide Show', 'bb-powerpack' ),
+							'fullScreen'    	=> __( 'Full Screen', 'bb-powerpack' ),
+							'download'      	=> __( 'Download', 'bb-powerpack' ),
+							'thumbs'        	=> __( 'Thumbs', 'bb-powerpack' ),
+							'close'         	=> __( 'Close', 'bb-powerpack' ),
+						),
+						'description'	=> __( 'Cmd + Click (Mac) or Ctrl + Click (Windows) to select multiple.', 'bb-powerpack' ),
+					),
+					'show_lightbox_thumb' => array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Show Thumbnails in Lightbox on load?', 'bb-powerpack'),
+						'default'	=> 'no',
+						'options'	=> array(
+							'yes'		=> __('Yes', 'bb-powerpack'),
+							'no'		=> __('No', 'bb-powerpack'),
+						),
+						'preview'	=> array(
+							'type'		=> 'none'
+						)
+					),
+					'thumbs_position'	=> array(
+						'type'				=> 'pp-switch',
+						'label'				=> __( 'Thumbnails Position', 'bb-powerpack'),
+						'default'			=> 'default',
+						'options'			=> array(
+							'default'			=> __( 'Default', 'bb-powerpack'),
+							'bottom'			=> __( 'Bottom', 'bb-powerpack'),						
 						),
 					),
 				),

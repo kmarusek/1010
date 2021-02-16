@@ -12,7 +12,7 @@
 		this.mapTypeControl    = settings.mapTypeControl;
 		this.markerAnimation   = settings.markerAnimation;
 		this.mapSkin           = settings.mapSkin;
-		this.mapStyleCode      = ( '' != settings.mapStyleCode ) ? jQuery.parseJSON( settings.mapStyleCode ) : '';
+		this.mapStyleCode      = ( '' != settings.mapStyleCode ) ? JSON.parse( settings.mapStyleCode ) : '';
 		this.isBuilderActive   = settings.isBuilderActive;
 		this.markerData        = settings.markerData;
 		this.markerName        = settings.markerName;

@@ -89,7 +89,8 @@ var ppcg_<?php echo $id; ?> = '';
 				responsiveRefreshRate: 200,
 				responsiveBaseWidth: window,
 				loop: <?php echo isset( $settings->slide_loop ) && 'yes' === $settings->slide_loop ? 'true' : 'false'; ?>,
-				center: <?php echo ( isset( $settings->slides_center_align ) && 'yes' == $settings->slides_center_align ) ? 'true' : 'false'; ?>
+				center: <?php echo ( isset( $settings->slides_center_align ) && 'yes' == $settings->slides_center_align ) ? 'true' : 'false'; ?>,
+				autoHeight: <?php echo isset( $settings->auto_height ) && 'yes' === $settings->auto_height ? 'true' : 'false'; ?>
 			}
 			<?php } // End if(). ?>
 	};

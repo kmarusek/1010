@@ -5,13 +5,23 @@
  */
 class PPInstagramFeedModule extends FLBuilderModule {
 	/**
+	 * Official Instagram API URL.
+	 *
+	 * @since 2.14
+	 * @var   string
+	 */
+	private $instagram_api_url = 'https://graph.instagram.com/';
+	private $instagram_url = 'https://www.instagram.com/';
+	private $access_token = null;
+
+	/**
 	 * @method __construct
 	 */
 	public function __construct()
 	{
 		parent::__construct(array(
 			'name'          	=> __( 'Instagram Feed', 'bb-powerpack' ),
-			'description'   	=> __( 'A module to fetch instagram photos.', 'bb-powerpack' ),
+			'description'   	=> __( 'A module to display feed from Instagram.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
 			'category'			=> pp_get_modules_cat( 'social' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-instagram-feed/',
@@ -19,6 +29,8 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
+
+		$this->access_token = $this->get_access_token();
 
 		$this->add_css( 'font-awesome' );
 
@@ -31,12 +43,6 @@ class PPInstagramFeedModule extends FLBuilderModule {
 		$this->add_js( 'jquery-swiper' );
 
 		$this->add_js('jquery-masonry');
-	}
-
-	public function enqueue_scripts() {
-		if ( ! isset( $this->settings->use_api ) || 'yes' == $this->settings->use_api ) {
-			$this->add_js( 'instafeed' );
-		}
 	}
 
 	public function filter_settings( $settings, $helper )
@@ -77,7 +83,511 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			),
 		), 'feed_title_border_group' );
 
+		// Handle Overlay Bg Hover color field.
+		if ( isset( $settings->image_overlay_opacity ) ) {
+			$opacity    = '' === $settings->image_overlay_opacity ? 1 : $settings->image_overlay_opacity;
+			$overlay_color = $settings->image_overlay_color;
+
+			if ( ! empty( $overlay_color ) ) {
+				$overlay_color              = pp_hex2rgba( pp_get_color_value( $overlay_color ), ( $opacity / 100 ) );
+				$settings->image_overlay_color = $overlay_color;
+			}
+
+			unset( $settings->image_overlay_opacity );
+		}
+
+		// Handle Overlay Bg Hover color field.
+		if ( isset( $settings->image_hover_overlay_opacity ) ) {
+			$opacity    = '' === $settings->image_hover_overlay_opacity ? 1 : $settings->image_hover_overlay_opacity;
+			$overlay_h_color = $settings->image_hover_overlay_color;
+
+			if ( ! empty( $overlay_h_color ) ) {
+				$overlay_h_color              = pp_hex2rgba( pp_get_color_value( $overlay_h_color ), ( $opacity / 100 ) );
+				$settings->image_hover_overlay_color = $overlay_h_color;
+			}
+
+			unset( $settings->image_hover_overlay_opacity );
+		}
+
 		return $settings;
+	}
+
+	/**
+	 * Retrieve a URL for photos by hashtag.
+	 *
+	 * @since  2.14
+	 * @return string
+	 */
+	public function get_tags_endpoint() {
+		return $this->instagram_url . 'explore/tags/%s';
+	}
+
+	/**
+	 * Retrieve a URL for own photos.
+	 *
+	 * @since  2.14
+	 * @return string
+	 */
+	public function get_feed_endpoint() {
+		return $this->instagram_api_url . 'me/media/';
+	}
+
+	public function get_user_endpoint() {
+		return $this->instagram_api_url . 'me/';
+	}
+
+	public function get_user_media_endpoint() {
+		return $this->instagram_api_url . '%s/media/';
+	}
+
+	public function get_media_endpoint() {
+		return $this->instagram_api_url . '%s/';
+	}
+
+	public function get_user_url() {
+		$url = $this->get_user_endpoint();
+		$url = add_query_arg( array(
+			'access_token' => $this->get_access_token(),
+			// 'fields' => 'media.limit(10){comments_count,like_count,likes,likes_count,media_url,permalink,caption}',
+		), $url );
+
+		return $url;
+	}
+
+	public function get_user_media_url( $user_id ) {
+		$url = sprintf( $this->get_user_media_endpoint(), $user_id );
+		$url = add_query_arg( array(
+			'access_token' => $this->get_access_token(),
+			'fields' => 'id,like_count',
+		), $url );
+
+		return $url;
+	}
+
+	public function get_media_url( $media_id ) {
+		$url = sprintf( $this->get_media_endpoint(), $media_id );
+		$url = add_query_arg( array(
+			'access_token' => $this->get_access_token(),
+			'fields' => 'id,media_type,media_url,timestamp,like_count',
+		), $url );
+
+		return $url;
+	}
+
+	public function get_insta_user_id() {
+		$result = $this->get_api_response( $this->get_user_url() );
+		return $result;
+	}
+
+	public function get_insta_user_media( $user_id ) {
+		$result = $this->get_api_response( $this->get_user_media_url( $user_id ) );
+
+		return $result;
+	}
+
+	public function get_insta_media( $media_id ) {
+		$result = $this->get_api_response( $this->get_media_url( $media_id ) );
+
+		return $result;
+	}
+
+	/**
+	 * Endpoint URL.
+	 *
+	 * @since  2.14
+	 * @return string
+	 */
+	public function get_endpoint_url() {
+		$settings = $this->settings;
+
+		if ( 'yes' === $settings->feed_by_tags ) {
+			$url = sprintf( $this->get_tags_endpoint(), $settings->tag_name );
+			$url = add_query_arg( array( '__a' => 1 ), $url );
+
+		} else {
+			$url = $this->get_feed_endpoint();
+			$url = add_query_arg( array(
+				'fields'       => 'id,media_type,media_url,thumbnail_url,permalink,caption,likes_count,likes,timestamp,children%7Bmedia_url,id,media_type,timestamp,permalink,thumbnail_url%7D',
+				'access_token' => $this->get_access_token(),
+			), $url );
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Get data from response
+	 *
+	 * @param  $response
+	 * @since  2.14
+	 *
+	 * @return array
+	 */
+	public function get_insta_feed_response_data( $response ) {
+		$settings = $this->settings;
+
+		if ( ! array_key_exists( 'data', $response ) ) { // Avoid PHP notices
+			return;
+		}
+
+		$response_posts = $response['data'];
+
+		if ( empty( $response_posts ) ) {
+			return array();
+		}
+
+		$return_data  = array();
+		$images_count = ! empty( $settings->images_count ) ? $settings->images_count : 8;
+		$posts = array_slice( $response_posts, 0, $images_count, true );
+
+		foreach ( $posts as $post ) {
+			$_post              = array();
+
+			$_post['id']        = $post['id'];
+			$_post['link']      = $post['permalink'];
+			$_post['caption']   = $this->get_caption( $post );
+			$_post['image']     = 'VIDEO' === $post['media_type'] ? $post['thumbnail_url'] : $post['media_url'];
+			$_post['comments']  = ! empty( $post['comments_count'] ) ? $post['comments_count'] : 0;
+			$_post['likes']     = ! empty( $post['likes_count'] ) ? $post['likes_count'] : 0;
+
+			$_post['thumbnail'] = $this->get_insta_feed_thumbnail_data( $post );
+			$_post['time']		= iso8601_to_datetime( $post['timestamp'] );
+
+			if ( $_post['time'] ) {
+				$_post['time'] = strtotime( $_post['time'] );
+			}
+
+			// if ( ! empty( $post['caption'] ) ) {
+			// 	$_post['caption'] = wp_html_excerpt( $post['caption'], $settings->caption_length, '&hellip;' );
+			// }
+
+			$return_data[ $_post['time'] ] = $_post;
+		}
+
+		return $return_data;
+	}
+
+	/**
+	 * Get thumbnail data from API response.
+	 *
+	 * @param array $data
+	 * @since 2.14
+	 *
+	 * @return array
+	 */
+	public function get_insta_feed_thumbnail_data( $data ) {
+		$thumbnail = array(
+			'thumbnail' => false,
+			'low'       => false,
+			'standard'  => false,
+			'high'      => false,
+		);
+
+		if ( ! empty( $data['images'] ) && is_array( $data['images'] ) ) {
+			$data = $data['images'];
+
+			$thumbnail['thumbnail'] = array(
+				'src'           => $data['thumbnail']['url'],
+				'config_width'  => $data['thumbnail']['width'],
+				'config_height' => $data['thumbnail']['height'],
+			);
+
+			$thumbnail['low'] = array(
+				'src'           => $data['low_resolution']['url'],
+				'config_width'  => $data['low_resolution']['width'],
+				'config_height' => $data['low_resolution']['height'],
+			);
+
+			$thumbnail['standard'] = array(
+				'src'           => $data['standard_resolution']['url'],
+				'config_width'  => $data['standard_resolution']['width'],
+				'config_height' => $data['standard_resolution']['height'],
+			);
+		}
+
+		return $thumbnail;
+	}
+
+	/**
+	 * Get data from response
+	 *
+	 * @param  array $response
+	 * @since  2.14
+	 *
+	 * @return array
+	 */
+	public function get_insta_tags_response_data( $response ) {
+		$settings = $this->settings;
+		$response_posts = $response['graphql']['hashtag']['edge_hashtag_to_media']['edges'];
+
+		if ( empty( $response_posts ) ) {
+			$response_posts = $response['graphql']['hashtag']['edge_hashtag_to_top_posts']['edges'];
+		}
+
+		$return_data  = array();
+		$images_count = ! empty( $settings->images_count ) ? $settings->images_count : 8;
+		$posts = array_slice( $response_posts, 0, $images_count, true );
+
+		foreach ( $posts as $post ) {
+			$_post              = array();
+
+			$_post['link']      = sprintf( $this->insta_api_url . 'p/%s/', $post['node']['shortcode'] );
+			$_post['caption']   = '';
+			$_post['comments']  = $post['node']['edge_media_to_comment']['count'];
+			$_post['likes']     = $post['node']['edge_liked_by']['count'];
+			$_post['thumbnail'] = $this->get_insta_tags_thumbnail_data( $post );
+
+			if ( isset( $post['node']['edge_media_to_caption']['edges'][0]['node']['text'] ) ) {
+				//$caption_length = isset( $settings->caption_length ) ? $settings->caption_length : 30;
+				//$_post['caption'] = wp_html_excerpt( $post['node']['edge_media_to_caption']['edges'][0]['node']['text'], $caption_length, '&hellip;' );
+				$_post['caption'] = $post['node']['edge_media_to_caption']['edges'][0]['node']['text'];
+			}
+
+			$return_data[] = $_post;
+		}
+
+		return $return_data;
+	}
+
+	/**
+	 * Generate thumbnail resources.
+	 *
+	 * @since 2.14
+	 * @param array $data
+	 *
+	 * @return array
+	 */
+	public function get_insta_tags_thumbnail_data( $data ) {
+		$data = $data['node'];
+
+		$thumbnail = array(
+			'thumbnail' => false,
+			'low'       => false,
+			'standard'  => false,
+			'high'		=> false,
+		);
+
+		if ( is_array( $data['thumbnail_resources'] ) && ! empty( $data['thumbnail_resources'] ) ) {
+			foreach ( $data['thumbnail_resources'] as $key => $resources_data ) {
+
+				if ( 150 === $resources_data['config_width'] ) {
+					$thumbnail['thumbnail'] = $resources_data;
+					continue;
+				}
+
+				if ( 320 === $resources_data['config_width'] ) {
+					$thumbnail['low'] = $resources_data;
+					continue;
+				}
+
+				if ( 640 === $resources_data['config_width'] ) {
+					$thumbnail['standard'] = $resources_data;
+					continue;
+				}
+			}
+		}
+
+		if ( ! empty( $data['display_url'] ) ) {
+			$thumbnail['high'] = array(
+				'src'           => $data['display_url'],
+				'config_width'  => $data['dimensions']['width'],
+				'config_height' => $data['dimensions']['height'],
+			);
+		}
+
+		return $thumbnail;
+	}
+
+	/**
+	 * Retrieve response from API
+	 *
+	 * @since  2.14
+	 * @return array|WP_Error
+	 */
+	private function get_api_response( $url ) {
+		$response       = wp_remote_get( $url, array(
+			'timeout'   => 60,
+			'sslverify' => false,
+		) );
+
+		$response_code  = wp_remote_retrieve_response_code( $response );
+		$result         = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( 200 !== $response_code ) {
+			$message = is_array( $result ) && isset( $result['error']['message'] ) ? $result['error']['message'] : __( 'No posts found', 'bb-powerpack' );
+
+			return new \WP_Error( $response_code, $message );
+		}
+
+		if ( ! is_array( $result ) ) {
+			return new \WP_Error( 'error', __( 'Data Error', 'bb-powerpack' ) );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Retrieve Instagram posts.
+	 *
+	 * @since  2.14
+	 * @param  array $settings
+	 * @return array
+	 */
+	public function get_insta_posts() {
+		$settings = $this->settings;
+
+		$transient_key = md5( $this->get_transient_key() );
+
+		$data = get_transient( $transient_key );
+
+		$cache_duration = pp_get_instagram_cache_duration();
+
+		if ( ! empty( $data ) && 'none' !== $cache_duration ) {
+			return $this->get_sorted_data( $data );
+		}
+
+		// $user = $this->get_insta_user_id();
+		// $user_media = $this->get_insta_user_media( $user['id'] );
+
+		// foreach( $user_media['data'] as $media ) {
+		// 	$media_object = $this->get_insta_media( $media['id'] );
+		// }
+
+		$response = $this->get_api_response( $this->get_endpoint_url() );
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$data = ( 'yes' === $settings->feed_by_tags ) ? $this->get_insta_tags_response_data( $response ) : $this->get_insta_feed_response_data( $response );
+
+		if ( empty( $data ) ) {
+			return array();
+		}
+
+		set_transient( $transient_key, $data, $this->get_cache_duration() );
+
+		return $this->get_sorted_data( $data );
+	}
+
+	public function get_sorted_data( $data ) {
+		$settings = $this->settings;
+		$data = (array) $data;
+
+		if ( 'least-recent' === $settings->sort_by ) {
+			ksort( $data, 1 );
+		} elseif ( 'most-recent' === $settings->sort_by ) {
+			krsort( $data, 1 );
+		} elseif ( 'random' === $settings->sort_by ) {
+			shuffle( $data );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get transient key.
+	 *
+	 * @since  2.14
+	 * @return string
+	 */
+	private function get_transient_key() {
+		$settings = $this->settings;
+
+		$endpoint = 'yes' === $settings->feed_by_tags ? 'tags' : 'feed';
+		$target = ( 'tags' === $endpoint ) ? sanitize_text_field( $settings->tag_name ) : 'users';
+		$images_count = $settings->images_count;
+
+		return sprintf( 'ppe_instagram_%s_%s_posts_count_%s_token_',
+			$endpoint,
+			$target,
+			$images_count,
+			$this->access_token
+		);
+	}
+
+	private function get_cache_duration() {
+		$cache_duration = pp_get_instagram_cache_duration();
+		$duration = 0;
+
+		switch ( $cache_duration ) {
+			case 'minute':
+				$duration = MINUTE_IN_SECONDS;
+				break;
+			case 'hour':
+				$duration = HOUR_IN_SECONDS;
+				break;
+			case 'day':
+				$duration = DAY_IN_SECONDS;
+				break;
+			case 'week':
+				$duration = WEEK_IN_SECONDS;
+				break;
+			default:
+				break;
+		}
+
+		return $duration;
+	}
+
+	private function get_access_token() {
+		if ( empty( $this->access_token ) ) {
+			$this->access_token = pp_get_instagram_token();
+		}
+
+		return $this->access_token;
+	}
+
+	/**
+	 * Get Insta Thumbnail Image URL
+	 *
+	 * @since  2.14
+	 * @return string   The resolution of image size.
+	 */
+	public function get_insta_image_size() {
+		$settings = $this->settings;
+
+		$size = $settings->image_resolution;
+
+		switch ( $size ) {
+			case 'thumbnail':
+				return 'thumbnail';
+			case 'low_resolution':
+				return 'low';
+			case 'standard_resolution':
+				return 'standard';
+			default:
+				return 'low';
+		}
+	}
+
+	/**
+	 * Get Insta Thumbnail Image URL
+	 *
+	 * @since  2.14
+	 * @return string   The url of the instagram post image
+	 */
+	public function get_insta_image_url( $item, $size = 'standard' ) {
+		$thumbnail  = $item['thumbnail'];
+
+		if ( ! empty( $thumbnail[ $size ] ) ) {
+			$image_url = $thumbnail[ $size ]['src'];
+		} else {
+			$image_url = isset( $item['image'] ) ? $item['image'] : '';
+		}
+
+		return $image_url;
+	}
+
+	public function get_caption( $item, $default = '' ) {
+		$caption = $default;
+		if ( ! is_array( $item['caption'] ) && ! empty( $item['caption'] ) ) {
+			$caption = $item['caption'];
+		} elseif ( ! empty( $item['caption']['text'] ) ) {
+			$caption = $item['caption']['text'];
+		}
+
+		return $caption;
 	}
 }
 
@@ -87,72 +597,20 @@ class PPInstagramFeedModule extends FLBuilderModule {
 BB_PowerPack::register_module('PPInstagramFeedModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
-		'description' => __( '<span style="color: red;">Starting October 15, 2019, new client registration and permission review on Instagram API platform are discontinued.</span>', 'bb-powerpack' ),
+		'description' => empty( pp_get_instagram_token() ) ? 
+			sprintf(
+				__( 'Your Instagram Access Token is missing, %1$sclick here%2$s to configure.', 'bb-powerpack' ),
+				'<a href="' . BB_PowerPack_Admin_Settings::get_form_action( '&tab=integration' ) . '"><strong>',
+				'</strong></a>' ) :
+			'',
 		'sections'      => array( // Tab Sections
-			'use_api' => array(
-				'title'		=> '',
-				'fields'	=> array(
-					'use_api'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Use Instagram API', 'bb-powerpack' ),
-						'default'		=> 'yes',
-						'options'		=> array(
-							'yes'			=> __( 'Yes', 'bb-powerpack' ),
-							'no'			=> __( 'No', 'bb-powerpack' ),
-						),
-						'toggle'		=> array(
-							'yes'			=> array(
-								'sections'		=> array( 'account_settings' ),
-								'fields'		=> array( 'image_resolution', 'sort_by' ),
-							),
-							'no'			=> array(
-								'fields'		=> array( 'username' ),
-							),
-						),
-						'preview'	=> array(
-							'type'		=> 'none',
-						),
-					),
-					'username'	=> array(
-						'type'		=> 'text',
-						'label'		=> __( 'Instagram Username', 'bb-powerpack' ),
-						'default'	=> '',
-						'help'		=> __( 'This must be public account.', 'bb-powerpack' ),
-						'connections'	=> array( 'string' ),
-					),
-				),
-			),
-			'account_settings'	=> array( // Section
-				'title'				=> __( 'API Authentication', 'bb-powerpack' ), // Section Title
-				'fields'        	=> array( // Section Fields
-					'user_id'     	=> array(
-						'type'          => 'text',
-						'label'         => __( 'User ID', 'bb-powerpack' ),
-						'default'       => '',
-						'connections'	=> array('string')
-					),
-					'client_id'	=> array(
-						'type'		=> 'text',
-						'label'     => __( 'Client ID', 'bb-powerpack' ),
-						'default'   => '',
-						'connections'	=> array('string')
-					),
-					'access_token'	=> array(
-						'type'          => 'text',
-						'label'         => __( 'Access Token', 'bb-powerpack' ),
-						'default'       => '',
-						'connections'	=> array('string')
-					),
-				),
-			),
 			'feed_settings'	=> array(
-				'title'			=> __( 'Feed Settings', 'bb-powerpack' ),
-				'collapsed'		=> true,
+				'title'			=> '',
+				'collapsed'		=> false,
 				'fields'        => array(
 					'feed_by_tags'  => array(
 						'type'          => 'pp-switch',
-						'label'         => __( 'Filter the feed by Hashtag', 'bb-powerpack' ),
-						'description'	=> __('<storng style="display: block; color: red;">This option is deprecated by Instagram.</strong>', 'bb-powerpack'),
+						'label'         => __( 'Feed by Hashtag', 'bb-powerpack' ),
 						'default'       => 'no',
 						'options'       => array(
 							'yes'			=> __( 'Yes', 'bb-powerpack' ),
@@ -194,17 +652,13 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 							'none'              => __( 'None', 'bb-powerpack' ),
 							'most-recent'       => __( 'Most Recent', 'bb-powerpack' ),
 							'least-recent'      => __( 'Least Recent', 'bb-powerpack' ),
-							'most-liked'        => __( 'Most Liked', 'bb-powerpack' ),
-							'least-liked'       => __( 'Least Liked', 'bb-powerpack' ),
-							'most-commented'    => __( 'Most Commented', 'bb-powerpack' ),
-							'least-commented'   => __( 'Least Commented', 'bb-powerpack' ),
 							'random'            => __( 'Random', 'bb-powerpack' ),
 						),
 					),
 				),
 			),
-			'general'	=> array(
-				'title'		=> __( 'General', 'bb-powerpack' ),
+			'layout'	=> array(
+				'title'		=> __( 'Layout', 'bb-powerpack' ),
 				'collapsed'		=> true,
 				'fields'    => array(
 					'feed_layout'  => array(
@@ -212,7 +666,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						'label'         => __( 'Layout', 'bb-powerpack' ),
 						'default'       => 'grid',
 						'options'       => array(
-							'grid'           => __( 'Masonry Grid', 'bb-powerpack' ),
+							'grid'           => __( 'Masonry', 'bb-powerpack' ),
 							'square-grid'    => __( 'Square Grid', 'bb-powerpack' ),
 							'carousel'       => __( 'Carousel', 'bb-powerpack' ),
 						),
@@ -249,7 +703,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 					),
 					'grid_columns'	=> array(
 						'type'			=> 'unit',
-						'label' 		=> __( 'Grid Columns', 'bb-powerpack' ),
+						'label' 		=> __( 'Columns', 'bb-powerpack' ),
 						'slider'        => true,
 						'default'       => '3',
 						'responsive' 	=> array(
@@ -274,33 +728,39 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 							),
 						),
 					),
-					'likes'	=> array(
-						'type'		=> 'pp-switch',
-						'label'     => __( 'Show Likes Count', 'bb-powerpack' ),
-						'default'   => 'no',
-						'options'   => array(
-							'yes'		=> __( 'Yes', 'bb-powerpack' ),
-							'no'		=> __( 'No', 'bb-powerpack' ),
-						),
-					),
-					'comments'	=> array(
-						'type'		=> 'pp-switch',
-						'label'     => __( 'Show Comments Count', 'bb-powerpack' ),
-						'default'  	=> 'no',
-						'options'   => array(
-							'yes'		=> __( 'Yes', 'bb-powerpack' ),
-							'no'		=> __( 'No', 'bb-powerpack' ),
-						),
-					),
-					'content_visibility'  => array(
-						'type'          => 'pp-switch',
-						'label'         => __( 'Content Visibility', 'bb-powerpack' ),
-						'default'       => 'always',
-						'options'       => array(
-							'always'		=> __( 'Always', 'bb-powerpack' ),
-							'hover'         => __( 'Hover', 'bb-powerpack' ),
-						),
-					),
+					// 'likes'	=> array(
+					// 	'type'		=> 'pp-switch',
+					// 	'label'     => __( 'Show Likes Count', 'bb-powerpack' ),
+					// 	'default'   => 'no',
+					// 	'options'   => array(
+					// 		'yes'		=> __( 'Yes', 'bb-powerpack' ),
+					// 		'no'		=> __( 'No', 'bb-powerpack' ),
+					// 	),
+					// ),
+					// 'comments'	=> array(
+					// 	'type'		=> 'pp-switch',
+					// 	'label'     => __( 'Show Comments Count', 'bb-powerpack' ),
+					// 	'default'  	=> 'no',
+					// 	'options'   => array(
+					// 		'yes'		=> __( 'Yes', 'bb-powerpack' ),
+					// 		'no'		=> __( 'No', 'bb-powerpack' ),
+					// 	),
+					// ),
+					// 'content_visibility'  => array(
+					// 	'type'          => 'pp-switch',
+					// 	'label'         => __( 'Content Visibility', 'bb-powerpack' ),
+					// 	'default'       => 'always',
+					// 	'options'       => array(
+					// 		'always'		=> __( 'Always', 'bb-powerpack' ),
+					// 		'hover'         => __( 'Hover', 'bb-powerpack' ),
+					// 	),
+					// ),
+				),
+			),
+			'additional' => array(
+				'title' => __( 'Additional Options', 'bb-powerpack' ),
+				'collapsed' => true,
+				'fields' => array(
 					'image_popup'  => array(
 						'type'          => 'pp-switch',
 						'label'         => __( 'Image Link Type', 'bb-powerpack' ),
@@ -330,7 +790,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 					'insta_link_title'	=> array(
 						'type'				=> 'text',
 						'label'         	=> __( 'Link Text', 'bb-powerpack' ),
-						'default'       	=> __( 'Follow @example on instagram', 'bb-powerpack' ),
+						'default'       	=> __( 'Follow @example on Instagram', 'bb-powerpack' ),
 						'connections'		=> array('string')
 					),
 					'insta_profile_url'	=> array(
@@ -771,10 +1231,10 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						),
 						'toggle'	=> array(
 							'solid'		=> array(
-								'fields'	=> array( 'image_overlay_color', 'image_overlay_opacity' ),
+								'fields'	=> array( 'image_overlay_color' ),
 							),
 							'gradient'	=> array(
-								'fields'	=> array( 'image_overlay_angle', 'image_overlay_color', 'image_overlay_secondary_color', 'image_overlay_gradient_type', 'image_overlay_opacity' ),
+								'fields'	=> array( 'image_overlay_angle', 'image_overlay_color', 'image_overlay_secondary_color', 'image_overlay_gradient_type' ),
 							),
 						),
 					),
@@ -783,6 +1243,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						'label'         		=> __( 'Overlay Color', 'bb-powerpack' ),
 						'default'       		=> '',
 						'show_reset'    		=> true,
+						'show_alpha'	=> true,
 						'connections'			=> array('color'),
 					),
 					'image_overlay_secondary_color'	=> array(
@@ -790,6 +1251,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Overlay Secondary Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
 					),
 					'image_overlay_gradient_type'	=> array(
@@ -833,26 +1295,18 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 							'bottom right'          => __( 'Bottom Right', 'bb-powerpack' ),
 						),
 					),
-					'image_overlay_opacity'	=> array(
-						'type'			=> 'text',
-						'label'       	=> __( 'Overlay Opacity', 'bb-powerpack' ),
-						'default'     	=> '70',
-						'description' 	=> '%',
-						'maxlength'   	=> '3',
-						'size'        	=> '5',
-					),
-					'likes_comments_color'	=> array(
-						'type'			=> 'color',
-						'label'     	=> __( 'Likes & Comments Color', 'bb-powerpack' ),
-						'default'		=> '',
-						'show_reset' 	=> true,
-						'connections'	=> array('color'),
-						'preview'       => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-instagram-feed .pp-feed-item .pp-overlay-container',
-							'property'      => 'color',
-						),
-					),
+					// 'likes_comments_color'	=> array(
+					// 	'type'			=> 'color',
+					// 	'label'     	=> __( 'Overlay Content Color', 'bb-powerpack' ),
+					// 	'default'		=> '',
+					// 	'show_reset' 	=> true,
+					// 	'connections'	=> array('color'),
+					// 	'preview'       => array(
+					// 		'type'			=> 'css',
+					// 		'selector'      => '.pp-instagram-feed .pp-feed-item .pp-overlay-container',
+					// 		'property'      => 'color',
+					// 	),
+					// ),
 				),
 			),
 			'image_hover'	=> array(
@@ -880,10 +1334,10 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						),
 						'toggle'    => array(
 							'solid' 	=> array(
-								'fields'    => array( 'image_hover_overlay_color', 'image_hover_overlay_opacity' ),
+								'fields'    => array( 'image_hover_overlay_color' ),
 							),
 							'gradient' => array(
-								'fields'    => array( 'image_hover_overlay_color', 'image_hover_overlay_secondary_color', 'image_hover_overlay_gradient_type', 'image_hover_overlay_opacity' ),
+								'fields'    => array( 'image_hover_overlay_color', 'image_hover_overlay_secondary_color', 'image_hover_overlay_gradient_type' ),
 							),
 						),
 					),
@@ -892,6 +1346,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						'label'         => __( 'Overlay Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
 					),
 					'image_hover_overlay_secondary_color'	=> array(
@@ -899,6 +1354,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Overlay Secondary Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
 					),
 					'image_hover_overlay_gradient_type'	=> array(
@@ -942,25 +1398,17 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 							'bottom right'          => __( 'Bottom Right', 'bb-powerpack' ),
 						),
 					),
-					'image_hover_overlay_opacity'	=> array(
-						'type'			=> 'text',
-						'label'       	=> __( 'Overlay Opacity', 'bb-powerpack' ),
-						'default'     	=> '70',
-						'description' 	=> '%',
-						'maxlength'   	=> '3',
-						'size'        	=> '5',
-					),
-					'likes_comments_hover_color'	=> array(
-						'type'			=> 'color',
-						'label'     	=> __( 'Likes & Comments Color', 'bb-powerpack' ),
-						'default'		=> '',
-						'show_reset' 	=> true,
-						'connections'	=> array('color'),
-					),
+					// 'likes_comments_hover_color'	=> array(
+					// 	'type'			=> 'color',
+					// 	'label'     	=> __( 'Overlay Content Color', 'bb-powerpack' ),
+					// 	'default'		=> '',
+					// 	'show_reset' 	=> true,
+					// 	'connections'	=> array('color'),
+					// ),
 				),
 			),
 			'feed_title'	=> array(
-				'title'			=> __( 'Feed Title', 'bb-powerpack' ),
+				'title'			=> __( 'Link to Profile Text', 'bb-powerpack' ),
 				'collapsed'		=> true,
 				'fields'		=> array(
 					'feed_title_position'	=> array(
@@ -1111,7 +1559,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 		'title'			=> __( 'Typography', 'bb-powerpack' ),
 		'sections'  	=> array(
 			'feed_title_typography'	=> array(
-				'title'		=> __( 'Feed Title', 'bb-powerpack' ),
+				'title'		=> __( 'Link to Profile Text', 'bb-powerpack' ),
 				'fields'	=> array(
 					'title_typography'	=> array(
 						'type'			=> 'typography',

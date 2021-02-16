@@ -111,7 +111,7 @@ for($i = 0; $i < $number_cards; $i++) {
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $cards,
 		'setting_name' 	=> 'card_box_border',
-		'selector' 		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card .pp-hover-card-border",
+		'selector' 		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i",
 	) );
 	?>	
 

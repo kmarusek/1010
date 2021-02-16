@@ -71,75 +71,57 @@
 }
 
 <?php if ( 'solid' == $settings->image_overlay_type ) { ?>
-	<?php if ( 'grid' == $settings->feed_layout ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:before {
-	<?php } else { ?>
-		.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-feed-item-inner:before {
-	<?php } ?>
-	background-color: <?php echo ( $settings->image_overlay_color ) ? pp_hex2rgba( '#' . $settings->image_overlay_color, $settings->image_overlay_opacity / 100 ) : 'transparent'; ?>;
-	opacity: <?php echo ( $settings->image_overlay_opacity / 100 ); ?>;
+.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-overlay-container {
+	background-color: <?php echo ( $settings->image_overlay_color ) ? pp_get_color_value( $settings->image_overlay_color ) : 'transparent'; ?>;
+	opacity: 1;
 }
 <?php } ?>
 
 <?php if ( 'gradient' == $settings->image_overlay_type ) { ?>
-	<?php if ( 'grid' == $settings->feed_layout ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:before {
-	<?php } else { ?>
-		.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-feed-item-inner:before {
-	<?php } ?>
+.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-overlay-container {
 	background-color: transparent;
 	<?php if ( 'linear' == $settings->image_overlay_gradient_type ) { ?>
-	background-image: linear-gradient(<?php echo $settings->image_overlay_angle; ?>deg, <?php echo '#' . $settings->image_overlay_color; ?> 0%, <?php echo '#' . $settings->image_overlay_secondary_color; ?> 100%);
+	background-image: linear-gradient(<?php echo $settings->image_overlay_angle; ?>deg, <?php echo pp_get_color_value( $settings->image_overlay_color ); ?> 0%, <?php echo pp_get_color_value( $settings->image_overlay_secondary_color ); ?> 100%);
 	<?php } ?>
 	<?php if ( 'radial' == $settings->image_overlay_gradient_type ) { ?>
-	background-image: radial-gradient(at <?php echo $settings->image_overlay_gradient_position; ?>, <?php echo '#' . $settings->image_overlay_color; ?> 0%, <?php echo '#' . $settings->image_overlay_secondary_color; ?> 100%);
+	background-image: radial-gradient(at <?php echo $settings->image_overlay_gradient_position; ?>, <?php echo pp_get_color_value( $settings->image_overlay_color ); ?> 0%, <?php echo pp_get_color_value( $settings->image_overlay_secondary_color ); ?> 100%);
 	<?php } ?>
-	opacity: <?php echo ( $settings->image_overlay_opacity / 100 ); ?>;
+	opacity: 1;
 }
 <?php } ?>
 
+/*
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-overlay-container {
 	color: <?php echo '#' . $settings->likes_comments_color; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover .pp-overlay-container {
 	color: <?php echo '#' . $settings->likes_comments_hover_color; ?>;
 }
+*/
 
 <?php if ( 'none' == $settings->image_hover_overlay_type ) { ?>
-	<?php if ( 'grid' == $settings->feed_layout ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover:before {
-	<?php } else { ?>
-		.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover .pp-feed-item-inner:before {
-	<?php } ?>
+.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-overlay-container {
 	opacity: 0;
 }
 <?php } ?>
 
 <?php if ( 'solid' == $settings->image_hover_overlay_type ) { ?>
-	<?php if ( 'grid' == $settings->feed_layout ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover:before {
-	<?php } else { ?>
-		.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover .pp-feed-item-inner:before {
-	<?php } ?>
-	background-color: <?php echo ( $settings->image_hover_overlay_color ) ? pp_hex2rgba( '#' . $settings->image_hover_overlay_color, $settings->image_hover_overlay_opacity / 100 ) : 'transparent'; ?>;
-	opacity: <?php echo ( $settings->image_hover_overlay_opacity / 100 ); ?>;
+.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover .pp-overlay-container {
+	background-color: <?php echo ( $settings->image_hover_overlay_color ) ? pp_get_color_value( $settings->image_hover_overlay_color ) : 'transparent'; ?>;
+	opacity: 1;
 }
 <?php } ?>
 
 <?php if ( 'gradient' == $settings->image_hover_overlay_type ) { ?>
-	<?php if ( 'grid' == $settings->feed_layout ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover:before {
-	<?php } else { ?>
-		.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover .pp-feed-item-inner:before {
-	<?php } ?>
+.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:hover .pp-overlay-container {
 	background-color: transparent;
 	<?php if ( 'linear' == $settings->image_hover_overlay_gradient_type ) { ?>
-	background-image: linear-gradient(<?php echo $settings->image_hover_overlay_angle; ?>deg, <?php echo '#' . $settings->image_hover_overlay_color; ?> 0%, <?php echo '#' . $settings->image_hover_overlay_secondary_color; ?> 100%);
+	background-image: linear-gradient(<?php echo $settings->image_hover_overlay_angle; ?>deg, <?php echo pp_get_color_value( $settings->image_hover_overlay_color ); ?> 0%, <?php echo pp_get_color_value( $settings->image_hover_overlay_secondary_color ); ?> 100%);
 	<?php } ?>
 	<?php if ( 'radial' == $settings->image_hover_overlay_gradient_type ) { ?>
-	background-image: radial-gradient(at <?php echo $settings->image_hover_overlay_gradient_position; ?>, <?php echo '#' . $settings->image_hover_overlay_color; ?> 0%, <?php echo '#' . $settings->image_hover_overlay_secondary_color; ?> 100%);
+	background-image: radial-gradient(at <?php echo $settings->image_hover_overlay_gradient_position; ?>, <?php echo pp_get_color_value( $settings->image_hover_overlay_color ); ?> 0%, <?php echo pp_get_color_value( $settings->image_hover_overlay_secondary_color ); ?> 100%);
 	<?php } ?>
-	opacity: <?php echo ( $settings->image_hover_overlay_opacity / 100 ); ?>;
+	opacity: 1;
 }
 <?php } ?>
 

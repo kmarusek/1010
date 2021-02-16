@@ -219,6 +219,30 @@ class PPContactFormModule extends FLBuilderModule {
 		}
 	}
 
+	public function get_strings_i18n() {
+		$msgs = array(
+			'empty_name' 		=> __( 'Please enter your name.', 'bb-powerpack' ),
+			'empty_email' 		=> __( 'Please enter a valid email address.', 'bb-powerpack' ),
+			'empty_phone' 		=> __( 'Please enter a valid phone number.', 'bb-powerpack' ),
+			'empty_subject' 	=> __( 'Please enter a subject.', 'bb-powerpack' ),
+			'empty_message' 	=> __( 'Please type your message.', 'bb-powerpack' ),
+			'captcha_error' 	=> __( 'Please check the captcha to verify you are not a robot.', 'bb-powerpack' ),
+			'checkbox_error' 	=> __( 'Please check this field.', 'bb-powerpack' ),
+			'failed_message'	=> __( 'Message failed. Please try again.', 'bb-powerpack' ),
+			'sent_message'		=> __( 'Message Sent!', 'bb-powerpack' ),
+		);
+
+		$filter_msgs = apply_filters( 'pp_contact_form_strings_i18n', $msgs );
+
+		foreach ( $msgs as $msg_key => $msg ) {
+			if ( ! isset( $filter_msgs[ $msg_key ] ) ) {
+				$filter_msgs[ $msg_key ] = $msg;
+			}
+		}
+
+		return $filter_msgs;
+	}
+
 	public function filter_settings( $settings, $helper ) {
 		// Handle old Form border and radius fields.
 		$settings = PP_Module_Fields::handle_border_field( $settings, array(

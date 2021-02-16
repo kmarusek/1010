@@ -176,7 +176,7 @@ $query = FLBuilderLoop::query( $settings );
 					$query->the_post();
 
 					$post_id 	= get_the_ID();
-					$permalink 	= get_permalink();
+					$permalink 	= apply_filters( 'pp_cg_post_permalink', get_permalink(), $post_id, $settings );
 
 					$terms_list = wp_get_post_terms( $post_id, $settings->post_taxonomies );
 					

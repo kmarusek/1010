@@ -41,20 +41,6 @@
 		},
 
 		submit: function() {
-
-			var form      = $( '.fl-builder-settings' ),
-				useApi    = form.find( 'input[name=use_api]' ).val(),
-				username  = form.find( 'input[name=username]' ).val();
-
-			if( 'yes' === useApi ) {
-				return true;
-			}
-
-			if ( 0 === username.length ) {
-				FLBuilder.alert( 'Instagram Username is required.' );
-				return false;
-			}
-
 			return true;
 		},
 

@@ -73,6 +73,39 @@
 			</p>
 		</td>
 	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_instagram_access_token"><?php esc_html_e('Instagram Access Token', 'bb-powerpack'); ?></label>
+		</th>
+		<td>
+			<input id="bb_powerpack_instagram_access_token" name="bb_powerpack_instagram_access_token" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option('bb_powerpack_instagram_access_token', true); ?>" />
+			<p class="description">
+				<?php // translators: %s: Instagram Access Token document ?>
+				<?php echo sprintf( __( 'To get your Instagram Access Token, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), '#' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_instagram_cache_duration"><?php esc_html_e('Instagram Cache Duration', 'bb-powerpack'); ?></label>
+		</th>
+		<td>
+			<?php
+				$cache_duration = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_instagram_cache_duration', true);
+				$cache_duration = empty( $cache_duration ) ? 'hour' : $cache_duration;
+			?>
+			<select id="bb_powerpack_instagram_cache_duration" name="bb_powerpack_instagram_cache_duration" class="regular-text">
+				<option value="none" <?php echo selected( 'none', $cache_duration ); ?>><?php _e( 'None', 'bb-powerpack' ); ?></option>
+				<option value="minute" <?php echo selected( 'minute', $cache_duration ); ?>><?php _e( 'Minute', 'bb-powerpack' ); ?></option>
+				<option value="hour" <?php echo selected( 'hour', $cache_duration ); ?>><?php _e( 'Hour', 'bb-powerpack' ); ?></option>
+				<option value="day" <?php echo selected( 'day', $cache_duration ); ?>><?php _e( 'Day', 'bb-powerpack' ); ?></option>
+				<option value="week" <?php echo selected( 'week', $cache_duration ); ?>><?php _e( 'Week', 'bb-powerpack' ); ?></option>
+			</select>
+			<p class="description">
+				<?php echo __( 'We will check for the new posts after the given duration.', 'bb-powerpack' ); ?>
+			</p>
+		</td>
+	</tr>
 </table>
 
 <h3><?php esc_html_e( 'reCAPTCHA V2', 'bb-powerpack' ); ?></h3>
