@@ -5,8 +5,6 @@
 
 jQuery(document).ready(function($) {
   /**
-   *
-   *
    * Loads the relevant sub-selector based on the primary selector.
    */
   $(document).on('change', 'select.type-select', function() {
@@ -21,8 +19,6 @@ jQuery(document).ready(function($) {
   });
 
   /**
-   *
-   *
    * When a select box is changed, send that new value to our input.
    */
   $(document).on('change', 'select.url-selector', function() {
@@ -33,12 +29,8 @@ jQuery(document).ready(function($) {
   });
 
   /**
-   *
    * Edit a Redirect
-   *
    * Gets the redirect edit form, and replaces the row.
-   *
-   *
    */
   $('.eps-table').on('click', '.redirect-actions a.eps-redirect-edit', function(
     e
@@ -75,13 +67,8 @@ jQuery(document).ready(function($) {
   });
 
   /**
-   *
-   *
    * Cancel an Edit.
-   *
    * Cancels the Edit implement on a redirect entry.
-   *
-   *
    */
   $('.eps-table').on('click', 'a.eps-redirect-cancel', function(e) {
     e.preventDefault();
@@ -91,12 +78,8 @@ jQuery(document).ready(function($) {
   });
 
   /**
-   *
-   *
    * AJAX Save a New or Existing Redirect.
-   *
    * Checks for a form submission, then handles it VIA ajax.
-   *
    */
   $('.eps-table').on('submit', '#eps-redirect-save', function(e) {
     e.preventDefault();
@@ -147,11 +130,8 @@ jQuery(document).ready(function($) {
   });
 
   /**
-   *
    * New Redirect.
-   *
    * Get a new blank edit form for a new redirect.
-   *
    * We expect to receive an id of 0 returned from the Ajax query.
    *
    */
@@ -182,25 +162,28 @@ jQuery(document).ready(function($) {
           // If it's a new blank form.. why have an id?
           alert('Something strange happened. A new entry could not be loaded.');
         }
-        $(this).prop('disabled', false);
-        $(this).attr('disabled', false); // Disable button to disallow multiple submissions.
+        $('#eps-redirect-new').removeProp('disabled');
+        $('#eps-redirect-new').attr('disabled', false); // Disable button to disallow multiple submissions.
       },
       error: function() {
         // failed request; give feedback to user
         alert('A new entry form could not be loaded.');
-        $(this).prop('disabled', false);
-        $(this).attr('disabled', false); // Disable button to disallow multiple submissions.
+        $('#eps-redirect-new').removeProp('disabled');
+        $('#eps-redirect-new').attr('disabled', false); // Disable button to disallow multiple submissions.
       }
     });
   });
 
   /**
-   *
-   *
    * Delete an entry.
    */
   $('.redirect-actions a.eps-redirect-remove').on('click', function(e) {
     e.preventDefault();
+
+    if (!confirm('Are you sure you want to delete this redirect rule? There is no undo!')) {
+      return false;
+    }
+
     if ($(this).attr('disabled')) return false;
 
     $(this).prop('disabled', true);
@@ -220,8 +203,6 @@ jQuery(document).ready(function($) {
   });
 
   /**
-   *
-   *
    * Tabs
    */
   $('#eps-tab-nav .eps-tab-nav-item').on('click', function(e) {
@@ -238,4 +219,67 @@ jQuery(document).ready(function($) {
     $(this).addClass('active');
     //return false;
   });
-});
+
+  // PRO related stuff
+  $('.nav-tab-wrapper a.pro-ad').on('click', function(e) {
+    e.preventDefault();
+    pro_feature = 'tab';
+
+    $('#eps-pro-dialog').dialog('open');
+
+    $('#eps-pro-table .button-buy').each(function(ind, el) {
+      tmp = $(el).data('href-org');
+      tmp = tmp.replace('pricing-table', pro_feature);
+      $(el).attr('href', tmp);
+    });
+
+    return false;
+  });
+
+  $('#wpwrap').on('click', '.open-301-pro-dialog', function(e) {
+    e.preventDefault();
+
+    $('#eps-pro-dialog').dialog('open');
+
+    pro_feature = $(this).data('pro-feature');
+    if (!pro_feature) {
+      pro_feature = 'unknown';
+    }
+
+    $('#eps-pro-table .button-buy').each(function(ind, el) {
+      tmp = $(el).data('href-org');
+      tmp = tmp.replace('pricing-table', pro_feature);
+      $(el).attr('href', tmp);
+    });
+
+    return false;
+  });
+
+  $('#eps-pro-dialog').dialog({
+    dialogClass: 'wp-dialog eps-pro-dialog',
+    modal: true,
+    resizable: false,
+    width: 800,
+    height: 'auto',
+    show: 'fade',
+    hide: 'fade',
+    close: function (event, ui) {
+    },
+    open: function (event, ui) {
+      $(this).siblings().find('span.ui-dialog-title').html('WP 301 Redirects PRO is here!');
+      eps_fix_dialog_close(event, ui);
+    },
+    autoOpen: false,
+    closeOnEscape: true,
+  });
+
+  if (eps_301.auto_open_pro_dialog) {
+    $('#eps-pro-dialog').dialog('open');
+  }
+}); // on ready
+
+function eps_fix_dialog_close(event, ui) {
+  jQuery('.ui-widget-overlay').bind('click', function () {
+    jQuery('#' + event.target.id).dialog('close');
+  });
+} // eps_fix_dialog_close

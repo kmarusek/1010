@@ -1,13 +1,17 @@
 <?php
  /*
 Plugin Name: 301 Redirects
-Description: Easily create and manage 301 redirects.
-Version: 2.55
+Description: Easily create and manage redirect rules.
+Version: 2.60
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
+Plugin URI: https://wp301redirects.com/
 Text Domain: eps-301-redirects
+Requires at least: 3.6
+Tested up to: 5.6
+Requires PHP: 5.2
 
-  Copyright 2015 - 2021  Web factory Ltd  (email: 301redirects@webfactoryltd.com)
+  Copyright 2015 - 2021  WebFactory Ltd  (email: 301redirects@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -28,11 +32,11 @@ if (!defined('ABSPATH')) {
   die('Do not open this file directly.');
 }
 
-if (!defined('EPS_REDIRECT_PRO')) {
+if (!defined('WF301_PLUGIN_FILE')) {
 
   define('EPS_REDIRECT_PATH',       plugin_dir_path(__FILE__));
   define('EPS_REDIRECT_URL',        plugins_url() . '/eps-301-redirects/');
-  define('EPS_REDIRECT_VERSION',    '2.45');
+  define('EPS_REDIRECT_VERSION',    '2.60');
   define('EPS_REDIRECT_PRO',        false);
 
   include(EPS_REDIRECT_PATH . 'eps-form-elements.php');
@@ -64,11 +68,6 @@ if (!defined('EPS_REDIRECT_PRO')) {
       if (is_admin()) {
 
         if (isset($_GET['page']) && $_GET['page'] == $EPS_Redirects_Plugin->config('page_slug')) {
-          // actions
-          add_action('activated_plugin',      array($this, 'activation_error'));
-          add_action('admin_footer_text',     array($this, 'set_ajax_url'));
-
-          // Other
           add_action('admin_init', array($this, 'clear_cache'));
         }
 
@@ -76,7 +75,9 @@ if (!defined('EPS_REDIRECT_PRO')) {
         add_action('wp_ajax_eps_redirect_delete_entry',             array($this, 'ajax_eps_delete_entry'));
         add_action('wp_ajax_eps_redirect_get_inline_edit_entry',    array($this, 'ajax_get_inline_edit_entry'));
         add_action('wp_ajax_eps_redirect_save',                     array($this, 'ajax_save_redirect'));
+        add_action('wp_ajax_eps_dismiss_pointer', array($this, 'dismiss_pointer_ajax'));
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'plugin_action_links'));
+        add_filter('admin_footer_text', array($this, 'admin_footer_text'));
       } else {
         if (defined('WP_CLI') && WP_CLI) {
         } else {
@@ -88,13 +89,30 @@ if (!defined('EPS_REDIRECT_PRO')) {
 
     function plugin_action_links($links)
     {
-      $settings_link = '<a href="' . admin_url('options-general.php?page=eps_redirects') . '" title="' . __('Configure Redirects', 'eps-301-redirects') . '">' . __('Configure Redirects', 'eps-301-redirects') . '</a>';
+      $settings_link = '<a href="' . admin_url('options-general.php?page=eps_redirects') . '" title="' . __('Manage Redirects', 'eps-301-redirects') . '">' . __('Manage Redirects', 'eps-301-redirects') . '</a>';
 
       array_unshift($links, $settings_link);
 
       return $links;
     } // plugin_action_links
 
+
+  // permanently dismiss a pointer
+  function dismiss_pointer_ajax() {
+    check_ajax_referer('eps_dismiss_pointer');
+
+    $pointers = get_option('eps_pointers');
+    $pointer = trim($_POST['pointer_name']);
+
+    if (empty($pointers) || empty($pointers[$pointer])) {
+      wp_send_json_error();
+    }
+
+    unset($pointers[$pointer]);
+    update_option('eps_pointers', $pointers);
+
+    wp_send_json_success();
+  } // dismiss_pointer_ajax
 
     /**
      *
@@ -144,6 +162,29 @@ if (!defined('EPS_REDIRECT_PRO')) {
         }
       }
     }
+
+    // additional powered by text in admin footer; only on 301 page
+  function admin_footer_text($text) {
+    if (!$this->is_plugin_page()) {
+      return $text;
+    }
+
+    $text = '<i><a href="https://wp301redirects.com/?ref=free-eps-301-redirects" title="Visit WP 301 Redirects site for more info" target="_blank">WP 301 Redirects</a> v' . EPS_REDIRECT_VERSION . ' by <a href="https://www.webfactoryltd.com/" title="Visit our site to get more great plugins" target="_blank">WebFactory Ltd</a>. Please <a target="_blank" href="https://wordpress.org/support/plugin/eps-301-redirects/reviews/#new-post" title="Rate the plugin">rate the plugin <span>★★★★★</span></a> to help us spread the word. Thank you!</i>';
+
+    return $text;
+  } // admin_footer_text
+
+
+  // test if we're on plugin's page
+  function is_plugin_page() {
+    $current_screen = get_current_screen();
+
+    if ($current_screen->id == 'settings_page_eps_redirects') {
+      return true;
+    } else {
+      return false;
+    }
+  } // is_plugin_page
 
     /**
      *
@@ -251,6 +292,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
       ob_start();
       $dfrom = urldecode($redirect->url_from);
       $dto   = urldecode($redirect->url_to);
+      $i=0;
       include(EPS_REDIRECT_PATH . 'templates/template.redirect-entry.php');
       $html = ob_get_contents();
       ob_end_clean();
@@ -275,7 +317,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
     {
       global $wpdb;
       $table_name = $wpdb->prefix . "redirects";
-      $query = "SELECT id FROM $table_name WHERE url_from = '" . $redirect['url_from'] . "'";
+      $query = $wpdb->prepare("SELECT id FROM $table_name WHERE url_from = %s", $redirect['url_from']);
       $result = $wpdb->get_row($query);
       return ($result) ? $result : false;
     }
@@ -365,10 +407,10 @@ if (!defined('EPS_REDIRECT_PRO')) {
       $orderby = (in_array(strtolower($orderby), array('id', 'url_from', 'url_to', 'count'))) ? $orderby : 'id';
       $order = (in_array(strtolower($order), array('asc', 'desc'))) ? $order : 'desc';
 
-      $query = "SELECT *
+      $query = $wpdb->prepare("SELECT *
             FROM $table_name
-            WHERE status != 404 " . (($active_only) ? "AND status != 'inactive'" : null) . "
-            ORDER BY $orderby $order";
+            WHERE 1 = %d AND status != 404 " . (($active_only) ? "AND status != 'inactive'" : null) . "
+            ORDER BY $orderby $order", 1);
       //die($query);
       $results = $wpdb->get_results($query);
 
@@ -391,9 +433,8 @@ if (!defined('EPS_REDIRECT_PRO')) {
     {
       global $wpdb;
       $table_name = $wpdb->prefix . "redirects";
-      $results = $wpdb->get_results(
-        "SELECT * FROM $table_name WHERE id = " . intval($redirect_id) . " LIMIT 1"
-      );
+      $query = $wpdb->prepare("SELECT * FROM $table_name WHERE id = %d LIMIT 1", intval($redirect_id));
+      $results = $wpdb->get_results($query);
       return array_shift($results);
     }
 
@@ -411,7 +452,8 @@ if (!defined('EPS_REDIRECT_PRO')) {
     {
       global $wpdb;
       $table_name = $wpdb->prefix . "redirects";
-      $results = $wpdb->query("UPDATE $table_name SET $field = $field + 1 WHERE id = $id");
+      $id = intval($id);
+      $results = $wpdb->query("UPDATE $table_name SET count = count + 1 WHERE id = $id");
       return $results;
     }
 
@@ -431,10 +473,12 @@ if (!defined('EPS_REDIRECT_PRO')) {
       $html = '';
       if (empty($redirects)) return false;
       ob_start();
+      $i = 1;
       foreach ($redirects as $redirect) {
         $dfrom = urldecode($redirect->url_from);
         $dto   = urldecode($redirect->url_to);
         include(EPS_REDIRECT_PATH . 'templates/template.redirect-entry.php');
+        $i++;
       }
       $html = ob_get_contents();
       ob_end_clean();
@@ -547,33 +591,29 @@ public function clear_cache()
 }
 
 
-
-/**
-     *
-     * SET_AJAX_URL
-     *
-     * This function will output a variable containing the admin ajax url for use in javascript.
-     *
-     * @author WebFactory Ltd
-     *
-     */
-public static function set_ajax_url()
-{
-  //echo '<script>var eps_redirect_ajax_url = "' . admin_url('admin-ajax.php') . '"</script>';
-}
-
-
-
-public function activation_error()
-{
-  file_put_contents(EPS_REDIRECT_PATH . '/error_activation.html', ob_get_contents());
-}
-
-
 public static function check_404()
-{ }
-}
+{
+  if (!is_404()) {
+    return;
+  }
 
+  $log404 = get_option('eps_redirects_404_log', array());
+
+  if (!is_array($log404)) {
+    $log404 = array();
+  }
+
+  $last['timestamp'] = current_time('timestamp');
+  $last['url'] = @strip_tags($_SERVER['REQUEST_URI']);
+  $last['user_agent'] = @strip_tags($_SERVER['HTTP_USER_AGENT']);
+  array_unshift($log404, $last);
+
+  $max = abs(apply_filters('eps_301_max_404_logs', 50));
+  $log404 = array_slice($log404, 0, $max);
+
+  update_option('eps_redirects_404_log', $log404);
+} // check_404
+} // EPS_redirects
 
 
 /**
@@ -599,19 +639,17 @@ if (!function_exists('eps_view')) {
   }
 }
 
-
 // Run the plugin.
 $EPS_Redirects = new EPS_Redirects();
 } else {
-  if (EPS_REDIRECT_PRO === true) {
     add_action('admin_notices', 'eps_redirects_pro_conflict');
-    function eps_redirects_pro_conflict()
-    {
+    function eps_redirects_pro_conflict() {
+      $deactivate = 'plugins.php?action=deactivate&plugin=eps-301-redirects/eps-301-redirects.php&plugin_status=all&paged=1';
+      $deactivate = wp_nonce_url($deactivate, 'deactivate-plugin_eps-301-redirects/eps-301-redirects.php');
       printf(
         '<div class="%s"><p>%s</p></div>',
         "error",
-        "ERROR: Please de-activate the non-Pro version of EPS 301 Redirects First!"
+        '<b>WARNING</b>: <a href="' . admin_url($deactivate) . '">Deactivate</a> the 301 Redirects free plugin. PRO version is active. You can\'t use both at the same time.'
       );
     }
-  }
 }

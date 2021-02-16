@@ -103,8 +103,14 @@ class EPS_Redirects_Plugin
   public static function _activation()
   {
     self::_create_redirect_table(); // Maybe create the tables
-    if (!self::is_current_version())  self::update_self();
+    if (!self::is_current_version()) {
+      self::update_self();
+    }
+
+    self::reset_pointers();
+    delete_option('301-redirects-notices');
   }
+
   public static function _deactivation()
   { }
 
@@ -258,9 +264,6 @@ class EPS_Redirects_Plugin
   }
 
 
-
-
-
   /**
      *
      * plugin_resources
@@ -273,25 +276,49 @@ class EPS_Redirects_Plugin
      */
   public static function plugin_resources()
   {
-    global $EPS_Redirects_Plugin;
+    global $EPS_Redirects_Plugin, $wp_rewrite;
+
+    $pointers = get_option('eps_pointers');
+
+    if (is_admin() && $pointers && !empty($wp_rewrite->permalink_structure) && (empty($_GET['page']) || $_GET['page'] != $EPS_Redirects_Plugin->config('page_slug'))) {
+      $pointers['_nonce_dismiss_pointer'] = wp_create_nonce('eps_dismiss_pointer');
+      wp_enqueue_script('wp-pointer');
+      wp_enqueue_script('eps-pointers', plugins_url('js/eps-admin-pointers.js', __FILE__), array('jquery'), EPS_REDIRECT_VERSION, true);
+      wp_enqueue_style('wp-pointer');
+      wp_localize_script('wp-pointer', 'eps_pointers', $pointers);
+    }
+
     if (is_admin() && isset($_GET['page']) && $_GET['page'] == $EPS_Redirects_Plugin->config('page_slug')) {
+      // uncomment if we want to remove pointer after plugin settings are open
+      // unset($pointers['welcome']);
+      // update_option('eps_pointers', $pointers);
+
+      $notices = get_option('301-redirects-notices');
+
       wp_enqueue_script('jquery');
 
       wp_enqueue_script('eps_redirect_script', EPS_REDIRECT_URL . 'js/scripts.js');
       wp_enqueue_style('eps_redirect_styles', EPS_REDIRECT_URL . 'css/eps_redirect.css');
+
+      wp_enqueue_style('wp-jquery-ui-dialog');
+      wp_enqueue_script('jquery-ui-dialog');
 
       $js_vars = array(
         'nonce_get_entry' => wp_create_nonce('eps_301_get_entry'),
         'nonce_save_redirect' => wp_create_nonce('eps_301_save_redirect'),
         'nonce_delete_entry' => wp_create_nonce('eps_301_delete_entry'),
         'nonce_get_inline_edit_entry' => wp_create_nonce('eps_301_get_inline_edit_entry'),
+        'auto_open_pro_dialog' => empty($notices['dismiss_auto_pro_modal']),
       );
       wp_localize_script('eps_redirect_script', 'eps_301', $js_vars);
+
+      $notices['dismiss_auto_pro_modal'] = true;
+      update_option('301-redirects-notices', $notices);
     }
 
     global $wp_rewrite;
     if (!isset($wp_rewrite->permalink_structure) || empty($wp_rewrite->permalink_structure)) {
-      $EPS_Redirects_Plugin->add_admin_message('WARNING: 301 Redirects requires that a permalink structure is set. The Default Wordpress permalink structure is not compatible. Please update the <a href="options-permalink.php" title="Permalinks">Permalink Structure</a>', "error");
+      $EPS_Redirects_Plugin->add_admin_message('<b>WARNING:</b> 301 Redirects plugin requires that a permalink structure is set. The default (plain) WordPress permalink structure is not compatible with 301 Redirects.<br>Please update the <a href="options-permalink.php" title="Permalinks">Permalink Structure</a>.', "error");
     }
 
     global $wpdb;
@@ -301,6 +328,15 @@ class EPS_Redirects_Plugin
       $EPS_Redirects_Plugin->add_admin_message('WARNING: It looks like we need to <a href="' . $url . '" title="Permalinks">Create the Database Tables First!</a>', "error");
     }
   }
+
+  // reset all pointers to default state - visible
+  static function reset_pointers() {
+    $pointers = array();
+
+    $pointers['welcome'] = array('target' => '#menu-settings', 'edge' => 'left', 'align' => 'right', 'content' => 'Thank you for installing the <b style="font-weight: 800;">301 Redirects plugin</b>! Please open <a href="' . admin_url('options-general.php?page=eps_redirects'). '">Settings - 301 Redirects</a> to manage your redirect rules.');
+
+    update_option('eps_pointers', $pointers);
+  } // reset_pointers
 
   /**
      *
@@ -331,7 +367,8 @@ class EPS_Redirects_Plugin
           $options = eps_dropdown_pages(array('post_type' => $post_type->name));
           set_transient('post_type_cache_' . $post_type->name, $options, HOUR_IN_SECONDS);
         }
-        $this->add_admin_message("Success: Cache Refreshed.", "updated");
+        self::empty_3rd_party_cache();
+        $this->add_admin_message("Success: Cache Emptied.", "updated");
       }
 
       // Save Redirects
@@ -346,6 +383,41 @@ class EPS_Redirects_Plugin
     }
   }
 
+  static function empty_3rd_party_cache() {
+    wp_cache_flush();
+    if (function_exists('w3tc_flush_all')) {
+      w3tc_flush_all();
+    }
+    if (function_exists('wp_cache_clear_cache')) {
+      wp_cache_clear_cache();
+    }
+    if (method_exists('LiteSpeed_Cache_API', 'purge_all')) {
+      LiteSpeed_Cache_API::purge_all();
+    }
+    if (class_exists('Endurance_Page_Cache')) {
+      $epc = new Endurance_Page_Cache;
+      $epc->purge_all();
+    }
+    if (class_exists('SG_CachePress_Supercacher') && method_exists('SG_CachePress_Supercacher', 'purge_cache')) {
+      SG_CachePress_Supercacher::purge_cache(true);
+    }
+    if (class_exists('SiteGround_Optimizer\Supercacher\Supercacher')) {
+      SiteGround_Optimizer\Supercacher\Supercacher::purge_cache();
+    }
+    if (isset($GLOBALS['wp_fastest_cache']) && method_exists($GLOBALS['wp_fastest_cache'], 'deleteCache')) {
+      $GLOBALS['wp_fastest_cache']->deleteCache(true);
+    }
+    if (is_callable(array('Swift_Performance_Cache', 'clear_all_cache'))) {
+      Swift_Performance_Cache::clear_all_cache();
+    }
+    if (is_callable(array('Hummingbird\WP_Hummingbird', 'flush_cache'))) {
+      Hummingbird\WP_Hummingbird::flush_cache(true, false);
+    }
+    if (function_exists('rocket_clean_domain')) {
+      rocket_clean_domain();
+    }
+  } // empty_cache
+
 
   /**
      *
@@ -359,7 +431,7 @@ class EPS_Redirects_Plugin
   {
     $entries = EPS_Redirects::get_all();
     $filename = sprintf(
-      "%s-redirects.csv",
+      "%s-redirects-export.csv",
       date('Y-m-d')
     );
     if ($entries) {
@@ -598,19 +670,6 @@ class EPS_Redirects_Plugin
   public function config($name)
   {
     return (isset($this->config[$name])) ? $this->config[$name] : false;
-  }
-
-  /**
-     *
-     *
-     * Activation and Deactivation Handlers.
-     *
-     * @return nothing
-     * @author WebFactory Ltd
-     */
-  public function activation_error()
-  {
-    file_put_contents($this->config('path') . '/error_activation.html', ob_get_contents());
   }
 
 

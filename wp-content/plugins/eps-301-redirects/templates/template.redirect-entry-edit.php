@@ -1,9 +1,6 @@
 <?php
 /**
- *
- *
  * Outputs the edit form for a given $redirect_id. If $redirect_id is not set, assume this is a new redirect form.
- *
  *
  * @package    EPS 301 Redirects
  * @author     WebFactory Ltd
@@ -28,8 +25,7 @@ $redirect = self::get_redirect($redirect_id);
 
     <div class="eps-url"><span class="eps-url-root"><?php bloginfo('url'); ?>/&nbsp;</span></div>
     <input class="eps-url-input" type="text" name="redirect[url_from][]" value="<?php echo ($redirect) ? esc_attr(stripslashes($redirect->url_from)) : ''; ?>">
-
 </td>
 <td>
     <?php echo eps_get_selector($redirect); ?>
-</td> 
+</td>
