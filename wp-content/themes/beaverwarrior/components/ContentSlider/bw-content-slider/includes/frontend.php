@@ -57,6 +57,50 @@ if ($settings->play_auto === "autoplay") {
     }
 }
 
+if ($settings->slide_margin !== '' && $settings->slide_margin !== null) {
+    $wrapper_attributes["data-contentslider-itemmargin"][] = $settings->slide_margin;
+} else {
+    $wrapper_attributes["data-contentslider-itemmargin"][] = '0';
+}
+
+if ($settings->items_per_view !== '' && $settings->items_per_view !== null) {
+    $wrapper_attributes["data-contentslider-itemsperview"][] = $settings->items_per_view;
+    $wrapper_attributes["data-contentslider-center"] = "false";
+} else {
+    $wrapper_attributes["data-contentslider-itemsperview"][] = '1';
+    $wrapper_attributes["data-contentslider-center"] = "true";
+}
+if ($settings->items_per_view_medium !== '' && $settings->items_per_view_medium !== null) {
+    $wrapper_attributes["data-contentslider-itemsperviewmedium"][] = $settings->items_per_view_medium;
+    $wrapper_attributes["data-contentslider-centermedium"] = "false";
+} else {
+    $wrapper_attributes["data-contentslider-itemsperviewmedium"][] = '1';
+    $wrapper_attributes["data-contentslider-centermedium"] = "true";
+}
+if ($settings->items_per_view_responsive !== '' && $settings->items_per_view_responsive !== null) {
+    $wrapper_attributes["data-contentslider-itemsperviewresponsive"][] = $settings->items_per_view_responsive;
+    $wrapper_attributes["data-contentslider-centerresponsive"] = "false";
+} else {
+    $wrapper_attributes["data-contentslider-itemsperviewresponsive"][] = '1';
+    $wrapper_attributes["data-contentslider-centerresponsive"] = "true";
+}
+
+if ($settings->slide_stage_padding !== '' && $settings->slide_stage_padding !== null) {
+    $wrapper_attributes["data-contentslider-stagepadding"][] = $settings->slide_stage_padding;
+} else {
+    $wrapper_attributes["data-contentslider-stagepadding"][] = '0';
+}
+if ($settings->slide_stage_padding_medium !== '' && $settings->slide_stage_padding_medium !== null) {
+    $wrapper_attributes["data-contentslider-stagepaddingmedium"][] = $settings->slide_stage_padding_medium;
+} else {
+    $wrapper_attributes["data-contentslider-stagepaddingmedium"][] = '0';
+}
+if ($settings->slide_stage_padding_responsive !== '' && $settings->slide_stage_padding_responsive !== null) {
+    $wrapper_attributes["data-contentslider-stagepaddingresponsive"][] = $settings->slide_stage_padding_responsive;
+} else {
+    $wrapper_attributes["data-contentslider-stagepaddingresponsive"][] = '0';
+}
+
 ?>
 <div<?php echo spacestation_render_attributes($wrapper_attributes); ?>>
     <div class='owl-carousel'>
@@ -67,12 +111,28 @@ if ($settings->play_auto === "autoplay") {
                     <?php 
                         if (FLBuilderModel::is_builder_active()) {
                             echo "<div class='ContentSlider-placeholder'><span>Slider rows are not rendered while builder is active</span></div>";
-                        } else if ($settings->slides[$i]->saved_content_row) {
+                        } else if ($settings->slides[$i]->content_type !== 'standard' && $settings->slides[$i]->saved_content_row) {
                             FLBuilder::render_query([
                                 'post_type' => 'fl-builder-template',
                                 'p' => $settings->slides[$i]->saved_content_row
                             ]);
-                        } else {
+                        } else if ($settings->slides[$i]->content_type === 'standard'){ ?>
+                            <?php if($settings->slides[$i]->slide_image_src) : ?>
+                                <img src="<?php echo $settings->slides[$i]->slide_image_src; ?>" alt="<?php echo $settings->slides[$i]->slide_title; ?>" class="ContentSlider-contents_image">
+                            <?php endif; ?>
+                            <?php if($settings->slides[$i]->slide_title) : ?>
+                                <<?php echo $settings->slide_title_tag; ?> class="ContentSlider-contents_title<?php if($settings->stretched_link !== 'normal'){ echo ' ContentSlider-contents_title-hover'; } ; ?>"><?php echo $settings->slides[$i]->slide_title; ?></<?php echo $settings->slide_title_tag; ?>>
+                            <?php endif; ?>
+                            <?php if($settings->slides[$i]->slide_title_two) : ?>
+                                <<?php echo $settings->slide_title_two_tag; ?> class="ContentSlider-contents_title-two"><?php echo $settings->slides[$i]->slide_title_two; ?></<?php echo $settings->slide_title_two_tag; ?>>
+                            <?php endif; ?>
+                            <?php if($settings->slides[$i]->slide_description) : ?>
+                                <<?php echo $settings->slide_description_tag; ?> class="ContentSlider-contents_description"><?php echo $settings->slides[$i]->slide_description; ?></<?php echo $settings->slide_description_tag; ?>>
+                            <?php endif; ?>
+                            <?php if($settings->slides[$i]->slide_cta) : ?>
+                                <a href="<?php echo $settings->slides[$i]->slide_cta_link; ?>" target="<?php echo $settings->slides[$i]->slide_cta_link_target; ?>"<?php echo $settings->slides[$i]->slide_cta_link_nofollow ? ' rel="noopener noreferrer"' : ''; ?> class="ContentSlider-contents_cta<?php if($settings->stretched_link !== 'normal'){ echo ' stretched-link'; } ; ?>"><?php echo $settings->slides[$i]->slide_cta; ?></a>
+                            <?php endif; ?>
+                        <?php } else {
                             echo "Please select a content row.";
                         }
                     ?>

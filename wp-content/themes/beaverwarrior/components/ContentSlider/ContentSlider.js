@@ -18,6 +18,19 @@
         this.dots = this.$elem.data("contentslider-dots");
         this.dots_icon = this.$elem.data("contentslider-dotsicon");
         this.autoplay_timeout = this.$elem.data("contentslider-autoplay");
+
+        this.item_margin = this.$elem.data("contentslider-itemmargin");
+
+        this.number_of_items = this.$elem.data("contentslider-itemsperview");
+        this.center = this.$elem.data("contentslider-center");
+        this.number_of_items_medium = this.$elem.data("contentslider-itemsperviewmedium");
+        this.center_medium = this.$elem.data("contentslider-centermedium");
+        this.number_of_items_responsive = this.$elem.data("contentslider-itemsperviewresponsive");
+        this.center_responsive = this.$elem.data("contentslider-centerresponsive");
+
+        this.slide_stage_padding = this.$elem.data("contentslider-stagepadding");
+        this.slide_stage_padding_medium = this.$elem.data("contentslider-stagepaddingmedium");
+        this.slide_stage_padding_responsive = this.$elem.data("contentslider-stagepaddingresponsive");
         
         this.has_loop = this.$elem.data("contentslider-loop") !== undefined;
         this.has_autoplay = this.autoplay_timeout !== undefined;
@@ -63,18 +76,36 @@
     ContentSlider.prototype.initOwlCarousel = function() {
         this.carousel = this.$elem.find(ContentSlider.ELEMENTS.carousel).owlCarousel({
             loop: this.has_loop,
-            center: true,
             dots: this.has_dots,
             dotsClass: this.dots_class(),
             dotClass: this.dot_class(),
-            //margin: 50,
-            items: 1, 
+            margin: this.item_margin,
             nav: this.has_nav,
             navClass: ["owl-prev " + this.left_arrow, "owl-next " + this.right_arrow],
             //onDragged: self.updatePagination.bind(self),
             autoplay: this.has_autoplay,
             autoplayTimeout: this.autoplay_timeout,
-            autoplayHoverPause: this.has_hoverpause
+            autoplayHoverPause: this.has_hoverpause,
+            responsive : {
+                0 : {
+                    items: this.number_of_items_responsive,
+                    slideBy: this.number_of_items_responsive,
+                    center: this.center_responsive,
+                    stagePadding: this.slide_stage_padding_responsive,
+                },
+                768 : {
+                    items: this.number_of_items_medium,
+                    slideBy: this.number_of_items_medium, 
+                    center: this.center_medium,
+                    stagePadding: this.slide_stage_padding_medium,
+                },
+                1024 : {
+                    items: this.number_of_items,
+                    slideBy: this.number_of_items, 
+                    center: this.center,
+                    stagePadding: this.slide_stage_padding,
+                },
+            },
         });
         //self.updateNav(0);
     };
