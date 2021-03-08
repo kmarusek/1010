@@ -123,6 +123,12 @@ final class FLThemeBuilderTheEventsCalendarSingular {
 		$post = $wp_the_query->post;
 
 		do_action( 'tribe_events_before_view' );
+
+		// Remove the AJAX loader on the Organizer page.
+		if ( 'tribe_organizer' == self::$post_type ) {
+			return;
+		}
+
 		tribe_events_before_html();
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Handles loading REST API classes for retreiving
+ * Handles loading REST API classes for retrieving
  * data used to populate rule fields.
  *
  * @since 0.1

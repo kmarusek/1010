@@ -222,7 +222,7 @@ final class BB_Logic_Rules {
 	 * @return bool
 	 */
 	static public function evaluate_date_rule( $rule, $date ) {
-		$now = (int) function_exists( 'current_time' ) ? current_time( 'timestamp' ) : time();
+		$now = (int) function_exists( 'current_time' ) ? current_time( 'timestamp' ) : time(); //phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 
 		if ( in_array( $rule->operator, array( 'in_the_past', 'over' ) ) ) {
 			$compare = strtotime( "-{$rule->duration} {$rule->period}", $now );

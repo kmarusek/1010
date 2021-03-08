@@ -66,6 +66,28 @@ FLPageData::add_post_property( 'woocommerce_product_weight', array(
 	'getter' => 'FLPageDataWooCommerce::get_product_weight',
 ) );
 
+FLPageData::add_post_property_settings_fields( 'woocommerce_product_weight', array(
+	'show_prefix' => array(
+		'type'    => 'select',
+		'label'   => __( 'Show Prefix', 'bb-theme-builder' ),
+		'default' => 'yes',
+		'options' => array(
+			'yes' => __( 'Yes', 'bb-theme-builder' ),
+			'no'  => __( 'No', 'bb-theme-builder' ),
+		),
+		'toggle'  => array(
+			'yes' => array(
+				'fields' => array( 'prefix' ),
+			),
+		),
+	),
+	'prefix'      => array(
+		'type'    => 'text',
+		'label'   => __( 'Prefix Text', 'bb-theme-builder' ),
+		'default' => __( 'Weight:', 'bb-theme-builder' ),
+	),
+) );
+
 /**
  * Product SKU
  */

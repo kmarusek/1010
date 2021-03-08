@@ -274,13 +274,13 @@ final class FLPageDataPost {
 		 * @see fl_theme_builder_terms_list
 		 * @since 1.3
 		 */
-		return apply_filters( 'fl_theme_builder_terms_list', $terms_list );
+		return apply_filters( 'fl_theme_builder_terms_list', $terms_list, $settings );
 	}
 
 	/**
 	 * @since 1.2.3
 	 */
-	static public function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = '', $linked, $limit = false, $display = 'name' ) {
+	static public function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = '', $linked = 'yes', $limit = false, $display = 'name' ) {
 		$terms = get_the_terms( $id, $taxonomy );
 
 		if ( is_wp_error( $terms ) ) {

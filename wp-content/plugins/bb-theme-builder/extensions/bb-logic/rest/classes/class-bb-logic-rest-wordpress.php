@@ -1,7 +1,7 @@
 <?php
 
 /**
- * REST API methods to retreive data for WordPress rules.
+ * REST API methods to retrieve data for WordPress rules.
  *
  * @since 0.1
  */
@@ -184,7 +184,7 @@ final class BB_Logic_REST_WordPress {
 	}
 
 	/**
-	 * Returns an array of post stati with each item
+	 * Returns an array of post statuses with each item
 	 * containing a label and value.
 	 *
 	 * @since  0.1
@@ -192,9 +192,9 @@ final class BB_Logic_REST_WordPress {
 	 */
 	static public function post_stati() {
 		$response = array();
-		$stati    = get_post_stati( array(), 'objects' );
+		$statuses = get_post_stati( array(), 'objects' );
 
-		foreach ( $stati as $slug => $status ) {
+		foreach ( $statuses as $slug => $status ) {
 			$response[] = array(
 				'label' => $status->label,
 				'value' => $slug,

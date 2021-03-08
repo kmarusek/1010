@@ -36,7 +36,11 @@ final class BB_Logic_Rules_ACF {
 	 * @param object $rule
 	 * @return bool
 	 */
-	static public function evaluate_rule( $object_id = false, $rule ) {
+	static public function evaluate_rule( $object_id, $rule ) {
+
+		if ( ! isset( $object_id ) ) {
+			$object_id = false;
+		}
 		$value = get_field( $rule->key, $object_id );
 
 		if ( is_array( $value ) ) {

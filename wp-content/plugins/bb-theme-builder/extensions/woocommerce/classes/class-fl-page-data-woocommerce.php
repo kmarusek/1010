@@ -115,6 +115,30 @@ final class FLPageDataWooCommerce {
 	}
 
 	/**
+	 * @since 1.3.3
+	 * @return string
+	 */
+	static public function get_product_weight( $settings ) {
+		global $product;
+		$html = '';
+
+		if ( is_object( $product ) ) {
+			if ( $product->has_weight() ) {
+				$weight_unit = get_option( 'woocommerce_weight_unit' );
+
+				$html = '<div class="product_meta"><span class="weight_wrapper">';
+				if ( 'yes' === $settings->show_prefix ) {
+					$html .= '<span class="weight_prefix">' . $settings->prefix . '</span>';
+				}
+				$html .= '<span class="weight">' . $product->get_weight() . ' ' . $weight_unit . '</span>';
+				$html .= '</span></div>';
+			}
+		}
+
+		return $html;
+	}
+
+	/**
 	 * @since 1.2.1
 	 * @return string
 	 */

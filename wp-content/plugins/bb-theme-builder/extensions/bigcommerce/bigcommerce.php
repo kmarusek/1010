@@ -6,6 +6,7 @@ define( 'FL_THEME_BUILDER_BIGCOMMERCE_URL', FL_THEME_BUILDER_URL . 'extensions/b
 if ( class_exists( 'BigCommerce\Plugin' ) ) {
 
 	require_once FL_THEME_BUILDER_BIGCOMMERCE_DIR . 'classes/class-fl-theme-builder-bigcommerce.php';
+	require_once FL_THEME_BUILDER_BIGCOMMERCE_DIR . 'classes/class-fl-theme-builder-bigcommerce-singular.php';
 	require_once FL_THEME_BUILDER_BIGCOMMERCE_DIR . 'classes/class-fl-theme-builder-bigcommerce-archive.php';
 	require_once FL_THEME_BUILDER_BIGCOMMERCE_DIR . 'classes/class-fl-theme-builder-bigcommerce-settings.php';
 

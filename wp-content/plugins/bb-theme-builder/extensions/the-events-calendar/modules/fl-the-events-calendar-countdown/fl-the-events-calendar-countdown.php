@@ -4,10 +4,6 @@
  * @since TBD
  * @class FLTheEventsCalendarCountdownModule
  */
-
-if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-	return;
-}
 class FLTheEventsCalendarCountdownModule extends FLBuilderModule {
 
 	/**
@@ -23,7 +19,7 @@ class FLTheEventsCalendarCountdownModule extends FLBuilderModule {
 			'partial_refresh' => true,
 			'dir'             => FL_THEME_BUILDER_THE_EVENTS_CALENDAR_DIR . 'modules/fl-the-events-calendar-countdown/',
 			'url'             => FL_THEME_BUILDER_THE_EVENTS_CALENDAR_URL . 'modules/fl-the-events-calendar-countdown/',
-			'enabled'         => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
+			'enabled'         => FLThemeBuilderLayoutData::current_post_is( 'singular' ) && class_exists( 'Tribe__Events__Pro__Main' ),
 		));
 	}
 }

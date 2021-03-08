@@ -17,7 +17,7 @@ FLPageData::add_archive_property( 'description', array(
 	'label'  => __( 'Archive Description', 'bb-theme-builder' ),
 	'group'  => 'archives',
 	'type'   => 'string',
-	'getter' => 'get_the_archive_description',
+	'getter' => 'FLPageDataArchive::get_description',
 ) );
 
 /**

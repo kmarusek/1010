@@ -89,8 +89,6 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 
 		if ( isset( $settings->data_source ) && 'main_query' == $settings->data_source ) {
 
-			$compare = '>=';
-
 			if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
 				$orderby = $settings->event_orderby;
 			} else {
@@ -103,17 +101,6 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 				$order = 'ASC';
 			}
 
-			if ( isset( $settings->show_events ) && ! empty( $settings->show_events ) ) {
-				switch ( $settings->show_events ) {
-					case 'past':
-						$compare = '<';
-						break;
-					case 'today':
-						$compare = '=';
-						break;
-				}
-			}
-
 			$query = array(
 				'post_type'    => 'tribe_events',
 				'meta_key'     => '_' . $orderby,
@@ -123,15 +110,9 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 				'paged'        => FLBuilderLoop::get_paged(),
 			);
 			if ( 'all' !== $settings->show_events ) {
-				$today               = gmdate( 'Y-m-d' ) . ' 00:00:00';
-				$query['meta_query'] = array(
-					array(
-						'key'     => '_EventStartDate',
-						'compare' => $compare,
-						'value'   => $today,
-					),
-				);
+				$query['meta_query'] = self::get_events_meta_query( $settings->show_events );
 			}
+
 			$query = new WP_Query( array_merge( $wp_query->query_vars, $query ) );
 		}
 		return $query;
@@ -158,8 +139,6 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		if ( ! isset( $settings->event_orderby ) ) {
 			return $args;
 		}
-
-		$compare = '>=';
 
 		if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
 			$orderby = $settings->event_orderby;
@@ -190,8 +169,47 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		$args['order']        = $order;
 
 		if ( isset( $settings->show_events ) && 'all' !== $settings->show_events ) {
-			$today              = gmdate( 'Y-m-d' ) . ' 00:00:00';
-			$args['meta_query'] = array(
+			$args['meta_query'] = self::get_events_meta_query( $settings->show_events );
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Determine the Post Meta Query to use by computing today's date based on the timezone settings.
+	 *
+	 * @since 1.3.3
+	 * @param string $show_events
+	 * @return array
+	 */
+	static private function get_events_meta_query( $show_events ) {
+		$meta_query   = array();
+		$local_time   = current_datetime();
+		$current_time = $local_time->getTimestamp() + $local_time->getOffset();
+		$today        = gmdate( 'Y-m-d 00:00:00', $current_time );
+
+		if ( 'today' === $show_events ) {
+
+			$meta_query = array(
+				'relation' => 'AND',
+				array(
+					'key'     => '_EventStartDate',
+					'compare' => '<=',
+					'value'   => $today,
+					'type'    => 'DATE',
+				),
+				array(
+					'key'     => '_EventEndDate',
+					'compare' => '>=',
+					'value'   => $today,
+					'type'    => 'DATE',
+				),
+			);
+
+		} else {
+			$compare = ( 'past' === $show_events ) ? '<' : '>=';
+
+			$meta_query = array(
 				array(
 					'key'     => '_EventStartDate',
 					'compare' => $compare,
@@ -200,7 +218,7 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			);
 		}
 
-		return $args;
+		return $meta_query;
 	}
 
 	/**

@@ -99,4 +99,21 @@ final class FLPageDataArchive {
 		$of   = _x( 'of', 'Page 1 of 5', 'bb-theme-builder' );
 		return sprintf( '%s %s %s %s.', $page, $paged, $of, $total_pages );
 	}
+
+	/**
+	 * @since 1.3.3
+	 * @return string
+	 */
+	static public function get_description() {
+		$description = '';
+
+		if ( is_tax( 'tribe_events_cat' ) ) {
+			$description = term_description( get_queried_object_id(), 'tribe_events_cat' );
+		} else {
+			$description = get_the_archive_description();
+		}
+
+		return $description;
+	}
+
 }

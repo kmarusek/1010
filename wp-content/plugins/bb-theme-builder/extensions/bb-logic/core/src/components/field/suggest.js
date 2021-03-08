@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import AsyncSelect from 'react-select/lib/Async'
+import AsyncSelect from 'react-select/Async'
 import { __ } from '../../i18n'
 import withRequest from '../higher-order/with-request'
 import './select.scss'
@@ -29,6 +29,8 @@ class SuggestField extends Component {
 				maxMenuHeight={ 240 }
 				noOptionsMessage={ () => __( 'Type to search...' ) }
 				scrollMenuIntoView={ false }
+				className='react-select__container'
+				classNamePrefix='react-select'
 			/>
 		)
 	}

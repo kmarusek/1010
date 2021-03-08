@@ -424,7 +424,16 @@ final class FLPageDataACF {
 					}
 				}
 			} elseif ( 'post_object' == $object['type'] ) {
-				$content = '<ul>';
+
+				// ul, ol, div
+				$list_tag      = $settings->list_type;
+				$list_item_tag = 'div';
+
+				if ( 'ul' === $list_tag || 'ol' === $list_tag ) {
+					$list_item_tag = 'li';
+				}
+
+				$content = '<' . $list_tag . '>';
 				foreach ( $values as $post ) {
 					$post_id = is_object( $post ) ? $post->ID : $post;
 
@@ -434,11 +443,17 @@ final class FLPageDataACF {
 						'post' => $post_id,
 					) );
 
-					$text = get_the_title( $post_id );
+					$text           = get_the_title( $post_id );
+					$list_item_text = $text;
 
-					$content .= "<li class='post-{$post_id}'><a href='{$href}' title='{$title}'>{$text}</a></li>";
+					if ( 'yes' === $settings->post_title_link ) {
+						$list_item_text = "<a href='{$href}' title='{$title}'>{$text}</a>";
+					}
+
+					$content .= "<{$list_item_tag} class='post-{$post_id}'>{$list_item_text}</{$list_item_tag}>";
 				}
-				$content .= '</ul>';
+				$content .= '</' . $list_tag . '>';
+
 			} elseif ( ! empty( $object['type'] ) && ( 'page_link' == $object['type'] ) ) {
 				if ( ! $object['multiple'] && 'array' === gettype( $values ) && count( $values ) <= 1 ) {
 					$content = implode( '', $values );

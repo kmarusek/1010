@@ -71,6 +71,11 @@
 .bb-logic-rule-field {
 	.react-select__value-container {
 		display: contents;
+		.react-select__input {
+			input {
+				height: auto !important;
+			}
+		}
 	}
 }
 
@@ -114,7 +119,7 @@
 	margin-top: 20px;
 }
 .bb-logic-save {
-	margin-right: 10px;
+	margin-right: 10px !important;
 }
 
 /* Dark UI */
@@ -138,8 +143,8 @@
 	.bb-logic-header,
 	.bb-logic-heading{
 		color:#b4b9be;
-    border-bottom-color: #1d1d1d;
-    border-top-color: #1d1d1d;
+		border-bottom-color: #1d1d1d;
+		border-top-color: #1d1d1d;
 	}
 	.react-select__value-container {
 		.react-select__input {

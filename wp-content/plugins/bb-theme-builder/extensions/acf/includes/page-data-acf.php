@@ -378,7 +378,7 @@ FLPageData::add_post_property( 'acf_relational', array(
 ) );
 
 $form = array(
-	'type'         => array(
+	'type'            => array(
 		'type'    => 'select',
 		'label'   => __( 'Field Type', 'bb-theme-builder' ),
 		'default' => 'user',
@@ -388,16 +388,19 @@ $form = array(
 			'page_link'   => __( 'Page Link', 'bb-theme-builder' ),
 		),
 		'toggle'  => array(
-			'user' => array(
+			'user'        => array(
 				'fields' => array( 'display_type', 'link', 'link_type' ),
+			),
+			'post_object' => array(
+				'fields' => array( 'list_type', 'post_title_link' ),
 			),
 		),
 	),
-	'name'         => array(
+	'name'            => array(
 		'type'  => 'text',
 		'label' => __( 'Field Name', 'bb-theme-builder' ),
 	),
-	'display_type' => array(
+	'display_type'    => array(
 		'type'    => 'select',
 		'label'   => __( 'Display Type', 'bb-theme-builder' ),
 		'default' => 'display',
@@ -411,7 +414,7 @@ $form = array(
 			'username'  => __( 'Username', 'bb-theme-builder' ),
 		),
 	),
-	'link'         => array(
+	'link'            => array(
 		'type'    => 'select',
 		'label'   => __( 'Link', 'bb-theme-builder' ),
 		'default' => 'no',
@@ -426,13 +429,32 @@ $form = array(
 		),
 		'help'    => __( 'Link to the archive or website for this author.', 'bb-theme-builder' ),
 	),
-	'link_type'    => array(
+	'link_type'       => array(
 		'type'    => 'select',
 		'label'   => __( 'Link Type', 'bb-theme-builder' ),
 		'default' => 'archive',
 		'options' => array(
 			'archive' => __( 'Post Archive', 'bb-theme-builder' ),
 			'website' => __( 'Website', 'bb-theme-builder' ),
+		),
+	),
+	'list_type'       => array(
+		'type'    => 'select',
+		'label'   => __( 'List Type', 'bb-theme-builder' ),
+		'default' => 'ul',
+		'options' => array(
+			'ul'  => __( 'Unordered List', 'bb-theme-builder' ),
+			'ol'  => __( 'Ordered List', 'bb-theme-builder' ),
+			'div' => __( 'Regular (No bullets/numbering.)', 'bb-theme-builder' ),
+		),
+	),
+	'post_title_link' => array(
+		'type'    => 'select',
+		'label'   => __( 'Add Post Title Link', 'bb-theme-builder' ),
+		'default' => 'yes',
+		'options' => array(
+			'yes' => __( 'Yes', 'bb-theme-builder' ),
+			'no'  => __( 'No', 'bb-theme-builder' ),
 		),
 	),
 );

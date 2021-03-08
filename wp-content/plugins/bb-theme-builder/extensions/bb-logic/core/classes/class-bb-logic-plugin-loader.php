@@ -67,9 +67,6 @@ if ( ! class_exists( 'BB_Logic_Plugin_Loader' ) ) {
 		 */
 		static public function load_files() {
 
-			// Composer
-			self::load_file( 'vendor/autoload.php' );
-
 			// Core
 			self::load_file( 'core/classes/class-bb-logic-asset-loader.php' );
 			self::load_file( 'core/classes/class-bb-logic-rules.php' );

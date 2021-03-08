@@ -23,6 +23,8 @@ class SelectField extends Component {
 				noOptionsMessage={ () => __( 'No results found.' ) }
 				placeholder={ __( 'Choose...' ) }
 				scrollMenuIntoView={ false }
+				className='react-select__container'
+				classNamePrefix='react-select'
 			/>
 		)
 	}

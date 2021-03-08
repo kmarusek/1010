@@ -1,3 +1,25 @@
+<h4>1.3.3 - 03/01/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Add output options for ACF Relational Post Object</li>
+	<li>Add taxonomy parameter to the fl_theme_builder_terms_list filter</li>
+	<li>Fixes for PHP8</li>
+	<li>Add WPML Config file for better compatibility</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>ACF: Fix Post Module showing empty when using ACF Relationship and the CPT is excluded from search in CPT Settings</li>
+	<li>BigCommerce: Fix issue where choosing variations would not update price</li>
+	<li>TEC: Fix issue where Multi-Day Events would not display properly</li>
+	<li>TEC: Fix Event Archive Description not showing when using shortcode</li>
+	<li>TEC: Fix Event Notices module not displaying content</li>
+	<li>TEC: Fix showing Today's Events not working properly in Post Module</li>
+	<li>TEC Pro: Fix applying a singular layout to an organizer showing a constant loading GIF</li>
+	<li>TEC Pro: Fix fatal error when using an old version of TEC Pro and the Related Events Module</li>
+	<li>WooCommerce: Fix Product Weight shortcode not rendering</li>
+	<li>WooCommerce: Fix Singular layout not being editable when Product is rendering a BB Shortcode in the Product Description</li>
+</ul>
+
 <h4>1.3.2.3 - 08/18/2020</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

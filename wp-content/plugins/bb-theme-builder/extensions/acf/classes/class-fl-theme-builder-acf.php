@@ -75,11 +75,15 @@ final class FLThemeBuilderACF {
 		$object = get_field( trim( $settings->data_source_acf_relational_key ), $key );
 
 		if ( $object ) {
+			$rel_post_types = array();
+
 			foreach ( $object as $obj ) {
 				if ( is_object( $obj ) ) {
-					$object_ids[] = $obj->ID;
+					$object_ids[]     = $obj->ID;
+					$rel_post_types[] = $obj->post_type;
 				} elseif ( is_array( $obj ) ) {
-					$object_ids[] = $obj['ID'];
+					$object_ids[]     = $obj['ID'];
+					$rel_post_types[] = $obj['post_type'];
 				} elseif ( is_int( $obj ) ) {
 					$object_ids[] = $obj;
 				}
@@ -90,7 +94,7 @@ final class FLThemeBuilderACF {
 			unset( $args['post__not_in'] );
 			unset( $args['author__not_in'] );
 
-			$args['post_type'] = 'any';
+			$args['post_type'] = array_unique( $rel_post_types );
 
 			if ( 'relationship' == $settings->data_source_acf_relational_type ) {
 				$args['post__in'] = $object_ids;
@@ -106,10 +110,10 @@ final class FLThemeBuilderACF {
 					}
 
 					// Order by author
-					if ( 'author' == $settings->data_source_acf_order_by ) {
+					if ( 'author' === $settings->data_source_acf_order_by ) {
 						$args['orderby'] = array(
-							'author' => $order,
-							'date'   => $order,
+							'author' => $args['order'],
+							'date'   => $args['order'],
 						);
 					}
 				} else {
