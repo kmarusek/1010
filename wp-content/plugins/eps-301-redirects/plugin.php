@@ -333,7 +333,7 @@ class EPS_Redirects_Plugin
   static function reset_pointers() {
     $pointers = array();
 
-    $pointers['welcome'] = array('target' => '#menu-settings', 'edge' => 'left', 'align' => 'right', 'content' => 'Thank you for installing the <b style="font-weight: 800;">301 Redirects plugin</b>! Please open <a href="' . admin_url('options-general.php?page=eps_redirects'). '">Settings - 301 Redirects</a> to manage your redirect rules.');
+    $pointers['welcome'] = array('target' => '#menu-settings', 'edge' => 'left', 'align' => 'right', 'content' => 'Thank you for installing the <b style="font-weight: 800;">301 Redirects plugin</b>! Please open <a href="' . admin_url('options-general.php?page=eps_redirects'). '">Settings - 301 Redirects</a> to manage redirect rules and view the 404 error log.');
 
     update_option('eps_pointers', $pointers);
   } // reset_pointers
@@ -416,6 +416,7 @@ class EPS_Redirects_Plugin
     if (function_exists('rocket_clean_domain')) {
       rocket_clean_domain();
     }
+    do_action('cache_enabler_clear_complete_cache');
   } // empty_cache
 
 

@@ -23,7 +23,7 @@ namespace {
 	 * @deprecated This exists for backwards compatibility with 0.x and will likely be removed in 2.x
 	 * @see \epsdonatj\UserAgent\parse_user_agent
 	 */
-	function parse_user_agent( $u_agent = null ) {
+	function eps_parse_user_agent( $u_agent = null ) {
 		return \epsdonatj\UserAgent\parse_user_agent($u_agent);
 	}
 }

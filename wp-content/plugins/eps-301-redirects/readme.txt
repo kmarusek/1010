@@ -1,9 +1,9 @@
 === 301 Redirects - Easy Redirect Manager ===
 Contributors: WebFactory
-Tags: 301 redirect, redirects, redirect, 404 log, redirection, 302 redirect, 302, seo, 302 redirect, 404, 404 redirect, 301, 307, 404 error log
+Tags: 301 redirect, redirects, redirect, 404 error log, redirection, 302 redirect, 302, seo, 302 redirect, 404, 404 redirect, 301, 307, 404 log
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 2.60
+Tested up to: 5.7
+Stable tag: 2.66
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,9 +12,10 @@ Easily manage 301 & 302 redirects. Simple to use & validate redirects. Includes 
 
 == Description ==
 
-<a href="https://wp301redirects.com/?ref=wporg">301 Redirects</a> helps you manage and create 301, 302, 307 redirects for your WordPress site to **improve SEO and visitor experience**. With a user-friendly interface, 301 Redirects is easy to use. Perfect for new sites or repairing links after reorganizing your existing WordPress content, or when your site has content that expires and you wish to avoid sending visitors to a 404 page. Use the 404 error log to identify problematic links.
+<a href="https://wp301redirects.com/?ref=wporg">301 Redirects</a> helps you manage and create 301, 302, 307 redirects for your WordPress site to **improve SEO and visitor experience**. With a user-friendly interface, 301 Redirects is easy to use. Perfect for new sites or repairing links after reorganizing your existing WordPress content, or when your site has content that expires and you wish to avoid sending visitors to a 404 error page. Use the 404 error log to identify problematic links.
 
-301 Redirects GUI is located in WP Admin Dashboard - Settings - 301 Redirects
+301 Redirects GUI is located in WP Admin - Settings - 301 Redirects
+404 Error Log widget can be found in the WP Admin - Dashboard
 
 **Features**
 
@@ -23,6 +24,7 @@ Easily manage 301 & 302 redirects. Simple to use & validate redirects. Includes 
 * Retain query strings across redirects
 * Super-fast redirection
 * 404 error log
+* 404 error log widget
 * Import/Export feature for bulk redirects management
 * Simple redirect stats so you know how much a redirection is used
 * Fully compatible with translation plugins (Weglot, TranslatePress, Gtranslate, Loco Translate) that use lang prefix in URL
@@ -42,6 +44,9 @@ A 301 redirect indicates that the page requested has been permanently moved to t
 * Replacing an old site design with a new site design
 * Overhauling or re-organizing your existing WordPress content
 * You have content that expires (or is otherwise no longer available) and you wish to redirect users elsewhere
+
+**Is the 404 error log GDPR friendly?**
+The 404 error log does not collect user IPs. It collects the following data: timestamp of the event, the (404) URL that was opened, and the user-agent string.
 
 **External libraries used in the project**
 
@@ -63,6 +68,16 @@ A 301 redirect indicates that the page requested has been permanently moved to t
 
 
 == Changelog ==
+
+= 2.66 =
+* 2021/02/23
+* fixed compatibility issue with Rank Math
+
+= 2.65 =
+* 2021/02/22
+* added 404 error log Dashboard widget
+* fixed some bugs
+* added support for Cache Enabler plugin
 
 = 2.60 =
 * 2021/02/13

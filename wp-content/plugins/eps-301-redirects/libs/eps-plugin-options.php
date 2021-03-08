@@ -403,9 +403,9 @@ function pro_dialog() {
   $out .= '</tr>';
 
   $out .= '<tr>';
-  $out .= '<td><span class="dashicons dashicons-yes"></span><b>1 Site License</b></td>';
-  $out .= '<td><span class="dashicons dashicons-yes"></span><b>5 Sites License</b></td>';
-  $out .= '<td><span class="dashicons dashicons-yes"></span><b>100 Sites License</b></td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span><b>1 Site License</b> ($49 per site)</td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span><b>5 Sites License</b> ($12 per site)</td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span><b>100 Sites License</b> ($1 per site)</td>';
   $out .= '</tr>';
 
   $out .= '<tr>';

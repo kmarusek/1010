@@ -1,8 +1,8 @@
 <?php
  /*
 Plugin Name: 301 Redirects
-Description: Easily create and manage redirect rules.
-Version: 2.60
+Description: Easily create and manage redirect rules, and view 404 error log.
+Version: 2.66
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
@@ -36,7 +36,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
   define('EPS_REDIRECT_PATH',       plugin_dir_path(__FILE__));
   define('EPS_REDIRECT_URL',        plugins_url() . '/eps-301-redirects/');
-  define('EPS_REDIRECT_VERSION',    '2.60');
+  define('EPS_REDIRECT_VERSION',    '2.66');
   define('EPS_REDIRECT_PRO',        false);
 
   include(EPS_REDIRECT_PATH . 'eps-form-elements.php');
@@ -78,6 +78,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
         add_action('wp_ajax_eps_dismiss_pointer', array($this, 'dismiss_pointer_ajax'));
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'plugin_action_links'));
         add_filter('admin_footer_text', array($this, 'admin_footer_text'));
+        add_action('wp_dashboard_setup', array($this, 'add_widget'));
       } else {
         if (defined('WP_CLI') && WP_CLI) {
         } else {
@@ -113,6 +114,58 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
     wp_send_json_success();
   } // dismiss_pointer_ajax
+
+  // add widget to dashboard
+  function add_widget() {
+    add_meta_box('wp301_404_errors', '404 Error Log', array($this, 'widget_content'), 'dashboard', 'side', 'high');
+  } // add_widget
+
+
+  // render widget
+  function widget_content() {
+    require EPS_REDIRECT_PATH . '/libs/UserAgentParser.php';
+
+    $log = get_option('eps_redirects_404_log', array());
+    if (!sizeof($log)) {
+      echo '<p>You currently don\'t have any data in the 404 error log. That means that you either just installed the plugin, or that you never had a 404 error happen which is <b>awesome 🚀</b>!</p>';
+      echo '<p>Don\'t like seeing an empty error log? Or just want to see see if the log works? Open any <a target="_blank" title="Open an nonexistent URL to see if the 404 error log works" href="' . home_url('/nonexistent/url/') . '">nonexistent URL</a> and then reload this page.</p>';
+    } else {
+      echo '<style>#wp301_404_errors .inside { padding: 0; margin: 0; }';
+      echo '#wp301_404_errors table td { max-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }';
+      echo '#wp301_404_errors table th { font-weight: 500; }';
+      echo '#wp301_404_errors table { border-left: none; border-right: none; border-top: none; }';
+      echo '#wp301_404_errors p { padding: 0 12px 12px 12px; }';
+      echo '#wp301_404_errors .dashicons { opacity: 0.75; font-size: 17px; line-height: 17px; width: 17px; height: 17px;vertical-align: bottom; }</style>';
+      echo '<table class="striped widefat">';
+      echo '<tr>';
+      echo '<th>Date &amp;<br>Time <span class="dashicons dashicons-arrow-down"></span></th>';
+      echo '<th>Target URL</th>';
+      echo '<th>User Device</th>';
+      echo '</tr>';
+
+      $i = 1;
+      foreach ($log as $l) {
+        $ua = \epsdonatj\UserAgent\parse_user_agent($l['user_agent']);
+        $agent = trim(@$ua['platform'] . ' ' . @$ua['browser']);
+        if (empty($agent)) {
+          $agent = '<i>unknown</i>';
+        }
+        echo '<tr>';
+        echo '<td nowrap><abbr title="' . date(get_option('date_format'), $l['timestamp']) . ' @ ' . date(get_option('time_format'), $l['timestamp'])  . '">' . human_time_diff(current_time('timestamp'), $l['timestamp']) . ' ago</abbr></td>';
+        echo '<td><a title="Open target URL in a new tab" target="_blank" href="' . $l['url'] . '">' . $l['url'] . '</a> <span class="dashicons dashicons-external"></span></td>';
+        echo '<td>' . $agent . '</td>';
+        echo '</tr>';
+        $i++;
+        if ($i >= 10) {
+          break;
+        }
+      } // foreach
+      echo '</table>';
+
+      echo '<p>View the entire <a href="' . admin_url('options-general.php?page=eps_redirects&tab=404s') . '">404 error log</a> in the 301 Redirects plugin or <a href="' . admin_url('options-general.php?page=eps_redirects') . '">create new redirect rules</a> to fix 404 errors.</p>';
+    }
+  } // widget_content
+
 
     /**
      *
