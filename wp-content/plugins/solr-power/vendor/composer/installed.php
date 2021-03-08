@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '9ae26187766d02880a007f2de7150f871c45c8b6',
+    'reference' => 'd96fcb4fbafd0f2b601441ebcfcb0ea80ffde074',
     'name' => 'pantheon-systems/solr-power',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '9ae26187766d02880a007f2de7150f871c45c8b6',
+      'reference' => 'd96fcb4fbafd0f2b601441ebcfcb0ea80ffde074',
     ),
     'solarium/solarium' => 
     array (

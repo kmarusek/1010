@@ -202,7 +202,6 @@ class SolrPower_Api {
 			$this->ping      = true;
 			return true;
 		} catch ( Solarium\Exception\HttpException $e ) {
-
 			$this->last_code  = $e->getCode();
 			$this->last_error = $e;
 
