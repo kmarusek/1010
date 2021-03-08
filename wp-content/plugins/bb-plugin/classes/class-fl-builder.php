@@ -828,6 +828,9 @@ final class FLBuilder {
 				'react-laag',
 				'bb-icons',
 			);
+			if ( ! wp_script_is( 'wp-i18n', 'registered' ) ) {
+				wp_enqueue_script( 'fl-wp-i18n', "{$js_vendors}i18n-polyfill.js" );
+			}
 		}
 
 		/**

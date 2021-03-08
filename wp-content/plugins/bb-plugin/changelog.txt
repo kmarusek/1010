@@ -1,3 +1,13 @@
+<h4>2.4.2.2 - 03/01/2021</h4>
+<strong>Hot Fix</strong>
+<ul>
+	<li>Fixed photo cropping issue for subdomain multisite users</li>
+	<li>Fixed update issue with Godaddy booster plugin</li>
+	<li>Fixed Post Carousel blur issue with Google Chrome</li>
+	<li>Fixed issue with Google Fonts not loading when applying a template</li>
+</ul>
+
+
 <h4>2.4.2.1 - 02/11/2021</h4>
 <strong>Hot Fix</strong>
 <ul>
