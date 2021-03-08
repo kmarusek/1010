@@ -325,7 +325,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 				return $this->photos;
 			}
 
-			$this->current_photos = array_slice( $this->photos, $per_page, $per_page, true );
+			$this->current_photos = array_slice( $this->photos, 0, $per_page, true );
 
 			return $this->current_photos;
 		}
