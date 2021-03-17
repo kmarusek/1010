@@ -581,6 +581,7 @@ x#eps-pro-table tr td:last-child {
 
 #eps-pro-table tr:last-child td {
   padding: 20px 0 25px 0;
+  vertical-align: top;
 }
 
 #eps-pro-table tr:last-child td span {
@@ -603,6 +604,7 @@ a.button.button-buy {
   background: #FF6246;
   font-weight: 600;
   border: none;
+  margin-bottom: 10px;
 }
 
 a.button.button-buy:hover {

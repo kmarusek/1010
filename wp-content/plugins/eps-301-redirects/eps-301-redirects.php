@@ -2,7 +2,7 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage redirect rules, and view 404 error log.
-Version: 2.66
+Version: 2.67
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
@@ -36,7 +36,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
   define('EPS_REDIRECT_PATH',       plugin_dir_path(__FILE__));
   define('EPS_REDIRECT_URL',        plugins_url() . '/eps-301-redirects/');
-  define('EPS_REDIRECT_VERSION',    '2.66');
+  define('EPS_REDIRECT_VERSION',    '2.67');
   define('EPS_REDIRECT_PRO',        false);
 
   include(EPS_REDIRECT_PATH . 'eps-form-elements.php');
@@ -83,7 +83,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
         if (defined('WP_CLI') && WP_CLI) {
         } else {
           add_action('init', array($this, 'do_redirect'), 1); // Priority 1 for redirects.
-          add_action('template_redirect', array($this, 'check_404'), 1); // Priority 1 for redirects.
+          add_action('template_redirect', array($this, 'check_404'), 1);
         }
       }
     }
@@ -156,7 +156,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
         echo '<td>' . $agent . '</td>';
         echo '</tr>';
         $i++;
-        if ($i >= 10) {
+        if ($i >= 6) {
           break;
         }
       } // foreach

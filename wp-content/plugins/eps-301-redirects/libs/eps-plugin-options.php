@@ -477,7 +477,7 @@ function pro_dialog() {
   $out .= '</tr>';
 
   $out .= '<tr>';
-  $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" target="_blank">BUY NOW</a></td>';
+  $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" target="_blank">BUY NOW</a><br>- or -<br><a target="_blank" class="button-buy" data-href-org="https://wp301redirects.com/buy/?product=personal-monthly&ref=pricing-table" href="https://wp301redirects.com/buy/?product=personal-monthly&ref=pricing-table">Only $5.99 <small>/month</small></a></td>';
   $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=team-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=team-launch&ref=pricing-table" target="_blank">BUY NOW</a></td>';
   $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=agency-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=agency-launch&ref=pricing-table" target="_blank">BUY NOW</a></td>';
   $out .= '</tr>';

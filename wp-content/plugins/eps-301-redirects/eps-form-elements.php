@@ -96,7 +96,7 @@ function eps_get_destination($redirect = false)
 } else {
   // This is redirect points to a url
   ?>
-<a target="_blank" class="eps-url" href="<?php echo stripslashes(esc_attr($redirect->url_to)); ?>" title="<?php echo stripslashes(esc_attr($redirect->url_to)); ?>">
+<a target="_blank" class="eps-url" href="<?php echo stripslashes(esc_url($redirect->url_to)); ?>" title="<?php echo stripslashes(esc_attr($redirect->url_to)); ?>">
   <span class="eps-url-root eps-url-startcap">URL:</span><span
     class="eps-url-fragment eps-url-endcap "><?php echo stripslashes(esc_attr($redirect->url_to)); ?></span>
 </a>
