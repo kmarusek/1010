@@ -1961,7 +1961,14 @@ if ( ! $version_bb_check ) {
 
 	<?php if ( $module->media_breakpoint() ) { ?>
 			@media only screen and ( max-width: <?php echo esc_attr( $module->media_breakpoint() ); ?>px ) {
-		<?php } ?>
+		<?php
+	}
+	if ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) {
+		?>
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .menu {
+		display: none;
+	}
+<?php } ?>
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu.uabb-menu-default {
 				display: none;
 			}
@@ -1978,11 +1985,17 @@ if ( ! $version_bb_check ) {
 <?php } ?>
 
 /***************************** Accordion **********************************/
-<?php if ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) { ?>
+<?php
+if ( 'always' === $module->media_breakpoint() ) {
+	if ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) {
+		?>
 	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .menu {
 		display: none;
 	}
-<?php } ?>
+		<?php
+	}
+}
+?>
 
 /***************************** Off Canvas **********************************/
 <?php if ( 'off-canvas' === $settings->creative_mobile_menu_type ) { ?>

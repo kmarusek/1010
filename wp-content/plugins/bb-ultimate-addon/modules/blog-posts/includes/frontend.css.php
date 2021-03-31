@@ -567,7 +567,8 @@ if ( '' !== $settings->meta_color || '' !== $settings->meta_hover_color ) {
 		color: <?php echo esc_attr( $settings->meta_color ); ?>;
 	}
 
-	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-blog-post-content .uabb-post-meta a:hover {
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-blog-post-content .uabb-post-meta a:hover,
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-blog-post-element-link:hover ~ .uabb-blog-posts-shadow .uabb-blog-post-content .uabb-post-meta span a {
 		color: <?php echo esc_attr( $settings->meta_hover_color ); ?>;
 	}
 	<?php

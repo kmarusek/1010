@@ -1309,6 +1309,18 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				),
 			);
 
+			// Table of Contents Module.
+			$form['uabb-table-of-contents'] = array(
+				'conditions' => array( 'type' => 'uabb-table-of-contents' ),
+				'fields'     => array(
+					array(
+						'field'       => 'heading_title',
+						'type'        => __( 'Table of Contents: Title Text', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			);
+
 			return $form;
 		}
 	}

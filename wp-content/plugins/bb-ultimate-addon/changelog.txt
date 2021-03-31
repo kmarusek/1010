@@ -1,3 +1,16 @@
+Version 1.30.3 Tuesday, 30th March 2021
+- Improvement: Advanced Posts: Added option for Default WordPress Format in Date Format setting.
+- Improvement: Advanced Posts: Added option to link Complete Box in CTA setting.
+- Improvement: Countdown – Added separator option.
+- Improvement: Countdown – Added Box shadow option.
+- Improvement: Table of Contents - Added WPML support.
+- Improvement: Video Gallery - Added `Do not Track` option for Vimeo for GDPR compliance.
+- Improvement: Woo-Categories: Added filters to change Product count strings.
+- Fixed: Advanced Menu - Desktop menu disappears when Collapse Menu setting is enabled.
+- Fixed: Fancy Text - JS error when double quotes are used in Fancy Text.
+- Fixed: Flip Box - Both sides are shown on hover when Overall Vertical Alignment is set to No.
+- Fixed: Woo-Products - Page doesn't scroll to top of module when visited to next page in Pagination.
+
 Version 1.30.2 Monday, 8th March 2021
 - Improvement: Added Compatibility with WordPress 5.7
 - Improvement: Video - Add `Do not Track` option for Vimeo for GDPR compliance.
