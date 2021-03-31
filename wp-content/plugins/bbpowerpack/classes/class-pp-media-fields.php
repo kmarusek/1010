@@ -38,6 +38,8 @@ if ( ! class_exists( 'PP_Media_Fields' ) ) {
 				add_filter( 'attachment_fields_to_edit', array( $this, 'attachment_field_cta' ), 10, 2 );
 				add_filter( 'attachment_fields_to_save', array( $this, 'attachment_field_cta_save' ), 10, 2 );
 			}
+
+			add_action( 'fl_page_data_add_properties', array( $this, 'add_field_connection' ) );
 		}
 
 		/**
@@ -69,6 +71,26 @@ if ( ! class_exists( 'PP_Media_Fields' ) ) {
 				update_post_meta( $post['ID'], 'gallery_external_link', $attachment['pp-custom-link'] );
 			}
 			return $post;
+		}
+
+		public function add_field_connection() {
+			FLPageData::add_post_property( 'pp_media_custom_link', array(
+				'label'  => sprintf( __( 'Media - Custom URL (%s)', 'bb-powerpack' ), pp_get_admin_label() ),
+				'group'  => 'posts',
+				'type'   => 'url',
+				'getter' => array( $this, 'get_custom_link' ),
+			) );
+		}
+
+		public function get_custom_link() {
+			$attachment_id = get_post_thumbnail_id();
+			$link = '';
+
+			if ( ! empty( $attachment_id ) ) {
+				$link = get_post_meta( $attachment_id, 'gallery_external_link', true );
+			}
+
+			return $link;
 		}
 
 		/**

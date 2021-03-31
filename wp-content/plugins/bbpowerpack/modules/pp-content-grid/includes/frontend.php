@@ -18,6 +18,8 @@ FLBuilderModel::default_settings($settings, array(
 	'more_link_text'	=> __('Read More', 'bb-powerpack'),
 	'post_grid_filters_display' => 'no',
 	'post_grid_filters'	=> 'none',
+	'post_grid_filters_order_by' => 'name',
+	'post_grid_filters_order'    => 'ASC',
 	'post_grid_filters_type'	=> 'static',
 	'all_filter_label'	=> __('All', 'bb-powerpack'),
 	'post_taxonomies'	=> 'none',
@@ -177,6 +179,7 @@ $query = FLBuilderLoop::query( $settings );
 
 					$post_id 	= get_the_ID();
 					$permalink 	= apply_filters( 'pp_cg_post_permalink', get_permalink(), $post_id, $settings );
+					$title_attrs 	= the_title_attribute( array( 'echo' => false ) );
 
 					$terms_list = wp_get_post_terms( $post_id, $settings->post_taxonomies );
 					
@@ -207,7 +210,7 @@ $query = FLBuilderLoop::query( $settings );
 
 			<?php if ( $settings->layout == 'carousel' ) { ?>
 				</div>
-				<?php if ( 'yes' === $settings->slider_navigation ) { ?>
+				<?php if ( 'yes' === $settings->slider_navigation && $query->have_posts() && $query->found_posts > 1 && absint( $settings->posts_per_page ) > 1 ) { ?>
 				<div class="owl-nav pp-carousel-nav"></div>
 				<?php } ?>
 			<?php } ?>

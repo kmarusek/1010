@@ -11,7 +11,7 @@ $items = $settings->list_items;
 
 			<li class="pp-icon-list-item pp-icon-list-item-<?php echo $i; ?>">
 				<span class="pp-list-item-icon <?php echo 'icon' == $settings->list_type ? $settings->list_icon : ''; ?>"><?php echo 'number' == $settings->list_type ? $i + 1 : ''; ?></span>
-				<span class="pp-list-item-text"><?php echo $items[$i]; ?></span>
+				<span class="pp-list-item-text"><?php echo (string) $items[$i]; ?></span>
 			</li>
 
 		<?php } ?>

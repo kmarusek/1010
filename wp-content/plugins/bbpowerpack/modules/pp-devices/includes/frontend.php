@@ -7,6 +7,7 @@ if ( 'video' === $settings->media_type && 'self_hosted' !== $settings->video_src
 
 
 $image_src = BB_POWERPACK_URL . 'assets/images/default-img.jpg';
+$image_alt = isset( $settings->img_alt ) ? htmlspecialchars( $settings->img_alt ) : '';
 if ( '' !== $settings->image_src ) {
 	$image_src = $settings->image_src;
 }
@@ -71,7 +72,7 @@ if ( ( 'contain' !== $settings->image_fit || 'landscape' === $settings->orientat
 								?>
 							<div class="pp-device-media-screen pp-device-media-screen-image <?php echo $scrollable_class; ?> ">
 								<div class="pp-device-media-screen-inner">
-									<figure><img src="<?php echo $image_src; ?>" ></figure>
+									<figure><img src="<?php echo $image_src; ?>" alt="<?php echo $image_alt; ?>"></figure>
 								</div><!-- .pp-device-media-screen-inner -->
 							</div><!-- .pp-device-media-screen -->
 								<?php
@@ -80,7 +81,7 @@ if ( ( 'contain' !== $settings->image_fit || 'landscape' === $settings->orientat
 							<div class="pp-device-media-screen pp-device-media-screen-landscape <?php echo $scrollable_class; ?>">
 								<div class="pp-device-media-screen-inner">
 									<figure>
-										<img width="801" height="801" src="<?php echo $image_src; ?>" class="attachment-large size-large" alt="">
+										<img width="801" height="801" src="<?php echo $image_src; ?>" class="attachment-large size-large" alt="<?php echo $image_alt; ?>">
 									</figure>
 								</div>
 							</div>

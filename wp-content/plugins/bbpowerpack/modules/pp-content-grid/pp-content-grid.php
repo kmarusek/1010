@@ -525,9 +525,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						),
 						'toggle'		=> array(
 							'grid'			=> array(
-								'fields'		=> array('pagination', 'post_grid_filters_display'),
-								'sections'		=> array('post-filter', 'pagination_style'),
-								'tabs'			=> array('filters_style', 'pagination')
+								'fields'		=> array('pagination', 'pagination_nofollow', 'post_grid_filters_display'),
+								'sections'		=> array('post-filter', 'pagination_style', 'pagination_colors', 'pagination_border'),
+								'tabs'			=> array('filters_style')
 							),
 							'carousel'			=> array(
 								'fields'		=> array('slide_width', 'post_carousel_minimum', 'post_carousel_maximum'),

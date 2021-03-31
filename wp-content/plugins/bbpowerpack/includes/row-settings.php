@@ -399,6 +399,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Color', 'bb-powerpack'),
 					'default'                   => 'ffffff',
+					'show_reset'				=> true,
 					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
@@ -410,6 +411,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Shadow Color', 'bb-powerpack'),
 					'default'                   => 'f4f4f4',
+					'show_reset'				=> true,
 					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
@@ -522,6 +524,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Color', 'bb-powerpack'),
 					'default'                   => 'ffffff',
+					'show_reset'				=> true,
 					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
@@ -533,6 +536,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Shadow Color', 'bb-powerpack'),
 					'default'                   => 'f4f4f4',
+					'show_reset'				=> true,
 					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',

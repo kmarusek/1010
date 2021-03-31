@@ -106,16 +106,16 @@
 				window['pp_offcanvas_' + self.id]._onHashChange();
 			});
 
-			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-close', 'click', $.proxy(this._close, this));
-			$('body').delegate('.pp-offcanvas-' + this.id + '-close', 'click keyup', function(e) {
+			$('body').on('click', '.pp-offcanvas-content .pp-offcanvas-close', $.proxy(this._close, this));
+			$('body').on('click keyup', '.pp-offcanvas-' + this.id + '-close', function(e) {
 				e.preventDefault();
 				window['pp_offcanvas_' + self.id]._close();
 			});
 
 			// Close the off-canvas panel on clicking on inner links start with hash.
-			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-body a[href*="#"]:not([href="#"])', 'click', $.proxy(this._close, this));
+			$('body').on('click', '.pp-offcanvas-content .pp-offcanvas-body a[href*="#"]:not([href="#"])', $.proxy(this._close, this));
 
-			$('body').delegate( 'a[href*="#"]:not([href="#"])', 'click', function(e) {
+			$('body').on( 'click', 'a[href*="#"]:not([href="#"])', function(e) {
 				var hash = '#' + $(this).attr('href').split('#')[1];
 
 				if ( $(hash).length > 0 && $(hash).hasClass( 'fl-node-' + self.id ) ) {

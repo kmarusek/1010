@@ -476,6 +476,7 @@ function pp_row_expandable_js( $js, $nodes, $global_settings ) {
 				}
 				<?php if ( 'collapsed' != $row->settings->er_default_state ) { ?>
 					$('.pp-er-<?php echo $row->node; ?> .pp-er-wrap').parent().addClass('pp-er-open');
+					$('.pp-er-<?php echo $row->node; ?> .pp-er-wrap .pp-er-title').html('<?php echo htmlspecialchars( $row->settings->er_title_e, ENT_QUOTES | ENT_HTML5 ); ?>');
 				<?php } ?>
                 $('.pp-er-<?php echo $row->node; ?> .pp-er-wrap').off('click').on('click', function(e) {
 					e.stopPropagation();

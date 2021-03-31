@@ -829,20 +829,13 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 					'visible_items'		=> array(
 						'type' 				=> 'unit',
 						'label' 			=> __( 'Visible Items', 'bb-powerpack' ),
-						'size'          	=> '5',
+						'help'				=> __( 'Leaver blank if you are trying to display full viewport width carousel.', 'bb-powerpack' ),
 						'default'       	=> '3',
-						'responsive' 		=> array(
-							'placeholder' 	=> array(
-								'default' 		=> '3',
-								'medium' 		=> '2',
-								'responsive' 	=> '1',
-							),
-						),
+						'responsive' 		=> true,
 					),
 					'images_gap'     => array(
 						'type' 			=> 'unit',
 						'label' 		=> __( 'Items Spacing', 'bb-powerpack' ),
-						'size'          => '5',
 						'default'       => '10',
 						'description'	=> 'px',
 						'responsive' 	=> array(

@@ -59,6 +59,10 @@
 .pp-advanced-menu .pp-advanced-menu-accordion .pp-has-submenu > .sub-menu {
 	display: none;
 }
+.pp-advanced-menu .pp-advanced-menu-horizontal .pp-has-submenu.pp-active .hide-heading > .sub-menu {
+	box-shadow: none;
+	display: block !important;
+}
 
 /* Toggle - General */
 .pp-advanced-menu .pp-menu-toggle {
@@ -519,7 +523,9 @@ html.pp-off-canvas-menu-open .pp-advanced-menu.menu-open .pp-off-canvas-menu {
 
 /* Mega menu general */
 .pp-advanced-menu li.mega-menu .hide-heading > a,
-.pp-advanced-menu li.mega-menu .hide-heading > .pp-has-submenu-container > a {
+.pp-advanced-menu li.mega-menu .hide-heading > .pp-has-submenu-container,
+.pp-advanced-menu li.mega-menu-disabled .hide-heading > a,
+.pp-advanced-menu li.mega-menu-disabled .hide-heading > .pp-has-submenu-container {
 	display: none;
 }
 

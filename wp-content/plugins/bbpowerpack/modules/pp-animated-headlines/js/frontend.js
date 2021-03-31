@@ -6,15 +6,15 @@
 		this.nodeClass          = '.fl-node-' + settings.id;
 		this.headline			= this.nodeClass + ' .pp-headline';
 		this.dynamicWrapper		= this.nodeClass + ' .pp-headline-dynamic-wrapper';
-		this.animationDelay     = 2500;
+		this.animationDelay     = settings.durations.animationDelay;
 		// letters effect
-		this.lettersDelay		= 50;
+		this.lettersDelay		= settings.durations.lettersDelay;
 		// typing effect
-		this.typeLettersDelay	= 150;
-		this.selectionDuration	= 500;
+		this.typeLettersDelay	= settings.durations.typeLettersDelay;
+		this.selectionDuration	= settings.durations.selectionDuration;
 		// clip effect
-		this.revealDuration		= 600,
-		this.revealAnimationDelay = 1500;
+		this.revealDuration		= settings.durations.revealDuration,
+		this.revealAnimationDelay = settings.durations.revealAnimationDelay;
 
 		this.typeAnimationDelay = this.selectionDuration + 800;
 
@@ -271,6 +271,8 @@
 			$newWord
 				.removeClass( 'pp-headline-text-inactive' )
 				.addClass( 'pp-headline-text-active' );
+
+			this._setDynamicWrapperWidth( $newWord );
 		},
 
 		_getSvgPaths: function( pathName ) {
@@ -284,11 +286,19 @@
 			return $paths;
 		},
 
+		_setDynamicWrapperWidth: function( $newWord ) {
+			var animationType = this.settings.animation_type;
+
+			if ('clip' !== animationType && 'typing' !== animationType) {
+				$(this.dynamicWrapper).css('width', $newWord.width());
+			}
+		},
+
 		_setWidth: function() {
 			var self = this;
 			var width = $(self.dynamicWrapper).width();
 
-			self.elements.dynamicText.each( function() {
+			$(self.elements.dynamicText).each( function() {
 				var wordWidth = $( this ).width();
 
 				if ( wordWidth > width ) {

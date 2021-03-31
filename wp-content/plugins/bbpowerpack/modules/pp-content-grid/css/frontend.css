@@ -543,6 +543,9 @@ body .pp-post-feed-meta {
 
 
 /* Post Carousel */
+.pp-content-post-carousel .owl-theme .owl-dots {
+	margin-top: 10px;
+}
 .pp-content-post-carousel .owl-theme .owl-controls .owl-page span {
 	margin: 5px;
 }

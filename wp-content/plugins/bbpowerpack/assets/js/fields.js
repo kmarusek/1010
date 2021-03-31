@@ -36,16 +36,16 @@
         _bindEvents: function()
         {
             /* Radio Input Fields */
-			$('body').delegate('.fl-builder-settings-fields .pp-field-radio', 'change', PPFields._settingsRadioChanged);
-			$('body').delegate('.fl-builder-settings-fields .pp-field-checkbox', 'change', PPFields._settingsCheckboxChanged);
-			$('body').delegate('.fl-builder-settings-fields .pp-field-toggle', 'change', PPFields._settingsToggleChanged);
-            $('body').delegate('.fl-builder-settings-fields .pp-field-multitext', 'keyup', PPFields._settingsMultitextChanged);
-            $('body').delegate('.fl-builder-settings-fields .pp-multitext.fa-desktop', 'click', PPFields._settingsMultitextToggle);
-            $('body').delegate('.fl-builder-settings-fields .pp-multitext-wrap .pp-multitext-responsive-toggle span', 'click', PPFields._settingsMultitextToggleResponsive);
-            $('body').delegate('.fl-builder-settings-fields .pp-switch-button', 'click', PPFields._settingsSwitchClick);
-			$('body').delegate('.fl-builder-settings-fields .pp-field-switch', 'change', PPFields._settingsSwitchChanged);
-			$('body').delegate('.fl-builder-settings-fields .pp-field-media-upload', 'click', PPFields._settingsMediaUploadClick);
-			$('body').delegate('.fl-builder-settings-fields .pp-field-media-remove', 'click', PPFields._settingsMediaRemoveClick);
+			$('body').on('change', '.fl-builder-settings-fields .pp-field-radio', PPFields._settingsRadioChanged);
+			$('body').on('change', '.fl-builder-settings-fields .pp-field-checkbox', PPFields._settingsCheckboxChanged);
+			$('body').on('change', '.fl-builder-settings-fields .pp-field-toggle', PPFields._settingsToggleChanged);
+            $('body').on('keyup', '.fl-builder-settings-fields .pp-field-multitext', PPFields._settingsMultitextChanged);
+            $('body').on('click', '.fl-builder-settings-fields .pp-multitext.fa-desktop', PPFields._settingsMultitextToggle);
+            $('body').on('click', '.fl-builder-settings-fields .pp-multitext-wrap .pp-multitext-responsive-toggle span', PPFields._settingsMultitextToggleResponsive);
+            $('body').on('click', '.fl-builder-settings-fields .pp-switch-button', PPFields._settingsSwitchClick);
+			$('body').on('change', '.fl-builder-settings-fields .pp-field-switch', PPFields._settingsSwitchChanged);
+			$('body').on('click', '.fl-builder-settings-fields .pp-field-media-upload', PPFields._settingsMediaUploadClick);
+			$('body').on('click', '.fl-builder-settings-fields .pp-field-media-remove', PPFields._settingsMediaRemoveClick);
         },
 
         /* Radio Input Fields
@@ -604,7 +604,7 @@
 		 */
         _initDatepickerFields: function()
         {
-            $('body').delegate('.pp-field-datepicker', 'click', function(){
+            $('body').on('click', '.pp-field-datepicker', function(){
                 var dateFormat = $(this).data('format');
                 if (!$(this).hasClass("hasDatepicker")) {
                     $(this).datepicker({

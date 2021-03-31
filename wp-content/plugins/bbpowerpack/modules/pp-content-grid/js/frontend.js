@@ -54,59 +54,17 @@
 			return $(this.postClass).length > 0;
 		},
 
-		_initLayout: function()
-		{
-			if ( $(this.nodeClass).find('.pp-posts-wrapper').hasClass('pp-posts-initiated') ) {
-				return;
-			}
-
-			switch(this.settings.layout) {
-
-				case 'grid':
-					this._gridLayout();
-					this._initPagination();
-					this._reLayout();
-					break;
-
-				case 'carousel':
-					this._carouselLayout();
-					break;
-			}
-
-			$(this.postClass).css('visibility', 'visible');
-
-			var self = this;
-
-			$(window).on('load', function() {
-				if ( ! $( self.nodeClass ).hasClass( 'pp-cg-no-page-scroll' ) ) {
-					FLBuilderLayout._scrollToElement( $( self.nodeClass + ' .pp-paged-scroll-to' ) );
-				}
-			});
-
-			$(this.nodeClass).find('.pp-posts-wrapper').addClass('pp-posts-initiated');
-
-			// Fix native lazy load issue.
-			$(this.nodeClass).find('.pp-posts-wrapper img').on('load', function() {
-				if ( 'lazy' !== $(this).attr('loading') ) {
-					return;
-				}
-				var postsWrapper = $(self.nodeClass).find('.pp-content-post-grid');
-				if ( 'undefined' !== typeof $.fn.isotope ) {
-					setTimeout(function() {
-						postsWrapper.isotope('layout');
-					}, 500);
-				}
-			});
-		},
-
-		_gridLayout: function()
-		{
-			var wrap = $(this.wrapperClass);
-
+		_initIsotopeData: function() {
 			var postFilterData = {
 				itemSelector: '.pp-content-post',
 				percentPosition: true,
 				transitionDuration: '0.3s',
+				hiddenStyle: {
+					opacity: 0
+				},
+				visibleStyle: {
+					opacity: 1
+				},
 				isOriginLeft: ! $('body').hasClass( 'rtl' ),
 			};
 
@@ -136,12 +94,68 @@
 			if ( this.settings.defaultFilter !== '' ) {
 				this.activeFilter = this.settings.defaultFilter;
 			}
+		},
+
+		_initLayout: function()
+		{
+			if ( $(this.nodeClass).find('.pp-posts-wrapper').hasClass('pp-posts-initiated') ) {
+				return;
+			}
+
+			switch(this.settings.layout) {
+
+				case 'grid':
+					this._initIsotopeData();
+					this._gridLayout();
+					this._initPagination();
+					this._reLayout();
+					break;
+
+				case 'carousel':
+					this._carouselLayout();
+					break;
+			}
+
+			$(this.postClass).css('visibility', 'visible');
+
+			var self = this;
+
+			$(window).on('load', function() {
+				if ( ! $( self.nodeClass ).hasClass( 'pp-cg-no-page-scroll' ) ) {
+					FLBuilderLayout._scrollToElement( $( self.nodeClass + ' .pp-paged-scroll-to' ) );
+				}
+			});
+
+			$(this.nodeClass).on( 'grid.afterInit carousel.afterInit', function() {
+				$(self.nodeClass).find('.pp-posts-wrapper').addClass('pp-posts-initiated');
+			} );
+
+			// Fix native lazy load issue.
+			$(this.nodeClass).find('.pp-posts-wrapper img').on('load', function() {
+				if ( 'lazy' !== $(this).attr('loading') ) {
+					return;
+				}
+				var postsWrapper = $(self.nodeClass).find('.pp-content-post-grid');
+				if ( 'undefined' !== typeof $.fn.isotope ) {
+					setTimeout(function() {
+						if ( postsWrapper.data( 'isotope' ) ) {
+							postsWrapper.isotope('layout');
+						}
+					}, 500);
+				}
+			});
+		},
+
+		_gridLayout: function()
+		{
+			var wrap = $(this.wrapperClass);
+			var postFilterData = this.filterData;
 
 			wrap.imagesLoaded( $.proxy( function() {
 
 				var node = $(this.nodeClass);
 				var base = this;
-				var postFilters = ! wrap.data( 'isotope' ) ? wrap.isotope(postFilterData) : wrap;
+				var postFilters = ! wrap.data( 'isotope' ) ? wrap.isotope( postFilterData ) : wrap;
 
                 if ( this.settings.filters || this.masonry ) {
 
@@ -234,6 +248,8 @@
                     }, 1000 );
                 }
 
+				$(this.nodeClass).trigger('grid.afterInit');
+
 			}, this ) );
 		},
 
@@ -264,6 +280,8 @@
 
 			wrap.imagesLoaded( $.proxy( function() {
 				wrap.owlCarousel( owlOptions );
+
+				$(this.nodeClass).trigger('carousel.afterInit');
 			}, this));
 		},
 

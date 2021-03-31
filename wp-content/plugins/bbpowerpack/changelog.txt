@@ -1,3 +1,47 @@
+== 2.15.2 ==
+Release date: March 26, 2021
+* Enhancement: Category Grid - Added logic to exclude the current category from taxonomy archive
+* Fix: Content Grid - Taxonomy filters order setting was not working when displaying only child terms
+* Fix: Advanced Menu - hide-heading class was not working in mobile devices with horizontal menu
+* Fix: Smart Button - Link nofollow setting was not getting saved
+* Fix: Image Carousel - Keyboard navigation was not working
+* Fix: Header/Footer - WPML issue
+* Fix: jQuery compatibility issue since WP 5.7
+
+== 2.15.1 ==
+Release date: March 18, 2021
+* Hotfix: In some cases we found PHP warning in Header/Footer devices logic added in the last update
+
+== 2.15.0 ==
+Release date: March 18, 2021
+* Enhancement: Header/Footer - Added an option to enable fixed header for tablet and mobile
+* Enhancement: Devices - Added an option to provide a text for image alt HTML attribute
+* Enhancement: Video - Added support for YouTube playlist
+* Enhancement: Content Grid - Added an option to order taxonomy filters
+* Enhancement: Animated Headlines - Added options to control animation and transition duration
+* Enhancement: Field Connection - Added a new field connection to get value from PowerPack Custom Link (media uploader)
+* Fix: Content Grid - isotope JS error in some cases
+* Fix: Content Grid - Read More link was getting replaced by home page link when The Events Calendar plugin is active
+* Fix: Content Grid - Option to change No Results Found message was not visible for carousel in the module setting
+* Fix: Content Grid - Carousel showing navigation arrows even if there is only 1 post
+* Fix: Content Grid - Non-numeric value PHP warning
+* Fix: Gravity Forms - Non-numeric value PHP warning
+* Fix: Pricing Table - Layout issue when used inside expandable row
+* Fix: Announcement Bar - Sticky header built with themer was getting overlapped by the announcement bar
+* Fix: Instagram Feed - PHP warnings due to missing properties
+* Fix: Instagram Feed - Multiple images output in carousel
+* Fix: Instagram Feed - Lightbox was not working in some cases
+* Fix: Instagram Feed - Empty space issue in carousel when Custom Size is set along with Visible Items and the row content is set to full width
+* Fix: Contact Form - Redirection after submission was not working in some cases
+* Fix: Category Grid - Column width calculation error
+* Fix: Post Timeline - Incorrect taxonomy terms were showing
+* Fix: Animated Headline - Text cut-off issue in some effects
+* Fix: Advanced Menu - PHP 8 deprecation warnings
+* Fix: Maintenance Mode - Only the last IP address added in the whitelist was getting excluded
+* Fix: Expandable Row - Default expanded state was showing wrong title on page load
+* Fix: Row Separators - Added missing color reset option to color fields
+* Fix: Core - PHP error when FAQ module is disabled from settings
+
 == 2.14.1 ==
 Release date: February 16, 2021
 * Hotfix: PHP notice in 2.14.0

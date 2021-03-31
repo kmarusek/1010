@@ -89,6 +89,8 @@ if ( is_single() && $post && $post->ID ) {
 }
 
 $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->category_show_image;
+$is_tax_archive = is_tax() || is_category() || is_tag();
+$queried_object = $is_tax_archive ? get_queried_object() : false;
 ?>
 
 <div class="pp-categories-container<?php echo 'yes' === $settings->category_grid_slider ? ' swiper-container' : ''; ?>">
@@ -98,6 +100,11 @@ $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->categ
 	foreach ( $all_categories as $cat ) {
 		// filter categories which are actually assigned to current post.
 		if ( $assigned_only && ! empty( $current_post_terms ) && ! in_array( $cat->slug, $current_post_terms ) ) {
+			continue;
+		}
+
+		// Exclude current term.
+		if ( $queried_object && $cat->term_id === $queried_object->term_id ) {
 			continue;
 		}
 

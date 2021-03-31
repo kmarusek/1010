@@ -22,7 +22,7 @@
 	$(window).on( 'resize', adjustHeights );
 
 	$(document).on( 'pp_expandable_row_toggle', function( e, selector ) {
-		if ( selector.find( '.pp-pricing-table' ).length ) {
+		if ( selector.parent().find( '.fl-node-<?php echo $id; ?>' ).length > 0 ) {
 			adjustHeights();
 		}
 	} );

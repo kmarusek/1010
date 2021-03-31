@@ -11,6 +11,10 @@ $terms_to_show		= isset( $settings->post_grid_filters_terms ) ? $settings->post_
 $terms_to_show_archive		= isset( $settings->post_grid_filters_archive_terms ) ? $settings->post_grid_filters_archive_terms : '';
 $terms_children_on_archive 	= ( is_tax( $post_filter_tax ) || is_category() ) && ! empty( $terms_to_show_archive );
 
+$order_by          = isset( $settings->post_grid_filters_order_by ) ? $settings->post_grid_filters_order_by : 'name';
+$order             = isset( $settings->post_grid_filters_order ) ? $settings->post_grid_filters_order : 'ASC';
+$order_by_meta_key = isset( $settings->post_grid_filters_order_by_meta_key ) ? $settings->post_grid_filters_order_by_meta_key : '';
+
 if ( $terms_children_on_archive ) {
 	$terms_to_show = $terms_to_show_archive;
 }
@@ -18,6 +22,17 @@ if ( $terms_children_on_archive ) {
 $post_filter_field 	= 'tax_' . $post_type_slug . '_' . $post_filter_tax;
 $post_filter_terms	= array();
 $taxonomy 			= get_taxonomy( $post_filter_tax );
+
+$post_filter_args = array(
+	'taxonomy' => $post_filter_tax,
+);
+$post_filter_args['orderby'] = $order_by;
+
+if ( 'meta_value' === $order_by || 'meta_value_num' === $order_by ) {
+	$post_filter_args['meta_key'] = $order_by_meta_key;
+}
+
+$post_filter_args['order'] = $order;
 
 if ( isset( $settings->{$post_filter_field} ) && 'main_query' !== $settings->data_source ) :
 
@@ -27,7 +42,8 @@ if ( isset( $settings->{$post_filter_field} ) && 'main_query' !== $settings->dat
 	if ( $post_filter_value ) {
 		$post_filter_term_ids = explode( ",", $post_filter_value );
 		if ( ! $post_filter_matching ) {
-			$post_filter_terms = get_terms( $post_filter_tax, array( 'exclude' => $post_filter_term_ids ) );
+			$post_filter_args['exclude'] = $post_filter_term_ids;
+			$post_filter_terms = get_terms( $post_filter_args );
 		} else {
 			foreach ( $post_filter_term_ids as $post_filter_term_id ) {
 				$post_filter_terms[] = get_term_by('id', $post_filter_term_id, $post_filter_tax);
@@ -45,7 +61,7 @@ if ( 'main_query' === $settings->data_source && $terms_children_on_archive ) {
 	}
 	$terms = array( $current_term );
 } else {
-	$terms = ( count( $post_filter_terms ) > 0 ) ? $post_filter_terms : get_terms( $post_filter_tax );
+	$terms = ( count( $post_filter_terms ) > 0 ) ? $post_filter_terms : get_terms( $post_filter_args );
 }
 $count = is_array( $terms ) ? count( $terms ) : 0;
 ?>
@@ -74,7 +90,9 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 							}
 						} elseif ( 'children' === $terms_to_show ) {
 							if ( ! $term->parent ) {
-								$filter_terms = array_merge( $filter_terms, get_term_children( $term->term_id, $term->taxonomy ) );
+								$child_terms_args = array_merge( $post_filter_args, array( 'taxonomy' => $term->taxonomy, 'hide_empty' => false, 'child_of' => $term->term_id, 'fields' => 'ids' ) );
+								$current_term_children = get_terms( $child_terms_args );
+								$filter_terms = array_merge( $filter_terms, $current_term_children );
 								continue;	
 							} else {
 								$filter_terms[] = $term->term_id;

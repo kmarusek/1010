@@ -93,4 +93,5 @@
 .pp-instagram-feed .pp-feed-item a {
 	display: block;
     position: relative;
+	height: 100%;
 }

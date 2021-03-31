@@ -135,7 +135,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		// IP whitelist.
 		$ips = trim( $ips );
 		if ( ! empty( $ips ) ) {
-			$ips = explode( "\n", $ips );
+			$ips = explode( "\r\n", $ips );
 			$current_ip = pp_get_client_ip();
 			if ( in_array( $current_ip, $ips ) ) {
 				return;
@@ -422,7 +422,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		// }
 		$url_request = trim( $url_request, '/' );
 
-		$rows = explode( "\n", $patterns );
+		$rows = explode( "\r\n", $patterns );
 
 		foreach ( $rows as $pattern ) {
 			// Trim trailing, leading slashes and whitespace

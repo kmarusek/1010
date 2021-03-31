@@ -114,7 +114,7 @@ $messages = $module->get_strings_i18n();
     </div>
 
 	<?php if ( $settings->success_action == 'redirect' ) : ?>
-		<input type="text" value="<?php echo $settings->success_url; ?>" style="display: none;" class="pp-success-url">
+		<input type="hidden" value="<?php echo $settings->success_url; ?>" class="pp-success-url">
 	<?php elseif($settings->success_action == 'none') : ?>
 		<span class="pp-success-none" style="display:none;"><?php echo $messages['sent_message']; ?></span>
 	<?php endif; ?>

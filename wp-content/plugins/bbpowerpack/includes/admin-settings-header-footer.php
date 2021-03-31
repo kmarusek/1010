@@ -23,7 +23,16 @@
 				<label for="bb_powerpack_header_footer_fixed_header" style="font-weight: 500;">
 					<?php $checked = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_header_footer_fixed_header', true); ?>
 					<input type="checkbox" id="bb_powerpack_header_footer_fixed_header" name="bb_powerpack_header_footer_fixed_header" value="1"<?php echo $checked ? ' checked="checked"' : ''; ?> />
-					<?php esc_html_e('Fixed Header', 'bb-powerpack'); ?>
+					<?php esc_html_e('Fixed Header, also enable it on', 'bb-powerpack'); ?>
+				</label>
+				<?php $devices = (array) BB_PowerPack_Admin_Settings::get_option('bb_powerpack_header_footer_fixed_header_devices', true); ?>
+				<label for="bb_powerpack_header_footer_fixed_header_tablet" style="font-weight: 400;">
+					<input type="checkbox" id="bb_powerpack_header_footer_fixed_header_tablet" name="bb_powerpack_header_footer_fixed_header_devices[]" value="tablet"<?php echo in_array( 'tablet', $devices ) ? ' checked="checked"' : ''; ?> />
+					<?php esc_html_e('Tablet', 'bb-powerpack'); ?>
+				</label>
+				<label for="bb_powerpack_header_footer_fixed_header_mobile" style="font-weight: 400;">
+					<input type="checkbox" id="bb_powerpack_header_footer_fixed_header_mobile" name="bb_powerpack_header_footer_fixed_header_devices[]" value="mobile"<?php echo in_array( 'mobile', $devices ) ? ' checked="checked"' : ''; ?> />
+					<?php esc_html_e('Mobile', 'bb-powerpack'); ?>
 				</label>
 				<p class="description">
 					<?php _e('Stick this header to the top of the window as the page is scrolled.', 'bb-powerpack'); ?>

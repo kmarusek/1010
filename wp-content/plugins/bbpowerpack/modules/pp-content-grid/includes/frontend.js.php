@@ -1,8 +1,12 @@
 
 <?php
-$space_desktop	= ( $settings->post_grid_count['desktop'] - 1 ) * $settings->post_spacing;
-$space_tablet 	= ( $settings->post_grid_count['tablet'] - 1 ) * $settings->post_spacing;
-$space_mobile 	= ( $settings->post_grid_count['mobile'] - 1 ) * $settings->post_spacing;
+$columns 		= $settings->post_grid_count;
+$column_desktop = isset( $columns['desktop'] ) && absint( $columns['desktop'] ) > 0 ? absint( $columns['desktop'] ) : 3;
+$column_tablet  = isset( $columns['tablet'] ) && absint( $columns['tablet'] ) > 0 ? absint( $columns['tablet'] ) : 2;
+$column_mobile  = isset( $columns['mobile'] ) && absint( $columns['mobile'] ) > 0 ? absint( $columns['mobile'] ) : 2;
+$space_desktop	= ( $column_desktop - 1 ) * $settings->post_spacing;
+$space_tablet 	= ( $column_tablet - 1 ) * $settings->post_spacing;
+$space_mobile 	= ( $column_mobile - 1 ) * $settings->post_spacing;
 $speed          = ! empty( $settings->transition_speed ) ? $settings->transition_speed * 1000 : 3000;
 $slide_speed    = ( isset( $settings->slides_speed ) && ! empty( $settings->slides_speed ) ) ? $settings->slides_speed * 1000 : 1000;
 $page_arg	 	= is_front_page() ? 'page' : 'paged';
@@ -37,9 +41,9 @@ var ppcg_<?php echo $id; ?> = '';
 		is_author: false,
 		postSpacing: '<?php echo $settings->post_spacing; ?>',
 		postColumns: {
-			desktop: <?php echo isset( $settings->post_grid_count['desktop'] ) && ! empty( $settings->post_grid_count['desktop'] ) ? $settings->post_grid_count['desktop'] : '3' ?>,
-			tablet: <?php echo isset( $settings->post_grid_count['tablet'] ) && ! empty( $settings->post_grid_count['tablet'] )? $settings->post_grid_count['tablet'] : '2' ?>,
-			mobile: <?php echo isset( $settings->post_grid_count['mobile'] ) && ! empty( $settings->post_grid_count['mobile'] ) ? $settings->post_grid_count['mobile'] : '1' ?>,
+			desktop: <?php echo $column_desktop; ?>,
+			tablet: <?php echo $column_tablet ?>,
+			mobile: <?php echo $column_mobile ?>,
 		},
 		matchHeight: '<?php echo $settings->match_height; ?>',
 		<?php echo ( isset( $settings->post_grid_filters_display ) && 'yes' == $settings->post_grid_filters_display ) ? 'filters: true' : 'filters: false'; ?>,
@@ -53,19 +57,19 @@ var ppcg_<?php echo $id; ?> = '';
 		<?php } ?>
 		<?php if ( 'carousel' == $settings->layout ) { ?>
 			carousel: {
-				items: <?php echo isset( $settings->post_grid_count['desktop'] ) && ! empty( $settings->post_grid_count['desktop'] ) ? $settings->post_grid_count['desktop'] : '3' ?>,
+				items: <?php echo $column_desktop; ?>,
 				responsive: {
 					0: {
-						items: <?php echo isset( $settings->post_grid_count['mobile'] ) && ! empty( $settings->post_grid_count['mobile'] ) ? $settings->post_grid_count['mobile'] : '1' ?>,
+						items: <?php echo $column_mobile; ?>,
 					},
 					<?php echo $breakpoints['mobile']; ?>: {
-						items: <?php echo isset( $settings->post_grid_count['mobile'] ) && ! empty( $settings->post_grid_count['mobile'] ) ? $settings->post_grid_count['mobile'] : '1' ?>,
+						items: <?php echo $column_mobile; ?>,
 					},
 					<?php echo $breakpoints['tablet']; ?>: {
-						items: <?php echo isset( $settings->post_grid_count['tablet'] ) && ! empty( $settings->post_grid_count['tablet'] )? $settings->post_grid_count['tablet'] : '2' ?>,
+						items: <?php echo $column_tablet; ?>,
 					},
 					<?php echo apply_filters( 'pp_cg_carousel_max_breakpoint', 1199 ); ?>: {
-						items: <?php echo isset( $settings->post_grid_count['desktop'] ) && ! empty( $settings->post_grid_count['desktop'] ) ? $settings->post_grid_count['desktop'] : '3' ?>,
+						items: <?php echo $column_desktop; ?>,
 					},
 				},
 			<?php if ( isset( $settings->slide_by ) && absint( $settings->slide_by ) ) : ?>

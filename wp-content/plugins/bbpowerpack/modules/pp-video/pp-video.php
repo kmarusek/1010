@@ -65,7 +65,7 @@ class PPVideoModule extends FLBuilderModule {
 	 */
 	public function get_video_properties( $video_url ) {
 		$provider_regex = array(
-			'youtube' => '/^.*(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:(?:watch)?\?(?:.*&)?vi?=|(?:embed|v|vi|user)\/))([^\?&\"\'>]+)/',
+			'youtube' => '/^.*(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:(?:watch|playlist)?\?(?:.*&)?(?:list|v)?=|(?:embed|v|vi|user|list)\/))([^\?&\"\'>]+)/',
 			'vimeo' => '/^.*vimeo\.com\/(?:[a-z]*\/)*([‌​0-9]{6,11})[?]?.*/',
 			'dailymotion' => '/^.*dailymotion.com\/(?:video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/',
 		);
@@ -219,6 +219,11 @@ class PPVideoModule extends FLBuilderModule {
 
 		if ( 'youtube' === $video_properties['provider'] ) {
 			$replacements['{NO_COOKIE}'] = ! empty( $options['privacy'] ) ? '-nocookie' : '';
+			// YouTube playlist quick workaround.
+			if ( false !== strpos( $video_url, '/playlist' ) ) {
+				$replacements['{VIDEO_ID}'] = 'videoseries';
+				$embed_pattern .= '&list=' . $video_properties['video_id'];
+			}
 		} elseif ( 'vimeo' === $video_properties['provider'] ) {
 			$time_text = '';
 
@@ -231,7 +236,9 @@ class PPVideoModule extends FLBuilderModule {
 
 		$embed_pattern = str_replace( array_keys( $replacements ), $replacements, $embed_pattern );
 
-		return add_query_arg( $embed_url_params, $embed_pattern );
+		$embed_url = add_query_arg( $embed_url_params, $embed_pattern );
+
+		return apply_filters( 'pp_video_embed_url', $embed_url );
 	}
 
 	/**

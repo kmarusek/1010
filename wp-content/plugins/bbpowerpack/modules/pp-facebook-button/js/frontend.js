@@ -18,14 +18,14 @@
 			this._initSDK();
 			this._parse();
 
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-button_type select', 'change', $.proxy( this._actionChange, this ));
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-layout select', 'change', $.proxy( this._layoutChange, this ));
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-size input', 'change', $.proxy( this._sizeChange, this ));
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-color_scheme input', 'change', $.proxy( this._schemeChange, this ));
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-show_share input', 'change', $.proxy( this._shareChange, this ));
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-show_faces input', 'change', $.proxy( this._facesChange, this ));
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-url_type input', 'change', $.proxy( this._urlTypeChange, this ));
-			$('body').delegate('.fl-builder-pp-facebook-button-settings #fl-field-url input', 'change', $.proxy( this._urlChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-button_type select', $.proxy( this._actionChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-layout select', $.proxy( this._layoutChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-size input', $.proxy( this._sizeChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-color_scheme input', $.proxy( this._schemeChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-show_share input', $.proxy( this._shareChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-show_faces input', $.proxy( this._facesChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-url_type input', $.proxy( this._urlTypeChange, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-button-settings #fl-field-url input', $.proxy( this._urlChange, this ));
 		},
 
 		_initSDK: function()

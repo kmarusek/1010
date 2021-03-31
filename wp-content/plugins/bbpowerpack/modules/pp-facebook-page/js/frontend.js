@@ -18,7 +18,7 @@
 			this._initSDK();
 			this._parse();
 
-			$('body').delegate('.fl-builder-pp-facebook-page-settings #fl-field-layout select', 'change', $.proxy( this._change, this ));
+			$('body').on('change', '.fl-builder-pp-facebook-page-settings #fl-field-layout select', $.proxy( this._change, this ));
 		},
 
 		_initSDK: function()

@@ -36,10 +36,10 @@
 			}, 500);
 	    });
 
-	    $('body').delegate('.fl-builder-layout-settings-button', 'click', function() {
+	    $('body').on('click', '.fl-builder-layout-settings-button', function() {
 	        $('.pp-panel .fl-builder-panel-actions .pp-panel-close').trigger('click');
 	    });
-	    $('body').delegate('.fl-builder-block', 'mousedown', function() {
+	    $('body').on('mousedown', '.fl-builder-block', function() {
 	        $('.pp-panel .fl-builder-panel-actions .pp-panel-close').trigger('click');
 	    });
 

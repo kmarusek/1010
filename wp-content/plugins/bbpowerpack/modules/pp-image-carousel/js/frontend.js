@@ -212,6 +212,10 @@
 				nodeClass = this.nodeClass;
 
             var options = {
+				keyboard: {
+					enabled: true,
+					onlyInViewport: false,
+				},
 				navigation: {
 					prevEl: nodeClass + ' .pp-swiper-button-prev',
 					nextEl: nodeClass + ' .pp-swiper-button-next'

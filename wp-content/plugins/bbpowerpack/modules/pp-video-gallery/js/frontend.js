@@ -241,7 +241,7 @@
 			$('body').undelegate(this.nodeClass + ' .pp-video-gallery-filters .pp-filter--active', 'click', this._bindResponsiveFilters );
 			
 			if ( window.innerWidth <= 768 ) {
-				$('body').delegate(this.nodeClass + ' .pp-video-gallery-filters .pp-filter--active', 'click', this._bindResponsiveFilters );
+				$('body').on('click', this.nodeClass + ' .pp-video-gallery-filters .pp-filter--active', this._bindResponsiveFilters );
 			}
 		},
 

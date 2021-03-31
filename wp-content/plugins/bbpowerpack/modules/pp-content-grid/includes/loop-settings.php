@@ -20,6 +20,8 @@ FLBuilderModel::default_settings($settings, array(
 	'more_link_text'	=> __('Read More', 'bb-powerpack'),
 	'post_grid_filters_display' => 'no',
 	'post_grid_filters'	=> 'none',
+	'post_grid_filters_order_by' => 'name',
+	'post_grid_filters_order'    => 'ASC',
 	'post_grid_filters_type'	=> 'dynamic',
 	'all_filter_label'	=> __('All', 'bb-powerpack'),
 	'post_taxonomies'	=> 'none',
@@ -472,6 +474,47 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				'default' => '',
 				'size'	=> 8,
 				'connections'	=> array('string')
+			), $settings);
+
+			// Order by
+			FLBuilder::render_settings_field('post_grid_filters_order_by', array(
+				'type'    => 'select',
+				'label'   => __( 'Order By', 'bb-powerpack' ),
+				'default' => 'name',
+				'options' => array(
+					'name'           => __( 'Name', 'bb-powerpack' ),
+					'slug'           => __( 'Slug', 'bb-powerpack' ),
+					'description'    => __( 'Description', 'bb-powerpack' ),
+					'term_id'        => __( 'ID', 'bb-powerpack' ),
+					'count'          => __( 'Count', 'bb-powerpack' ),
+					'meta_value'     => __( 'Meta Value (Alphabetical)', 'bb-powerpack' ),
+					'meta_value_num' => __( 'Meta Value (Numeric)', 'bb-powerpack' ),
+				),
+				'toggle'  => array(
+					'meta_value'     => array(
+						'fields' => array( 'post_grid_filters_order_by_meta_key' ),
+					),
+					'meta_value_num' => array(
+						'fields' => array( 'post_grid_filters_order_by_meta_key' ),
+					),
+				),
+			), $settings);
+
+			// Meta Key
+			FLBuilder::render_settings_field('post_grid_filters_order_by_meta_key', array(
+				'type'  => 'text',
+				'label' => __( 'Meta Key', 'bb-powerpack' ),
+			), $settings);
+
+			// Order
+			FLBuilder::render_settings_field('post_grid_filters_order', array(
+				'type'    => 'select',
+				'label'   => __( 'Order', 'bb-powerpack' ),
+				'default' => 'ASC',
+				'options' => array(
+					'DESC' => __( 'Descending', 'bb-powerpack' ),
+					'ASC'  => __( 'Ascending', 'bb-powerpack' ),
+				),
 			), $settings);
 			?>
 		</table>

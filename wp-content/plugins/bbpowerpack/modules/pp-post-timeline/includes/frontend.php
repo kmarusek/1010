@@ -17,8 +17,6 @@ FLBuilderModel::default_settings($settings, array(
 	'image_position'	=> 'above_header'
 ));
 
-$terms_list = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
-
 $query = FLBuilderLoop::query($settings);
 
 // Render the posts.
@@ -48,6 +46,8 @@ if($query->have_posts()) :
 		while($query->have_posts()) :
 
 		$query->the_post();
+
+		$terms_list = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
 
 		include $module->dir . 'includes/' . $settings->post_timeline_layout . '-timeline.php';
 

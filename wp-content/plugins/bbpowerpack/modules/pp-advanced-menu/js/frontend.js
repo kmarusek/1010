@@ -123,7 +123,7 @@
 
 		_bindSettingsFormEvents: function()
 		{
-			// $('body').delegate( '.fl-builder-settings select[name="offcanvas_direction"]', 'change', function() {
+			// $('body').on( 'change', '.fl-builder-settings select[name="offcanvas_direction"]', function() {
 			// 	$('html').removeClass('pp-off-canvas-menu-open');
 			// } );
 		},

@@ -1346,7 +1346,7 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 						'units'				=> array( 'px' ),
                         'preview'			=> array(
                             'type'				=> 'css',
-                            'selector'			=> '.pp-contact-form a.fl-button',
+                            'selector'			=> '.pp-contact-form .fl-button',
                             'property'			=> 'padding',
                             'unit'				=> 'px'
                         ),
@@ -1622,7 +1622,7 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 						'responsive'  	   	=> true,
 						'preview'          	=> array(
 							'type'         		=> 'css',
-							'selector' 		   	=> '.pp-contact-form a.fl-button',
+							'selector' 		   	=> '.pp-contact-form .fl-button',
 						),
 					),
                 )

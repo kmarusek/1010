@@ -25,7 +25,7 @@
 			
 			itemSpacing.on('keyup', this._previewItemSpacing);
 
-			$('body').delegate( '.fl-builder-settings select[name="content_type"]', 'change', $.proxy(this._contentTypeChange, this) );
+			$('body').on( 'change', '.fl-builder-settings select[name="content_type"]', $.proxy(this._contentTypeChange, this) );
 		},
 
 		_previewLabelSize: function()

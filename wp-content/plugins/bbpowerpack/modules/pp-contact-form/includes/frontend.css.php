@@ -38,8 +38,8 @@ FLBuilderCSS::dimension_field_rule( array(
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'button_padding',
-	'selector' 		=> ".fl-node-$id .pp-contact-form a.fl-button,
-						.fl-node-$id .pp-contact-form a.fl-button:visited",
+	'selector' 		=> ".fl-node-$id .pp-contact-form .fl-button,
+						.fl-node-$id .pp-contact-form .fl-button:visited",
 	'unit'			=> 'px',
 	'props'			=> array(
 		'padding-top' 		=> 'button_padding_top',
@@ -79,8 +79,8 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'button_typography',
-	'selector' 		=> ".fl-node-$id .pp-contact-form a.fl-button,
-						.fl-node-$id .pp-contact-form a.fl-button:visited",
+	'selector' 		=> ".fl-node-$id .pp-contact-form .fl-button,
+						.fl-node-$id .pp-contact-form .fl-button:visited",
 ) );
 // Label Font
 FLBuilderCSS::responsive_rule( array(
@@ -179,8 +179,8 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 	<?php endif; ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
-.fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
+.fl-node-<?php echo $id; ?> .pp-contact-form .fl-button,
+.fl-node-<?php echo $id; ?> .pp-contact-form .fl-button:visited {
 	-webkit-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	-moz-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	border-radius: <?php echo $settings->btn_border_radius; ?>px;
@@ -212,31 +212,31 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 }
 
 <?php if ( ! empty( $settings->btn_text_color ) ) : ?>
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button *,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited * {
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:visited,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button *,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:visited * {
 	color: #<?php echo $settings->btn_text_color; ?>;
 }
 <?php endif; ?>
 
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover {
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:hover {
 	-webkit-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	-moz-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	border-radius: <?php echo $settings->btn_border_radius; ?>px;
 }
 
 <?php if ( 'transparent' != $settings->btn_style ) : ?>
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus {
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:hover,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:focus {
 	<?php $border_hover_color = empty( $border_hover_color ) ? $border_color : $border_hover_color; ?>
 	border: <?php echo $border_size; ?>px <?php echo $border_style; ?> #<?php echo $border_hover_color; ?>;
 }
 <?php endif; ?>
 
 <?php if ( ! empty( $settings->btn_bg_hover_color ) ) : ?>
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus {
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:hover,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:focus {
 
 	background: #<?php echo $settings->btn_bg_hover_color; ?>;
 
@@ -258,10 +258,10 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 <?php endif; ?>
 
 <?php if ( ! empty( $settings->btn_text_hover_color ) ) : ?>
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover *,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus * {
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:hover,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:focus,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:hover *,
+.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button:focus * {
 	color: #<?php echo $settings->btn_text_hover_color; ?>;
 }
 <?php endif; ?>
@@ -626,8 +626,8 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
-	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
-	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
+	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form .fl-button,
+	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form .fl-button:visited {
 		display: block;
 		text-align: center;
 	}

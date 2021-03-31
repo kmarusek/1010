@@ -317,7 +317,7 @@ BB_PowerPack::register_module(
 			'title'    => __( 'General', 'bb-powerpack' ),
 			'sections' => array(
 				'device'        => array(
-					'title'  => 'Device',
+					'title'  => __( 'Device', 'bb-powerpack' ),
 					'fields' => array(
 						'device_type'         => array(
 							'type'    => 'select',
@@ -342,9 +342,6 @@ BB_PowerPack::register_module(
 								),
 								'desktop' => array(
 									'fields' => array( 'scrollable', 'vertical_alignment' ),
-								),
-								'window'  => array(
-									'fields' => array( '' ),
 								),
 							),
 						),
@@ -514,6 +511,11 @@ BB_PowerPack::register_module(
 								'selector' => '.pp-device-media-screen',
 								'property' => 'top',
 							),
+						),
+						'img_alt' => array(
+							'type'	=> 'text',
+							'label' => __( 'HTML image "alt" tag text', 'bb-powerpack' ),
+							'connections' => array( 'string' ),
 						),
 					),
 				),

@@ -95,7 +95,22 @@
 		 */
 		_initSticky: function()
 		{
-			if ( this.win.width() >= FLBuilderLayoutConfig.breakpoints.medium ) {
+			var devices = this.header.data( 'sticky-devices' ),
+				breakpoints = FLBuilderLayoutConfig.breakpoints,
+				matches = this.win.width() >= breakpoints.medium;
+
+			if ( 'undefined' !== typeof devices ) {
+				devices = devices.split( ',' );
+				if ( $.inArray( 'tablet', devices ) && $.inArray( 'mobile', devices ) ) {
+					matches = true;
+				} else if ( $.inArray( 'tablet', devices ) ) {
+					matches = this.win.width() > breakpoints.small;
+				} else if ( $.inArray( 'mobile', devices ) ) {
+					matches = this.win.width() <= breakpoints.small || this.win.width() > breakpoints.medium;
+				}
+			}
+
+			if ( matches ) {
 				this.win.on( 'scroll.bb-powerpack-header-sticky', $.proxy( this._doSticky, this ) );
 				this._doSticky();
 			} else {

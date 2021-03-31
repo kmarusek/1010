@@ -11,7 +11,7 @@
 		this.swipers = {};
 
 		if (typeof Swiper === 'undefined') {
-			$(window).load($.proxy(function () {
+			$(window).on('load', $.proxy(function () {
 				if (typeof Swiper === 'undefined') {
 					return;
 				} else {

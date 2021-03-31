@@ -298,7 +298,7 @@
 				} );
 			});
 
-			$('body').delegate('.pp-templates-actions .filter-sublinks', 'click keyup', function(e) {
+			$('body').on('click keyup', '.pp-templates-actions .filter-sublinks', function(e) {
 				var showFilters = 'click' === e.type || ( 'keyup' === e.type && ( 13 === e.keyCode || 13 === e.which ) )
 				if ( ! showFilters ) {
 					return;
@@ -311,7 +311,7 @@
 				}
 			});
 
-			$('body').delegate('.pp-templates-actions .filter-sublinks a', 'click', function(e) {
+			$('body').on('click', '.pp-templates-actions .filter-sublinks a', function(e) {
 
 				e.preventDefault();
 
@@ -330,7 +330,7 @@
 			});
 
 			/* Search */
-			$('body').delegate('#wp-filter-search-input', 'keyup', function(e) {
+			$('body').on('keyup', '#wp-filter-search-input', function(e) {
 				var keyCode = e.which || e.keyCode;
 				if ( keyCode === 9 ) {
 					return;

@@ -9,10 +9,9 @@ $spacing_desktop    = empty( $settings->category_spacing ) ? 2 : $settings->cate
 $spacing_medium     = empty( $settings->category_spacing_medium ) ? $spacing_desktop : $settings->category_spacing_medium;
 $spacing_responsive = empty( $settings->category_spacing_responsive ) ? $spacing_medium : $settings->category_spacing_responsive;
 
-$width_desktop    = ( 100 - ( $spacing_desktop * $column_desktop - 1 ) ) / $column_desktop;
-$width_medium     = ( 100 - ( $spacing_medium * $column_medium - 1 ) ) / $column_medium;
-$width_responsive = ( 100 - ( $spacing_responsive * $column_responsive - 1 ) ) / $column_responsive;
-
+$width_desktop    = ( 100 - ( $spacing_desktop * ( $column_desktop - 1 ) ) ) / $column_desktop;
+$width_medium     = ( 100 - ( $spacing_medium * ( $column_medium - 1 ) ) ) / $column_medium;
+$width_responsive = ( 100 - ( $spacing_responsive * ( $column_responsive - 1 ) ) ) / $column_responsive;
 
 $height        = $settings->category_height;
 $margin_top    = isset( $settings->category_margin_top ) && ! empty( $settings->category_margin_top ) ? $settings->category_margin_top : 0;
@@ -20,7 +19,6 @@ $margin_bottom = isset( $settings->category_margin_bottom ) && ! empty( $setting
 $margin_left   = isset( $settings->category_margin_left ) && ! empty( $settings->category_margin_left ) ? $settings->category_margin_left : 0;
 $margin_right  = isset( $settings->category_margin_right ) && ! empty( $settings->category_margin_right ) ? $settings->category_margin_right : 0;
 $speed         = 0.3;
-
 
 // *************************************** Border ***************************************
 // Box Border - Settings
@@ -249,11 +247,9 @@ if ( 'no' === $settings->category_grid_slider ) {
 
 }
 
-
 .fl-node-<?php echo $id; ?> .pp-category {
-
-	width : <?php echo $width_desktop . '%'; ?>;
-	height : <?php echo $height . 'px'; ?>;
+	width: <?php echo $width_desktop . '%'; ?>;
+	height: <?php echo $height . 'px'; ?>;
 	float: left;
 	background-repeat: no-repeat;
 	background-size: cover;

@@ -271,11 +271,15 @@ FLBuilderCSS::typography_field_rule(
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_complex input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=image]):not([type=file]),
 .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_complex select {
+	<?php if ( $settings->input_field_margin >= 0 ) { ?>
 	margin-bottom: <?php echo ( $settings->input_field_margin * 30 ) / 100; ?>px;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_complex span {
+	<?php if ( $settings->input_field_margin >= 0 ) { ?>
 	margin-bottom: <?php echo ( $settings->input_field_margin * 40 ) / 100; ?>px;
+	<?php } ?>
 }
 
 <?php if ( $settings->gf_input_placeholder_color && 'block' === $settings->gf_input_placeholder_display ) { ?>

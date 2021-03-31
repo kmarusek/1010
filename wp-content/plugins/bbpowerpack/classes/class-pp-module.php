@@ -93,6 +93,10 @@ final class PPModuleExtend {
 
 				$module = FLBuilderModel::get_module( $node );
 
+				if ( ! is_object( $module ) ) {
+					continue;
+				}
+
 				$items = $module->get_faq_items();
 
 				for ( $i = 0; $i < count( $items ); $i++ ) {

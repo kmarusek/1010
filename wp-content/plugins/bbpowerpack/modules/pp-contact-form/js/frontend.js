@@ -54,7 +54,13 @@
 
 		_init: function()
 		{
-			$( this.nodeClass + ' .fl-button' ).click( $.proxy( this._submit, this ) );
+			var self = this;
+
+			$( this.nodeClass + ' .pp-contact-form' ).on( 'submit', $.proxy( this._submit, this ) );
+			$( this.nodeClass + ' .pp-contact-form .pp-submit-button' ).on( 'click', function(e) {
+				e.preventDefault();
+				$( self.nodeClass + ' .pp-contact-form' ).trigger( 'submit' );
+			} );
 		},
 
 		_submit: function( e )

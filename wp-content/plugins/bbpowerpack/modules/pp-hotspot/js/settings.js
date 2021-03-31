@@ -8,7 +8,7 @@
 		init: function() {
 			var self = this;
 
-			$('body').delegate('.fl-builder-settings #fl-field-markers_content .fl-form-field-edit', 'click', function() {
+			$('body').on('click', '.fl-builder-settings #fl-field-markers_content .fl-form-field-edit', function() {
 				var row = $(this).parents('.fl-builder-field-multiple');
 				self._currentIndex = currentIndex = row.index();
 			});

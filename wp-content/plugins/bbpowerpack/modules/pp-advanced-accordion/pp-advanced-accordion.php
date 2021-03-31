@@ -161,13 +161,15 @@ class PPAccordionModule extends FLBuilderModule {
 
 		global $wp_embed;
 
-		foreach ( $posts as $row ) {
-			$item          = new stdClass;
-			$item->label   = isset( $row->post_title ) ? $row->post_title : '';
-			$item->content = isset( $row->post_content ) ? wpautop( $wp_embed->autoembed( $row->post_content ) ) : '';
+		foreach ( $posts as $post ) {
+			$item 			= new stdClass;
+			$item->post_id 	= $post->ID;
+			$item->label   	= isset( $post->post_title ) ? $post->post_title : '';
+			$item->content 	= isset( $post->post_content ) ? wpautop( $wp_embed->autoembed( $post->post_content ) ) : '';
 
 			$data[] = $item;
 		}
+
 		return $data;
 	}
 
@@ -193,6 +195,7 @@ class PPAccordionModule extends FLBuilderModule {
 
 		foreach ( $repeater_rows as $row ) {
 			$item          = new stdClass;
+			$item->post_id = $post_id;
 			$item->label   = isset( $row[ $label_name ] ) ? $row[ $label_name ] : '';
 			$item->content = isset( $row[ $content_name ] ) ? wpautop( $wp_embed->autoembed( $row[ $content_name ] ) ) : '';
 
@@ -221,6 +224,7 @@ class PPAccordionModule extends FLBuilderModule {
 
 		foreach ( $repeater_rows as $row ) {
 			$item          = new stdClass;
+			$item->post_id = $post_id;
 			$item->label   = isset( $row[ $label_name ] ) ? $row[ $label_name ] : '';
 			$item->content = isset( $row[ $content_name ] ) ? $row[ $content_name ] : '';
 

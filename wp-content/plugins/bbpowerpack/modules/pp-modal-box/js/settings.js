@@ -98,7 +98,7 @@
 		},
 		
         init: function() {
-			$('body').delegate( '.fl-builder-settings select[name="modal_type"]', 'change', $.proxy(this._modalTypeChange, this) );
+			$('body').on( 'change', '.fl-builder-settings select[name="modal_type"]', $.proxy(this._modalTypeChange, this) );
 
             $('select[name="button_type"]').trigger('change');
 			$('select[name="modal_load"]').trigger('change');

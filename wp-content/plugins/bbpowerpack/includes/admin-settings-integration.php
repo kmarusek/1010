@@ -81,7 +81,7 @@
 			<input id="bb_powerpack_instagram_access_token" name="bb_powerpack_instagram_access_token" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option('bb_powerpack_instagram_access_token', true); ?>" />
 			<p class="description">
 				<?php // translators: %s: Instagram Access Token document ?>
-				<?php echo sprintf( __( 'To get your Instagram Access Token, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), '#' ); ?>
+				<?php echo sprintf( __( 'To get your Instagram Access Token, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), 'https://wpbeaveraddons.com/docs/powerpack/modules/instagram-feed/beaver-builder-instagram-module-setup-powerpack/' ); ?>
 			</p>
 		</td>
 	</tr>

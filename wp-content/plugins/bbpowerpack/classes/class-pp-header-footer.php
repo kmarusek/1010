@@ -106,6 +106,12 @@ final class BB_PowerPack_Header_Footer {
 			delete_option( 'bb_powerpack_header_footer_fixed_header' );
 		}
 
+		if ( isset( $_POST['bb_powerpack_header_footer_fixed_header_devices'] ) ) {
+			update_option( 'bb_powerpack_header_footer_fixed_header_devices', wp_unslash( $_POST['bb_powerpack_header_footer_fixed_header_devices'] ) );
+		} else {
+			update_option( 'bb_powerpack_header_footer_fixed_header_devices', array() );
+		}
+
 		if ( isset( $_POST['bb_powerpack_header_footer_shrink_header'] ) ) {
 			update_option( 'bb_powerpack_header_footer_shrink_header', 1 );
 		} else {
@@ -285,7 +291,17 @@ final class BB_PowerPack_Header_Footer {
 		add_filter( 'body_class', __CLASS__ . '::body_class' );
 
 		if ( $slug && is_callable( 'FLBuilder::render_content_by_id' ) ) {
+			/**
+			 * Hook to support additional themes or perform any actions.
+			 *
+			 * @since 2.15.2
+			 *
+			 * @param string $slug Current theme slug or custom.
+			 */
+			do_action( 'pp_header_footer_before_setup', $slug );
+
 			$file = BB_POWERPACK_DIR . "classes/theme-support/class-pp-theme-support-$slug.php";
+
 			if ( file_exists( $file ) ) {
 				require_once $file;
 			}
@@ -353,9 +369,12 @@ final class BB_PowerPack_Header_Footer {
 		$tag 		= ! $tag ? 'header' : $tag;
 		$id 		= self::$header;
 		$is_fixed 	= get_option( 'bb_powerpack_header_footer_fixed_header' );
+		$devices 	= get_option( 'bb_powerpack_header_footer_fixed_header_devices' );
 		$is_shrink 	= get_option( 'bb_powerpack_header_footer_shrink_header' );
 		$is_overlay = get_option( 'bb_powerpack_header_footer_overlay_header' );
 		$overlay_bg = get_option( 'bb_powerpack_header_footer_overlay_header_bg', 'default' );
+		
+		$id = self::get_wpml_element_id( $id );
 
 		do_action( 'pp_header_footer_before_render_header', $id );
 
@@ -375,11 +394,16 @@ final class BB_PowerPack_Header_Footer {
 			wp_print_styles();
 		}
 
+		if ( ! is_array( $devices ) ) {
+			$devices = array();
+		}
+
 		FLBuilder::render_content_by_id( $id, $tag, array(
 			'itemscope'       => 'itemscope',
 			'itemtype'        => 'http://schema.org/WPHeader',
 			'data-type'       => 'header',
 			'data-sticky'     => $is_fixed ? '1' : '0',
+			'data-sticky-devices' => implode( ',', $devices ),
 			'data-shrink'     => $is_shrink ? '1' : '0',
 			'data-overlay'    => $is_overlay ? '1' : '0',
 			'data-overlay-bg' => $overlay_bg,
@@ -400,6 +424,10 @@ final class BB_PowerPack_Header_Footer {
 		$tag = ! $tag ? 'footer' : $tag;
 		$id = self::$footer;
 
+		$id = self::get_wpml_element_id( $id );
+
+		do_action( 'pp_header_footer_before_render_footer', $id );
+
 		// Enqueue styles and scripts for this post.
 		if ( is_callable( 'FLBuilder::enqueue_layout_styles_scripts_by_id' ) ) {
 			FLBuilder::enqueue_layout_styles_scripts_by_id( $id );
@@ -409,8 +437,6 @@ final class BB_PowerPack_Header_Footer {
 		if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {
 			wp_print_styles();
 		}
-
-		do_action( 'pp_header_footer_before_render_footer', $id );
 
 		FLBuilder::render_content_by_id( $id, $tag, array(
 			'itemscope'       => 'itemscope',
@@ -454,6 +480,28 @@ final class BB_PowerPack_Header_Footer {
 	 */
 	static public function override_the_content( $content ) {
 		return '<div style="padding: 200px 100px; text-align:center; opacity:0.5;">' . __( 'Content Area', 'bb-powerpack' ) . '</div>';
+	}
+
+	static public function get_wpml_element_id( $id ) {
+		if ( class_exists( 'sitepress' ) && class_exists( 'WPML_Post_Element' ) ) {
+			global $sitepress;
+
+			$current_lang = $sitepress->get_current_language();
+			
+			$wpml_post      = new WPML_Post_Element( $id, $sitepress );
+			$wpml_post_lang = $wpml_post->get_language_code();
+			
+			if ( $current_lang !== $wpml_post_lang && ! is_null( $wpml_post_lang ) ) {
+				$type 		  = $wpml_post->get_wpml_element_type();
+				$trid         = $sitepress->get_element_trid( $id, $type );
+				$translations = $sitepress->get_element_translations( $trid, $type );
+				if ( is_array( $translations ) && ! empty( $translations ) && isset( $translations[ $current_lang ] ) && isset( $translations[ $current_lang ]->element_id ) ) {
+					$id = $translations[ $current_lang ]->element_id;
+				}
+			}
+		}
+		
+		return $id;
 	}
 }
 

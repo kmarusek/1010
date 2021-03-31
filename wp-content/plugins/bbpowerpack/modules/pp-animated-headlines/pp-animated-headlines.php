@@ -179,6 +179,53 @@ BB_PowerPack::register_module('PPAnimatedHeadlinesModule', array(
 					)
 				)
 			),
+			'durations'	=> array(
+				'title'		=> __( 'Durations', 'bb-powerpack' ),
+				'fields'	=> array(
+					'animation_delay' => array(
+						'type'    => 'unit',
+						'label'   => __( 'Animation Delay', 'bb-powerpack' ),
+						'default' => 2500,
+						'placeholder' => 2500,
+						'units'   => array( 'milliseconds' ),
+					),
+					'letters_delay' => array(
+						'type'    => 'unit',
+						'label'   => __( 'Letters Delay', 'bb-powerpack' ),
+						'default' => 50,
+						'placeholder' => 50,
+						'units'   => array( 'milliseconds' ),
+					),
+					'type_letters_delay' => array(
+						'type'    => 'unit',
+						'label'   => __( 'Type Letters Delay', 'bb-powerpack' ),
+						'default' => 150,
+						'placeholder' => 150,
+						'units'   => array( 'milliseconds' ),
+					),
+					'selection_duration' => array(
+						'type'    => 'unit',
+						'label'   => __( 'Selection Duration', 'bb-powerpack' ),
+						'default' => 500,
+						'placeholder' => 500,
+						'units'   => array( 'milliseconds' ),
+					),
+					'reveal_duration' => array(
+						'type'    => 'unit',
+						'label'   => __( 'Reveal Duration', 'bb-powerpack' ),
+						'default' => 600,
+						'placeholder' => 600,
+						'units'   => array( 'milliseconds' ),
+					),
+					'reveal_animation_delay' => array(
+						'type'    => 'unit',
+						'label'   => __( 'Reveal Animation Delay', 'bb-powerpack' ),
+						'default' => 1500,
+						'placeholder' => 1500,
+						'units'   => array( 'milliseconds' ),
+					),
+				),
+			),
 		)
 	),
 	'style'		=> array(

@@ -36,8 +36,6 @@ class PPSmartButtonModule extends FLBuilderModule {
 		if ( isset( $settings->link_no_follow ) ) {
 			$settings->link_nofollow = $settings->link_no_follow;
 			unset( $settings->link_no_follow );
-		} else {
-			$settings->link_nofollow = 'no';
 		}
 
 		// Handle old background color settings
