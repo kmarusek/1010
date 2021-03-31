@@ -181,6 +181,16 @@ function ai1wm_database_path( $params ) {
 }
 
 /**
+ * Get cookies.txt absolute path
+ *
+ * @param  array  $params Request parameters
+ * @return string
+ */
+function ai1wm_cookies_path( $params ) {
+	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_COOKIES_NAME;
+}
+
+/**
  * Get error log absolute path
  *
  * @return string
@@ -295,8 +305,8 @@ function ai1wm_parse_size( $size, $default = null ) {
 	);
 
 	// Parse size format
-	if ( preg_match( '/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $size, $match ) ) {
-		return $match[1] * $suffixes[ strtolower( $match[2] ) ];
+	if ( preg_match( '/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $size, $matches ) ) {
+		return $matches[1] * $suffixes[ strtolower( $matches[2] ) ];
 	}
 
 	return $default;
