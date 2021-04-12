@@ -1,3 +1,11 @@
+<h4>1.3.3.1 - 04/07/2021</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>ACF: Fix PHP Notice when using an Image Field after image is deleted from Post</li>
+	<li>ACF: Fix relationship field displaying empty if field return set to Post Object and not Post ID</li>
+	<li>TEC: Fix future events setting showing events that are already completed</li>
+</ul>
+
 <h4>1.3.3 - 03/01/2021</h4>
 <p><strong>Enhancements</strong></p>
 <ul>

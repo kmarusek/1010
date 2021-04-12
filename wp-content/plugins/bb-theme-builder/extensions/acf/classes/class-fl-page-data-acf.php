@@ -567,7 +567,7 @@ final class FLPageDataACF {
 
 				if ( isset( $object['value']['sizes'] ) && isset( $object['value']['sizes'][ $size ] ) ) {
 					$url = $object['value']['sizes'][ $size ];
-				} elseif ( $object['value']['url'] ) {
+				} elseif ( isset( $object['value']['url'] ) ) {
 					$url = $object['value']['url'];
 				}
 			} elseif ( 'url' == $format ) {
@@ -575,7 +575,7 @@ final class FLPageDataACF {
 			} elseif ( 'id' == $format ) {
 				if ( 'image' == $object['type'] ) {
 					$data = wp_get_attachment_image_src( $object['value'], $size );
-					$url  = $data[0];
+					$url  = isset( $data[0] ) ? $data[0] : '';
 				} elseif ( 'file' == $object['type'] ) {
 					$url = wp_get_attachment_url( $object['value'] );
 				}
@@ -596,7 +596,7 @@ final class FLPageDataACF {
 
 		if ( $format && isset( $object['value'] ) ) {
 
-			if ( 'array' == $format ) {
+			if ( 'array' == $format && isset( $object['value']['ID'] ) ) {
 				$id = $object['value']['ID'];
 			} elseif ( 'object' == $format ) {
 				$id = $object['value']['id'];

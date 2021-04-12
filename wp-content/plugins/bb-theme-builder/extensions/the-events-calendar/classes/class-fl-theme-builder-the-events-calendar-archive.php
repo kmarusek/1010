@@ -126,6 +126,11 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 	 * @return array
 	 */
 	static public function builder_loop_query_args( $args ) {
+
+		if ( empty( $args ) ) {
+			return $args;
+		}
+
 		$settings = $args['settings'];
 
 		if ( ! isset( $settings->data_source ) || 'custom_query' != $settings->data_source ) {
@@ -183,10 +188,11 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 	 * @return array
 	 */
 	static private function get_events_meta_query( $show_events ) {
-		$meta_query   = array();
-		$local_time   = current_datetime();
-		$current_time = $local_time->getTimestamp() + $local_time->getOffset();
-		$today        = gmdate( 'Y-m-d 00:00:00', $current_time );
+		$meta_query        = array();
+		$local_time        = current_datetime();
+		$current_timestamp = $local_time->getTimestamp() + $local_time->getOffset();
+		$today             = gmdate( 'Y-m-d 00:00:00', $current_timestamp );
+		$current_time      = gmdate( 'Y-m-d H:i:s', $current_timestamp );
 
 		if ( 'today' === $show_events ) {
 
@@ -206,16 +212,28 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 				),
 			);
 
-		} else {
-			$compare = ( 'past' === $show_events ) ? '<' : '>=';
+		} elseif ( 'past' === $show_events ) {
 
 			$meta_query = array(
 				array(
-					'key'     => '_EventStartDate',
-					'compare' => $compare,
-					'value'   => $today,
+					'key'     => '_EventEndDate',
+					'compare' => '<',
+					'value'   => $current_time,
+					'type'    => 'DATETIME',
 				),
 			);
+
+		} elseif ( 'future' === $show_events ) {
+
+			$meta_query = array(
+				array(
+					'key'     => '_EventEndDate',
+					'compare' => '>',
+					'value'   => $current_time,
+					'type'    => 'DATETIME',
+				),
+			);
+
 		}
 
 		return $meta_query;

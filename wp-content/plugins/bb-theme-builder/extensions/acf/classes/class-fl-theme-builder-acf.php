@@ -85,7 +85,8 @@ final class FLThemeBuilderACF {
 					$object_ids[]     = $obj['ID'];
 					$rel_post_types[] = $obj['post_type'];
 				} elseif ( is_int( $obj ) ) {
-					$object_ids[] = $obj;
+					$object_ids[]     = $obj;
+					$rel_post_types[] = get_post_type( $obj );
 				}
 			}
 
