@@ -267,7 +267,7 @@
                 centeredSlides: true,
                 slideToClickedSlide: true,
                 spaceBetween: this._getSpaceBetween(),
-                loop: true,
+                loop: 'undefined' !== typeof this.settings.loop ? this.settings.loop : true,
                 loopedSlides: this._getSlidesCount(),
                 speed: this.settings.speed,
                 onSlideChangeEnd: function (swiper) {

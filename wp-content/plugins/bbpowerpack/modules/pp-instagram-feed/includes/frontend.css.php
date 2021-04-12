@@ -54,7 +54,9 @@
 
 <?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size ) { ?>
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
-	/*width: <?php echo $settings->image_custom_size; ?>px;*/
+	<?php if ( isset( $settings->aspect_ratio ) && 'yes' !== $settings->aspect_ratio ) { ?>
+	width: <?php echo $settings->image_custom_size; ?>px;
+	<?php } ?>
 	height: <?php echo $settings->image_custom_size; ?>px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -302,7 +304,9 @@
 	}
 	<?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size_medium ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
+		<?php if ( isset( $settings->aspect_ratio ) && 'yes' !== $settings->aspect_ratio ) { ?>
 		width: <?php echo $settings->image_custom_size_medium; ?>px;
+		<?php } ?>
 		height: <?php echo $settings->image_custom_size_medium; ?>px;
 	}
 	<?php } ?>
@@ -334,7 +338,9 @@
 	}
 	<?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size_responsive ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
+		<?php if ( isset( $settings->aspect_ratio ) && 'yes' !== $settings->aspect_ratio ) { ?>
 		width: <?php echo '-1' === $settings->image_custom_size_responsive ? '100%' : $settings->image_custom_size_responsive . 'px'; ?>;
+		<?php } ?>
 		height: <?php echo $settings->image_custom_size_responsive; ?>px;
 	}
 	<?php } ?>

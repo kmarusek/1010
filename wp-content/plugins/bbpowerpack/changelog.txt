@@ -1,3 +1,18 @@
+== 2.15.3 ==
+Release date: April 8, 2021
+* Fix: Off-Canvas Content - Saved layouts were not getting added in dropdown due to cached AJAX URL
+* Fix: Modal Box - Saved layouts were not getting added in dropdown due to cached AJAX URL
+* Fix: Testimonials Slider - ADA compliance issue with slider arrow buttons
+* Fix: Contact Form - ADA compliance issue with button icon
+* Fix: Image - Image size issue when used in sticky header set through Beaver Themer
+* Fix: Instagram Feed - Added an option to maintain width for the square layout
+* Fix: Dual Button - Spacing was not working vertically when buttons get stacked at a given breakpoint
+* Fix: Image Carousel - Disable thumbnail loop respecting to the Loop option to prevent image centering issues
+* Fix: Content Ticker - Added missing alpha channel for Content Hover Background Color
+* Fix: Info List - Icon alignement issue
+* Core: Added MainWP compatibility for plugin update
+* Development: Advanced Accordion - Added filter hook pp_accordion_cpt_query_args
+
 == 2.15.2 ==
 Release date: March 26, 2021
 * Enhancement: Category Grid - Added logic to exclude the current category from taxonomy archive

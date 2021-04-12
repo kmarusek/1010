@@ -326,11 +326,13 @@ final class BB_PowerPack_Header_Footer {
 	 * @return string
 	 */
 	static public function render_css( $css ) {
-		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) ) {
+		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) || empty( self::$header ) ) {
 			return $css;
 		}
 
-		if ( FLBuilderModel::get_post_id() === self::$header ) {
+		$id = self::get_wpml_element_id( self::$header );
+
+		if ( $id ) {
 			$css .= file_get_contents( BB_POWERPACK_DIR . 'assets/css/header-layout.css' );
 		}
 
@@ -346,11 +348,13 @@ final class BB_PowerPack_Header_Footer {
 	 * @return string
 	 */
 	static public function render_js( $js ) {
-		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) ) {
+		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) || empty( self::$header ) ) {
 			return $js;
 		}
 
-		if ( FLBuilderModel::get_post_id() === self::$header ) {
+		$id = self::get_wpml_element_id( self::$header );
+
+		if ( $id ) {
 			$js .= file_get_contents( BB_POWERPACK_DIR . 'assets/js/header-layout.js' );
 		}
 

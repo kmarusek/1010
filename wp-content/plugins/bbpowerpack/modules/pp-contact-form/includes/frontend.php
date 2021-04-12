@@ -102,13 +102,13 @@ $messages = $module->get_strings_i18n();
     <div class="pp-button-wrap fl-button-wrap">
     	<a href="#" target="_self" class="fl-button<?php if ('enable' == $settings->btn_icon_animation): ?> fl-button-icon-animation<?php endif; ?> pp-submit-button" role="button">
     		<?php if ( ! empty( $settings->btn_icon ) && ( 'before' == $settings->btn_icon_position || ! isset( $settings->btn_icon_position ) ) ) : ?>
-    		<i class="fl-button-icon fl-button-icon-before fa <?php echo $settings->btn_icon; ?>"></i>
+    		<i class="fl-button-icon fl-button-icon-before fa <?php echo $settings->btn_icon; ?>" aria-hidden="true"></i>
     		<?php endif; ?>
     		<?php if ( ! empty( $settings->btn_text ) ) : ?>
     		<span class="fl-button-text"><?php echo $settings->btn_text; ?></span>
     		<?php endif; ?>
     		<?php if ( ! empty( $settings->btn_icon ) && 'after' == $settings->btn_icon_position ) : ?>
-    		<i class="fl-button-icon fl-button-icon-after fa <?php echo $settings->btn_icon; ?>"></i>
+    		<i class="fl-button-icon fl-button-icon-after fa <?php echo $settings->btn_icon; ?>" aria-hidden="true"></i>
     		<?php endif; ?>
     	</a>
     </div>

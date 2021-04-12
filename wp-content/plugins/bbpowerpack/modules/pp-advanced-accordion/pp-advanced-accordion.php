@@ -149,15 +149,16 @@ class PPAccordionModule extends FLBuilderModule {
 				);
 			}
 		}
-		$posts = get_posts(
-			array(
-				'post_type'   => $post_type,
-				'post_status' => 'publish',
-				'numberposts' => $cpt_count,
-				'order'       => $cpt_order,
-				'tax_query'   => $tax_query,
-			)
-		);
+
+		$args = apply_filters( 'pp_accordion_cpt_query_args', array(
+			'post_type'   => $post_type,
+			'post_status' => 'publish',
+			'numberposts' => $cpt_count,
+			'order'       => $cpt_order,
+			'tax_query'   => $tax_query,
+		) );
+
+		$posts = get_posts( $args );
 
 		global $wp_embed;
 

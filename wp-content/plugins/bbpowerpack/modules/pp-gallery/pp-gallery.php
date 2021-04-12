@@ -14,8 +14,8 @@ class PPGalleryModule extends FLBuilderModule {
 	public function __construct()
 	{
 		parent::__construct( array(
-			'name'          => __('Photo Gallery', 'bb-powerpack'),
-			'description'   => __('A module for photo gallery.', 'bb-powerpack'),
+			'name'          => __('Image/Photo Gallery', 'bb-powerpack'),
+			'description'   => __('A module for image gallery.', 'bb-powerpack'),
 			'group'         => pp_get_modules_group(),
 			'category'		=> pp_get_modules_cat( 'media' ),
 			'dir'           => BB_POWERPACK_DIR . 'modules/pp-gallery/',

@@ -667,7 +667,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 						'default'       => 'grid',
 						'options'       => array(
 							'grid'           => __( 'Masonry', 'bb-powerpack' ),
-							'square-grid'    => __( 'Square Grid', 'bb-powerpack' ),
+							'square-grid'    => __( 'Columns', 'bb-powerpack' ),
 							'carousel'       => __( 'Carousel', 'bb-powerpack' ),
 						),
 						'toggle'	=> array(
@@ -685,7 +685,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 					),
 					'image_custom_size'		=> array(
 						'type'			=> 'unit',
-						'label' 		=> __( 'Custom Size', 'bb-powerpack' ),
+						'label' 		=> __( 'Custom Height', 'bb-powerpack' ),
 						'default'       => '',
 						'units'			=> array('px'),
 						'slider'		=> array(
@@ -700,6 +700,12 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 								'responsive' 	=> '',
 							),
 						),
+					),
+					'aspect_ratio' => array(
+						'type' => 'pp-switch',
+						'label' => __( 'Maintain Aspect Ratio', 'bb-powerpack' ),
+						'default' => 'yes',
+						'help' => __( 'If you want to keep the item square, set this option to No.', 'bb-powerpack' ),
 					),
 					'grid_columns'	=> array(
 						'type'			=> 'unit',

@@ -195,7 +195,14 @@
 			var filterData = {
 				itemSelector: '.pp-video-gallery-item',
 				percentPosition: true,
-				transitionDuration: '0.6s',
+				transitionDuration: '0.3s',
+				hiddenStyle: {
+					opacity: 0
+				},
+				visibleStyle: {
+					opacity: 1
+				},
+				isOriginLeft: ! $('body').hasClass( 'rtl' ),
 			};
 			filterData = $.extend( {}, filterData, {
 				layoutMode: 'fitRows',
@@ -206,6 +213,7 @@
 
 			var filters = this.filtersObj = this.elements.wrap.isotope( filterData );
 			var filtersWrap = this.elements.node.find( '.pp-video-gallery-filters' );
+			var self = this;
 
 			this._filterByHash();
 
@@ -214,7 +222,9 @@
 			this.elements.wrap.imagesLoaded( $.proxy( function() {
 				filtersWrap.on('click', '.pp-video-gallery-filter', function() {
 					var filterVal = $(this).attr('data-filter');
-                    filters.isotope({ filter: filterVal });
+                    filters.isotope({ filter: filterVal }, function() {
+						$(document).trigger( 'pp_video_gallery_filter_complete', [self] );
+					});
 
 					filtersWrap.find('.pp-video-gallery-filter').removeClass('pp-filter--active');
 					$(this).addClass('pp-filter--active');
@@ -226,12 +236,12 @@
 			var filtersWrap = this.elements.node.find( '.pp-video-gallery-filters' );
 
 			if ( '' !== location.hash ) {
-				var hash = location.hash.replace('#', '.');
-				if ( filtersWrap.find( hash ).length > 0 ) {
-					var filterVal = filtersWrap.find( hash ).attr('data-filter');
-					this.filtersObj.isotope({ filter: filterVal });
-					filtersWrap.find('.pp-video-gallery-filter').removeClass('pp-filter--active');
-					filtersWrap.find( hash ).addClass('pp-filter--active');
+				var filter = location.hash.replace('#', '.pp-filter-');
+				var filterItem = filtersWrap.find( 'li[data-filter="' + filter + '"]' );
+				if ( filterItem.length > 0 ) {
+					setTimeout(function() {
+						filterItem.trigger( 'click' );
+					}, 100);
 				}
 			}
 		},

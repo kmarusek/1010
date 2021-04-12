@@ -310,7 +310,7 @@ FLBuilderCSS::typography_field_rule(
 	}
 	.fl-node-<?php echo $id; ?> .pp-spacer {
 		float: left;
-		height: 10px;
+		height: <?php echo $settings->button_spacing === '' ? 10 : $settings->button_spacing; ?>px;
 		width: 1px;
 	}
 	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-1 .pp-button {

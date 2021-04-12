@@ -31,6 +31,10 @@
 	display: inline;
 	max-width: 100%;
 }
+.fl-builder-content[data-shrink="1"] img.pp-photo-img {
+    width: auto !important;
+    height: auto;
+}
 .pp-photo-crop-circle img {
 	-webkit-border-radius: 100% !important;
 	-moz-border-radius: 100% !important;

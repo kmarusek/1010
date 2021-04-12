@@ -13,7 +13,7 @@ class PPAlbumModule extends FLBuilderModule {
 	{
 		parent::__construct( array(
 			'name'          	=> __('Album', 'bb-powerpack'),
-            'description'   	=> __('A module for photo Album.', 'bb-powerpack'),
+            'description'   	=> __('A module to display images or photos as album.', 'bb-powerpack'),
             'group'         	=> pp_get_modules_group(),
             'category'			=> pp_get_modules_cat( 'media' ),
             'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-album/',

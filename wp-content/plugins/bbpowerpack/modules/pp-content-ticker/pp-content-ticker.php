@@ -549,7 +549,7 @@ BB_PowerPack::register_module(
 							'label'       => __( 'Hover Background Color', 'bb-powerpack' ),
 							'default'     => '',
 							'show_reset'  => true,
-							'show_alpha'  => false,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
