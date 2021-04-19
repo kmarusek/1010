@@ -7109,6 +7109,9 @@ function custom_class_name_objectSpread(target) { for (var i = 1; i < arguments.
  * External dependencies
  */
 
+/**
+ * WordPress dependencies
+ */
 
 /**
  * WordPress dependencies
@@ -8290,6 +8293,14 @@ function getBlockClientId(node) {
 
   return blockNode.id.slice('block-'.length);
 }
+/**
+ * Returns true if two elements are contained within the same block.
+ *
+ * @param {Element} a First element.
+ * @param {Element} b Second element.
+ *
+ * @return {boolean} Whether elements are in the same block.
+ */
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/hooks/color-panel.js
 
@@ -8299,12 +8310,17 @@ function getBlockClientId(node) {
  * WordPress dependencies
  */
 
+  if (!node) {
+    return;
+  }
 
 /**
  * Internal dependencies
  */
 
 
+  return blockNode.id.slice('block-'.length);
+}
 
 
 
@@ -8392,6 +8408,9 @@ function color_objectSpread(target) { for (var i = 1; i < arguments.length; i++)
 
 
 
+/**
+ * External dependencies
+ */
 
 
 var COLOR_SUPPORT_KEY = 'color';
@@ -8973,6 +8992,10 @@ function text_transform_objectSpread(target) { for (var i = 1; i < arguments.len
 
 
 
+/**
+ * Key within block settings' supports array indicating support for text
+ * transforms e.g. settings found in `block.json`.
+ */
 
 /**
  * Key within block settings' supports array indicating support for text
@@ -9091,6 +9114,9 @@ function isLineHeightDefined(lineHeight) {
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/line-height-control/index.js
 
+function isLineHeightDefined(lineHeight) {
+  return lineHeight !== undefined && lineHeight !== RESET_VALUE;
+}
 
 /**
  * WordPress dependencies
@@ -9099,7 +9125,7 @@ function isLineHeightDefined(lineHeight) {
 
 
 /**
- * Internal dependencies
+ * WordPress dependencies
  */
 
 
@@ -9528,19 +9554,58 @@ function useIsFontAppearanceDisabled(props) {
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/font-family/index.js
 
+  if (!hasFontStyles && !hasFontWeights) {
+    return null;
+  }
+
+  var onChange = function onChange(newStyles) {
+    setAttributes({
+      style: utils_cleanEmptyObject(font_appearance_objectSpread(font_appearance_objectSpread({}, style), {}, {
+        typography: font_appearance_objectSpread(font_appearance_objectSpread({}, style === null || style === void 0 ? void 0 : style.typography), {}, {
+          fontStyle: newStyles.fontStyle,
+          fontWeight: newStyles.fontWeight
+        })
+      }))
+    });
+  };
 
 
 
-
+  var styleSupport = Object(external_wp_blocks_["hasBlockSupport"])(blockName, FONT_STYLE_SUPPORT_KEY);
+  var hasFontStyles = useEditorFeature('typography.customFontStyle');
+  return !styleSupport || !hasFontStyles;
+}
 /**
- * External dependencies
+ * Checks if font weight support has been disabled either by not opting in for
+ * support or by failing to provide preset weights.
+ *
+ * @param  {Object} props      Block properties.
+ * @param  {string} props.name Name for the block type.
+ * @return {boolean}           Whether font weight support has been disabled.
  */
 
+function useIsFontWeightDisabled() {
+  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      blockName = _ref2.name;
+
+  var weightSupport = Object(external_wp_blocks_["hasBlockSupport"])(blockName, FONT_WEIGHT_SUPPORT_KEY);
+  var hasFontWeights = useEditorFeature('typography.customFontWeight');
+  return !weightSupport || !hasFontWeights;
+}
 /**
- * WordPress dependencies
+ * Checks if font appearance support has been disabled.
+ *
+ * @param  {Object} props      Block properties.
+ * @return {boolean}           Whether font appearance support has been disabled.
  */
 
+function useIsFontAppearanceDisabled(props) {
+  var stylesDisabled = useIsFontStyleDisabled(props);
+  var weightsDisabled = useIsFontWeightDisabled(props);
+  return stylesDisabled && weightsDisabled;
+}
 
+// CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/font-family/index.js
 
 /**
  * Internal dependencies
@@ -9781,14 +9846,18 @@ function FontSizePicker(props) {
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/hooks/font-size.js
 
+function font_size_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { font_size_ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { font_size_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 function font_size_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function font_size_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { font_size_ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { font_size_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
+
+
+
 /**
- * WordPress dependencies
+ * Internal dependencies
  */
 
 
@@ -9996,6 +10065,9 @@ Object(external_wp_hooks_["addFilter"])('editor.BlockListBlock', 'core/font-size
  */
 
 
+function UnitControl(_ref) {
+  var unitsProp = _ref.units,
+      props = Object(objectWithoutProperties["a" /* default */])(_ref, ["units"]);
 
 
 
@@ -10083,7 +10155,17 @@ function useCustomUnits(units) {
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/hooks/padding.js
 
+  var onChangeShowVisualizer = function onChangeShowVisualizer(next) {
+    var newStyle = padding_objectSpread(padding_objectSpread({}, style), {}, {
+      visualizers: {
+        padding: next
+      }
+    });
 
+    setAttributes({
+      style: utils_cleanEmptyObject(newStyle)
+    });
+  };
 
 function padding_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -10652,6 +10734,7 @@ var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/panel-color-settings/index.js
 
+// CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/colors/color-panel.js
 
 
 
@@ -10690,6 +10773,7 @@ var panel_color_settings_PanelColorSettings = function PanelColorSettings(_ref) 
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/colors/color-panel.js
 
+// CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/colors/use-colors.js
 
 
 
@@ -10773,6 +10857,11 @@ function use_colors_objectSpread(target) { for (var i = 1; i < arguments.length;
  * External dependencies
  */
 
+var use_colors_DEFAULT_COLORS = [];
+var COMMON_COLOR_LABELS = {
+  textColor: Object(external_wp_i18n_["__"])('Text Color'),
+  backgroundColor: Object(external_wp_i18n_["__"])('Background Color')
+};
 
 
 /**
@@ -11171,6 +11260,8 @@ var DEFAULT_FONT_SIZES = [];
                 return attributes[fontSizeAttributeName] !== previousState[fontSizeAttributeName].slug;
               } // if font size is not named, update when the font size value changes.
 
+              return previousState[fontSizeAttributeName].size !== attributes[customFontSizeAttributeName];
+            } // in this case we need to build the font size object
 
               return previousState[fontSizeAttributeName].size !== attributes[customFontSizeAttributeName];
             } // in this case we need to build the font size object
@@ -11360,6 +11451,9 @@ function normalizeSearchInput() {
  * @return {string[]} The normalized list of search terms.
  */
 
+  if (normalizedSearchTerms.length === 0) {
+    return items;
+  }
 
 var search_items_getNormalizedSearchTerms = function getNormalizedSearchTerms() {
   var input = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -11500,7 +11594,7 @@ function getItemSearchRank(item, searchTerm) {
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/inserter/hooks/use-block-types-state.js
 /**
- * WordPress dependencies
+ * External dependencies
  */
 
 
@@ -11549,10 +11643,16 @@ var block_default = __webpack_require__(213);
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/block-icon/index.js
 
+/**
+ * External dependencies
+ */
 
 /**
  * External dependencies
  */
+
+
+
 
 /**
  * WordPress dependencies
@@ -11600,6 +11700,7 @@ function BlockIcon(_ref) {
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -11698,6 +11799,9 @@ function createBlockCompleter() {
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/autocomplete/index.js
 
 
+/* harmony default export */ var autocomplete = (BlockEditorAutocomplete);
+
+// CONCATENATED MODULE: ./node_modules/@wordpress/icons/build-module/library/fullscreen.js
 
 /**
  * External dependencies
@@ -11707,12 +11811,22 @@ function createBlockCompleter() {
  * WordPress dependencies
  */
 
+var fullscreen = Object(external_wp_element_["createElement"])(external_wp_primitives_["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, Object(external_wp_element_["createElement"])(external_wp_primitives_["Path"], {
+  d: "M4.2 9h1.5V5.8H9V4.2H4.2V9zm14 9.2H15v1.5h4.8V15h-1.5v3.2zM15 4.2v1.5h3.2V9h1.5V4.2H15zM5.8 15H4.2v4.8H9v-1.5H5.8V15z"
+}));
+/* harmony default export */ var library_fullscreen = (fullscreen);
+
+// CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/block-full-height-alignment-toolbar/index.js
+
 
 
 
 
 /**
- * Internal dependencies
+ * WordPress dependencies
  */
 
 
@@ -12597,6 +12711,10 @@ var reducer_withInnerBlocksRemoveCascade = function withInnerBlocksRemoveCascade
  * @return {Function} Enhanced reducer function.
  */
 
+      case 'RECEIVE_BLOCKS':
+      case 'INSERT_BLOCKS':
+        {
+          var updatedBlockUids = Object(external_lodash_["keys"])(flattenBlocks(action.blocks));
 
 var reducer_withBlockReset = function withBlockReset(reducer) {
   return function (state, action) {
@@ -12657,6 +12775,9 @@ var reducer_withBlockReset = function withBlockReset(reducer) {
  * @return {Function} Enhanced reducer function.
  */
 
+      case 'UPDATE_BLOCK_ATTRIBUTES':
+        newState.cache = reducer_objectSpread(reducer_objectSpread({}, newState.cache), fillKeysWithEmptyObject(getBlocksWithParentsClientIds(action.clientIds)));
+        break;
 
 var reducer_withReplaceInnerBlocks = function withReplaceInnerBlocks(reducer) {
   return function (state, action) {
@@ -12669,6 +12790,9 @@ var reducer_withReplaceInnerBlocks = function withReplaceInnerBlocks(reducer) {
     // inner blocks from the block state because its inner blocks will not be
     // attached to the block in the action.
 
+      case 'REMOVE_BLOCKS_AUGMENTED_WITH_CHILDREN':
+        newState.cache = reducer_objectSpread(reducer_objectSpread({}, Object(external_lodash_["omit"])(newState.cache, action.removedClientIds)), fillKeysWithEmptyObject(Object(external_lodash_["difference"])(getBlocksWithParentsClientIds(action.clientIds), action.clientIds)));
+        break;
 
     var nestedControllers = {};
 
@@ -13221,6 +13345,16 @@ function selectionHelper() {
  * @return {boolean} Updated state.
  */
 
+          return Object(external_lodash_["flow"])([function (nextState) {
+            return Object(external_lodash_["omit"])(nextState, action.replacedClientIds);
+          }, function (nextState) {
+            return reducer_objectSpread(reducer_objectSpread({}, nextState), Object(external_lodash_["omit"])(_mappedBlocks, ''));
+          }, function (nextState) {
+            return Object(external_lodash_["mapValues"])(nextState, function (subState) {
+              return Object(external_lodash_["reduce"])(subState, function (result, clientId) {
+                if (clientId === _clientIds3[0]) {
+                  return [].concat(Object(toConsumableArray["a" /* default */])(result), Object(toConsumableArray["a" /* default */])(_mappedBlocks['']));
+                }
 
 function reducer_selection() {
   var _state$selectionStart, _state$selectionEnd;
@@ -13759,9 +13893,26 @@ var rememo = __webpack_require__(41);
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/store/selectors.js
 
+        return reducer_objectSpread(reducer_objectSpread({}, prevState), {}, {
+          insertUsage: reducer_objectSpread(reducer_objectSpread({}, prevState.insertUsage), {}, Object(defineProperty["a" /* default */])({}, id, {
+            time: action.time,
+            count: prevState.insertUsage[id] ? prevState.insertUsage[id].count + 1 : 1,
+            insert: insert
+          }))
+        });
+      }, state);
+  }
 
 
 
+  switch (action.type) {
+    // Even if the replaced blocks have the same client ID, our logic
+    // should correct the state.
+    case 'REPLACE_BLOCKS':
+    case 'REMOVE_BLOCKS':
+      {
+        return Object(external_lodash_["omit"])(state, action.clientIds);
+      }
 
 function selectors_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = selectors_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -13774,7 +13925,12 @@ function selectors_ownKeys(object, enumerableOnly) { var keys = Object.keys(obje
 function selectors_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { selectors_ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { selectors_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /**
- * External dependencies
+ * Reducer returning whether the navigation mode is enabled or not.
+ *
+ * @param {string} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {string} Updated state.
  */
 
 
@@ -13782,7 +13938,14 @@ function selectors_objectSpread(target) { for (var i = 1; i < arguments.length; 
  * WordPress dependencies
  */
 
+  // Let inserting block always trigger Edit mode.
+  if (action.type === 'INSERT_BLOCKS') {
+    return false;
+  }
 
+  if (action.type === 'SET_NAVIGATION_MODE') {
+    return action.isNavigationMode;
+  }
 
 
 /**
@@ -15741,11 +15904,39 @@ var _marked = /*#__PURE__*/external_regeneratorRuntime_default.a.mark(ensureDefa
  * External dependencies
  */
 
+function selectors_isNavigationMode(state) {
+  return state.isNavigationMode;
+}
 /**
- * WordPress dependencies
+ * Returns whether block moving mode is enabled.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {string}     Client Id of moving block.
  */
 
+function selectors_hasBlockMovingClientId(state) {
+  return state.hasBlockMovingClientId;
+}
+/**
+ * Returns true if the last change was an automatic change, false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the last change was automatic.
+ */
 
+function selectors_didAutomaticChange(state) {
+  return !!state.automaticChangeStatus;
+}
+/**
+ * Returns true if the current highlighted block matches the block clientId.
+ *
+ * @param {Object} state Global application state.
+ * @param {string} clientId The block to check.
+ *
+ * @return {boolean} Whether the block is currently highlighted.
+ */
 
 
 
@@ -15800,6 +15991,32 @@ function ensureDefaultBlock() {
  * @param {Array} blocks Array of blocks.
  */
 
+var __unstableMarkAutomaticChangeFinalControl = function __unstableMarkAutomaticChangeFinalControl() {
+  return {
+    type: 'MARK_AUTOMATIC_CHANGE_FINAL_CONTROL'
+  };
+};
+var controls_controls = {
+  SLEEP: function SLEEP(_ref) {
+    var duration = _ref.duration;
+    return new Promise(function (resolve) {
+      setTimeout(resolve, duration);
+    });
+  },
+  MARK_AUTOMATIC_CHANGE_FINAL_CONTROL: Object(external_wp_data_["createRegistryControl"])(function (registry) {
+    return function () {
+      var _window = window,
+          _window$requestIdleCa = _window.requestIdleCallback,
+          requestIdleCallback = _window$requestIdleCa === void 0 ? function (callback) {
+        return setTimeout(callback, 100);
+      } : _window$requestIdleCa;
+      requestIdleCallback(function () {
+        return registry.dispatch('core/block-editor').__unstableMarkAutomaticChangeFinal();
+      });
+    };
+  })
+};
+/* harmony default export */ var store_controls = (controls_controls);
 
 function actions_resetBlocks(blocks) {
   return external_regeneratorRuntime_default.a.wrap(function resetBlocks$(_context2) {
@@ -16184,6 +16401,8 @@ function getBlocksWithDefaultStylesApplied(blocks, blockEditorSettings) {
  * @yield {Object} Action object.
  */
 
+          _context3.next = 13;
+          return setTemplateValidity(isBlocksValidToTemplate);
 
 function actions_replaceBlocks(clientIds, blocks, indexToSelect, initialPosition, meta) {
   var rootClientId, index, block, canInsertBlock;
@@ -17927,7 +18146,9 @@ var color_style_selector_BlockColorsStyleSelector = function BlockColorsStyleSel
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/block-edit/edit.js
 
+/* harmony default export */ var block_breadcrumb = (BlockBreadcrumb);
 
+// CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/block-context/index.js
 
 /**
  * External dependencies
@@ -20193,7 +20414,7 @@ function BlockTypesTab(_ref) {
       onHover: onHover,
       label: category.title
     }));
-  }), !uncategorizedItems.length && Object(external_wp_element_["createElement"])(panel, {
+  }), uncategorizedItems.length > 0 && Object(external_wp_element_["createElement"])(panel, {
     className: "block-editor-inserter__uncategorized-blocks-panel",
     title: Object(external_wp_i18n_["__"])('Uncategorized')
   }, Object(external_wp_element_["createElement"])(block_types_list, {
@@ -22431,7 +22652,16 @@ function InsertionPointPopover(_ref2) {
     if (event.target !== ref.current) {
       setIsInserterForced(true);
     }
-  }
+  } // Only show the inserter when there's a `nextElement` (a block after the
+  // insertion point). At the end of the block list the trailing appender
+  // should serve the purpose of inserting blocks.
+
+
+  var showInsertionPointInserter = !isHidden && nextElement && (isInserterShown || isInserterForced); // Show the indicator if the insertion point inserter is visible, or if
+  // the `showInsertionPoint` state is `true`. The latter is generally true
+  // when hovering blocks for insertion in the block library.
+
+  var showInsertionPointIndicator = showInsertionPointInserter || !isHidden && showInsertionPoint;
   /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
   // While ideally it would be enough to capture the
   // bubbling focus event from the Inserter, due to the
@@ -22439,7 +22669,6 @@ function InsertionPointPopover(_ref2) {
   // Firefox and Safari, it is not reliable.
   //
   // See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-
 
   return Object(external_wp_element_["createElement"])(external_wp_components_["Popover"], {
     noArrow: true,
@@ -22455,9 +22684,9 @@ function InsertionPointPopover(_ref2) {
     onFocus: onFocus,
     className: className,
     style: style
-  }, !isHidden && (showInsertionPoint || isInserterShown || isInserterForced) && Object(external_wp_element_["createElement"])("div", {
+  }, showInsertionPointIndicator && Object(external_wp_element_["createElement"])("div", {
     className: "block-editor-block-list__insertion-point-indicator"
-  }), !isHidden && (isInserterShown || isInserterForced) && Object(external_wp_element_["createElement"])(InsertionPointInserter, {
+  }), showInsertionPointInserter && Object(external_wp_element_["createElement"])(InsertionPointInserter, {
     rootClientId: rootClientId,
     clientId: nextClientId,
     setIsInserterForced: setIsInserterForced

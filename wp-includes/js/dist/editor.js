@@ -2009,7 +2009,7 @@ __webpack_require__.d(actions_namespaceObject, "updateBlockListSettings", functi
 var external_wp_blockEditor_ = __webpack_require__(6);
 
 // EXTERNAL MODULE: external ["wp","coreData"]
-var external_wp_coreData_ = __webpack_require__(57);
+var external_wp_coreData_ = __webpack_require__(56);
 
 // EXTERNAL MODULE: external ["wp","richText"]
 var external_wp_richText_ = __webpack_require__(21);
@@ -4200,6 +4200,45 @@ var getInserterItems = getBlockEditorSelector('getInserterItems');
 var hasInserterItems = getBlockEditorSelector('hasInserterItems');
 /**
  * @see getBlockListSettings in core/block-editor store.
+ */
+
+var getBlockListSettings = getBlockEditorSelector('getBlockListSettings');
+/**
+ * Returns the default template types.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {Object} The template types.
+ */
+
+function __experimentalGetDefaultTemplateTypes(state) {
+  var _getEditorSettings;
+
+  return (_getEditorSettings = selectors_getEditorSettings(state)) === null || _getEditorSettings === void 0 ? void 0 : _getEditorSettings.defaultTemplateTypes;
+}
+/**
+ * Returns a default template type searched by slug.
+ *
+ * @param {Object} state Global application state.
+ * @param {string} slug The template type slug.
+ *
+ * @return {Object} The template type.
+ */
+
+var __experimentalGetDefaultTemplateType = Object(rememo["a" /* default */])(function (state, slug) {
+  return Object(external_lodash_["find"])(__experimentalGetDefaultTemplateTypes(state), {
+    slug: slug
+  }) || {};
+}, function (state, slug) {
+  return [__experimentalGetDefaultTemplateTypes(state), slug];
+});
+/**
+ * Given a template entity, return information about it which is ready to be
+ * rendered, such as the title and description.
+ *
+ * @param {Object} state Global application state.
+ * @param {Object} template The template for which we need information.
+ * @return {Object} Information about the template, including title and description.
  */
 
 var getBlockListSettings = getBlockEditorSelector('getBlockListSettings');
@@ -7615,6 +7654,7 @@ function PostAuthorSelect() {
  * WordPress dependencies
  */
 
+
 /**
  * Internal dependencies
  */
@@ -7625,10 +7665,8 @@ var minimumUsersForCombobox = 25;
 
 function PostAuthor() {
   var showCombobox = Object(external_wp_data_["useSelect"])(function (select) {
-    var authors = select('core').getUsers({
-      who: 'authors',
-      per_page: minimumUsersForCombobox + 1
-    });
+    // Not using `getUsers()` because it requires `list_users` capability.
+    var authors = select(external_wp_coreData_["store"]).getAuthors();
     return (authors === null || authors === void 0 ? void 0 : authors.length) >= minimumUsersForCombobox;
   }, []);
 
@@ -11635,7 +11673,8 @@ function PostTextEditor() {
 
   var stopEditing = function stopEditing() {
     if (isDirty) {
-      saveText();
+      var blocks = Object(external_wp_blocks_["parse"])(value);
+      resetEditorBlocks(blocks);
       setIsDirty(false);
     }
   };
@@ -12984,7 +13023,7 @@ function _setPrototypeOf(o, p) {
 
 /***/ }),
 
-/***/ 57:
+/***/ 56:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["coreData"]; }());
