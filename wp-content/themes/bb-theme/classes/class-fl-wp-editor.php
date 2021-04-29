@@ -83,6 +83,13 @@ class FLWPEditor {
 		// Compile LESS
 		$css = FLCSS::compile_less( $vars . $css );
 
+		/**
+		 * Make sure $css is not a WP Error object.
+		 */
+		if ( is_wp_error( $css ) ) {
+			return false;
+		}
+
 		// Compress
 		if ( ! WP_DEBUG ) {
 			$css = FLCSS::compress_css( $css );

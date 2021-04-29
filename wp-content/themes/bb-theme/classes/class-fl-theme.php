@@ -244,7 +244,11 @@ final class FLTheme {
 		 * JS Options for breakpoints
 		 * @see fl_theme_breakpoint_opts
 		 */
-		wp_localize_script( 'fl-automator', 'themeopts', self::get_theme_breakpoints() );
+		$themeopts = self::get_theme_breakpoints();
+		if ( true === apply_filters( 'fl_theme_disable_smoothscroll_links', false ) ) {
+			$themeopts['smooth'] = 'disabled';
+		}
+		wp_localize_script( 'fl-automator', 'themeopts', $themeopts );
 
 		// Skin
 		if ( 'file' === FLTheme::get_asset_enqueue_method() ) {
@@ -936,7 +940,8 @@ final class FLTheme {
 
 		if ( 'icon' === $type ) {
 			FLTheme::enqueue_fontawesome();
-			$text = sprintf( '<i class="fas fa-bars" aria-hidden="true"></i><span class="sr-only">%s</span>', __( 'Menu', 'fl-automator' ) );
+			$mobile_nav_icon = apply_filters( 'fl_theme_mobile_nav_icon', '<i class="fas fa-bars" aria-hidden="true"></i>' );
+			$text            = sprintf( '%s<span class="sr-only">%s</span>', $mobile_nav_icon, __( 'Menu', 'fl-automator' ) );
 		} else {
 			$text = '' !== $menu ? $menu : _x( 'Menu', 'Mobile navigation toggle button text.', 'fl-automator' );
 		}
@@ -976,6 +981,7 @@ final class FLTheme {
 			'github',
 			'rss',
 			'email',
+			'wordpress',
 		) );
 
 		FLTheme::enqueue_fontawesome();
@@ -1452,15 +1458,18 @@ final class FLTheme {
 	 * @return void
 	 */
 	static public function woocommerce_wrapper_start() {
-		$layout          = self::get_setting( 'fl-woo-layout' );
-		$col_size        = ( 'no-sidebar' === $layout ) ? '12' : '8';
-		$container_class = FLLayout::get_container_class();
-		$row_class       = FLLayout::get_row_class();
+		$layout                = self::get_setting( 'fl-woo-layout' );
+		$fl_woo_content_layout = 'fl-woo-content';
 
-		echo '<div class="' . $container_class . '">';
-		echo '<div class="' . $row_class . '">';
-		self::sidebar( 'left', 'woo' );
-		echo '<div class="fl-content ';
+		if ( 'sidebar-left' === $layout ) {
+			$fl_woo_content_layout = 'fl-woo-content-right';
+		} elseif ( 'sidebar-right' === $layout ) {
+			$fl_woo_content_layout = 'fl-woo-content-left';
+		}
+
+		echo '<div class="container">';
+		echo '<div class="row">';
+		echo '<div class="fl-content ' . $fl_woo_content_layout . ' ';
 		FLLayout::content_class( 'woo' );
 		echo '">';
 	}
@@ -1473,9 +1482,14 @@ final class FLTheme {
 	 */
 	static public function woocommerce_wrapper_end() {
 		$layout = self::get_setting( 'fl-woo-layout' );
+		$size   = ( 'no-sidebar' === $layout ) ? '12' : '8';
 
 		echo '</div>';
-		self::sidebar( 'right', 'woo' );
+		if ( 'sidebar-left' === $layout ) {
+			self::sidebar( 'left', 'woo' );
+		} elseif ( 'sidebar-right' === $layout ) {
+			self::sidebar( 'right', 'woo' );
+		}
 		echo '</div>';
 		echo '</div>';
 	}

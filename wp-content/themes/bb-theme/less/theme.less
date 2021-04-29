@@ -555,6 +555,8 @@ body.rtl .fl-screen-reader-text {
 
 	.fa-stack.icon-snapchat i.fa-circle.branded, .fa-snapchat.branded { color: #FFFC00; }
 
+	.fa-stack.icon-wordpress i.fa-circle.branded, .fa-wordpress.branded { color: #15aabf; }
+
 	.fa-stack i.branded {
 		color: #fff;
 	}
@@ -1007,7 +1009,7 @@ input[type=text].fl-search-input {
 		.fl-woo-button-hover-styles();
 	}
 
-	.fl-module-woocommerce button.button:disabled, 
+	.fl-module-woocommerce button.button:disabled,
 	.fl-module-woocommerce button.button:disabled[disabled],
 	.fl-module-woocommerce button.alt.disabled {
 		padding: 6px 12px;
@@ -1028,7 +1030,7 @@ input[type=text].fl-search-input {
 		.fl-woo-button-inactive-styles();
 	}
 
-	button.button:disabled, 
+	button.button:disabled,
 	button.button:disabled[disabled],
 	button.alt.disabled {
 		padding: 6px 12px;
@@ -1047,13 +1049,17 @@ input[type=text].fl-search-input {
 }
 
 /* WooCommerce Gallery Photo Swipe Navigation */
-.woocommerce-page .pswp--open button.pswp__button:active,
-.woocommerce-page .pswp--open button.pswp__button:focus {
-	position: absolute;
-	top: 50%;
-	margin-top: -50px;
-	width: 70px;
-	height: 100px;
+.woocommerce-page {
+	button.pswp__button {
+		&:hover{
+			border:0px;
+		}
+		&.pswp__button--arrow--left,
+		&.pswp__button--arrow--right {
+			position: absolute;
+			top: 50%;
+		}
+	}
 }
 
 .woocommerce form .form-row .input-checkbox {
@@ -1584,6 +1590,12 @@ img.mfp-img {
 	.fl-content-right {
 		border-left: 1px solid @border-color;
 		padding-left: 40px;
+	}
+	.fl-woo-content-left {
+		float: left;
+	}
+	.fl-woo-content-right {
+		float: right;
 	}
 	.fl-sidebar-right {
 		padding-left: 40px;
