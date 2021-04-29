@@ -1,3 +1,14 @@
+Version 1.30.4, Wednesday, 28th April 2021
+- Improvement: Advanced Tabs - Added Title Description option.
+- Improvement: Advanced Tabs - Added right position for vertical Tab layout.
+- Improvement: Advanced Menu - Added Styling option for Responsive Navigation.
+- Improvement: Dual Button - Added RTL support.
+- Fixed: User Registration Form - Not working on multisite.
+- Fixed: User Registration Form – Phone field data not saved in a user profile.
+- Fixed: Advanced Menu - When Collapse Menu is Yes for responsive, the menu is expanded for some time while loading.
+- Fixed: Table of Contents - Module is expanded for some time while loading when set to Keep Collapsed Initially.
+- Deprecated - Caldera Forms Styler - Revoked support for new users.
+
 Version 1.30.3 Tuesday, 30th March 2021
 - Improvement: Advanced Posts: Added option for Default WordPress Format in Date Format setting.
 - Improvement: Advanced Posts: Added option to link Complete Box in CTA setting.
