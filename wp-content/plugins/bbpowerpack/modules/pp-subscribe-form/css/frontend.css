@@ -36,7 +36,8 @@
 }
 .pp-subscribe-form-inline .pp-subscribe-form-inner {
 	display: flex;
-    align-items: flex-end;
+	align-items: flex-end;
+	flex-flow: row wrap;
 }
 .pp-subscribe-form-inline .pp-form-field {
 	float: left;

@@ -114,7 +114,13 @@
 					hideOnClose: true, // Hide thumbnail grid when closing animation starts
 					parentEl: ".fancybox-container", // Container is injected into this element
 					axis: axis // Vertical (y) or horizontal (x) scrolling
-				}
+				},
+				mobile: {
+					clickOutside : 'close',
+					clickSlide: function (current, event) {
+						return "close";
+					}
+				},
 			};
 
 			if ( this.settings.lightboxCaption ) {

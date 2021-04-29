@@ -62,6 +62,8 @@
 			var id = this.id;
 			var options = {
 				modal			: false,
+				enableEscapeButton: true,
+				type: 'inline',
 				baseClass		: 'fancybox-' + id,
 				buttons			: [
 					'close'
@@ -81,10 +83,16 @@
 							iframeSrc += '#' + src[1];
 						}
 						$('.fancybox-' + id).find( '.pp-video-iframe' )[0].src = iframeSrc;
+						setTimeout(function() {
+							$('.fancybox-' + id).trigger('focus');
+						}, 1200);
 					}
 				},
 				iframe: {
 					preload: false
+				},
+				keys : {
+					close  : [27],
 				}
 			};
 
@@ -93,6 +101,12 @@
 			this.node.find('.pp-video-image-overlay').on('click', function(e) {
 				e.stopPropagation();
 				$.fancybox.open($('<div class="'+wrapperClasses+'"></div>').html( $(this).find('.pp-video-lightbox-content').html() ), options);
+			});
+
+			$(document).on('keyup', function(e) {
+				if ( e.keyCode === 27 ) {
+					$.fancybox.close();
+				}
 			});
 		},
 	};

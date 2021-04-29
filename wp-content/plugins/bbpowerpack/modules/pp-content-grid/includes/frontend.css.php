@@ -11,8 +11,8 @@ $responsive_filter = $settings->responsive_filter;
 <?php
 // Image Effects
 if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_effect ){
-	echo pp_image_effect_render_style( $settings, ".fl-node-$id .pp-content-grid-image img" );
-	echo pp_image_effect_render_style( $settings, ".fl-node-$id .pp-content-post:hover .pp-content-grid-image img", true );
+	echo pp_image_effect_render_style( $settings, ".fl-node-$id .pp-content-grid-image img, .fl-node-$id .pp-content-grid-image .pp-post-featured-img" );
+	echo pp_image_effect_render_style( $settings, ".fl-node-$id .pp-content-post:hover .pp-content-grid-image img, .fl-node-$id .pp-content-post:hover .pp-content-grid-image .pp-post-featured-img", true );
 }
 ?>
 
@@ -730,6 +730,22 @@ FLBuilderCSS::dimension_field_rule( array(
 	<?php if ( isset( $settings->custom_height ) && ! empty( $settings->custom_height ) ) { ?>
 		height: <?php echo $settings->custom_height; ?>px;
 	<?php } ?>
+}
+
+.fl-node-<?php echo $id; ?>.cg-square-layout .pp-content-post.pp-grid-style-9 {
+	height: auto !important;
+}
+
+.fl-node-<?php echo $id; ?>.cg-square-layout .pp-content-post-grid.pp-filters-active .pp-content-grid-post .pp-post-image:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.fl-node-<?php echo $id; ?>.cg-square-layout .pp-content-post.pp-grid-style-9 .pp-post-featured-img {
+   width: 100%;
+   height: 100%;
+   position: absolute;
 }
 
 <?php if ('all' !== $responsive_filter) {?>

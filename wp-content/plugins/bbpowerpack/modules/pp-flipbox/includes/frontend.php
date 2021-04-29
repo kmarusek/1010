@@ -26,7 +26,9 @@ $browser = ' pp-browser-' . pp_get_user_agent();
 						</div>
 					<?php } ?>
 					<div class="pp-flipbox-title">
+						<?php if ( ! empty( $settings->front_title ) ) { ?>
 						<<?php echo $settings->front_title_tag; ?> class="pp-flipbox-front-title"> <?php echo $settings->front_title; ?> </<?php echo $settings->front_title_tag; ?>>
+						<?php } ?>
 					</div>
 					<div class="pp-flipbox-description">
 						<?php echo $settings->front_description; ?>
@@ -39,7 +41,9 @@ $browser = ' pp-browser-' . pp_get_user_agent();
 				<?php } ?>
 				<div class="pp-flipbox-inner">
 					<div class="pp-flipbox-title">
+						<?php if ( ! empty( $settings->back_title ) ) { ?>
 						<<?php echo $settings->back_title_tag; ?> class="pp-flipbox-back-title"><?php echo $settings->back_title; ?></<?php echo $settings->back_title_tag; ?>>
+						<?php } ?>
 					</div>
 					<div class="pp-flipbox-description">
 						<?php echo $settings->back_description; ?>

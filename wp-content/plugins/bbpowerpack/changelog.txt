@@ -1,3 +1,15 @@
+== 2.15.4 ==
+Release date: April 20, 2021
+* Enhancement: Video & Video Gallery - Added logic to close lightbox on esc key press
+* Fix: Photo Gallery - Close the lightbox when tapping outside the image in small devices
+* Fix: Smart Button & File Download - Clicking on reset background hover color was adding transparent background
+* Fix: Logos Grid - Spacing issue in small devices
+* Fix: Subscribe Form - Inline layout was not responsive on small devices
+* Fix: Content Grid - Image effects were not working for Style 9
+* Fix: Content Grid - The Events Calendar options were not showing on events archive in builder
+* Fix: Image - SVG image was stopped showing when used in sticky header
+* Fix: Flip Box - ADA compliance issue when headings are left empty
+
 == 2.15.3 ==
 Release date: April 8, 2021
 * Fix: Off-Canvas Content - Saved layouts were not getting added in dropdown due to cached AJAX URL

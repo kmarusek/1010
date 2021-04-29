@@ -31,7 +31,7 @@
 	display: inline;
 	max-width: 100%;
 }
-.fl-builder-content[data-shrink="1"] img.pp-photo-img {
+.fl-builder-content[data-shrink="1"] img.pp-photo-img:not([src$=".svg"]) {
     width: auto !important;
     height: auto;
 }

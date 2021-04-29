@@ -67,6 +67,17 @@ class PPTableModule extends FLBuilderModule {
 				'type'			=> 'text_transform',
 			),
 		), 'row_typography' );
+
+		if ( isset( $settings->sortable ) ) {
+			if ( 'data-tablesaw-sortable data-tablesaw-sortable-switch' === $settings->sortable ) {
+				$settings->is_sortable = 'yes';
+			}
+			if ( '' === $settings->sortable ) {
+				$settings->is_sortable = 'no';
+			}
+
+			unset( $settings->sortable );
+		}
 		
 		return $settings;
 	}
@@ -130,6 +141,18 @@ class PPTableModule extends FLBuilderModule {
 
 		return $fields;
 	}
+
+	public function get_sortable_attrs() {
+		$sortable_attrs = $this->settings->is_sortable;
+
+		if ( '' === $sortable_attrs || 'no' === $sortable_attrs ) {
+			return '';
+		}
+
+		$sortable_attrs = 'data-tablesaw-sortable data-tablesaw-sortable-switch';
+
+		return $sortable_attrs;
+	}
 }
 
 /**
@@ -146,13 +169,13 @@ BB_PowerPack::register_module('PPTableModule', array(
 			'sort'       	=> array(
                 'title'         => __('Sortable Table', 'bb-powerpack'),
                 'fields'        => array( // Section Fields
-                    'sortable'     => array(
+                    'is_sortable'     => array(
                         'type'          => 'pp-switch',
                         'label'         => __('Sort', 'bb-powerpack'),
-                        'default'       => 'data-tablesaw-sortable data-tablesaw-sortable-switch',
+                        'default'       => 'yes',
                         'options'       => array(
-                            'data-tablesaw-sortable data-tablesaw-sortable-switch'	=> __('Yes', 'bb-powerpack'),
-                            ''    => __('No', 'bb-powerpack'),
+                            'yes'	=> __('Yes', 'bb-powerpack'),
+                            'no'    => __('No', 'bb-powerpack'),
                         ),
                     ),
                 )

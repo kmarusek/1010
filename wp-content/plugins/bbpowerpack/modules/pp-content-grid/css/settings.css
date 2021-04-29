@@ -18,7 +18,7 @@
 	display: none !important;
 }
 
-.fl-builder-settings:not(.pp-cg-post-type_tribe_events) #fl-builder-settings-section-events-calendar-settings {
+body:not(.events-archive) .fl-builder-settings:not(.pp-cg-post-type_tribe_events) #fl-builder-settings-section-events-calendar-settings {
 	display: none !important;
 }
 
@@ -40,6 +40,9 @@
 .fl-builder-settings.pp-style-custom #fl-builder-settings-section-events_calendar_style,
 .fl-builder-settings.pp-style-custom #fl-builder-settings-section-events_calendar_style {
 	display: none !important;
+}
+body.events-archive .fl-builder-settings:not(.pp-style-custom) #fl-builder-settings-section-events-calendar-settings {
+	display: block !important;
 }
 .fl-builder-settings.pp-cg-module-style-9 #fl-builder-settings-section-content_typography {
 	display: none !important;

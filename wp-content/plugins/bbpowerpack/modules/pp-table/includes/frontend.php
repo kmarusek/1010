@@ -2,6 +2,7 @@
 $source = isset( $settings->source ) ? $settings->source : 'manual';
 $tableheaders = array();
 $tablerows = array();
+$sortable_attrs = $module->get_sortable_attrs();
 ?>
 
 <div class="pp-table-wrap">
@@ -101,7 +102,7 @@ if ( 'csv_import' == $source ) {
 if ( ! empty( $tableheaders[0] ) ) {
 	do_action( 'pp_before_table_module', $settings );
 ?>
-<table class="pp-table-<?php echo $id; ?> pp-table-content tablesaw" <?php echo $settings->sortable; ?> data-tablesaw-minimap>
+<table class="pp-table-<?php echo $id; ?> pp-table-content tablesaw" <?php echo $sortable_attrs; ?> data-tablesaw-minimap>
 	<?php if ( 'manual' === $source || ( isset( $settings->first_row_header ) && 'yes' === $settings->first_row_header ) ) { ?>
 	<thead>
 		<tr>

@@ -79,7 +79,9 @@ if ( empty( $settings->bg_color_primary ) && 'gradient' === $settings->style ) {
 	text-decoration: none;
 
 	<?php if ( 'gradient' != $settings->style ) { ?>
-		background: <?php echo ! empty( $settings->bg_hover_color ) ? pp_get_color_value( $settings->bg_hover_color ) : 'rgba(255, 255, 255, 0)'; ?>;
+		<?php if ( ! empty( $settings->bg_hover_color ) ) { ?>
+		background: <?php echo pp_get_color_value( $settings->bg_hover_color ); ?>;
+		<?php } ?>
 	<?php } ?>
 
 	<?php if ( 'gradient' == $settings->style ) { // Gradient ?>

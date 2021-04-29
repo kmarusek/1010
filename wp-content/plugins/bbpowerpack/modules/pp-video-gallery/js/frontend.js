@@ -134,6 +134,12 @@
 
 			//$.fancybox.open($('<div class="'+wrapperClasses+'"></div>').html( $item.find('.pp-video-lightbox-content').html() ), options);
 			$.fancybox.open( this.lightboxData, this._getLightboxOptions(), this.activeIndex );
+
+			$(document).on('keyup', function(e) {
+				if ( e.keyCode === 27 ) {
+					$.fancybox.close();
+				}
+			});
 		},
 
 		_getLightboxOptions: function() {
@@ -151,9 +157,15 @@
 				touch			: false,
 				afterLoad		: function(current, previous) {
 					$('.fancybox-' + id).find('.fancybox-bg').addClass('fancybox-' + id + '-overlay');
+					setTimeout(function() {
+						$('.fancybox-' + id).trigger('focus');
+					}, 1200);
 				},
 				iframe: {
 					preload: false
+				},
+				keys : {
+					close  : [27],
 				}
 			};
 
