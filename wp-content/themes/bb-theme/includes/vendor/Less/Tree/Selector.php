@@ -22,6 +22,7 @@ class Less_Tree_Selector extends Less_Tree{
 	public $elements_len = 0;
 
 	public $_oelements;
+	public $_oelements_assoc;
 	public $_oelements_len;
 	public $cacheable = true;
 
@@ -62,15 +63,9 @@ class Less_Tree_Selector extends Less_Tree{
 		$newSelector->evaldCondition = $evaldCondition ? $evaldCondition : $this->evaldCondition;
 		return $newSelector;
 	}
-	
-	public function createEmptySelectors(){
-		$el = new Less_Tree_Element('','&', $this->index, $this->currentFileInfo );
-		$sels = array( new Less_Tree_Selector(array($el), array(), null, $this->index, $this->currentFileInfo) );
-		$sels[0]->mediaEmpty = true;
-        return $sels;
-	}
 
-	public function selectorMatch($other ){
+
+	public function match( $other ){
 
 		if( !$other->_oelements || ($this->elements_len < $other->_oelements_len) ){
 			return 0;
@@ -89,6 +84,8 @@ class Less_Tree_Selector extends Less_Tree{
 	public function CacheElements(){
 
 		$this->_oelements = array();
+		$this->_oelements_assoc = array();
+
 		$css = '';
 
 		foreach($this->elements as $v){
@@ -114,6 +111,8 @@ class Less_Tree_Selector extends Less_Tree{
 				array_shift($this->_oelements);
 				$this->_oelements_len--;
 			}
+
+			$this->_oelements_assoc = array_fill_keys($this->_oelements, true);
 		}
 	}
 

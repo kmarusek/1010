@@ -55,9 +55,6 @@
 		 */
 		init: function()
 		{
-			var fixedHeader = api('fl-fixed-header').get(),
-				headerTopPadding = api('fl-fixed-header-padding-top').get();
-			
 			// Create the stylesheet.
 			this._styleSheet = new FLStyleSheet();
 
@@ -136,13 +133,8 @@
 			this._css( 'fl-nav-item-spacing', '.fl-page-header-vertical .navbar-nav > li > a', 'padding-botom', '{val}px', '0' );
 			this._css( 'fl-nav-item-spacing', '.fl-page-nav .navbar-nav > li > a', 'padding-left', '{val}px', '0' );
 			this._css( 'fl-nav-item-spacing', '.fl-page-nav .navbar-nav > li > a', 'padding-right', '{val}px', '0' );
+			this._css( 'fl-fixed-header-padding-top-custom', '.fl-page', 'padding-top', '{val}px !important', '0', '', false );
 
-			if ('hidden' === fixedHeader || 'fadein' === fixedHeader) {
-				this._css('fl-fixed-header-padding-top-custom', '.fl-page', 'padding-top', '0', '0', '', false);
-			} else if ( 'custom' === headerTopPadding ){
-				this._css('fl-fixed-header-padding-top-custom', '.fl-page', 'padding-top', '{val}px !important', '0', '', false);
-			}
-		
 			// Bind HTML callbacks.
 			this._html( 'fl-topbar-col1-text', '.fl-page-bar-text-1' );
 			this._html( 'fl-topbar-col2-text', '.fl-page-bar-text-2' );

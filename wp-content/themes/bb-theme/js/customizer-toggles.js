@@ -212,7 +212,10 @@
 		},{
 			controls: [ 'fl-fixed-header-padding-top' ],
 			callback: function( val ) {
-				return ( ('shrink' == val) || ('fixed' == val) );
+
+			    var fixedHeader = api( 'fl-fixed-header' ).get();
+
+				return 'shrink' == fixedHeader || 'fixed' == fixedHeader;
 			}
 		},{
 			controls: [ 'fl-layout-spacing' ],

@@ -379,11 +379,6 @@
 				return;
 			}
 
-			// if scroll is disabled globally via filter do not scroll.
-			if ('undefined' !== typeof window.themeopts.smooth && 'disabled' === window.themeopts.smooth) {
-				return;
-			}
-
 			if (location.hash && $( location.hash ).length) {
 				setTimeout(function() {
 					window.scrollTo(0, 0);
@@ -989,11 +984,11 @@
 
 					$( win ).on( 'scroll.fl-fixed-header', FLTheme._fixThemerLayoutOnScroll );
 				}
-
+				
 				if($('body.fl-scroll-header').length === 0 && $('.fl-header-padding-top-custom').length === 0 ) {
 					$('.fl-page').css('padding-top', totalHeaderHeight);
 				}
-
+				
 				$( win ).trigger( 'scroll' );
 		 	}
 		 	else {
@@ -1346,7 +1341,7 @@
 				navBar.addClass( 'fl-nav-offcanvas-collapse');
 
 				if ( 0 === navBar.find( '.fl-button-close' ).length ) {
-					navBar.prepend( '<div class="fl-button-close"><button class="fl-offcanvas-close" aria-label="Close Menu"><i class="fas fa-times"></i></button></div>' );
+					navBar.prepend( '<div class="fl-button-close"><button class="fl-offcanvas-close"><i class="fas fa-times"></i></button></div>' );
 				}
 
 				if ( pushOpacity && 0 === $( '.fl-offcanvas-opacity' ).length ) {

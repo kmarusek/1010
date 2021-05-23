@@ -1386,12 +1386,6 @@ FLCustomizer::add_panel('fl-general', array(
 						'label' => __( 'Email', 'fl-automator' ),
 					),
 				),
-				'fl-social-wordpress'         => array(
-					'control' => array(
-						'class' => 'WP_Customize_Control',
-						'label' => __( 'WordPress', 'fl-automator' ),
-					),
-				),
 			),
 		),
 	),
