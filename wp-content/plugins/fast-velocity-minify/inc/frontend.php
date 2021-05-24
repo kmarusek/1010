@@ -61,7 +61,6 @@ function fvm_process_page($html) {
 				
 	# defaults
 	$tvers = get_option('fvm_last_cache_update', '0');
-	$httppreloads = array();
 	$htmlpreloads = array();
 	$htmlcssheader = array();
 	$htmljsheader = array();
@@ -70,11 +69,18 @@ function fvm_process_page($html) {
 	
 	# collect all link preload headers, skip amp
 	if(fvm_is_amp_page() !== true) {
+		
+		# skip on web stories
+		if(count($html->find('script[src*=cdn.ampproject.org]')) > 0) {
+			return $html . '<!-- FVM does not support AMP -->';
+		}
+		
 		# add other preloads
 		foreach($html->find('link[rel=preload]') as $tag) {
 			$htmlpreloads[] = $tag->outertext;
 			$tag->outertext = '';
 		}
+		
 	}
 	
 	
@@ -132,15 +138,18 @@ function fvm_process_page($html) {
 			
 			
 			# START CSS FILES
-			if($tag->tag == 'link' && isset($tag->href)) {		
-
+			if($tag->tag == 'link' && isset($tag->href)) {
+				
+				# filter url
+				$href = fvm_normalize_url($tag->href);
+				
 				# Ignore css files
 				$ignore_css_merging = false;
 				if(isset($fvm_settings['css']['ignore']) && !empty($fvm_settings['css']['ignore'])) {
 					$arr = fvm_string_toarray($fvm_settings['css']['ignore']);
 					if(is_array($arr) && count($arr) > 0) {
 						foreach ($arr as $e) { 
-							if(stripos($tag->href, $e) !== false) {
+							if(stripos($href, $e) !== false) {
 								unset($allcss[$k]);
 								continue 2;
 							} 
@@ -153,7 +162,7 @@ function fvm_process_page($html) {
 					$arr = fvm_string_toarray($fvm_settings['css']['remove']);
 					if(is_array($arr) && count($arr) > 0) {
 						foreach ($arr as $e) { 
-							if(stripos($tag->href, $e) !== false) {
+							if(stripos($href, $e) !== false) {
 								$tag->outertext = '';
 								unset($allcss[$k]);
 								continue 2;
@@ -170,10 +179,17 @@ function fvm_process_page($html) {
 					
 					if($css !== false && is_array($css)) {
 						
+						# error
+						if(isset($css['error'])) {
+							$tag->outertext = '/* Error on '.$href.' : '.$css['error'].' */'. PHP_EOL . $tag->outertext;
+							unset($allcss[$k]);
+							continue;
+						}
+						
 						# extract fonts and icons
 						if(isset($fvm_settings['css']['fonts']) && $fvm_settings['css']['fonts'] == true) {
 							$extract_fonts_arr = fvm_extract_fonts($css['code']);
-							$css_lowpriority_code.= '/* '.$tag->href.' */'. PHP_EOL . $extract_fonts_arr['fonts'];
+							$css_lowpriority_code.= '/* '.$href.' */'. PHP_EOL . $extract_fonts_arr['fonts'];
 							$css_code = $extract_fonts_arr['code'];
 						} else {
 							$css_code = $css['code'];
@@ -186,7 +202,7 @@ function fvm_process_page($html) {
 								$arr = fvm_string_toarray($fvm_settings['css']['async']);
 								if(is_array($arr) && count($arr) > 0) {
 									foreach ($arr as $aa) { 
-										if(stripos($tag->href, $aa) !== false) {
+										if(stripos($href, $aa) !== false) {
 											
 											# save css for merging
 											$fvm_styles[$tag->media]['async'][] = $css_code;
@@ -234,10 +250,17 @@ function fvm_process_page($html) {
 					
 					if($css !== false && is_array($css)) {
 						
+						# error
+						if(isset($css['error'])) {
+							$tag->outertext = '/* Error on '.$href.' : '.$css['error'].' */'. PHP_EOL . $tag->outertext;
+							unset($allcss[$k]);
+							continue;
+						}
+						
 						# extract fonts and icons
 						if(isset($fvm_settings['css']['fonts']) && $fvm_settings['css']['fonts'] == true) {
 							$extract_fonts_arr = fvm_extract_fonts($css['code']);
-							$css_lowpriority_code.= '/* '.$tag->href.' */'. PHP_EOL . $extract_fonts_arr['fonts'];
+							$css_lowpriority_code.= '/* '.$href.' */'. PHP_EOL . $extract_fonts_arr['fonts'];
 							$css_code = $extract_fonts_arr['code'];
 						} else {
 							$css_code = $css['code'];
@@ -249,11 +272,11 @@ function fvm_process_page($html) {
 							unset($allcss[$k]);
 							continue;
 						} else {
-							$css_code = '/* '.$tag->href.' */'. PHP_EOL . $css_code;
+							$css_code = '/* '.$href.' */'. PHP_EOL . $css_code;
 						}
 							
 						# generate url
-						$ind_css_url = fvm_generate_min_url($tag->href, $css['tkey'], 'css', $css_code);
+						$ind_css_url = fvm_generate_min_url($href, $css['tkey'], 'css', $css_code);
 						
 						# cdn
 						if(isset($fvm_settings['cdn']['cssok']) && $fvm_settings['cdn']['cssok'] == true) {
@@ -265,7 +288,7 @@ function fvm_process_page($html) {
 							$arr = fvm_string_toarray($fvm_settings['css']['async']);
 							if(is_array($arr) && count($arr) > 0) {
 								foreach ($arr as $aa) { 
-									if(stripos($tag->href, $aa) !== false) {
+									if(stripos($href, $aa) !== false) {
 										
 										# async attributes
 										$tag->rel = 'preload';
@@ -291,7 +314,6 @@ function fvm_process_page($html) {
 
 						# http and html preload for render blocking css
 						if(!isset($fvm_settings['css']['nopreload']) || (isset($fvm_settings['css']['nopreload']) && $fvm_settings['css']['nopreload'] != true)) {
-							$httppreloads[] = '<'.$ind_css_url.'>; rel=preload; as=style';
 							$htmlpreloads[] = '<link rel="preload" href="'.$ind_css_url.'" as="style" media="'.$tag->media.'" />';	
 						}
 						
@@ -427,7 +449,6 @@ function fvm_process_page($html) {
 						
 						# http and html preload for render blocking css
 						if(!isset($fvm_settings['css']['nopreload']) || (isset($fvm_settings['css']['nopreload']) && $fvm_settings['css']['nopreload'] != true)) {
-							$httppreloads[] = '<'.$merged_css_url.'>; rel=preload; as=style';
 							$htmlpreloads[] = '<link rel="preload" href="'.$merged_css_url.'" as="style" media="'.$mediatype.'"  />';
 						}
 						
@@ -494,6 +515,9 @@ function fvm_process_page($html) {
 				
 				# START JS FILES
 				if(isset($tag->src)) {
+					
+					# filter url
+					$href = fvm_normalize_url($tag->src);
 					
 					# ignore js files
 					if(isset($fvm_settings['js']['ignore']) && !empty($fvm_settings['js']['ignore'])) {
@@ -564,6 +588,13 @@ function fvm_process_page($html) {
 										# download or fetch from transient, minified
 										$js = fvm_get_js_from_file($tag);
 										if($js !== false && is_array($js)) {
+											
+											# error
+											if(isset($js['error'])) {
+												$tag->outertext = '/* Error on '.$href.' : '.$js['error'].' */'. PHP_EOL . $tag->outertext;
+												unset($allscripts[$k]);
+												continue 2;
+											}
 										
 											# save js for merging
 											$fvm_scripts_header[] = $js['code'];
@@ -594,6 +625,13 @@ function fvm_process_page($html) {
 										# download or fetch from transient, minified
 										$js = fvm_get_js_from_file($tag);
 										if($js !== false && is_array($js)) {
+											
+											# error
+											if(isset($js['error'])) {
+												$tag->outertext = '/* Error on '.$href.' : '.$js['error'].' */'. PHP_EOL . $tag->outertext;
+												unset($allscripts[$k]);
+												continue 2;
+											}
 										
 											# save js for merging
 											$fvm_scripts_defer[] = $js['code'];
@@ -617,12 +655,8 @@ function fvm_process_page($html) {
 						# jquery needs to load earlier, if not being merged (while merging is active)
 						if(stripos($tag->src, '/jquery.js') !== false || stripos($tag->src, '/jquery.min.js') !== false || stripos($tag->src, '/jquery-migrate') !== false) {
 							
-							# filter url
-							$href = fvm_normalize_url($tag->src);
-							
 							# http and html preload for render blocking js
 							if(!isset($fvm_settings['js']['nopreload']) || (isset($fvm_settings['js']['nopreload']) && $fvm_settings['js']['nopreload'] != true)) {
-								$httppreloads[] = '<'.$href.'>; rel=preload; as=script';
 								$htmlpreloads[] = '<link rel="preload" href="'.$href.'" as="script" />';
 							}
 							
@@ -630,7 +664,7 @@ function fvm_process_page($html) {
 							if(stripos($tag->src, '/jquery-migrate') !== false) {
 								$htmljsheader[1] = "<script data-cfasync='false' src='".$href."'></script>"; # jquery migrate
 							} else {
-								$htmljsheader[0] = "<script data-cfasync='false' src='".$tag->src."'></script>"; # jquery
+								$htmljsheader[0] = "<script data-cfasync='false' src='".$href."'></script>"; # jquery
 							}
 							
 							# content
@@ -647,6 +681,13 @@ function fvm_process_page($html) {
 					# minify individually, if enabled
 					if(!isset($fvm_settings['js']['min_disable']) || (isset($fvm_settings['js']['min_disable'])&& $fvm_settings['js']['min_disable'] != true)) {
 						
+						# skip third party scripts, unless allowed
+						$allowed = array($fvm_urls['wp_domain'], '/ajax.aspnetcdn.com/ajax/', '/ajax.googleapis.com/ajax/libs/',  '/cdnjs.cloudflare.com/ajax/libs/');
+						if(str_replace($allowed, '', $href) == $href) {
+							unset($allscripts[$k]);
+							continue;
+						}
+						
 						# force render blocking
 						if(isset($fvm_settings['js']['merge_header']) && !empty($fvm_settings['js']['merge_header'])) {
 							$arr = fvm_string_toarray($fvm_settings['js']['merge_header']);
@@ -657,6 +698,13 @@ function fvm_process_page($html) {
 										# download or fetch from transient, minified
 										$js = fvm_get_js_from_file($tag);
 										if($js !== false && is_array($js)) {
+											
+											# error
+											if(isset($js['error'])) {
+												$tag->outertext = '/* Error on '.$href.' : '.$js['error'].' */'. PHP_EOL . $tag->outertext;
+												unset($allscripts[$k]);
+												continue 2;
+											}
 										
 											# generate url
 											$ind_js_url = fvm_generate_min_url($tag->src, $js['tkey'], 'js', $js['code']);
@@ -672,7 +720,6 @@ function fvm_process_page($html) {
 											
 											# http and html preload for render blocking scripts
 											if(!isset($fvm_settings['js']['nopreload']) || (isset($fvm_settings['js']['nopreload']) && $fvm_settings['js']['nopreload'] != true)) {
-												$httppreloads[] = '<'.$ind_js_url.'>; rel=preload; as=script';
 												$htmlpreloads[] = '<link rel="preload" href="'.$ind_js_url.'" as="script" />';
 											}
 											
@@ -702,6 +749,13 @@ function fvm_process_page($html) {
 										# download or fetch from transient, minified
 										$js = fvm_get_js_from_file($tag);
 										if($js !== false && is_array($js)) {
+											
+											# error
+											if(isset($js['error'])) {
+												$tag->outertext = '/* Error on '.$href.' : '.$js['error'].' */'. PHP_EOL . $tag->outertext;
+												unset($allscripts[$k]);
+												continue 2;
+											}
 										
 											# generate url
 											$ind_js_url = fvm_generate_min_url($tag->src, $js['tkey'], 'js', $js['code']);
@@ -839,7 +893,6 @@ function fvm_process_page($html) {
 			
 			# http and html preload for render blocking scripts
 			if(!isset($fvm_settings['js']['nopreload']) || (isset($fvm_settings['js']['nopreload']) && $fvm_settings['js']['nopreload'] != true)) {
-				$httppreloads[] = '<'.$merged_js_url.'>; rel=preload; as=script';
 				$htmlpreloads[] = '<link rel="preload" href="'.$merged_js_url.'" as="script" />';
 			}
 			
@@ -928,22 +981,13 @@ function fvm_process_page($html) {
 	}
 	
 	# preload headers, by importance
-	if(is_array($htmlpreloads) || is_array($httppreloads)) {
+	if(is_array($htmlpreloads)) {
 		
 		# deduplicate
 		$htmlpreloads = array_unique($htmlpreloads);
-		$httppreloads = array_unique($httppreloads);
 		
 		# get values
 		$pre_html = array_values($htmlpreloads); 
-		$pre_http = array_values($httppreloads); 
-			
-		# add preload http header
-		if(count($pre_http) > 0) {
-			if(!headers_sent() && fvm_get_scheme() && fvm_has_http2()) {
-				header("Link: " . implode(', ', $pre_http));
-			}
-		}
 		
 		# add preload html header
 		if(count($pre_html) > 0) {

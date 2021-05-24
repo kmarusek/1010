@@ -55,6 +55,60 @@ function fvm_admintoolbar() {
 }
 
 
+# get cache directory
+function fvm_get_cache_location() {
+	
+	# custom path
+	if (defined('FVM_DIR') && defined('FVM_URL')){
+		
+		# define paths and url
+		$sep = DIRECTORY_SEPARATOR;
+		$dir = trim(rtrim(FVM_DIR, '/\\')). $sep . 'cache' . $sep . 'fvm'. $sep . 'min';
+		$durl = trim(rtrim(FVM_URL, '/')). '/cache/fvm/min';
+		
+		# create and return
+		if(!is_dir($dir) && function_exists('wp_mkdir_p')) { wp_mkdir_p($dir); }
+		return array('ch_dir'=>$dir,'ch_url'=>$durl);
+		
+	}
+	
+	
+	# /wp-content/cache
+	if (defined('WP_CONTENT_DIR') && defined('WP_CONTENT_URL')){
+		
+		# define paths and url
+		$sep = DIRECTORY_SEPARATOR;
+		$dir = trim(rtrim(WP_CONTENT_DIR, '/\\')). $sep . 'cache' . $sep . 'fvm'. $sep . 'min';
+		$durl = trim(rtrim(WP_CONTENT_URL, '/')). '/cache/fvm/min';
+		
+		# create and return
+		if(!is_dir($dir) && function_exists('wp_mkdir_p')) { wp_mkdir_p($dir); }
+		return array('ch_dir'=>$dir,'ch_url'=>$durl);
+		
+	}	
+	
+	# uploads directory
+	$ch_info = wp_upload_dir();
+	if(isset($ch_info['basedir']) && isset($ch_info['baseurl']) && !empty($ch_info['basedir'])) {
+	
+		# define and create directory
+		$sep = DIRECTORY_SEPARATOR;
+		$dir = $ch_info['basedir'] . $sep . 'cache' . $sep . 'fvm'. $sep . 'min';
+		$durl = $ch_info['baseurl'] . '/cache/fvm/min';
+		
+		# create and return
+		if(!is_dir($dir) && function_exists('wp_mkdir_p')) { wp_mkdir_p($dir); }
+		return array('ch_dir'=>$dir,'ch_url'=>$durl);
+			
+	}
+	
+	# error
+	return false;
+
+}
+
+
+
 # purge all caches when clicking the button on the admin bar
 function fvm_process_cache_purge_request(){
 	
@@ -205,8 +259,8 @@ function fvm_purge_others(){
 	# hosting companies
 
 	# Purge SG Optimizer (Siteground)
-	if (function_exists('sg_cachepress_purge_cache')) {
-		sg_cachepress_purge_cache();
+	if (function_exists('sg_cachepress_purge_everything')) {
+		sg_cachepress_purge_everything();
 		return __( 'All caches on <strong>SG Optimizer</strong> have been purged.', 'fast-velocity-minify' );
 	}
 
@@ -272,9 +326,9 @@ function fvm_purge_others(){
 
 
 # Purge Godaddy Managed WordPress Hosting (Varnish)
-function fvm_godaddy_request( $method, $url = null ) {
-	$url  = empty( $url ) ? home_url() : $url;
-	$host = parse_url( $url, PHP_URL_HOST );
+function fvm_godaddy_request( $method) {
+	$url = home_url();
+	$host = wpraiser_get_domain();
 	$url  = set_url_scheme( str_replace( $host, WPaas\Plugin::vip(), $url ), 'http' );
 	update_option( 'gd_system_last_cache_flush', time(), 'no'); # purge apc
 	wp_remote_request( esc_url_raw( $url ), array('method' => $method, 'blocking' => false, 'headers' => array('Host' => $host)) );
@@ -390,45 +444,37 @@ function fvm_can_minify_css() {
 
 # save minified code, if not yet available
 function fvm_generate_min_url($url, $tkey, $type, $code) {
+		
+	# cache date
+	$tvers = get_option('fvm_last_cache_update', '0');
+		
+	# parse uripath and check if it matches against our rewrite format
+	$filename = $tvers.'-'.$tkey .'.'. $type;
 	
-	# files first, but only for js/css types
-	if(function_exists('wp_upload_dir')) {
-		
-		# cache date
-		$tvers = get_option('fvm_last_cache_update', '0');
-		
-		# parse uripath and check if it matches against our rewrite format
-		$filename = $tvers.'-'.$tkey .'.'. $type;
-
-		# set cache on the uploads directory
-		$upload_dir = wp_upload_dir();
-		if(isset($upload_dir['basedir']) && isset($upload_dir['baseurl']) && !empty($upload_dir['basedir'])) {
+	# check cache directory
+	$ch_info = fvm_get_cache_location();
+	if(isset($ch_info['ch_url'])  && !empty($ch_info['ch_url']) && isset($ch_info['ch_dir']) && !empty($ch_info['ch_dir'])) {
+		if(is_dir($ch_info['ch_dir']) && is_writable($ch_info['ch_dir'])) {
 			
-			# define and create directory
-			$cache_dir = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'fvm-cache'. DIRECTORY_SEPARATOR . 'min';
-			$cache_dir_url = $upload_dir['baseurl'] . '/fvm-cache/min';
-			if(!is_dir($cache_dir) && function_exists('wp_mkdir_p')) { wp_mkdir_p($cache_dir); }
-				
 			# filename
-			$file = $cache_dir . DIRECTORY_SEPARATOR . $filename;
-			$public = $cache_dir_url . '/' .$filename;
-			
-			# cache date
-			$tvers = get_option('fvm_last_cache_update', '0');
+			$file = $ch_info['ch_dir'] . DIRECTORY_SEPARATOR . $filename;
+			$public = $ch_info['ch_url'] . '/' .$filename;
 			
 			# wordpress functions
 			require_once (ABSPATH . DIRECTORY_SEPARATOR . 'wp-admin'. DIRECTORY_SEPARATOR .'includes'. DIRECTORY_SEPARATOR .'class-wp-filesystem-base.php');
 			require_once (ABSPATH . DIRECTORY_SEPARATOR .'wp-admin'. DIRECTORY_SEPARATOR .'includes'. DIRECTORY_SEPARATOR .'class-wp-filesystem-direct.php');
 			
-			# create if doesn't exist
+			# initialize
 			$fileSystemDirect = new WP_Filesystem_Direct(false);
+				
+			# create if doesn't exist
 			if(!$fileSystemDirect->exists($file) || ($fileSystemDirect->exists($file) && $fileSystemDirect->mtime($file) < $tvers)) {
 				$fileSystemDirect->put_contents($file, $code);
 			}
 				
 			# return url
 			return $public;
-		
+			
 		}
 	}
 	
@@ -498,44 +544,42 @@ function fvm_purge_static_files() {
 	# increment
 	update_option('fvm_last_cache_update', time());
 	
-	# process
-	if( function_exists('wp_upload_dir') ) {
-		
-		# current timestamp
-		$tvers = get_option('fvm_last_cache_update', '0');
-	
-		$upload_dir = wp_upload_dir();
-		if(isset($upload_dir['basedir']) && isset($upload_dir['baseurl']) && !empty($upload_dir['basedir'])) {
+	# check cache directory
+	$ch_info = fvm_get_cache_location();
+	if(isset($ch_info['ch_url'])  && !empty($ch_info['ch_url']) && isset($ch_info['ch_dir']) && !empty($ch_info['ch_dir'])) {
+		if(is_dir($ch_info['ch_dir']) && is_writable($ch_info['ch_dir'])) {
+			
+			# wordpress functions
 			require_once (ABSPATH . DIRECTORY_SEPARATOR . 'wp-admin'. DIRECTORY_SEPARATOR .'includes'. DIRECTORY_SEPARATOR .'class-wp-filesystem-base.php');
 			require_once (ABSPATH . DIRECTORY_SEPARATOR .'wp-admin'. DIRECTORY_SEPARATOR .'includes'. DIRECTORY_SEPARATOR .'class-wp-filesystem-direct.php');
-
+			
+			# start
+			$fileSystemDirect = new WP_Filesystem_Direct(false);
+				
 			# instant purge
 			global $fvm_settings;
 			if(isset($fvm_settings['cache']['min_instant_purge']) && $fvm_settings['cache']['min_instant_purge'] == true) {
-				$cache_dir = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'fvm-cache';
-				$fileSystemDirect = new WP_Filesystem_Direct(false);
-				$fileSystemDirect->rmdir($cache_dir, true);
+				$fileSystemDirect->rmdir($ch_info['ch_dir'], true);
 				return true;
-			} else {
-				$cache_dir = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'fvm-cache'. DIRECTORY_SEPARATOR . 'min';
-				$fileSystemDirect = new WP_Filesystem_Direct(false);
+			} else {				
 				
 				# older than 24h and not matching current timestamp
-				$list = $fileSystemDirect->dirlist($cache_dir, false, true);
+				$list = $fileSystemDirect->dirlist($ch_info['ch_dir'], false, true);
 				if(is_array($list) && count($list) > 0) {
 					foreach($list as $k=>$arr) {
 						if(isset($arr['lastmodunix']) && $arr['type'] == 'f' && intval($arr['lastmodunix']) <= time()-86400) {
-							if(substr($arr['name'], 0, 10) !== $tvers) {
-								$fileSystemDirect->delete($cache_dir . DIRECTORY_SEPARATOR . $arr['name'], false, 'f');
+							if(substr($arr['name'], 0, 10) !== time()) {
+								$fileSystemDirect->delete($ch_info['ch_dir'] . DIRECTORY_SEPARATOR . $arr['name'], false, 'f');
 							}
 						}
 					}
 				}
 
 			}
-			
-		}
+				
+		}		
 	}
+	
 }
 
 
@@ -816,9 +860,13 @@ function fvm_replace_css_imports($css, $rq=null) {
 	
 	# globals
 	global $fvm_urls, $fvm_settings;
+	
+	# reset
+	$cssimports = array();
+	$cssimports_prepend = array();
+	$css = trim($css);
 
 	# handle import url rules
-	$cssimports = array();
 	preg_match_all ("/@import[ ]*['\"]{0,}(url\()*['\"]*([^\(\{'\"\)]*)['\"\)]*[;]{0,}/ui", $css, $cssimports);
 	if(isset($cssimports[0]) && isset($cssimports[2])) {
 		foreach($cssimports[0] as $k=>$cssimport) {
@@ -856,6 +904,11 @@ function fvm_replace_css_imports($css, $rq=null) {
 					# download file, get contents, merge
 					$ddl = array();
 					$ddl = fvm_maybe_download($href);
+					
+					# error
+					if(isset($ddl['error'])) {
+						return trim($css);
+					}
 				
 					# if success
 					if(isset($ddl['content'])) {
@@ -874,13 +927,20 @@ function fvm_replace_css_imports($css, $rq=null) {
 					}
 				}
 
-				# replace import rule with inline code
+				# remove import rule and prepend imported code
 				if ($subcss !== false && !empty($subcss)) {
-					$css = str_replace($cssimport, $subcss, $css);
+					$css = str_replace($cssimport, '', $css);
+					$cssimports_prepend[] = '/* Import rule from: '.$href . ' */' . PHP_EOL . $subcss;
 				}
 				
 			}
 		}
+	}
+	
+	# prepend import rules
+	# https://www.w3.org/TR/CSS2/cascade.html#at-import
+	if(count($cssimports_prepend) > 0) {
+		$css = implode(PHP_EOL, $cssimports_prepend) . $css;
 	}
 	
 	# return
@@ -920,6 +980,9 @@ function fvm_extract_fonts($css_code) {
 	$css_code_ff = str_replace('https://'.$fvm_urls['wp_domain'], '', $css_code_ff);
 	$css_code_ff = str_replace('http://'.$fvm_urls['wp_domain'], '', $css_code_ff);
 	$css_code_ff = str_replace('//'.$fvm_urls['wp_domain'], '', $css_code_ff);
+	
+	# fixes
+	$css_code_ff = str_replace('/./', '/', $css_code_ff);
 
 	# return
 	$result = array('code'=>$css_code, 'fonts'=>$css_code_ff);
@@ -1061,7 +1124,7 @@ function fvm_rewrite_cdn_url($url) {
 
 # get css font-face rules, original + simplified
 function fvm_simplify_fontface($css_code) {
-	
+
 	$mff = array();
 	$before = array();
 	$after = array();
@@ -1075,25 +1138,25 @@ function fvm_simplify_fontface($css_code) {
 			$cssrules = preg_split("/;(?![^(]*\))/iu", $ff);
 			foreach ($cssrules as $k=>$csr) {
 				if(preg_match('/src\s*\:\s*url/Uui', $csr)) {
-					
+
 					# woff				
 					$fonts = array();
-					preg_match('/url\s*\(\s*[\'\"]*([^,\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*woff[\'\"]*\s*\)/Uui', $csr, $fonts);
+					preg_match('/url\s*\(\s*[\'\"]*([^\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*woff[\'\"]*\s*\)/Uui', $csr, $fonts);
 					if(isset($fonts[0])) { $cssrules[$k] = 'src:'.$fonts[0]; break; }
-				
+
 					# woff2
 					$fonts = array();
-					preg_match('/url\s*\(\s*[\'\"]*([^,\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*woff2[\'\"]*\s*\)/Uui', $csr, $fonts);
+					preg_match('/url\s*\(\s*[\'\"]*([^\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*woff2[\'\"]*\s*\)/Uui', $csr, $fonts);
 					if(isset($fonts[0])) { $cssrules[$k] = 'src:'.$fonts[0]; break; }
 				
 					# svg
 					$fonts = array();
-					preg_match('/url\s*\(\s*[\'\"]*([^,\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*svg[\'\"]*\s*\)/Uui', $csr, $fonts);
+					preg_match('/url\s*\(\s*[\'\"]*([^\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*svg[\'\"]*\s*\)/Uui', $csr, $fonts);
 					if(isset($fonts[0])) { $cssrules[$k] = 'src:'.$fonts[0]; break; }
 					
 					# truetype
 					$fonts = array();
-					preg_match('/url\s*\(\s*[\'\"]*([^,\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*truetype[\'\"]*\s*\)/Uui', $csr, $fonts);
+					preg_match('/url\s*\(\s*[\'\"]*([^\'\"]*)[\'\"]*\)\s*format\s*\([\'\"]*truetype[\'\"]*\s*\)/Uui', $csr, $fonts);
 					if(isset($fonts[0])) { $cssrules[$k] = 'src:'.$fonts[0]; break; }
 					
 					# delete other src:url rules
@@ -1127,7 +1190,7 @@ function fvm_simplify_fontface($css_code) {
 function fvm_get_css_from_file($tag) {
 	
 	# globals
-	global $fvm_urls, $fvm_settings;
+	global $fvm_settings;
 	
 	# variables
 	$tvers = get_option('fvm_last_cache_update', '0');
@@ -1145,13 +1208,18 @@ function fvm_get_css_from_file($tag) {
 		$ddl = array();
 		$ddl = fvm_maybe_download($href);
 		
+		# error
+		if(isset($ddl['error'])) {
+			return array('error'=>$ddl['error'], 'tkey'=>$tkey, 'url'=> $href);
+		}
+		
 		# success
 		if(isset($ddl['content'])) {
 			
 			# minify flag
-			$min = false; 
-			if(isset($fvm_settings['css']['css_enable_min_files']) && $fvm_settings['css']['css_enable_min_files'] == true) { 
-				$min = true; 
+			$min = true; 
+			if(isset($fvm_settings['css']['min_disable']) && $fvm_settings['css']['min_disable'] == true) { 
+				$min = false; 
 			}
 							
 			# minify
@@ -1163,7 +1231,7 @@ function fvm_get_css_from_file($tag) {
 				# handle import rules
 				$css = fvm_replace_css_imports($css, $href);
 				$meta = json_encode(array('href'=>$href));
-										
+														
 				# save transient
 				$verify = fvm_set_transient(array('uid'=>$tkey, 'date'=>$tvers, 'type'=>'css', 'content'=>$css, 'meta'=>$meta));
 								
@@ -1176,10 +1244,7 @@ function fvm_get_css_from_file($tag) {
 		# success, from transient
 		return array('code'=>$css, 'tkey'=>$tkey, 'url'=> $href);
 	}
-	
-	# fallback
-	return false;
-		
+			
 }
 
 
@@ -1187,7 +1252,7 @@ function fvm_get_css_from_file($tag) {
 function fvm_get_js_from_file($tag) {
 	
 	# globals
-	global $fvm_urls, $fvm_settings;
+	global $fvm_settings;
 	
 	# variables
 	$tvers = get_option('fvm_last_cache_update', '0');
@@ -1205,13 +1270,22 @@ function fvm_get_js_from_file($tag) {
 		$ddl = array();
 		$ddl = fvm_maybe_download($href);
 		
+		# error
+		if(isset($ddl['error'])) {
+			return array('error'=>$ddl['error'], 'tkey'=>$tkey, 'url'=> $href);
+		}
+		
 		# success
 		if(isset($ddl['content'])) {
 			
-			# minify?
-			if(!isset($fvm_settings['js']['min_disable_inline']) || (isset($fvm_settings['js']['min_disable_inline'])&& $fvm_settings['js']['min_disable_inline'] != true)) {
-				$js = fvm_maybe_minify_js($ddl['content'], $href, true);
+			# minify flag
+			$min = true; 
+			if(isset($fvm_settings['js']['min_disable']) && $fvm_settings['js']['min_disable'] == true) { 
+				$min = false; 
 			}
+			
+			# minify
+			$js = fvm_maybe_minify_js($ddl['content'], $href, $min);
 			
 			# wrap with try catch
 			$js = fvm_try_catch_wrap($js, $href);
@@ -1681,6 +1755,7 @@ function fvm_maybe_minify_css_file($css, $url, $min) {
 
 		# remove sourceMappingURL
 		$css = preg_replace('/(\/\/\s*[#]\s*sourceMappingURL\s*[=]\s*)([a-zA-Z0-9-_\.\/]+)(\.map)/ui', '', $css);
+		$css = preg_replace('/(\/[*]\s*[#]\s*sourceMappingURL\s*[=]\s*)([a-zA-Z0-9-_\.\/]+)(\.map)\s*[*]\s*[\/]/ui', '', $css);
 		
 		# fix url paths
 		if(!empty($url)) {
@@ -1722,26 +1797,29 @@ function fvm_maybe_minify_css_file($css, $url, $min) {
 			
 			# adjust paths
 			$bgimgs = array();
-			preg_match_all ('/url\s*\((\s*[\'"]?(http:|https:|\/\/).+[\'"]?\s*)\)/Uui', $css, $bgimgs);
+			preg_match_all ('/url\s*\(\s*[\'\"]*([^;\'\"]*)[\'\"]*\)/Uui', $css, $bgimgs);
 			if(isset($bgimgs[1]) && is_array($bgimgs[1])) {
 				foreach($bgimgs[1] as $img) {
-					
-					# normalize
-					$newimg = fvm_normalize_url($img);
-					if($newimg != $img) { $css = str_replace($img, $newimg, $css); $img = $newimg; }
-					
-					# process
-					if(substr($img, 0, strlen($use_url)) == $use_url) {
-						$pos = strpos($img, $use_url);
-						if ($pos !== false) {
-							
-							# relative path image
-							$relimg = '/' . ltrim(substr_replace($img, '', $pos, strlen($use_url)), '/');
-							
-							# replace url
-							$css = str_replace($img, $relimg, $css);
-							
+					if(stripos($img, 'http') !== false || stripos($img, '//') !== false) {
+						
+						# normalize
+						$newimg = fvm_normalize_url($img);
+						if($newimg != $img) { $css = str_replace($img, $newimg, $css); $img = $newimg; }
+						
+						# process
+						if(substr($img, 0, strlen($use_url)) == $use_url) {
+							$pos = strpos($img, $use_url);
+							if ($pos !== false) {
+								
+								# relative path image
+								$relimg = '/' . ltrim(substr_replace($img, '', $pos, strlen($use_url)), '/');
+								
+								# replace url
+								$css = str_replace($img, $relimg, $css);
+								
+							}
 						}
+						
 					}
 				}
 			}
@@ -1753,6 +1831,9 @@ function fvm_maybe_minify_css_file($css, $url, $min) {
 			$css = str_replace('https://'.$fvm_urls['wp_domain'], '', $css);
 			$css = str_replace('http://'.$fvm_urls['wp_domain'], '', $css);
 			$css = str_replace('//'.$fvm_urls['wp_domain'], '', $css);
+			
+			# fixes
+			$css = str_replace('/./', '/', $css);
 			
 		}
 		
@@ -1791,6 +1872,7 @@ function fvm_maybe_minify_js($js, $url, $enable_js_minification) {
 				
 		# remove sourceMappingURL
 		$js = preg_replace('/(\/\/\s*[#]\s*sourceMappingURL\s*[=]\s*)([a-zA-Z0-9-_\.\/]+)(\.map)/ui', '', $js);
+		$js = preg_replace('/(\/[*]\s*[#]\s*sourceMappingURL\s*[=]\s*)([a-zA-Z0-9-_\.\/]+)(\.map)\s*[*]\s*[\/]/ui', '', $js);
 			
 		# minify?
 		if($enable_js_minification == true) {
@@ -1927,9 +2009,9 @@ function fvm_maybe_download($url) {
 		
 		# file path + windows compatibility
 		$f =  strtok(str_replace('/', DIRECTORY_SEPARATOR, str_replace(rtrim($fvm_urls['wp_site_url'], '/'), rtrim(ABSPATH, '/'), $url)), '?');
-			
+					
 		# did it work?
-		if (file_exists($f)) {
+		if (file_exists($f) && is_file($f)) {
 			return array('content'=>file_get_contents($f), 'src'=>'Disk');
 		}
 	}
@@ -1943,7 +2025,7 @@ function fvm_maybe_download($url) {
 	$response = wp_remote_get($url, array('user-agent'=>$uagent, 'timeout' => 7, 'httpversion' => '1.1', 'sslverify'=>false)); 
 	if ( is_wp_error( $response ) ) {
 		$error_message = $response->get_error_message();
-		return array('error'=>"Something went wrong: $error_message / $url");
+		return array('error'=>"Something went wrong: $error_message");
 	} else {
 		return array('content'=>wp_remote_retrieve_body($response), 'src'=>'Web');
 	}
@@ -1993,16 +2075,6 @@ function fvm_get_scheme() {
 	if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') { return 'https'; }
 	return 'http';
 }
-
-# detect http2
-function fvm_has_http2() {
-	if(isset($_SERVER['SERVER_PROTOCOL'])) { 
-		if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/2.0') { return true; }
-	}
-	return false;
-}
-
-
 
 # get the domain name
 function fvm_get_domain() {
