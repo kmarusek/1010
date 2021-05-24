@@ -480,6 +480,7 @@ if ( $global_settings->responsive_enabled ) {
 
 		<?php if ( 'below-row' === $settings->creative_mobile_menu_type ) : ?>
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .menu {
+				display:none;
 				margin: unset;
 			}
 			.fl-node-<?php echo esc_attr( $id ); ?> .fl-module.fl-module-uabb-advanced-menu:before,
@@ -2292,4 +2293,13 @@ if ( 'always' === $module->media_breakpoint() ) {
 	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu.off-canvas .uabb-clear {
 		background: <?php echo esc_attr( ( false === strpos( $settings->creative_menu_responsive_overlay_color, 'rgb' ) ) ? '#' . $settings->creative_menu_responsive_overlay_color : $settings->creative_menu_responsive_overlay_color ); ?>;
 	}
-<?php } ?>
+<?php }
+if ( class_exists( 'FLBuilderCSS' ) ) {
+	FLBuilderCSS::typography_field_rule(
+		array(
+			'settings'     => $settings,
+			'setting_name' => 'creative_menu_label_typo',
+			'selector'     => ".fl-node-$id .uabb-creative-menu-mobile-toggle-label",
+		)
+	);
+} ?>

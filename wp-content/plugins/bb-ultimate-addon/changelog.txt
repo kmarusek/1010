@@ -1,3 +1,18 @@
+Version 1.30.5, Monday, 24th May 2021
+- Improvement: Advanced Testimonials - Added responsive support for Image/Icon Size.
+- Improvement: Dual Button - Changes in settings UI.
+- Improvement: Heading: Added WPML support to the Link field.
+- Improvement: Advanced Menu - Added Menu Label Typography option for Responsive Navigation.
+- Improvement: Modal Popup - Added field connection support for color fields.
+- Improvement: Photo gallery - Added filter to modify Filterable tabs
+- Fixed: Conflict between Image Carousel and Business Reviews Carousel layout.
+- Fixed: Advanced Posts - Custom Size option for Featured Image not working as expected.
+- Fixed: Advanced Posts - Accessibility errors with Carousel layout.
+- Fixed: Advanced Menu - CLS issue with Responsive Below Row layout.
+- Fixed: Advanced Testimonials - Spacing not working in between paragraph as expected.
+- Fixed: Woo-Mini Cart - Close Cart on Overlay Click functionality is not working in Modal & Off-Canvas Cart Style.
+- Fixed: Woo-Mini Cart - Badge Position & Color changes after publishing.
+
 Version 1.30.4, Wednesday, 28th April 2021
 - Improvement: Advanced Tabs - Added Title Description option.
 - Improvement: Advanced Tabs - Added right position for vertical Tab layout.
