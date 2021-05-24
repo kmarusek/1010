@@ -2,13 +2,13 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage redirect rules, and view 404 error log.
-Version: 2.67
+Version: 2.70
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
 Text Domain: eps-301-redirects
 Requires at least: 3.6
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.2
 
   Copyright 2015 - 2021  WebFactory Ltd  (email: 301redirects@webfactoryltd.com)
@@ -36,8 +36,10 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
   define('EPS_REDIRECT_PATH',       plugin_dir_path(__FILE__));
   define('EPS_REDIRECT_URL',        plugins_url() . '/eps-301-redirects/');
-  define('EPS_REDIRECT_VERSION',    '2.67');
   define('EPS_REDIRECT_PRO',        false);
+
+  $plugin_data = get_file_data(__FILE__, array('version' => 'Version'), 'plugin');
+  define('EPS_REDIRECT_VERSION', $plugin_data['version']);
 
   include(EPS_REDIRECT_PATH . 'eps-form-elements.php');
   include(EPS_REDIRECT_PATH . 'class.drop-down-pages.php');
@@ -53,7 +55,6 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
   class EPS_Redirects
   {
-
     /**
      *
      * Constructor
@@ -117,7 +118,9 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
   // add widget to dashboard
   function add_widget() {
-    add_meta_box('wp301_404_errors', '404 Error Log', array($this, 'widget_content'), 'dashboard', 'side', 'high');
+    if (current_user_can('manage_options')) {
+      add_meta_box('wp301_404_errors', '404 Error Log', array($this, 'widget_content'), 'dashboard', 'side', 'high');
+    }
   } // add_widget
 
 

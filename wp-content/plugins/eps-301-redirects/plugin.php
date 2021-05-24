@@ -191,16 +191,16 @@ class EPS_Redirects_Plugin
      *
      */
   public function update_self()
-  {
-    $version = get_option('eps_redirects_version');
+    {
+      $version = get_option('eps_redirects_version');
 
-    if (version_compare($version, '2.0.0', '<')) {
-      // migrate old format to new format.
-      add_action('admin_init', array($this, '_migrate_to_v2'), 1);
+      if (version_compare($version, '2.0.0', '<')) {
+        // migrate old format to new format.
+        add_action('admin_init', array($this, '_migrate_to_v2'), 1);
+      }
+      $this->set_current_version(EPS_REDIRECT_VERSION);
+      return EPS_REDIRECT_VERSION;
     }
-    $this->set_current_version(EPS_REDIRECT_VERSION);
-    return EPS_REDIRECT_VERSION;
-  }
 
   /**
      *
@@ -371,6 +371,12 @@ class EPS_Redirects_Plugin
         $this->add_admin_message("Success: Cache Emptied.", "updated");
       }
 
+      // delete all rules
+      if (isset($_POST['eps_delete_rules']) && wp_verify_nonce($_POST['eps_redirect_nonce_submit'], 'eps_redirect_nonce')) {
+        self::delete_all_rules();
+        $this->add_admin_message("Success: All Redirect Rules Deleted.", "updated");
+      }
+
       // Save Redirects
       if (isset($_POST['eps_redirect_submit']) && wp_verify_nonce($_POST['eps_redirect_nonce_submit'], 'eps_redirect_nonce')) {
         self::_save_redirects(EPS_Redirects::_parse_serial_array($_POST['redirect']));
@@ -381,6 +387,14 @@ class EPS_Redirects_Plugin
         $result = self::_create_redirect_table();
       }
     }
+  }
+
+  static function delete_all_rules() {
+    global $wpdb;
+    $table = $wpdb->prefix . 'redirects';
+    $wpdb->query('TRUNCATE TABLE ' . $table);
+
+    return true;
   }
 
   static function empty_3rd_party_cache() {

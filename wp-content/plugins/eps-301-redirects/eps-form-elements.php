@@ -55,7 +55,7 @@ function eps_get_selector($redirect = false)
                      name="redirect[url_to][]"
                      value="' . (isset($redirect->url_to) ? stripslashes(esc_attr($redirect->url_to)) : null) . '"
                      placeholder="' . get_bloginfo('url') . '" ' . (!isset($redirect->type) || ((isset($redirect->type) && $redirect->type != 'post')) ? null : ' style="display:none;"') .
-    '" />';
+    '" /><br><small>Remember: all external URLs have to start with <code>https://</code></small>';
 
   return $html;
 }

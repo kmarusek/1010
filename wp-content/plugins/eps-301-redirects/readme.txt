@@ -2,8 +2,8 @@
 Contributors: WebFactory
 Tags: 301 redirect, redirects, redirect, 404 error log, redirection, 302 redirect, 302, seo, 302 redirect, 404, 404 redirect, 301, 307, 404 log
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 2.67
+Tested up to: 5.7
+Stable tag: 2.70
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -68,6 +68,11 @@ The 404 error log does not collect user IPs. It collects the following data: tim
 
 
 == Changelog ==
+
+= 2.70 =
+* 2021/05/01
+* 404 error log widget is now visible only to users with manage_options permission
+* added "Delete all redirect rules" tool
 
 = 2.67 =
 * 2021/03/16

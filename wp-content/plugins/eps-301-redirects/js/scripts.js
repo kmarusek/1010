@@ -203,6 +203,18 @@ jQuery(document).ready(function($) {
   });
 
   /**
+   * Delete all redirect rules
+   */
+   $('#eps_delete_rules').on('click', function(e) {
+    if (confirm('Are you sure you want to delete ALL redirect rules? There is NO undo!')) {
+      return true;
+    } else {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  /**
    * Tabs
    */
   $('#eps-tab-nav .eps-tab-nav-item').on('click', function(e) {
