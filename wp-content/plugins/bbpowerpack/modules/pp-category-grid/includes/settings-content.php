@@ -140,7 +140,29 @@
 							'slug'   => __( 'Slug', 'bb-powerpack' ),
 							'parent' => __( 'Parent', 'bb-powerpack' ),
 							'count'  => __( 'Post Count', 'bb-powerpack' ),
+							'meta_value' => __( 'Meta Value', 'bb-powerpack' ),
+							'meta_value_num' => __( 'Meta Value Number', 'bb-powerpack' ),
+							//'term_order' => __( 'Selection Order', 'bb-powerpack' ),
+							'none'  => __( 'None', 'bb-powerpack' ),
 						),
+						'toggle' => array(
+							'meta_value' => array(
+								'fields'   => array( 'order_by_meta_key' ),
+							),
+							'meta_value_num' => array(
+								'fields'   => array( 'order_by_meta_key' ),
+							),
+						),
+					),
+					$settings
+				);
+
+				FLBuilder::render_settings_field(
+					'order_by_meta_key',
+					array(
+						'type'    => 'text',
+						'label'   => __( 'Meta Key', 'bb-powerpack' ),
+						'default' => ''
 					),
 					$settings
 				);

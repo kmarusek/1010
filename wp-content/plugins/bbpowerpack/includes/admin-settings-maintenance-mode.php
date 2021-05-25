@@ -33,7 +33,7 @@
 	</tr>
 	<tr align="top">
 		<th scope="row" valign="top">
-			<label for="bb_powerpack_maintenance_mode_template"><?php esc_html_e('Page', 'bb-powerpack'); ?></label>
+			<label for="bb_powerpack_maintenance_mode_template"><?php esc_html_e('Template', 'bb-powerpack'); ?></label>
 		</th>
 		<td>
 			<?php $selected = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_template', true); ?>
@@ -41,8 +41,8 @@
 				<?php echo BB_PowerPack_Maintenance_Mode::get_templates( $selected ); ?>
 			</select>
 			<p class="description">
-				<span class="desc--template-select" style="color: red;"><?php _e('To enable maintenance mode you have to set a template for the maintenance mode page.'); ?></span>
-				<span class="desc--template-edit"><a href="" class="edit-template" target="_blank"><?php _e('Edit Page'); ?></a></span>
+				<span class="desc--template-select" style="color: red;"><?php _e('To enable maintenance mode you have to set a template for the maintenance mode page.', 'bb-powerpack'); ?></span>
+				<span class="desc--template-edit"><a href="" class="edit-template" target="_blank"><?php _e( 'Edit', 'bb-powerpack' ); ?></a></span>
 			</p>
 		</td>
 	</tr>
@@ -128,6 +128,24 @@
 			><?php echo $ips; ?></textarea>
 			<p class="description">
 				<?php echo __( 'Enter one IP address per line.', 'bb-powerpack' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_maintenance_mode_access_key"><?php esc_html_e( 'Secret Access Key', 'bb-powerpack' ); ?></label>
+		</th>
+		<td>
+			<?php $access_key = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_access_key', true); ?>
+			<input
+				type="text"
+				id="bb_powerpack_maintenance_mode_access_key"
+				name="bb_powerpack_maintenance_mode_access_key"
+				value="<?php echo $access_key; ?>"
+				style="min-width: 380px;"
+			/>
+			<p class="description">
+				<?php echo sprintf( __( 'You can access the site by adding the secret key to URL using "access" parameter. Example: %s', 'bb-powerpack' ), home_url( '?access=your-key' ) ); ?>
 			</p>
 		</td>
 	</tr>

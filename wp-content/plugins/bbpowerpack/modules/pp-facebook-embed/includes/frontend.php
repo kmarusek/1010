@@ -1,6 +1,8 @@
 <?php
 
-$attrs = array();
+$attrs = array(
+	'data-href' => '',
+);
 $attr = ' ';
 $style = 'min-height:1px;';
 $class = array( 'pp-facebook-widget' );
@@ -42,5 +44,5 @@ foreach ( $attrs as $key => $value ) {
 ?>
 
 <div class="<?php echo implode( ' ', $class ); ?>" <?php echo $attr; ?> style="<?php echo $style; ?>">
-	<blockquote class="fb-xfbml-parse-ignore"></blockquote>
+	<blockquote cite="<?php echo $attrs['data-href']; ?>" class="fb-xfbml-parse-ignore"></blockquote>
 </div>

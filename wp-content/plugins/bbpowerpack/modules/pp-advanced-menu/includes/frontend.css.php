@@ -2,6 +2,10 @@
 
 $toggle_width 	= 28;
 $toggle_height 	= 28;
+$toggle_spacing = $settings->menu_link_padding_right > 10 ? $settings->menu_link_padding_right : 10;
+$toggle_padding = ! empty( $settings->menu_link_padding_right ) ? $settings->menu_link_padding_right : 0;
+$toggle_width   = ( $toggle_padding + 14 );
+$toggle_height  = ceil( ( ( $toggle_padding * 2 ) + 14 ) * 0.65 );
 ?>
 
 /**
@@ -31,7 +35,7 @@ $toggle_height 	= 28;
 }
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu-container a > span {
-	<?php if( $settings->submenu_hover_toggle != 'none' ) { ?>
+	<?php if ( $settings->submenu_hover_toggle !== 'none' && 'center' !== $settings->alignment ) { ?>
 		padding-right: 38px;
 	<?php } else { ?>
 		padding-right: 0;
@@ -50,359 +54,6 @@ $toggle_height 	= 28;
 	}
 }
 
-<?php
-
-/**
- * Toggle - Arrows / None
- */
-if( ( ( $settings->menu_layout == 'horizontal' || $settings->menu_layout == 'vertical' ) && in_array($settings->submenu_hover_toggle, array('arrows', 'none') ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
-		content: '';
-		position: absolute;
-		right: 50%;
-		top: 50%;
-		z-index: 1;
-		display: block;
-		width: 9px;
-		height: 9px;
-		margin: -5px -5px 0 0;
-		border-right: 2px solid;
-		border-bottom: 2px solid;
-		-webkit-transform-origin: right bottom;
-			-ms-transform-origin: right bottom;
-			    transform-origin: right bottom;
-		-webkit-transform: translateX( -5px ) rotate( 45deg );
-			-ms-transform: translateX( -5px ) rotate( 45deg );
-				transform: translateX( -5px ) rotate( 45deg );
-	}
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.pp-active > .pp-has-submenu-container .pp-menu-toggle {
-		-webkit-transform: rotate( -180deg );
-			-ms-transform: rotate( -180deg );
-				transform: rotate( -180deg );
-	}
-<?php
-
-/**
- * Toggle - Plus
- */
-} elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before,
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:after {
-		content: '';
-		position: absolute;
-		z-index: 1;
-		display: block;
-		border-color: #333;
-	}
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
-		left: 50%;
-		top: 50%;
-		width: 12px;
-		border-top: 3px solid;
-		-webkit-transform: translate( -50%, -50% );
-			-ms-transform: translate( -50%, -50% );
-				transform: translate( -50%, -50% );
-	}
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:after {
-		left: 50%;
-		top: 50%;
-		border-left: 3px solid;
-		height: 12px;
-		-webkit-transform: translate( -50%, -50% );
-			-ms-transform: translate( -50%, -50% );
-				transform: translate( -50%, -50% );
-	}
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.pp-active > .pp-has-submenu-container .pp-menu-toggle:after {
-		display: none;
-	}
-<?php }
-
-if( $settings->menu_layout == 'vertical' && $settings->submenu_hover_toggle == 'arrows' ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
-		border-right: 0;
-		border-left: 2px solid;
-		border-bottom: 2px solid;
-	}
-<?php }
-
-if( $settings->menu_layout == 'expanded' && $settings->alignment == 'center' ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu-container a > span {
-		padding-right: 0;
-	}
-<?php }
-
-/**
- * Responsive enabled
- */
-if( $global_settings->responsive_enabled ) { ?>
-
-	<?php if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'none' ) ) { ?>
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu-container a {
-			padding-right: <?php echo $toggle_width ?>px;
-		}
-	<?php } ?>
-
-	<?php // Submenu - horizontal or vertical ?>
-	<?php if( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) { ?>
-		.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .sub-menu {
-			display: none;
-		}
-	<?php } ?>
-
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu li:first-child {
-		border-top: none;
-	}
-
-	<?php if( isset( $settings->mobile_toggle ) && in_array($settings->mobile_toggle, array('hamburger', 'hamburger-label')) ) { ?>
-		<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
-			@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
-		<?php endif; ?>
-
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu {
-				margin-top: 20px;
-			}
-			<?php if ( $settings->mobile_toggle != 'expanded' ) : ?>
-				.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu {
-				}
-			<?php endif; ?>
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
-				margin-left: 0 !important;
-				margin-right: 0 !important;
-			}
-
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu .pp-menu-close-btn,
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-overlay .pp-menu-close-btn {
-				display: block;
-			}
-
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .sub-menu {
-				box-shadow: none;
-				border: 0;
-			}
-
-		<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
-		} <?php // close media max-width ?>
-		<?php endif; ?>
-	<?php } ?>
-
-	<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
-		@media ( min-width: <?php echo ( $module->get_media_breakpoint() ) + 1 ?>px ) {
-
-		<?php // if menu is horizontal ?>
-		<?php if( $settings->menu_layout == 'horizontal' ) { ?>
-			.fl-node-<?php echo $id; ?> .menu > li {
-				display: inline-block;
-			}
-
-			.fl-node-<?php echo $id; ?> .menu li {
-				border-top: none;
-			}
-
-			.fl-node-<?php echo $id; ?> .menu li:first-child {
-				border: none;
-			}
-			.fl-node-<?php echo $id; ?> .menu li li {
-				border-left: none;
-			}
-
-			.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .sub-menu {
-				position: absolute;
-				top: 100%;
-				left: 0;
-				z-index: 10;
-				visibility: hidden;
-				opacity: 0;
-				text-align:left;
-			}
-
-			.fl-node-<?php echo $id; ?> .pp-has-submenu .pp-has-submenu .sub-menu {
-				top: 0;
-				left: 100%;
-			}
-
-			<?php if( !empty( $settings->menu_align ) && $settings->menu_align != 'default' ) { ?>
-				.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu {
-					<?php
-						if( in_array( $settings->menu_align, array( 'left', 'right' ) ) ) {
-							echo 'float: '. $settings->menu_align .';';
-						} elseif( $settings->menu_align == 'center' ) {
-							echo 'display: inline-block;';
-						}
-					?>
-				}
-			<?php } ?>
-
-		<?php // if menu is vertical ?>
-		<?php } elseif( $settings->menu_layout == 'vertical' ) { ?>
-
-			.fl-node-<?php echo $id; ?> .menu .pp-wp-has-submenu .sub-menu {
-				position: absolute;
-				top: 0;
-				left: 100%;
-				z-index: 10;
-				visibility: hidden;
-				opacity: 0;
-			}
-
-		<?php } ?>
-
-		<?php // if menu is horizontal or vertical ?>
-		<?php if( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) { ?>
-
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu:hover > .sub-menu,
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.focus > .sub-menu {
-				display: block;
-				visibility: visible;
-				opacity: 1;
-			}
-
-			.fl-node-<?php echo $id; ?> .menu .pp-has-submenu.pp-menu-submenu-right .sub-menu {
-				top: 100%;
-				left: inherit;
-				right: 0;
-			}
-
-			.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .pp-has-submenu.pp-menu-submenu-right .sub-menu {
-				top: 0;
-				left: inherit;
-				right: 100%;
-			}
-
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.pp-active > .pp-has-submenu-container .pp-menu-toggle {
-				-webkit-transform: none;
-					-ms-transform: none;
-						transform: none;
-			}
-
-			<?php //change selector depending on layout ?>
-			<?php if( $settings->submenu_hover_toggle == 'arrows' ) { ?>
-				<?php if( $settings->menu_layout == 'horizontal' ) { ?>
-					.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu .pp-has-submenu .pp-menu-toggle:before {
-				<?php } elseif( $settings->menu_layout == 'vertical' ) { ?>
-					.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu .pp-menu-toggle:before {
-				<?php } ?>
-						-webkit-transform: translateY( -5px ) rotate( -45deg );
-							-ms-transform: translateY( -5px ) rotate( -45deg );
-								transform: translateY( -5px ) rotate( -45deg );
-					}
-				<?php } ?>
-
-					<?php if( $settings->submenu_hover_toggle == 'none' ) { ?>
-						.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle {
-							display: none;
-						}
-					<?php } ?>
-
-					<?php } ?>
-
-					<?php if( $settings->mobile_toggle != 'expanded' ) { ?>
-						.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
-							display: none;
-						}
-					<?php } ?>
-
-				}
-
-		<?php
-	}
-		/**
-		 * Responsive NOT enabled
-		 */
-	 } else { ?>
-
-	<?php // if menu is horizontal ?>
-	<?php if( $settings->menu_layout == 'horizontal' ) { ?>
-
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
-			float: left;
-		}
-
-		.fl-node-<?php echo $id; ?> .menu li {
-			border-left: 1px solid transparent;
-		}
-
-		.fl-node-<?php echo $id; ?> .menu li:first-child {
-			border: none;
-		}
-
-		.fl-node-<?php echo $id; ?> .menu li li {
-			border-left: none;
-		}
-
-		<?php if( !empty( $settings->menu_align ) && $settings->menu_align != 'default' ) { ?>
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu {
-				<?php
-					if( in_array( $settings->menu_align, array( 'left', 'right' ) ) ) {
-						echo 'float: '. $settings->menu_align .';';
-					} elseif( $settings->menu_align == 'center' ) {
-						echo 'display: inline-block;';
-					}
-				?>
-			}
-		<?php } ?>
-
-	<?php } ?>
-
-	<?php // if menu is horizontal or vertical ?>
-	<?php if( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) { ?>
-
-		.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .sub-menu {
-			position: absolute;
-			top: 100%;
-			left: 0;
-			z-index: 10;
-			visibility: hidden;
-			opacity: 0;
-		}
-
-		.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .pp-has-submenu .sub-menu {
-			top: 0;
-			left: 100%;
-		}
-
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu.pp-toggle-arrows .pp-has-submenu .pp-has-submenu .pp-menu-toggle:before {
-			-webkit-transform: translateY( -2px ) rotate( -45deg );
-				-ms-transform: translateY( -2px ) rotate( -45deg );
-					transform: translateY( -2px ) rotate( -45deg );
-		}
-
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu:hover > .sub-menu,
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.focus > .sub-menu {
-			display: block;
-			visibility: visible;
-			opacity: 1;
-		}
-
-		<?php if( $settings->submenu_hover_toggle == 'none' ) { ?>
-			.pp-advanced-menu .pp-menu-toggle {
-				display: none;
-			}
-		<?php } ?>
-
-	<?php } ?>
-
-	<?php if( $settings->mobile_toggle == 'expanded' ) { ?>
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
-			display: none;
-		}
-	<?php } ?>
-
-	<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
-	@media (min-width: <?php echo $module->get_media_breakpoint(); ?>px) {
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
-			display: none;
-		}
-	}
-	<?php } ?>
-
-<?php } ?>
-
-.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle {
-	<?php if ( isset( $settings->menu_link_padding_right ) ) { ?>
-	right: <?php echo ( $settings->menu_link_padding_right == 0 ) ? '10' : $settings->menu_link_padding_right; ?>px;
-	<?php } ?>
-}
-
 /**
  * Links
  */
@@ -412,13 +63,6 @@ FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'link_typography',
 	'selector'		=> ".fl-node-$id .pp-advanced-menu .menu a"
-) );
-
-// Sbumenu typography
-FLBuilderCSS::typography_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name'	=> 'submenu_typography',
-	'selector'		=> ".fl-node-$id .pp-advanced-menu .menu .sub-menu a"
 ) );
 ?>
 
@@ -444,7 +88,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'menu_link_padding',
-	'selector' 		=> ".fl-node-$id .pp-advanced-menu .menu > li > a, .fl-node-$id .pp-advanced-menu .menu > li > .pp-has-submenu-container > a",
+	'selector' 		=> ".fl-node-$id .pp-advanced-menu .menu a", // .fl-node-$id .pp-advanced-menu .menu > li > a, .fl-node-$id .pp-advanced-menu .menu > li > .pp-has-submenu-container > a
 	'unit'			=> 'px',
 	'props'			=> array(
 		'padding-top' 		=> 'menu_link_padding_top',
@@ -549,6 +193,12 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 /**
  * Sub Menu
  **/
+<?php // Submenu - horizontal or vertical ?>
+<?php if ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) { ?>
+	.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .sub-menu {
+		display: none;
+	}
+<?php } ?>
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .sub-menu {
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->submenu_container_bg_color ); ?>;
@@ -569,6 +219,13 @@ FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
 	'setting_name' 	=> 'submenu_container_border',
 	'selector' 		=> ".fl-node-$id .sub-menu",
+) );
+
+// Sbumenu typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'submenu_typography',
+	'selector'		=> ".fl-node-$id .pp-advanced-menu .menu .sub-menu a"
 ) );
 ?>
 
@@ -649,10 +306,117 @@ FLBuilderCSS::dimension_field_rule( array(
 <?php } ?>
 
 <?php
+
+/**
+ * Toggle - Arrows / None
+ */
+if ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && 'arrows' == $settings->submenu_hover_toggle ) || ( 'accordion' == $settings->menu_layout && 'arrows' == $settings->submenu_click_toggle ) ) :
+	?>
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
+		content: '';
+		position: absolute;
+		right: 50%;
+		top: 50%;
+		z-index: 1;
+		display: block;
+		width: 9px;
+		height: 9px;
+		margin: -5px -5px 0 0;
+		border-right: 2px solid;
+		border-bottom: 2px solid;
+		-webkit-transform-origin: right bottom;
+			-ms-transform-origin: right bottom;
+			    transform-origin: right bottom;
+		-webkit-transform: translateX( -5px ) rotate( 45deg );
+			-ms-transform: translateX( -5px ) rotate( 45deg );
+				transform: translateX( -5px ) rotate( 45deg );
+	}
+	<?php if ( 'vertical' == $settings->menu_layout && 'arrows' == $settings->submenu_hover_toggle ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu:not(.off-canvas):not(.full-screen) .pp-has-submenu .pp-menu-toggle:before {
+			-webkit-transform: translateY( -5px ) rotate( -45deg );
+				-ms-transform: translateY( -5px ) rotate( -45deg );
+					transform: translateY( -5px ) rotate( -45deg );
+		}
+	<?php } ?>
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.pp-active > .pp-has-submenu-container .pp-menu-toggle {
+		-webkit-transform: rotate( -180deg );
+			-ms-transform: rotate( -180deg );
+				transform: rotate( -180deg );
+	}
+<?php
+
+/**
+ * Toggle - Plus
+ */
+elseif ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) :
+	?>
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before,
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:after {
+		content: '';
+		position: absolute;
+		z-index: 1;
+		display: block;
+		border-color: #333;
+	}
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
+		left: 50%;
+		top: 50%;
+		width: 12px;
+		border-top: 3px solid;
+		-webkit-transform: translate( -50%, -50% );
+			-ms-transform: translate( -50%, -50% );
+				transform: translate( -50%, -50% );
+	}
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:after {
+		left: 50%;
+		top: 50%;
+		border-left: 3px solid;
+		height: 12px;
+		-webkit-transform: translate( -50%, -50% );
+			-ms-transform: translate( -50%, -50% );
+				transform: translate( -50%, -50% );
+	}
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.pp-active > .pp-has-submenu-container .pp-menu-toggle:after {
+		display: none;
+	}
+	<?php
+endif;
+
+/*
+if ( $settings->menu_layout == 'vertical' && $settings->submenu_hover_toggle == 'arrows' ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
+		border-right: 0;
+		border-left: 2px solid;
+		border-bottom: 2px solid;
+	}
+<?php }
+*/
+
+
+if ( $settings->menu_layout == 'expanded' && $settings->alignment == 'center' ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu-container a > span {
+		padding-right: 0;
+	}
+<?php }
+
+?>
+/*
+.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle {
+	<?php if ( isset( $settings->menu_link_padding_right ) ) { ?>
+	right: <?php echo ( $settings->menu_link_padding_right == 0 ) ? '10' : $settings->menu_link_padding_right; ?>px;
+	<?php } ?>
+}
+*/
+<?php
+
 /**
  * Submenu toggle
  */
-if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
+if ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( 'accordion' == $settings->menu_layout && 'arrows' == $settings->submenu_click_toggle ) ) :
+	?>
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout; ?>.pp-toggle-arrows .pp-has-submenu-container a {
+		padding-right: <?php echo $toggle_width; ?>px;
+	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-arrows .pp-has-submenu-container > a > span {
 		padding-right: <?php echo 'default' === $settings->mobile_menu_type ? $toggle_width : '0'; ?>px;
 	}
@@ -670,12 +434,12 @@ if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && i
 		height: <?php echo $toggle_height ?>px;
 		margin: -<?php echo $toggle_height/2 ?>px 0 0;
 	}
-<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
+<?php elseif ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && 'plus' == $settings->submenu_hover_toggle ) || ( 'accordion' == $settings->menu_layout && 'plus' == $settings->submenu_click_toggle ) ) : ?>
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-plus .pp-has-submenu-container a {
 		padding-right: <?php echo $toggle_width ?>px;
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-menu-accordion.pp-toggle-plus .pp-menu-toggle {
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu-accordion.pp-toggle-plus .pp-menu-toggle {
 		width: <?php echo $toggle_height ?>px;
 		height: <?php echo $toggle_height ?>px;
 		margin: -<?php echo $toggle_height/2 ?>px 0 0;
@@ -686,18 +450,23 @@ if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && i
 		height: <?php echo $toggle_height ?>px;
 		margin: -<?php echo $toggle_height/2 ?>px 0 0;
 	}
-<?php } ?>
+<?php endif;
 
-<?php
+
 /**
  * Separators
  */
-if( isset( $settings->show_separator ) && $settings->show_separator == 'yes' ) { ?>
+?>
+.fl-node-<?php echo $id; ?> .pp-advanced-menu li:first-child {
+	border-top: none;
+}
+<?php
+if ( isset( $settings->show_separator ) && $settings->show_separator == 'yes' ) { ?>
 	<?php
 
-		$separator_raw_color = !empty( $settings->separator_color ) ? $settings->separator_color : '000000';
-		$separator_opacity   = !empty( $settings->separator_opacity ) ? $settings->separator_opacity : '100';
-		$separator_color     = 'rgba('. implode( ',', FLBuilderColor::hex_to_rgb( $separator_raw_color ) ) .','. ( $separator_opacity/100 ) .')';
+		$separator_raw_color = ! empty( $settings->separator_color ) ? $settings->separator_color : '000000';
+		$separator_opacity   = ! empty( $settings->separator_opacity ) ? $settings->separator_opacity : '100';
+		$separator_color     = 'rgba('. implode( ',', FLBuilderColor::hex_to_rgb( $separator_raw_color ) ) .','. ( $separator_opacity / 100 ) .')';
 
 	 ?>
 	.fl-node-<?php echo $id; ?> .menu.pp-advanced-menu-<?php echo $settings->menu_layout ?> li,
@@ -706,6 +475,232 @@ if( isset( $settings->show_separator ) && $settings->show_separator == 'yes' ) {
 		border-color: <?php echo $separator_color; ?>;
 	}
 <?php }
+
+/**
+ * Responsive enabled
+ */
+if ( $global_settings->responsive_enabled ) { ?>
+
+	<?php if ( isset( $settings->mobile_toggle ) && in_array( $settings->mobile_toggle, array( 'hamburger', 'hamburger-label' ) ) ) { ?>
+		<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+			@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
+		<?php endif; ?>
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu {
+				margin-top: 20px;
+			}
+			<?php if ( $settings->mobile_toggle != 'expanded' ) : ?>
+				.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu {
+				}
+			<?php endif; ?>
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
+				margin-left: 0 !important;
+				margin-right: 0 !important;
+			}
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu .pp-menu-close-btn,
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-overlay .pp-menu-close-btn {
+				display: block;
+			}
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .sub-menu {
+				box-shadow: none;
+				border: 0;
+			}
+
+		<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+		} <?php // close media max-width ?>
+		<?php endif; ?>
+	<?php } ?>
+
+	<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
+		@media ( min-width: <?php echo ( $module->get_media_breakpoint() ) + 1 ?>px ) {
+
+		<?php // if menu is horizontal ?>
+		<?php if( $settings->menu_layout == 'horizontal' ) { ?>
+			.fl-node-<?php echo $id; ?> .menu > li {
+				display: inline-block;
+			}
+
+			.fl-node-<?php echo $id; ?> .menu li {
+				border-top: none;
+			}
+
+			.fl-node-<?php echo $id; ?> .menu li:first-child {
+				border: none;
+			}
+			.fl-node-<?php echo $id; ?> .menu li li {
+				border-left: none;
+			}
+
+			.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .sub-menu {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				z-index: 10;
+				visibility: hidden;
+				opacity: 0;
+				text-align:left;
+			}
+
+			.fl-node-<?php echo $id; ?> .pp-has-submenu .pp-has-submenu .sub-menu {
+				top: 0;
+				left: 100%;
+			}
+
+		<?php // if menu is vertical ?>
+		<?php } elseif ( $settings->menu_layout == 'vertical' ) { ?>
+
+			.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .sub-menu {
+				position: absolute;
+				top: 0;
+				left: 100%;
+				z-index: 10;
+				visibility: hidden;
+				opacity: 0;
+			}
+
+		<?php } ?>
+
+		<?php // if menu is horizontal or vertical ?>
+		<?php if ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) { ?>
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu:hover > .sub-menu,
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.focus > .sub-menu {
+				display: block;
+				visibility: visible;
+				opacity: 1;
+			}
+
+			.fl-node-<?php echo $id; ?> .menu .pp-has-submenu.pp-menu-submenu-right .sub-menu {
+				top: 100%;
+				left: inherit;
+				right: 0;
+			}
+
+			.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .pp-has-submenu.pp-menu-submenu-right .sub-menu {
+				top: 0;
+				left: inherit;
+				right: 100%;
+			}
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.pp-active > .pp-has-submenu-container .pp-menu-toggle {
+				-webkit-transform: none;
+					-ms-transform: none;
+						transform: none;
+			}
+
+			<?php //change selector depending on layout ?>
+			<?php if ( 'arrows' == $settings->submenu_hover_toggle ) { ?>
+				<?php if ( 'horizontal' == $settings->menu_layout ) { ?>
+					.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu .pp-has-submenu .pp-menu-toggle:before {
+				<?php } elseif ( 'vertical' == $settings->menu_layout ) { ?>
+					.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu .pp-menu-toggle:before {
+				<?php } ?>
+						-webkit-transform: translateY( -5px ) rotate( -45deg );
+							-ms-transform: translateY( -5px ) rotate( -45deg );
+								transform: translateY( -5px ) rotate( -45deg );
+					}
+				<?php } ?>
+
+				<?php if ( 'none' == $settings->submenu_hover_toggle ) { ?>
+					.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle {
+						display: none;
+					}
+				<?php } ?>
+
+				<?php } ?>
+
+				<?php if ( $settings->mobile_toggle != 'expanded' ) { ?>
+					.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
+						display: none;
+					}
+				<?php } ?>
+
+				}
+		<?php
+	}
+/**
+ * Responsive NOT enabled
+ */
+} else { ?>
+
+	<?php // if menu is horizontal ?>
+	<?php if ( $settings->menu_layout == 'horizontal' ) { ?>
+
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
+			float: left;
+		}
+
+		.fl-node-<?php echo $id; ?> .menu li {
+			border-left: 1px solid transparent;
+		}
+
+		.fl-node-<?php echo $id; ?> .menu li:first-child {
+			border: none;
+		}
+
+		.fl-node-<?php echo $id; ?> .menu li li {
+			border-left: none;
+		}
+
+	<?php } ?>
+
+	<?php // if menu is horizontal or vertical ?>
+	<?php if( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) { ?>
+
+		.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .sub-menu {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			z-index: 10;
+			visibility: hidden;
+			opacity: 0;
+		}
+
+		.fl-node-<?php echo $id; ?> .menu .pp-has-submenu .pp-has-submenu .sub-menu {
+			top: 0;
+			left: 100%;
+		}
+
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu.pp-toggle-arrows .pp-has-submenu .pp-has-submenu .pp-menu-toggle:before {
+			-webkit-transform: translateY( -2px ) rotate( -45deg );
+				-ms-transform: translateY( -2px ) rotate( -45deg );
+					transform: translateY( -2px ) rotate( -45deg );
+		}
+
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu:hover > .sub-menu,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu.focus > .sub-menu {
+			display: block;
+			visibility: visible;
+			opacity: 1;
+		}
+
+		<?php if( $settings->submenu_hover_toggle == 'none' ) { ?>
+			.pp-advanced-menu .pp-menu-toggle {
+				display: none;
+			}
+		<?php } ?>
+
+	<?php } ?>
+
+	<?php if( $settings->mobile_toggle == 'expanded' ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
+			display: none;
+		}
+	<?php } ?>
+
+	<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
+	@media (min-width: <?php echo $module->get_media_breakpoint(); ?>px) {
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
+			display: none;
+		}
+	}
+	<?php } ?>
+
+<?php } ?>
+
+<?php
 
 /**
  * Mobile toggle button
@@ -805,9 +800,11 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 			}
 		<?php endif; ?>
 		<?php if ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-arrows .pp-has-submenu-container > a > span {
-			padding-right: <?php echo $toggle_width; ?>px;
-		}
+			<?php if ( 'center' !== $settings->alignment ) { ?>
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-arrows .pp-has-submenu-container > a > span {
+				padding-right: <?php echo $toggle_width; ?>px;
+			}
+			<?php } ?>
 		<?php } ?>
 	}
 <?php endif; ?>

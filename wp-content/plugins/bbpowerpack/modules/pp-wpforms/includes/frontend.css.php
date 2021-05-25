@@ -1,10 +1,3 @@
-/**
- * $module An instance of your module class.
- * $id The module's ID.
- * $settings The module's settings.
-*/
-
-
 .fl-node-<?php echo $id; ?> .pp-wpforms-content {
 	<?php if ( isset( $settings->form_bg_color ) && ! empty( $settings->form_bg_color ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->form_bg_color ); ?>;
@@ -133,30 +126,37 @@
 }
 
 <?php
-	// Label Typography
+	// Label Typography.
 	FLBuilderCSS::typography_field_rule( array(
 		'settings'		=> $settings,
 		'setting_name' 	=> 'label_typography',
 		'selector' 		=> ".fl-node-$id .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-label",
 	) );
+
+	// Checkbox and Radio.
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'cb_label_typography',
+		'selector' 		=> ".fl-node-$id .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-radio .wpforms-field-label-inline, .fl-node-$id .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-checkbox .wpforms-field-label-inline",
+	) );
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-sublabel,
 .fl-node-<?php echo $id; ?> .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-label-inline {
-    <?php if( $settings->form_label_color ) { ?>
+    <?php if ( $settings->form_label_color ) { ?>
     color: #<?php echo $settings->form_label_color; ?>;
     <?php } ?>
-    <?php if( $settings->label_typography['font_family'] != 'Default' ) { ?>
+    <?php if ( isset( $settings->label_typography['font_family'] ) && $settings->label_typography['font_family'] != 'Default' ) { ?>
     font-family: <?php echo $settings->label_typography['font_family']; ?>;
 	font-weight: <?php echo $settings->label_typography['font_weight']; ?>;
     <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-description {
-    <?php if( $settings->input_desc_color ) { ?>
+    <?php if ( $settings->input_desc_color ) { ?>
     color: #<?php echo $settings->input_desc_color; ?>;
     <?php } ?>
-    <?php if( $settings->label_typography['font_family'] != 'Default' ) { ?>
+    <?php if ( isset( $settings->label_typography['font_family'] ) && $settings->label_typography['font_family'] != 'Default' ) { ?>
     font-family: <?php echo $settings->label_typography['font_family']; ?>;
 	font-weight: <?php echo $settings->label_typography['font_weight']; ?>;
     <?php } ?>

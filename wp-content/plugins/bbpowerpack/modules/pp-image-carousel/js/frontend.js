@@ -211,6 +211,27 @@
 				responsive_breakpoint = this.settings.breakpoint.responsive;
 				nodeClass = this.nodeClass;
 
+			var pagination = $(nodeClass).find('.swiper-pagination');
+			var captions = pagination.data( 'captions' );
+
+			var addAriaLabels = function() {
+				var count = 0;
+				setTimeout(function() {
+					pagination.find( '.swiper-pagination-bullet' ).each(function() {
+						var label = captions[ count ];
+						if ( '' !== label ) {
+							$(this).attr( 'aria-label', label );
+						}
+						if ( $(this).hasClass( 'swiper-pagination-bullet-active' ) ) {
+							$(this).attr( 'aria-current', 'true' );
+						} else {
+							$(this).attr( 'aria-current', 'false' );
+						}
+						count++;
+					});
+				}, 250);
+			};
+
             var options = {
 				keyboard: {
 					enabled: true,
@@ -223,8 +244,15 @@
 				pagination: {
 					el: nodeClass + ' .swiper-pagination',
 					type: this.settings.pagination,
-					clickable: true
+					clickable: true,
+					renderBullet: function( index, className ) {
+						var pagination = $(nodeClass).find('.swiper-pagination');
+						var captions = pagination.data( 'captions' );
+
+						return '<button class="' + className + '" aria-label="' + captions[index] + '" tabindex="0" role="button"></button>';
+					},
 				},
+				a11y: { enabled: false },
 				grabCursor: true,
                 effect: this._getEffect(),
                 initialSlide: this._getInitialSlide(),
@@ -233,7 +261,11 @@
                 spaceBetween: this._getSpaceBetween(),
                 loop: 'undefined' !== typeof this.settings.loop ? this.settings.loop : true,
                 speed: this.settings.speed,
-				breakpoints: {}
+				breakpoints: {},
+				on: {
+					init: addAriaLabels,
+					slideChange: addAriaLabels,
+				}
 			};
 
 			if ( this._isSlideshow() ) {

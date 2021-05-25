@@ -68,6 +68,7 @@ class PPVideoModule extends FLBuilderModule {
 			'youtube' => '/^.*(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:(?:watch|playlist)?\?(?:.*&)?(?:list|v)?=|(?:embed|v|vi|user|list)\/))([^\?&\"\'>]+)/',
 			'vimeo' => '/^.*vimeo\.com\/(?:[a-z]*\/)*([‌​0-9]{6,11})[?]?.*/',
 			'dailymotion' => '/^.*dailymotion.com\/(?:video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/',
+			'wistia' => '/^.*(?:wistia\.net|wistia\.com)\/(?:embed\/iframe|medias)\/(.*)/'
 		);
 
 		foreach ( $provider_regex as $provider => $match_mask ) {
@@ -146,7 +147,27 @@ class PPVideoModule extends FLBuilderModule {
 			$params['start'] = $settings->start_time;
 
 			$params['endscreen-enable'] = '0';
-		}
+		} elseif ( 'wistia' === $settings->video_type ) {
+			$params['controlsVisibleOnLoad'] = 'yes' === $settings->controls ? 'true' : 'false';
+			$params['muted'] = 'yes' === $settings->mute ? 'true' : 'false';
+			$params['playerColor'] = $settings->color;
+			$params['copyLinkAndThumbnailEnabled'] = 'false';
+
+			if ( 'yes' === $settings->loop ) {
+				$params['endVideoBehavior'] = 'loop';
+			}
+
+			$start_time = $settings->start_time;
+
+			if ( ! empty( $start_time ) ) {
+				if ( $start_time < 60 ) {
+					$params['time'] = $start_time . 's';
+				} else {
+					$time = explode( ':', gmdate( 'i:s', $start_time ) );
+					$params['time'] = $time[0] . 'm' . $time[1] . 's';
+				}
+			}
+		}	
 
 		foreach ( $params_dictionary as $key => $param_name ) {
 			$setting_name = $param_name;
@@ -209,6 +230,7 @@ class PPVideoModule extends FLBuilderModule {
 			'youtube' 		=> 'https://www.youtube{NO_COOKIE}.com/embed/{VIDEO_ID}?feature=oembed',
 			'vimeo' 		=> 'https://player.vimeo.com/video/{VIDEO_ID}#t={TIME}',
 			'dailymotion' 	=> 'https://dailymotion.com/embed/video/{VIDEO_ID}',
+			'wistia' 		=> 'https://fast.wistia.net/embed/iframe/{VIDEO_ID}',
 		);
 
 		$embed_pattern = $embed_patterns[ $video_properties['provider'] ];
@@ -520,6 +542,7 @@ BB_PowerPack::register_module(
 								'youtube' 		=> __( 'YouTube', 'bb-powerpack' ),
 								'vimeo' 		=> __( 'Vimeo', 'bb-powerpack' ),
 								'dailymotion' 	=> __( 'Dailymotion', 'bb-powerpack' ),
+								'wistia' 		=> __( 'Wistia', 'bb-powerpack' ),
 								'hosted' 		=> __( 'Self Hosted', 'bb-powerpack' ),
 								'external'		=> __( 'External URL', 'bb-powerpack' ),
 							),
@@ -532,6 +555,9 @@ BB_PowerPack::register_module(
 								),
 								'dailymotion'	=> array(
 									'fields'		=> array( 'dailymotion_url', 'controls', 'showinfo', 'logo', 'color' ),
+								),
+								'wistia'	=> array(
+									'fields'		=> array( 'wistia_url', 'loop', 'controls', 'color' ),
 								),
 								'hosted'	=> array(
 									'fields'	=> array( 'hosted_url', 'end_time', 'loop', 'controls', 'download_button', 'poster' ),
@@ -559,6 +585,13 @@ BB_PowerPack::register_module(
 							'type'			=> 'text',
 							'label'			=> __( 'Link', 'bb-powerpack' ),
 							'placeholder'	=> __( 'Enter Dailymotion URL', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'url' ),
+						),
+						'wistia_url'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Link', 'bb-powerpack' ),
+							'placeholder'	=> __( 'Enter Wistia URL', 'bb-powerpack' ),
 							'default'		=> '',
 							'connections'	=> array( 'url' ),
 						),

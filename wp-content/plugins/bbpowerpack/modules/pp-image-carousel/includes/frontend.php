@@ -1,5 +1,8 @@
 <?php
 $photos = $module->get_photos();
+$aria_label = isset( $settings->sr_text ) && ! empty( $settings->sr_text ) ? $settings->sr_text : __( 'Slider', 'bb-powerpack' );
+$captions = array();
+$count = 1;
 ?>
 <div class="pp-image-carousel-wrapper">
 	<?php
@@ -7,10 +10,14 @@ $photos = $module->get_photos();
 		include $module->dir . 'includes/thumbnails.php';
 	}
 	?>
-	<div class="pp-image-carousel swiper-container<?php echo ( $settings->carousel_type == 'slideshow') ? ' pp-image-carousel-slideshow' : ''; ?><?php echo ($settings->pagination_position && $settings->carousel_type != 'slideshow') ? ' pp-carousel-navigation-' . $settings->pagination_position : ''; ?>">
+	<div class="pp-image-carousel swiper-container<?php echo ( $settings->carousel_type == 'slideshow') ? ' pp-image-carousel-slideshow' : ''; ?><?php echo ($settings->pagination_position && $settings->carousel_type != 'slideshow') ? ' pp-carousel-navigation-' . $settings->pagination_position : ''; ?>" role="region" aria-label="<?php echo $aria_label; ?>">
 		<div class="swiper-wrapper">
-			<?php foreach($photos as $photo) : ?>
-			<div class="pp-image-carousel-item<?php echo ( ( $settings->click_action != 'none' ) && !empty( $photo->link ) ) ? ' pp-image-carousel-link' : ''; ?> swiper-slide">
+			<?php foreach( $photos as $photo ) :
+				$caption = htmlspecialchars( preg_replace( '/\"|\'/', '', $photo->caption ) );
+				$caption = empty( trim( $caption ) ) ? sprintf( __( 'Slide %d', 'bb-powerpack' ), $count ) : $caption;
+				$captions[] = $caption;
+				?>
+				<div class="pp-image-carousel-item<?php echo ( ( $settings->click_action != 'none' ) && !empty( $photo->link ) ) ? ' pp-image-carousel-link' : ''; ?> swiper-slide" role="group" aria-label="<?php echo $caption; ?>">
 					<?php if( $settings->click_action != 'none' ) : ?>
 							<?php $click_action_link = '#';
 								$click_action_target = $settings->custom_link_target;
@@ -53,7 +60,7 @@ $photos = $module->get_photos();
 
 								<?php if( $settings->overlay == 'icon' ) : ?>
 								<div class="pp-overlay-icon">
-									<span class="<?php echo $settings->overlay_icon; ?>" ></span>
+									<span class="<?php echo $settings->overlay_icon; ?>" aria-hidden="true"></span>
 								</div>
 								<?php endif; ?>
 
@@ -65,20 +72,25 @@ $photos = $module->get_photos();
 					<?php endif; ?>
 				</div>
 				<?php
+				$count++;
 			endforeach;
 			?>
 		</div>
 
 		<?php if ( 1 < count( $photos ) ) : ?>
-			<?php if( $settings->pagination_type ) { ?>
-			<!-- pagination -->
-			<div class="swiper-pagination"></div>
+			<?php if ( $settings->slider_navigation == 'yes' ) { ?>
+			<!-- navigation arrows -->
+			<button class="pp-swiper-button pp-swiper-button-prev" aria-label="<?php _e( 'Previous slide', 'bb-powerpack' ); ?>" role="button" tabindex="0">
+				<span class="fa fa-angle-left" aria-hidden="true"></span>
+			</button>
+			<button class="pp-swiper-button pp-swiper-button-next" aria-label="<?php _e( 'Next slide', 'bb-powerpack' ); ?>" role="button" tabindex="0">
+				<span class="fa fa-angle-right" aria-hidden="true"></span>
+			</button>
 			<?php } ?>
 
-			<?php if( $settings->slider_navigation == 'yes' ) { ?>
-			<!-- navigation arrows -->
-			<div class="pp-swiper-button pp-swiper-button-prev"><span class="fa fa-angle-left"></span></div>
-			<div class="pp-swiper-button pp-swiper-button-next"><span class="fa fa-angle-right"></span></div>
+			<?php if ( $settings->pagination_type ) { ?>
+			<!-- pagination -->
+			<div class="swiper-pagination" data-captions="<?php echo htmlspecialchars( json_encode( $captions ) ); ?>"></div>
 			<?php } ?>
 		<?php endif; ?>
 	</div>

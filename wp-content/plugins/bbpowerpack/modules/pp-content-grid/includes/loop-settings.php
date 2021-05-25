@@ -910,11 +910,11 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 		$( '.fl-builder-pp-content-grid-settings select[name="data_source"]' ).on( 'change', pp_update_taxonomies );
 		<?php } ?>
 
-		$('.fl-builder-pp-content-grid-settings select[name="post_type"]').on('change', function() {
+		function pp_custom_query_taxonomies() {
 			if ( $( '.fl-builder-pp-content-grid-settings select[name="data_source"]' ).val() !== 'custom_query' ) {
 				return;
 			}
-			var post_type_slug = $(this).val();
+			var post_type_slug = $('.fl-builder-pp-content-grid-settings select[name="post_type"]').val();
 			var post_grid_filters = $('.fl-builder-pp-content-grid-settings select[name="post_grid_filters"]');
 			var post_taxonomies = $('.fl-builder-pp-content-grid-settings select[name="post_taxonomies"]');
 			var selected_filter = '<?php echo $settings->post_grid_filters; ?>';
@@ -935,6 +935,12 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 					}
 				}
 			});
+		}
+
+		pp_custom_query_taxonomies();
+
+		$('.fl-builder-pp-content-grid-settings select[name="post_type"], .fl-builder-pp-content-grid-settings select[name="data_source"]').on('change', function() {
+			pp_custom_query_taxonomies();
 		});
 	})(jQuery);
 </script>

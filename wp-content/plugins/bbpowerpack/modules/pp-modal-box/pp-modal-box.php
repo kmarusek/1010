@@ -497,11 +497,11 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                                 'sections'          => array('modal_button_bg')
                             ),
                             'icon'              => array(
-                                'fields'            => array('icon_source', 'icon_size', 'button_text_color', 'button_text_hover', 'button_color', 'button_color_hover', 'button_padding_left_right', 'button_padding_top_bottom', 'button_width'),
+                                'fields'            => array('icon_source', 'sr_text', 'icon_size', 'button_text_color', 'button_text_hover', 'button_color', 'button_color_hover', 'button_padding_left_right', 'button_padding_top_bottom', 'button_width'),
                                 'sections'          => array('modal_button_bg')
                             ),
                             'image'             => array(
-                                'fields'            => array('image_source', 'image_size')
+                                'fields'            => array('image_source', 'sr_text', 'image_size')
                             )
                         ),
                         'hide'              => array(
@@ -526,6 +526,11 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'type'              => 'icon',
                         'label'             => __('Icon Source', 'bb-powerpack')
                     ),
+					'sr_text'			=> array(
+						'type'				=> 'text',
+						'label'				=> __( 'Screen Reader Text', 'bb-powerpack' ),
+						'connections'		=> array( 'string' ),
+					),
                     'button_text'       => array(
                         'type'              => 'text',
                         'label'             => __('Button Text', 'bb-powerpack'),

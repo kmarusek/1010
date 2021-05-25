@@ -2,6 +2,7 @@
 
 /**
  * @class PPContentGridModule
+ * @version 2.16.0
  */
 class PPContentGridModule extends FLBuilderModule {
 
@@ -1663,6 +1664,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'default'			=> 8,
 						'units'				=> array('px'),
 						'slider'			=> true,
+						'responsive'		=> true,
 						'preview'       	=> array(
 							'type'				=> 'css',
 							'selector'        	=> '.pp-post-filters li',

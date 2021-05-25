@@ -84,7 +84,7 @@ FLBuilderCSS::typography_field_rule( array(
     <?php if ( $settings->card_bg_type == 'color' ) { ?>
         background-color: <?php echo pp_get_color_value($settings->card_bg); ?>;
     <?php } ?>
-    <?php if ( 'color' == $settings->card_bg_type || 'none' != $settings->card_border_group['style'] ) { ?>
+    <?php if ( 'color' == $settings->card_bg_type || ( is_array( $settings->card_border_group ) && 'none' != $settings->card_border_group['style'] ) ) { ?>
         padding-left: 10px;
         padding-right: 10px;
     <?php } ?>
@@ -93,7 +93,7 @@ FLBuilderCSS::typography_field_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-menu-item .pp-restaurant-menu-item-left,
 .fl-node-<?php echo $id; ?> .pp-menu-item .pp-restaurant-menu-item-right {
-    <?php if ( $settings->restaurant_menu_layout == 'stacked' && ( 'color' == $settings->card_bg_type || 'none' != $settings->card_border_group['style'] ) ) { ?>
+    <?php if ( $settings->restaurant_menu_layout == 'stacked' && ( 'color' == $settings->card_bg_type || ( is_array( $settings->card_border_group ) && 'none' != $settings->card_border_group['style'] ) ) ) { ?>
         padding-left: 0;
         padding-right: 0;
     <?php } ?>
@@ -119,7 +119,7 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
  <?php
-	 if ( 'none' == $settings->card_border_group['style'] ) {
+	 if ( ( is_array( $settings->card_border_group ) && 'none' != $settings->card_border_group['style'] ) ) {
 	 	?>
 		 	.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in .pp-restaurant-menu-item-inline h2{
 				padding-top: 0px !important;
@@ -152,7 +152,7 @@ FLBuilderCSS::typography_field_rule( array(
 ?>
 
 <?php
-    if ( $settings->card_border_group['width']['right'] > 0 ) {
+    if ( is_array( $settings->card_border_group ) && $settings->card_border_group['width']['right'] > 0 ) {
 	 	?>
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline {
 				padding-bottom: 0px;
@@ -220,7 +220,7 @@ FLBuilderCSS::typography_field_rule( array(
  ?>
 
  <?php
-	 if ( ( $settings->card_border_group['width']['bottom'] > '0') && ( $settings->card_border_group['width']['top'] == 0) && ( $settings->card_border_group['width']['right'] == 0) && ( $settings->card_border_group['width']['left'] == 0) ) {
+	 if ( is_array( $settings->card_border_group ) && $settings->card_border_group['width']['bottom'] > '0' && $settings->card_border_group['width']['top'] == 0 && $settings->card_border_group['width']['right'] == 0 && $settings->card_border_group['width']['left'] == 0 ) {
 	 	?>
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item .pp-restaurant-menu-item-left {
 				padding-left: 0px !important;

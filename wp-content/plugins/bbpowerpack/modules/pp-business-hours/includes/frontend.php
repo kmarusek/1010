@@ -1,6 +1,26 @@
 <div class="pp-business-hours-content clearfix" itemscope itemtype="http://schema.org/LocalBusiness">
 	<meta itemprop="name" content="<?php echo get_bloginfo('name'); ?>" />
-	<?php $rows = count($settings->business_hours_rows);
+	<?php
+	// Fetch logo from theme or filter.
+	$image = '';
+	if ( class_exists( 'FLTheme' ) && 'image' == FLTheme::get_setting( 'fl-logo-type' ) ) {
+		$image = FLTheme::get_setting( 'fl-logo-image' );
+	} elseif ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) {
+		$custom_logo_id = get_theme_mod( 'custom_logo' );
+		$logo           = wp_get_attachment_image_src( $custom_logo_id, 'full' );
+		$image          = $logo[0];
+	}
+	$image = apply_filters( 'pp_business_hours_publisher_image_url', $image );
+	if ( $image ) {
+		echo '<div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">';
+		echo '<meta itemprop="url" content="' . $image . '">';
+		echo '</div>';
+	}
+	?>
+
+	<?php
+	$rows = count($settings->business_hours_rows);
+
 	for ($i=0; $i < count($settings->business_hours_rows); $i++) :
 
 		if(!is_object($settings->business_hours_rows[$i])) continue;
@@ -9,19 +29,19 @@
 		$status = '';
 		$highlight = '';
 
-		if( $bhRow->status == 'close' ) {
+		if ( $bhRow->status == 'close' ) {
 			$status = ' pp-closed';
 		}
-		if( $bhRow->highlight == 'yes' ) {
+		if ( $bhRow->highlight == 'yes' ) {
 			$highlight = ' pp-highlight-row';
 		}
 
-		$title = 'short' === $bhRow->day_format ? pp_short_day_format($bhRow->title) . '.' : pp_long_day_format($bhRow->title);
+		$title = $module->get_day_translation( $bhRow->title, $bhRow->day_format );
 
 		if ( $bhRow->hours_type == 'range' ) {
-			$title = 'short' === $bhRow->day_format ? pp_short_day_format($bhRow->start_day) . '.' : pp_long_day_format($bhRow->start_day);
+			$title = $module->get_day_translation( $bhRow->start_day, $bhRow->day_format );
 			$title .= ' - ';
-			$title .= 'short' === $bhRow->day_format ? pp_short_day_format($bhRow->end_day) . '.' : pp_long_day_format($bhRow->end_day);
+			$title .= $module->get_day_translation( $bhRow->end_day, $bhRow->day_format );
 		}
 
 		$opening_hours = '';
@@ -37,7 +57,7 @@
 				<?php } ?>
 			</div>
 			<div class="pp-bh-timing">
-				<?php if( $bhRow->status == 'close' ) {
+				<?php if ( $bhRow->status == 'close' ) {
 					echo $bhRow->status_text;
 				} else {
 					if ( is_object( $bhRow->start_time ) ) {
@@ -48,10 +68,21 @@
 						$opening_hours = $bhRow->start_time['hours'] . ':' . $bhRow->start_time['minutes'] . '&nbsp;' . $bhRow->start_time['day_period'];
 						$closing_hours = $bhRow->end_time['hours'] . ':' . $bhRow->end_time['minutes'] . '&nbsp;' . $bhRow->end_time['day_period'];
 					}
+
+					$opening_time = '';
+					$closing_time = '';
+					if ( isset( $settings->hours_24_format ) && 'yes' === $settings->hours_24_format ) {
+						$opening_time = date( "G:i", strtotime( $opening_hours ) );
+						$closing_time = date( "G:i", strtotime( $closing_hours ) );
+					} else {
+						$opening_time = date( "g:i A", strtotime( $opening_hours ) );
+						$closing_time = date( "g:i A", strtotime( $closing_hours ) );
+					}
+				
 					if ( $bhRow->hours_type == 'day' ) {
-						echo '<time itemprop="opens" content="'.date("g:i A", strtotime($opening_hours)).'">' . date("g:i A", strtotime($opening_hours)) . '</time>';
+						echo '<time itemprop="opens" content="'.$opening_time.'">' . $opening_time . '</time>';
 						echo ' - ';
-						echo '<time itemprop="closes" content="'.date("g:i A", strtotime($closing_hours)).'">' . date("g:i A", strtotime($closing_hours)) . '</time>';
+						echo '<time itemprop="closes" content="'.$closing_time.'">' . $closing_time . '</time>';
 					} else {
 						$datetime 	= array();
 						$start_day 	= 0;
@@ -75,14 +106,14 @@
 
 						$datetime_str = implode(',', $datetime);
 						$datetime_str .= ' ';
-						$datetime_str .= date("G:i", strtotime($opening_hours));
+						$datetime_str .= $opening_time;
 						$datetime_str .= '-';
-						$datetime_str .= date("G:i", strtotime($closing_hours));
+						$datetime_str .= $closing_time;
 
 						echo '<time itemprop="openingHours" datetime="' . $datetime_str . '">';
-						echo date("g:i A", strtotime($opening_hours));
+						echo $opening_time;
 						echo ' - ';
-						echo date("g:i A", strtotime($closing_hours));
+						echo $closing_time;
 						echo '</time>';
 					}
 				} ?>

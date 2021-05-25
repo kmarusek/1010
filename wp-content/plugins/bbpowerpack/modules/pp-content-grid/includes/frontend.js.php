@@ -1,12 +1,13 @@
 
 <?php
-$columns 		= $settings->post_grid_count;
-$column_desktop = isset( $columns['desktop'] ) && absint( $columns['desktop'] ) > 0 ? absint( $columns['desktop'] ) : 3;
-$column_tablet  = isset( $columns['tablet'] ) && absint( $columns['tablet'] ) > 0 ? absint( $columns['tablet'] ) : 2;
-$column_mobile  = isset( $columns['mobile'] ) && absint( $columns['mobile'] ) > 0 ? absint( $columns['mobile'] ) : 2;
-$space_desktop	= ( $column_desktop - 1 ) * $settings->post_spacing;
-$space_tablet 	= ( $column_tablet - 1 ) * $settings->post_spacing;
-$space_mobile 	= ( $column_mobile - 1 ) * $settings->post_spacing;
+$columns 		= isset( $settings->post_grid_count ) && is_array( $settings->post_grid_count ) ? $settings->post_grid_count : array();
+$column_desktop = isset( $columns['desktop'] ) && ! empty( $columns['desktop'] ) && intval( $columns['desktop'] ) > 0 ? intval( $columns['desktop'] ) : 3;
+$column_tablet  = isset( $columns['tablet'] ) && ! empty( $columns['tablet'] ) && intval( $columns['tablet'] ) > 0 ? intval( $columns['tablet'] ) : 2;
+$column_mobile  = isset( $columns['mobile'] ) && ! empty( $columns['mobile'] ) && intval( $columns['mobile'] ) > 0 ? intval( $columns['mobile'] ) : 1;
+$spacing		= isset( $settings->post_spacing ) ? intval( $settings->post_spacing ) : 0;
+$space_desktop	= ( $column_desktop - 1 ) * $spacing;
+$space_tablet 	= ( $column_tablet - 1 ) * $spacing;
+$space_mobile 	= ( $column_mobile - 1 ) * $spacing;
 $speed          = ! empty( $settings->transition_speed ) ? $settings->transition_speed * 1000 : 3000;
 $slide_speed    = ( isset( $settings->slides_speed ) && ! empty( $settings->slides_speed ) ) ? $settings->slides_speed * 1000 : 1000;
 $page_arg	 	= is_front_page() ? 'page' : 'paged';

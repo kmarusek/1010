@@ -16,16 +16,22 @@
 
 		?>
 	<div class="pp-content-ticker-heading">
-		<?php if ( ! empty( $settings->heading_icon ) ) { ?>
-		<span class="pp-content-ticker-heading-icon">
-			<span class="<?php echo esc_attr( $settings->heading_icon ); ?>"></span>
-		</span>
+		<?php if ( isset( $settings->heading_link ) && ! empty( $settings->heading_link ) ) { ?>
+		<a href="<?php echo $settings->heading_link; ?>" target="<?php echo $settings->heading_link_target; ?>" rel="<?php echo 'yes' === $settings->heading_link_nofollow ? 'nofollow' : 'bookmark'; ?>">
 		<?php } ?>
+			<?php if ( ! empty( $settings->heading_icon ) ) { ?>
+			<span class="pp-content-ticker-heading-icon">
+				<span class="<?php echo esc_attr( $settings->heading_icon ); ?>"></span>
+			</span>
+			<?php } ?>
 
-		<?php if ( ! empty( $settings->heading_text ) ) { ?>
-		<span class="pp-content-ticker-heading-text">
-			<?php echo $settings->heading_text; ?>
-		</span>
+			<?php if ( ! empty( $settings->heading_text ) ) { ?>
+			<span class="pp-content-ticker-heading-text">
+				<?php echo $settings->heading_text; ?>
+			</span>
+			<?php } ?>
+		<?php if ( isset( $settings->heading_link ) && ! empty( $settings->heading_link ) ) { ?>
+		</a>
 		<?php } ?>
 	</div>
 

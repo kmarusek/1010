@@ -247,9 +247,6 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
     width: <?php echo $toggle_width ?>px;
     height: <?php echo $toggle_height ?>px;
-    margin: -<?php echo $toggle_height ?>px;
-    padding: <?php echo $toggle_height ?>px;
-    right: <?php echo $toggle_height ?>px;
 }
 
 <?php if( $settings->responsive_alignment == 'right' ) { ?>
@@ -260,7 +257,7 @@ FLBuilderCSS::dimension_field_rule( array(
 	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
 		right: 0;
-		left: 28px;
+		left: 10px;
 	}
 <?php } ?>
 

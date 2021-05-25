@@ -268,7 +268,6 @@ FLBuilderCSS::rule(
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-content-ticker-container .pp-content-ticker-heading {
-
 	<?php if ( isset( $settings->heading_bgcolor ) && ! empty( $settings->heading_bgcolor ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->heading_bgcolor ); ?>;
 	<?php } ?>
@@ -284,7 +283,21 @@ FLBuilderCSS::rule(
 	<?php if ( 'right' === ( $settings->heading_icon_align ) ) { ?>
 		flex-direction: row-reverse;
 	<?php } ?>
-
+}
+.fl-node-<?php echo $id; ?> .pp-content-ticker-container .pp-content-ticker-heading a {
+	<?php if ( isset( $settings->heading_txtcolor ) && ! empty( $settings->heading_txtcolor ) ) { ?>
+		color: #<?php echo $settings->heading_txtcolor; ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->heading_alignment ) && ! empty( $settings->heading_alignment ) ) { ?>
+		justify-content: <?php echo $settings->heading_alignment; ?>;
+	<?php } ?>
+	<?php if ( 'right' === ( $settings->heading_icon_align ) ) { ?>
+		flex-direction: row-reverse;
+	<?php } ?>
+	display: flex;
+	text-decoration: none;
+	border: none;
+	box-shadow: none;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-ticker-container .pp-content-ticker-content {

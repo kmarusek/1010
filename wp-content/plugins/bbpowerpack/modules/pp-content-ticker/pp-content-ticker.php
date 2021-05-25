@@ -330,6 +330,13 @@ BB_PowerPack::register_module(
 							'label'   => __( 'Arrow', 'bb-powerpack' ),
 							'default' => 'yes',
 						),
+						'heading_link' => array(
+							'type' => 'link',
+							'label' => __( 'Link', 'bb-powerpack' ),
+							'show_nofollow' => true,
+							'show_target' => true,
+							'connections' => array( 'url' ),
+						),
 					),
 				),
 				'ticker_settings_section' => array(
@@ -455,7 +462,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.pp-content-ticker-container .pp-content-ticker-heading',
+								'selector' => '.pp-content-ticker-container .pp-content-ticker-heading, .pp-content-ticker-container .pp-content-ticker-heading a',
 								'property' => 'color',
 							),
 						),

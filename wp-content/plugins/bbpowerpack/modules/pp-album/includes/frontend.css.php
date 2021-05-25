@@ -56,9 +56,16 @@ FLBuilderCSS::dimension_field_rule( array(
 	margin: 0 auto;
 	cursor: pointer;
 }
+
+<?php if ( ! empty( $settings->cover_height ) ) { ?>
 .fl-node-<?php echo $id; ?> .pp-album-cover-wrap {
 	height: <?php echo $settings->cover_height;?>px;
 }
+.fl-node-<?php echo $id; ?> .pp-album-cover {
+	position: absolute;
+}
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-album-content-wrap {
 	align-items: <?php echo $settings->horizontal_align; ?>;
 	justify-content: <?php echo $settings->vertical_align; ?>;

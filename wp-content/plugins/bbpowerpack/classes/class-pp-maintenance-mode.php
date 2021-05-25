@@ -95,6 +95,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		$access 		= get_option( 'bb_powerpack_maintenance_mode_access' );
 		$access_type 	= get_option( 'bb_powerpack_maintenance_mode_access_type' );
 		$ips 			= get_option( 'bb_powerpack_maintenance_mode_ip_whitelist' );
+		$access_key 	= get_option( 'bb_powerpack_maintenance_mode_access_key' );
 
 		// Access type.
 		if ( 'logged_in' === $access && is_user_logged_in() ) {
@@ -140,6 +141,11 @@ final class BB_PowerPack_Maintenance_Mode {
 			if ( in_array( $current_ip, $ips ) ) {
 				return;
 			}
+		}
+
+		// Secret access key.
+		if ( ! empty( $access_key ) && isset( $_GET['access'] ) && $access_key === $_GET['access'] ) {
+			return;
 		}
 
 		// Remove Beaver Themer header and footer layouts.
@@ -215,6 +221,9 @@ final class BB_PowerPack_Maintenance_Mode {
 		if ( isset( $layouts['footer'] ) ) {
 			unset( $layouts['footer'] );
 		}
+		if ( isset( $layouts['part'] ) ) {
+			unset( $layouts['part'] );
+		}
 
 		return $layouts;
 	}
@@ -244,7 +253,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		// Set the template as `$wp_query->current_object` for `wp_title` and etc.
 		query_posts( array(
 			'p' => self::$template,
-			'post_type' => 'page',
+			'post_type' => get_post_type( self::$template ),
 			'page_id' => self::$template,
 		) );
 
@@ -273,19 +282,60 @@ final class BB_PowerPack_Maintenance_Mode {
 			'orderby' 			=> 'title',
 			'order' 			=> 'ASC',
 			'posts_per_page' 	=> '-1',
-			'update_post_meta_cache' => false
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
 		);
 
-		$posts = get_posts( $args );
+		$pages = get_posts( $args );
 
-		$options = '<option value="">' . __( '-- Select --', 'bb-powerpack' ) . '</option>';
+		$args['post_type'] = 'fl-builder-template';
 
-		if ( count( $posts ) ) {
-			foreach ( $posts as $post ) {
-				$options .= '<option value="' . $post->ID . '" ' . selected( $selected, $post->ID, false ) . '>' . $post->post_title . '</option>';
+		$args['tax_query'] = array(
+			array(
+				'taxonomy'		=> 'fl-builder-template-type',
+				'field'			=> 'slug',
+				'terms'			=> array(
+					'layout',
+					'row',
+				),
+			),
+		);
+
+		$templates = get_posts( $args );
+
+		$posts = array(
+			'pages' => $pages,
+			'templates' => $templates,
+		);
+
+		$options = '<option value="">' . esc_html__( '-- Select --', 'bb-powerpack' ) . '</option>';
+
+		foreach ( $posts as $type => $data ) {
+			if ( ! count( $data ) ) {
+				continue;
 			}
-		} else {
-			$options = '<option value="" disabled>' . __( 'No templates found!', 'bb-powerpack' ) . '</option>';
+
+			$label = '';
+
+			if ( 'pages' === $type ) {
+				$label = esc_html__( 'Pages', 'bb-powerpack' );
+			}
+			if ( 'templates' === $type ) {
+				$label = esc_html__( 'Builder Templates', 'bb-powerpack' );
+			}
+
+			$options .= '<optgroup label="' . $label . '">';
+
+			foreach ( $data as $post ) {
+				$label = $post->post_title;
+				if ( 'templates' === $type ) {
+					$terms = @wp_list_pluck( get_the_terms( $post, 'fl-builder-template-type' ), 'slug' );
+					$label .= ! empty( $terms ) ? ' [' . $terms[0] . ']' : '';
+				}
+				$options .= '<option value="' . $post->ID . '" ' . selected( $selected, $post->ID, false ) . '>' . $label . '</option>';
+			}
+
+			$options .= '</optgroup>';
 		}
 
 		return $options;
@@ -369,6 +419,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		$access_type 	= sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_access_type'] );
 		$access_urls 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_access_urls'] );
 		$ip_whitelist 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_ip_whitelist'] );
+		$access_key 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_access_key'] );
 		$template 		= isset( $_POST['bb_powerpack_maintenance_mode_template'] ) ? sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_template'] ) : '';
 		$roles 			= array();
 
@@ -386,6 +437,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		update_option( 'bb_powerpack_maintenance_mode_access_type', $access_type );
 		update_option( 'bb_powerpack_maintenance_mode_access_urls', $access_urls );
 		update_option( 'bb_powerpack_maintenance_mode_ip_whitelist', $ip_whitelist );
+		update_option( 'bb_powerpack_maintenance_mode_access_key', $access_key );
 
 		// Clear BB's assets cache.
 		if ( class_exists( 'FLBuilderModel' ) && method_exists( 'FLBuilderModel', 'delete_asset_cache_for_all_posts' ) ) {

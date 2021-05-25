@@ -87,6 +87,12 @@
 		onInitialized: function(e) {
 			setCenterClass(e);
 			equalheight();
+			
+			var count = 1;
+			$(e.target).find('.owl-dot').each(function() {
+				$(this).append( '<span class="sr-only">Testimonial Slide ' + count + '</span>' );
+				count++;
+			});
 		},
 		onResized: equalheight,
 		onRefreshed: equalheight,

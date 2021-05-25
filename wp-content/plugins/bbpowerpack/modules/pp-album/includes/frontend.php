@@ -33,6 +33,8 @@ if ( ! empty( $settings->gallery_photos ) ) {
 	$first_img_url = array( BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg' );
 }
 
+$alt = htmlspecialchars( $alt );
+
 // Button Type.
 if ( 'text' === $settings->cover_btn_type ) {
 	$button_content = '<span>' . $settings->cover_btn_text . '</span>';

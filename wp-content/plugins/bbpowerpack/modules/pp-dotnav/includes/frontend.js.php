@@ -29,6 +29,10 @@
             }
         });
     }
+
+	var hideOn = <?php echo ! empty( $settings->dot_hide_on ) ? (int) $settings->dot_hide_on : 'false'; ?>;
+
+	if ( hideOn && window.innerWidth >= hideOn ) {
     <?php if ( isset($settings->scroll_wheel) && 'enable' == $settings->scroll_wheel && ! FLBuilderModel::is_builder_active() ) { ?>
         var lastAnimation = 0,
             quietPeriod = 500,
@@ -39,7 +43,6 @@
         $(document).on('mousewheel DOMMouseScroll', function(e){
             var timeNow = new Date().getTime();
             if(timeNow - lastAnimation < quietPeriod + animationTime) {
-                e.preventDefault();
                 return;
             }
         	wDelta = e.wheelDelta < 0 ? 'down' : 'up';
@@ -93,6 +96,8 @@
         });
         <?php } ?>
     <?php } ?>
+	}
+
     <?php if ( 'enable' == $settings->scroll_keys ) { ?>
         $(document).keydown(function(e) {
             var tag = e.target.tagName.toLowerCase();

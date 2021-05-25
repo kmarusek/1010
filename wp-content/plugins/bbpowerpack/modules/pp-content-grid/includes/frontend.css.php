@@ -1,11 +1,16 @@
 
 <?php
-$space_desktop = ( $settings->post_grid_count['desktop'] - 1 ) * $settings->post_spacing;
-$space_tablet = ( $settings->post_grid_count['tablet'] - 1 ) * $settings->post_spacing;
-$space_mobile = ( $settings->post_grid_count['mobile'] - 1 ) * $settings->post_spacing;
-$post_columns_desktop = ( 100 - $space_desktop ) / $settings->post_grid_count['desktop'];
-$post_columns_tablet = ( 100 - $space_tablet ) / $settings->post_grid_count['tablet'];
-$post_columns_mobile = ( 100 - $space_mobile ) / $settings->post_grid_count['mobile'];
+$columns 		= isset( $settings->post_grid_count ) && is_array( $settings->post_grid_count ) ? $settings->post_grid_count : array();
+$column_desktop = isset( $columns['desktop'] ) && ! empty( $columns['desktop'] ) && intval( $columns['desktop'] ) > 0 ? intval( $columns['desktop'] ) : 3;
+$column_tablet  = isset( $columns['tablet'] ) && ! empty( $columns['tablet'] ) && intval( $columns['tablet'] ) > 0 ? intval( $columns['tablet'] ) : 2;
+$column_mobile  = isset( $columns['mobile'] ) && ! empty( $columns['mobile'] ) && intval( $columns['mobile'] ) > 0 ? intval( $columns['mobile'] ) : 1;
+$spacing		= isset( $settings->post_spacing ) ? intval( $settings->post_spacing ) : 0;
+$space_desktop	= ( $column_desktop - 1 ) * $spacing;
+$space_tablet 	= ( $column_tablet - 1 ) * $spacing;
+$space_mobile 	= ( $column_mobile - 1 ) * $spacing;
+$post_columns_desktop = ( 100 - $space_desktop ) / $column_desktop;
+$post_columns_tablet = ( 100 - $space_tablet ) / $column_tablet;
+$post_columns_mobile = ( 100 - $space_mobile ) / $column_mobile;
 $responsive_filter = $settings->responsive_filter;
 ?>
 <?php
@@ -623,12 +628,10 @@ FLBuilderCSS::dimension_field_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-content-post {
 	position: relative;
-    <?php if( 'grid' == $settings->layout ) { ?>
-	float: left;
-    <?php } ?>
 	<?php if( 'grid' == $settings->layout ) { ?>
+	float: left;
 	margin-bottom: <?php echo $settings->post_spacing; ?>%;
-	width: <?php echo $post_columns_desktop; ?>%;
+	width: <?php echo $post_columns_desktop - 0.1; ?>%;
 	<?php } ?>
 	<?php if( 'carousel' == $settings->layout ) { ?>
 	margin-left: <?php echo ($settings->post_spacing / 2); ?>%;

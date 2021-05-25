@@ -65,13 +65,14 @@ FLBuilderCSS::border_field_rule(
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
-	<?php if ( ! empty( $settings->marker_border['radius']['top_left'] ) || '0' === $settings->marker_border['radius']['top_left'] ) { ?>
-		border-top-left-radius: <?php echo $settings->marker_border['radius']['top_left']; ?>px;
-		border-top-right-radius:  <?php echo $settings->marker_border['radius']['top_right']; ?>px;
-		border-bottom-left-radius:  <?php echo $settings->marker_border['radius']['bottom_left']; ?>px;
-		border-bottom-right-radius:  <?php echo $settings->marker_border['radius']['bottom_right']; ?>px;
-	<?php } else { ?>
-		border-radius: 100px;
+	border-radius: 100px;
+	<?php if ( isset( $settings->marker_border['radius'] ) && isset( $settings->marker_border['radius']['top_left'] ) ) { ?>
+		<?php if ( ! empty( $settings->marker_border['radius']['top_left'] ) || '0' === $settings->marker_border['radius']['top_left'] ) { ?>
+			border-top-left-radius: <?php echo $settings->marker_border['radius']['top_left']; ?>px;
+			border-top-right-radius:  <?php echo $settings->marker_border['radius']['top_right']; ?>px;
+			border-bottom-left-radius:  <?php echo $settings->marker_border['radius']['bottom_left']; ?>px;
+			border-bottom-right-radius:  <?php echo $settings->marker_border['radius']['bottom_right']; ?>px;
+		<?php } ?>
 	<?php } ?>
 }
 <?php
@@ -99,13 +100,14 @@ FLBuilderCSS::border_field_rule(
 		bottom: 0;
 		left: 0;
 		right: 0;
-		<?php if ( ! empty( $settings->marker_border['radius']['top_left'] ) || '0' === $settings->marker_border['radius']['top_left'] ) { ?>
-			border-top-left-radius: <?php echo $settings->marker_border['radius']['top_left']; ?>px;
-			border-top-right-radius:  <?php echo $settings->marker_border['radius']['top_right']; ?>px;
-			border-bottom-left-radius:  <?php echo $settings->marker_border['radius']['bottom_left']; ?>px;
-			border-bottom-right-radius:  <?php echo $settings->marker_border['radius']['bottom_right']; ?>px;
-		<?php } else { ?>
-			border-radius: 100px;
+		border-radius: 100px;
+		<?php if ( isset( $settings->marker_border['radius'] ) && isset( $settings->marker_border['radius']['top_left'] ) ) { ?>
+			<?php if ( ! empty( $settings->marker_border['radius']['top_left'] ) || '0' === $settings->marker_border['radius']['top_left'] ) { ?>
+				border-top-left-radius: <?php echo $settings->marker_border['radius']['top_left']; ?>px;
+				border-top-right-radius:  <?php echo $settings->marker_border['radius']['top_right']; ?>px;
+				border-bottom-left-radius:  <?php echo $settings->marker_border['radius']['bottom_left']; ?>px;
+				border-bottom-right-radius:  <?php echo $settings->marker_border['radius']['bottom_right']; ?>px;
+			<?php } ?>
 		<?php } ?>
 		background: <?php echo pp_get_color_value( $settings->common_marker_bg_color ); ?>;
 		z-index: 0;

@@ -409,6 +409,10 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 			'general'	=> array(
 				'title'		=> '',
 				'fields'	=> array(
+					'sr_text'	=> array(
+						'type'		=> 'text',
+						'label'		=> __( 'Screen Reader Text', 'bb-powerpack' ),
+					),
 					'image_size'        => array(
 						'type'          => 'photo-sizes',
 						'label'         => __( 'Image Size', 'bb-powerpack' ),

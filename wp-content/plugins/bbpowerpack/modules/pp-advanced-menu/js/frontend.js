@@ -25,9 +25,8 @@
 		this.offCanvasMenu 		= null;
 		this.$submenus 			= null;
 
-		this._bindSettingsFormEvents();
 		// initialize the menu
-		this._initMenu();
+		$(document).ready( $.proxy( this._initMenu, this ) );
 
 		// check if viewport is resizing
 		$( window ).on( 'resize', $.proxy( function( e ) {
@@ -145,6 +144,9 @@
 			this._submenuOnClick();
 			if ( $( this.nodeClass ).length && this.type == 'horizontal' ) {
 				this._initMegaMenus();
+			}
+
+			if ( this.type == 'horizontal' || this.type == 'vertical' ) {
 				var self = this;
 				$( this.wrapperClass ).find('.pp-has-submenu-container').on( 'click', function( e ) {
 					if ( self.mobileMenuType !== 'off-canvas' && self.mobileMenuType !== 'full-screen' ) {
@@ -158,8 +160,7 @@
 				} );
 			}
 
-			if( this._isMenuToggle() || this.type == 'accordion' ) {
-
+			if ( this._isMenuToggle() || this.type == 'accordion' ) {
 				$( this.wrapperClass ).off( 'mouseenter mouseleave' );
 				this._menuOnClick();
 				this._clickOrHover();
@@ -225,7 +226,7 @@
 			var self = this;
 			var $mainItem = '';
 
-			$( this.wrapperClass ).off().on( 'click', '.pp-has-submenu-container', $.proxy( function( e ) {
+			$( this.wrapperClass ).off().on( 'click.pp-advanced-menu', '.pp-has-submenu-container', $.proxy( function( e ) {
 
 				if ( self._isTouch() ) {
 					if ( ! $(this).hasClass('first-click') ) {
@@ -249,8 +250,12 @@
 				if( !$subMenu.is(':visible') || $(e.target).hasClass('pp-menu-toggle')
 					|| ($subMenu.is(':visible') && (typeof $href === 'undefined' || $href == '#')) ) {
 					e.preventDefault();
+					if ( $(e.target).hasClass('pp-menu-toggle') ) {
+						e.stopPropagation();
+					}
 				}
 				else {
+					e.stopPropagation();
 					window.location.href = $href;
 					return;
 				}

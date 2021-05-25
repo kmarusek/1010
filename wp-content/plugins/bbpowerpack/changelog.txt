@@ -1,3 +1,39 @@
+== 2.16.0 ==
+Release date: May 25, 2021
+* Enhancement: Maintenance Mode - Added an option to access the site via a user-defined secret access key
+* Enhancement: Maintenance Mode - Added support for Beaver Builder's saved layout and row templates
+* Enhancement: Video - Added a new source for Wistia videos embed
+* Enhancement: Business Hours - Added an option for 24-hour format
+* Enhancement: Business Hours - Added options to change or translate day names
+* Enhancement: Testimonials - Added options to control styling for the entire box
+* Enhancement: Content Grid - Enabled responsive option for filters padding
+* Enhancement: Category Grid - Added Meta Value, Meta Value Number, and None option in Order By field
+* Enhancement: Image Carousel - Added accessibility support 
+* Enhancement: Modal Box - Added a field to enter screen reader text for the modal button type image and icon
+* Enhancement: WPForms - Added options to control typography for checkbox and radio labels
+* Enhancement: Content Ticker - Added link field for header
+* Fix: Filterable Gallery - ACF Gallery field connection was not working
+* Fix: Sitemap - Some taxonomies were not appearing in the dropdown
+* Fix: Author Box - anchor tag was appearing when the link is set to none
+* Fix: Advanced Menu - Toggle arrows direction issue in vertical layout
+* Fix: Advanced Menu - Submenu toggle was not working in Off-Canvas due to vertical layout
+* Fix: Subscribe Form and Contact Form - Updated AJAX URLs
+* Fix: Testimonials - ADA compliance issue with slider pagination dots
+* Fix: Info List - Responsive alignment issue for icon position top
+* Fix: Album - Border radius was not working for the overlay
+* Fix: Dot Navigation - Scroll effect was still working on devices of the breakpoint set in the module
+* Fix: Dot Navigation - JS error while scrolling the page
+* Fix: Divider - Horizontal padding was not working if vertical padding remains 0 or empty
+* Fix: Pricing Table - PHP warning in frontend.css.php due to empty field
+* Fix: Restaurant Menu - PHP warning in frontend.css.php due to empty field
+* Fix: Content Grid - PHP warning in frontend.css.php and frontend.js.php due to empty post spacing and column fields
+* Fix: Hotspot - PHP warning
+* Fix: Row Separators - ADA compliance issue
+* Fix: Row Effects - Line Particles - ADA compliance issue
+* Fix: Row Effects - JS error
+* Fix: Maintenance Mode - "part" layout built with themer was not getting excluded
+* Development: Content Grid - Added filter hooks - pp_cg_filtered_terms and pp_cg_filtered_term
+
 == 2.15.4 ==
 Release date: April 20, 2021
 * Enhancement: Video & Video Gallery - Added logic to close lightbox on esc key press

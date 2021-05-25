@@ -37,6 +37,11 @@ $args = array(
 	'hide_empty'   => $empty,
 );
 
+// Order by meta value arg.
+if ( strstr( $orderby, 'meta_value' ) && isset( $settings->order_by_meta_key ) ) {
+	$args['meta_key'] = $settings->order_by_meta_key;
+}
+
 if ( $cat_match && 'related' !== $cat_match && ! empty( $ids ) ) {
 	if ( isset( $settings->display_data ) && ( 'children_only' === $settings->display_data || 'default' === $settings->display_data ) && ! empty( $ids[0] ) ) {
 		//only single value is allowed so we have made new custom function, get_child_categories()
@@ -77,6 +82,25 @@ if ( isset( $settings->display_data ) && 'children_only' === $settings->display_
 	$all_categories = PPCategoryGridModule::get_categories( $args, 'default' );
 } else {
 	$all_categories = get_categories( $args );
+}
+
+// TODO: Selection Order.
+if ( $cat_match == 1 && 'term_order' === $orderby && ! empty( $ids ) ) {
+	$_all_categories = $all_categories;
+	$all_categories = array();
+	$ordered = array();
+
+	foreach ( $_all_categories as $_category ) {
+		$all_categories[ $_category->term_id ] = $_category;
+	}
+
+	foreach ( $ids as $id ) {
+		if ( isset( $all_categories[ $id ] ) ) {
+			$ordered[ $id ] = $all_categories[ $id ];
+		}
+	}
+
+	$all_categories = $ordered;
 }
 
 global $post;

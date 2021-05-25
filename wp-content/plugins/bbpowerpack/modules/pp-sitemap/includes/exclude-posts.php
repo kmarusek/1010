@@ -27,7 +27,7 @@
 				'type'     => 'suggest',
 				'action'   => 'fl_as_posts',
 				'data'     => $post_slugs,
-				'label'    => __( 'Search & Select Posts Types', 'bb-powerpack' ),
+				'label'    => __( 'Posts', 'bb-powerpack' ),
 				'matching' => true,
 			),
 			$settings

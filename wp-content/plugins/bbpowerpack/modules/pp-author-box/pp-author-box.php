@@ -26,6 +26,31 @@ class PPAuthorBoxModule extends FLBuilderModule {
 			)
 		);
 	}
+
+	public function render_link_tag( $link, $target = '_self', $tag_type = 'opening' ) {
+		if ( 'opening' === $tag_type ) {
+			if ( ! empty( $link ) ) {
+				$nofollow = '_blank' === $target ? ' rel="nofollow"' : '';
+				?>
+				<a href="<?php echo $link; ?>" class="pp-authorbox--wrap" target="<?php echo $target; ?>"<?php echo $nofollow; ?>>
+				<?php
+			} else {
+				?>
+				<div class="pp-authorbox--wrap">
+				<?php
+			}
+		} else {
+			if ( ! empty( $link ) ) {
+				?>
+				</a>
+				<?php
+			} else {
+				?>
+				</div>
+				<?php
+			}
+		}
+	}
 }
 
 /**
@@ -323,7 +348,7 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-authorbox-img img',
+								'selector' => '.pp-authorbox-image img',
 							),
 						),
 						'img_padding'     => array(
@@ -333,7 +358,7 @@ BB_PowerPack::register_module(
 							'default'	=> 10,
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.pp-authorbox-img',
+								'selector' => '.pp-authorbox-image',
 								'property' => 'padding',
 								'unit'     => 'px',
 							),
@@ -346,7 +371,7 @@ BB_PowerPack::register_module(
 							'units' 	=> array( 'px' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.pp-authorbox-img',
+								'selector' => '.pp-authorbox-image',
 								'property' => 'margin',
 								'unit'     => 'px',
 							),

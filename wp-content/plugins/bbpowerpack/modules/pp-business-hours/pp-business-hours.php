@@ -95,6 +95,46 @@ class PPBusinessHoursModule extends FLBuilderModule {
 		
 		return $settings;
 	}
+
+	public static function get_translation_fields() {
+		$days = pp_long_day_format();
+		$field_keys = array(
+			'str_sunday'    => $days['Sunday'],
+			'str_monday'    => $days['Monday'],
+			'str_tuesday'   => $days['Tuesday'],
+			'str_wednesday' => $days['Wednesday'],
+			'str_thursday'  => $days['Thursday'],
+			'str_friday'    => $days['Friday'],
+			'str_saturday'  => $days['Saturday'],
+		);
+
+		$fields = array();
+
+		foreach ( $field_keys as $field_key => $field_label ) {
+			$fields[ $field_key ] = array(
+				'type' => 'text',
+				'label' => $field_label,
+				'placeholder' => $field_label,
+			);
+		}
+
+		return $fields;
+	}
+
+	public function get_day_translation( $day, $format ) {
+		$day_lower = strtolower( $day );
+		$key = "str_$day_lower";
+
+		if ( isset( $this->settings->{ $key } ) && ! empty( $this->settings->{ $key } ) ) {
+			return $this->settings->{ $key };
+		}
+
+		if ( 'short' === $format ) {
+			return pp_short_day_format( $day ) . '.';
+		}
+
+		return pp_long_day_format( $day );
+	}
 }
 
 /**
@@ -121,6 +161,16 @@ BB_PowerPack::register_module('PPBusinessHoursModule', array(
 	'style'	=> array(
 		'title'	=> __( 'Style', 'bb-powerpack' ),
 		'sections'	=> array(
+			'general_style' => array(
+				'title' => '',
+				'fields' => array(
+					'hours_24_format'    => array(
+						'type'          => 'pp-switch',
+						'label'         => __( '24-hour Format', 'bb-powerpack' ),
+						'default'       => 'no',
+					),
+				),
+			),
 			'layout'	=> array(
 				'title'	=> __( 'Timing', 'bb-powerpack' ),
 				'fields'	=> array(
@@ -340,7 +390,16 @@ BB_PowerPack::register_module('PPBusinessHoursModule', array(
 				)
 			)
 		)
-	)
+	),
+	'translations' => array(
+		'title' => __( 'Translations', 'bb-powerpack' ),
+		'sections' => array(
+			'translations' => array(
+				'title' => '',
+				'fields' => PPBusinessHoursModule::get_translation_fields(),
+			),
+		),
+	),
 ));
 
 /**
@@ -423,7 +482,7 @@ FLBuilder::register_settings_form('bh_settings_form', array(
 	                        ),
 							'toggle'	=> array(
 								'open'	=> array(
-									'fields'	=> array('start_time', 'end_time')
+									'fields'	=> array( 'start_time', 'end_time')
 								),
 								'close'	=> array(
 									'fields'	=> array('status_text', 'hl_status_color')

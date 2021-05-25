@@ -117,8 +117,10 @@ FLBuilderCSS::border_field_rule(
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix .pp-pricing-table-header {
+	<?php if ( isset( $settings->box_padding_top ) && '' !== $settings->box_padding_top ) { ?>
 	padding-top: <?php echo ( $settings->box_padding_top / 2 ); ?>px;
 	padding-bottom: <?php echo ( $settings->box_padding_top / 2 ); ?>px;
+	<?php } ?>
 }
 
 <?php if( $settings->highlight == 'package' ) { ?>

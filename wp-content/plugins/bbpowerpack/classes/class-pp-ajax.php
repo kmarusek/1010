@@ -658,11 +658,27 @@ class BB_PowerPack_Ajax {
 			$post_type = sanitize_text_field( wp_unslash( $_POST['post_type'] ) );
 		}
 
-		$taxonomies = FLBuilderLoop::taxonomies( $post_type );
+		if ( 'all' === $post_type ) {
+			$post_types = FLBuilderLoop::post_types();
+			$taxonomies = array();
+			foreach ( $post_types as $type => $obj ) {
+				$type_taxonomies = FLBuilderLoop::taxonomies( $type );
+				if ( ! empty( $type_taxonomies ) ) {
+					foreach ( $type_taxonomies as $key => $tax ) {
+						if ( ! array_key_exists( $key, $taxonomies ) ) {
+							$taxonomies[ $key ] = $tax;
+						}
+					}
+				}
+			}
+		} else {
+			$taxonomies = FLBuilderLoop::taxonomies( $post_type );
+		}
+
 		$html = '';
 
 		foreach ( $taxonomies as $tax_slug => $tax ) {
-			$html .= '<option value="' . $tax_slug . '">' . $tax->label . '</option>';
+			$html .= '<option value="' . $tax_slug . '">' . $tax->label . ' (' . $tax->name . ')' . '</option>';
 		}
 
 		echo $html;

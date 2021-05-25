@@ -653,10 +653,10 @@ function pp_get_fb_sdk_url( $app_id = '' )
 	$app_id = empty( $app_id ) ? pp_get_fb_app_id() : $app_id;
 	
 	if ( $app_id && ! empty( $app_id ) ) {
-		return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v2.12&appId=%s', get_locale(), $app_id );
+		return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v10.0&appId=%s', get_locale(), $app_id );
 	}
 
-	return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v2.12', get_locale() );
+	return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v10.0', get_locale() );
 }
 
 function pp_get_fb_app_settings_url()

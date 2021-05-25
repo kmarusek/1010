@@ -76,7 +76,7 @@
 				reCaptchaField 	= $(this.nodeClass + ' .pp-grecaptcha'),
 				reCaptchaValue 	= reCaptchaField.data('pp-grecaptcha-response'),
 				ajaxData		= null,
-				ajaxurl	  		= FLBuilderLayoutConfig.paths.wpAjaxUrl,
+				ajaxurl	  		= bb_powerpack.ajaxurl,
 				email_regex 	= /\S+@\S+\.\S+/,
 				isValid	  		= true,
 				postId      	= theForm.closest( '.fl-builder-content' ).data( 'post-id' ),

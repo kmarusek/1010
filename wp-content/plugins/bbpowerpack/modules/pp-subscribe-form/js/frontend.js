@@ -80,7 +80,7 @@
 				this.button.data( 'original-text', buttonText );
 				this.button.addClass( 'pp-form-button-disabled' );
 
-				$.post( FLBuilderLayoutConfig.paths.wpAjaxUrl, {
+				$.post( bb_powerpack.ajaxurl, {
 					action  			: 'pp_subscribe_form_submit',
 					name    			: name.val(),
 					email   			: email.val(),

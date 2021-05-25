@@ -59,7 +59,7 @@
 		padding-top: <?php echo $settings->font_icon_padding_top_bottom; ?>px;
 		padding-bottom: <?php echo $settings->font_icon_padding_top_bottom; ?>px;
 	<?php } ?>
-	<?php if($settings->font_icon_padding_top_bottom) { ?>
+	<?php if($settings->font_icon_padding_left_right) { ?>
 		padding-left: <?php echo $settings->font_icon_padding_left_right; ?>px;
 		padding-right: <?php echo $settings->font_icon_padding_left_right; ?>px;
 	<?php } ?>
@@ -73,7 +73,7 @@
 		padding-top: <?php echo $settings->font_icon_padding_top_bottom; ?>px;
 		padding-bottom: <?php echo $settings->font_icon_padding_top_bottom; ?>px;
 	<?php } ?>
-	<?php if($settings->font_icon_padding_top_bottom) { ?>
+	<?php if($settings->font_icon_padding_left_right) { ?>
 		padding-left: <?php echo $settings->font_icon_padding_left_right; ?>px;
 		padding-right: <?php echo $settings->font_icon_padding_left_right; ?>px;
 	<?php } ?>

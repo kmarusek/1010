@@ -63,6 +63,34 @@ FLBuilderCSS::responsive_rule( array(
 ) );
 ?>
 
+.fl-node-<?php echo $id; ?> .pp-testimonial {
+	<?php if ( isset( $settings->full_box_bg ) && ! empty( $settings->full_box_bg ) ) { ?>
+	background: <?php echo pp_get_color_value( $settings->full_box_bg ); ?>;
+	<?php } ?>
+}
+<?php
+	// Box - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'full_box_border',
+		'selector' 		=> ".fl-node-$id .pp-testimonial",
+	) );
+
+	// Box - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'full_box_padding',
+		'selector' 		=> ".fl-node-$id .pp-testimonial",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'full_box_padding_top',
+			'padding-right' 	=> 'full_box_padding_right',
+			'padding-bottom' 	=> 'full_box_padding_bottom',
+			'padding-left' 		=> 'full_box_padding_left',
+		),
+	) );
+?>
+
 <?php if ( $settings->layout_4_content_bg || ( isset( $settings->box_border['width'] ) && 0 != $settings->box_border['width']['top'] ) ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonials .pp-content-wrapper {
 		padding: 20px;
@@ -123,14 +151,14 @@ FLBuilderCSS::responsive_rule( array(
 <?php } ?>
 
 <?php
-	// Box - Border
+	// Content Box - Border
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $settings,
 		'setting_name' 	=> 'box_border',
 		'selector' 		=> ".fl-node-$id .pp-testimonial.layout-1 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-2 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-3 .pp-content-wrapper, .fl-node-$id .pp-testimonial.layout-4 .layout-4-content, .fl-node-$id .pp-testimonial.layout-5 .pp-content-wrapper",
 	) );
 
-	// Box - Padding
+	// Content Box - Padding
 	FLBuilderCSS::dimension_field_rule( array(
 		'settings' 		=> $settings,
 		'setting_name' 	=> 'box_padding',

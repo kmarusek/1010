@@ -68,7 +68,7 @@
 .pp-advanced-menu .pp-menu-toggle {
 	position: absolute;
 	top: 50%;
-	right: 20px;
+	right: 10px;
 	cursor: pointer;
 }
 .pp-advanced-menu .pp-toggle-arrows .pp-menu-toggle:before,

@@ -535,8 +535,44 @@ BB_PowerPack::register_module(
 		'styles'       => array( // Tab
 			'title'    => __( 'Style', 'bb-powerpack' ), // Tab title
 			'sections' => array( // Tab Sections
+				'box' => array(
+					'title'  => __( 'Box', 'bb-powerpack' ),
+					'fields' => array( // Section Fields
+						'full_box_bg' => array(
+							'type'        => 'color',
+							'label'       => __( 'Background Color', 'bb-powerpack' ),
+							'show_reset'  => true,
+							'show_alpha'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'  => 'css',
+								'selector' => '.pp-testimonial',
+								'property' => 'background',
+							),
+						),
+						'full_box_border'          => array(
+							'type'       => 'border',
+							'label'      => __( 'Border', 'bb-powerpack' ),
+							'responsive' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-testimonial',
+								'property' => 'border',
+							),
+						),
+						'full_box_padding' => array(
+							'type'				=> 'dimension',
+							'label'				=> __('Padding', 'bb-powerpack'),
+							'default'			=> '',
+							'units'				=> array('px'),
+							'slider'			=> true,
+							'responsive'		=> true,
+						),
+					),
+				),
 				'content_box' => array(
 					'title'  => __( 'Content Box', 'bb-powerpack' ),
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'layout_4_content_bg' => array(
 							'type'        => 'color',
@@ -613,6 +649,7 @@ BB_PowerPack::register_module(
 				),
 				'image_box'     => array(
 					'title'  => __( 'Image Box', 'bb-powerpack' ),
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'image_size'   => array(
 							'type'    => 'unit',

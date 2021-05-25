@@ -104,8 +104,12 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 				}
 				if ( ! is_wp_error( $filter_terms ) && count( $filter_terms ) ) {
 					$filter_terms = array_unique( $filter_terms );
+					$filter_terms = apply_filters( 'pp_cg_filtered_terms', $filter_terms, $terms, $settings );
 					foreach ( $filter_terms as $term_id ) {
-						$term = get_term( $term_id );
+						$term = apply_filters( 'pp_cg_filtered_term', get_term( $term_id ), $filter_terms, $settings );
+						if ( empty( $term ) ) {
+							continue;
+						}
 						$slug = $term->slug;
 						$filter_active_class = '';
 						if ( $slug === $default_filter ) {

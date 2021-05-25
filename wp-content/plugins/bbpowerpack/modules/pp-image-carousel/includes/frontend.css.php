@@ -84,6 +84,7 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet:hover,
+.fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet:focus,
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet-active,
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-progress .swiper-pagination-progressbar {
 	<?php if ( isset( $settings->pagination_bg_hover ) && ! empty( $settings->pagination_bg_hover ) ) { ?>
@@ -124,7 +125,8 @@
 	) );
 ?>
 
-.fl-node-<?php echo $id; ?> .pp-image-carousel .pp-swiper-button:hover {
+.fl-node-<?php echo $id; ?> .pp-image-carousel .pp-swiper-button:hover,
+.fl-node-<?php echo $id; ?> .pp-image-carousel .pp-swiper-button:focus {
     <?php if( $settings->arrow_color_hover ) { ?>
     color: #<?php echo $settings->arrow_color_hover; ?>;
     <?php } ?>
@@ -242,13 +244,16 @@
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-image-carousel-item:hover .pp-image-overlay:before,
-	.fl-node-<?php echo $id; ?> .pp-image-carousel-item:hover .pp-image-overlay:after {
+	.fl-node-<?php echo $id; ?> .pp-image-carousel-item:hover .pp-image-overlay:after,
+	.fl-node-<?php echo $id; ?> .pp-image-carousel-item:focus .pp-image-overlay:before,
+	.fl-node-<?php echo $id; ?> .pp-image-carousel-item:focus .pp-image-overlay:after {
 		-webkit-transform: scale(1);
 	    -ms-transform: scale(1);
 	    transform: scale(1);
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-image-carousel-content:hover .pp-image-overlay {
+	.fl-node-<?php echo $id; ?> .pp-image-carousel-content:hover .pp-image-overlay,
+	.fl-node-<?php echo $id; ?> .pp-image-carousel-content:focus .pp-image-overlay {
 		opacity: 1;
 	}
 <?php } ?>

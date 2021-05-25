@@ -16,6 +16,9 @@
 		<?php if ( 'icon' == $settings->button_type ) { ?>
 			<span class="<?php echo $settings->icon_source; ?> pp-modal-trigger-icon"></span>
 		<?php } ?>
+		<?php if ( ( 'image' == $settings->button_type || 'icon' == $settings->button_type ) && isset( $settings->sr_text ) && ! empty( $settings->sr_text ) ) { ?>
+			<span class="sr-only"><?php echo $settings->sr_text; ?></span>
+		<?php } ?>
 	</a>
 </div>
 <?php } else { ?>

@@ -34,7 +34,7 @@ class PPSiteMapModule extends FLBuilderModule {
 		self::$post_types = FLBuilderLoop::post_types();
 		$public_types     = self::$post_types;
 
-		foreach ( $public_types as $type => $title ) {
+		foreach ( $public_types as $type => $obj ) {
 			// $taxonomies = get_object_taxonomies( $type, 'objects' );
 			$taxonomies = FLBuilderLoop::taxonomies( $type );
 			if ( ! empty( $taxonomies ) ) {
@@ -571,7 +571,7 @@ FLBuilder::register_settings_form(
 							'sitemap_taxonomy_source'     => array(
 								'type'    => 'select',
 								'label'   => __( 'Source', 'bb-powerpack' ),
-								'options' => isset( $_GET['fl_builder'] ) ? PPSiteMapModule::get_taxonomies() : array(),
+								'options' => array(),
 							),
 							'sitemap_post_type_orderby'   => array(
 								'type'    => 'select',

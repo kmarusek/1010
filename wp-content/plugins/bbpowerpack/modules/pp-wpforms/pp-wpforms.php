@@ -1093,10 +1093,20 @@ BB_PowerPack::register_module('PPWPFormsModule', array(
                             'property'  => 'color'
                         )
                     ),
+					'cb_label_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Checkbox & Radio', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-radio .wpforms-field-label-inline, .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-checkbox .wpforms-field-label-inline',
+						),
+					),
                 )
             ),
             'input_typography'       => array( // Section
                 'title'         => __('Input', 'bb-powerpack'), // Section Title
+				'collapsed'	=> true,
                 'fields'        => array( // Section Fields
 					'input_typography'	=> array(
 						'type'			=> 'typography',
@@ -1163,6 +1173,7 @@ BB_PowerPack::register_module('PPWPFormsModule', array(
             ),
             'button_typography'       => array( // Section
                 'title'         => __('Button', 'bb-powerpack'), // Section Title
+				'collapsed'	=> true,
                 'fields'        => array( // Section Fields
 					'button_typography'	=> array(
 						'type'			=> 'typography',
@@ -1177,6 +1188,7 @@ BB_PowerPack::register_module('PPWPFormsModule', array(
             ),
             'errors_typography'       => array( // Section
                 'title'         => __('Error', 'bb-powerpack'), // Section Title
+				'collapsed'	=> true,
                 'fields'        => array( // Section Fields
                     'validation_message_size'    => array(
                         'type'                      => 'pp-switch',
@@ -1210,6 +1222,7 @@ BB_PowerPack::register_module('PPWPFormsModule', array(
             ),
             'form_success_styling'    => array( // Section
                 'title'             => __('Success Message', 'bb-powerpack'), // Section Title
+				'collapsed'	=> true,
                 'fields'            => array( // Section Fields
                     'success_message_size'    => array(
                         'type'                      => 'pp-switch',

@@ -91,7 +91,8 @@
     opacity: 0;
 }
 
-.pp-image-carousel-item:hover .pp-image-overlay.fade {
+.pp-image-carousel-item:hover .pp-image-overlay.fade,
+.pp-image-carousel-item:focus .pp-image-overlay.fade {
     opacity: 1;
 }
 
@@ -113,6 +114,10 @@
 /*** Image Carousel **/
 .pp-image-carousel .swiper-pagination-bullets {
     cursor: default;
+}
+.pp-image-carousel .swiper-pagination-bullet {
+	top: 0;
+	border: none;
 }
 .pp-image-carousel.pp-carousel-navigation-outside .swiper-pagination {
     bottom: 0;

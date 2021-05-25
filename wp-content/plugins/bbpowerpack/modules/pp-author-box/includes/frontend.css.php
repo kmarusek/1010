@@ -21,7 +21,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'img_border',
-		'selector'     => ".fl-node-$id .pp-authorbox-img img",
+		'selector'     => ".fl-node-$id .pp-authorbox-image img",
 	)
 );
 FLBuilderCSS::border_field_rule(
@@ -72,7 +72,7 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'img_size',
-		'selector'     => ".fl-node-$id .pp-authorbox-img > a > img, .fl-node-$id .pp-authorbox-img > a",
+		'selector'     => ".fl-node-$id .pp-authorbox-image .pp-authorbox-img, .fl-node-$id .pp-authorbox-image .pp-authorbox--wrap",
 		'prop'         => 'width',
 		'unit'         => $settings->img_size_unit,
 	)
@@ -82,7 +82,7 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'img_size',
-		'selector'     => ".fl-node-$id .pp-authorbox-img > a > img, .fl-node-$id .pp-authorbox-img > a",
+		'selector'     => ".fl-node-$id .pp-authorbox-image .pp-authorbox-img, .fl-node-$id .pp-authorbox-image .pp-authorbox--wrap",
 		'prop'         => 'height',
 		'unit'         => $settings->img_size_unit,
 	)
@@ -179,7 +179,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'img_padding',
-		'selector'     => ".fl-node-$id .pp-authorbox-img",
+		'selector'     => ".fl-node-$id .pp-authorbox-image",
 		'unit'         => 'px',
 		'props'        => array(
 			'padding-top'    => 'img_padding_top',
@@ -195,7 +195,7 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'img_padding',
-		'selector'     => ".fl-node-$id .pp-authorbox-img",
+		'selector'     => ".fl-node-$id .pp-authorbox-image",
 		'prop'         => 'padding',
 		'unit'         => 'px',
 	)
@@ -205,7 +205,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'img_margin',
-		'selector'     => ".fl-node-$id .pp-authorbox-img",
+		'selector'     => ".fl-node-$id .pp-authorbox-image",
 		'unit'         => 'px',
 		'props'        => array(
 			'margin-top'    => 'img_margin_top',
@@ -220,7 +220,7 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'img_margin',
-		'selector'     => ".fl-node-$id .pp-authorbox-img",
+		'selector'     => ".fl-node-$id .pp-authorbox-image",
 		'prop'         => 'margin',
 		'unit'         => 'px',
 	)
@@ -258,9 +258,7 @@ FLBuilderCSS::responsive_rule(
 	flex-direction : <?php echo $wrapper_flex_direction; ?>;
 }
 
-
-
-.fl-node-<?php echo $id; ?> .pp-authorbox-wrapper .pp-authorbox-img {
+.fl-node-<?php echo $id; ?> .pp-authorbox-wrapper .pp-authorbox-image {
 	<?php
 	if ( 'center' === $layout ) { //above
 		?>
@@ -284,15 +282,10 @@ FLBuilderCSS::responsive_rule(
 	color: <?php echo pp_get_color_value( $settings->bio_text_color ); ?> ;
 }
 
-.fl-node-<?php echo $id; ?> .pp-authorbox-img > a > img,.fl-node-<?php echo $id; ?> .pp-authorbox-img > a {
-	width: <?php echo $settings->img_size . $settings->img_size_unit; ?>;
-	height: <?php echo $settings->img_size . $settings->img_size_unit; ?>;
-}
-
 .fl-node-<?php echo $id; ?> .pp-authorbox-author-name * {
 	color: <?php echo pp_get_color_value( $settings->name_text_color ); ?> ;
 }
-.fl-node-<?php echo $id; ?> .pp-authorbox-img {
+.fl-node-<?php echo $id; ?> .pp-authorbox-image {
 	align-self: <?php echo $flex_img_position; ?> ;
 }
 .fl-node-<?php echo $id; ?> .pp-authorbox-content {
@@ -305,7 +298,7 @@ FLBuilderCSS::responsive_rule(
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 
-	.fl-node-<?php echo $id; ?> .pp-authorbox-img {
+	.fl-node-<?php echo $id; ?> .pp-authorbox-image {
 		align-self: auto;
 	}
 	.fl-node-<?php echo $id; ?> .pp-authorbox-wrapper {

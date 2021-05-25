@@ -23,6 +23,12 @@ var carousel_<?php echo $id; ?> = '';
 				}
 				<?php } ?>
 			});
+
+			$( '.fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-slide' ).on( 'keyup', function(e) {
+				if ( 13 === e.keyCode || 13 === e.which ) {
+					$( '.fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-slide a' ).trigger( 'click' );
+				}
+			} );
 		}
 	<?php endif; ?>
 

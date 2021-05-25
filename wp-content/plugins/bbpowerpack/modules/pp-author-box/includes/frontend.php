@@ -2,9 +2,9 @@
 $source             = $settings->source;
 $author_name        = '';
 $biography          = '';
-$archive_url        = 'javascript:void(0);';
+$archive_url        = '';
 $img_url            = '';
-$link_url           = 'javascript:void(0);';
+$link_url           = '';
 $link_url_target    = '_self';
 $link_nofollow      = '';
 $archive_url_target = '_blank';
@@ -107,10 +107,10 @@ if ( isset( $settings->content_length ) && ! empty( $settings->content_length ) 
 		<?php
 		if ( 'show' == $settings->profile_picture ) {
 			?>
-			<div class="pp-authorbox-img">
-				<a href="<?php echo $link_url; ?>" target="<?php echo $link_url_target; ?>" <?php echo $link_nofollow; ?> >
-					<img src="<?php echo $img_url; ?>" alt="<?php echo esc_attr( $author_name ); ?>" />
-				</a>
+			<div class="pp-authorbox-image">
+				<?php $module->render_link_tag( $link_url, $link_url_target, 'opening' ); ?>
+					<img src="<?php echo $img_url; ?>" class="pp-authorbox-img" alt="<?php echo esc_attr( $author_name ); ?>" />
+				<?php $module->render_link_tag( $link_url, $link_url_target, 'closing' ); ?>
 			</div>
 			<?php
 		}
@@ -121,10 +121,10 @@ if ( isset( $settings->content_length ) && ! empty( $settings->content_length ) 
 				if ( 'show' == $settings->author_name ) {
 					?>
 					<div class="pp-authorbox-author-name-container">
-						<<?php echo $settings->author_name_html_tag; ?>  class="pp-authorbox-author-name">
-							<a href="<?php echo $link_url; ?>" target='<?php echo $link_url_target; ?>' <?php echo $link_nofollow; ?> >
+						<<?php echo $settings->author_name_html_tag; ?> class="pp-authorbox-author-name">
+							<?php $module->render_link_tag( $link_url, $link_url_target, 'opening' ); ?>
 								<span class="pp-authorbox-author-name-span"><?php echo $author_name; ?></span>
-							</a>
+							<?php $module->render_link_tag( $link_url, $link_url_target, 'closing' ); ?>
 						</<?php echo $settings->author_name_html_tag; ?>>
 					</div>
 					<?php

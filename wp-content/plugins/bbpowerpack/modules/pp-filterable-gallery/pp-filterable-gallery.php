@@ -170,6 +170,16 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 			if ( !is_object( $filter ) ) {
 				continue;
 			}
+			if ( empty( $filter->gallery_photos ) ) {
+				continue;
+			}
+			if ( is_array( $filter->gallery_photos ) ) {
+				if ( empty( $filter->gallery_photos[0] ) ) {
+					continue;
+				} else {
+					$filter->gallery_photos = '[' . implode( ',', $filter->gallery_photos ) . ']';
+				}
+			}
 
 			$gphotos = str_replace( str_split('[]'), "", $filter->gallery_photos);
 			$gphotos = explode(',', $gphotos);
