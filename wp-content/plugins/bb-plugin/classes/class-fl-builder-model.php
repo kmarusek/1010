@@ -2417,6 +2417,11 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function reset_col_widths( $group_id = null ) {
+
+		if ( ! $group_id ) {
+			return;
+		}
+
 		if ( 'array' == gettype( $group_id ) ) {
 			foreach ( $group_id as $id ) {
 				self::reset_col_widths( $id );

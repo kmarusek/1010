@@ -1,3 +1,9 @@
+<h4>2.4.2.3 - 05/25/2021</h4>
+<strong>Hot Fix</strong>
+<ul>
+	<li>Fixed column width resetting to very small/narrow</li>
+</ul>
+
 <h4>2.4.2.2 - 03/01/2021</h4>
 <strong>Hot Fix</strong>
 <ul>
