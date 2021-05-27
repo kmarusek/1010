@@ -1,3 +1,7 @@
+Version 1.30.6, Thursday, 27th May 2021
+- Fixed: Advanced Menu - Desktop menu disappears when Responsive Layout is Below Row.
+- Fixed: Advanced Testimonials - Fatal error with PHP v8.
+
 Version 1.30.5, Monday, 24th May 2021
 - Improvement: Advanced Testimonials - Added responsive support for Image/Icon Size.
 - Improvement: Dual Button - Changes in settings UI.

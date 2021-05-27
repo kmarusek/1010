@@ -252,7 +252,7 @@ if ( '' === ( $settings->responsive_img_size_slider ) ) {
 
 				.fl-node-<?php echo esc_attr( $id ); ?> .uabb-testimonial.uabb-testimonial<?php echo esc_attr( $testimonial_list_counter ); ?> .uabb-icon-wrap .uabb-icon i,
 				.fl-node-<?php echo esc_attr( $id ); ?> .uabb-testimonial.uabb-testimonial<?php echo esc_attr( $testimonial_list_counter ); ?> .uabb-icon-wrap .uabb-icon i:before {
-					font-size: <?php echo ( esc_attr( $settings->responsive_img_size_slider ) / 2 ); ?>px;
+					font-size: <?php echo ( esc_attr( intval( $settings->responsive_img_size_slider ) / 2 ) ); ?>px;
 					line-height: <?php echo esc_attr( $settings->responsive_img_size_slider ); ?>px;
 					height: <?php echo esc_attr( $settings->responsive_img_size_slider ); ?>px;
 					width: <?php echo esc_attr( $settings->responsive_img_size_slider ); ?>px;
@@ -262,7 +262,7 @@ if ( '' === ( $settings->responsive_img_size_slider ) ) {
 				?>
 				.fl-node-<?php echo esc_attr( $id ); ?> .uabb-testimonial.uabb-testimonial<?php echo esc_attr( $testimonial_list_counter ); ?> .uabb-icon-wrap .uabb-icon i,
 				.fl-node-<?php echo esc_attr( $id ); ?> .uabb-testimonial.uabb-testimonial<?php echo esc_attr( $testimonial_list_counter ); ?> .uabb-icon-wrap .uabb-icon i:before {
-					font-size: <?php echo ( esc_attr( $settings->testimonial_icon_image_size_responsive ) / 2 ); ?>px;
+					font-size: <?php echo ( esc_attr( intval( $settings->testimonial_icon_image_size_responsive ) / 2 ) ); ?>px;
 					line-height: <?php echo esc_attr( $settings->testimonial_icon_image_size_responsive ); ?>px;
 					height: <?php echo esc_attr( $settings->testimonial_icon_image_size_responsive ); ?>px;
 					width: <?php echo esc_attr( $settings->testimonial_icon_image_size_responsive ); ?>px;
@@ -745,7 +745,7 @@ if ( $global_settings->responsive_enabled ) { // Global Setting If started.
 			?>
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-testimonial.uabb-testimonial<?php echo esc_attr( $testimonial_list_counter ); ?> .uabb-icon-wrap .uabb-icon i,
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-testimonial.uabb-testimonial<?php echo esc_attr( $testimonial_list_counter ); ?> .uabb-icon-wrap .uabb-icon i:before {
-				font-size: <?php echo ( esc_attr( $settings->testimonial_icon_image_size_medium ) / 2 ); ?>px;
+				font-size: <?php echo ( esc_attr( intval( $settings->testimonial_icon_image_size_medium ) / 2 ) ); ?>px;
 				line-height: <?php echo esc_attr( $settings->testimonial_icon_image_size_medium ); ?>px;
 				height: <?php echo esc_attr( $settings->testimonial_icon_image_size_medium ); ?>px;
 				width: <?php echo esc_attr( $settings->testimonial_icon_image_size_medium ); ?>px;
@@ -884,7 +884,7 @@ if ( $global_settings->responsive_enabled ) { // Global Setting If started.
 			?>
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-icon-wrap .uabb-icon i,
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-icon-wrap .uabb-icon i:before {
-				font-size: <?php echo ( esc_attr( $settings->testimonial_icon_image_size_responsive ) / 2 ); ?>px;
+				font-size: <?php echo ( esc_attr( intval( $settings->testimonial_icon_image_size_responsive ) / 2 ) ); ?>px;
 				line-height: <?php echo esc_attr( $settings->testimonial_icon_image_size_responsive ); ?>px;
 				height: <?php echo esc_attr( $settings->testimonial_icon_image_size_responsive ); ?>px;
 				width: <?php echo esc_attr( $settings->testimonial_icon_image_size_responsive ); ?>px;

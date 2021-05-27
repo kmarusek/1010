@@ -480,7 +480,6 @@ if ( $global_settings->responsive_enabled ) {
 
 		<?php if ( 'below-row' === $settings->creative_mobile_menu_type ) : ?>
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .menu {
-				display:none;
 				margin: unset;
 			}
 			.fl-node-<?php echo esc_attr( $id ); ?> .fl-module.fl-module-uabb-advanced-menu:before,
@@ -2046,7 +2045,7 @@ if ( ! $version_bb_check ) {
 /***************************** Accordion **********************************/
 <?php
 if ( 'always' === $module->media_breakpoint() ) {
-	if ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) {
+	if ( ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) || 'below-row' === $settings->creative_mobile_menu_type ) {
 		?>
 	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .menu {
 		display: none;
@@ -2057,7 +2056,7 @@ if ( 'always' === $module->media_breakpoint() ) {
 	?>
 	@media only screen and ( max-width: <?php echo esc_attr( $module->media_breakpoint() ); ?>px ) {
 		<?php
-		if ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) {
+		if ( ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) || 'below-row' === $settings->creative_mobile_menu_type ) {
 			?>
 			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .menu {
 				display: none;
