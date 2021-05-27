@@ -1641,6 +1641,11 @@ class Pods implements Iterator {
 											} else {
 												$item = pods( $object, (int) $item_id );
 											}
+
+											if ( ! $item || ! $item->valid() ) {
+												// Related pod does not exist.
+												$item = false;
+											}
 										} else {
 											// arrays.
 											$item = get_object_vars( (object) $item );
@@ -1945,7 +1950,7 @@ class Pods implements Iterator {
 							$args = array_merge( $args, compact( $filter_args ) );
 						}
 
-						$val = call_user_func_array( 'apply_filters', $args );
+						$val = call_user_func_array( 'apply_filters', array_values( $args ) );
 
 						$value[ $key ] = $val;
 
