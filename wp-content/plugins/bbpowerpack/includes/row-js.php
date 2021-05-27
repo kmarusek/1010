@@ -75,10 +75,10 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 						<?php if( 'birds' == $anim_type ) { ?>
 							VANTA.BIRDS({
 								el: ".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap",
-								<?php echo isset($row->settings->bird_bg_color) && !empty($row->settings->bird_bg_color) ? 'backgroundColor: "0x' . $row->settings->bird_bg_color .'",' : ''; ?>
+								<?php echo isset($row->settings->bird_bg_color) && !empty($row->settings->bird_bg_color) ? 'backgroundColor: parseInt("0x' . $row->settings->bird_bg_color .'"),' : ''; ?>
 								<?php echo isset($row->settings->bird_bg_opacity) && !empty($row->settings->bird_bg_opacity) ? 'backgroundAlpha: ' . $row->settings->bird_bg_opacity .',' : ''; ?>
-								<?php echo isset($row->settings->bird_color_1) && !empty($row->settings->bird_color_1) ? 'color1: "0x' . $row->settings->bird_color_1 .'",' : ''; ?>
-								<?php echo isset($row->settings->bird_color_2) && !empty($row->settings->bird_color_2) ? 'color2: "0x' . $row->settings->bird_color_2 .'",' : ''; ?>
+								<?php echo isset($row->settings->bird_color_1) && !empty($row->settings->bird_color_1) ? 'color1: parseInt("0x' . $row->settings->bird_color_1 .'"),' : ''; ?>
+								<?php echo isset($row->settings->bird_color_2) && !empty($row->settings->bird_color_2) ? 'color2: parseInt("0x' . $row->settings->bird_color_2 .'"),' : ''; ?>
 								<?php echo isset($row->settings->bird_color_mode) && !empty($row->settings->bird_color_mode) ? 'colorMode: "' . $row->settings->bird_color_mode .'",' : ''; ?>
 								<?php echo isset($row->settings->bird_quantity) && !empty($row->settings->bird_quantity) ? 'quantity: ' . $row->settings->bird_quantity .',' : ''; ?>
 								<?php echo isset($row->settings->bird_size) && !empty($row->settings->bird_size) ? 'birdSize: ' . $row->settings->bird_size .',' : ''; ?>
@@ -91,10 +91,10 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 						<?php }elseif( 'fog' == $anim_type ) { ?>
 							VANTA.FOG({
 								el: ".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap",
-								<?php echo isset($row->settings->fog_highlight_color) && !empty($row->settings->fog_highlight_color) ? 'highlightColor: "0x' . $row->settings->fog_highlight_color .'",' : ''; ?>
-								<?php echo isset($row->settings->fog_midtone_color) && !empty($row->settings->fog_midtone_color) ? 'midtoneColor: "0x' . $row->settings->fog_midtone_color .'",' : ''; ?>
-								<?php echo isset($row->settings->fog_lowlight_color) && !empty($row->settings->fog_lowlight_color) ? 'lowlightColor: "0x' . $row->settings->fog_lowlight_color .'",' : ''; ?>
-								<?php echo isset($row->settings->fog_base_color) && !empty($row->settings->fog_base_color) ? 'baseColor: "0x' . $row->settings->fog_base_color .'",' : ''; ?>
+								<?php echo isset($row->settings->fog_highlight_color) && !empty($row->settings->fog_highlight_color) ? 'highlightColor: parseInt("0x' . $row->settings->fog_highlight_color .'"),' : ''; ?>
+								<?php echo isset($row->settings->fog_midtone_color) && !empty($row->settings->fog_midtone_color) ? 'midtoneColor: parseInt("0x' . $row->settings->fog_midtone_color .'"),' : ''; ?>
+								<?php echo isset($row->settings->fog_lowlight_color) && !empty($row->settings->fog_lowlight_color) ? 'lowlightColor: parseInt("0x' . $row->settings->fog_lowlight_color .'"),' : ''; ?>
+								<?php echo isset($row->settings->fog_base_color) && !empty($row->settings->fog_base_color) ? 'baseColor: parseInt("0x' . $row->settings->fog_base_color .'"),' : ''; ?>
 								<?php echo isset($row->settings->fog_blur_factor) && !empty($row->settings->fog_blur_factor) ? 'blurFactor: ' . $row->settings->fog_blur_factor .',' : ''; ?>
 								<?php echo isset($row->settings->fog_zoom) && !empty($row->settings->fog_zoom) ? 'zoom: ' . $row->settings->fog_zoom .',' : ''; ?>
 								<?php echo isset($row->settings->fog_speed) && !empty($row->settings->fog_speed) ? 'speed: ' . $row->settings->fog_speed .',' : ''; ?>
@@ -102,7 +102,7 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 						<?php }elseif( 'waves' == $anim_type ) { ?>
 							VANTA.WAVES({
 								el: ".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap",
-								<?php echo isset($row->settings->waves_color) && !empty($row->settings->waves_color) ? 'color: "0x' . $row->settings->waves_color .'",' : ''; ?>
+								<?php echo isset($row->settings->waves_color) && !empty($row->settings->waves_color) ? 'color: parseInt("0x' . $row->settings->waves_color .'"),' : ''; ?>
 								<?php echo isset($row->settings->waves_shininess) && !empty($row->settings->waves_shininess) ? 'shininess: ' . $row->settings->waves_shininess .',' : ''; ?>
 								<?php echo isset($row->settings->waves_height) && !empty($row->settings->waves_height) ? 'waveHeight: ' . $row->settings->waves_height .',' : ''; ?>
 								<?php echo isset($row->settings->waves_speed) && !empty($row->settings->waves_speed) ? 'waveSpeed: ' . $row->settings->waves_speed .',' : ''; ?>
@@ -111,8 +111,8 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 						<?php }elseif( 'net' == $anim_type ) { ?>
 							VANTA.NET({
 								el: ".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap",
-								<?php echo isset($row->settings->net_color) && !empty($row->settings->net_color) ? 'color: "0x' . $row->settings->net_color .'",' : ''; ?>
-								<?php echo isset($row->settings->net_bg_color) && !empty($row->settings->net_bg_color) ? 'backgroundColor: "0x' . $row->settings->net_bg_color .'",' : ''; ?>
+								<?php echo isset($row->settings->net_color) && !empty($row->settings->net_color) ? 'color: parseInt("0x' . $row->settings->net_color .'"),' : ''; ?>
+								<?php echo isset($row->settings->net_bg_color) && !empty($row->settings->net_bg_color) ? 'backgroundColor: parseInt("0x' . $row->settings->net_bg_color .'"),' : ''; ?>
 								<?php echo isset($row->settings->net_points) && !empty($row->settings->net_points) ? 'points: ' . $row->settings->net_points .',' : ''; ?>
 								<?php echo isset($row->settings->net_max_distance) && !empty($row->settings->net_max_distance) ? 'maxDistance: ' . $row->settings->net_max_distance .',' : ''; ?>
 								<?php echo isset($row->settings->net_spacing) && !empty($row->settings->net_spacing) ? 'spacing: ' . $row->settings->net_spacing .',' : ''; ?>
@@ -121,24 +121,24 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 						<?php }elseif( 'dots' == $anim_type ) { ?>
 							VANTA.DOTS({
 								el: ".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap",
-								<?php echo isset($row->settings->dots_color_1) && !empty($row->settings->dots_color_1) ? 'color: "0x' . $row->settings->dots_color_1 .'",' : ''; ?>
-								<?php echo isset($row->settings->dots_color_2) && !empty($row->settings->dots_color_2) ? 'color2: "0x' . $row->settings->dots_color_2 .'",' : ''; ?>
-								<?php echo isset($row->settings->dots_bg_color) && !empty($row->settings->dots_bg_color) ? 'backgroundColor: "0x' . $row->settings->dots_bg_color .'",' : ''; ?>
+								<?php echo isset($row->settings->dots_color_1) && !empty($row->settings->dots_color_1) ? 'color: parseInt("0x' . $row->settings->dots_color_1 .'"),' : ''; ?>
+								<?php echo isset($row->settings->dots_color_2) && !empty($row->settings->dots_color_2) ? 'color2: parseInt("0x' . $row->settings->dots_color_2 .'"),' : ''; ?>
+								<?php echo isset($row->settings->dots_bg_color) && !empty($row->settings->dots_bg_color) ? 'backgroundColor: parseInt("0x' . $row->settings->dots_bg_color .'"),' : ''; ?>
 								<?php echo isset($row->settings->dots_size) && !empty($row->settings->dots_size) ? 'size: ' . $row->settings->dots_size .',' : ''; ?>
 								<?php echo isset($row->settings->dots_spacing) && !empty($row->settings->dots_spacing) ? 'spacing: ' . $row->settings->dots_spacing .',' : ''; ?>
 							});
 						<?php }elseif( 'rings' == $anim_type ) { ?>
 							VANTA.RINGS({
 								el: ".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap",
-								<?php echo isset($row->settings->rings_bg_color) && !empty($row->settings->rings_bg_color) ? 'backgroundColor: "0x' . $row->settings->rings_bg_color .'",' : ''; ?>
+								<?php echo isset($row->settings->rings_bg_color) && !empty($row->settings->rings_bg_color) ? 'backgroundColor: parseInt("0x' . $row->settings->rings_bg_color .'"),' : ''; ?>
 								<?php echo isset($row->settings->rings_bg_opacity) && !empty($row->settings->rings_bg_opacity) ? 'backgroundAlpha: ' . $row->settings->rings_bg_opacity .',' : ''; ?>
-								<?php echo isset($row->settings->rings_color) && !empty($row->settings->rings_color) ? 'color: "0x' . $row->settings->rings_color .'",' : ''; ?>
+								<?php echo isset($row->settings->rings_color) && !empty($row->settings->rings_color) ? 'color: parseInt("0x' . $row->settings->rings_color .'"),' : ''; ?>
 							});
 						<?php }elseif( 'cells' == $anim_type ) { ?>
 							VANTA.CELLS({
 								el: ".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap",
-								<?php echo isset($row->settings->cells_color_1) && !empty($row->settings->cells_color_1) ? 'color1: "0x' . $row->settings->cells_color_1 .'",' : ''; ?>
-								<?php echo isset($row->settings->cells_color_2) && !empty($row->settings->cells_color_2) ? 'color2: "0x' . $row->settings->cells_color_2 .'",' : ''; ?>
+								<?php echo isset($row->settings->cells_color_1) && !empty($row->settings->cells_color_1) ? 'color1: parseInt("0x' . $row->settings->cells_color_1 .'"),' : ''; ?>
+								<?php echo isset($row->settings->cells_color_2) && !empty($row->settings->cells_color_2) ? 'color2: parseInt("0x' . $row->settings->cells_color_2 .'"),' : ''; ?>
 								<?php echo isset($row->settings->cells_size) && !empty($row->settings->cells_size) ? 'size: ' . $row->settings->cells_size .',' : ''; ?>
 								<?php echo isset($row->settings->cells_speed) && !empty($row->settings->cells_speed) ? 'speed: ' . $row->settings->cells_speed .',' : ''; ?>
 							});

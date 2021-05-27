@@ -73,6 +73,7 @@
 }
 .pp-advanced-menu .pp-toggle-arrows .pp-menu-toggle:before,
 .pp-advanced-menu .pp-toggle-none .pp-menu-toggle:before {
+	content: '';
 	border-color: #333;
 }
 .pp-advanced-menu .pp-menu-expanded .pp-menu-toggle {

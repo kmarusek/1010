@@ -88,7 +88,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'menu_link_padding',
-	'selector' 		=> ".fl-node-$id .pp-advanced-menu .menu a", // .fl-node-$id .pp-advanced-menu .menu > li > a, .fl-node-$id .pp-advanced-menu .menu > li > .pp-has-submenu-container > a
+	'selector' 		=> ".fl-node-$id .pp-advanced-menu .menu > li > a, .fl-node-$id .pp-advanced-menu .menu > li > .pp-has-submenu-container > a",
 	'unit'			=> 'px',
 	'props'			=> array(
 		'padding-top' 		=> 'menu_link_padding_top',
@@ -249,7 +249,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'submenu_link_padding',
-	'selector' 		=> ".fl-node-$id .sub-menu > li > a, .fl-node-$id .sub-menu > li > .pp-has-submenu-container > a",
+	'selector' 		=> ".fl-node-$id .pp-advanced-menu .sub-menu > li > a, .fl-node-$id .pp-advanced-menu .sub-menu > li > .pp-has-submenu-container > a",
 	'unit'			=> 'px',
 	'props'			=> array(
 		'padding-top' 		=> 'submenu_link_padding_top',
@@ -310,7 +310,7 @@ FLBuilderCSS::dimension_field_rule( array(
 /**
  * Toggle - Arrows / None
  */
-if ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && 'arrows' == $settings->submenu_hover_toggle ) || ( 'accordion' == $settings->menu_layout && 'arrows' == $settings->submenu_click_toggle ) ) :
+if ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( 'accordion' == $settings->menu_layout && 'arrows' == $settings->submenu_click_toggle ) ) :
 	?>
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
 		content: '';
