@@ -596,7 +596,26 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'toggle'		=> array(
 							'yes'			=> array(
 								'sections'		=> array( 'arrow_style' ),
+								'fields'		=> array( 'prev_nav_sr_text', 'next_nav_sr_text' ),
 							),
+						),
+					),
+					'prev_nav_sr_text' => array(
+						'type'			=> 'text',
+						'label'			=> __( 'Screen Reader Text - Previous', 'bb-powerpack' ),
+						'default' 		=> __( 'Previous slide', 'bb-powerpack' ),
+						'connections' 	=> array( 'string' ),
+						'preview'		=> array(
+							'type'			=> 'none',
+						),
+					),
+					'next_nav_sr_text' => array(
+						'type'			=> 'text',
+						'label'			=> __( 'Screen Reader Text - Next', 'bb-powerpack' ),
+						'default' 		=> __( 'Next slide', 'bb-powerpack' ),
+						'connections' 	=> array( 'string' ),
+						'preview'		=> array(
+							'type'			=> 'none',
 						),
 					),
 					'pagination_type'   => array(

@@ -651,12 +651,13 @@ function pp_get_fb_app_id()
 function pp_get_fb_sdk_url( $app_id = '' )
 {
 	$app_id = empty( $app_id ) ? pp_get_fb_app_id() : $app_id;
+	$api_ver = apply_filters( 'pp_fb_api_version', '10.0' );
 	
 	if ( $app_id && ! empty( $app_id ) ) {
-		return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v10.0&appId=%s', get_locale(), $app_id );
+		return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v%s&appId=%s', get_locale(), $api_ver, $app_id );
 	}
 
-	return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v10.0', get_locale() );
+	return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v%s', get_locale(), $api_ver );
 }
 
 function pp_get_fb_app_settings_url()

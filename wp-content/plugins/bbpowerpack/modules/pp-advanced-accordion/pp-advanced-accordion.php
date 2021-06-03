@@ -186,21 +186,27 @@ class PPAccordionModule extends FLBuilderModule {
 		$label_name    = $this->settings->acf_repeater_label;
 		$content_name  = $this->settings->acf_repeater_content;
 
-		$repeater_rows = get_field( $repeater_name, $post_id );
-
-		if ( ! $repeater_rows ) {
-			return;
-		}
-
 		global $wp_embed;
 
-		foreach ( $repeater_rows as $row ) {
-			$item          = new stdClass;
-			$item->post_id = $post_id;
-			$item->label   = isset( $row[ $label_name ] ) ? $row[ $label_name ] : '';
-			$item->content = isset( $row[ $content_name ] ) ? wpautop( $wp_embed->autoembed( $row[ $content_name ] ) ) : '';
+		if ( have_rows( $repeater_name, $post_id ) ) {
+			while ( have_rows( $repeater_name, $post_id ) ) {
+				the_row();
 
-			$data[] = $item;
+				$label = get_sub_field( $label_name );
+				$content_obj = get_sub_field_object( $content_name );
+				$content = $content_obj['value'];
+
+				if ( 'file' === $content_obj['type'] ) {
+					$content = sprintf( '<a href="%s" target="_blank" rel="nofollow">%s</a>', $content, $content );
+				}
+
+				$item          = new stdClass;
+				$item->post_id = $post_id;
+				$item->label   = $label;
+				$item->content = wpautop( $wp_embed->autoembed( $content ) );
+
+				$data[] = $item;
+			}
 		}
 
 		return $data;

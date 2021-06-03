@@ -146,17 +146,17 @@
 	            });
 
 				content.find('.pp-equal-height .pp-content-post').height(highestBox);
-				content.find('.pp-content-post-grid.pp-masonry-active').isotope('layout');
+				content.find('.pp-content-post-grid').isotope('layout');
 			}
 
 			if ( ! this.nestedToggle ) {
-				//if ( item.offset().top < win.scrollTop() + 100 ) {
+				if ( item.offset().top < win.scrollTop() + 100 ) {
 					if ( ! this.clicked || this.settings.scrollAnimation ) {
 						$( 'html, body' ).animate({
 							scrollTop: item.offset().top - 100
 						}, 500, 'swing');
 					}
-				//}
+				}
 			}
 
 			this.clicked = false;

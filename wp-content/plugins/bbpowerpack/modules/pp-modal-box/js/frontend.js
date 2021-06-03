@@ -13,6 +13,7 @@
 		this.element 		= this.wrap.find('.pp-modal');
 		this.isPreviewing 	= settings.previewing;
 		this.isVisible		= settings.visible;
+		this.eventClose		= false;
 
 		this.init();
 	};
@@ -30,6 +31,7 @@
 		isActive	: false,
 		isPreviewing: false,
 		isVisible	: false,
+		eventClose  : false,
 
 		init: function()
 		{
@@ -47,6 +49,7 @@
 			}
 
 			this.setResponsive();
+			this.bindEvents();
 			this.show();
 		},
 
@@ -106,6 +109,7 @@
 
 				if ( ! $('body').hasClass('wp-admin') ) {
 					self.container.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+						self.eventClose = false;
 						$(this).removeClass( self.settings.animation_load + ' animated' );
 						self.setup();
 					} );
@@ -122,7 +126,6 @@
 				}
 				
                 self.restruct();
-				self.bindEvents();
 
 				self.element.trigger('afterload');
 				$(document).trigger( 'pp_modal_box_rendered', [self.element] );
@@ -230,13 +233,15 @@
 			// close modal box on Esc key press.
 			$(document).keyup(function(e) {
                 if ( self.settings.esc_exit && 27 == e.which && self.isActive && $('form[data-type="pp-modal-box"]').length === 0 ) {
+					self.eventClose = true;
                     self.hide();
                 }
 			});
 
 			// close modal box by clicking on outside of modal box element in document.
 			$(document).on('click', function(e) {
-                if ( self.settings.click_exit && $(e.target).parents('.pp-modal').length === 0 && self.isActive && ! self.isPreviewing && ! self.element.is(e.target) && self.element.has(e.target).length === 0 && e.which ) {
+                if ( self.settings.click_exit && $(e.target).parents('.pp-modal').length === 0 && self.isActive && ! self.isPreviewing && ! self.element.is(e.target) && self.element.has(e.target).length === 0 && ! $(e.target).hasClass('modal-' + self.id) && $(e.target).parents('.modal-' + self.id).length === 0 && e.which ) {
+					self.eventClose = true;
                     self.hide();
                 }
 			});
@@ -245,6 +250,7 @@
             $(self.wrap).find('.pp-modal-close').on('click', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
+				self.eventClose = true;
                 self.hide();
 			});
 
@@ -264,7 +270,9 @@
 				
 			if ( ! $('body').hasClass('wp-admin') ) {
 				this.container.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-					self.close();
+					if ( self.eventClose ) {
+						self.close();
+					}
 				});
 			} else {
 				self.close();
@@ -288,6 +296,7 @@
 			this.container.find('.pp-modal-content').removeAttr('style');
 			this.wrap.removeAttr('style');
 			this.isActive = false;
+			this.eventClose = false;
 			this.reset();
 		},
 

@@ -84,6 +84,10 @@ var carousel_<?php echo $id; ?> = '';
 			medium: <?php echo $global_settings->medium_breakpoint; ?>,
 			responsive: <?php echo $global_settings->responsive_breakpoint; ?>
 		},
+		navText: {
+			prev: '<?php echo isset( $settings->prev_nav_sr_text ) && ! empty( $settings->prev_nav_sr_text ) ? htmlspecialchars( $settings->prev_nav_sr_text ) : ''; ?>',
+			next: '<?php echo isset( $settings->next_nav_sr_text ) && ! empty( $settings->next_nav_sr_text ) ? htmlspecialchars( $settings->next_nav_sr_text ) : ''; ?>',
+		}
 	};
 
 	<?php if ( isset( $settings->loop ) ) { ?>

@@ -299,6 +299,12 @@ class PPVideoModule extends FLBuilderModule {
 
 		$frame_attributes = array_merge( $default_frame_attributes, $frame_attributes );
 
+		$title_attr = $this->get_title_attr_text();
+
+		if ( ! empty( $title_attr ) ) {
+			$frame_attributes['title'] = $title_attr;
+		}
+
 		$attributes_for_print = array();
 
 		foreach ( $frame_attributes as $attribute_key => $attribute_value ) {
@@ -479,6 +485,11 @@ class PPVideoModule extends FLBuilderModule {
 	 */
 	public function render_html_attributes( array $attributes ) {
 		$rendered_attributes = array();
+		$title_attr = $this->get_title_attr_text();
+
+		if ( ! empty( $title_attr ) ) {
+			$attributes['title'] = $title_attr;
+		}
 
 		foreach ( $attributes as $attribute_key => $attribute_values ) {
 			if ( is_array( $attribute_values ) ) {
@@ -489,6 +500,16 @@ class PPVideoModule extends FLBuilderModule {
 		}
 
 		return implode( ' ', $rendered_attributes );
+	}
+
+	public function get_title_attr_text() {
+		$text = '';
+
+		if ( isset( $this->settings->title_attr_text ) && ! empty( $this->settings->title_attr_text ) ) {
+			$text = htmlspecialchars( $this->settings->title_attr_text );
+		}
+
+		return $text;
 	}
 
 	/**
@@ -633,6 +654,13 @@ BB_PowerPack::register_module(
 								'32' 			=> '3:2',
 								'11' 			=> '1:1',
 							),
+						),
+						'title_attr_text'	=> array(
+							'type'	=> 'text',
+							'label'	=> __( 'Text for HTML "title" attribute', 'bb-powerpack' ),
+							'default' => '',
+							'help' => __( 'This text will be applied to "title" attribute of HTML iframe or video tag.', 'bb-powerpack' ),
+							'connections' => array( 'string' ),
 						),
 					),
 				),

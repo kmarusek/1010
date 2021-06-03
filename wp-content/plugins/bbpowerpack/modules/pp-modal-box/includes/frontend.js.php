@@ -114,7 +114,11 @@ var pp_modal_<?php echo $id; ?> = false;
 	// Bind the click event to any element with the class.
     $(document).on('click', '.modal-<?php echo $id; ?>', function(e) {
         e.preventDefault();
-        pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+		if ( pp_modal_<?php echo $id; ?> instanceof PPModalBox ) {
+			pp_modal_<?php echo $id; ?>.show();
+        } else {
+        	pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+        }
     });
 
     <?php if ( FLBuilderModel::is_builder_active() ) { ?>

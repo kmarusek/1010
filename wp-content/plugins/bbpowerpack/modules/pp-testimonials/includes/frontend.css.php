@@ -58,7 +58,7 @@ FLBuilderCSS::responsive_rule( array(
 	'settings'	=> $settings,
 	'setting_name'	=> 'spacing',
 	'selector'	=> ".fl-node-$id .pp-testimonials-grid .pp-testimonials",
-	'prop'		=> 'grid-column-gap',
+	'prop'		=> 'grid-gap',
 	'unit'		=> 'px',
 ) );
 ?>

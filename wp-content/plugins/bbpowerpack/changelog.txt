@@ -1,3 +1,13 @@
+== 2.16.2 ==
+Release date: June 2, 2021
+* Enhancement: Video - Added an option to provide a value for HTML title attribute for iframe and video tag
+* Enhancement: Image Carousel - Added options to add custom screen reader text for previous and next nav arrows
+* Enhancement: Advanced Accordion - ACF Repeater - Added logic to convert URL to clickable link returned from ACF file field used for accordion item content 
+* Fix: Modal Box - Popup was getting closed automatically in some cases
+* Fix: Testimonials - Spacing was not working in grid layout when the column is set to 1
+* Fix: Content Grid - Layout issue when used in Advanced Accordion module
+* Fix: Advanced Accordion - Automatic page scroll issue
+
 == 2.16.1 ==
 Release date: May 26, 2021
 * Fix: Advanced Menu - Submenu padding, search icon alignment, and toggle arrows in full-screen overlay issue
