@@ -11,6 +11,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 	 */
 	public $type = 'captcha';
 
+
 	/**
 	 * The reCAPTCHA API response.
 	 *
@@ -485,16 +486,24 @@ class GF_Field_CAPTCHA extends GF_Field {
 		?>
 		<script type="text/javascript">
 			( function() {
-				function setCaptchaPoller() {
+				function setCaptchaPostRenderListener() {
+					jQuery( document ).on( 'gform_post_render', init );
+				}
+				function init() {
+					setCaptchaPostRenderListener();
 					var gfRecaptchaPoller = setInterval( function() {
-						if( ! window.grecaptcha || ! window.grecaptcha.render ) {
+						if ( ! window.grecaptcha || ! window.grecaptcha.render ) {
 							return;
 						}
 						renderRecaptcha();
 						clearInterval( gfRecaptchaPoller );
 					}, 100 );
 				}
-				gform.initializeOnLoaded( setCaptchaPoller );
+				if ( window.jQuery ) {
+					init();
+				} else {
+					gform.initializeOnLoaded( init );
+				}
 			} )();
 		</script>
 
