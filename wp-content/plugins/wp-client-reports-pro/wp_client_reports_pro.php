@@ -3,7 +3,7 @@
 Plugin Name: WP Client Reports Pro
 Plugin URI: https://switchwp.com/wp-client-reports/
 Description: Send beautiful client maintenance reports with integrations from many popular plugins and services
-Version: 1.0.7
+Version: 1.0.8
 Author: SwitchWP
 Author URI: https://switchwp.com/
 Text Domain: wp-client-reports-pro
@@ -14,7 +14,7 @@ if( !defined( 'ABSPATH' ) )
 	exit;
 
 
-define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.7' );
+define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.8' );
 define( 'WP_CLIENT_REPORTS_PRO_STORE_URL', 'https://switchwp.com' );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_ID', 39 );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_NAME', 'WP Client Reports Pro' );
@@ -135,6 +135,16 @@ function wp_client_reports_pro_admin_init() {
         $edd_enabled = get_option('wp_client_reports_pro_enable_edd');
         if ( class_exists( 'Easy_Digital_Downloads' ) && $edd_enabled == 'on' ) {
             require_once plugin_dir_path( __FILE__ ) . 'services/easy-digital-downloads/wp_client_reports_pro_edd.php';
+        }
+
+        $givewp_enabled = get_option('wp_client_reports_pro_enable_givewp');
+        if ( class_exists( 'Give' ) && $givewp_enabled == 'on' ) {
+            require_once plugin_dir_path( __FILE__ ) . 'services/givewp/wp_client_reports_pro_givewp.php';
+        }
+
+        $stripe_enabled = get_option('wp_client_reports_pro_enable_stripe');
+        if ($stripe_enabled == 'on' ) {
+            require_once plugin_dir_path( __FILE__ ) . 'services/stripe/wp_client_reports_pro_stripe.php';
         }
 
         $updraftplus_enabled = get_option('wp_client_reports_pro_enable_updraftplus');
@@ -814,6 +824,50 @@ function wp_client_reports_pro_options_init(  ) {
         );
 
     }
+
+
+    //GiveWP
+
+    if ( class_exists( 'Give' )) {
+
+        register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_enable_givewp' );
+
+        add_settings_section(
+            'wp_client_reports_pro_givewp_section',
+            __( 'GiveWP', 'wp-client-reports-pro' ),
+            'wp_client_reports_settings_section_callback',
+            'wp_client_reports_options_page'
+        );
+
+        add_settings_field(
+            'wp_client_reports_pro_enable_givewp',
+            __( 'Enable GiveWP', 'wp-client-reports-pro' ),
+            'wp_client_reports_pro_enable_givewp_render',
+            'wp_client_reports_options_page',
+            'wp_client_reports_pro_givewp_section'
+        );
+
+    }
+
+
+    //Stripe
+
+    register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_enable_stripe' );
+
+    add_settings_section(
+        'wp_client_reports_pro_stripe_section',
+        __( 'Stripe', 'wp-client-reports-pro' ),
+        'wp_client_reports_settings_section_callback',
+        'wp_client_reports_options_page'
+    );
+
+    add_settings_field(
+        'wp_client_reports_pro_enable_stripe',
+        __( 'Enable Stripe', 'wp-client-reports-pro' ),
+        'wp_client_reports_pro_enable_stripe_render',
+        'wp_client_reports_options_page',
+        'wp_client_reports_pro_stripe_section'
+    );
     
 
     //UpdraftPlus
@@ -1477,6 +1531,40 @@ function wp_client_reports_pro_enable_edd_render(  ) {
     </label>
     <div class="wp-client-reports-instructions">
         <div><a href="https://switchwp.com/plugins/wp-client-reports/easy-digital-downloads/?utm_source=wordpress&utm_medium=plugin_settings&utm_campaign=wpclientreports" target="_blank"><?php _e( 'Learn More', 'wp-client-reports-pro' ); ?></a></div>
+    </div>
+	<?php
+}
+
+
+/**
+ * Enable GiveWP Toggle Switch
+ */
+function wp_client_reports_pro_enable_givewp_render(  ) {
+	$option = get_option( 'wp_client_reports_pro_enable_givewp' );
+	?>
+    <label class="wp-client-reports-switch">
+        <input type="checkbox" name="wp_client_reports_pro_enable_givewp" <?php if ($option == 'on') { echo "checked"; } ?>>
+        <span class="wp-client-reports-slider"></span>
+    </label>
+    <div class="wp-client-reports-instructions">
+        <div><a href="https://switchwp.com/plugins/wp-client-reports/givewp/?utm_source=wordpress&utm_medium=plugin_settings&utm_campaign=wpclientreports" target="_blank"><?php _e( 'Learn More', 'wp-client-reports-pro' ); ?></a></div>
+    </div>
+	<?php
+}
+
+
+/**
+ * Enable Stripe Toggle Switch
+ */
+function wp_client_reports_pro_enable_stripe_render(  ) {
+	$option = get_option( 'wp_client_reports_pro_enable_stripe' );
+	?>
+    <label class="wp-client-reports-switch">
+        <input type="checkbox" name="wp_client_reports_pro_enable_stripe" <?php if ($option == 'on') { echo "checked"; } ?>>
+        <span class="wp-client-reports-slider"></span>
+    </label>
+    <div class="wp-client-reports-instructions">
+        <div><a href="https://switchwp.com/plugins/wp-client-reports/stripe/?utm_source=wordpress&utm_medium=plugin_settings&utm_campaign=wpclientreports" target="_blank"><?php _e( 'Learn More', 'wp-client-reports-pro' ); ?></a></div>
     </div>
 	<?php
 }

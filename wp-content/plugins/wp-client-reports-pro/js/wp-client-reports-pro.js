@@ -251,6 +251,47 @@
     });
 
     $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
+        if ($('#wp-client-reports-pro-givewp').length) {
+            $('#wp-client-reports-pro-givewp').addClass('loading');
+            var dataString = 'action=wp_client_reports_pro_givewp_data&start=' + start_date_utc + '&end=' + end_date_utc;
+            var js_date_format = getDateFormat();
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                data: dataString,
+                dataType: 'json',
+                success: function(data, err) {
+                    $("#wp-client-reports-pro-givewp-total-donations").html(data.total);
+                    $("#wp-client-reports-pro-givewp-average-donation").html(data.average);
+                    $("#wp-client-reports-pro-givewp-total-donors").text(data.donors);
+                    $("#wp-client-reports-pro-givewp-total-refunds").text(data.refunds);
+                    $('#wp-client-reports-pro-givewp').removeClass('loading');
+                }
+            });
+        }
+    });
+
+    $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
+        if ($('#wp-client-reports-pro-stripe').length) {
+            $('#wp-client-reports-pro-stripe').addClass('loading');
+            var dataString = 'action=wp_client_reports_pro_stripe_data&start=' + start_date_utc + '&end=' + end_date_utc;
+            var js_date_format = getDateFormat();
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                data: dataString,
+                dataType: 'json',
+                success: function(data, err) {
+                    $("#wp-client-reports-pro-stripe-gross").text(data.gross);
+                    $("#wp-client-reports-pro-stripe-customers").text(data.customers);
+                    $("#wp-client-reports-pro-stripe-refunds").text(data.refunds);
+                    $('#wp-client-reports-pro-stripe').removeClass('loading');
+                }
+            });
+        }
+    });
+
+    $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
         if ($('#wp-client-reports-pro-updraftplus').length) {
             $('#wp-client-reports-pro-updraftplus').addClass('loading');
             var dataString = 'action=wp_client_reports_pro_updraftplus_data&start=' + start_date_utc + '&end=' + end_date_utc;

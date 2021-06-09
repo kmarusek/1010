@@ -4,7 +4,7 @@ Donate link: https://switchwp.com/wp-client-reports/
 Tags:  reports, client reports, analytics, maintenance, updates, plugin updates, theme updates
 Requires at least: 5.0.0
 Tested up to: 5.3.2
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 Requires PHP: 5.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,6 +30,11 @@ Send an HTML email with update statistics whenever you complete updates to show 
 
 
 == Changelog ==
+
+= 1.0.8 =
+* New Service: GiveWP
+* New Service: Stripe Payments
+* Fix issues with meta box headers in newer versions of WordPress
 
 = 1.0.7 =
 * New Feature: Loading spinners while reports are loading

@@ -263,7 +263,9 @@ function wp_client_reports_pro_stats_page_mailchimp() {
     ?>
         <div class="metabox-holder">
             <div class="postbox wp-client-reports-postbox loading" id="wp-client-reports-pro-mailchimp">
-                <button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text"><?php _e('Toggle panel','wp-client-reports-pro'); ?>: <?php _e('Mailing List','wp-client-reports-pro'); ?></span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class="hndle ui-sortable-handle"><span><?php _e('Mailing List','wp-client-reports-pro'); ?></span></h2>
+                <div class="postbox-header">
+                    <h2 class="hndle"><?php _e('Mailing List','wp-client-reports-pro'); ?></h2>
+                </div>
                 <div class="inside">
                     <div class="main">
                         <div class="wp-client-reports-big-numbers">
