@@ -608,3 +608,22 @@ function spacestation_warn_minimal_bs3() {
     }
 }
 add_filter("admin_notices", "spacestation_warn_minimal_bs3");
+
+add_action('admin_bar_menu', function ($bar) {
+    $bar->add_node(
+        [
+            'parent' => 'fl-builder-frontend-edit-link',
+            'id' => 'purge-spacestation-assets',
+            'title' => 'Purge Assets',
+            'href' => add_query_arg('spacestation-purge-assets', 1),
+        ]);
+}, 100);
+
+
+add_action('init', function () {
+    if (!isset($_GET['purge-spacestation-assets']) || !class_exists('BWCustomizerLess')) {
+        return;
+    }
+
+    BWCustomizerLess::refresh_css();
+}, 1);
