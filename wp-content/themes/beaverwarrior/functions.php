@@ -621,9 +621,19 @@ add_action('admin_bar_menu', function ($bar) {
 
 
 add_action('init', function () {
-    if (!isset($_GET['purge-spacestation-assets']) || !class_exists('BWCustomizerLess')) {
+    if (!isset($_GET['spacestation-purge-assets']) || !is_user_logged_in()) {
         return;
     }
 
-    BWCustomizerLess::refresh_css();
+    if (is_callable('BWCustomizerLess::refresh_css')) {
+        BWCustomizerLess::refresh_css();
+    }
+
+    if (is_callable('FLBuilderModel::delete_asset_cache_for_all_posts')) {
+        FLBuilderModel::delete_asset_cache_for_all_posts();
+    }
+
+    if (is_callable('FLCustomizer::clear_all_css_cache')) {
+        FLCustomizer::clear_all_css_cache();
+    }
 }, 1);
