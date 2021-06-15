@@ -15,20 +15,20 @@ class BWAnimatedBackgroundsSettingsCompat extends FLBuilderSettingsCompatRow {
             $legacy_layer_loop = 'bw_ab_layer_' . $i . '_loop';
             $legacy_layer_bob = 'bw_ab_layer_' . $i . '_bob';
             
-            if ($settings->$legacy_layer_setting !== 'no') {
+            if (($settings->$legacy_layer_setting ?? '') !== 'no') {
                 if (!isset($settings->bw_anim_layers)) {
                     $settings->bw_anim_layers = array();
                 }
                 
                 $settings->bw_anim_layers[$new_layer_id++] = array(
                     'layer_label' => sprintf(__('Layer %d', 'skeleton-warrior'), $i),
-                    'layer_enable' => $settings->$legacy_layer_setting,
-                    'layer_image' => $settings->$legacy_layer_image,
-                    'layer_image_src' => $settings->$legacy_layer_image_src,
-                    'layer_animdata' => $settings->$legacy_layer_animdata,
-                    'layer_depth' => $settings->$legacy_layer_depth,
-                    'layer_loop' => $settings->$legacy_layer_loop,
-                    'layer_bob' => $settings->$legacy_layer_bob
+                    'layer_enable' => $settings->$legacy_layer_setting ?? '',
+                    'layer_image' => $settings->$legacy_layer_image ?? '',
+                    'layer_image_src' => $settings->$legacy_layer_image_src ?? '',
+                    'layer_animdata' => $settings->$legacy_layer_animdata ?? '',
+                    'layer_depth' => $settings->$legacy_layer_depth ?? '',
+                    'layer_loop' => $settings->$legacy_layer_loop ?? '',
+                    'layer_bob' => $settings->$legacy_layer_bob ?? ''
                 );
                 
                 $settings->$legacy_layer_setting = 'no';
