@@ -93,8 +93,10 @@ var pp_feed_<?php echo $id; ?>;
 	$(window).on( 'resize', function() {
 		if ( pp_feed_<?php echo $id; ?> && pp_feed_<?php echo $id; ?>._swiper ) {
 			var perViewItems = perView();
-			pp_feed_<?php echo $id; ?>._swiper.params.slidesPerView = perViewItems;
-			pp_feed_<?php echo $id; ?>._swiper.update();
+			if ( pp_feed_<?php echo $id; ?>._swiper.params ) {
+				pp_feed_<?php echo $id; ?>._swiper.params.slidesPerView = perViewItems;
+				pp_feed_<?php echo $id; ?>._swiper.update();
+			}
 		}
 	} );
 	<?php } ?>

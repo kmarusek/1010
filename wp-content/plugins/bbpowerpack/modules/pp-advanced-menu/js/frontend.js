@@ -43,6 +43,21 @@
 
 		}, this ) );
 
+		$( 'body' ).on( 'click', $.proxy( function( e ) {
+			if ( 'undefined' !== typeof FLBuilderConfig ){
+				return;
+			}
+
+			if ( $( this.wrapperClass ).find( '.pp-advanced-menu-mobile-toggle' ).hasClass( 'pp-active' ) && ( 'expanded' !== this.mobileToggle ) ) {
+				$( this.wrapperClass ).find( '.pp-advanced-menu-mobile-toggle' ).trigger( 'click' );
+			}
+
+			$( this.wrapperClass ).find( '.pp-has-submenu' ).removeClass( 'focus' );
+			$( this.wrapperClass ).find( '.pp-has-submenu .sub-menu' ).removeClass( 'focus' );
+			$( this.wrapperClass ).find( '.pp-has-submenu-container' ).removeClass( 'focus' );
+
+		}, this ) );
+
 	};
 
 	PPAdvancedMenu.prototype = {
@@ -211,7 +226,7 @@
 
 			}, this ) ).on( 'focusout', 'a', $.proxy( function( e ) {
 				if ( $('.pp-advanced-menu .focus').hasClass('pp-has-submenu') ) {
-					$( e.target ).parentsUntil( this.wrapperClass ).removeClass( 'focus' ).find('.pp-has-submenu-container').removeClass('first-click');
+					$( e.target ).parentsUntil( this.wrapperClass ).find('.pp-has-submenu-container').removeClass('first-click');
 				}
 			}, this ) );
 		},
@@ -357,7 +372,7 @@
 		_submenuOnRight: function() {
 
 			$( this.wrapperClass )
-				.on( 'mouseenter', '.pp-has-submenu', $.proxy( function( e ) {
+				.on( 'mouseenter focus', '.pp-has-submenu', $.proxy( function( e ) {
 
 					if( $ ( e.currentTarget ).find('.sub-menu').length === 0 ) {
 						return;

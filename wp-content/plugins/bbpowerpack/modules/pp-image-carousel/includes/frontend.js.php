@@ -76,7 +76,7 @@ var carousel_<?php echo $id; ?> = '';
 		isBuilderActive: <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
 		pagination: '<?php echo $settings->pagination_type; ?>',
 		autoplay: <?php echo $settings->autoplay == 'yes' ? 'true' : 'false'; ?>,
-		autoplay_speed: <?php echo $settings->autoplay == 'yes' ? $settings->autoplay_speed : 'false'; ?>,
+		autoplay_speed: <?php echo $settings->autoplay == 'yes' ? '' == $settings->autoplay_speed ? 3000 : $settings->autoplay_speed : 'false'; ?>,
 		pause_on_interaction: <?php echo $settings->pause_on_interaction == 'yes' ? 'true' : 'false'; ?>,
 		effect: '<?php echo $settings->effect; ?>',
 		speed: <?php echo $settings->transition_speed; ?>,

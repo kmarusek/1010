@@ -519,6 +519,8 @@ FLBuilderCSS::typography_field_rule(
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .validation_error,
+.fl-node-<?php echo $id; ?> .gform_wrapper .gform_validation_errors,
+.fl-node-<?php echo $id; ?> .gform_wrapper .gform_validation_errors > h2,
 .fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error,
 .fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error.gfield_contains_required.gfield_creditcard_warning {
 	<?php if ( $settings->validation_error_color ) { ?>
@@ -532,14 +534,9 @@ FLBuilderCSS::typography_field_rule(
 	<?php } ?>
 }
 
-<?php if ( ! isset( $settings->validation_error_border_color ) || empty( $settings->validation_error_border_color ) ) { ?>
-.fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error.gfield_contains_required div.ginput_container,
-.fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error.gfield_contains_required label.gfield_label {
-	margin-top: 8px;
-}
-<?php } ?>
-
-.fl-node-<?php echo $id; ?> .gform_wrapper .validation_error {
+.fl-node-<?php echo $id; ?> .gform_wrapper .validation_error,
+.fl-node-<?php echo $id; ?> .gform_wrapper .gform_validation_errors,
+.fl-node-<?php echo $id; ?> .gform_wrapper .gform_validation_errors > h2 {
 	<?php if ( $settings->validation_error_font_size ) { ?>
 	font-size: <?php echo $settings->validation_error_font_size; ?>px !important;
 	<?php } ?>
@@ -550,7 +547,7 @@ FLBuilderCSS::typography_field_rule(
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield.gfield_error {
 	background-color: <?php echo ( $settings->form_error_field_background_color ) ? pp_get_color_value( $settings->form_error_field_background_color ) : 'transparent'; ?>;
-	Width: 100%;
+	width: 100%;
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield.gfield_error .gfield_label {
@@ -567,7 +564,17 @@ FLBuilderCSS::typography_field_rule(
 	<?php if ( $settings->validation_message_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->validation_message_color ); ?>;
 	<?php } ?>
+	<?php if ( ! empty( $settings->validation_error_border_color ) ) { ?>
+	border-color: <?php echo pp_get_color_value( $settings->validation_error_border_color ); ?>;
+	<?php } ?>
 }
+
+<?php if ( ! isset( $settings->validation_error_border_color ) || empty( $settings->validation_error_border_color ) ) { ?>
+.fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error.gfield_contains_required div.ginput_container,
+.fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error.gfield_contains_required label.gfield_label {
+	margin-top: 8px;
+}
+<?php } ?>
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error .ginput_container select,

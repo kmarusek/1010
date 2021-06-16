@@ -134,7 +134,7 @@
 					// Start link.
 					if ( 'no' !== this.settings.on_click ) {
 						var link = 'yes' === this.settings.on_click ? imgs[i].node.display_url : url;
-						html += '<a href="' + link + '" target="_blank" rel="nofollow noopener">'
+						html += '<a href="' + link + '" target="_blank" rel="nofollow noopener">';
 					}
 
 					// Start overlay container.
@@ -152,7 +152,7 @@
 
 					// Image.
 					if ( ( '' === this.settings.image_size || 0 === this.settings.image_size ) || 'grid' === this.settings.layout ) {
-						html += '<img src="' + image + '" alt="' + caption.replace(/"|'/g, '') + '" />'
+						html += '<img src="' + image + '" alt="' + caption.replace(/"|'/g, '') + '" />';
 					}
 
 					// End link.

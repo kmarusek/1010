@@ -1086,7 +1086,7 @@ BB_PowerPack::register_module(
 					'fields' => array( // Section Fields
 						'validation_error'              => array(
 							'type'    => 'pp-switch',
-							'label'   => __( 'Validation Error', 'bb-powerpack' ),
+							'label'   => __( 'Submission Error', 'bb-powerpack' ),
 							'default' => 'block',
 							'options' => array(
 								'block' => __( 'Show', 'bb-powerpack' ),
@@ -1101,7 +1101,7 @@ BB_PowerPack::register_module(
 						),
 						'validation_error_color'        => array(
 							'type'        => 'color',
-							'label'       => __( 'Error Description Color', 'bb-powerpack' ),
+							'label'       => __( 'Submission Error Text Color', 'bb-powerpack' ),
 							'default'     => '790000',
 							'show_reset'  => true,
 							'connections' => array( 'color' ),

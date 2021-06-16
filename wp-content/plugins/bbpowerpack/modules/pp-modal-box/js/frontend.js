@@ -137,7 +137,7 @@
 		{
 			if ( 'url' == this.type ) {
 				var original_src = this.element.find('.pp-modal-iframe').attr('src');
-				var src = this.element.find('.pp-modal-iframe').data('src');
+				var src = this.element.find('.pp-modal-iframe').data('url');
 				if ( original_src === undefined || original_src === '' ) {
 					this.element.find('.pp-modal-iframe').attr( 'src', src );
 				}
@@ -148,7 +148,7 @@
 				var m_src = iframeAndSource.attr('src');
 				
 				if ( m_src === undefined || m_src === '' ) {
-					src = iframeAndSource.data('src');
+					src = iframeAndSource.data('url');
 				} else {
 					src = iframeAndSource.attr('src');
 				}
@@ -176,7 +176,7 @@
 			if ( iframeAndSource.length > 0 && iframeAndSource.closest( '.fl-module' ).length === 0 ) {
 				var src = iframeAndSource.attr('src');
 				if ( '' !== src ) {
-					iframeAndSource.attr('data-src', src).attr('src', '');
+					iframeAndSource.attr('data-url', src).attr('src', '');
 				}
 				
 				if ( this.element.find('video').length > 0 ) {

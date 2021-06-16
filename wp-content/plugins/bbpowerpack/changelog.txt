@@ -1,3 +1,15 @@
+== 2.16.3 ==
+Release date: June 16, 2021
+* Enhancement: Content Grid - Added "Slug" as order by option
+* Enhancement: Testimonials - Added an option to disable the mouse drag for slider
+* Fix: Advanced Menu - Toggle arrows getting mixed up with text in horizontal layout with center alignment
+* Fix: Advanced Menu - Keyboard navigation issue
+* Fix: Gravity Forms Styler - Couple of error related styling fields were not working for GF 2.5 and above
+* Fix: Modal Box - iframe loading issue on page load in some cases
+* Fix: Logos Grid - Spacing issue on medium breakpoint
+* Fix: Image Carousel - Autplay Speed field left emptied causes JS error
+* Fix: Header/Footer - Header background color getting transparent in builder due to overlay setting
+
 == 2.16.2 ==
 Release date: June 2, 2021
 * Enhancement: Video - Added an option to provide a value for HTML title attribute for iframe and video tag

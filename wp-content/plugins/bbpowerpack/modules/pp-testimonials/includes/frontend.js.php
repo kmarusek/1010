@@ -80,6 +80,7 @@
   			animateIn: 'fadeIn',
 		<?php } ?>
 		slideBy: <?php echo ( 1 == $settings->carousel && ! empty( $settings->move_slides ) ) ? $settings->move_slides : 1; ?>,
+		mouseDrag: <?php echo isset( $settings->disable_mouse_drag ) && 1 == $settings->disable_mouse_drag ? 'false' : 'true'; ?>,
 		responsiveRefreshRate: 200,
 		responsiveBaseWidth: window,
 		margin: <?php echo ( 1 == $settings->carousel && ! empty( $settings->slide_margin ) ) ? $settings->slide_margin : '0'; ?>,

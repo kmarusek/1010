@@ -331,12 +331,12 @@ FLBuilderCSS::responsive_rule( array(
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
-            <?php if ( $space_tablet == 0 ) { ?>
-            margin-right: <?php echo $space_tablet - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
-            margin-bottom: <?php echo $space_tablet - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
+            <?php if ( $spacing == 0 ) { ?>
+            margin-right: <?php echo $spacing - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $spacing - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
-            margin-right: <?php echo $space_tablet; ?>px;
-            margin-bottom: <?php echo $space_tablet; ?>px;
+            margin-right: <?php echo $spacing; ?>px;
+            margin-bottom: <?php echo $spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }
@@ -373,12 +373,12 @@ FLBuilderCSS::responsive_rule( array(
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
-            <?php if ( $space_mobile == 0 ) { ?>
-            margin-right: <?php echo $space_mobile - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
-            margin-bottom: <?php echo $space_mobile - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
+            <?php if ( $spacing == 0 ) { ?>
+            margin-right: <?php echo $spacing - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $spacing - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
-            margin-right: <?php echo $space_mobile; ?>px;
-            margin-bottom: <?php echo $space_mobile; ?>px;
+            margin-right: <?php echo $spacing; ?>px;
+            margin-bottom: <?php echo $spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }

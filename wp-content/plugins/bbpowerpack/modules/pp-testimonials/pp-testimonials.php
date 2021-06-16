@@ -280,6 +280,16 @@ BB_PowerPack::register_module(
 								'0' => __( 'No', 'bb-powerpack' ),
 							),
 						),
+						'disable_mouse_drag' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Disable Mouse Drag', 'bb-powerpack' ),
+							'default' => '0',
+							'help'    => __( 'Disables the swipe via mouse drag.', 'bb-powerpack' ),
+							'options' => array(
+								'1' => __( 'Yes', 'bb-powerpack' ),
+								'0' => __( 'No', 'bb-powerpack' ),
+							),
+						),
 						'loop'         => array(
 							'type'    => 'pp-switch',
 							'label'   => __( 'Loop', 'bb-powerpack' ),

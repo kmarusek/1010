@@ -118,12 +118,16 @@ FLBuilderCSS::dimension_field_rule( array(
 
 		<?php if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-arrows li:hover .pp-menu-toggle:before,
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none li:hover .pp-menu-toggle:before {
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none li:hover .pp-menu-toggle:before,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-arrows li.focus .pp-menu-toggle:before,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none li.focus .pp-menu-toggle:before {
 			border-color: #<?php echo $settings->link_hover_color; ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li:hover .pp-menu-toggle:before,
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li:hover .pp-menu-toggle:after {
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li:hover .pp-menu-toggle:after,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li.focus .pp-menu-toggle:before,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li.focus .pp-menu-toggle:after {
 			border-color: #<?php echo $settings->link_hover_color; ?>;
 		}
 		<?php } ?>
@@ -148,7 +152,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	.fl-node-<?php echo $id; ?> .menu > li > a:hover,
 	.fl-node-<?php echo $id; ?> .menu > li > a:focus,
 	.fl-node-<?php echo $id; ?> .menu > li:hover > .pp-has-submenu-container > a,
-	.fl-node-<?php echo $id; ?> .menu > li:focus > .pp-has-submenu-container > a,
+	.fl-node-<?php echo $id; ?> .menu > li.focus > .pp-has-submenu-container > a,
 	.fl-node-<?php echo $id; ?> .menu > li.current-menu-item > a,
 	.fl-node-<?php echo $id; ?> .menu > li.current-menu-item > .pp-has-submenu-container > a {
 		<?php if( !empty( $settings->background_hover_color ) ) { ?>
@@ -800,11 +804,11 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 			}
 		<?php endif; ?>
 		<?php if ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
-			<?php if ( 'center' !== $settings->alignment ) { ?>
+
 			.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-arrows .pp-has-submenu-container > a > span {
 				padding-right: <?php echo $toggle_width; ?>px;
 			}
-			<?php } ?>
+
 		<?php } ?>
 	}
 <?php endif; ?>

@@ -182,7 +182,7 @@ class PPModalBoxModule extends FLBuilderModule {
                 return $wp_embed->autoembed($settings->modal_type_video);
             break;
             case 'url':
-                return '<iframe data-src="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
+                return '<iframe data-url="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
             break;
             case 'content':
                 return wpautop( $settings->modal_type_content );

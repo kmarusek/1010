@@ -94,30 +94,31 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			// Order
 			FLBuilder::render_settings_field('data_source_acf_order', array(
 				'type'    => 'select',
-				'label'   => __( 'Order', 'bb-theme-builder' ),
+				'label'   => __( 'Order', 'bb-powerpack' ),
 				'options' => array(
-					'DESC' => __( 'Descending', 'bb-theme-builder' ),
-					'ASC'  => __( 'Ascending', 'bb-theme-builder' ),
+					'DESC' => __( 'Descending', 'bb-powerpack' ),
+					'ASC'  => __( 'Ascending', 'bb-powerpack' ),
 				),
 			), $settings);
 
 			// Order by
 			FLBuilder::render_settings_field('data_source_acf_order_by', array(
 				'type'    => 'select',
-				'label'   => __( 'Order By', 'bb-theme-builder' ),
+				'label'   => __( 'Order By', 'bb-powerpack' ),
 				'default' => 'post__in',
 				'options' => array(
-					'author'         => __( 'Author', 'bb-theme-builder' ),
-					'comment_count'  => __( 'Comment Count', 'bb-theme-builder' ),
-					'date'           => __( 'Date', 'bb-theme-builder' ),
-					'modified'       => __( 'Date Last Modified', 'bb-theme-builder' ),
-					'ID'             => __( 'ID', 'bb-theme-builder' ),
-					'menu_order'     => __( 'Menu Order', 'bb-theme-builder' ),
-					'meta_value'     => __( 'Meta Value (Alphabetical)', 'bb-theme-builder' ),
-					'meta_value_num' => __( 'Meta Value (Numeric)', 'bb-theme-builder' ),
-					'rand'           => __( 'Random', 'bb-theme-builder' ),
-					'title'          => __( 'Title', 'bb-theme-builder' ),
-					'post__in'       => __( 'Selection Order', 'bb-theme-builder' ),
+					'author'         => __( 'Author', 'bb-powerpack' ),
+					'comment_count'  => __( 'Comment Count', 'bb-powerpack' ),
+					'date'           => __( 'Date', 'bb-powerpack' ),
+					'modified'       => __( 'Date Last Modified', 'bb-powerpack' ),
+					'ID'             => __( 'ID', 'bb-powerpack' ),
+					'menu_order'     => __( 'Menu Order', 'bb-powerpack' ),
+					'meta_value'     => __( 'Meta Value (Alphabetical)', 'bb-powerpack' ),
+					'meta_value_num' => __( 'Meta Value (Numeric)', 'bb-powerpack' ),
+					'rand'           => __( 'Random', 'bb-powerpack' ),
+					'title'          => __( 'Title', 'bb-powerpack' ),
+					'name'          => __( 'Slug', 'bb-powerpack' ),
+					'post__in'       => __( 'Selection Order', 'bb-powerpack' ),
 				),
 				'toggle'  => array(
 					'meta_value'     => array(
@@ -132,7 +133,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			// Meta Key
 			FLBuilder::render_settings_field('data_source_acf_order_by_meta_key', array(
 				'type'  => 'text',
-				'label' => __( 'Meta Key', 'bb-theme-builder' ),
+				'label' => __( 'Meta Key', 'bb-powerpack' ),
 			), $settings);
 			?>
 			</table>
