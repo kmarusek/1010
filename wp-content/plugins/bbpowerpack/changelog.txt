@@ -1,3 +1,7 @@
+== 2.16.4 ==
+Release date: June 17, 2021
+* Fix: Advanced Menu - Accordion toggle issue on responsive breakpoint
+
 == 2.16.3 ==
 Release date: June 16, 2021
 * Enhancement: Content Grid - Added "Slug" as order by option

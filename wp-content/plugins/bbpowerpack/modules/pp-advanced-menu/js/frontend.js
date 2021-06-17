@@ -314,6 +314,8 @@
 					}
 				});
 
+				e.stopPropagation();
+
 			}, this ) );
 
 		},
@@ -477,6 +479,7 @@
 				$wrapper.on( 'click', '.pp-advanced-menu-mobile-toggle', function( e ) {
 					$( this ).toggleClass( 'pp-active' );
 					$menu.slideToggle();
+					e.stopPropagation();
 				} );
 
 				$menu.on( 'click', '.menu-item > a[href*="#"]', function(e) {
