@@ -10,7 +10,7 @@ wp_enqueue_style(
     get_stylesheet_directory_uri() . "/assets/vendor/owl-carousel/assets/owl.carousel.min.css"
 );
 
-if($settings->fade_gradient === '1'){
+if(($settings->fade_gradient ?? '') === '1'){
     $color = $settings->fade_gradient_color;
 }else{
     $color = 'rgba(0,0,0,0)';
