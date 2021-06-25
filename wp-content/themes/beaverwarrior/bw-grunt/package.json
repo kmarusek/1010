@@ -4,6 +4,12 @@
     "description": "Grunt",
     "author": "Jordan Leven",
     "license": "ISC",
+    "scripts": {
+        "buildDev": "grunt buildDev",
+        "buildCSS": "grunt buildCSS",
+        "buildJS": "grunt buildJS",
+        "buildProd": "grunt buildProd"
+    },
     "devDependencies": {
         "@babel/core": "^7.4.3",
         "@babel/preset-env": "^7.4.3",

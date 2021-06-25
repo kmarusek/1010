@@ -4,7 +4,10 @@
   "description": "Gulp based build system for Space Station",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch:scripts": "gulp watch:scripts",
+    "watch": "gulp watch",
+    "build": "gulp build",
+    "default": "gulp default"
   },
   "keywords": [
     "wordpress",
