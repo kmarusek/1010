@@ -386,7 +386,7 @@ function beaver_warrior_bb_cache_buster() {
 }
 
 // Only run if we have a query string to check
-if ( $_SERVER['QUERY_STRING'] ){
+if ( isset($_SERVER['QUERY_STRING'] ){
     $clear_cache_sentinal = false;
     $clear_cache_index    = 0;
     while ( !$clear_cache_sentinal && $clear_cache_index < count(BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS) ){
