@@ -518,7 +518,7 @@ if ( ! class_exists( 'UABB_Batch_Process' ) ) :
 
 			update_option( 'uabb_batch_process_complete', true );
 
-			update_option( 'batch_complete_time_date', date( 'Y-m-d H:i:s' ) );
+			update_option( 'batch_complete_time_date', gmdate( 'Y-m-d H:i:s' ) );
 
 			$faild_links = get_option( 'uabb_batch_processing_faild_posts_id', false );
 

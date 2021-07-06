@@ -14,6 +14,30 @@ FLBuilder::register_module(
 		'dual_button'            => array( // Tab.
 			'title'    => __( 'General', 'uabb' ), // Tab title.
 			'sections' => array( // Tab Sections.
+				'preset_section'      => array(
+					'title'  => __( 'Presets', 'uabb' ),
+					'fields' => array(
+						'preset_select' => array(
+							'type'    => 'select',
+							'label'   => __( 'Preset', 'uabb' ),
+							'help'    => __( 'Default option will reset styles Please save the module content before changing presets otherwise contnent will overriten to default content', 'uabb' ),
+							'default' => 'none',
+							'class'   => 'uabb-preset-select multiple',
+							'options' => array(
+								'none'     => __( 'Default', 'uabb' ),
+								'preset-1' => __( 'Preset 1', 'uabb' ),
+								'preset-2' => __( 'Preset 2', 'uabb' ),
+								'preset-3' => __( 'Preset 3', 'uabb' ),
+								'preset-4' => __( 'Preset 4', 'uabb' ),
+								'preset-5' => __( 'Preset 5', 'uabb' ),
+							),
+							'preview' => array(
+								'type' => 'none',
+							),
+
+						),
+					),
+				),
 				'dual_button'         => array( // Section.
 					'title'  => __( 'Button Settings', 'uabb' ), // Section Title.
 					'fields' => array( // Section Fields.
@@ -134,12 +158,11 @@ FLBuilder::register_module(
 							'default' => 'center',
 						),
 						'dual_button_radius'      => array(
-							'type'        => 'unit',
-							'label'       => __( 'Border Radius', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '6',
-							'units'       => array( 'px' ),
-							'slider'      => array(
+							'type'   => 'unit',
+							'label'  => __( 'Border Radius', 'uabb' ),
+							'size'   => '6',
+							'units'  => array( 'px' ),
+							'slider' => array(
 								'px' => array(
 									'min'  => 0,
 									'max'  => 1000,

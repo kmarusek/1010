@@ -1,3 +1,32 @@
+Version 1.31.1, Friday, 2nd July 2021
+- Fixed: Heading - Description text gets disappeared after updating to latest version.
+
+Version 1.31.0, Thursday, 1st July 2021
+- New: Advanced Accordion - Added preset designs
+- New: Advanced Tabs - Added preset designs
+- New: Business Hours - Added preset designs
+- New: Dual Buttons - Added preset designs
+- New: Dual Color Heading - Added preset designs
+- New: FAQ Schema - Added preset designs
+- New: Heading - Added preset designs
+- New: Info Box - Added preset designs
+- New: Countdown - Added preset designs
+- New: Team - Added preset designs
+- Improvement: Added new default designs for modules
+- Improvement: Advanced Tab - Added Tab spacing options for horizontal layout.
+- Improvement: Team - Added Border setting for the complete box.
+- Improvement: Team - Added a single Background setting for the complete box.
+- Improvement: Advanced Icons - Added aria-label attribute to link.
+- Improvement: Button - Added aria-label attribute to link.
+- Improvement: Video - Added title attribute to iframe in Video module.
+- Improvement: Business Reviews - Added responsive support for carousel arrows.
+- Improvement: Woo-Products - Added filter to change Quick View text.
+- Fixed: Advanced Testimonials - Icon dynamic CSS was not being applied when the layout is selected as Box.
+- Fixed: Advanced Menu - Menu text color option is not working with rgba color code.
+- Fixed: Dual Buttons - Border radius not working for mobile devices.
+- Fixed: Heading - Heading Bottom Margin is overridden if we add another Heading Module in the Themer Layout.
+- Fixed: Woo-Products - When Source is ACF Relationship respective settings are not shown.
+
 Version 1.30.6, Thursday, 27th May 2021
 - Fixed: Advanced Menu - Desktop menu disappears when Responsive Layout is Below Row.
 - Fixed: Advanced Testimonials - Fatal error with PHP v8.
