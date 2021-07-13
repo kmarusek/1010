@@ -539,7 +539,7 @@ function beaver_warrior_add_sentry_io(){
         'sentry_data',
         array(
             'url'         => get_site_url(),
-            'environment' => isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ? $_ENV['PANTHEON_ENVIRONMENT'] : isset($_ENV['SERVER_NAME'] ) ? $_ENV['SERVER_NAME'] : ''
+            'environment' => $_ENV['PANTHEON_ENVIRONMENT'] ?? $_ENV['SERVER_NAME'] ?? ''
         )
     );
     wp_enqueue_script( 'sentry-io' );
