@@ -133,9 +133,9 @@ if ( '' === ( $settings->responsive_img_size_slider ) ) {
 	$testimonial_list_counter = 0;
 	foreach ( $settings->testimonials as $item ) {
 		if ( 'circle' === $settings->testimonial_icon_style ) {
-			$testimonial_icon_size = $settings->testimonial_icon_image_size / 2;
+			$testimonial_icon_size = intval( $settings->testimonial_icon_image_size ) / 2;
 		} elseif ( 'square' === $settings->testimonial_icon_style ) {
-			$testimonial_icon_size = $settings->testimonial_icon_image_size / 2;
+			$testimonial_icon_size = intval( $settings->testimonial_icon_image_size ) / 2;
 		} elseif ( 'custom' === $settings->testimonial_icon_style ) {
 			$testimonial_icon_size = $settings->testimonial_icon_image_size;
 		} else {

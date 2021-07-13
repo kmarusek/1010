@@ -197,7 +197,7 @@ class UABB_Init {
 		require_once BB_ULTIMATE_ADDON_DIR . 'includes/column.php';
 
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/batch-process/class-uabb-batch-process.php';
-		require_once BB_ULTIMATE_ADDON_DIR . 'lib/notices/class-astra-notices.php';
+		require_once BB_ULTIMATE_ADDON_DIR . 'lib/astra-notices/class-astra-notices.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-presets.php';
 
 		if ( ! class_exists( 'BSF_Analytics_Loader' ) ) {

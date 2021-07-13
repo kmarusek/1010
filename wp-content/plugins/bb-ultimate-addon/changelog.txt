@@ -1,3 +1,9 @@
+Version 1.31.2, Tuesday, 13th July 2021
+- Fixed: Advanced Testimonials - Fatal error with PHP v8 when Image/Icon Size is empty.
+- Fixed: Social Share - PHP notice when Social Share Type is Pinterest and no image is set.
+- Fixed: Woo-Products - Grid & Carousel layout breaks on archive pages.
+- Fixed: Woo-Categories - Grid & Carousel layout breaks on archive pages.
+
 Version 1.31.1, Friday, 2nd July 2021
 - Fixed: Heading - Description text gets disappeared after updating to latest version.
 

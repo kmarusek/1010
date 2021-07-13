@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.31.1\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.31.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2021-07-02 05:18:26+00:00\n"
+"POT-Creation-Date: 2021-07-13 08:04:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -7406,7 +7406,7 @@ msgstr ""
 msgid "Note - You can enable, disable and manage %s sections here."
 msgstr ""
 
-#: lib/notices/class-astra-notices.php:125
+#: lib/astra-notices/class-astra-notices.php:119
 msgid "WordPress Nonce not validated."
 msgstr ""
 
@@ -26353,7 +26353,7 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form-bb-2-2-compatibility.php:912
 #: modules/uabb-registration-form/uabb-registration-form-bb-2-2-compatibility.php:1250
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:893
-#: modules/uabb-social-share/includes/frontend.php:129
+#: modules/uabb-social-share/includes/frontend.php:134
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:509
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:203
 msgid "Email"
@@ -30613,91 +30613,91 @@ msgstr ""
 msgid "Twitter"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:82
+#: modules/uabb-social-share/includes/frontend.php:87
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:501
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:195
 msgid "Pinterest"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:88
+#: modules/uabb-social-share/includes/frontend.php:93
 msgid "Linkedin"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:94
+#: modules/uabb-social-share/includes/frontend.php:99
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:503
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:197
 msgid "Digg"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:100
+#: modules/uabb-social-share/includes/frontend.php:105
 msgid "blogger"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:106
+#: modules/uabb-social-share/includes/frontend.php:111
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:505
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:199
 msgid "Reddit"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:112
+#: modules/uabb-social-share/includes/frontend.php:117
 msgid "Stumbleupon"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:118
+#: modules/uabb-social-share/includes/frontend.php:123
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:507
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:201
 msgid "Tumblr"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:124
+#: modules/uabb-social-share/includes/frontend.php:129
 msgid "My Space"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:135
+#: modules/uabb-social-share/includes/frontend.php:140
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:510
 msgid "WhatsApp"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:141
+#: modules/uabb-social-share/includes/frontend.php:146
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:511
 msgid "Telegram"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:149
+#: modules/uabb-social-share/includes/frontend.php:154
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:515
 msgid "VK"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:157
+#: modules/uabb-social-share/includes/frontend.php:162
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:514
 msgid "OK"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:163
+#: modules/uabb-social-share/includes/frontend.php:168
 msgid "Delicious"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:169
+#: modules/uabb-social-share/includes/frontend.php:174
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:512
 msgid "Pocket"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:175
+#: modules/uabb-social-share/includes/frontend.php:180
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:516
 msgid "Xing"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:181
+#: modules/uabb-social-share/includes/frontend.php:186
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:518
 msgid "Skype"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:187
+#: modules/uabb-social-share/includes/frontend.php:192
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:513
 msgid "Print"
 msgstr ""
 
-#: modules/uabb-social-share/includes/frontend.php:193
+#: modules/uabb-social-share/includes/frontend.php:198
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:517
 msgid "Buffer"
 msgstr ""
