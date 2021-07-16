@@ -50,13 +50,13 @@ class PPOffcanvasContent extends FLBuilderModule {
 				}
 				break;
 			case 'module':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_module . '"]';
+				$html = '[fl_builder_insert_layout id="' . $settings->content_module . '" type="fl-builder-template"]';
 				break;
 			case 'row':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_row . '"]';
+				$html = '[fl_builder_insert_layout id="' . $settings->content_row . '" type="fl-builder-template"]';
 				break;
 			case 'layout':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_layout . '"]';
+				$html = '[fl_builder_insert_layout id="' . $settings->content_layout . '" type="fl-builder-template"]';
 				break;
 			case 'sidebar':
 				$sidebar = $settings->content_sidebar;
@@ -529,7 +529,7 @@ BB_PowerPack::register_module(
 					'fields'    => array(
 						'offcanvas_bar_width'   => array(
 							'type'       => 'unit',
-							'label'      => __( 'Width', 'bb-powerpack' ),
+							'label'      => __( 'Size', 'bb-powerpack' ),
 							'units'      => array( 'px', '%' ),
 							'default'    => '300',
 							'slider'     => true,

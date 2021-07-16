@@ -6,9 +6,9 @@ $photo_border = ( isset( $settings->photo_border_group ) && ! empty( $settings->
 
 if ( 'justified' != $settings->gallery_layout ) {
 
-	$desktop_col = ( $settings->photo_grid_count ) ? $settings->photo_grid_count : 4;
-	$medium_col = ( $settings->photo_grid_count_medium ) ? $settings->photo_grid_count_medium : 2;
-	$mobile_col = ( $settings->photo_grid_count_responsive ) ? $settings->photo_grid_count_responsive : 1;
+	$desktop_col = ! empty( $settings->photo_grid_count ) ? $settings->photo_grid_count : 4;
+	$medium_col = isset( $settings->photo_grid_count_medium ) && ! empty( $settings->photo_grid_count_medium ) ? $settings->photo_grid_count_medium : 2;
+	$mobile_col = isset( $settings->photo_grid_count_responsive ) && ! empty( $settings->photo_grid_count_responsive ) ? $settings->photo_grid_count_responsive : 1;
 
 	$space_desktop = ( $desktop_col - 1 ) * $settings->photo_spacing;
 	$photo_columns_desktop = ( ( 100 - $space_desktop ) / $desktop_col ) - 0.1;

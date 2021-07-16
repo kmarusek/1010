@@ -68,21 +68,20 @@
 					$('html').addClass('pp-announcement-bar pp-top-bar');
 				}
 
-				<?php if( $settings->announcement_bar_position == 'bottom' ) { ?>
-					$('.fl-node-<?php echo $id; ?> .pp-announcement-bar-close-button').on('click', function() {
-						$('html').removeClass('pp-bottom-bar');
+				
+				$('.fl-node-<?php echo $id; ?> .pp-announcement-bar-close-button').on('click keypress', function(e) {
+					if (e.which == 1 || e.which == 13 || e.which == 32 || e.which == undefined) {
+						<?php if( $settings->announcement_bar_position == 'top' ) { ?>
+							$('html').removeClass('pp-top-bar');
+							$('html').removeClass('pp-top-bar-admin');
+						<?php } else { ?>
+							$('html').removeClass('pp-bottom-bar');
+						<?php } ?>
 						$('#pp-style').remove();
 						set_cookie();
-					});
-				<?php } ?>
-				<?php if( $settings->announcement_bar_position == 'top' ) { ?>
-					$('.fl-node-<?php echo $id; ?> .pp-announcement-bar-close-button').on('click', function() {
-						$('html').removeClass('pp-top-bar');
-						$('html').removeClass('pp-top-bar-admin');
-						$('#pp-style').remove();
-						set_cookie();
-					});
-				<?php } ?>
+					}
+				});
+				
 			}
         }, 1000);
 

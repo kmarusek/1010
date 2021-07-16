@@ -158,4 +158,27 @@
 	</tr>
 </table>
 
+<h3><?php esc_html_e( 'hCaptcha', 'bb-powerpack' ); ?></h3>
+<p>
+	<?php echo sprintf( __( 'Register keys for your website at <a href="%s" target="_blank">hCaptcha Dashboard</a>.', 'bb-powerpack' ), 'https://dashboard.hcaptcha.com/' ); ?>
+</p>
+<table class="form-table">
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_hcaptcha_site_key"><?php esc_html_e( 'Site Key', 'bb-powerpack' ); ?></label>
+		</th>
+		<td>
+			<input id="bb_powerpack_hcaptcha_site_key" name="bb_powerpack_hcaptcha_site_key" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_site_key', true ); ?>" />
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_hcaptcha_secret_key"><?php esc_html_e( 'Secret Key', 'bb-powerpack' ); ?></label>
+		</th>
+		<td>
+			<input id="bb_powerpack_hcaptcha_secret_key" name="bb_powerpack_hcaptcha_secret_key" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_secret_key', true ); ?>" />
+		</td>
+	</tr>
+</table>
+
 <?php submit_button(); ?>

@@ -13,6 +13,7 @@ var pp_offcanvas_<?php echo $id; ?> = '';
 			toggleSource:      '<?php echo $settings->toggle_source; ?>',
 			toggle_class:      '<?php echo $settings->toggle_class; ?>',
 			toggle_id:         '<?php echo $settings->toggle_id; ?>',
+			size: 			   '<?php echo $settings->offcanvas_bar_width; ?>',
 
 			isBuilderActive:    <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
 		});

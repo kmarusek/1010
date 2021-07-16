@@ -9,6 +9,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
 	$recaptcha_site_key = $settings->recaptcha_site_key;
 	$recaptcha_secret_key = $settings->recaptcha_secret_key;
 }
+$hcaptcha_sitekey = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_site_key' );
 
 $messages = $module->get_strings_i18n();
 ?>
@@ -87,6 +88,13 @@ $messages = $module->get_strings_i18n();
 		<div class="pp-input-group pp-recaptcha">
 			<p class="pp-contact-error"><?php echo $messages['captcha_error']; ?></p>
 			<div id="<?php echo $id; ?>-pp-grecaptcha" class="pp-grecaptcha" data-sitekey="<?php echo $recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
+		</div>
+		<?php endif; ?>
+
+		<?php if ( isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle && ! empty( $hcaptcha_sitekey ) ) : ?>
+		<div class="pp-input-group pp-hcaptcha">
+			<p class="pp-contact-error"><?php echo $messages['captcha_error']; ?></p>
+			<div id="<?php echo $id; ?>-pp-hcaptcha" class="h-captcha" data-sitekey="<?php echo $hcaptcha_sitekey; ?>"></div>
 		</div>
 		<?php endif; ?>
 	</div>

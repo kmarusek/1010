@@ -54,39 +54,36 @@ class PPAdvancedMenu extends FLBuilderModule {
 	public function render_toggle_button() {
 
 		$toggle = $this->settings->mobile_toggle;
-		$menu_text = $this->settings->custom_menu_text;
+		$menu_text = empty( $this->settings->custom_menu_text ) ? __( 'Menu', 'bb-powerpack' ) : $this->settings->custom_menu_text;
 
-		if( isset( $toggle ) && $toggle != 'expanded' ) {
+		if ( isset( $toggle ) && $toggle != 'expanded' ) {
+			?>
+			<div class="pp-advanced-menu-mobile-toggle <?php echo $toggle; ?>">
+				<?php
+				$inner_html = '';
 
-			if( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
+				if ( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
 
-				echo '<div class="pp-advanced-menu-mobile-toggle '. $toggle .'">';
-				echo '<div class="pp-hamburger" tabindex="0" role="button" aria-label="' . __( 'Menu', 'bb-powerpack' ) . '">';
-				echo '<div class="pp-hamburger-box">';
-				echo '<div class="pp-hamburger-inner"></div>';
-				echo '</div>';
-				echo '</div>';
+					$inner_html .= '<div class="pp-hamburger" tabindex="0" role="button" aria-label="' . __( 'Menu', 'bb-powerpack' ) . '">';
+					$inner_html .= '<div class="pp-hamburger-box">';
+					$inner_html .= '<div class="pp-hamburger-inner"></div>';
+					$inner_html .= '</div>';
+					$inner_html .= '</div>';
 
-				if( $toggle == 'hamburger-label' ) {
-					if( $menu_text ) {
-						echo '<span class="pp-advanced-menu-mobile-toggle-label">'. $menu_text .'</span>';
-					} else {
-						echo '<span class="pp-advanced-menu-mobile-toggle-label">'. __( 'Menu', 'bb-powerpack' ) .'</span>';
+					if ( $toggle == 'hamburger-label' ) {
+						$inner_html .= '<span class="pp-advanced-menu-mobile-toggle-label">' . $menu_text . '</span>';
 					}
+
+				} elseif ( $toggle == 'text' ) {
+					$inner_html .= '<span class="pp-advanced-menu-mobile-toggle-label">'. $menu_text .'</span>';
 				}
 
-				echo '</div>';
+				$inner_html = apply_filters( 'pp_advanced_menu_html_toggle', $inner_html, $this->settings );
 
-			} elseif( $toggle == 'text' ) {
-
-				if( $menu_text ) {
-					echo '<div class="pp-advanced-menu-mobile-toggle text"><span class="pp-advanced-menu-mobile-toggle-label">'. $menu_text .'</span></div>';
-				} else {
-					echo '<div class="pp-advanced-menu-mobile-toggle text"><span class="pp-advanced-menu-mobile-toggle-label">'. __( 'Menu', 'bb-powerpack' ) .'</span></div>';
-				}
-
-			}
-
+				echo $inner_html;
+			?>
+			</div>
+			<?php
 		}
 	}
 
@@ -491,6 +488,13 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 							'unit'          => 'px'
 						)
 					),
+					// 'submenu_arrow_pos' => array(
+					// 	'type' 			=> 'unit',
+					// 	'label' 		=> __('Submenu Indicator Spacing', 'bb-powerpack'),
+					// 	'units' 		=> array('px'),
+					// 	'slider'		=> true,
+                    //     'help'          => __( 'This option is given to set toggle indicator horizontal position. It might NOT useful in some cases.', 'bb-powerpack' ),
+					// ),
                 )
             ),
             'color_settings'       => array( // Section

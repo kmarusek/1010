@@ -95,15 +95,21 @@
 						</div>
 						<?php if ( '' != trim( $menu_item->menu_items_price ) && $settings->show_price == 'yes' ) { ?>
 							<div class="pp-restaurant-menu-item-price">
-								<span><?php echo $settings->currency_symbol; ?> </span> <?php echo $menu_item->menu_items_price; ?>
+								<?php if ( ! isset( $settings->currency_symbol_pos ) || 'left' === $settings->currency_symbol_pos ) { ?>
+									<span><?php echo $settings->currency_symbol; ?></span>&nbsp;
+								<?php } ?>
+								<?php echo $menu_item->menu_items_price; ?>
+								<?php if ( isset( $settings->currency_symbol_pos ) && 'right' === $settings->currency_symbol_pos ) { ?>
+									&nbsp;<span><?php echo $settings->currency_symbol; ?></span> 
+								<?php } ?>
 								<?php if ( '' != trim( $menu_item->menu_items_unit ) ) { ?>
-									<span class="pp-menu-item-unit"> <?php echo trim( $menu_item->menu_items_unit ); ?></span>
+									<span class="pp-menu-item-unit">&nbsp;<?php echo trim( $menu_item->menu_items_unit ); ?></span>
 								<?php } ?>
 							</div>
 						<?php } ?>
 			 		</div>
 			 	<?php
-			 }
+			}
 		?>
 		<?php } ?>
 	</div>

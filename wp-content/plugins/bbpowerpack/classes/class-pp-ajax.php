@@ -586,6 +586,8 @@ class BB_PowerPack_Ajax {
 				$terms_list = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
 				$post_id = get_the_ID();
 				$permalink = get_permalink();
+				$post_type = get_post_type( get_post() );
+				$settings->post_type = $post_type;
 
 				$count++;
 

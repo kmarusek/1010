@@ -128,6 +128,15 @@
 
 			$(this.nodeClass).on( 'grid.afterInit carousel.afterInit', function() {
 				$(self.nodeClass).find('.pp-posts-wrapper').addClass('pp-posts-initiated');
+
+				if ( $(self.nodeClass).find( '.owl-nav' ).length > 0 && self.settings.carousel.autoplay ) {
+					var carousel = $(self.nodeClass).find( '.owl-carousel' );
+					$(self.nodeClass).find( '.owl-nav button' ).on( 'mouseover', function() {
+						carousel.trigger( 'stop.owl.autoplay' );
+					} ).on( 'mouseleave', function() {
+						carousel.trigger( 'play.owl.autoplay' );
+					} );
+				}
 			} );
 
 			// Fix native lazy load issue.
@@ -395,7 +404,20 @@
 					});
 					$(self.wrapperClass).removeClass('pp-is-filtering');
 				}
-			);
+			).fail( function( xhr ) {
+				if ( 404 == xhr.status && 'undefined' !== xhr.responseJSON.data ) {
+					var response = xhr.responseJSON;
+					self.includeSettings = true;
+					self._setCacheData(term, response, paged);
+					$(self.nodeClass).trigger('grid.beforeRender');
+					self._renderPosts(response, {
+						term: term,
+						isotopeData: isotopeData,
+						page: paged
+					});
+					$(self.wrapperClass).removeClass('pp-is-filtering');
+				}
+			} );
 		},
 
 		_renderPosts: function (response, args) {

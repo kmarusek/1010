@@ -60,6 +60,7 @@ class PPSocialIconsModule extends FLBuilderModule {
 			'fa-github-alt'	=> __('GitHub', 'bb-powerpack'),
 			'fa-rss'		=> __('RSS', 'bb-powerpack'),
 			'fa-vimeo'		=> __('Vimeo', 'bb-powerpack'),
+			'fa-tiktok'		=> __('TikTok', 'bb-powerpack'),
 		);
 
 		return $labels;

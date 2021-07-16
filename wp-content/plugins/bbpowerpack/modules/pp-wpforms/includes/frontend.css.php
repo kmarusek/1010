@@ -238,6 +238,12 @@
 	) );
 ?>
 
+<?php if ( isset( $settings->input_field_padding_left ) && '' !== $settings->input_field_padding_left ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-phone .iti__flag-container + input[type=tel] {
+		padding-left: <?php echo ( 40 + $settings->input_field_padding_left ); ?>px;
+	}
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .pp-wpforms-content div.wpforms-container-full .wpforms-form select {
     <?php if( $settings->input_field_height ) { ?>

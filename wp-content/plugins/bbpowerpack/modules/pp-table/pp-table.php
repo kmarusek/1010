@@ -78,7 +78,14 @@ class PPTableModule extends FLBuilderModule {
 
 			unset( $settings->sortable );
 		}
-		
+
+		// Clean csv_import field if it's value is not a valid object.
+		$csv_import = $settings->csv_import;
+
+		if ( ! is_object( $csv_import ) || ! isset( $csv_import->filepath ) ) {
+			$settings->csv_import = '';
+		}
+
 		return $settings;
 	}
 

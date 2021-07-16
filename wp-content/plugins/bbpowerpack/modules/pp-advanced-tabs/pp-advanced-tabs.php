@@ -51,13 +51,13 @@ class PPAdvancedTabsModule extends FLBuilderModule {
                 $html = $wp_embed->autoembed( $settings->content_video );
             	break;
 			case 'module':
-				$html = '[fl_builder_insert_layout id="'.$settings->content_module.'"]';
+				$html = '[fl_builder_insert_layout id="'.$settings->content_module.'" type="fl-builder-template"]';
 				break;
 			case 'row':
-				$html = '[fl_builder_insert_layout id="'.$settings->content_row.'"]';
+				$html = '[fl_builder_insert_layout id="'.$settings->content_row.'" type="fl-builder-template"]';
 				break;
 			case 'layout':
-				$html = '[fl_builder_insert_layout id="'.$settings->content_layout.'"]';
+				$html = '[fl_builder_insert_layout id="'.$settings->content_layout.'" type="fl-builder-template"]';
 				break;
 			default:
 				break;

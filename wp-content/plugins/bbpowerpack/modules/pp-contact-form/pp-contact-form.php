@@ -44,6 +44,18 @@ class PPContactFormModule extends FLBuilderModule {
 				true
 			);
 		}
+
+		if ( isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle ) {
+			$post_id = FLBuilderModel::get_post_id();
+
+			$this->add_js(
+				'h-captcha',
+				'https://hcaptcha.com/1/api.js',
+				array( 'fl-builder-layout-' . $post_id ),
+				'1.0',
+				true
+			);
+		}
 	}
 
 	/**
@@ -52,11 +64,19 @@ class PPContactFormModule extends FLBuilderModule {
 	 * @param string $handle Registered script handle
 	 */
 	public function add_async_attribute( $tag, $handle ) {
-		if ( ('g-recaptcha' !== $handle) || ('g-recaptcha' === $handle && strpos( $tag, 'g-recaptcha-api' ) !== false ) ) {
+		if ( ! in_array( $handle, array( 'g-recaptcha', 'h-captcha' ) ) ) {
 			return $tag;
 		}
 
-		return str_replace( ' src', ' id="g-recaptcha-api" async="async" defer="defer" src', $tag );
+		if ( 'g-recaptcha' === $handle && strpos( $tag, 'g-recaptcha-api' ) === false ) {
+			return str_replace( ' src', ' id="g-recaptcha-api" async="async" defer="defer" src', $tag );
+		}
+
+		if ( 'h-captcha' === $handle && strpos( $tag, 'h-captcha-api' ) === false ) {
+			return str_replace( ' src', ' id="h-captcha-api" async="async" defer="defer" src', $tag );
+		}
+
+		return $tag;
 	}
 
 	/**
@@ -95,6 +115,7 @@ class PPContactFormModule extends FLBuilderModule {
     	$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
         $template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
         $recaptcha_response	= isset( $_POST['recaptcha_response'] ) ? $_POST['recaptcha_response'] : false;
+        $hcaptcha_response	= isset( $_POST['hcaptcha_response'] ) ? $_POST['hcaptcha_response'] : false;
 
 		$subject 			= (isset($_POST['subject']) ? $_POST['subject'] : __('Contact Form Submission', 'bb-powerpack'));
 		$admin_email 		= get_option('admin_email');
@@ -157,6 +178,54 @@ class PPContactFormModule extends FLBuilderModule {
 					$response = array(
 						'error' => true,
 						'message' => __( 'Your reCAPTCHA Site or Secret Key is missing!', 'bb-powerpack' ),
+					);
+				}
+			} else {
+				$response['error'] = false;
+			}
+
+			// Validate hCaptcha if enabled.
+			if ( isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle ) {
+				$hcaptcha_site_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_site_key' );
+				$hcaptcha_secret_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_secret_key' );
+
+				if ( ! empty( $hcaptcha_site_key ) && ! empty( $hcaptcha_secret_key ) ) {
+					if ( version_compare( phpversion(), '5.3', '>=' ) ) {
+						$hcaptcha_response = wp_remote_post( 'https://hcaptcha.com/siteverify', array(
+							'timeout'     => 45,
+							'httpversion' => '1.0',
+							'blocking'    => true,
+							'body'		  => array(
+								'secret'	=> $hcaptcha_secret_key,
+								'response'	=> $hcaptcha_response,
+							),
+						) );
+
+						$hcaptcha_response = wp_remote_retrieve_body( $hcaptcha_response );
+
+						if ( is_wp_error( $hcaptcha_response ) ) {
+							$response = array(
+								'error' => true,
+								'message' => __( 'Captcha verification failed! Please try again.', 'bb-powerpack' ),
+							);
+						} else {
+							$hcaptcha_response = json_decode( $hcaptcha_response );
+							if ( $hcaptcha_response->success ) {
+								$response['error'] = false;
+							} else {
+								$response = array(
+									'error' => true,
+									'message' => __( 'Captcha verification failed! Please try again.', 'bb-powerpack' ),
+								);
+							}
+						}
+					} else {
+						$response['error'] = false;
+					}
+				} else {
+					$response = array(
+						'error' => true,
+						'message' => __( 'Your hCaptcha Site or Secret Key is missing!', 'bb-powerpack' ),
 					);
 				}
 			} else {
@@ -1694,14 +1763,15 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 		)
     ),
     'reCAPTCHA'	=> array(
-		'title'		  => __( 'reCAPTCHA', 'bb-powerpack' ),
+		'title'		  => __( 'Captcha', 'bb-powerpack' ),
+		'description' => pp_get_recaptcha_desc(),
 		'sections'	  => array(
 			'recaptcha_general' => array(
-				'title'			=> '',
+				'title'			=> __( 'reCAPTCHA', 'bb-powerpack' ),
 				'fields'		=> array(
 					'recaptcha_toggle' => array(
 						'type' 			=> 'pp-switch',
-						'label' 		=> 'reCAPTCHA Field',
+						'label' 		=> __( 'reCAPTCHA Field', 'bb-powerpack' ),
 						'default'		  => 'hide',
 						'options'		  => array(
 							'show'	   => __( 'Show', 'bb-powerpack' ),
@@ -1775,7 +1845,24 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 					),
 				),
 			),
+			'hcaptcha_general' => array(
+				'title'	=> __( 'hCaptcha', 'bb-powerpack' ),
+				'fields' => array(
+					'hcaptcha_toggle' => array(
+						'type' 			=> 'pp-switch',
+						'label' 		=> __( 'hCaptcha Field', 'bb-powerpack' ),
+						'default'		  => 'hide',
+						'options'		  => array(
+							'show'	   => __( 'Show', 'bb-powerpack' ),
+							'hide'	   => __( 'Hide', 'bb-powerpack' ),
+						),
+						'help' 			=> __( 'If you want to show this field, please provide valid Site and Secret Keys.', 'bb-powerpack' ),
+						'preview'		=> array(
+							'type'			=> 'none',
+						),
+					),
+				),
+			),
 		),
-		'description'	  => pp_get_recaptcha_desc(),
 	),
 ));

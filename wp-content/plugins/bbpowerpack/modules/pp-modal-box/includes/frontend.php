@@ -1,3 +1,6 @@
+<?php
+$has_overlay_animation = ! isset( $settings->overlay_animation ) || 'yes' === $settings->overlay_animation;
+?>
 <?php if ( 'onclick' == $settings->modal_load ) { ?>
 <div class="pp-modal-button">
 	<a href="#" id="trigger-<?php echo $module->node; ?>" class="pp-modal-trigger modal-<?php echo $module->node; ?>" data-modal="<?php echo $module->node; ?>" data-node="<?php echo $module->node; ?>">
@@ -30,9 +33,8 @@
 	</div>
 	<?php } ?>
 <?php } ?>
-<div id="modal-<?php echo $module->node; ?>" class="pp-modal-wrap">
+<div id="modal-<?php echo $module->node; ?>" class="pp-modal-wrap<?php echo $has_overlay_animation ? ' has-overlay-animation' : ''; ?>">
 	<div class="pp-modal-container">
-		<div class="pp-modal-overlay"></div>
 		<?php if ( 'win-top-right' == $settings->close_btn_position || 'win-top-left' == $settings->close_btn_position ) { ?>
 			<div class="pp-modal-close <?php echo $settings->close_btn_position; ?>">
 				<div class="bar-wrap">
@@ -86,4 +88,5 @@
 			</div>
 		</div>
 	</div>
+	<div class="pp-modal-overlay"></div>
 </div>

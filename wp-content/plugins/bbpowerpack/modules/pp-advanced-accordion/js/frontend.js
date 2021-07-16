@@ -27,7 +27,10 @@
 
 			//button.css('height', button.outerHeight() + 'px');
 			button.off('click').on('click', $.proxy( this._buttonClick, this ) );
+			button.on('keypress', $.proxy( this._buttonClick, this ) );
 			button.on('mouseup', $.proxy( this._mouseEvent, this ) );
+			button.on('focus', $.proxy( this._focusIn, this ) );
+			button.on('focusout', $.proxy( this._focusOut, this ) );
 
 			this._openDefaultItem();
 
@@ -95,24 +98,52 @@
 				allContent  = accordion.find('> .pp-accordion-item > .pp-accordion-content'),
 				content     = button.siblings('.pp-accordion-content'),
 				self		= this;
+			
+			// Click or keyboard (enter or spacebar) input?
+			if ( ! this._validClick(e) ) {
+				return;
+			}
 
-			if(accordion.hasClass('pp-accordion-collapse')) {
+			// Prevent scrolling when the spacebar is pressed
+			e.preventDefault();
+
+			if ( accordion.hasClass('pp-accordion-collapse') ) {
 				accordion.find( '> .pp-accordion-item-active' ).removeClass( 'pp-accordion-item-active' );
+				button.attr('aria-expanded', 'false');
+				button.attr('aria-hidden', 'true');
 				allContent.slideUp('normal');
 			}
 
-			if(content.is(':hidden')) {
+			if ( content.is(':hidden') ) {
+				button.attr('aria-expanded', 'true');
 				item.addClass( 'pp-accordion-item-active' );
 				content.slideDown('normal', function() {
 					self._slideDownComplete(this);
+					$(this).attr( 'aria-hidden', false );
 				});
 			}
 			else {
+				button.attr('aria-expanded', 'false');
 				item.removeClass( 'pp-accordion-item-active' );
 				content.slideUp('normal', function() {
 					self._slideUpComplete(this);
+					$(this).attr( 'aria-hidden', true );
 				});
 			}
+		},
+
+		_focusIn: function( e )
+		{
+			var button = $( e.target ).closest('.pp-accordion-button');
+
+			button.attr('aria-selected', 'true');
+		},
+
+		_focusOut: function( e )
+		{
+			var button = $( e.target ).closest('.pp-accordion-button');
+
+			button.attr('aria-selected', 'false');
 		},
 
 		_slideUpComplete: function(target)
@@ -180,6 +211,11 @@
 					this.accordion.find( '> .pp-accordion-item > .pp-accordion-button' ).eq(item).trigger('click');
 				}
 			}
+		},
+
+		_validClick: function(e)
+		{
+			return (e.which == 1 || e.which == 13 || e.which == 32 || e.which == undefined) ? true : false;
 		}
 	};
 

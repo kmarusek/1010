@@ -53,6 +53,10 @@ $item_class = array( 'pp-feed-item' );
 if ( 'carousel' === $settings->feed_layout ) {
 	$item_class[] = 'swiper-slide';
 }
+
+if ( in_array( $settings->feed_layout, array( 'square-grid', 'carousel' ) ) && ! empty( $settings->image_custom_size ) ) {
+	$item_class[] = 'has-custom-size';
+}
 ?>
 <div class="<?php echo implode( ' ', $class ); ?>"<?php echo $attr; ?>>
 	<?php if ( 'yes' == $settings->profile_link ) { ?>
@@ -78,28 +82,22 @@ if ( 'carousel' === $settings->feed_layout ) {
 	<?php } ?>
 	<div class="<?php echo implode( ' ', $inner_class ); ?>">
 		<div class="<?php echo implode( ' ', $feed_container_class ); ?>">
-			<div id="pp-instagram-<?php echo $id; ?>" class="pp-instagram-feed-items<?php if ( 'carousel' == $settings->feed_layout ) { ?> swiper-wrapper<?php } ?>">
+			<div id="pp-instagram-<?php echo $id; ?>" class="pp-instagram-feed-items<?php if ( 'carousel' == $settings->feed_layout ) { ?> swiper-wrapper<?php } ?>" data-items="<?php echo count( $items ); ?>">
 				<?php foreach ( $items as $item ) {
 					$caption = ! empty( $item['caption'] ) ? preg_replace( '/\"|\'/', '', $item['caption'] ) : '';
 					$alt = empty( $caption ) ? 'instagram-feed-image' : $caption;
 					?>
 				<div class="<?php echo implode( ' ', $item_class ); ?>">
-					<?php if ( in_array( $settings->feed_layout, array( 'square-grid', 'carousel' ) ) && ! empty( $settings->image_custom_size ) ) { // Inner wrapper start. ?>
-						<div class="pp-feed-item-inner" style="background-image: url(<?php echo $module->get_insta_image_url( $item, $module->get_insta_image_size() ); ?>)">
-					<?php } ?>
-					<?php if ( 'no' !== $settings->image_popup ) { // Anchor wrapper start. ?>
-						<a href="<?php echo ( 'yes' === $settings->image_popup ) ? $module->get_insta_image_url( $item ) : $item['link']; ?>" target="_blank" rel="nofollow noopener">
-					<?php } ?>
-					<div class="pp-overlay-container"><span class="fas fa-search" style="display: none;"></span></div>
-					<?php if ( ! in_array( $settings->feed_layout, array( 'square-grid', 'carousel' ) ) || empty( $settings->image_custom_size ) ) { ?>
+					<div class="pp-feed-item-inner">
+						<?php if ( 'no' !== $settings->image_popup ) { // Anchor wrapper start. ?>
+							<a href="<?php echo ( 'yes' === $settings->image_popup ) ? $module->get_insta_image_url( $item ) : $item['link']; ?>" target="_blank" rel="nofollow noopener">
+						<?php } ?>
+						<div class="pp-overlay-container"><span class="fas fa-search" style="display: none;"></span></div>
 						<img src="<?php echo $module->get_insta_image_url( $item, $module->get_insta_image_size() ); ?>" alt="<?php echo htmlspecialchars( $alt ); ?>" />
-					<?php } ?>
-					<?php if ( 'no' !== $settings->image_popup ) { // Anchor wrapper end. ?>
-						</a>
-					<?php } ?>
-					<?php if ( in_array( $settings->feed_layout, array( 'square-grid', 'carousel' ) ) && ! empty( $settings->image_custom_size ) ) { // Inner wrapper end. ?>
-						</div>
-					<?php } ?>
+						<?php if ( 'no' !== $settings->image_popup ) { // Anchor wrapper end. ?>
+							</a>
+						<?php } ?>
+					</div>
 				</div>
 				<?php } ?>
 			</div>

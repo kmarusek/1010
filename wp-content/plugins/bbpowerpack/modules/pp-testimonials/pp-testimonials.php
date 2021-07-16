@@ -147,6 +147,13 @@ class PPTestimonialsModule extends FLBuilderModule {
 			'box_border'
 		);
 
+		if ( isset( $settings->carousel ) && 1 != $settings->carousel ) {
+			$settings->move_slides = 1;
+			$settings->min_slides = 1;
+
+			unset( $settings->carousel );
+		} 
+
 		return $settings;
 	}
 
@@ -254,6 +261,7 @@ BB_PowerPack::register_module(
 				),
 				'slider'    => array( // Section
 					'title'  => __( 'Slider Settings', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'autoplay'     => array(
 							'type'    => 'pp-switch',
@@ -315,20 +323,6 @@ BB_PowerPack::register_module(
 							'default' => '0.5',
 							'units'   => array( 'seconds' ),
 						),
-						'carousel'     => array(
-							'type'    => 'pp-switch',
-							'label'   => __( 'Carousel', 'bb-powerpack' ),
-							'default' => '0',
-							'options' => array(
-								'1' => __( 'Yes', 'bb-powerpack' ),
-								'0' => __( 'No', 'bb-powerpack' ),
-							),
-							'toggle'  => array(
-								'1' => array(
-									'fields' => array( 'min_slides', 'move_slides', 'max_slides', 'slide_width', 'slide_margin' ),
-								),
-							),
-						),
 						'min_slides'   => array(
 							'type'       => 'unit',
 							'label'      => __( 'Number of Slides', 'bb-powerpack' ),
@@ -337,15 +331,6 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'help'       => __( 'The minimum number of slides to be shown.', 'bb-powerpack' ),
 						),
-						// 'max_slides'         => array(
-						// 'type'          => 'unit',
-						// 'label'         => __('Maximum Slides', 'bb-powerpack'),
-						// 'default'       => '1',
-						// 'units'         => array( 'px' ),
-						// 'slider'     => true,
-						// 'responsive'    => true,
-						// 'help'          => __('The maximum number of slides to be shown.', 'bb-powerpack'),
-						// ),
 						'move_slides'  => array(
 							'type'       => 'unit',
 							'label'      => __( 'Move Slides', 'bb-powerpack' ),
@@ -354,15 +339,6 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'help'       => __( 'The number of slides to move on transition.', 'bb-powerpack' ),
 						),
-						// 'slide_width'         => array(
-						// 'type'          => 'unit',
-						// 'label'         => __('Slides Width', 'bb-powerpack'),
-						// 'default'       => '350',
-						// 'units'         => array( 'px' ),
-						// 'slider'        => true,
-						// 'responsive'    => true,
-						// 'help'          => __('The width of each slide. This setting is required for all horizontal carousels!', 'bb-powerpack'),
-						// ),
 						'slide_margin' => array(
 							'type'       => 'unit',
 							'label'      => __( 'Slides Margin', 'bb-powerpack' ),
@@ -375,7 +351,8 @@ BB_PowerPack::register_module(
 					),
 				),
 				'arrow_nav' => array( // Section
-					'title'  => '',
+					'title'  => __( 'Navigation Arrows', 'bb-powerpack' ),
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'arrows'          => array(
 							'type'    => 'pp-switch',
@@ -452,7 +429,8 @@ BB_PowerPack::register_module(
 					),
 				),
 				'dot_nav'   => array( // Section
-					'title'  => '', // Section Title
+					'title'  => __( 'Navigation Dots', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'dots'             => array(
 							'type'    => 'pp-switch',
@@ -701,6 +679,22 @@ BB_PowerPack::register_module(
 				'heading_fonts'  => array(
 					'title'  => __( 'Heading', 'bb-powerpack' ),
 					'fields' => array( // Section Fields
+						'heading_tag'    => array(
+							'type'          => 'select',
+							'label'         => __('Tag', 'bb-powerpack'),
+							'default'       => 'h2',
+							'options'       => array(
+								'h1'            => 'H1',
+								'h2'            => 'H2',
+								'h3'            => 'H3',
+								'h4'            => 'H4',
+								'h5'            => 'H5',
+								'h6'            => 'H6',
+								'div'			=> 'div',
+								'p'				=> 'p',
+								'span'			=> 'span',
+							)
+						),
 						'heading_typography' => array(
 							'type'       => 'typography',
 							'label'      => __( 'Typography', 'bb-powerpack' ),

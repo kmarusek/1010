@@ -89,6 +89,20 @@ var pp_feed_<?php echo $id; ?>;
 		isBuilderActive: <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
 	});
 
+	<?php if ( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && empty( $settings->image_custom_size ) ) { ?>
+		<?php if ( isset( $settings->aspect_ratio ) && 'yes' !== $settings->aspect_ratio ) { ?>
+			function auto_square_layout() {
+				$('.fl-node-<?php echo $id; ?> .pp-feed-item').each(function() {
+					$(this).find( '.pp-feed-item-inner' ).css( 'height', $(this).outerWidth() + 'px' );
+				});
+			}
+
+			auto_square_layout();
+
+			$(window).on( 'resize', auto_square_layout );
+		<?php } ?>
+	<?php } ?>
+
 	<?php if ( 'carousel' === $settings->feed_layout ) { ?>
 	$(window).on( 'resize', function() {
 		if ( pp_feed_<?php echo $id; ?> && pp_feed_<?php echo $id; ?>._swiper ) {

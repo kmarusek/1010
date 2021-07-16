@@ -4,9 +4,9 @@
 	z-index: 999;
 }
 
-.pp-offcanvas-content-open .pp-advanced-menu .pp-off-canvas-menu {
+/* .pp-offcanvas-content-open .pp-advanced-menu .pp-off-canvas-menu {
 	position: absolute;
-}
+} */
 
 .pp-offcanvas-content-open.pp-offcanvas-content-top.pp-offcanvas-content-reset,
 .pp-offcanvas-content-open.pp-offcanvas-content-bottom.pp-offcanvas-content-reset {

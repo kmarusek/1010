@@ -237,7 +237,8 @@ if ( ! empty( $total_time ) ) {
 							<?php if ( isset( $step->step_link ) && ! empty( $step->step_link ) ) { ?>
 								<a href="<?php echo $step->step_link; ?>"<?php echo $target; ?><?php echo $nofollow; ?>>
 							<?php } ?>
-								<div class="pp-how-to-step-title"><?php echo $step->step_title; ?></div>
+								<?php $step_title_tag = isset( $settings->step_title_tag ) && ! empty( $settings->step_title_tag ) ? $settings->step_title_tag : 'div'; ?>
+								<<?php echo $step_title_tag; ?> class="pp-how-to-step-title"><?php echo $step->step_title; ?></<?php echo $step_title_tag; ?>>
 							<?php if ( isset( $step->step_link ) && ! empty( $step->step_link ) ) { ?>
 								</a>
 							<?php } ?>

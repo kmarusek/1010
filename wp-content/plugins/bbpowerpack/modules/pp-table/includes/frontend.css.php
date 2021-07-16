@@ -63,7 +63,7 @@ FLBuilderCSS::typography_field_rule( array(
 	vertical-align: <?php echo $settings->header_vertical_alignment; ?>;
 }
 
-<?php if( $settings->sortable == 'data-tablesaw-sortable data-tablesaw-sortable-switch' ) { ?>
+<?php if( $settings->is_sortable == 'yes' ) { ?>
 .fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable th.tablesaw-sortable-head button {
 	<?php if( $settings->header_padding_right >= 0 ) { ?>
 		padding-right: <?php echo $settings->header_padding_right; ?>px;

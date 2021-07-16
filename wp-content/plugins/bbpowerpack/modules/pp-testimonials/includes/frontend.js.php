@@ -28,9 +28,7 @@
 	$items = empty( absint( $settings->min_slides ) ) ? 3 : absint( $settings->min_slides );
 	$items_medium = ! isset( $settings->min_slides_medium ) || empty( $settings->min_slides_medium ) ? $items : $settings->min_slides_medium;
 	$items_responsive = ! isset( $settings->min_slides_responsive ) || empty( $settings->min_slides_responsive ) ? $items_medium : $settings->min_slides_responsive;
-	if ( 1 != $settings->carousel ) {
-		$items = $items_medium = $items_responsive = 1;
-	}
+
 	?>
 
 	var setCenterClass = function( e ) {
@@ -79,11 +77,11 @@
 			animateOut: 'fadeOut',
   			animateIn: 'fadeIn',
 		<?php } ?>
-		slideBy: <?php echo ( 1 == $settings->carousel && ! empty( $settings->move_slides ) ) ? $settings->move_slides : 1; ?>,
+		slideBy: <?php echo ! empty( $settings->move_slides ) ? $settings->move_slides : 1; ?>,
 		mouseDrag: <?php echo isset( $settings->disable_mouse_drag ) && 1 == $settings->disable_mouse_drag ? 'false' : 'true'; ?>,
 		responsiveRefreshRate: 200,
 		responsiveBaseWidth: window,
-		margin: <?php echo ( 1 == $settings->carousel && ! empty( $settings->slide_margin ) ) ? $settings->slide_margin : '0'; ?>,
+		margin: <?php echo ! empty( $settings->slide_margin ) ? $settings->slide_margin : '0'; ?>,
 		rtl: $('body').hasClass( 'rtl' ),
 		onInitialized: function(e) {
 			setCenterClass(e);

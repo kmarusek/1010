@@ -301,18 +301,17 @@
     -webkit-animation-duration: <?php echo $settings->animation_exit_duration == 0 ? 0.001 : $settings->animation_exit_duration; ?>s;
     animation-duration: <?php echo $settings->animation_exit_duration == 0 ? 0.001 : $settings->animation_exit_duration; ?>s;
 }
-<?php if( 'none' != $settings->overlay_toggle ) { ?>
-.fl-node-<?php echo $id; ?> .pp-modal-container,
-#modal-<?php echo $id; ?> .pp-modal-container {
+<?php if ( 'none' != $settings->overlay_toggle ) { ?>
+.fl-node-<?php echo $id; ?> .has-overlay-animation .pp-modal-container,
+#modal-<?php echo $id; ?>.has-overlay-animation .pp-modal-container {
 	<?php if ( isset( $settings->overlay_bg_color ) && ! empty( $settings->overlay_bg_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->overlay_bg_color ); ?>;
 	<?php } ?>
 }
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .pp-modal-overlay,
-#modal-<?php echo $id; ?> .pp-modal-overlay {
-	display: none;
+.fl-node-<?php echo $id; ?> .pp-modal-wrap:not(.has-overlay-animation) .pp-modal-overlay,
+#modal-<?php echo $id; ?>:not(.has-overlay-animation) .pp-modal-overlay {
     <?php if ( isset( $settings->overlay_bg_color ) && ! empty( $settings->overlay_bg_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->overlay_bg_color ); ?>;
 	<?php } ?>

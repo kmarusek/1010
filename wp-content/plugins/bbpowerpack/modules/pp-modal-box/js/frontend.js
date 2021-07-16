@@ -63,6 +63,38 @@
             }
 		},
 
+		bindEvents: function()
+		{
+			var self = this;
+
+			// close modal box on Esc key press.
+			$(document).keyup(function(e) {
+                if ( self.settings.esc_exit && 27 == e.which && self.isActive && $('form[data-type="pp-modal-box"]').length === 0 ) {
+					self.eventClose = true;
+                    self.hide();
+                }
+			});
+
+			// close modal box by clicking on outside of modal box element in document.
+			$(document).on('click', function(e) {
+                if ( self.settings.click_exit && $(e.target).parents('.pp-modal').length === 0 && self.isActive && ! self.isPreviewing && ! self.element.is(e.target) && self.element.has(e.target).length === 0 && ! $(e.target).hasClass('modal-' + self.id) && $(e.target).parents('.modal-' + self.id).length === 0 && e.which ) {
+					self.eventClose = true;
+                    self.hide();
+                }
+			});
+			
+			// close modal box by clicking on the close button.
+            $(self.wrap).find('.pp-modal-close').on('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				self.eventClose = true;
+                self.hide();
+			});
+
+			$(window).resize( $.proxy( this.setResponsive, this ) );
+			$(window).resize( $.proxy( this.setPosition, this ) );
+		},
+
 		setPosition: function()
 		{
 			if ( 'fullscreen' !== this.layout ) {
@@ -100,8 +132,10 @@
 			setTimeout( function() {
 				self.element.trigger('beforeload');
 
-				self.wrap.show();
-				
+				$('html').addClass( 'pp-modal-active-' + self.id );
+
+				self.wrap.addClass( 'pp-modal-active' );
+
 				self.container
 					.removeClass( self.settings.animation_load + ' animated' )
 					.addClass( 'modal-visible' )
@@ -226,38 +260,6 @@
             }, self.settings.auto_load ? parseFloat(self.settings.delay) * 1000 : 0);
 		},
 
-		bindEvents: function()
-		{
-			var self = this;
-
-			// close modal box on Esc key press.
-			$(document).keyup(function(e) {
-                if ( self.settings.esc_exit && 27 == e.which && self.isActive && $('form[data-type="pp-modal-box"]').length === 0 ) {
-					self.eventClose = true;
-                    self.hide();
-                }
-			});
-
-			// close modal box by clicking on outside of modal box element in document.
-			$(document).on('click', function(e) {
-                if ( self.settings.click_exit && $(e.target).parents('.pp-modal').length === 0 && self.isActive && ! self.isPreviewing && ! self.element.is(e.target) && self.element.has(e.target).length === 0 && ! $(e.target).hasClass('modal-' + self.id) && $(e.target).parents('.modal-' + self.id).length === 0 && e.which ) {
-					self.eventClose = true;
-                    self.hide();
-                }
-			});
-			
-			// close modal box by clicking on the close button.
-            $(self.wrap).find('.pp-modal-close').on('click', function(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				self.eventClose = true;
-                self.hide();
-			});
-
-			$(window).resize( $.proxy( this.setResponsive, this ) );
-			$(window).resize( $.proxy( this.setPosition, this ) );
-		},
-
 		hide: function()
 		{
 			var self = this;
@@ -294,7 +296,10 @@
 		{
 			this.container.removeClass( this.settings.animation_exit + ' animated' ).removeClass('modal-visible');
 			this.container.find('.pp-modal-content').removeAttr('style');
-			this.wrap.removeAttr('style');
+			this.wrap.removeClass( 'pp-modal-active' );
+
+			$('html').removeClass( 'pp-modal-active-' + this.id );
+
 			this.isActive = false;
 			this.eventClose = false;
 			this.reset();

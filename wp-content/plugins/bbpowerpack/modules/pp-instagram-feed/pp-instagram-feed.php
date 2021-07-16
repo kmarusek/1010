@@ -581,6 +581,9 @@ class PPInstagramFeedModule extends FLBuilderModule {
 
 	public function get_caption( $item, $default = '' ) {
 		$caption = $default;
+		if ( ! isset( $item['caption'] ) ) {
+			return $caption;
+		}
 		if ( ! is_array( $item['caption'] ) && ! empty( $item['caption'] ) ) {
 			$caption = $item['caption'];
 		} elseif ( ! empty( $item['caption']['text'] ) ) {
@@ -835,7 +838,7 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 					'visible_items'		=> array(
 						'type' 				=> 'unit',
 						'label' 			=> __( 'Visible Items', 'bb-powerpack' ),
-						'help'				=> __( 'Leaver blank if you are trying to display full viewport width carousel.', 'bb-powerpack' ),
+						'help'				=> __( 'Leave blank if you are trying to display full viewport width carousel. But make sure you have entered the Custom Height under Layout section.', 'bb-powerpack' ),
 						'default'       	=> '3',
 						'responsive' 		=> true,
 					),

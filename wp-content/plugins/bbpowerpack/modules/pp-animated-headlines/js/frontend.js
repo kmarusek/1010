@@ -65,7 +65,7 @@
 				var rotatingText = this.settings.rotating_text.split('|');
 
 				rotatingText.forEach( function( word, index ) {
-					var dynamicText = $('<span>', { 'class': classes.dynamicText }).html( word.replace( / /g, '&nbsp;' ) );
+					var dynamicText = $('<span>', { 'class': classes.dynamicText, 'data-index': index }).html( word.replace( / /g, '&nbsp;' ) );
 
 					if ( ! index ) {
 						dynamicText.addClass( classes.textActive );

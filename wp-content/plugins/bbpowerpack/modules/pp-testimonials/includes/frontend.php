@@ -1,6 +1,8 @@
 <?php
 $layout = 'slider';
 $testimonials = $settings->testimonials;
+$heading_tag = isset( $settings->heading_tag ) ? $settings->heading_tag : 'h2';
+$is_carousel = absint( $settings->min_slides ) > 1;
 
 if ( isset( $settings->order ) ) {
 	if( 'random' == $settings->order ) {
@@ -36,10 +38,10 @@ if ( isset( $settings->layout ) ) {
 
 <div class="<?php echo $testimonials_class; ?>">
 	<?php if ( '4' == $settings->testimonial_layout ) { ?>
-		<div class="layout-4-container<?php echo ( 'slider' == $layout && 1 == $settings->carousel ) ? ' carousel-enabled' : ''; ?>">
+		<div class="layout-4-container<?php echo ( 'slider' == $layout && $is_carousel ) ? ' carousel-enabled' : ''; ?>">
 	<?php } ?>
 	<?php if ( '' != $settings->heading ) { ?>
-		<h2 class="pp-testimonials-heading"><?php echo $settings->heading; ?></h2>
+		<<?php echo $heading_tag; ?> class="pp-testimonials-heading"><?php echo $settings->heading; ?></<?php echo $heading_tag; ?>>
 	<?php } ?>
 
 	<div class="pp-testimonials">
@@ -50,7 +52,7 @@ if ( isset( $settings->layout ) ) {
 
 		$classes = '';
 		if ( 'slider' == $layout ) {
-			$classes = 1 == $settings->carousel ? ' carousel-enabled' : '';
+			$classes = $is_carousel ? ' carousel-enabled' : '';
 			echo '<div class="owl-carousel owl-theme' . ( 'no' === $settings->adaptive_height ? ' owl-height' : '' ) . '">';
 		} else {
 			$classes = '';

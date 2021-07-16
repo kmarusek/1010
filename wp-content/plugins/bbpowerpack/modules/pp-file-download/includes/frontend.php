@@ -1,25 +1,59 @@
 <?php
-$filename = '';
-$filepath = '';
-if ( isset( $settings->file ) ) {
-	$filepath = $settings->file;
-	$ext      = pathinfo( $filepath, PATHINFO_EXTENSION ); // to get extension
-	$name     = pathinfo( $filepath, PATHINFO_FILENAME ); //file name without extension
-	$filename = $name . '.' . $ext;
+$type = isset( $settings->download_type ) ? $settings->download_type : 'button';
+$filename = 'button' === $type ? $module->get_filename( $settings->file, $settings->file_name ) : '';
+$fileurl  = 'button' === $type ? $settings->file : '';
 
-	if ( isset( $settings->file_name ) && ! empty( $settings->file_name ) ) {
-		$filename = wp_unslash( $settings->file_name );
-	}
-}
-
-FLBuilder::render_module_html( 'pp-smart-button', array(
+$button_args = array(
 	'style'			=> $settings->style,
 	'text'			=> $settings->text,
 	'icon'			=> $settings->icon,
 	'icon_position'	=> $settings->icon_position,
 	'display_icon'	=> $settings->display_icon,
-	'link'			=> $filepath,
-	'download' 		=> $filename,
 	'button_effect'	=> $settings->button_effect,
 	'width'			=> $settings->width,
-), $module );
+	'link'			=> $fileurl,
+	'download' 		=> $filename,
+);
+
+if ( 'dropdown' === $type ) {
+	if ( isset( $settings->files ) && ! empty( $settings->files ) ) {
+		$files = $settings->files;
+		?>
+		<div class="pp-files-wrapper">
+			<div class="pp-files-dropdown">
+				<select class="pp-files">
+				<?php
+				for ( $i = 0; $i < count( $files ); $i++ ) {
+					if ( ! is_object( $files[ $i ] ) ) {
+						continue;
+					}
+
+					$fileurl = $files[ $i ]->file;
+					$filename = $files[ $i ]->file_name;
+					$label = $files[ $i ]->file_label;
+
+					if ( empty( $fileurl ) ) {
+						?>
+						<option value=""><?php echo $label; ?></option>
+						<?php
+					} else {
+						$filename = $module->get_filename( $files[ $i ]->file, $files[ $i ]->file_name );
+						?>
+						<option value="<?php echo $fileurl; ?>" data-filename="<?php echo $filename; ?>"><?php echo $label; ?></option>
+						<?php
+						if ( empty( $button_args['link'] ) ) {
+							$button_args['link'] = $fileurl;
+							$button_args['download'] = $filename;
+						}
+					}
+				}
+				?>
+				</select>
+			</div>
+			<?php FLBuilder::render_module_html( 'pp-smart-button', $button_args, $module ); ?>
+		</div>
+		<?php
+	}
+} else {
+	FLBuilder::render_module_html( 'pp-smart-button', $button_args, $module );
+}

@@ -1,9 +1,21 @@
+<?php
+$layout = $settings->layouts;
+?>
+
 .fl-node-<?php echo $id; ?> .pp-infolist-wrap .pp-list-item {
 	padding-bottom: <?php echo ($settings->list_spacing >= 0) ? $settings->list_spacing.'px' : '25px'; ?>;
 	<?php if ( $settings->connector_type == 'none' ) : ?>
 		margin-bottom: 0;
 	<?php endif; ?>
 }
+
+<?php if ( isset( $settings->icon_position ) && 'with_heading' === $settings->icon_position ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-1 .pp-list-item,
+	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-2 .pp-list-item {
+		align-items: flex-start;
+	}
+<?php } ?>
+
 <?php
 	// List - Spacing
 	FLBuilderCSS::responsive_rule( array(
@@ -173,8 +185,8 @@
 }
 
 <?php
-$number_items = count($settings->list_items);
-for($i=0; $i < $number_items; $i++) :
+$number_items = count( $settings->list_items );
+for ( $i=0; $i < $number_items; $i++ ) :
 	$items = $settings->list_items[$i]; ?>
 
 	.fl-node-<?php echo $id; ?> .pp-list-item-<?php echo $i; ?> .pp-infolist-icon-inner .pp-icon {
@@ -214,6 +226,7 @@ for($i=0; $i < $number_items; $i++) :
 .fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-3 .pp-list-item {
 	width: <?php echo 100 / $number_items; ?>%;
 }
+
 
 @media only screen and (max-width: 768px) {
 	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-3 .pp-list-item {

@@ -160,13 +160,11 @@ BB_PowerPack::register_module('PPAnnouncementBarModule', array(
                         'show_remove'    => true
                     ),
                     'announcement_content'  => array(
-                        'type'      => 'textarea',
+                        'type'      => 'editor',
                         'label'     => __('Content', 'bb-powerpack'),
+						'media_buttons' => false,
+						'rows'    => '3',
                         'connections'   => array( 'string', 'html', 'url' ),
-                        'preview'   => array(
-                            'type'  => 'text',
-                            'selector'  => '.pp-announcement-bar-content p'
-                        ),
                     ),
                     'announcement_link_type'    => array(
                         'type'      => 'pp-switch',

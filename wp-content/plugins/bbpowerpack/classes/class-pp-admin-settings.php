@@ -730,6 +730,14 @@ final class BB_PowerPack_Admin_Settings {
 				self::update_option( 'bb_powerpack_recaptcha_v3_secret_key', trim( $_POST['bb_powerpack_recaptcha_v3_secret_key'] ), false );
 			}
 
+			// hCaptcha.
+			if ( isset( $_POST['bb_powerpack_hcaptcha_site_key'] ) ) {
+				self::update_option( 'bb_powerpack_hcaptcha_site_key', trim( $_POST['bb_powerpack_hcaptcha_site_key'] ), false );
+			}
+			if ( isset( $_POST['bb_powerpack_hcaptcha_secret_key'] ) ) {
+				self::update_option( 'bb_powerpack_hcaptcha_secret_key', trim( $_POST['bb_powerpack_hcaptcha_secret_key'] ), false );
+			}
+
 			if ( isset( $_POST['bb_powerpack_google_places_api_key'] ) ) {
 				self::update_option( 'bb_powerpack_google_places_api_key', trim( $_POST['bb_powerpack_google_places_api_key'] ), false );
 			}

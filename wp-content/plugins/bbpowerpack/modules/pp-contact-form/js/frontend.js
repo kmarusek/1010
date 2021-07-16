@@ -40,6 +40,40 @@
 		}
 	};
 
+	window.onLoadPPHCaptcha = function() {
+		var hCaptchaFields = $('.pp-hcaptcha .h-captcha'),
+			widgetID;
+
+		if (hCaptchaFields.length > 0) {
+			hCaptchaFields.each(function (i) {
+				var self = $(this),
+					frame = $(this).find('iframe'),
+					attrWidget = frame.attr('data-hcaptcha-widget-id'),
+					newID = $(this).attr('id') + '-' + i;
+
+				// Avoid re-rendering as it's throwing API error
+				if ((typeof attrWidget !== typeof undefined && attrWidget !== false)) {
+					return;
+				}
+				else {
+					// Increment ID to avoid conflict with the same form.
+					self.attr('id', newID);
+
+					widgetID = hcaptcha.render(newID, {
+						sitekey: self.data('sitekey'),
+						callback: function (response) {
+							if (response != '') {
+								self.attr('data-pp-hcaptcha-response', response);
+							}
+						}
+					});
+
+					self.attr('data-hcaptcha-widget-id', widgetID);
+				}
+			});
+		}
+	};
+
 	PPContactForm = function( settings )
 	{
 		this.settings	= settings;
@@ -75,6 +109,8 @@
 				checkbox		= $(this.nodeClass + ' .pp-checkbox input'),
 				reCaptchaField 	= $(this.nodeClass + ' .pp-grecaptcha'),
 				reCaptchaValue 	= reCaptchaField.data('pp-grecaptcha-response'),
+				hCaptchaField 	= $(this.nodeClass + ' .h-captcha'),
+				hCaptchaValue 	= hCaptchaField.find('iframe').data('hcaptcha-response'),
 				ajaxData		= null,
 				ajaxurl	  		= bb_powerpack.ajaxurl,
 				email_regex 	= /\S+@\S+\.\S+/,
@@ -174,6 +210,16 @@
 				}
 			}
 
+			// validate if hCaptcha is enabled and checked
+			if (hCaptchaField.length > 0) {
+				if ('undefined' === typeof hCaptchaValue || hCaptchaValue === false) {
+					isValid = false;
+					hCaptchaField.parent().addClass('pp-error');
+				} else {
+					hCaptchaField.parent().removeClass('pp-error');
+				}
+			}
+
 			// end if we're invalid, otherwise go on..
 			if (!isValid) {
 				return false;
@@ -199,6 +245,9 @@
 
 				if (reCaptchaValue) {
 					ajaxData.recaptcha_response = reCaptchaValue;
+				}
+				if (hCaptchaValue) {
+					ajaxData.hcaptcha_response = hCaptchaValue;
 				}
 
 				// post the form data

@@ -28,3 +28,62 @@ FLBuilder::render_module_css( 'pp-smart-button', $id, array(
 	'border_hover_color' 		=> $settings->border_hover_color,
 	'typography' 				=> $settings->typography,
 ) );
+?>
+
+<?php
+// Select Width.
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'custom_width',
+	'selector'     => ".fl-node-$id .pp-files-dropdown select",
+	'prop'         => 'width',
+	'unit'         => $settings->custom_width_unit,
+	'enabled'	   => 'custom' === $settings->width,
+) );
+
+// Select padding.
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'padding',
+		'selector'     => ".fl-node-$id .pp-files-dropdown select",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'padding_top',
+			'padding-right'  => 'padding_right',
+			'padding-bottom' => 'padding_bottom',
+			'padding-left'   => 'padding_left',
+		),
+	)
+);
+
+// Select Align.
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'align',
+	'selector'     => ".fl-node-$id .pp-files-dropdown",
+	'prop'         => 'text-align',
+) );
+
+?>
+
+.fl-node-<?php echo $id; ?> .pp-files-dropdown select {
+	<?php if ( 'full' === $settings->width ) { ?>
+		width: 100%;
+	<?php } ?>
+}
+
+.fl-node-<?php echo $id; ?>.pp-style-inline .pp-files-dropdown select {
+	width: 100%;
+}
+.fl-node-<?php echo $id; ?>.pp-style-inline .pp-button-wrap a.pp-button,
+.fl-node-<?php echo $id; ?>.pp-style-inline .pp-button-wrap a.pp-button:visited {
+	width: auto;
+}
+.fl-node-<?php echo $id; ?>.pp-style-inline .pp-files-wrapper {
+	display: flex;
+}
+.fl-node-<?php echo $id; ?>.pp-style-inline .pp-files-dropdown {
+	flex: 1 1 auto;
+	margin-right: 10px;
+}
