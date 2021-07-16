@@ -27,13 +27,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
 
-class Ai1wm_Import_Plugins {
+class Ai1wm_Import_Options {
 
 	public static function execute( $params, Ai1wm_Database $mysql = null ) {
 		global $wpdb;
 
 		// Set progress
-		Ai1wm_Status::info( __( 'Preparing plugins...', AI1WM_PLUGIN_NAME ) );
+		Ai1wm_Status::info( __( 'Preparing options...', AI1WM_PLUGIN_NAME ) );
 
 		// Get database client
 		if ( is_null( $mysql ) ) {
@@ -57,7 +57,7 @@ class Ai1wm_Import_Plugins {
 
 			// Get fs_accounts option value (Freemius)
 			$result = $mysql->query( "SELECT meta_value FROM `{$mainsite_prefix}sitemeta` WHERE meta_key = 'fs_accounts'" );
-			if ( $row = $mysql->fetch_assoc( $result ) ) {
+			if ( ( $row = $mysql->fetch_assoc( $result ) ) ) {
 				$fs_accounts = get_option( 'fs_accounts', array() );
 				$meta_value  = maybe_unserialize( $row['meta_value'] );
 
@@ -78,7 +78,7 @@ class Ai1wm_Import_Plugins {
 		}
 
 		// Set progress
-		Ai1wm_Status::info( __( 'Done preparing plugins.', AI1WM_PLUGIN_NAME ) );
+		Ai1wm_Status::info( __( 'Done preparing options.', AI1WM_PLUGIN_NAME ) );
 
 		return $params;
 	}

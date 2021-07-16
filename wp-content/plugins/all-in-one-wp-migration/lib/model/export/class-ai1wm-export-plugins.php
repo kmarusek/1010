@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
 
-class Ai1wm_Export_Content {
+class Ai1wm_Export_Plugins {
 
 	public static function execute( $params ) {
 
@@ -45,11 +45,11 @@ class Ai1wm_Export_Content {
 			$file_bytes_offset = 0;
 		}
 
-		// Set content bytes offset
-		if ( isset( $params['content_bytes_offset'] ) ) {
-			$content_bytes_offset = (int) $params['content_bytes_offset'];
+		// Set plugins bytes offset
+		if ( isset( $params['plugins_bytes_offset'] ) ) {
+			$plugins_bytes_offset = (int) $params['plugins_bytes_offset'];
 		} else {
-			$content_bytes_offset = 0;
+			$plugins_bytes_offset = 0;
 		}
 
 		// Get processed files size
@@ -59,25 +59,25 @@ class Ai1wm_Export_Content {
 			$processed_files_size = 0;
 		}
 
-		// Get total content files size
-		if ( isset( $params['total_content_files_size'] ) ) {
-			$total_content_files_size = (int) $params['total_content_files_size'];
+		// Get total plugins files size
+		if ( isset( $params['total_plugins_files_size'] ) ) {
+			$total_plugins_files_size = (int) $params['total_plugins_files_size'];
 		} else {
-			$total_content_files_size = 1;
+			$total_plugins_files_size = 1;
 		}
 
-		// Get total content files count
-		if ( isset( $params['total_content_files_count'] ) ) {
-			$total_content_files_count = (int) $params['total_content_files_count'];
+		// Get total plugins files count
+		if ( isset( $params['total_plugins_files_count'] ) ) {
+			$total_plugins_files_count = (int) $params['total_plugins_files_count'];
 		} else {
-			$total_content_files_count = 1;
+			$total_plugins_files_count = 1;
 		}
 
 		// What percent of files have we processed?
-		$progress = (int) min( ( $processed_files_size / $total_content_files_size ) * 100, 100 );
+		$progress = (int) min( ( $processed_files_size / $total_plugins_files_size ) * 100, 100 );
 
 		// Set progress
-		Ai1wm_Status::info( sprintf( __( 'Archiving %d content files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_content_files_count, $progress ) );
+		Ai1wm_Status::info( sprintf( __( 'Archiving %d plugin files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_plugins_files_count, $progress ) );
 
 		// Flag to hold if file data has been processed
 		$completed = true;
@@ -85,11 +85,11 @@ class Ai1wm_Export_Content {
 		// Start time
 		$start = microtime( true );
 
-		// Get content list file
-		$content_list = ai1wm_open( ai1wm_content_list_path( $params ), 'r' );
+		// Get plugins list file
+		$plugins_list = ai1wm_open( ai1wm_plugins_list_path( $params ), 'r' );
 
 		// Set the file pointer at the current index
-		if ( fseek( $content_list, $content_bytes_offset ) !== -1 ) {
+		if ( fseek( $plugins_list, $plugins_bytes_offset ) !== -1 ) {
 
 			// Open the archive file for writing
 			$archive = new Ai1wm_Compressor( ai1wm_archive_path( $params ) );
@@ -98,25 +98,25 @@ class Ai1wm_Export_Content {
 			$archive->set_file_pointer( $archive_bytes_offset );
 
 			// Loop over files
-			while ( $file_path = trim( fgets( $content_list ) ) ) {
+			while ( $file_path = trim( fgets( $plugins_list ) ) ) {
 				$file_bytes_written = 0;
 
 				// Add file to archive
-				if ( ( $completed = $archive->add_file( WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $file_path, $file_path, $file_bytes_written, $file_bytes_offset ) ) ) {
+				if ( ( $completed = $archive->add_file( ai1wm_get_plugins_dir() . DIRECTORY_SEPARATOR . $file_path, 'plugins' . DIRECTORY_SEPARATOR . $file_path, $file_bytes_written, $file_bytes_offset ) ) ) {
 					$file_bytes_offset = 0;
 
-					// Get content bytes offset
-					$content_bytes_offset = ftell( $content_list );
+					// Get plugins bytes offset
+					$plugins_bytes_offset = ftell( $plugins_list );
 				}
 
 				// Increment processed files size
 				$processed_files_size += $file_bytes_written;
 
 				// What percent of files have we processed?
-				$progress = (int) min( ( $processed_files_size / $total_content_files_size ) * 100, 100 );
+				$progress = (int) min( ( $processed_files_size / $total_plugins_files_size ) * 100, 100 );
 
 				// Set progress
-				Ai1wm_Status::info( sprintf( __( 'Archiving %d content files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_content_files_count, $progress ) );
+				Ai1wm_Status::info( sprintf( __( 'Archiving %d plugin files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_plugins_files_count, $progress ) );
 
 				// More than 10 seconds have passed, break and do another request
 				if ( ( $timeout = apply_filters( 'ai1wm_completed_timeout', 10 ) ) ) {
@@ -137,8 +137,8 @@ class Ai1wm_Export_Content {
 			$archive->close();
 		}
 
-		// End of the content list?
-		if ( feof( $content_list ) ) {
+		// End of the plugins list?
+		if ( feof( $plugins_list ) ) {
 
 			// Unset archive bytes offset
 			unset( $params['archive_bytes_offset'] );
@@ -146,17 +146,17 @@ class Ai1wm_Export_Content {
 			// Unset file bytes offset
 			unset( $params['file_bytes_offset'] );
 
-			// Unset content bytes offset
-			unset( $params['content_bytes_offset'] );
+			// Unset plugins bytes offset
+			unset( $params['plugins_bytes_offset'] );
 
 			// Unset processed files size
 			unset( $params['processed_files_size'] );
 
-			// Unset total content files size
-			unset( $params['total_content_files_size'] );
+			// Unset total plugins files size
+			unset( $params['total_plugins_files_size'] );
 
-			// Unset total content files count
-			unset( $params['total_content_files_count'] );
+			// Unset total plugins files count
+			unset( $params['total_plugins_files_count'] );
 
 			// Unset completed flag
 			unset( $params['completed'] );
@@ -169,24 +169,24 @@ class Ai1wm_Export_Content {
 			// Set file bytes offset
 			$params['file_bytes_offset'] = $file_bytes_offset;
 
-			// Set content bytes offset
-			$params['content_bytes_offset'] = $content_bytes_offset;
+			// Set plugins bytes offset
+			$params['plugins_bytes_offset'] = $plugins_bytes_offset;
 
 			// Set processed files size
 			$params['processed_files_size'] = $processed_files_size;
 
-			// Set total content files size
-			$params['total_content_files_size'] = $total_content_files_size;
+			// Set total plugins files size
+			$params['total_plugins_files_size'] = $total_plugins_files_size;
 
-			// Set total content files count
-			$params['total_content_files_count'] = $total_content_files_count;
+			// Set total plugins files count
+			$params['total_plugins_files_count'] = $total_plugins_files_count;
 
 			// Set completed flag
 			$params['completed'] = $completed;
 		}
 
-		// Close the content list file
-		ai1wm_close( $content_list );
+		// Close the plugins list file
+		ai1wm_close( $plugins_list );
 
 		return $params;
 	}
