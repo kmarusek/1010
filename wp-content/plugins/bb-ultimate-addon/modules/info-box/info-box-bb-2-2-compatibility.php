@@ -21,7 +21,7 @@ FLBuilder::register_module(
 							'type'    => 'select',
 							'label'   => __( 'Preset', 'uabb' ),
 							'default' => 'none',
-							'help'    => __( 'Please save the module content before changing presets otherwise contnent will overriten to default content', 'uabb' ),
+							'help'    => __( 'Before changing presets, save the content you added to the module. Otherwise, your content will be overwritten with the default one.', 'uabb' ),
 							'class'   => 'uabb-preset-select',
 							'options' => array(
 								'none'     => __( 'Default', 'uabb' ),

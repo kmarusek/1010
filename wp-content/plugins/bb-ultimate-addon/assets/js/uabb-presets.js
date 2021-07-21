@@ -5,6 +5,8 @@
         window.uabbPresets = window.uabbPresets || {};
         var form = $('.fl-builder-settings-lightbox .fl-builder-settings'),
             nodeId = form.attr('data-node'),
+            parentId = form.closest( '.fl-col' ).attr( 'data-node' ),
+            global 	 = form.closest( '.fl-block-overlay-global' ).length > 0
             current_module = form.data('type');
         preset_field = form.find('select.uabb-preset-select').val();
 
@@ -55,6 +57,12 @@
                             });
 
                             FLBuilder._lightbox.close();
+                            FLBuilder._showModuleSettings( {
+                                type     : current_module,
+                                nodeId   : nodeId,
+                                parentId : parentId,
+                                global   : global
+                            } );
                         }
                     } else if ('none' === preset) {
                         var defaultSettings = {},
@@ -94,6 +102,12 @@
                             settings: defaultSettings
                         });
                         FLBuilder._lightbox.close();
+                        FLBuilder._showModuleSettings( {
+                            type     : current_module,
+                            nodeId   : nodeId,
+                            parentId : parentId,
+                            global   : global
+                        } );
                     }
                 }
             });

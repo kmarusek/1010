@@ -1,3 +1,9 @@
+Version 1.31.3, Wednesday, 21st July 2021
+- Improvement: Keep the settings lightbox open after applying Preset to improve UX.
+- Improvement: Info List - Added aria-label attribute to link.
+- Improvement: Interactive Banner 2 - Added aria-label attribute to link.
+- Fixed: Woo-Mini Cart - Cart Content is not clickable when Cart Style is Modal and Off-Canvas.
+
 Version 1.31.2, Tuesday, 13th July 2021
 - Fixed: Advanced Testimonials - Fatal error with PHP v8 when Image/Icon Size is empty.
 - Fixed: Social Share - PHP notice when Social Share Type is Pinterest and no image is set.

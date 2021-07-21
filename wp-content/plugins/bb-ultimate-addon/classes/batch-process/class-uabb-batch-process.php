@@ -88,7 +88,7 @@ if ( ! class_exists( 'UABB_Batch_Process' ) ) :
 
 			add_action( 'wp_ajax_uabb_update_hotlink_images', array( $this, 'update_hotlink_images' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'batch_process_scripts' ) );
-			add_action( 'admin_notices', array( $this, 'register_notices' ) );
+			add_action( 'admin_init', array( $this, 'register_notices' ) );
 			add_action( 'uabb_import_complete', array( $this, 'complete_batch_import' ) );
 			add_filter( 'upload_mimes', array( $this, 'custom_upload_mimes' ) );
 			add_filter( 'wp_prepare_attachment_for_js', array( $this, 'add_svg_image_support' ), 10, 3 );

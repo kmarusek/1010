@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.31.2\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.31.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2021-07-13 08:04:12+00:00\n"
+"POT-Creation-Date: 2021-07-21 07:00:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n1.0.2\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: modules/advanced-tabs/advanced-tabs-bb-2-2-compatibility.php:241
 #: modules/advanced-tabs/advanced-tabs-bb-less-than-2-2-compatibility.php:168
@@ -11549,10 +11549,18 @@ msgid "Preset"
 msgstr ""
 
 #: modules/advanced-accordion/advanced-accordion-bb-2-2-compatibility.php:23
+#: modules/advanced-tabs/advanced-tabs-bb-2-2-compatibility.php:23
+#: modules/dual-button/dual-button-bb-2-2-compatibility.php:23
+#: modules/dual-color-heading/dual-color-heading-bb-2-2-compatibility.php:23
 #: modules/info-box/info-box-bb-2-2-compatibility.php:24
+#: modules/team/team-bb-2-2-compatibility.php:23
+#: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:23
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:23
+#: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:23
+#: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:23
 msgid ""
-"Please save the module content before changing presets otherwise contnent "
-"will overriten to default content"
+"Before changing presets, save the content you added to the module. "
+"Otherwise, your content will be overwritten with the default one."
 msgstr ""
 
 #: modules/advanced-accordion/advanced-accordion-bb-2-2-compatibility.php:28
@@ -13831,6 +13839,8 @@ msgid "Display a group of Image / Icons."
 msgstr ""
 
 #: modules/advanced-icon/includes/frontend.php:22
+#: modules/info-list/info-list.php:504 modules/info-list/info-list.php:511
+#: modules/info-list/info-list.php:526
 msgid "Go to"
 msgstr ""
 
@@ -14411,19 +14421,6 @@ msgstr ""
 #: modules/advanced-tabs/advanced-tabs-bb-2-2-compatibility.php:15
 #: modules/advanced-tabs/advanced-tabs-bb-less-than-2-2-compatibility.php:14
 msgid "Tab Items"
-msgstr ""
-
-#: modules/advanced-tabs/advanced-tabs-bb-2-2-compatibility.php:23
-#: modules/dual-button/dual-button-bb-2-2-compatibility.php:23
-#: modules/dual-color-heading/dual-color-heading-bb-2-2-compatibility.php:23
-#: modules/team/team-bb-2-2-compatibility.php:23
-#: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:23
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:23
-#: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:23
-#: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:23
-msgid ""
-"Default option will reset styles Please save the module content before "
-"changing presets otherwise contnent will overriten to default content"
 msgstr ""
 
 #: modules/advanced-tabs/advanced-tabs-bb-2-2-compatibility.php:53
@@ -22147,6 +22144,10 @@ msgstr ""
 #: modules/interactive-banner-1/interactive-banner-1.php:31
 #: modules/interactive-banner-1/interactive-banner-1.php:32
 msgid "Interactive Banner 1"
+msgstr ""
+
+#: modules/interactive-banner-2/includes/frontend.php:49
+msgid "Go to "
 msgstr ""
 
 #: modules/interactive-banner-2/interactive-banner-2-bb-2-2-compatibility.php:18
