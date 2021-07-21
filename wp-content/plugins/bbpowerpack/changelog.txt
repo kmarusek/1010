@@ -1,5 +1,14 @@
+== 2.17.1 ==
+Release date: July 20, 2021
+* Enhancement: Image Hotspot - Added an option to close tooltip by clicking anywhere
+* Fix: Instagram Feed - Width of the swiper container was getting overridden by JetPack's CSS
+* Fix: Image Carousel - Width of the swiper container was getting overridden by JetPack's CSS
+* Fix: Video Gallery - Width of the swiper container was getting overridden by JetPack's CSS
+* Fix: Login Form - Full name was getting registered in the first name field for Google login
+* Fix: File Download - File field required issue when using multiple type
+
 == 2.17.0 ==
-Release date: July 14th, 2021
+Release date: July 14, 2021
 * Enhancement: Contact Form - Added hCaptcha integration
 * Enhancement: File Download - Added an option to choose a single source of the file or a dropdown with multiple files
 * Enhancement: Animated Headline - Added data-index attribute to rotating text for custom style

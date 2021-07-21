@@ -1,12 +1,6 @@
 (function($){
 	FLBuilder.registerModuleHelper('pp-file-download', {
 
-		rules: {
-			file: {
-				required: true
-			}
-		},
-
 		init: function () {
 
 			$('input[name=bg_color]').on('change', this._bgColorChange);

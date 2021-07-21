@@ -7,7 +7,9 @@
 	background: #ef4f4f;
     color: #fff;
 }
-
+.pp-tooltip-close {
+	cursor: pointer;
+}
 .tooltipster-sidetip .tooltipster-arrow {
     overflow: visible;
 }

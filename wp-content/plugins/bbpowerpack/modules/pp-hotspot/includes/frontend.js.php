@@ -26,6 +26,7 @@
 			tooltipEnable:		'<?php echo $settings->tooltip; ?>',
 			enableCloseIcon:    '<?php echo $settings->enable_close_icon; ?>',
 			escToClose:         '<?php echo $settings->esc_to_close; ?>',
+			clickToClose:       '<?php echo isset( $settings->click_to_close ) ? $settings->click_to_close : 'no'; ?>',
 			tooltipPosition:	'<?php echo $settings->tooltip_position; ?>',
 			tooltipTrigger:		'<?php echo $settings->tooltip_trigger; ?>',
 			tooltipDistance:	'<?php echo $settings->tooltip_distance; ?>',

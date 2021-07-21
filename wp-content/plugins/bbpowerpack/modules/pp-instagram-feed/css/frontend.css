@@ -2,6 +2,10 @@
 	position: relative;
 }
 
+.pp-instagram-feed .swiper-container {
+    width: 100%;
+}
+
 .pp-instagram-feed .swiper-button-prev,
 .pp-instagram-feed .swiper-button-next {
 	background: none;

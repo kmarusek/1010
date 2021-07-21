@@ -446,9 +446,19 @@ class PPLoginFormModule extends FLBuilderModule {
 			wp_send_json_error( $err_unauth_access );
 		}
 
+		$first_name = $name;
+		$last_name = '';
+
+		if ( ! empty( $name ) ) {
+			$name_array = explode( ' ', $name );
+			$first_name = $name_array[0];
+			$last_name = isset( $name_array[1] ) ? $name_array[1] : $last_name;
+		}
+
 		$this->do_social_login( array(
 			'email' 		=> $email,
-			'first_name' 	=> $name,
+			'first_name' 	=> $first_name,
+			'last_name' 	=> $last_name,
 			'provider' 		=> 'google',
 		) );
 	}
