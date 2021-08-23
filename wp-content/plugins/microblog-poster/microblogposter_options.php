@@ -6,7 +6,7 @@ add_action('admin_menu', 'microblogposter_settings');
 function microblogposter_admin_init()
 {
     /* Register our script. */
-    wp_register_script( 'microblogposter-fancybox-js-script', plugins_url('/fancybox/jquery.fancybox-1.3.4.pack.js', __FILE__) );
+    wp_register_script( 'microblogposter-fancybox-js-script', plugins_url('/fancybox/jquery.fancybox-1.3.4.js', __FILE__) );
     wp_register_style( 'microblogposter-fancybox-css-script', plugins_url('/fancybox/jquery.fancybox-1.3.4.css', __FILE__) );
     wp_register_style( 'microblogposter-css-script', plugins_url('/css/microblogposter.css', __FILE__) );
 }
@@ -3297,7 +3297,7 @@ function microblogposter_settings_output()
     <script>
         jQuery(document).ready(function($) {
             // $() will work as an alias for jQuery() inside of this function
-            $(".new-account").live("click", function(){
+            $(document).on("click", ".new-account", function(){
                 $.fancybox({
                     'content'       : $('#new_account').html(),
                     'transitionIn'	: 'none',
@@ -3336,11 +3336,11 @@ function microblogposter_settings_output()
                 
             });
             
-            $(".cancel-account").live("click", function(){
+            $(document).on("click", ".cancel-account", function(){
                 $.fancybox.close();
             });
             
-            $(".save-account").live("click", function(){
+            $(document).on("click", ".save-account", function(){
                 
                 $('div#fancybox-content #new_account_form').submit();
                 $.fancybox.close();
@@ -3349,7 +3349,7 @@ function microblogposter_settings_output()
             
             
             
-            $("#account_type").live("change", function(){
+            $(document).on("change", "#account_type", function(){
                 var type = $(this).val();
                 //console.log(type);
                 $('div#fancybox-content #twitter-div,div#fancybox-content #plurk-div,div#fancybox-content #friendfeed-div,div#fancybox-content #delicious-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div,div#fancybox-content #googlemybusiness-div').hide().find('input,select,textarea').attr('disabled','disabled');
@@ -3418,7 +3418,7 @@ function microblogposter_settings_output()
             
             
             
-            $("#mbp_facebook_target_type").live("change", function(){
+            $(document).on("change", "#mbp_facebook_target_type", function(){
                 var target_type = $(this).val();
                 
                 <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
@@ -3464,7 +3464,7 @@ function microblogposter_settings_output()
                 
             });
             
-            $("#mbp_linkedin_target_type").live("change", function(){
+            $(document).on("change", "#mbp_linkedin_target_type", function(){
                 var target_type = $(this).val();
                 
                 <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
@@ -3501,7 +3501,7 @@ function microblogposter_settings_output()
                 
             });
             
-            $(".post_type_tmb_class").live("change", function(){
+            $(document).on("change", ".post_type_tmb_class", function(){
                 var target_type = $(this).val();
                 
                 <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
@@ -3523,7 +3523,7 @@ function microblogposter_settings_output()
                 
                 
             });
-            $(".post_type_tmb_class1").live("change", function(){
+            $(document).on("change", ".post_type_tmb_class1", function(){
                 var target_type = $(this).val();
                 
                 if(target_type == 'link')
@@ -3537,7 +3537,7 @@ function microblogposter_settings_output()
                 }
             });
             
-            $("#mbp_vkontakte_target_type").live("change", function(){
+            $(document).on("change", "#mbp_vkontakte_target_type", function(){
                 var target_type = $(this).val();
                 
                 <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
@@ -3587,7 +3587,7 @@ function microblogposter_settings_output()
                 
             });
             
-            $("#mbp_buffer_name").live("change", function(){
+            $(document).on("change", "#mbp_buffer_name", function(){
                 var buffer_id = $(this).val();
                 
                 if(buffer_id)
@@ -3608,7 +3608,7 @@ function microblogposter_settings_output()
             });
             
             <?php foreach($update_accounts as $account_id):?>
-                $(".edit<?php echo $account_id;?>").live("click", function(){
+                $(document).on("click", ".edit<?php echo $account_id;?>", function(){
                     $.fancybox({
                         'content'       : $('#update_account<?php echo $account_id;?>').html(),
                         'transitionIn'	: 'none',
@@ -3629,14 +3629,14 @@ function microblogposter_settings_output()
                         }
                     });
                 });
-                $(".save-account<?php echo $account_id;?>").live("click", function(){
+                $(document).on("click", ".save-account<?php echo $account_id;?>", function(){
 
                     $('div#fancybox-content #update_account_form<?php echo $account_id;?>').submit();
                     $.fancybox.close();
                     
                 });
                 
-                $(".del<?php echo $account_id;?>").live("click", function(){
+                $(document).on("click", ".del<?php echo $account_id;?>", function(){
                     $.fancybox({
                         'content'       : $('#delete_account<?php echo $account_id;?>').html(),
                         'transitionIn'	: 'none',
@@ -3648,7 +3648,7 @@ function microblogposter_settings_output()
                         'titleShow'	: false
                     });
                 });
-                $(".del-account<?php echo $account_id;?>").live("click", function(){
+                $(document).on("click", ".del-account<?php echo $account_id;?>", function(){
 
                     $('div#fancybox-content #delete_account_form<?php echo $account_id;?>').submit();
                     $.fancybox.close();
@@ -3656,7 +3656,7 @@ function microblogposter_settings_output()
             <?php endforeach;?>
             
             <?php foreach($configure_accounts as $account_id):?>
-                $(".configure<?php echo $account_id;?>").live("click", function(){
+                $(document).on("click", ".configure<?php echo $account_id;?>", function(){
                     $.fancybox({
                         'content'       : $('#configure_account<?php echo $account_id;?>').html(),
                         'transitionIn'	: 'none',
@@ -3671,13 +3671,13 @@ function microblogposter_settings_output()
                         }
                     });
                 });
-                $(".configure-account<?php echo $account_id;?>").live("click", function(){
+                $(document).on("click", ".configure-account<?php echo $account_id;?>", function(){
 
                     $('div#fancybox-content #configure_account_form<?php echo $account_id;?>').submit();
                     $.fancybox.close();
                     
                 });
-                $("#gmb_account_name_<?php echo $account_id;?>").live("change", function(){
+                $(document).on("change", "#gmb_account_name_<?php echo $account_id;?>", function(){
                     var gmb_account_id = $(this).val();
 
                     if(gmb_account_id)
@@ -3757,7 +3757,7 @@ function microblogposter_settings_output()
                 <?php endif;?>
             <?php endif;?>
             
-            $("#mbp-general-tab").live("click", function(){
+            $(document).on("click", "#mbp-general-tab", function(){
                 $('#mbp-social-networks-accounts').hide();
                 $('#mbp-logs-wrapper').hide();
                 $('#mbp-manual-post-wrapper').hide();
@@ -3770,7 +3770,7 @@ function microblogposter_settings_output()
                 $("#mbp-manual-post-tab").removeClass('mbp-selected-tab').addClass('mbp-tab-background');
                 $("#mbp-general-tab").addClass('mbp-selected-tab').removeClass('mbp-tab-background');
             });
-            $("#mbp-accounts-tab").live("click", function(){
+            $(document).on("click", "#mbp-accounts-tab", function(){
                 $('#mbp-logs-wrapper').hide();
                 $('#mbp-manual-post-wrapper').hide();
                 $('#mbp-general-section').hide();
@@ -3783,7 +3783,7 @@ function microblogposter_settings_output()
                 $("#mbp-old-posts-publish-tab").removeClass('mbp-selected-tab').addClass('mbp-tab-background');
                 $("#mbp-accounts-tab").addClass('mbp-selected-tab').removeClass('mbp-tab-background');
             });
-            $("#mbp-old-posts-publish-tab").live("click", function(){
+            $(document).on("click", "#mbp-old-posts-publish-tab", function(){
                 $('#mbp-logs-wrapper').hide();
                 $('#mbp-manual-post-wrapper').hide();
                 $('#mbp-general-section').hide();
@@ -3796,7 +3796,7 @@ function microblogposter_settings_output()
                 $("#mbp-accounts-tab").removeClass('mbp-selected-tab').addClass('mbp-tab-background');
                 $("#mbp-old-posts-publish-tab").addClass('mbp-selected-tab').removeClass('mbp-tab-background');
             });
-            $("#mbp-manual-post-tab").live("click", function(){
+            $(document).on("click", "#mbp-manual-post-tab", function(){
                 $('#mbp-logs-wrapper').hide();
                 $('#mbp-general-section').hide();
                 $('#mbp-social-networks-accounts').hide();
@@ -3809,7 +3809,7 @@ function microblogposter_settings_output()
                 $("#mbp-old-posts-publish-tab").removeClass('mbp-selected-tab').addClass('mbp-tab-background');
                 $("#mbp-manual-post-tab").addClass('mbp-selected-tab').removeClass('mbp-tab-background');
             });
-            $("#mbp-logs-tab").live("click", function(){
+            $(document).on("click", "#mbp-logs-tab", function(){
                 $('#mbp-social-networks-accounts').hide();
                 $('#mbp-general-section').hide();
                 $('#mbp-manual-post-wrapper').hide();
@@ -3828,7 +3828,7 @@ function microblogposter_settings_output()
                 $('#microblogposter_default_pbehavior_update').attr('disabled','disabled');
             <?php endif;?>
                 
-            $("#microblogposter_page_mode").live("click", function(){
+            $(document).on("click", "#microblogposter_page_mode", function(){
                 if($(this).is(':checked'))
                 {
                     $('#microblogposter_default_pbehavior').removeAttr('disabled');

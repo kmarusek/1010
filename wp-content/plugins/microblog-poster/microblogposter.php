@@ -4,7 +4,7 @@
  * Plugin Name: Microblog Poster
  * Plugin URI: https://efficientscripts.com/web/products/free
  * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger, Xing..
- * Version: 1.9.5.7
+ * Version: 1.9.5.8
  * Author: Efficient Scripts
  * Author URI: https://efficientscripts.com/
  * Text Domain: microblog-poster
