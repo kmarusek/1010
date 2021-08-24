@@ -386,7 +386,7 @@ function beaver_warrior_bb_cache_buster() {
 }
 
 // Only run if we have a query string to check
-if ( $_SERVER['QUERY_STRING'] ){
+if ( $_SERVER['QUERY_STRING'] ?? '' ){
     $clear_cache_sentinal = false;
     $clear_cache_index    = 0;
     while ( !$clear_cache_sentinal && $clear_cache_index < count(BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS) ){
@@ -539,7 +539,7 @@ function beaver_warrior_add_sentry_io(){
         'sentry_data',
         array(
             'url'         => get_site_url(),
-            'environment' => isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ? $_ENV['PANTHEON_ENVIRONMENT'] : isset($_ENV['SERVER_NAME'] ) ? $_ENV['SERVER_NAME'] : ''
+            'environment' => $_ENV['PANTHEON_ENVIRONMENT'] ?? $_ENV['SERVER_NAME'] ?? ''
         )
     );
     wp_enqueue_script( 'sentry-io' );
