@@ -1489,12 +1489,9 @@ function microblogposter_settings_output()
                     }
                     elseif($account_details['target_type'] == 'group')
                     {
-                        if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro_Options','get_facebook_group_access_token'))
-                        {
-                            $fb_group_access_token = MicroblogPoster_Poster_Pro_Options::get_facebook_group_access_token($curl, $account_details['user_id'], $params['access_token'], $app_access_token);
-                            $account_details['access_token'] = $fb_group_access_token['access_token'];
-                            $account_details['expires'] = $fb_group_access_token['expires'];
-                        } 
+                        $fb_group_access_token = MicroblogPoster_Poster::get_facebook_group_access_token($curl, $account_details['user_id'], $params['access_token'], $app_access_token);
+                        $account_details['access_token'] = $fb_group_access_token['access_token'];
+                        $account_details['expires'] = $fb_group_access_token['expires'];
                     }
                     else
                     {
@@ -1931,7 +1928,7 @@ function microblogposter_settings_output()
             $tumblr_c_key = $row->consumer_key;
             $tumblr_c_secret = $row->consumer_secret;
             $tumblr_consumer = new MicroblogPosterOAuthConsumer($tumblr_c_key, $tumblr_c_secret, null);
-            $tumblr_req_token_url = 'http://www.tumblr.com/oauth/request_token';
+            $tumblr_req_token_url = 'https://www.tumblr.com/oauth/request_token';
             $params = array('oauth_callback'=>$redirect_uri.'&microblogposter_access_tumblr=tumblr_microblogposter_'.$tumblr_account_id);
             $tumblr_sig_method = new MicroblogPosterOAuthSignatureMethod_HMAC_SHA1();
             $tumblr_req_token_step = MicroblogPosterOAuthRequest::from_consumer_and_token($tumblr_consumer, null, "GET", $tumblr_req_token_url, $params);
@@ -1967,7 +1964,7 @@ function microblogposter_settings_output()
             );
             
             $authorize_url_name = 'authorize_url_'.$tumblr_account_id;
-            $$authorize_url_name = 'http://www.tumblr.com/oauth/authorize'.'?oauth_token='.$params['oauth_token'].
+            $$authorize_url_name = 'https://www.tumblr.com/oauth/authorize'.'?oauth_token='.$params['oauth_token'].
                     '&oauth_callback='.urlencode($redirect_uri).'&microblogposter_access_tumblr=tumblr_microblogposter_'.$tumblr_account_id;
             
             $mbp_accounts_tab_selected = true;
@@ -1991,7 +1988,7 @@ function microblogposter_settings_output()
             $tumblr_at_secret = $row->access_token_secret;
             $tumblr_consumer = new MicroblogPosterOAuthConsumer($tumblr_c_key, $tumblr_c_secret, null);
             $tumblr_token = new MicroblogPosterOAuthToken($tumblr_at_key, $tumblr_at_secret, null);
-            $tumblr_acc_token_url = 'http://www.tumblr.com/oauth/access_token';
+            $tumblr_acc_token_url = 'https://www.tumblr.com/oauth/access_token';
             $params = array('oauth_verifier'=>trim($_GET['oauth_verifier']));
             $tumblr_sig_method = new MicroblogPosterOAuthSignatureMethod_HMAC_SHA1();
             $tumblr_acc_token_step = MicroblogPosterOAuthRequest::from_consumer_and_token($tumblr_consumer, $tumblr_token, "GET", $tumblr_acc_token_url, $params);

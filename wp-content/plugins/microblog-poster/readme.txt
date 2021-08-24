@@ -3,7 +3,7 @@ Contributors: cybperic
 Tags: microblogging, bookmarking, bookmarks, auto posts, auto publish, social signals, cross-post, cross post, auto submit, auto update, social networks, social media, twitter, facebook, linkedin, tumblr, delicious, diigo, plurk, blogger, automatic, automation, links, backlinks, auto updates status, social media auto publish, social network auto publish, publish to twitter, publish to facebook
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 1.9.5.8
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,9 @@ see "posted by MicroblogPoster" in your updates, you'll see "posted by your own 
 11. MicroblogPoster Options page, Logs Section. (Part 2)
 
 == Changelog ==
+
+= 2.0.1 (24-08-2021) =
+- Bringing pro features to free version
 
 = 1.9.5.8 (20-08-2021) =
 - Fixing fancybox javascript bug.
