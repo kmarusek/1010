@@ -404,13 +404,13 @@ if ( $settings->menu_layout == 'expanded' && $settings->alignment == 'center' ) 
 <?php }
 
 ?>
-/*
+
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle {
-	<?php if ( isset( $settings->menu_link_padding_right ) ) { ?>
-	right: <?php echo ( $settings->menu_link_padding_right == 0 ) ? '10' : $settings->menu_link_padding_right; ?>px;
+	<?php if ( isset( $settings->submenu_arrow_pos ) && '' !== $settings->submenu_arrow_pos ) { ?>
+	right: <?php echo $settings->submenu_arrow_pos; ?>px;
 	<?php } ?>
 }
-*/
+
 <?php
 
 /**

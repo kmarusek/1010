@@ -1,16 +1,19 @@
-/**
- * This file should contain frontend styles that
- * will be applied to all module instances.
- */
 .pp-modal-wrap {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    z-index: 100001;
+    z-index: -1;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.3s ease-in-out;
+}
+.pp-modal-wrap.pp-modal-active {
+	z-index: 99999;
+	visibility: visible;
+	opacity: 1;
 }
 .pp-modal-overlay {
     position: absolute;
@@ -43,6 +46,7 @@
     position: fixed;
     overflow: auto;
     opacity: 0;
+	z-index: 1;
 }
 .pp-modal.layout-fullscreen {
     max-width: 100%;

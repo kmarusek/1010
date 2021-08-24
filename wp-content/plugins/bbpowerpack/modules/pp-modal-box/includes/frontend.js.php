@@ -39,6 +39,7 @@ var pp_modal_<?php echo $id; ?> = false;
         delay: <?php echo ( FLBuilderModel::is_builder_active() ) ? 0 : $settings->modal_delay; ?>,
         animation_load: '<?php echo $settings->animation_load; ?>',
         animation_exit: '<?php echo $settings->animation_exit; ?>',
+		overlay_animation: <?php echo ! isset( $settings->overlay_animation ) || 'yes' === $settings->overlay_animation ? 'true' : 'false'; ?>,
         <?php echo 'enabled' == $settings->modal_esc ? 'esc_exit: true' : 'esc_exit: false'; ?>,
         <?php echo 'yes' == $settings->modal_click_exit ? 'click_exit: true' : 'click_exit: false'; ?>,
         layout: '<?php echo $settings->modal_layout; ?>',

@@ -5,11 +5,12 @@
 		this.markerLength 		= settings.markerLength;
 		this.node 				= $('.fl-node-' + this.id);
 		this.content 			= this.node.find('.pp-hotspot-content');
-		this.markerClass 		= this.node.find('.pp-hotspot-marker');
+		this.markerElem 		= this.node.find('.pp-hotspot-marker');
 		this.customClass 		= 'pp-tooltip-wrap-' + this.id;
 		this.tooltipEnable 		= settings.tooltipEnable;
 		this.enableCloseIcon    = settings.enableCloseIcon;
 		this.escToClose 		= settings.escToClose;
+		this.clickToClose 		= settings.clickToClose;
 		this.tooltipPosition 	= settings.tooltipPosition;
 		this.tooltipTrigger 	= settings.tooltipTrigger;
 		this.tooltipArrow 		= settings.tooltipArrow;
@@ -45,11 +46,12 @@
 		markerLength:	 	'',
 		node:	 			'',
 		content:	 		'',
-		markerClass:	 	'',
+		markerElem:	 		'',
 		customClass:	 	'',
 		tooltipEnable:	 	'',
 		enableCloseIcon:    '',
 		escToClose:         '',
+		clickToClose:       '',
 		tooltipPosition:	'',
 		tooltipTrigger:	 	'',
 		tooltipArrow:	 	'',
@@ -75,11 +77,14 @@
 		scrolling:	 		false,
 		
 		_init: function () {
+			var self = this;
+
 			clearInterval(this.hotspotInterval[this.id]);
+
 			if ( $(window).width() < 768 ) {
-				this._initTooltip(this.markerClass, 'click');
+				this._initTooltip(this.markerElem, 'click');
 			} else{ 
-				this._initTooltip(this.markerClass, this.tooltipTrigger);
+				this._initTooltip(this.markerElem, this.tooltipTrigger);
 			}
 
 			// Start of hotspot functionality.
@@ -113,7 +118,9 @@
 			
 			// Stop propagation to prevent hiding when clicking on body
 			this.node.find('.pp-hotspot').on('click touch', function (event) {
-				event.stopPropagation();
+				if ( 'no' === self.clickToClose ) {
+					event.stopPropagation();
+				}
 			});
 		},
 
@@ -137,7 +144,7 @@
 				zIndex: 			self.tooltipZindex,
 				functionReady: function (origin, tooltip) {
 					//functionality to close previous other tooltips.
-					var $all_tooltipser = $('*').filter(function () {
+					var $all_tooltipser = $(self.node).find( '*' ).filter(function () {
 						return $(this).data('tooltipsterNs');
 					});
 					if ( typeof $all_tooltipser !== 'undefined' ){
@@ -151,11 +158,12 @@
 							$all_tooltipser.tooltipster('hide');
 						});
 					}
+
 					// ESC key to Close 
 					if ( 'yes' == self.escToClose ) {
-						var	prefix = 'cbox';
+						var	prefix = 'pp-hotspot';
 						// Key Bindings
-						$( document ).bind( 'keydown.' + prefix, function (e) {
+						$( document ).on( 'keydown.' + prefix, function (e) {
 							var key    = e.keyCode;
 							if ( key == 27) {
 								e.preventDefault();
@@ -204,7 +212,7 @@
 					self.node.find('.pp-marker-' + sid).trigger('click');
 				}
 				if ('yes' == self.tourAutoplay) {
-					self._intiSectionInterval();
+					self._initSectionInterval();
 				}
 			});
 
@@ -229,7 +237,7 @@
 					self.node.find('.pp-marker-' + sid).trigger('click');
 				}
 				if ('yes' == self.tourAutoplay) {
-					self._intiSectionInterval();
+					self._initSectionInterval();
 				}
 			});
 
@@ -279,14 +287,14 @@
 				self.node.find('.pp-hotspot-marker').css("pointer-events", "none");
 				self._initTooltipNav();
 				self.node.find('.pp-hotspot-marker.pp-marker-1').trigger('click');
-				self._intiSectionInterval();
+				self._initSectionInterval();
 			} else if ('no' == self.tourAutoplay) {
 				self._initTooltipNav();
 				self.node.find('.pp-hotspot-marker.pp-marker-1').trigger('click');
 			}
 		},
 
-		_intiSectionInterval: function () {
+		_initSectionInterval: function () {
 			var self = this;
 			self.hotspotInterval[self.id] = setInterval(function () {
 				sid = self.node.find('.pp-hotspot-marker' + '.open').data('pptour');

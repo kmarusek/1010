@@ -831,7 +831,7 @@ BB_PowerPack::register_module(
 						'title_tag'        => array(
 							'type'    => 'select',
 							'label'   => __( 'HTML Tag', 'bb-powerpack' ),
-							'default' => 'h1',
+							'default' => 'h2',
 							'options' => array(
 								'h1'   => 'H1',
 								'h2'   => 'H2',
@@ -962,7 +962,7 @@ BB_PowerPack::register_module(
 					'fields'    => array(
 						'step_section_title_tag'        => array(
 							'type'    => 'select',
-							'label'   => __( 'Step Section Title HTML Tag', 'bb-powerpack' ),
+							'label'   => __( 'Section Title HTML Tag', 'bb-powerpack' ),
 							'default' => 'h3',
 							'options' => array(
 								'h1' => 'H1',
@@ -980,6 +980,19 @@ BB_PowerPack::register_module(
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.pp-how-to-step-section-title',
+							),
+						),
+						'step_title_tag'        => array(
+							'type'    => 'select',
+							'label'   => __( 'Step Title HTML Tag', 'bb-powerpack' ),
+							'default' => 'h4',
+							'options' => array(
+								'h1' => 'H1',
+								'h2' => 'H2',
+								'h3' => 'H3',
+								'h4' => 'H4',
+								'h5' => 'H5',
+								'h6' => 'H6',
 							),
 						),
 						'step_title_typography'         => array(

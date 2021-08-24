@@ -25,25 +25,23 @@ if ( ! empty( $settings->accordion_close_icon ) ) {
 		$css_id = ( '' !== $settings->accordion_id_prefix ) ? $settings->accordion_id_prefix . '-' . ( $i + 1 ) : 'pp-accord-' . $id . '-' . ( $i + 1 );
 		?>
 		<div id="<?php echo $css_id; ?>" class="pp-accordion-item">
-			<div class="pp-accordion-button">
+			<div class="pp-accordion-button" id="pp-accordion-<?php echo $module->node; ?>-tab-<?php echo $i; ?>" aria-selected="false" aria-controls="pp-accordion-<?php echo $module->node; ?>-panel-<?php echo $i; ?>" aria-expanded="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'false' : 'true'; ?>" role="tab" tabindex="0">
 				<?php if ( 'left' === $icon_position ) { ?>
-					<span class="<?php echo $open_icon_class; ?>"></span>
-					<span class="<?php echo $close_icon_class; ?>"></span>
+					<span class="<?php echo $open_icon_class; ?>" aria-hidden="true" aria-label="Close"></span>
+					<span class="<?php echo $close_icon_class; ?>" aria-hidden="true" aria-label="Expand"></span>
 				<?php } ?>
 
-				<?php if ( isset( $items[ $i ]->accordion_font_icon ) && ! empty( $items[ $i ]->accordion_font_icon ) ) { ?>
-					<span class="pp-accordion-icon <?php echo $items[ $i ]->accordion_font_icon; ?>"></span>
-				<?php } ?>
+				<?php $module->render_accordion_item_icon( $items[ $i ] ); ?>
+
 				<span class="pp-accordion-button-label" itemprop="name description"><?php echo $items[ $i ]->label; ?></span>
 
 				<?php if ( 'right' === $icon_position ) { ?>
-					<span class="<?php echo $open_icon_class; ?>"></span>
-					<span class="<?php echo $close_icon_class; ?>"></span>
+					<span class="<?php echo $open_icon_class; ?>" aria-hidden="true" aria-label="Close"></span>
+					<span class="<?php echo $close_icon_class; ?>" aria-hidden="true" aria-label="Expand"></span>
 				<?php } ?>
-
 			</div>
 
-			<div class="pp-accordion-content fl-clearfix">
+			<div class="pp-accordion-content fl-clearfix" id="pp-accordion-<?php echo $module->node; ?>-panel-<?php echo $i; ?>" aria-labelledby="pp-accordion-<?php echo $module->node; ?>-tab-<?php echo $i; ?>" aria-hidden="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'true' : 'false'; ?>" role="tabpanel" aria-live="polite">
 				<?php
 				if ( ! isset( $source ) || empty( $source ) ) {
 					echo $module->render_content( $items[ $i ] );

@@ -85,7 +85,7 @@ manifest_chain[0].forEachDependency("js", function (dep) {
         globs[dep.name] = dep.globs;
     }
 
-    allScriptFiles = allScriptFiles.concat(dep.globs);
+    allScriptFiles = allScriptFiles.concat(dep.globs, {newLine: ';'});
 });
 
 for (i = 0; i < globs["script.js"].length; i += 1) {
@@ -136,7 +136,7 @@ function build_templates() {
                 return parts.join('.');
             }
         }))
-        .pipe(concat('handlebars.js'))
+        .pipe(concat('handlebars.js', {newLine: ';'}))
         .pipe(gulp.dest(build_directory))
         .pipe(notify({
             "title": "Templates compiled.",
@@ -167,7 +167,7 @@ for (key in globs) {
                         errorHandler: handle_error
                     }))
                     .pipe(sourcemaps.init())
-                    .pipe(concat('./' + key))
+                    .pipe(concat('./' + key, {newLine: ';'}))
                     //.pipe(uglify({
                     //    "compress": {
                     //        "drop_debugger": false

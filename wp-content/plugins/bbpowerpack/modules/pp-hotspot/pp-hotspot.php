@@ -173,6 +173,15 @@ BB_PowerPack::register_module(
 								'no'  => __( 'No', 'bb-powerpack' ),
 							),
 						),
+						'click_to_close'      => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Click anywhere to Close Tooltip', 'bb-powerpack' ),
+							'default' => 'no',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							),
+						),
 					),
 				),
 				'tooltip_general'  => array(
@@ -464,6 +473,7 @@ BB_PowerPack::register_module(
 						'common_marker_size'     => array(
 							'type'       => 'unit',
 							'label'      => __( 'Marker Size', 'bb-powerpack' ),
+							'help'		=> __( 'Please use this option when you use Marker Type: Icon', 'bb-powerpack' ),
 							'default'    => '20',
 							'units'      => array( 'px' ),
 							'slider'     => true,
@@ -472,6 +482,7 @@ BB_PowerPack::register_module(
 						'marker_img_size'        => array(
 							'type'       => 'unit',
 							'label'      => __( 'Marker Image Size', 'bb-powerpack' ),
+							'help'		=> __( 'Please use this option when you use Marker Type: Image', 'bb-powerpack' ),
 							'default'    => '20',
 							'units'      => array( 'px' ),
 							'slider'     => true,
@@ -479,7 +490,7 @@ BB_PowerPack::register_module(
 						),
 						'marker_bg_size'         => array(
 							'type'       => 'unit',
-							'label'      => __( 'Background Size', 'bb-powerpack' ),
+							'label'      => __( 'Marker Background Size', 'bb-powerpack' ),
 							'default'    => '40',
 							'units'      => array( 'px' ),
 							'slider'     => true,

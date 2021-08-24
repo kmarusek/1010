@@ -17,7 +17,7 @@ else if( $settings->announcement_bar_position == 'top' ) {
 					<span class="pp-icon <?php echo $settings->announcement_icon; ?>"></span>
 				</div>
 			<?php } ?>
-			<p><?php echo $settings->announcement_content; ?></p>
+			<?php echo wpautop( $settings->announcement_content ); ?>
 			<?php if ( trim($settings->announcement_link_text) != '' ) { ?>
 			<div class="pp-announcement-bar-link">
 				<a href="<?php echo $settings->announcement_link; ?>" target="<?php echo $settings->announcement_link_target; ?>"<?php echo $module->get_rel(); ?>>
@@ -26,8 +26,8 @@ else if( $settings->announcement_bar_position == 'top' ) {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="pp-announcement-bar-close-button">
-			<span class="fas fa-times pp-close-button"></span>
+		<div class="pp-announcement-bar-close-button" tabindex="0" aria-label="<?php _e( 'Close', 'bb-powerpack' ); ?>">
+			<span class="fas fa-times pp-close-button" aria-hidden="true"></span>
 		</div>
 	</div>
 </div>

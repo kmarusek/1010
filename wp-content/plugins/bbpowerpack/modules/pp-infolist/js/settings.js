@@ -58,6 +58,8 @@
 			var fieldResponsive = form.find( 'select[name="layouts_responsive"]' ),
 				layoutResponsive = '' === ( fieldResponsive.val() ) ? layoutMedium : fieldResponsive.val();
 
+			field.trigger( 'change' );
+
 			// Update layout class.
 			field.on( 'change', function() {
 				layout = field.val();

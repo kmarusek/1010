@@ -1,3 +1,45 @@
+== 2.17.1 ==
+Release date: July 20, 2021
+* Enhancement: Image Hotspot - Added an option to close tooltip by clicking anywhere
+* Fix: Instagram Feed - Width of the swiper container was getting overridden by JetPack's CSS
+* Fix: Image Carousel - Width of the swiper container was getting overridden by JetPack's CSS
+* Fix: Video Gallery - Width of the swiper container was getting overridden by JetPack's CSS
+* Fix: Login Form - Full name was getting registered in the first name field for Google login
+* Fix: File Download - File field required issue when using multiple type
+
+== 2.17.0 ==
+Release date: July 14, 2021
+* Enhancement: Contact Form - Added hCaptcha integration
+* Enhancement: File Download - Added an option to choose a single source of the file or a dropdown with multiple files
+* Enhancement: Animated Headline - Added data-index attribute to rotating text for custom style
+* Enhancement: Off-Canvas Content - Added a logic to adjust the height automatically for top and bottom direction when the size is not given
+* Enhancement: Modal Box - Added an option to disable animations on overlay
+* Enhancement: Advanced Accordion - Added accessibility and keyboard navigation support
+* Enhancement: Advanced Accordion - Added an option to select an image as an icon
+* Enhancement: Announcement Bar - Added accessibility and keyboard navigation support
+* Enhancement: Announcement Bar - Replaced textarea field with WYSIWYG editor for content
+* Enhancement: Social Icons - Added support for TikTok icon
+* Enhancement: Info List - Added an option to align the icon to left or right with heading or content
+* Enhancement: Content Grid - Added logic to stop carousel autoplay when hovering over navigation arrows
+* Enhancement: Testimonials - Added an option to choose HTML tag for heading
+* Enhancement: How-To - Added an option to choose HTML tag for steps title
+* Fix: Advanced Accordion - Saved templates were not getting rendered for logged out users in some cases
+* Fix: Instagram Feed - Square layout issue
+* Fix: Content Grid - Incorrect post width issue
+* Fix: Content Grid - Added fallback method when AJAX pagination fails to load the posts on the front page in some cases
+* Fix: Content Grid - Carousel - Number of items were appearing based on min-width on tablet and mobile
+* Fix: Content Grid - Price and ratings were not showing when using AJAX filters for WooCommerce product post type
+* Fix: Flip Box - Removed default width and height for the image
+* Fix: Off-Canvas Content - Minor CSS issue regarding top and bottom layout
+* Fix: WPForms - Padding issue with phone field
+* Fix: Fluent Forms - PHP warning in some cases
+* Fix: Testimonials - Removed Carousel option in respect to the number of slides field
+* Fix: Table - Unable to save the module when CSV import field contains invalid characters in some cases
+* Fix: Photo Gallery - PHP warning when a user leaves the number of columns field empty
+* Fix: Restaurant Menu - Currency symbol position right was not getting applied when using inline layout
+* Fix: Image - Set max-width to Caption container to match the width of the image
+* Development: Advanced Menu - Added filter hook pp_advanced_menu_html_toggle to modify the hamburger toggle markup
+
 == 2.16.4 ==
 Release date: June 17, 2021
 * Fix: Advanced Menu - Accordion toggle issue on responsive breakpoint

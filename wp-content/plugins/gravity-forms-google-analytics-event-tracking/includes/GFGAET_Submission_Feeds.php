@@ -62,6 +62,44 @@ class GFGAET_Submission_Feeds extends GFFeedAddOn {
 			add_action( 'gform_preview_header', array( $this, 'preview_header' ) );
 			add_action( 'gform_preview_body_open', array( $this, 'tag_manager_after_body' ) );
 		}
+
+		add_filter(
+			'plugin_action_links_' . plugin_basename( GFGAET_FILE ),
+			array( $this, 'add_settings_link' )
+		);
+
+		// Delay until payment.
+		$this->add_delayed_payment_support(
+			array(
+				'option_label' => esc_html__( 'Process the Event Tracking feed only when payment is received.', 'gravity-forms-google-analytics-event-tracking' ),
+			)
+		);
+	}
+
+	/**
+	 * Add a settings link to the plugin's options.
+	 *
+	 * Add a settings link on the WordPress plugin's page.
+	 *
+	 * @since 2.4.5
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param array $links Array of plugin options.
+	 * @return array $links Array of plugin options
+	 */
+	public function add_settings_link( $links ) {
+
+		$settings_url = admin_url( 'admin.php?page=gf_settings&subview=GFGAET_UA');
+		if ( current_user_can( 'manage_options' ) ) {
+			$options_link = sprintf( '<a href="%s">%s</a>', esc_url( $settings_url ), _x( 'Settings', 'Gravity Forms Event Tracking Settings page', 'gravity-forms-google-analytics-event-tracking' ) );
+			$links[]      = $options_link;
+		}
+		$docs_link = sprintf( '<a href="%s" target="_blank">%s</a>', esc_url( 'https://mediaron.com/event-tracking-for-gravity-forms/?utm_source=wordpress_plugins_page&utm_medium=documentation&utm_campaign=event_tracking' ), _x( 'Documentation', 'Gravity Forms Event Tracking Documentation page', 'gravity-forms-google-analytics-event-tracking' ) );
+		$links[]   = $docs_link;
+
+		return $links;
 	}
 
 	/**
@@ -375,6 +413,27 @@ gtag('config', '<?php echo esc_js( $ga_code ); ?>');
 				);
 			}
 		}
+	}
+
+	/**
+	 * Outputs admin scripts to handle form submission in back-end.
+	 *
+	 * @since  2.4.5
+	 *
+	 * @return array
+	 */
+	public function styles() {
+		$min    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || rgget( 'gform_debug' ) ? '' : '.min';
+		$styles = array(
+			array(
+				'handle'  => 'gfgaet_admin',
+				'enqueue' => array(
+					array( 'query' => 'page=gf_settings&subview=GFGAET_UA' ),
+				),
+				'src'     => esc_url( GFGAET::get_plugin_url( '/css/admin.css' ) ),
+			),
+		);
+		return array_merge( parent::styles(), $styles );
 	}
 
 	/**
@@ -793,6 +852,7 @@ gtag('config', '<?php echo esc_js( $ga_code ); ?>');
 			?>
 			</script>
 			<?php
+			$this->add_note( $entry['id'], __( 'An event has been sent using Google Analytics.', 'gravity-forms-google-analytics-event-tracking' ), 'success' );
 			return;
 		} elseif ( GFGAET::is_gtm_only() ) {
 			?>
@@ -812,21 +872,29 @@ gtag('config', '<?php echo esc_js( $ga_code ); ?>');
 				utmContent = utmVariables.content;
 			}
 			if ( typeof( window.parent.dataLayer ) != 'undefined' ) {
-				window.parent.dataLayer.push({'event': 'GFTrackEvent',
-					'GFTrackCategory':'<?php echo esc_js( $event_category ); ?>',
-					'GFTrackAction':'<?php echo esc_js( $event_action ); ?>',
-					'GFTrackLabel':'<?php echo esc_js( $event_label ); ?>',
-					'GFTrackValue': <?php echo absint( $event_value ); ?>,
-					'GFEntryData':<?php echo wp_json_encode( $entry ); ?>,
-					'GFTrackSource': utmSource,
-					'GFTrackMedium': utmMedium,
-					'GFTrackCampaign': utmCampaign,
-					'GFTrackTerm': utmTerm,
-					'GFTrackContent': utmContent,
-					});
+				if (typeof(window.parent.gfaetTagManagerSent) == 'undefined' ) {
+					window.parent.dataLayer.push({'event': 'GFTrackEvent',
+						'GFTrackCategory':'<?php echo esc_js( $event_category ); ?>',
+						'GFTrackAction':'<?php echo esc_js( $event_action ); ?>',
+						'GFTrackLabel':'<?php echo esc_js( $event_label ); ?>',
+						'GFTrackValue': <?php echo absint( $event_value ); ?>,
+						'GFEntryData':<?php echo wp_json_encode( $entry ); ?>,
+						'GFTrackSource': utmSource,
+						'GFTrackMedium': utmMedium,
+						'GFTrackCampaign': utmCampaign,
+						'GFTrackTerm': utmTerm,
+						'GFTrackContent': utmContent,
+						});
+					}
+			}
+			try {
+				window.parent.gfaetTagManagerSent = true; <?php // Prevent tag manager from sending multiple events. ?>
+			} catch ( e ) {
+				// Catch error.
 			}
 			</script>
 			<?php
+			$this->add_note( $entry['id'], __( 'An event has been sent using Google Google Tag Manager.', 'gravity-forms-google-analytics-event-tracking' ), 'success' );
 			return;
 		} else {
 			// Push out the event to each UA code
@@ -834,6 +902,7 @@ gtag('config', '<?php echo esc_js( $ga_code ); ?>');
 				// Submit the event
 				$event->send( $ua_code );
 			}
+			$this->add_note( $entry['id'], __( 'An event has been sent using the Google Analytics Measurement Protocol.', 'gravity-forms-google-analytics-event-tracking' ), 'success' );
 		}
 
 	}
@@ -1162,7 +1231,7 @@ gtag('config', '<?php echo esc_js( $ga_code ); ?>');
 	 */
 	public function get_menu_icon() {
 
-		return '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="analytics" class="svg-inline--fa fa-analytics fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M510.62 92.63C516.03 94.74 521.85 96 528 96c26.51 0 48-21.49 48-48S554.51 0 528 0s-48 21.49-48 48c0 2.43.37 4.76.71 7.09l-95.34 76.27c-5.4-2.11-11.23-3.37-17.38-3.37s-11.97 1.26-17.38 3.37L255.29 55.1c.35-2.33.71-4.67.71-7.1 0-26.51-21.49-48-48-48s-48 21.49-48 48c0 4.27.74 8.34 1.78 12.28l-101.5 101.5C56.34 160.74 52.27 160 48 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-4.27-.74-8.34-1.78-12.28l101.5-101.5C199.66 95.26 203.73 96 208 96c6.15 0 11.97-1.26 17.38-3.37l95.34 76.27c-.35 2.33-.71 4.67-.71 7.1 0 26.51 21.49 48 48 48s48-21.49 48-48c0-2.43-.37-4.76-.71-7.09l95.32-76.28zM400 320h-64c-8.84 0-16 7.16-16 16v160c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V336c0-8.84-7.16-16-16-16zm160-128h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-320 0h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zM80 352H16c-8.84 0-16 7.16-16 16v128c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V368c0-8.84-7.16-16-16-16z"></path></svg>';
+		return '<svg width="22" height="20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="analytics" class="svg-inline--fa fa-analytics fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M510.62 92.63C516.03 94.74 521.85 96 528 96c26.51 0 48-21.49 48-48S554.51 0 528 0s-48 21.49-48 48c0 2.43.37 4.76.71 7.09l-95.34 76.27c-5.4-2.11-11.23-3.37-17.38-3.37s-11.97 1.26-17.38 3.37L255.29 55.1c.35-2.33.71-4.67.71-7.1 0-26.51-21.49-48-48-48s-48 21.49-48 48c0 4.27.74 8.34 1.78 12.28l-101.5 101.5C56.34 160.74 52.27 160 48 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-4.27-.74-8.34-1.78-12.28l101.5-101.5C199.66 95.26 203.73 96 208 96c6.15 0 11.97-1.26 17.38-3.37l95.34 76.27c-.35 2.33-.71 4.67-.71 7.1 0 26.51 21.49 48 48 48s48-21.49 48-48c0-2.43-.37-4.76-.71-7.09l95.32-76.28zM400 320h-64c-8.84 0-16 7.16-16 16v160c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V336c0-8.84-7.16-16-16-16zm160-128h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-320 0h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zM80 352H16c-8.84 0-16 7.16-16 16v128c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V368c0-8.84-7.16-16-16-16z"></path></svg>';
 	}
 
 }

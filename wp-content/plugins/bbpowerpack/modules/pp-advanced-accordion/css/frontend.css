@@ -1,6 +1,7 @@
 .pp-accordion-button {
 	cursor: pointer;
-	display: table;
+	display: flex;
+	align-items: center;
 	width: 100%;
 }
 .pp-accordion-button-label {
@@ -22,7 +23,7 @@ span.pp-accordion-button-icon {
 	-webkit-transition: all 0.1s ease-in;
 	-moz-transition: all 0.1s ease-in;
 	-ms-transition: all 0.1s ease-in;
-	-o-transition: all 0.31ss ease-in;
+	-o-transition: all 0.1s ease-in;
 }
 
 /* Small */

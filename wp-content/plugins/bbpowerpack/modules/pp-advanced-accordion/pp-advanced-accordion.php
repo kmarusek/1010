@@ -257,6 +257,24 @@ class PPAccordionModule extends FLBuilderModule {
 		return apply_filters( 'pp_accordion_items', $items );
 	}
 
+	public function render_accordion_item_icon( $item ) {
+		$icon_type = isset( $item->accordion_icon_type ) ? $item->accordion_icon_type : 'icon';
+
+		if ( 'icon' === $icon_type && isset( $item->accordion_font_icon ) && ! empty( $item->accordion_font_icon ) ) {
+			?>
+			<span class="pp-accordion-icon <?php echo $item->accordion_font_icon; ?>"></span>
+			<?php
+		}
+
+		if ( 'image' === $icon_type && isset( $item->accordion_image_icon ) && ! empty( $item->accordion_image_icon ) ) {
+			$image = wp_get_attachment_image( $item->accordion_image_icon, 'thumbnail' );
+			$image = empty( $image ) ? '<img src="' . $item->accordion_image_icon_src . '" alt="' . htmlspecialchars( $item->label ) . '" />' : $image;
+			?>
+			<span class="pp-accordion-icon"><?php echo $image; ?></span>
+			<?php
+		}
+	}
+
 	/**
 	 * Render content.
 	 *
@@ -282,13 +300,13 @@ class PPAccordionModule extends FLBuilderModule {
 				$html = $wp_embed->autoembed( $settings->content_video );
 				break;
 			case 'module':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_module . '"]';
+				$html = '[fl_builder_insert_layout id="' . $settings->content_module . '" type="fl-builder-template"]';
 				break;
 			case 'row':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_row . '"]';
+				$html = '[fl_builder_insert_layout id="' . $settings->content_row . '" type="fl-builder-template"]';
 				break;
 			case 'layout':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_layout . '"]';
+				$html = '[fl_builder_insert_layout id="' . $settings->content_layout . '" type="fl-builder-template"]';
 				break;
 			default:
 				break;
@@ -765,10 +783,33 @@ FLBuilder::register_settings_form( 'pp_accordion_items_form', array(
 				'general'       => array(
 					'title'         => '',
 					'fields'        => array(
+						'accordion_icon_type' => array(
+							'type' => 'pp-switch',
+							'label' => __( 'Icon Type', 'bb-powerpack' ),
+							'default' => 'icon',
+							'options' => array(
+								'icon' => __( 'Icon', 'bb-powerpack' ),
+								'image' => __( 'Image', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'icon' => array(
+									'fields' => array( 'accordion_font_icon' ),
+								),
+								'image' => array(
+									'fields' => array( 'accordion_image_icon' ),
+								),
+							),
+						),
 						'accordion_font_icon' => array(
 							'type'          => 'icon',
 							'label'         => __( 'Icon', 'bb-powerpack' ),
-							'show_remove'   => true
+							'show_remove'   => true,
+						),
+						'accordion_image_icon' => array(
+							'type' => 'photo',
+							'label' => __( 'Image', 'bb-powerpack' ),
+							'connections' => array( 'photo' ),
+							'show_remove' => true,
 						),
 						'label'         => array(
 							'type'          => 'text',

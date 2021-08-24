@@ -77,7 +77,7 @@ BB_PowerPack::register_module('PPInfoListModule', array(
                     'layouts'   => array(
                         'type'  => 'select',
                         'default'   => '1',
-                        'label'     => __('Icon Position', 'bb-powerpack'),
+                        'label'     => __('Layout', 'bb-powerpack'),
                         'options'   => array(
                             '1'     => __('Left', 'bb-powerpack'),
                             '2'     => __('Right', 'bb-powerpack'),
@@ -87,7 +87,24 @@ BB_PowerPack::register_module('PPInfoListModule', array(
 						'preview'	=> array(
 							'type'	=> 'none',
 						),
+						'toggle' => array(
+							'1' => array(
+								'fields' => array( 'icon_position' ),
+							),
+							'2' => array(
+								'fields' => array( 'icon_position' ),
+							),
+						),
                     ),
+					'icon_position' => array(
+						'type'	=> 'select',
+						'label'	=> __( 'Icon Position', 'bb-powerpack' ),
+						'default' => 'with_content',
+						'options' => array(
+							'with_heading' => __( 'With Heading', 'bb-powerpack' ),
+							'with_content' => __( 'With Content', 'bb-powerpack' ),
+						),
+					),
                 ),
             ),
             'connector'         => array(

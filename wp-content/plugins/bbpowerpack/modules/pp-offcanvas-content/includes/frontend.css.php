@@ -38,8 +38,8 @@ FLBuilderCSS::responsive_rule(
 .pp-offcanvas-content.pp-offcanvas-content-<?php echo $id; ?> {
 	background: <?php echo pp_get_color_value( $settings->offcanvas_bar_bg ); ?>;
 }
-.pp-offcanvas-content-<?php echo $id; ?>.pp-offcanvas-content-top,
-.pp-offcanvas-content-<?php echo $id; ?>.pp-offcanvas-content-bottom {
+.pp-offcanvas-content.pp-offcanvas-content-<?php echo $id; ?>.pp-offcanvas-content-top,
+.pp-offcanvas-content.pp-offcanvas-content-<?php echo $id; ?>.pp-offcanvas-content-bottom {
 	width: 100%;
 }
 

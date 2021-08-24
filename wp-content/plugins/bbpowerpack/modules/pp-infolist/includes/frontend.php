@@ -2,9 +2,13 @@
 $title_tag = ( isset( $settings->title_tag ) ) ? $settings->title_tag : 'h3';
 $number_items = count( $settings->list_items );
 $layout = $settings->layouts;
+$classes = array(
+	'pp-infolist',
+	'layout-' . $layout,
+);
 ?>
 <div class="pp-infolist-wrap">
-	<div class="pp-infolist layout-<?php echo $layout; ?>">
+	<div class="<?php echo implode( ' ', $classes ); ?>">
 		<ul class="pp-list-items">
 		<?php
 		for ( $i = 0; $i < $number_items; $i++ ) {

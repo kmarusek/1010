@@ -63,13 +63,10 @@ var ppcg_<?php echo $id; ?> = '';
 					0: {
 						items: <?php echo $column_mobile; ?>,
 					},
-					<?php echo $breakpoints['mobile']; ?>: {
-						items: <?php echo $column_mobile; ?>,
-					},
-					<?php echo $breakpoints['tablet']; ?>: {
+					<?php echo $breakpoints['mobile'] + 1; ?>: {
 						items: <?php echo $column_tablet; ?>,
 					},
-					<?php echo apply_filters( 'pp_cg_carousel_max_breakpoint', 1199 ); ?>: {
+					<?php echo $breakpoints['tablet'] + 1; ?>: {
 						items: <?php echo $column_desktop; ?>,
 					},
 				},

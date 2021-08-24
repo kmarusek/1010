@@ -48,6 +48,9 @@
 	overflow: hidden;
 	visibility: hidden;
 }
+.pp-video-carousel.swiper-container {
+	width: 100%;
+}
 .pp-video-carousel.swiper-container-horizontal {
 	visibility: visible;
 }

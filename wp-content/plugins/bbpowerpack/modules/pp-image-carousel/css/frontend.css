@@ -29,6 +29,10 @@
 	height: 450px;
 }
 
+.pp-image-carousel.swiper-container {
+	width: 100%;
+}
+
 /* Overlay */
 .pp-image-overlay {
 	position: absolute;

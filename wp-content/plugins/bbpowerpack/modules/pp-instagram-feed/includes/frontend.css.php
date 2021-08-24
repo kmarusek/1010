@@ -1,3 +1,15 @@
+<?php
+	$layout = $settings->feed_layout;
+	$has_aspect_ratio = isset( $settings->aspect_ratio ) && 'yes' === $settings->aspect_ratio;
+	$columns = empty( $settings->grid_columns ) ? 3 : $settings->grid_columns;
+	$columns_medium = empty( $settings->grid_columns_medium ) ? $columns : $settings->grid_columns_medium;
+	$columns_responsive = empty( $settings->grid_columns_responsive ) ? $columns_medium : $settings->grid_columns_responsive;
+	$spacing = empty( $settings->spacing ) ? 0 : $settings->spacing;
+	$spacing_medium = empty( $settings->spacing_medium ) ? $spacing : $settings->spacing_medium;
+	$spacing_responsive = empty( $settings->spacing_responsive ) ? $spacing_medium : $settings->spacing_responsive;
+?>
+
+<?php
 /*
 .fl-node-<?php echo $id; ?> .pp-instagram-feed-carousel .pp-instagram-feed-inner {
 	<?php if ( ! empty( $settings->image_custom_size ) && ! empty( $settings->visible_items ) ) { ?>
@@ -6,21 +18,50 @@
 	<?php } ?>
 }
 */
+?>
 .fl-node-<?php echo $id; ?> .pp-instagram-feed-carousel .pp-feed-item {
 	<?php if ( ! empty( $settings->image_custom_size ) ) { ?>
 	max-width: <?php echo $settings->image_custom_size; ?>px;
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item {
-	width: calc( 100% / <?php echo $settings->grid_columns; ?> );
-	<?php if ( ( 'grid' == $settings->feed_layout || 'square-grid' == $settings->feed_layout ) && '' != $settings->spacing ) { ?>
-		padding-left: <?php echo ( $settings->spacing / 2 ); ?>px;
-		padding-right: <?php echo ( $settings->spacing / 2 ); ?>px;
-		padding-bottom: <?php echo $settings->spacing; ?>px;
-		/*margin-bottom: <?php echo ( $settings->spacing / 2 ); ?>px;*/
+	width: calc( 100% / <?php echo $columns; ?> );
+	<?php if ( ( 'grid' == $layout || 'square-grid' == $layout ) && ! empty( $spacing ) ) { ?>
+		width: calc( ( 100% - <?php echo $spacing * ( $columns - 1 ); ?>px ) / <?php echo $columns; ?> );
+		margin-right: <?php echo $spacing; ?>px;
+		margin-bottom: <?php echo $spacing; ?>px;
 	<?php } ?>
 	float: left;
 }
+.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item:nth-of-type(<?php echo $columns; ?>n) {
+	margin-right: 0px;
+}
+.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item:last-of-type {
+	margin-right: 0px !important;
+}
+
+<?php if ( ! $has_aspect_ratio && 'square-grid' === $layout ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-instagram-feed-items {
+		display: flex;
+    	flex-wrap: wrap;
+	}
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item {
+		display: flex;
+	}
+<?php } ?>
+<?php if ( ! $has_aspect_ratio && ( 'square-grid' === $layout || 'carousel' === $layout ) ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-feed-item-inner {
+		display: flex;
+	}
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item a {
+		display: flex;
+		height: 100%;
+	}
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item img {
+		object-fit: cover;
+		width: 100%;
+	}
+<?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-feed-item img,
 .fl-node-<?php echo $id; ?> .pp-feed-item .pp-feed-item-inner {
@@ -52,20 +93,20 @@
 <?php } ?>
 
 
-<?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size ) { ?>
-.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
-	<?php if ( isset( $settings->aspect_ratio ) && 'yes' !== $settings->aspect_ratio ) { ?>
-	width: <?php echo $settings->image_custom_size; ?>px;
-	<?php } ?>
-	height: <?php echo $settings->image_custom_size; ?>px;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: relative;
-}
+<?php if( ( 'square-grid' == $layout || 'carousel' == $layout ) && ! empty( $settings->image_custom_size ) ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
+		<?php if ( isset( $settings->aspect_ratio ) && 'yes' !== $settings->aspect_ratio ) { ?>
+		width: <?php echo $settings->image_custom_size; ?>px;
+		<?php } ?>
+		height: <?php echo $settings->image_custom_size; ?>px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		position: relative;
+	}
 <?php } ?>
 
-<?php if ( 'grid' == $settings->feed_layout ) { ?>
+<?php if ( 'grid' == $layout ) { ?>
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item:before {
 <?php } else { ?>
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-feed-item-inner:before {
@@ -283,15 +324,26 @@
 	}
 <?php } ?> 
 
-@media only screen and ( max-width:<?php echo $global_settings->medium_breakpoint; ?>px ) {
+@media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
+
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item {
-		width: calc( 100% / <?php echo $settings->grid_columns_medium; ?> );
-		<?php if ( ( 'grid' == $settings->feed_layout || 'square-grid' == $settings->feed_layout ) && '' != $settings->spacing_medium ) { ?>
-			padding-left: <?php echo ( $settings->spacing_medium / 2 ); ?>px;
-			padding-right: <?php echo ( $settings->spacing_medium / 2 ); ?>px;
-			padding-bottom: <?php echo $settings->spacing_medium; ?>px;
+		width: calc( 100% / <?php echo $columns_medium; ?> );
+		<?php if ( ( 'grid' == $layout || 'square-grid' == $layout ) && ! empty( $spacing_medium ) ) { ?>
+			width: calc( ( 100% - <?php echo $spacing_medium * ( $columns_medium - 1 ); ?>px ) / <?php echo $columns_medium; ?> );
+			margin-right: <?php echo $spacing_medium; ?>px;
+			margin-bottom: <?php echo $spacing_medium; ?>px;
 		<?php } ?>
+		float: left;
 	}
+
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item:nth-of-type(<?php echo $columns; ?>n) {
+		margin-right: <?php echo $spacing; ?>px;
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item:nth-of-type(<?php echo $columns_medium; ?>n) {
+		margin-right: 0px;
+	}
+
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-instagram-feed-title-wrap {
 		<?php if ( 0 <= $settings->feed_title_horizontal_padding_medium ) { ?>
 			padding-left: <?php echo $settings->feed_title_horizontal_padding_medium; ?>px;
@@ -317,15 +369,25 @@
 	<?php } ?>
 }
 
-@media only screen and ( max-width:<?php echo $global_settings->responsive_breakpoint; ?>px ) {
+@media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
+
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item {
-		width: calc( 100% / <?php echo $settings->grid_columns_responsive; ?> );
-		<?php if ( ( 'grid' == $settings->feed_layout || 'square-grid' == $settings->feed_layout ) && '' != $settings->spacing_responsive ) { ?>
-			padding-left: <?php echo ( $settings->spacing_responsive / 2 ); ?>px;
-			padding-right: <?php echo ( $settings->spacing_responsive / 2 ); ?>px;
-			padding-bottom: <?php echo $settings->spacing_responsive; ?>px;
+		width: calc( 100% / <?php echo $columns_responsive; ?> );
+		<?php if ( ( 'grid' == $layout || 'square-grid' == $layout ) && ! empty( $spacing_responsive ) ) { ?>
+			width: calc( ( 100% - <?php echo $spacing_responsive * ( $columns_responsive - 1 ); ?>px ) / <?php echo $columns_responsive; ?> );
+			margin-right: <?php echo $spacing_responsive; ?>px;
+			margin-bottom: <?php echo $spacing_responsive; ?>px;
 		<?php } ?>
+		float: left;
 	}
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item:nth-of-type(<?php echo $columns_medium; ?>n) {
+		margin-right: <?php echo $spacing_medium; ?>px;
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item:nth-of-type(<?php echo $columns_responsive; ?>n) {
+		margin-right: 0px;
+	}
+
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-instagram-feed-title-wrap {
 		<?php if ( 0 <= $settings->feed_title_horizontal_padding_responsive ) { ?>
 			padding-left: <?php echo $settings->feed_title_horizontal_padding_responsive; ?>px;

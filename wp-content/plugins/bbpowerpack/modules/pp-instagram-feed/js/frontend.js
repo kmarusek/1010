@@ -178,6 +178,9 @@
 		},
 
 		_initMasonry: function() {
+			if ( 'grid' !== this.settings.layout ) {
+				return;
+			}
 			var grid = $('#pp-instagram-' + this.id).imagesLoaded( function() {
 				grid.masonry({
 					itemSelector: '.pp-feed-item',

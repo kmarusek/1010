@@ -61,6 +61,21 @@ class PPFileDownloadModule extends FLBuilderModule {
 		}
 		return $rel;
 	}
+
+	/**
+	 * @method get_filename
+	 */
+	public function get_filename( $filepath, $custom_name = '' ) {
+		$ext      = pathinfo( $filepath, PATHINFO_EXTENSION ); // to get extension
+		$name     = pathinfo( $filepath, PATHINFO_FILENAME ); //file name without extension
+		$filename = $name . '.' . $ext;
+
+		if ( ! empty( $custom_name ) ) {
+			$filename = wp_unslash( $custom_name );
+		}
+
+		return $filename;
+	}
 }
 
 /**
@@ -70,24 +85,23 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 	'general'       => array(
 		'title'         => __( 'General', 'bb-powerpack' ),
 		'sections'      => array(
-			'style'         => array(
-				'title'         => __( 'Button Type', 'bb-powerpack' ),
-				'fields'        => array(
-					'style'         => array(
-						'type'          => 'pp-switch',
-						'label'         => __( 'Type', 'bb-powerpack' ),
-						'default'       => 'flat',
-						'options'       => array(
-							'flat'          => __( 'Flat', 'bb-powerpack' ),
-							'gradient'      => __( 'Gradient', 'bb-powerpack' ),
+			'download_type'	=> array(
+				'title' => '',
+				'fields' => array(
+					'download_type' => array(
+						'type'  => 'select',
+						'label' => __( 'Download Type', 'bb-powerpack' ),
+						'default' => 'button',
+						'options' => array(
+							'button'   => __( 'A button with single source', 'bb-powerpack' ),
+							'dropdown' => __( 'A dropdown with multiple sources', 'bb-powerpack' ),
 						),
-						'toggle'		=> array(
-							'flat'		=> array(
-								'fields'	=> array( 'bg_color', 'bg_hover_color' ),
-								'sections'	=> array( 'effects' ),
+						'toggle' => array(
+							'button' => array(
+								'sections' => array( 'file' ),
 							),
-							'gradient'		=> array(
-								'fields'	=> array( 'bg_color_primary', 'bg_color_secondary', 'gradient_hover' ),
+							'dropdown' => array(
+								'sections' => array( 'files' ),
 							),
 						),
 					),
@@ -106,7 +120,7 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					),
 					'file_name'	=> array(
 						'type'		=> 'text',
-						'label'		=> __( 'Custom Name for Download', 'bb-powerpack' ),
+						'label'		=> __( 'Custom File Name for Download', 'bb-powerpack' ),
 						'default' 	=> '',
 						'help' 		=> __( 'You can use this field to use custom name for file. Please do NOT enter special characters and add proper extension', 'bb-powerpack' ),
 						'connections' => array( 'string' ),
@@ -116,8 +130,20 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					),
 				),
 			),
+			'files' => array(
+				'title' => __( 'Files', 'bb-powerpack' ),
+				'fields' => array(
+					'files'  => array(
+						'type'         => 'form',
+						'label'        => '',
+						'form'         => 'pp_file_download_items_form', // ID from registered form below
+						'preview_text' => 'file_label', // Name of a field to use for the preview text
+						'multiple'     => true,
+					),
+				),
+			),
 			'general'       => array(
-				'title'         => __( 'Content', 'bb-powerpack' ),
+				'title'         => __( 'Button Content', 'bb-powerpack' ),
 				'fields'        => array(
 					'text'          => array(
 						'type'          => 'text',
@@ -183,57 +209,40 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					)
 				)
 			),
-			'effects'		=> array(
-				'title'		=> __( 'Transition', 'bb-powerpack' ),
-				'fields'	=> array(
-					'button_effect'   => array(
-						'type'  => 'select',
-						'label' => __( 'Hover Transition', 'bb-powerpack' ),
-						'default'   => 'fade',
-						'options'   => array(
-							'none'  => __( 'None', 'bb-powerpack' ),
-							'fade'  => __( 'Fade', 'bb-powerpack' ),
-							'sweep_top'  => __( 'Sweep To Top', 'bb-powerpack' ),
-							'sweep_bottom'  => __( 'Sweep To Bottom', 'bb-powerpack' ),
-							'sweep_left'  => __( 'Sweep To Left', 'bb-powerpack' ),
-							'sweep_right'  => __( 'Sweep To Right', 'bb-powerpack' ),
-							'bounce_top'  => __( 'Bounce To Top', 'bb-powerpack' ),
-							'bounce_bottom'  => __( 'Bounce To Bottom', 'bb-powerpack' ),
-							'bounce_left'  => __( 'Bounce To Left', 'bb-powerpack' ),
-							'bounce_right'  => __( 'Bounce To Right', 'bb-powerpack' ),
-							'radial_in'  => __( 'Radial In', 'bb-powerpack' ),
-							'radial_out'  => __( 'Radial Out', 'bb-powerpack' ),
-							'rectangle_in'  => __( 'Rectangle In', 'bb-powerpack' ),
-							'rectangle_out'  => __( 'Rectangle Out', 'bb-powerpack' ),
-							'shutter_in_horizontal'  => __( 'Shutter In Horizontal', 'bb-powerpack' ),
-							'shutter_out_horizontal'  => __( 'Shutter Out Horizontal', 'bb-powerpack' ),
-							'shutter_in_vertical'  => __( 'Shutter In Vertical', 'bb-powerpack' ),
-							'shutter_out_vertical'  => __( 'Shutter Out Vertical', 'bb-powerpack' ),
-							'shutter_in_diagonal'  => __( 'Shutter In Diagonal', 'bb-powerpack' ),
-							'shutter_out_diagonal'  => __( 'Shutter Out Diagonal', 'bb-powerpack' ),
-						),
-					),
-					'button_effect_duration'  => array(
-						'type'  => 'text',
-						'label' => __( 'Transition Duration', 'bb-powerpack' ),
-						'size'  => 5,
-						'maxlength' => 4,
-						'default'   => 500,
-						'description'   => __( 'ms', 'bb-powerpack' ),
-					),
-				),
-			),
 		),
 	),
 	'style'         => array(
 		'title'         => __( 'Style', 'bb-powerpack' ),
 		'sections'      => array(
+			'button_style'         => array(
+				'title'         => __( 'Button Style', 'bb-powerpack' ),
+				'fields'        => array(
+					'style'         => array(
+						'type'          => 'pp-switch',
+						'label'         => __( 'Style', 'bb-powerpack' ),
+						'default'       => 'flat',
+						'options'       => array(
+							'flat'          => __( 'Flat', 'bb-powerpack' ),
+							'gradient'      => __( 'Gradient', 'bb-powerpack' ),
+						),
+						'toggle'		=> array(
+							'flat'		=> array(
+								'fields'	=> array( 'bg_color', 'bg_hover_color' ),
+								'sections'	=> array( 'effects' ),
+							),
+							'gradient'		=> array(
+								'fields'	=> array( 'bg_color_primary', 'bg_color_secondary', 'gradient_hover' ),
+							),
+						),
+					),
+				),
+			),
 			'colors'        => array(
 				'title'         => __( 'Colors', 'bb-powerpack' ),
 				'fields'        => array(
 					'bg_color'      => array(
 						'type'          => 'color',
-						'label'         => __( 'Background Color', 'bb-powerpack' ),
+						'label'         => __( 'Button Background Color', 'bb-powerpack' ),
 						'default'		=> 'd6d6d6',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
@@ -246,7 +255,7 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					),
 					'bg_hover_color'	=> array(
 						'type'          => 'color',
-						'label'         => __( 'Background Hover Color', 'bb-powerpack' ),
+						'label'         => __( 'Button Background Hover Color', 'bb-powerpack' ),
 						'default'		=> '333333',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
@@ -257,13 +266,13 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					),
 					'bg_color_primary'	=> array(
 						'type'          => 'color',
-						'label'         => __( 'Gradient Color Primary', 'bb-powerpack' ),
+						'label'         => __( 'Button Gradient Color Primary', 'bb-powerpack' ),
 						'show_reset'    => true,
 						'connections'	=> array( 'color' ),
 					),
 					'bg_color_secondary'	=> array(
 						'type'          => 'color',
-						'label'         => __( 'Gradient Color Secondary', 'bb-powerpack' ),
+						'label'         => __( 'Button Gradient Color Secondary', 'bb-powerpack' ),
 						'show_reset'    => true,
 						'connections'	=> array( 'color' ),
 					),
@@ -279,7 +288,7 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					),
 					'text_color'    => array(
 						'type'          => 'color',
-						'label'         => __( 'Text Color', 'bb-powerpack' ),
+						'label'         => __( 'Button Text Color', 'bb-powerpack' ),
 						'default'		=> '000000',
 						'show_reset'    => true,
 						'connections'	=> array( 'color' ),
@@ -291,7 +300,7 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					),
 					'text_hover_color'    => array(
 						'type'          => 'color',
-						'label'         => __( 'Text Hover Color', 'bb-powerpack' ),
+						'label'         => __( 'Button Text Hover Color', 'bb-powerpack' ),
 						'default'		=> 'ffffff',
 						'show_reset'    => true,
 						'connections'	=> array( 'color' ),
@@ -390,6 +399,46 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 					),
 				),
 			),
+			'effects'		=> array(
+				'title'		=> __( 'Button Transition', 'bb-powerpack' ),
+				'fields'	=> array(
+					'button_effect'   => array(
+						'type'  => 'select',
+						'label' => __( 'Hover Transition', 'bb-powerpack' ),
+						'default'   => 'fade',
+						'options'   => array(
+							'none'  => __( 'None', 'bb-powerpack' ),
+							'fade'  => __( 'Fade', 'bb-powerpack' ),
+							'sweep_top'  => __( 'Sweep To Top', 'bb-powerpack' ),
+							'sweep_bottom'  => __( 'Sweep To Bottom', 'bb-powerpack' ),
+							'sweep_left'  => __( 'Sweep To Left', 'bb-powerpack' ),
+							'sweep_right'  => __( 'Sweep To Right', 'bb-powerpack' ),
+							'bounce_top'  => __( 'Bounce To Top', 'bb-powerpack' ),
+							'bounce_bottom'  => __( 'Bounce To Bottom', 'bb-powerpack' ),
+							'bounce_left'  => __( 'Bounce To Left', 'bb-powerpack' ),
+							'bounce_right'  => __( 'Bounce To Right', 'bb-powerpack' ),
+							'radial_in'  => __( 'Radial In', 'bb-powerpack' ),
+							'radial_out'  => __( 'Radial Out', 'bb-powerpack' ),
+							'rectangle_in'  => __( 'Rectangle In', 'bb-powerpack' ),
+							'rectangle_out'  => __( 'Rectangle Out', 'bb-powerpack' ),
+							'shutter_in_horizontal'  => __( 'Shutter In Horizontal', 'bb-powerpack' ),
+							'shutter_out_horizontal'  => __( 'Shutter Out Horizontal', 'bb-powerpack' ),
+							'shutter_in_vertical'  => __( 'Shutter In Vertical', 'bb-powerpack' ),
+							'shutter_out_vertical'  => __( 'Shutter Out Vertical', 'bb-powerpack' ),
+							'shutter_in_diagonal'  => __( 'Shutter In Diagonal', 'bb-powerpack' ),
+							'shutter_out_diagonal'  => __( 'Shutter Out Diagonal', 'bb-powerpack' ),
+						),
+					),
+					'button_effect_duration'  => array(
+						'type'  => 'text',
+						'label' => __( 'Transition Duration', 'bb-powerpack' ),
+						'size'  => 5,
+						'maxlength' => 4,
+						'default'   => 500,
+						'description'   => __( 'ms', 'bb-powerpack' ),
+					),
+				),
+			),
 		),
 	),
 	'typography'	=> array(
@@ -412,3 +461,51 @@ BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 		),
 	),
 ));
+
+/**
+ * Register a settings form to use in the "form" field type above.
+ */
+FLBuilder::register_settings_form(
+	'pp_file_download_items_form',
+	array(
+		'title' => __( 'Add File', 'bb-powerpack' ),
+		'tabs'  => array(
+			'general' => array(
+				'title'    => __( 'General', 'bb-powerpack' ),
+				'sections' => array(
+					'general' => array(
+						'title'  => '',
+						'fields' => array(
+							'file'          => array(
+								'type'          => 'pp-media-uploader',
+								'label'         => __( 'Enter File URL or Upload File', 'bb-powerpack' ),
+								'preview'       => array(
+									'type'          => 'none',
+								),
+								'connections'	=> array( 'url', 'string' ),
+							),
+							'file_label' => array(
+								'type'		 => 'text',
+								'label'		 => __( 'Label for Dropdown Item', 'bb-powerpack' ),
+								'preview'       => array(
+									'type'          => 'none',
+								),
+								'connections'	=> array( 'string' ),
+							),
+							'file_name'	=> array(
+								'type'		=> 'text',
+								'label'		=> __( 'Custom File Name for Download', 'bb-powerpack' ),
+								'default' 	=> '',
+								'help' 		=> __( 'You can use this field to use custom name for file. Please do NOT enter special characters and add proper extension', 'bb-powerpack' ),
+								'connections' => array( 'string' ),
+								'preview'       => array(
+									'type'          => 'none',
+								),
+							),
+						),
+					),
+				),
+			),
+		),
+	)
+);

@@ -1415,7 +1415,17 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'               => '0.5',
                     )
                 )
-            )
+			),
+			'overlay_animation' => array(
+				'title'	=> __( 'Overlay', 'bb-powerpack' ),
+				'fields' => array(
+					'overlay_animation' => array(
+						'type' => 'pp-switch',
+						'label' => __( 'Overlay Animation', 'bb-powerpack' ),
+						'default' => 'yes'
+					),
+				),
+			),
         )
     )
 ));

@@ -145,10 +145,11 @@
 	<?php if ( $settings->label_color ) { ?>
 	color: #<?php echo $settings->label_color; ?>;
 	<?php } ?>
-	<?php if ( 'Default' !== $settings->label_typography['font_family'] ) { ?>
+	<?php if ( isset( $settings->label_typography['font_family'] ) && 'Default' !== $settings->label_typography['font_family'] ) { ?>
 		font-family: <?php echo $settings->label_typography['font_family']; ?>;
 		font-weight: <?php echo $settings->label_typography['font_weight']; ?>;
 	<?php } ?>
+
 }
 <?php
 // Radio & Checkout Typography

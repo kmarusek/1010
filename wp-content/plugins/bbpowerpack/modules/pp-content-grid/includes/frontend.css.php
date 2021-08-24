@@ -4,7 +4,7 @@ $columns 		= isset( $settings->post_grid_count ) && is_array( $settings->post_gr
 $column_desktop = isset( $columns['desktop'] ) && ! empty( $columns['desktop'] ) && intval( $columns['desktop'] ) > 0 ? intval( $columns['desktop'] ) : 3;
 $column_tablet  = isset( $columns['tablet'] ) && ! empty( $columns['tablet'] ) && intval( $columns['tablet'] ) > 0 ? intval( $columns['tablet'] ) : 2;
 $column_mobile  = isset( $columns['mobile'] ) && ! empty( $columns['mobile'] ) && intval( $columns['mobile'] ) > 0 ? intval( $columns['mobile'] ) : 1;
-$spacing		= isset( $settings->post_spacing ) ? intval( $settings->post_spacing ) : 0;
+$spacing		= isset( $settings->post_spacing ) && '' !== $settings->post_spacing ? $settings->post_spacing : 0;
 $space_desktop	= ( $column_desktop - 1 ) * $spacing;
 $space_tablet 	= ( $column_tablet - 1 ) * $spacing;
 $space_mobile 	= ( $column_mobile - 1 ) * $spacing;

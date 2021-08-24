@@ -15,6 +15,7 @@
 		this.toggleSource		= settings.toggleSource,
 		this.toggle_class		= settings.toggle_class,
 		this.toggle_id			= settings.toggle_id,
+		this.size				= settings.size,
 		this.duration			= 500,
 		this.isBuilderActive 	= settings.isBuilderActive,
 		this._active = false;
@@ -61,7 +62,24 @@
 				$('body').prepend(this.wrap.find('.pp-offcanvas-content'));
 			}
 
+			this._setSize();
 			this._bindEvents();
+		},
+
+		_setSize: function() {
+			if ( '' !== this.size ) {
+				return;
+			}
+			if ( 'top' !== this.direction || 'bottom' !== this.direction ) {
+				return;
+			}
+			var offCanvasContent = $('.pp-offcanvas-content-' + this.id),
+				offCanvasBody = offCanvasContent.find( '.pp-offcanvas-body' );
+
+			offCanvasContent.css( {
+				'height': offCanvasBody.outerHeight() + 'px',
+				'max-height': ( window.innerHeight ) + 'px'
+			} );
 		},
 
 		_destroy: function () {
@@ -131,6 +149,8 @@
 			if (this.bodyClickClose === 'yes') {
 				this._closeClick();
 			}
+
+			$(window).on('resize', $.proxy( this._setSize, this ));
 		},
 
 		_onHashChange: function() {
