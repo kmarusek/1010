@@ -133,11 +133,8 @@ function microblogposter_settings_output()
     $mbp_manual_share_tab_selected = false;
     if(isset($_POST["submit_manual_post"]))
     {
-        if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post'))
-        {
-            $manual_share_completed = MicroblogPoster_Poster_Enterprise_Options::handle_manual_post();
-            $mbp_manual_share_tab_selected = true;
-        }
+        $manual_share_completed = MicroblogPoster_Poster::handle_manual_post();
+        $mbp_manual_share_tab_selected = true;
     }
     
     $mbp_old_posts_tab_selected = false;
@@ -703,8 +700,8 @@ function microblogposter_settings_output()
         $who_can_auto_publish_ma = MicroblogPoster_Poster_Ultimate_Options::sync_who_can($who_can_auto_publish_ma_name, $who_can_auto_publish_ma_value);
     }
     
-    $http_auth_sites = array('friendfeed','delicious','diigo','instapaper','wordpress');
-    $tags_sites = array('delicious','diigo','flickr','wordpress','googleplus');
+    $http_auth_sites = array('diigo','instapaper','wordpress');
+    $tags_sites = array('diigo','flickr','wordpress','googleplus');
     $featured_image_sites = array('blogger', 'twitter', 'tumblr', 'flickr', 'googlemybusinessl');
     
     
@@ -833,77 +830,52 @@ function microblogposter_settings_output()
         {
             $extra['facebook_id'] = sanitize_text_field( $_POST['mbp_facebookb_select_name'] );
         }
-        
-        if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account'))
+
+        if(isset($_POST['mbp_facebook_target_type']))
         {
-            if(isset($_POST['mbp_facebook_target_type']))
-            {
-                //$extra['target_type'] = trim($_POST['mbp_facebook_target_type']);
-                $extra['target_type'] = sanitize_text_field( $_POST['mbp_facebook_target_type'] );
-            }
-            if(isset($_POST['mbp_facebook_page_id']))
-            {
-                //$extra['page_id'] = trim($_POST['mbp_facebook_page_id']);
-                $extra['page_id'] = sanitize_text_field( $_POST['mbp_facebook_page_id'] );
-            }
-            if(isset($_POST['mbp_facebook_group_id']))
-            {
-                //$extra['group_id'] = trim($_POST['mbp_facebook_group_id']);
-                $extra['group_id'] = sanitize_text_field( $_POST['mbp_facebook_group_id'] );
-            }
-            
-            if(isset($_POST['mbp_linkedin_target_type']))
-            {
-                //$extra['target_type'] = trim($_POST['mbp_linkedin_target_type']);
-                $extra['target_type'] = sanitize_text_field( $_POST['mbp_linkedin_target_type'] );
-            }
-            if(isset($_POST['mbp_linkedin_group_id']))
-            {
-                //$extra['group_id'] = trim($_POST['mbp_linkedin_group_id']);
-                $extra['group_id'] = sanitize_text_field( $_POST['mbp_linkedin_group_id'] );
-            }
-            if(isset($_POST['mbp_linkedin_company_id']))
-            {
-                //$extra['company_id'] = trim($_POST['mbp_linkedin_company_id']);
-                $extra['company_id'] = sanitize_text_field( $_POST['mbp_linkedin_company_id'] );
-            }
-            
-            if(isset($_POST['mbp_post_type_tmb']))
-            {
-                //$extra['post_type'] = trim($_POST['mbp_post_type_tmb']);
-                $extra['post_type'] = sanitize_text_field( $_POST['mbp_post_type_tmb'] );
-            }
-            
-            if(isset($_POST['mbp_vkontakte_target_type']))
-            {
-                //$extra['target_type'] = trim($_POST['mbp_vkontakte_target_type']);
-                $extra['target_type'] = sanitize_text_field( $_POST['mbp_vkontakte_target_type'] );
-            }
-            
+            //$extra['target_type'] = trim($_POST['mbp_facebook_target_type']);
+            $extra['target_type'] = sanitize_text_field( $_POST['mbp_facebook_target_type'] );
         }
-        else
+        if(isset($_POST['mbp_facebook_page_id']))
         {
-            if(isset($_POST['mbp_facebook_target_type']))
-            {
-                $extra['target_type'] = sanitize_text_field( $_POST['mbp_facebook_target_type'] );
-            }
-            if(isset($_POST['mbp_facebook_page_id']))
-            {
-                $extra['page_id'] = sanitize_text_field( $_POST['mbp_facebook_page_id'] );
-            }
-            if(isset($_POST['mbp_linkedin_target_type']))
-            {
-                $extra['target_type'] = 'profile';
-            }
-            if(isset($_POST['mbp_post_type_tmb']))
-            {
-                $extra['post_type'] = 'text';
-            }
-            if(isset($_POST['mbp_vkontakte_target_type']))
-            {
-                $extra['target_type'] = sanitize_text_field( $_POST['mbp_vkontakte_target_type'] );
-            }
+            //$extra['page_id'] = trim($_POST['mbp_facebook_page_id']);
+            $extra['page_id'] = sanitize_text_field( $_POST['mbp_facebook_page_id'] );
         }
+        if(isset($_POST['mbp_facebook_group_id']))
+        {
+            //$extra['group_id'] = trim($_POST['mbp_facebook_group_id']);
+            $extra['group_id'] = sanitize_text_field( $_POST['mbp_facebook_group_id'] );
+        }
+
+        if(isset($_POST['mbp_linkedin_target_type']))
+        {
+            //$extra['target_type'] = trim($_POST['mbp_linkedin_target_type']);
+            $extra['target_type'] = sanitize_text_field( $_POST['mbp_linkedin_target_type'] );
+        }
+        if(isset($_POST['mbp_linkedin_group_id']))
+        {
+            //$extra['group_id'] = trim($_POST['mbp_linkedin_group_id']);
+            $extra['group_id'] = sanitize_text_field( $_POST['mbp_linkedin_group_id'] );
+        }
+        if(isset($_POST['mbp_linkedin_company_id']))
+        {
+            //$extra['company_id'] = trim($_POST['mbp_linkedin_company_id']);
+            $extra['company_id'] = sanitize_text_field( $_POST['mbp_linkedin_company_id'] );
+        }
+
+        if(isset($_POST['mbp_post_type_tmb']))
+        {
+            //$extra['post_type'] = trim($_POST['mbp_post_type_tmb']);
+            $extra['post_type'] = sanitize_text_field( $_POST['mbp_post_type_tmb'] );
+        }
+
+        if(isset($_POST['mbp_vkontakte_target_type']))
+        {
+            //$extra['target_type'] = trim($_POST['mbp_vkontakte_target_type']);
+            $extra['target_type'] = sanitize_text_field( $_POST['mbp_vkontakte_target_type'] );
+        }
+
+
         
         if(isset($_POST['mbp_vkontakte_target_id']))
         {
@@ -1133,30 +1105,27 @@ function microblogposter_settings_output()
             {
                 $extra['post_type'] = sanitize_text_field( $_POST['mbp_post_type_xing'] );
             }
-            if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account'))
+            if(isset($_POST['mbp_facebook_group_id']))
             {
-                if(isset($_POST['mbp_facebook_group_id']))
-                {
-                    //$extra['group_id'] = trim($_POST['mbp_facebook_group_id']);
-                    $extra['group_id'] = sanitize_text_field( $_POST['mbp_facebook_group_id'] );
-                }
+                //$extra['group_id'] = trim($_POST['mbp_facebook_group_id']);
+                $extra['group_id'] = sanitize_text_field( $_POST['mbp_facebook_group_id'] );
+            }
 
-                if(isset($_POST['mbp_linkedin_group_id']))
-                {
-                    //$extra['group_id'] = trim($_POST['mbp_linkedin_group_id']);
-                    $extra['group_id'] = sanitize_text_field( $_POST['mbp_linkedin_group_id'] );
-                }
-                if(isset($_POST['mbp_linkedin_company_id']))
-                {
-                    //$extra['company_id'] = trim($_POST['mbp_linkedin_company_id']);
-                    $extra['company_id'] = sanitize_text_field( $_POST['mbp_linkedin_company_id'] );
-                }
+            if(isset($_POST['mbp_linkedin_group_id']))
+            {
+                //$extra['group_id'] = trim($_POST['mbp_linkedin_group_id']);
+                $extra['group_id'] = sanitize_text_field( $_POST['mbp_linkedin_group_id'] );
+            }
+            if(isset($_POST['mbp_linkedin_company_id']))
+            {
+                //$extra['company_id'] = trim($_POST['mbp_linkedin_company_id']);
+                $extra['company_id'] = sanitize_text_field( $_POST['mbp_linkedin_company_id'] );
+            }
 
-                if(isset($_POST['mbp_post_type_tmb']))
-                {
-                    //$extra['post_type'] = trim($_POST['mbp_post_type_tmb']);
-                    $extra['post_type'] = sanitize_text_field( $_POST['mbp_post_type_tmb'] );
-                }
+            if(isset($_POST['mbp_post_type_tmb']))
+            {
+                //$extra['post_type'] = trim($_POST['mbp_post_type_tmb']);
+                $extra['post_type'] = sanitize_text_field( $_POST['mbp_post_type_tmb'] );
             }
 
             if(isset($_POST['mbp_facebook_page_id']))
@@ -2427,38 +2396,15 @@ function microblogposter_settings_output()
         <div id="icon-plugins" class="icon32"><br /></div>
         <h2 id="mbp-intro">
             <?php _e('<span class="microblogposter-name">Microblog Poster</span> Settings', 'microblog-poster');?>
-            <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                <span class="mbp-intro-text"><?php _e('Advanced features are available with the Pro / Enterprise Add-on', 'microblog-poster');?></span>
-                <a class="mbp-intro-text" href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
-            <?php endif;?>
+
         </h2>
         
         <p id="mbp-intro-p">
-            <?php _e('The idea behind <span class="microblogposter-name">MicroblogPoster</span> is to promote your wordpress blog and reach more people through social networks.', 'microblog-poster');?> <br />
+            <?php _e('The idea behind <span class="microblogposter-name">Microblog Poster</span> is to promote your wordpress blog and reach more people through social networks.', 'microblog-poster');?> <br />
             <?php _e('There\'s a general agreement in the SEO community that social signals strengthen your blog\'s page rank and authority.', 'microblog-poster');?><br />
-            <?php _e('<span class="microblogposter-name">MicroblogPoster</span> is simply an intermediary between your blog and your own social network accounts.', 'microblog-poster');?><br /> 
-            <?php _e('You\'ll never see "posted by MicroblogPoster" in your updates, you\'ll see "posted by your own App name" or simply "by API".', 'microblog-poster');?><br />
-            <?php _e('If you like <span class="microblogposter-name">MicroblogPoster</span> or just find it useful, please <a class="mbp-add-review-link" href="https://wordpress.org/support/view/plugin-reviews/microblog-poster" target="_blank">Add a review</a>', 'microblog-poster');?>
+            <?php _e('<span class="microblogposter-name">Microblog Poster</span> is simply an intermediary between your blog and your own social network accounts.', 'microblog-poster');?><br />
+            <?php _e('You\'ll never see "posted by Microblog Poster" in your updates, you\'ll see "posted by your own App name" or simply "by API".', 'microblog-poster');?><br />
         </p>
-        
-        <?php if(current_user_can('manage_options')):?>
-        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account') && !$customer_license_key_value['key']):?>
-            <div class="error"><p><strong><?php _e('In order to complete the MicroblogPoster\'s Pro / Enterprise Add-on installation, please Save your Customer License Key.', 'microblog-poster');?></strong></p></div>
-        <?php elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account') && $customer_license_key_value['key']):?>
-            <div>
-                <?php _e('Customer License Key', 'microblog-poster');?> : <?php echo $customer_license_key_value['key'];?>
-                <?php if($customer_license_key_value['verified']):?><span class="mbp-green">(<?php _e('Valid', 'microblog-poster');?>)</span><?php else:?><span class="mbp-red">(<?php _e('Not Valid', 'microblog-poster');?>)</span><?php endif;?>
-                <a href="#" id="mbp_microblogposter_edit_switch" onclick="mbp_microblogposter_edit_license_key();return false;" ><?php _e('Edit', 'microblog-poster');?></a>
-            </div>
-        <?php endif;?>
-            
-        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>    
-            <form id="license_key_form" name="license_key_form" method="post" action="">
-                <input type="text" id="<?php echo $customer_license_key_name;?>" name="<?php echo $customer_license_key_name;?>" value="<?php echo $customer_license_key_value['key'];?>" size="35" />
-                <input type="submit" name="update_license_key" class="button" value="<?php _e('Save License Key', 'microblog-poster');?>" />
-            </form>
-        <?php endif;?>
-        <?php endif;?>
         
         
         <div id="mbp-menu-wrapper">
@@ -2596,28 +2542,7 @@ function microblogposter_settings_output()
                             <?php _e('Please <span class="mbp-deprecated">Save the Client ID and Client Secret first</span> then you can Authorize/Re-Authorize the goo.gl account.', 'microblog-poster');?>
                         </td>
                     </tr>
-                    <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post')):?>
-                    <tr>
-                        <td colspan="2">
-                            <h3>
-                                <a href="#" id="mbp_microblogposter_additional-shorteners_switch" onclick="mbp_microblogposter_additional_shorteners();return false;" ><?php _e('Show Additional Shorteners...', 'microblog-poster');?></a>
-                                
-                            </h3>
-                        </td>
-                    </tr>
-                    <tr class="mbp-additional-shorteners">
-                        <td colspan="2">
-                            <h3 class="mbp-additional-shorteners-upgrade">
-                                <?php _e('Additional Shorteners are only available with the Enterprise Add-on.', 'microblog-poster');?>
-                                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                                <a href="https://efficientscripts.com/web/login" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
-                                <?php else:?>
-                                <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
-                                <?php endif;?>
-                            </h3>
-                        </td>
-                    </tr>
-                    <?php endif;?>
+
                     <tr class="mbp-additional-shorteners">
                         <td colspan="2">
                             <h3>
@@ -2715,9 +2640,7 @@ function microblogposter_settings_output()
                         <td colspan="2">
                             <h3>
                                 <span class="mbp-blue-title"><?php _e('Enable Category-Driven Mode :', 'microblog-poster');?></span>&nbsp;&nbsp;
-                                <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post')):?>
-                                    <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/support/categorydrivenmode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
-                                <?php endif;?>
+
                             </h3>
                         </td>
                     </tr>
@@ -2913,8 +2836,7 @@ function microblogposter_settings_output()
         <?php require_once "options/microblogposter_options_xg.php";?>    
         <?php require_once "options/microblogposter_options_tb.php";?>    
         <?php require_once "options/microblogposter_options_bg.php";?>    
-        <?php require_once "options/microblogposter_options_wp.php";?>    
-        <?php require_once "options/microblogposter_options_dl.php";?>    
+        <?php require_once "options/microblogposter_options_wp.php";?>
         <?php require_once "options/microblogposter_options_pk.php";?>
         <?php require_once "options/microblogposter_options_dg.php";?>
         <?php require_once "options/microblogposter_options_ip.php";?>
@@ -2945,7 +2867,6 @@ function microblogposter_settings_output()
                         <option value="tumblr">Tumblr</option>
                         <option value="blogger">Blogger</option>
                         <option value="wordpress">Wordpress</option>
-                        <option value="delicious">Delicious</option>
                         <option value="plurk">Plurk</option>
                         <option value="diigo">Diigo</option>
                         <option value="instapaper">Instapaper</option>
@@ -3051,12 +2972,7 @@ function microblogposter_settings_output()
                     }
                 ?>
                     <br />
-                    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                    
-                    <?php else:?>
-                    <div id="mbp-old-posts-upgrade-now"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
-                    <br />
-                    <?php endif;?>
+
                 <?php
                     $args = array(
                         'public' => true,
@@ -3115,9 +3031,7 @@ function microblogposter_settings_output()
             <div id="mbp_manual_post_dash_head">
                 <span class="mbp-blue-title"><?php _e('Enable Category-Driven Mode :', 'microblog-poster');?></span>
                 <input type="checkbox" id="<?php echo $microblogposter_plg_old_posts_cat_driven_active_name;?>" name="<?php echo $microblogposter_plg_old_posts_cat_driven_active_name;?>" value="1" <?php if($microblogposter_plg_old_posts_cat_driven_active_value) echo 'checked="checked"';?> />
-                <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post')):?>
-                <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/support/categorydrivenmode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
-                <?php endif;?>
+
                 <br /><?php _e('OR', 'microblog-poster');?><br />
                 <span class="mbp-blue-title"><?php _e('Select the social accounts to update:', 'microblog-poster');?></span>
             </div>
@@ -3128,20 +3042,7 @@ function microblogposter_settings_output()
     
     <div id="mbp-manual-post-wrapper" class="mbp-single-tab-wrapper">
         
-        <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post')):?>
-            <div id="mbp-manual-post-intro">
-                <span class="mbp-manual-post-text"><?php _e('Sharing manually to your social accounts is available with the Enterprise Add-on', 'microblog-poster');?></span>
-                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                <a class="mbp-manual-post-text" href="https://efficientscripts.com/web/login" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
-                <?php else:?>
-                <a class="mbp-manual-post-text" href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
-                <?php endif;?>
-            </div>
-        <?php elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post') && !$customer_license_key_value['verified']):?>
-            <div id="mbp-manual-post-intro">
-                <span class="mbp-manual-post-text-red"><?php _e('Please verify your License Key before you can manually auto share.', 'microblog-poster');?></span>
-            </div>
-        <?php endif;?>
+
         <h3 id="manual-post-header"><?php _e('Manually auto share to your configured social accounts:', 'microblog-poster');?></h3>
         <p>
             <?php _e('You can share an <strong>url</strong> or a simple <strong>text status update</strong> to all your configured social accounts.', 'microblog-poster');?><br />
@@ -3213,7 +3114,7 @@ function microblogposter_settings_output()
                     <textarea id="mbp_mp_message" name="mbp_mp_message" rows="4" cols="65"></textarea><br />
                     <span class="mbp_mp_description_text">
                         <?php _e('Text message as it will be shared. Message formats below aren\'t used for \'text\' type.', 'microblog-poster');?><br />
-                        <?php _e('Currently doesn\'t work with Linkedin. And Diigo, Delicious and Instapaper don\'t support sharing text.', 'microblog-poster');?>
+                        <?php _e('Currently doesn\'t work with Linkedin. And Diigo and Instapaper don\'t support sharing text.', 'microblog-poster');?>
                     </span>
                 </div>
             </div>
@@ -3305,7 +3206,7 @@ function microblogposter_settings_output()
                     'scrolling'	: 'auto',
                     'titleShow'	: false,
                     'onComplete'	: function() {
-                        $('div#fancybox-content #plurk-div,div#fancybox-content #friendfeed-div,div#fancybox-content #delicious-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div,div#fancybox-content #googlemybusiness-div').hide().find('input,select,textarea').attr('disabled','disabled');
+                        $('div#fancybox-content #plurk-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div,div#fancybox-content #googlemybusiness-div').hide().find('input,select,textarea').attr('disabled','disabled');
                         
                         $(".save-account").removeAttr('disabled');
                         
@@ -3323,11 +3224,7 @@ function microblogposter_settings_output()
                         $("div#fancybox-content .googleplus-select").hide().find('input,select').attr('disabled','disabled');
                         $("div#fancybox-content .facebookb-select").hide().find('input,select').attr('disabled','disabled');
                             
-                        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                        
-                        <?php else:?>
-                            $("div#fancybox-content #twitter-div #include_featured_image").attr('disabled','disabled');
-                        <?php endif;?>
+
                     }
                 });
                 
@@ -3349,7 +3246,7 @@ function microblogposter_settings_output()
             $(document).on("change", "#account_type", function(){
                 var type = $(this).val();
                 //console.log(type);
-                $('div#fancybox-content #twitter-div,div#fancybox-content #plurk-div,div#fancybox-content #friendfeed-div,div#fancybox-content #delicious-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div,div#fancybox-content #googlemybusiness-div').hide().find('input,select,textarea').attr('disabled','disabled');
+                $('div#fancybox-content #twitter-div,div#fancybox-content #plurk-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div,div#fancybox-content #googlemybusiness-div').hide().find('input,select,textarea').attr('disabled','disabled');
                 $('div#fancybox-content #'+type+'-div').show().find('input,select,textarea').removeAttr('disabled');
                 $(".save-account").removeAttr('disabled');
                 if(type=='facebook')
@@ -3395,9 +3292,7 @@ function microblogposter_settings_output()
                 }
                 if(type=='twitter')
                 {
-                    <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                        $("div#fancybox-content #twitter-div #include_featured_image").attr('disabled','disabled');
-                    <?php endif;?>  
+
                 }
                 if(type=='googleplus')
                 {
@@ -3417,83 +3312,45 @@ function microblogposter_settings_output()
             
             $(document).on("change", "#mbp_facebook_target_type", function(){
                 var target_type = $(this).val();
-                
-                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                    if(target_type == 'page')
-                    {
-                        $("div#fancybox-content #mbp-facebook-group-id-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-facebook-page-id-div").show().find('input').removeAttr('disabled');
-                    }
-                    else if(target_type == 'group')
-                    {
-                        $("div#fancybox-content #mbp-facebook-page-id-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-facebook-group-id-div").show().find('input').removeAttr('disabled');
-                    }
-                    else if(target_type == 'profile')
-                    {
-                        $("div#fancybox-content #mbp-facebook-page-id-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-facebook-group-id-div").hide().find('input').attr('disabled','disabled');
-                    }     
-                <?php else:?>
-                    if(target_type == 'group')
-                    {
-                        $("div#fancybox-content #mbp-facebook-input-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-facebook-page-id-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-facebook-upgrade-now").show();
-                        $(".save-account").attr('disabled','disabled');
-                    }
-                    else if(target_type == 'page')
-                    {
-                        $("div#fancybox-content #mbp-facebook-input-div").show().find('input').removeAttr('disabled');
-                        $("div#fancybox-content #mbp-facebook-upgrade-now").hide();
-                        $(".save-account").removeAttr('disabled');
-                        $("div#fancybox-content #mbp-facebook-page-id-div").show().find('input').removeAttr('disabled');
-                    }
-                    else if(target_type == 'profile')
-                    {
-                        $("div#fancybox-content #mbp-facebook-input-div").show().find('input').removeAttr('disabled');
-                        $("div#fancybox-content #mbp-facebook-upgrade-now").hide();
-                        $("div#fancybox-content #mbp-facebook-page-id-div").hide().find('input').attr('disabled','disabled');
-                        $(".save-account").removeAttr('disabled');
-                    }     
-                <?php endif;?>
+
+                if(target_type == 'page')
+                {
+                    $("div#fancybox-content #mbp-facebook-group-id-div").hide().find('input').attr('disabled','disabled');
+                    $("div#fancybox-content #mbp-facebook-page-id-div").show().find('input').removeAttr('disabled');
+                }
+                else if(target_type == 'group')
+                {
+                    $("div#fancybox-content #mbp-facebook-page-id-div").hide().find('input').attr('disabled','disabled');
+                    $("div#fancybox-content #mbp-facebook-group-id-div").show().find('input').removeAttr('disabled');
+                }
+                else if(target_type == 'profile')
+                {
+                    $("div#fancybox-content #mbp-facebook-page-id-div").hide().find('input').attr('disabled','disabled');
+                    $("div#fancybox-content #mbp-facebook-group-id-div").hide().find('input').attr('disabled','disabled');
+                }
+
                 
                 
             });
             
             $(document).on("change", "#mbp_linkedin_target_type", function(){
                 var target_type = $(this).val();
-                
-                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                    if(target_type == 'group')
-                    {
-                        $("div#fancybox-content #mbp-linkedin-group-id-div").show().find('input').removeAttr('disabled');
-                        $("div#fancybox-content #mbp-linkedin-company-id-div").hide().find('input').attr('disabled','disabled');
-                    }
-                    else if(target_type == 'company')
-                    {
-                        $("div#fancybox-content #mbp-linkedin-company-id-div").show().find('input').removeAttr('disabled');
-                        $("div#fancybox-content #mbp-linkedin-group-id-div").hide().find('input').attr('disabled','disabled');
-                    }
-                    else if(target_type == 'profile')
-                    {
-                        $("div#fancybox-content #mbp-linkedin-group-id-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-linkedin-company-id-div").hide().find('input').attr('disabled','disabled');
-                    }
-                <?php else:?>
-                    if(target_type == 'group' || target_type == 'company')
-                    {
-                        $("div#fancybox-content #mbp-linkedin-input-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-linkedin-upgrade-now").show();
-                        $(".save-account").attr('disabled','disabled');
-                    }
-                    else if(target_type == 'profile')
-                    {
-                        $("div#fancybox-content #mbp-linkedin-input-div").show().find('input').removeAttr('disabled');
-                        $("div#fancybox-content #mbp-linkedin-upgrade-now").hide();
-                        $(".save-account").removeAttr('disabled');
-                    }     
-                <?php endif;?>
+                if(target_type == 'group')
+                {
+                    $("div#fancybox-content #mbp-linkedin-group-id-div").show().find('input').removeAttr('disabled');
+                    $("div#fancybox-content #mbp-linkedin-company-id-div").hide().find('input').attr('disabled','disabled');
+                }
+                else if(target_type == 'company')
+                {
+                    $("div#fancybox-content #mbp-linkedin-company-id-div").show().find('input').removeAttr('disabled');
+                    $("div#fancybox-content #mbp-linkedin-group-id-div").hide().find('input').attr('disabled','disabled');
+                }
+                else if(target_type == 'profile')
+                {
+                    $("div#fancybox-content #mbp-linkedin-group-id-div").hide().find('input').attr('disabled','disabled');
+                    $("div#fancybox-content #mbp-linkedin-company-id-div").hide().find('input').attr('disabled','disabled');
+                }
+
                 
                 
             });
@@ -3501,22 +3358,7 @@ function microblogposter_settings_output()
             $(document).on("change", ".post_type_tmb_class", function(){
                 var target_type = $(this).val();
                 
-                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                    
-                <?php else:?>
-                    if(target_type == 'link')
-                    {
-                        $("div#fancybox-content #mbp-tumblr-input-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-tumblr-upgrade-now").show();
-                        $(".save-account").attr('disabled','disabled');
-                    }
-                    else if(target_type == 'text')
-                    {
-                        $("div#fancybox-content #mbp-tumblr-input-div").show().find('input').removeAttr('disabled');
-                        $("div#fancybox-content #mbp-tumblr-upgrade-now").hide();
-                        $(".save-account").removeAttr('disabled');
-                    }     
-                <?php endif;?>
+
                 
                 
             });
@@ -3536,52 +3378,22 @@ function microblogposter_settings_output()
             
             $(document).on("change", "#mbp_vkontakte_target_type", function(){
                 var target_type = $(this).val();
-                
-                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                    if(target_type == 'page')
-                    {
-                        $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Page ID', 'microblog-poster');?>');
-                    }
-                    else if(target_type == 'group')
-                    {
-                        $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Group ID', 'microblog-poster');?>');
-                    } 
-                    else if(target_type == 'event')
-                    {
-                        $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Event ID', 'microblog-poster');?>');
-                    } 
-                    else if(target_type == 'profile')
-                    {
-                        $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Profile ID', 'microblog-poster');?>');
-                    } 
-                <?php else:?>
-                    if(target_type == 'group')
-                    {
-                        $("div#fancybox-content #mbp-vkontakte-input-div").hide().find('input').attr('disabled','disabled');
-                        $("div#fancybox-content #mbp-vkontakte-upgrade-now").show();
-                        $(".save-account").attr('disabled','disabled');
-                    }
-                    else if(target_type == 'profile' || target_type == 'page' || target_type == 'event')
-                    {
-                        $("div#fancybox-content #mbp-vkontakte-input-div").show().find('input').removeAttr('disabled');
-                        $("div#fancybox-content #mbp-vkontakte-upgrade-now").hide();
-                        $(".save-account").removeAttr('disabled');
-                        if(target_type == 'page')
-                        {
-                            $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Page ID', 'microblog-poster');?>');
-                        }
-                        else if(target_type == 'event')
-                        {
-                            $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Event ID', 'microblog-poster');?>');
-                        } 
-                        else if(target_type == 'profile')
-                        {
-                            $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Profile ID', 'microblog-poster');?>');
-                        } 
-                    }     
-                <?php endif;?>
-                
-                
+                if(target_type == 'page')
+                {
+                    $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Page ID', 'microblog-poster');?>');
+                }
+                else if(target_type == 'group')
+                {
+                    $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Group ID', 'microblog-poster');?>');
+                }
+                else if(target_type == 'event')
+                {
+                    $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Event ID', 'microblog-poster');?>');
+                }
+                else if(target_type == 'profile')
+                {
+                    $("div#fancybox-content .mbp_vkontakte_target_type_string").html('<?php _e('Profile ID', 'microblog-poster');?>');
+                }
             });
             
             $(document).on("change", "#mbp_buffer_name", function(){
@@ -3616,12 +3428,6 @@ function microblogposter_settings_output()
                         'scrolling'	: 'auto',
                         'titleShow'	: false,
                         'onComplete'	: function() {
-                            
-                            <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                        
-                            <?php else:?>
-                                $("div#fancybox-content #twitter-div #include_featured_image").attr('disabled','disabled');
-                            <?php endif;?>
                             $("div#fancybox-content #mbp-link-categories-div").hide();
                         }
                     });
@@ -3859,16 +3665,7 @@ function microblogposter_settings_output()
             $('#mbp_empty_logs_form').submit(function() {
                 return confirm("<?php _e('Delete permanently all your logs?', 'microblog-poster');?>");
             });
-            
-            <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                        
-            <?php else:?>
-                $(".mbp-enabled-custom-types-old").attr('disabled','disabled');
-            <?php endif;?>
-                
-            <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account') && $customer_license_key_value['key']):?>
-                $("#license_key_form").hide().find('input').attr('disabled','disabled');
-            <?php endif;?>  
+            $("#license_key_form").hide().find('input').attr('disabled','disabled');
             
             
             <?php if($redirect_after_auth):?>
@@ -3879,20 +3676,7 @@ function microblogposter_settings_output()
                 window.location = "<?php echo $redirect_uri;?>";
             <?php endif;?>
                 
-            <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post') || (MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post') && !$customer_license_key_value['verified'])):?>
-                $('#submit_manual_post').attr('disabled','disabled');
-                $('#mbp_mp_title').attr('disabled','disabled');
-                $('#mbp_mp_url').attr('disabled','disabled');
-                $('#mbp_mp_description').attr('disabled','disabled');
-                $('#mbp_mp_message').attr('disabled','disabled');
-                $('.mbp_mp_post_type').attr('disabled','disabled');
-                $('.mbp_social_account_microblogposter_msgc').attr('disabled','disabled');
-                $('.mbp_social_account_microblogposter_boxc').attr('disabled','disabled');
-                
-                $(".mbp-additional-shorteners").hide().find('input').attr('disabled','disabled');
-                $('#microblogposter_default_behavior_cat_driven').attr('disabled','disabled');
-                $('#microblogposter_plg_old_posts_cat_driven_active').attr('disabled','disabled');
-            <?php endif;?>
+
                 
             <?php if( in_array(get_locale(), array('de_DE', 'de_CH', 'ru_RU', 'uk')) ):?>
                 $('#mbp-menu-wrapper #mbp-menu li').css({ "font-size": "13px"});
@@ -3917,22 +3701,17 @@ function microblogposter_settings_output()
         
         function mbp_social_accounts_microblogposter_uncheck_all(type)
         {
-            <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post') && $customer_license_key_value['verified']):?>
             if(!jQuery('#microblogposteroff').is(':checked'))
             {
                 jQuery('.mbp_social_account_microblogposter_'+type).removeAttr('checked');
             }
-            <?php endif;?>
-            
         }
         function mbp_social_accounts_microblogposter_check_all(type)
         {
-            <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post') && $customer_license_key_value['verified']):?>
             if(!jQuery('#microblogposteroff').is(':checked'))
             {
                 jQuery('.mbp_social_account_microblogposter_'+type).attr('checked','checked');
             }
-            <?php endif;?>
         }
         function mbp_social_accounts_microblogposter_uncheck_all_old(type)
         {
@@ -3975,6 +3754,58 @@ function microblogposter_settings_output()
     
     <?php
     
+}
+
+
+
+function microblogposter_display_category_account($category, $sep, $excluded_categories)
+{
+
+    ?>
+    <?php echo $sep;?><input type="checkbox" class="mbp-excluded-category" id="microblogposter_category_<?php echo $category->term_id;?>" name="microblogposter_link_categories[]" value="<?php echo $category->term_id;?>" <?php if(in_array($category->term_id, $excluded_categories)) echo 'checked="checked"';?> /> <label for="microblogposter_category_<?php echo $category->term_id;?>" ><?php echo $category->name;?></label> <br/>
+    <?php
+
+    $categories1 = get_categories(array('parent' => $category->term_id, 'hide_empty' => 0));
+    if($categories1)
+    {
+        foreach($categories1 as $category1)
+        {
+            microblogposter_display_category_account($category1, $sep.'<span class="mbp-separator-span"></span>', $excluded_categories);
+        }
+    }
+}
+
+function microblogposter_display_link_categories($linked_categories)
+{
+
+    ?>
+    <div class="input-div">
+        <?php _e('Assign categories :', 'microblog-poster');?>
+    </div>
+    <div class="input-div-large">
+        <a href="#" id="mbp_microblogposter_link-categories_switch" onclick="mbp_microblogposter_link_categories();return false;" ><?php _e('Show', 'microblog-poster');?></a>
+    </div>
+    <div class="input-div">
+
+    </div>
+    <div id="mbp-link-categories-div" class="input-div-large">
+
+        <?php
+        $args = array(
+            'orderby' => 'name',
+            'parent' => 0,
+            'hide_empty' => 0
+        );
+        $categories = get_categories($args);
+        foreach ($categories as $category)
+        {
+            microblogposter_display_category_account($category, '<span class="mbp-separator-span"></span>', $linked_categories);
+        }
+        ?>
+
+    </div>
+    <?php
+
 }
 
 function microblogposter_display_category($category, $sep, $excluded_categories)
@@ -4120,32 +3951,6 @@ function microblogposter_show_mini_control_dashboard()
             microblogposter_show_common_account_dashboard_head('plurk');
             foreach($plurk_accounts as $plurk_account):
                 microblogposter_show_common_account_dashboard($plurk_account, 'plurk');
-    ?>
-
-    <?php
-            endforeach;
-        endif;
-    ?>
-
-    <?php 
-        $friendfeed_accounts = MicroblogPoster_Poster::get_accounts_object('friendfeed');
-        if(!empty($friendfeed_accounts)):
-            microblogposter_show_common_account_dashboard_head('friendfeed'); 
-            foreach($friendfeed_accounts as $friendfeed_account):
-                microblogposter_show_common_account_dashboard($friendfeed_account, 'friendfeed');
-    ?>
-
-    <?php
-            endforeach;
-        endif;
-    ?>
-
-    <?php 
-        $delicious_accounts = MicroblogPoster_Poster::get_accounts_object('delicious');
-        if(!empty($delicious_accounts)):
-            microblogposter_show_common_account_dashboard_head('delicious'); 
-            foreach($delicious_accounts as $delicious_account):
-                microblogposter_show_common_account_dashboard($delicious_account, 'delicious');
     ?>
 
     <?php
@@ -4357,7 +4162,7 @@ function microblogposter_show_common_account_dashboard_head($site)
         <?php endif;?>
         <div>
             <a href="#" onclick="mbp_social_accounts_microblogposter_uncheck_all('<?php echo $site;?>');return false;" ><?php _e('Uncheck All', 'microblog-poster');?></a> <a href="#" onclick="mbp_social_accounts_microblogposter_check_all('<?php echo $site;?>');return false;" ><?php _e('Check All', 'microblog-poster');?></a>
-            <?php if(in_array($site, array('friendfeed','delicious', 'diigo', 'instapaper'))):?>
+            <?php if(in_array($site, array('diigo', 'instapaper'))):?>
                 <span class="description-small"><?php _e('Available shortcodes:', 'microblog-poster');?> {TITLE}</span>
             <?php else:?>
                 <span class="description-small"><?php _e('Available shortcodes:', 'microblog-poster');?> {TITLE}, {URL}, {SHORT_URL}</span>
@@ -4459,32 +4264,6 @@ function microblogposter_show_mini_control_dashboard_old()
             microblogposter_show_common_account_dashboard_head_old('plurk');
             foreach($plurk_accounts as $plurk_account):
                 microblogposter_show_common_account_dashboard_old($plurk_account, 'plurk');
-    ?>
-
-    <?php
-            endforeach;
-        endif;
-    ?>
-
-    <?php 
-        $friendfeed_accounts = MicroblogPoster_Poster::get_accounts_object_all('friendfeed');
-        if(!empty($friendfeed_accounts)):
-            microblogposter_show_common_account_dashboard_head_old('friendfeed'); 
-            foreach($friendfeed_accounts as $friendfeed_account):
-                microblogposter_show_common_account_dashboard_old($friendfeed_account, 'friendfeed');
-    ?>
-
-    <?php
-            endforeach;
-        endif;
-    ?>
-
-    <?php 
-        $delicious_accounts = MicroblogPoster_Poster::get_accounts_object_all('delicious');
-        if(!empty($delicious_accounts)):
-            microblogposter_show_common_account_dashboard_head_old('delicious'); 
-            foreach($delicious_accounts as $delicious_account):
-                microblogposter_show_common_account_dashboard_old($delicious_account, 'delicious');
     ?>
 
     <?php
@@ -4697,12 +4476,10 @@ function microblogposter_show_common_account_dashboard_head_old($site)
         <div>
             <a href="#" onclick="mbp_social_accounts_microblogposter_uncheck_all_old('<?php echo $site;?>');return false;" ><?php _e('Uncheck All', 'microblog-poster');?></a> <a href="#" onclick="mbp_social_accounts_microblogposter_check_all_old('<?php echo $site;?>');return false;" ><?php _e('Check All', 'microblog-poster');?></a>
             
-            <?php if(in_array($site, array('delicious', 'diigo', 'instapaper'))):?>
+            <?php if(in_array($site, array('diigo', 'instapaper'))):?>
                 <span class="description-small"><?php _e('Available shortcodes:', 'microblog-poster');?> {TITLE}, {MANUAL_EXCERPT}, {EXCERPT}, {CONTENT_FIRST_WORDS}, {AUTHOR}</span>
             <?php elseif(in_array($site, array('twitter','plurk','flickr'))):?>
                 <span class="description-small"><?php _e('Available shortcodes:', 'microblog-poster');?> {TITLE}, {URL}, {SHORT_URL}, {SITE_URL}, {CONTENT_FIRST_WORDS}, {AUTHOR}</span>
-            <?php elseif(in_array($site, array('friendfeed'))):?>
-                <span class="description-small"><?php _e('Available shortcodes:', 'microblog-poster');?> {TITLE}, {CONTENT_FIRST_WORDS}, {AUTHOR}</span>
             <?php else:?>
                 <span class="description-small"><?php _e('Available shortcodes:', 'microblog-poster');?> {TITLE}, {URL}, {SHORT_URL}, {SITE_URL}, {MANUAL_EXCERPT}, {EXCERPT}, {CONTENT_FIRST_WORDS}, {AUTHOR}</span>
             <?php endif;?>

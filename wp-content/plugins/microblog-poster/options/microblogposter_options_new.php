@@ -33,11 +33,7 @@
         </span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
     <div class="mbp-separator"></div>
     <div class="input-div">
         <?php _e('Consumer Key:', 'microblog-poster');?>
@@ -128,11 +124,7 @@
         <span class="description-small"><?php echo $description_shortcodes_m;?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
     <div class="mbp-separator"></div>
     <div class="input-div">
         <?php _e('Consumer Key:', 'microblog-poster');?>
@@ -162,81 +154,6 @@
         <input type="text" id="" name="access_token_secret" value="" />
         <span class="description">(Access Token Secret)</span>
     </div>
-</div>
-<div id="friendfeed-div" class="one-account">
-    <div class="help-div"><span class="description">FriendFeed&nbsp;:&nbsp;<a href="https://efficientscripts.com/help/microblogposter/friendfeedhelp" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
-    <div class="input-div">
-        <?php _e('Username:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="username" name="username" value="" />
-    </div>
-    <div class="input-div">
-        <?php _e('Remote Key:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="" name="password" value="" />
-        <span class="description">(Remote Key)</span>
-    </div>
-    <div class="input-div">
-        <?php _e('Message Format:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <textarea id="message_format" name="message_format" rows="2"></textarea>
-        <span class="description"><?php _e('Message that\'s actually posted.', 'microblog-poster');?></span>
-    </div>
-    <div class="input-div">
-
-    </div>
-    <div class="input-div-large">
-        <span class="description-small"><?php echo $description_shortcodes_m_ff;?></span>
-    </div>
-    <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
-</div>
-<div id="delicious-div" class="one-account">
-    <div class="input-div">
-        <?php _e('Username:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="username" name="username" value="" />
-    </div>
-    <div class="input-div">
-        <?php _e('Password:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="" name="password" value="" />
-    </div>
-    <div class="input-div">
-        <?php _e('Message Format:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <textarea id="message_format" name="message_format" rows="2"></textarea>
-        <span class="description"><?php _e('Message that\'s actually posted.', 'microblog-poster');?></span>
-    </div>
-    <div class="input-div">
-
-    </div>
-    <div class="input-div-large">
-        <span class="description-small"><?php echo $description_shortcodes_bookmark;?></span>
-    </div>
-    <div class="input-div">
-        <?php _e('Include tags:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="checkbox" id="include_tags" name="include_tags" value="1"/>
-        <span class="description"><?php _e('Do you want to include tags in the bookmarks?', 'microblog-poster');?></span>
-    </div>
-    <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
 </div>
 <div id="facebook-div" class="one-account">
     <div class="help-div"><span class="description">Facebook&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/facebook-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
@@ -307,11 +224,7 @@
             </span>
         </div>
         <div class="mbp-separator"></div>
-        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-            <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-        <?php else:?>
-            <?php microblogposter_show_more_infos_category_driven();?>
-        <?php endif;?>
+        <?php microblogposter_display_link_categories(array());?>
         <div class="mbp-separator"></div>
         <div class="input-div">
             <?php _e('Application ID/API Key:', 'microblog-poster');?>
@@ -328,7 +241,6 @@
             <span class="description">(Application Secret)</span>
         </div>
     </div>
-    <div id="mbp-facebook-upgrade-now"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
 </div>
 <div id="diigo-div" class="one-account">
     <div class="help-div"><span class="description">Diigo&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/diigo-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
@@ -372,11 +284,7 @@
         <span class="description"><?php _e('Do you want to include tags in the bookmarks?', 'microblog-poster');?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
 </div>
 <div id="linkedin-div" class="one-account">
     <div class="help-div"><span class="description">Linkedin&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/linkedin-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
@@ -456,11 +364,7 @@
             <span class="description"><?php _e('Default Thumbnail for link box.', 'microblog-poster');?> <a href="https://efficientscripts.com/help/microblogposter/generalhelp#def_img_url" target="_blank"><?php _e('Help', 'microblog-poster');?></a></span>
         </div>
         <div class="mbp-separator"></div>
-        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-            <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-        <?php else:?>
-            <?php microblogposter_show_more_infos_category_driven();?>
-        <?php endif;?>
+        <?php microblogposter_display_link_categories(array());?>
         <div class="mbp-separator"></div>
         <div class="input-div">
             <?php _e('Application ID/API Key:', 'microblog-poster');?>
@@ -533,11 +437,7 @@
         </span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
     <div class="mbp-separator"></div>
     <div id="mbp-tumblr-input-div">
         <div class="input-div">
@@ -595,11 +495,7 @@
         <span class="description"><?php _e('Do you want to include featured image in your updates?', 'microblog-poster');?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
     <div class="mbp-separator"></div>
     <div class="input-div">
         <?php _e('Client Id:', 'microblog-poster');?>
@@ -643,11 +539,7 @@
         <span class="description-small"><?php echo $description_shortcodes_bookmark;?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
 </div>
 <div id="vkontakte-div" class="one-account">
     <div class="help-div"><span class="description">VKontakte&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/vkontakte-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
@@ -708,11 +600,7 @@
             </span>
         </div>
         <div class="mbp-separator"></div>
-        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-            <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-        <?php else:?>
-            <?php microblogposter_show_more_infos_category_driven();?>
-        <?php endif;?>
+        <?php microblogposter_display_link_categories(array());?>
         <div class="mbp-separator"></div>
         <div class="input-div">
             <?php _e('Application ID/API Key:', 'microblog-poster');?>
@@ -761,11 +649,7 @@
         <input type="radio" name="post_type_xing" value="link"> <?php _e('Link', 'microblog-poster');?> - <span class="description"><?php _e('(Text message + Xing link box.)', 'microblog-poster');?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
     <div class="mbp-separator"></div>
     <div class="input-div">
         <?php _e('Consumer Key:', 'microblog-poster');?>
@@ -819,11 +703,7 @@
         <span class="description-small"><?php echo $description_shortcodes;?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
     <div class="mbp-separator"></div>
     <div class="input-div">
         <?php _e('Client Id:', 'microblog-poster');?>
@@ -878,11 +758,7 @@
         <span class="description"><?php _e('Do you want to include tags in the bookmarks?', 'microblog-poster');?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
     <div class="mbp-separator"></div>
     <div class="input-div">
         <?php _e('Consumer Key:', 'microblog-poster');?>
@@ -953,11 +829,7 @@
         <span class="description"><?php _e('Do you want to include tags in the bookmarks?', 'microblog-poster');?></span>
     </div>
     <div class="mbp-separator"></div>
-    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-    <?php else:?>
-        <?php microblogposter_show_more_infos_category_driven();?>
-    <?php endif;?>
+    <?php microblogposter_display_link_categories(array());?>
 </div>
 
 <div id="buffer-div" class="one-account">
@@ -1048,11 +920,7 @@
             <span class="description"><?php _e('Do you want to include tags in the bookmarks?', 'microblog-poster');?></span>
         </div>
         <div class="mbp-separator"></div>
-        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-            <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-        <?php else:?>
-            <?php microblogposter_show_more_infos_category_driven();?>
-        <?php endif;?>
+        <?php microblogposter_display_link_categories(array());?>
     </div>
 </div>
 <div id="facebookb-div" class="one-account">
@@ -1127,11 +995,7 @@
             <span class="description"><?php _e('Do you want to include tags in the bookmarks?', 'microblog-poster');?></span>
         </div>
         <div class="mbp-separator"></div>
-        <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-            <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories(array());?>
-        <?php else:?>
-            <?php microblogposter_show_more_infos_category_driven();?>
-        <?php endif;?>
+        <?php microblogposter_display_link_categories(array());?>
     </div>
 </div>
 <div id="googlemybusiness-div" class="one-account">

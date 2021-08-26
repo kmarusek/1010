@@ -3,7 +3,7 @@ Contributors: cybperic
 Tags: microblogging, bookmarking, bookmarks, auto posts, auto publish, social signals, cross-post, cross post, auto submit, auto update, social networks, social media, twitter, facebook, linkedin, tumblr, delicious, diigo, plurk, blogger, automatic, automation, links, backlinks, auto updates status, social media auto publish, social network auto publish, publish to twitter, publish to facebook
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 2.0.1
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,12 +24,12 @@ By auto sharing your old blog posts, you keep them alive and increase traffic to
 Possibility to nicely format the posted message per account, **shortcodes supported**.
 
 **Logs are generated** each time there is an auto posting activity for each configured social network account.
-Easily follow the automated sharing process from **MicroblogPoster**'s logs section and debug your configuration if needed.
+Easily follow the automated sharing process from **Microblog Poster**'s logs section and debug your configuration if needed.
 
 **Wordpress Multisite fully compatible**. Rather than doing the 'Network activation', 
-activate MicroblogPoster for each sub blog.  
+activate Microblog Poster for each sub blog.
 
-Please visit **MicroblogPoster**'s [website](https://efficientscripts.com/web/products/free "MicroblogPoster's website") , or
+Please visit **Microblog Poster**'s [website](https://efficientscripts.com/web/products/free "Microblog Poster's website") , or
 
 [Contact us](https://efficientscripts.com/web/contact "Contact us") , we're providing support in the following languages:
 
@@ -37,8 +37,6 @@ Please visit **MicroblogPoster**'s [website](https://efficientscripts.com/web/pr
 * Причамо српски ; 
 * Nous parlons français ;
 
-**MicroblogPoster**'s Add-ons bring Additional Features: 
-[Compare Versions](https://efficientscripts.com/web/products/addons "MicroblogPoster's Add-ons Page")
 
 **Currently supported social media sites**
 
@@ -46,7 +44,6 @@ Please visit **MicroblogPoster**'s [website](https://efficientscripts.com/web/pr
 * facebook.com - Auto publish to profile / page wall.
 * business.google.com - Auto publish to Google My Business.
 * plurk.com - Auto post to your account.
-* delicious.com - Auto submit bookmark of your blogpost to your account.
 * diigo.com - Auto submit bookmark of your blogpost.
 * linkedin.com - Auto publish to profile wall
 * tumblr.com - Auto publish to your blog.
@@ -59,13 +56,13 @@ Please visit **MicroblogPoster**'s [website](https://efficientscripts.com/web/pr
 * wordpress blog - Auto publish to another blog.
 
 
-The idea behind **MicroblogPoster** is to promote your wordpress blog and reach more people through social networks. 
+The idea behind **Microblog Poster** is to promote your wordpress blog and reach more people through social networks.
 There's a general agreement in the SEO community that social signals strengthen your blog's page rank and authority.
-**MicroblogPoster** is simply an intermediary between your blog and your own social network accounts. You'll never
-see "posted by MicroblogPoster" in your updates, you'll see "posted by your own App name" or simply "by API".
+**Microblog Poster** is simply an intermediary between your blog and your own social network accounts. You'll never
+see "posted by Microblog Poster" in your updates, you'll see "posted by your own App name" or simply "by API".
 
 
-**MicroblogPoster** in few words:
+**Microblog Poster** in few words:
 
 - Auto publish to social media networks your new blog content
 - Auto publish old posts, tweet old posts
@@ -102,6 +99,15 @@ see "posted by MicroblogPoster" in your updates, you'll see "posted by your own 
 11. MicroblogPoster Options page, Logs Section. (Part 2)
 
 == Changelog ==
+
+= 2.1.3 (26-08-2021) =
+- Removed friendfeed and delicious networks.
+
+= 2.1.2 (25-08-2021) =
+- Fixes -> Bringing enterprise features to free version
+
+= 2.1.1 (25-08-2021) =
+- Bringing enterprise features to free version
 
 = 2.0.1 (24-08-2021) =
 - Bringing pro features to free version

@@ -102,12 +102,7 @@ foreach($rows as $row):
                     <span class="description"><?php _e('Do you want to include featured image in your updates?', 'microblog-poster');?></span>
                 </div>
                 <div class="mbp-separator"></div>
-                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-                    <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories($gmb_link_categories);?>
-                <?php else:?>
-                    <?php microblogposter_show_more_infos_category_driven();?>
-                <?php endif;?>
-                
+                <?php microblogposter_display_link_categories($gmb_link_categories);?>
                 
                 <input type="hidden" name="account_id" value="<?php echo $row->account_id;?>" />
                 <input type="hidden" name="account_type" value="googlemybusinessl" />
@@ -168,33 +163,14 @@ foreach($rows as $row):
         <span class="account-username"><?php echo $row->username;?></span>
         <span class="edit-account edit<?php echo $row->account_id;?>"><?php _e('Edit', 'microblog-poster');?></span>
         <span class="del-account del<?php echo $row->account_id;?>"><?php _e('Del', 'microblog-poster');?></span><br />
-        <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','handle_manual_post')):?>
-            
-            <a><?php _e('Refresh verified locations', 'microblog-poster');?></a><br /><br />
-            <?php if(isset($gmb_acc_extra['refresh_token']) && $gmb_acc_extra['refresh_token']):?>
-                <div><?php _e('Authorization is valid permanently', 'microblog-poster');?></div>
-                <div><a><?php _e('Re-Authorize this Google My Business account', 'microblog-poster');?></a></div>
-            <?php else:?>
-                <a><?php _e('Authorize this Google My Business account', 'microblog-poster');?></a><br />
-                <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?>
-                <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
-                <a href="https://efficientscripts.com/web/login" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
-                <?php else:?>
-                <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
-                <?php endif;?>
-            <?php endif;?>
-                
+        <a href="<?php echo $refresh_url; ?>" ><?php _e('Refresh verified locations', 'microblog-poster');?></a><br /><br />
+        <?php if(isset($gmb_acc_extra['refresh_token']) && $gmb_acc_extra['refresh_token']):?>
+            <div><?php _e('Authorization is valid permanently', 'microblog-poster');?></div>
+            <div><a href="<?php echo $authorize_url; ?>" ><?php _e('Re-Authorize this Google My Business account', 'microblog-poster');?></a></div>
         <?php else:?>
-                
-            <a href="<?php echo $refresh_url; ?>" ><?php _e('Refresh verified locations', 'microblog-poster');?></a><br /><br />
-            <?php if(isset($gmb_acc_extra['refresh_token']) && $gmb_acc_extra['refresh_token']):?>
-                <div><?php _e('Authorization is valid permanently', 'microblog-poster');?></div>
-                <div><a href="<?php echo $authorize_url; ?>" ><?php _e('Re-Authorize this Google My Business account', 'microblog-poster');?></a></div>
-            <?php else:?>
-                <div><a href="<?php echo $authorize_url; ?>" ><?php _e('Authorize this Google My Business account', 'microblog-poster');?></a></div>
-            <?php endif;?>
-                
+            <div><a href="<?php echo $authorize_url; ?>" ><?php _e('Authorize this Google My Business account', 'microblog-poster');?></a></div>
         <?php endif;?>
+
     </div>
 <?php endforeach;?>
 
@@ -290,11 +266,7 @@ foreach($rows as $row):
                         <span class="description"><?php _e('Do you want to include featured image in your updates?', 'microblog-poster');?></span>
                     </div>
                     <div class="mbp-separator"></div>
-                    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-                        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories($gmb_link_categories);?>
-                    <?php else:?>
-                        <?php microblogposter_show_more_infos_category_driven();?>
-                    <?php endif;?>
+                    <?php microblogposter_display_link_categories($gmb_link_categories);?>
                 </div>
 
                 <input type="hidden" name="account_id" value="<?php echo $row->account_id;?>" />

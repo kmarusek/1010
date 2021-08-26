@@ -82,11 +82,7 @@ foreach($rows as $row):
                         <span class="description-small"><?php echo $description_shortcodes;?></span>
                     </div>
                     <div class="mbp-separator"></div>
-                    <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
-                        <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories($pinterest_link_categories);?>
-                    <?php else:?>
-                        <?php microblogposter_show_more_infos_category_driven();?>
-                    <?php endif;?>
+                    <?php microblogposter_display_link_categories($pinterest_link_categories);?>
                     <div class="mbp-separator"></div>
                     <div class="input-div">
                         <?php _e('Client Id:', 'microblog-poster');?>
