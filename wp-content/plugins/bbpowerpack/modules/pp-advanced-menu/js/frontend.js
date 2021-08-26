@@ -49,6 +49,9 @@
 			}
 
 			if ( $( this.wrapperClass ).find( '.pp-advanced-menu-mobile-toggle' ).hasClass( 'pp-active' ) && ( 'expanded' !== this.mobileToggle ) ) {
+				if ( $( e.target ).is( 'input' ) && $( e.target ).parents('.pp-advanced-menu').length > 0 ) {
+					return;
+				}
 				$( this.wrapperClass ).find( '.pp-advanced-menu-mobile-toggle' ).trigger( 'click' );
 			}
 

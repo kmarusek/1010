@@ -81,7 +81,12 @@ $has_overlay_animation = ! isset( $settings->overlay_animation ) || 'yes' === $s
 					<div class="pp-modal-content-inner">
 						<?php
 							$settings->module_id = $id;
-							echo $module->get_modal_content( $settings );
+							$load_in_builder = apply_filters( 'pp_modal_box_load_content_in_builder', true );
+							if ( ! $load_in_builder && pp_is_builder_active() ) {
+								_e( 'Content will be displayed on front-end.', 'bb-powerpack' );
+							} else {
+								echo $module->get_modal_content( $settings );
+							}
 						?>
 					</div>
 				</div>

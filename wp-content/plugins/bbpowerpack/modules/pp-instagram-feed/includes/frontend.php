@@ -1,8 +1,10 @@
 <?php
 $items = $module->get_insta_posts();
 
-if ( is_wp_error( $items ) && FLBuilderModel::is_builder_active() && isset( $_GET['fl_builder'] ) ) {
-	echo $items->get_error_message();
+if ( is_wp_error( $items ) ) {
+	if ( FLBuilderModel::is_builder_active() && isset( $_GET['fl_builder'] ) ) {
+		echo $items->get_error_message();
+	}
 	return;
 }
 

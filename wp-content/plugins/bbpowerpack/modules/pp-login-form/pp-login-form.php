@@ -257,6 +257,9 @@ class PPLoginFormModule extends FLBuilderModule {
 					}
 				}
 
+				// Prevent other plugins from doing anything when users are logging in.
+				remove_all_actions( 'wp_login' );
+
 				// Perform the login.
 				$user = wp_signon( apply_filters( 'pp_login_form_credentials', $creds ), is_ssl() );
 
@@ -686,9 +689,9 @@ class PPLoginFormModule extends FLBuilderModule {
 		}
 		
 		if ( empty( $posted_fields['password_1'] ) ) {
-			$this->form_error = __( 'Please enter your password.', 'powerpack' );
+			$this->form_error = __( 'Please enter your password.', 'bb-powerpack' );
 		} elseif ( $posted_fields['password_1'] !== $posted_fields['password_2'] ) {
-			$this->form_error = __( 'Passwords do not match.', 'powerpack' );
+			$this->form_error = __( 'Passwords do not match.', 'bb-powerpack' );
 		}
 
 		$user = $this->check_password_reset_key( $posted_fields['reset_key'], $posted_fields['reset_login'] );
@@ -697,12 +700,22 @@ class PPLoginFormModule extends FLBuilderModule {
 
 			$errors = new \WP_Error();
 
+			$_POST['pass1'] = $posted_fields['password_1'];
+
 			do_action( 'validate_password_reset', $errors, $user );
 
 			if ( is_wp_error( $errors ) && $errors->get_error_messages() ) {
 				foreach ( $errors->get_error_messages() as $error ) {
 					$this->form_error .= $error . "\r\n";
 				}
+			}
+
+			if ( ! empty( $this->form_error ) ) {
+				if ( false !== strpos( $this->form_error, 'Please choose a new password that rates as Strong on the meter.' ) ) {
+					$this->form_error = str_replace( 'Please choose a new password that rates as Strong on the meter.', '', $this->form_error );
+					$this->form_error .= '<br />' . __( 'Hint: The password should be at least twelve characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).', 'bb-powerpack' );
+				}
+				wp_send_json_error( $this->form_error );
 			}
 
 			$this->reset_password( $user, $posted_fields['password_1'] );

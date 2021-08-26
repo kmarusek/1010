@@ -681,7 +681,7 @@ BB_PowerPack::register_module(
 					'fields' => array( // Section Fields
 						'heading_tag'    => array(
 							'type'          => 'select',
-							'label'         => __('Tag', 'bb-powerpack'),
+							'label'         => __('HTML Tag', 'bb-powerpack'),
 							'default'       => 'h2',
 							'options'       => array(
 								'h1'            => 'H1',
@@ -720,6 +720,22 @@ BB_PowerPack::register_module(
 				'title_fonts'    => array(
 					'title'  => __( 'Client Name', 'bb-powerpack' ),
 					'fields' => array(
+						'title_tag' => array(
+							'type'          => 'select',
+							'label'         => __('HTML Tag', 'bb-powerpack'),
+							'default'       => 'h3',
+							'options'       => array(
+								'h1'            => 'H1',
+								'h2'            => 'H2',
+								'h3'            => 'H3',
+								'h4'            => 'H4',
+								'h5'            => 'H5',
+								'h6'            => 'H6',
+								'div'			=> 'div',
+								'p'				=> 'p',
+								'span'			=> 'span',
+							)
+						),
 						'title_typography' => array(
 							'type'       => 'typography',
 							'label'      => __( 'Typography', 'bb-powerpack' ),
@@ -776,6 +792,22 @@ BB_PowerPack::register_module(
 				'subtitle_fonts' => array(
 					'title'  => __( 'Client Profile', 'bb-powerpack' ),
 					'fields' => array(
+						'subtitle_tag' => array(
+							'type'          => 'select',
+							'label'         => __('HTML Tag', 'bb-powerpack'),
+							'default'       => 'h4',
+							'options'       => array(
+								'h1'            => 'H1',
+								'h2'            => 'H2',
+								'h3'            => 'H3',
+								'h4'            => 'H4',
+								'h5'            => 'H5',
+								'h6'            => 'H6',
+								'div'			=> 'div',
+								'p'				=> 'p',
+								'span'			=> 'span',
+							)
+						),
 						'subtitle_typography' => array(
 							'type'       => 'typography',
 							'label'      => __( 'Typography', 'bb-powerpack' ),

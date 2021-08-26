@@ -1,3 +1,10 @@
+<?php
+$dimensions_attrs = '';
+
+if ( isset( $photo->sizes ) && ! empty( $photo->sizes['width'] ) && ! empty( $photo->sizes['height'] ) ) {
+	$dimensions_attrs = ' width="' . $photo->sizes['width'] . '" height="' . $photo->sizes['height'] . '"';
+}
+?>
 <div class="<?php echo $item_class; ?>" data-item-id="<?php echo $photo->id; ?>" itemprop="associatedMedia" itemscope="itemscope" itemtype="http://schema.org/ImageObject">
 	<div class="pp-photo-gallery-content">
 
@@ -39,7 +46,7 @@
 			$srcset = apply_filters( 'pp_gallery_output_image_srcset', false ) ? esc_attr( $photo->srcset ) : '';
 		?>
 
-		<img class="pp-gallery-img" src="<?php echo $photo->src; ?>"<?php echo ! empty( $srcset ) ? ' srcset="' . $srcset . '"' : ''; ?> alt="<?php echo $photo->alt; ?>" data-no-lazy="1" itemprop="thumbnail" />
+		<img class="pp-gallery-img" src="<?php echo $photo->src; ?>"<?php echo ! empty( $srcset ) ? ' srcset="' . $srcset . '"' : ''; ?> alt="<?php echo $photo->alt; ?>" data-no-lazy="1" itemprop="thumbnail"<?php echo $dimensions_attrs; ?> />
 			<!-- Overlay Wrapper -->
 			<div class="pp-gallery-overlay">
 				<div class="pp-overlay-inner">

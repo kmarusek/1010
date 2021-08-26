@@ -421,10 +421,10 @@ FLBuilderCSS::typography_field_rule(
 
 <?php if ( 'yes' === $settings->radio_cb_style ) : // Radio & Checkbox ?>
 	/* Radio & Checkbox */
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio],
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox],
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio],
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:focus,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox],
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:focus,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox],
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus,
 	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield input[type="checkbox"]:focus,
@@ -445,18 +445,18 @@ FLBuilderCSS::typography_field_rule(
 		<?php endif; ?>
 		padding: 2px;
 	}
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio],
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus:before {
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio],
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:focus,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:focus:before {
 		<?php if ( $settings->radio_cb_radius >= 0 ) : ?>
 			border-radius: <?php echo $settings->radio_cb_radius; ?>px;
 		<?php endif; ?>
 	}
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox],
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox],
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:focus,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:focus:before,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox],
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:before,
@@ -465,10 +465,10 @@ FLBuilderCSS::typography_field_rule(
 			border-radius: <?php echo $settings->radio_cb_checkbox_radius; ?>px;
 		<?php endif; ?>
 	}
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:focus:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:focus:before,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:before,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus:before {
 		content: "";
@@ -478,10 +478,10 @@ FLBuilderCSS::typography_field_rule(
 		margin: 0;
 		display: block;
 	}
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:checked:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus:checked:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:checked:before,
-	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:checked:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:checked:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio input[type=radio]:focus:checked:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:checked:before,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox input[type=checkbox]:focus:checked:before,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:checked:before,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus:checked:before {
 		<?php if ( ! empty( $settings->radio_cb_checked_color ) ) : ?>

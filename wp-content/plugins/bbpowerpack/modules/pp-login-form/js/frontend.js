@@ -336,6 +336,17 @@
 					theForm.find( '.pp-lf-error' ).remove();
 					$('<span class="pp-lf-error">').appendTo( theForm ).html( response.data );
 				} else {
+					var reload = function() {
+						if ( 'URLSearchParams' in window ) {
+							var query = new URLSearchParams( location.search );
+							query.delete( 'reset_success' );
+
+							window.location.href = '' !== query.toString() ? window.location.pathname + '?' + query.toString() : window.location.pathname;
+						} else {
+							window.location.reload();
+						}
+					};
+
 					if ( response.data.redirect_url ) {
 						var hostUrl = location.protocol + '//' + location.host;
 						var redirectUrl = '';
@@ -347,12 +358,12 @@
 						}
 
 						if ( redirectUrl === location.href.split( hostUrl )[1] ) {
-							window.location.reload();
+							reload();
 						} else {
 							window.location.href = response.data.redirect_url;
 						}
 					} else {
-						window.location.reload();
+						reload();
 					}
 				}
 			} );
@@ -425,8 +436,18 @@
 					theForm.find( '.pp-lf-error' ).remove();
 					$('<span class="pp-lf-error">').appendTo( theForm ).html( response.data );
 				} else {
-					$('<p class="pp-lf-success">').insertAfter( theForm ).html( self.messages.reset_success );
-					theForm.hide();
+					if ( 'URLSearchParams' in window ) {
+						var query = new URLSearchParams( location.search );
+						query.delete( 'reset_pass' );
+						query.delete( 'key' );
+						query.delete( 'id' );
+						query.append( 'reset_success', '1' );
+
+						window.location.href = window.location.pathname + '?' + query.toString();
+					} else {
+						$('<p class="pp-lf-success">').insertAfter( theForm ).html( self.messages.reset_success );
+						theForm.hide();
+					}
 				}
 			} );
 		},

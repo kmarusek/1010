@@ -92,29 +92,29 @@
 			});
 		},
 		
-		_setTrigger: function () {
-			var $trigger = false;
+		_getTrigger: function () {
+			var trigger = false;
 
 			if (this.toggleSource == 'id' && this.toggle_id != '') {
 				var toggleId = this.toggle_id.replace('#', '');
-				$trigger = $('#' + toggleId);
+				trigger = '#' + toggleId;
 			} else if (this.toggleSource == 'class' && this.toggle_class != '') {
 				var toggleClass = this.toggle_class.replace('#', '');
-				$trigger = $('.' + toggleClass);
+				trigger = '.' + toggleClass;
 			} else {
-				$trigger = this.node.find('.pp-offcanvas-toggle');
+				trigger = '.fl-node-' + this.id + ' .pp-offcanvas-toggle';
 			}
 
-			return $trigger;
+			return trigger;
 		},
 
 		_bindEvents: function () {
 			var self = this;
-			var $trigger = this._setTrigger();
+			var trigger = this._getTrigger();
 			var scrollPos = $(window).scrollTop();
 
-			if ($trigger) {
-				$trigger.on('click', $.proxy(this._toggleContent, this));
+			if (trigger) {
+				$('body').on('click', trigger, $.proxy(this._toggleContent, this));
 			}
 
 			this._onHashChange();

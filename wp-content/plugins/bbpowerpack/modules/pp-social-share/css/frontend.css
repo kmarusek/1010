@@ -699,7 +699,8 @@
 	border-radius: 0.5em;
 }
 
-.pp-share-buttons-shape-circle .pp-share-button {
+.pp-share-buttons-shape-circle .pp-share-button,
+.pp-share-buttons-shape-circle .pp-share-button a {
 	border-radius: 99.9em;
 }
 

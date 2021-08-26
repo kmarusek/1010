@@ -1,6 +1,14 @@
 .fl-node-<?php echo $id; ?> .pp-modal-button {
 	text-align: <?php echo $settings->button_alignment; ?>;
 }
+<?php
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'button_alignment',
+	'selector'		=> ".fl-node-$id .pp-modal-button",
+	'prop'			=> 'text-align',
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-modal-trigger,
 .fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger,
 .fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger .pp-modal-trigger-icon {
@@ -20,6 +28,7 @@
 	text-align: center;
 	text-decoration: none;
 }
+
 <?php
 	// Button - Border
 	FLBuilderCSS::border_field_rule( array(
@@ -48,6 +57,16 @@
     font-size: <?php echo $settings->button_typography['font_size']['length']; ?><?php echo $settings->button_typography['font_size']['unit']; ?>;
 	<?php } ?>
 }
+<?php if ( isset( $settings->button_icon_color ) && ! empty( $settings->button_icon_color ) ) { ?>
+.fl-node-<?php echo $id; ?> .pp-modal-trigger .pp-button-icon {
+	color: #<?php echo $settings->button_icon_color; ?>;
+}
+<?php } ?>
+<?php if ( isset( $settings->button_icon_hover ) && ! empty( $settings->button_icon_hover ) ) { ?>
+.fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger:hover .pp-button-icon {
+	color: #<?php echo $settings->button_icon_hover; ?>;
+}
+<?php } ?>
 
 <?php
 	// Button Typography

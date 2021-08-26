@@ -1,3 +1,19 @@
+== 2.17.2 ==
+Release date: August 26, 2021
+* Enhancement: Login Form - Password reset success message now will show above the login form
+* Enhancement: Login Form - Added compatibility for "Strong Passwords" setting in the iThemes Security plugin
+* Enhancement: Modal Box - Added an option to provide your own CSS class or ID as trigger element
+* Enhancement: Modal Box - Added support for responsive alignment to modal button
+* Enhancement: Modal Box - Added button Icon Color and Icon Hover Color options
+* Enhancement: Testimonials - Added options to select HTML tag for Client name and profile
+* Enhancement: Photo Gallery - Added width and height attributes to <img> tag
+* Enhancement: Filterable Gallery - Added width and height attributes to <img> tag
+* Fix: Advanced Menu - Mobile toggle menu keeps getting closed when clicking on input field if a search form is placed inside
+* Fix: Pricing Table - Button rgba background color was not working properly
+* Fix: Gravity Forms - Radio & Checkbox styles were not working for Gravity Forms 2.5.x
+* Fix: Social Share - Border radius issue
+* Fix: Instagram Feed - PHP warning
+
 == 2.17.1 ==
 Release date: July 20, 2021
 * Enhancement: Image Hotspot - Added an option to close tooltip by clicking anywhere

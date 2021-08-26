@@ -450,11 +450,18 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                     ),
                     'modal_css_class'       => array(
                         'type'                  => 'pp-css-class',
-                        'label'                 => __('CSS Class', 'bb-powerpack'),
+                        'label'                 => __('Default CSS Class', 'bb-powerpack'),
                         'default'               => '',
                         'disabled'              => 'disabled',
                         'class'                 => 'modal-trigger-class',
                         'help'                  => __('Add this CSS class to the element you want to trigger the modal with.', 'bb-powerpack')
+					),
+					'modal_custom_class'       => array(
+                        'type'                  => 'text',
+                        'label'                 => __('Your own Class/ID', 'bb-powerpack'),
+                        'description'           => __('Please add a class with . prefix (.my-class) or ID with # prefix (#my-id) here. No spaces.', 'bb-powerpack'),
+                        'default'               => '',
+                        'help'                  => __('Add this CSS class/ID to the element you want to trigger the modal with.', 'bb-powerpack'),
                     )
                 )
             ),
@@ -628,6 +635,25 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
 						'default'           => 'f7f7f7',
 						'connections'		=> array('color'),
                     ),
+					'button_icon_color' => array(
+                        'type'              => 'color',
+                        'label'             => __('Icon Color', 'bb-powerpack'),
+						'default'           => '',
+						'show_reset'		=> true,
+						'connections'		=> array('color'),
+                        'preview'           => array(
+                            'type'              => 'css',
+                            'selector'          => '.pp-modal-trigger .pp-button-icon',
+                            'property'          => 'color'
+                        )
+                    ),
+                    'button_icon_hover' => array(
+                        'type'              => 'color',
+						'label'             => __('Icon Color Hover', 'bb-powerpack'),
+						'show_reset'		=> true,
+						'default'           => '',
+						'connections'		=> array('color'),
+                    ),
                 )
             ),
             'modal_button_bg'   => array(
@@ -761,6 +787,7 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'type'              => 'align',
                         'label'             => __('Alignment', 'bb-powerpack'),
                         'default'           => 'left',
+						'responsive'		=> true,
                     )
                 )
             )

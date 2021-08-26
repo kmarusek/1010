@@ -1,4 +1,5 @@
 <?php
+$messages 				= $module->get_js_messages_i18n();
 $action 				= isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : 'login';
 $current_url 			= remove_query_arg( 'fake_arg' );
 $redirect_url 			= $current_url;
@@ -61,6 +62,9 @@ if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 
 	<?php if ( ! $is_logged_in || $is_builder_active || $reauth ) { ?>
 		<?php if ( ! $is_lost_password && ! $is_reset_password ) { ?>
+			<?php if ( isset( $_GET['reset_success'] ) ) { ?>
+				<p class="pp-lf-success pp-lf-pwd-reset-success"><?php echo $messages['reset_success']; ?></p>
+			<?php } ?>
 		<form class="pp-login-form" id="pp-form-<?php echo $id; ?>" method="post" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>">
 			<?php wp_nonce_field( 'login_nonce', 'pp-lf-login-nonce' ); ?>
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_url ); ?>">

@@ -113,7 +113,8 @@ var pp_modal_<?php echo $id; ?> = false;
     <?php } ?>
 
 	// Bind the click event to any element with the class.
-    $(document).on('click', '.modal-<?php echo $id; ?>', function(e) {
+	<?php $custom_class_id = isset( $settings->modal_custom_class ) && ! empty( $settings->modal_custom_class ) ? ',' . $settings->modal_custom_class : ''; ?>
+    $(document).on('click', '.modal-<?php echo $id; ?><?php echo $custom_class_id; ?>', function(e) {
         e.preventDefault();
 		if ( pp_modal_<?php echo $id; ?> instanceof PPModalBox ) {
 			pp_modal_<?php echo $id; ?>.show();

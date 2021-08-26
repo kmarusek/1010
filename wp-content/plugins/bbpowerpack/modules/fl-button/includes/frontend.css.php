@@ -50,8 +50,8 @@ if ( ! empty( $settings->bg_hover_color ) ) {
 	<?php endif; ?>
 
 	<?php if ( ! empty( $settings->bg_color ) ) : ?>
-	background: #<?php echo $settings->bg_color; ?>;
-	border: <?php echo $border_size; ?>px solid #<?php echo $border_color; ?>;
+	background: <?php echo pp_get_color_value( $settings->bg_color ); ?>;
+	border: <?php echo $border_size; ?>px solid <?php echo pp_get_color_value( $border_color ); ?>;
 	
 		<?php if ( 'transparent' == $settings->style ) : // Transparent ?>
 		background-color: rgba(<?php echo implode( ',', FLBuilderColor::hex_to_rgb( $settings->bg_color ) ) ?>, <?php echo $settings->bg_opacity/100; ?>);
@@ -83,8 +83,8 @@ if ( ! empty( $settings->bg_hover_color ) ) {
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus {
 
-	background: #<?php echo $settings->bg_hover_color; ?>;
-	border: <?php echo $border_size; ?>px solid #<?php echo $border_hover_color; ?>;
+	background: <?php echo pp_get_color_value( $settings->bg_hover_color ); ?>;
+	border: <?php echo $border_size; ?>px solid <?php echo pp_get_color_value( $border_hover_color ); ?>;
 	
 	<?php if ( 'transparent' == $settings->style ) : // Transparent ?>
 	background-color: rgba(<?php echo implode( ',', FLBuilderColor::hex_to_rgb( $settings->bg_hover_color ) ) ?>, <?php echo $settings->bg_hover_opacity/100; ?>);

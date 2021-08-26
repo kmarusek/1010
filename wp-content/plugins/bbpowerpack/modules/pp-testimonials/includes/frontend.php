@@ -2,6 +2,8 @@
 $layout = 'slider';
 $testimonials = $settings->testimonials;
 $heading_tag = isset( $settings->heading_tag ) ? $settings->heading_tag : 'h2';
+$title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h3';
+$subtitle_tag = isset( $settings->subtitle_tag ) ? $settings->subtitle_tag : 'h4';
 $is_carousel = absint( $settings->min_slides ) > 1;
 
 if ( isset( $settings->order ) ) {
@@ -81,10 +83,10 @@ if ( isset( $settings->layout ) ) {
 						<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
 								<?php if( $testimonial->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
+									<<?php echo $title_tag; ?> class="pp-testimonials-title"><?php echo $testimonial->title; ?></<?php echo $title_tag; ?>>
 								<?php } ?>
 								<?php if ( $testimonial->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
+									<<?php echo $subtitle_tag; ?> class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></<?php echo $subtitle_tag; ?>>
 								<?php } ?>
 							</div>
 						<?php } ?>
@@ -117,10 +119,10 @@ if ( isset( $settings->layout ) ) {
 						<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
 								<?php if ( $testimonial->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
+									<<?php echo $title_tag; ?> class="pp-testimonials-title"><?php echo $testimonial->title; ?></<?php echo $title_tag; ?>>
 								<?php } ?>
 								<?php if ( $testimonial->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
+									<<?php echo $subtitle_tag; ?> class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></<?php echo $subtitle_tag; ?>>
 								<?php } ?>
 							</div>
 						<?php } ?>
@@ -151,10 +153,10 @@ if ( isset( $settings->layout ) ) {
 						<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
 								<?php if ( $testimonial->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
+									<<?php echo $title_tag; ?> class="pp-testimonials-title"><?php echo $testimonial->title; ?></<?php echo $title_tag; ?>>
 								<?php } ?>
 								<?php if ( $testimonial->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
+									<<?php echo $subtitle_tag; ?> class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></<?php echo $subtitle_tag; ?>>
 								<?php } ?>
 							</div>
 						<?php } ?>
@@ -184,10 +186,10 @@ if ( isset( $settings->layout ) ) {
 						<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
 								<?php if ( $testimonial->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
+									<<?php echo $title_tag; ?> class="pp-testimonials-title"><?php echo $testimonial->title; ?></<?php echo $title_tag; ?>>
 								<?php } ?>
 								<?php if ( $testimonial->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
+									<<?php echo $subtitle_tag; ?> class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></<?php echo $subtitle_tag; ?>>
 								<?php } ?>
 							</div>
 						<?php } ?>
@@ -209,10 +211,10 @@ if ( isset( $settings->layout ) ) {
 						<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
 								<?php if ( $testimonial->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
+									<<?php echo $title_tag; ?> class="pp-testimonials-title"><?php echo $testimonial->title; ?></<?php echo $title_tag; ?>>
 								<?php } ?>
 								<?php if ( $testimonial->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
+									<<?php echo $subtitle_tag; ?> class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></<?php echo $subtitle_tag; ?>>
 								<?php } ?>
 							</div>
 						<?php } ?>
@@ -247,10 +249,10 @@ if ( isset( $settings->layout ) ) {
 					<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
 						<div class="pp-title-wrapper">
 							<?php if ( $testimonial->title ) { ?>
-								<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
+								<<?php echo $title_tag; ?> class="pp-testimonials-title"><?php echo $testimonial->title; ?></<?php echo $title_tag; ?>>
 							<?php } ?>
 							<?php if ( $testimonial->subtitle ) { ?>
-								<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
+								<<?php echo $subtitle_tag; ?> class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></<?php echo $subtitle_tag; ?>>
 							<?php } ?>
 						</div>
 					<?php } ?>

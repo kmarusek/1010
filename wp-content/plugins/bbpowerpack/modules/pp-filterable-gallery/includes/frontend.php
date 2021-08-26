@@ -42,8 +42,15 @@
 	<div class="pp-filterable-gallery pp-photo-gallery<?php echo ( $settings->hover_effects != 'none' ) ? ' ' . $settings->hover_effects : ''; ?>">
 
 	<?php
+		$photos = $module->get_photos();
+	
+		foreach( $photos as $photo ) :
 
-		foreach( $module->get_photos() as $photo ) :
+			$dimensions_attrs = '';
+
+			if ( isset( $photo->sizes ) && ! empty( $photo->sizes['width'] ) && ! empty( $photo->sizes['height'] ) ) {
+				$dimensions_attrs = ' width="' . $photo->sizes['width'] . '" height="' . $photo->sizes['height'] . '"';
+			}
 
 			$photo_filter_label 		= $filter_labels[ $photo->id ];
 			$final_photo_filter_label 	= preg_replace( '/[^\sA-Za-z0-9]/', '-', $photo_filter_label ); ?>
@@ -68,7 +75,7 @@
 				<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>"<?php echo ( '_blank' === $click_action_target && ( ! isset( $settings->custom_link_nofollow ) || 'yes' === $settings->custom_link_nofollow ) ) ? ' rel="nofollow noopener"' : ''; ?>>
 				<?php endif; ?>
 
-				<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" />
+				<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1"<?php echo $dimensions_attrs; ?> />
 
 				<?php if( $settings->hover_effects != 'none' || $settings->overlay_effects != 'none' || $settings->show_captions == 'hover' ) : ?>
 					<!-- overlay start -->
