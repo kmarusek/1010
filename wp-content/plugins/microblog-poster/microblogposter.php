@@ -3,8 +3,8 @@
  *
  * Plugin Name: Microblog Poster
  * Plugin URI: https://efficientscripts.com/web/products/free
- * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger, Xing..
- * Version: 2.1.3
+ * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger..
+ * Version: 2.1.5
  * Author: Efficient Scripts
  * Author URI: https://efficientscripts.com/
  * Text Domain: microblog-poster
@@ -406,11 +406,9 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_blogger($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb, $featured_image_src_full);
         MicroblogPoster_Poster::update_instapaper($cdriven, $old, $mp, $dash, $post_title, $permalink, $post_content, $post_ID);
         MicroblogPoster_Poster::update_vkontakte($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $featured_image_src_thumbnail, $permalink_actual);
-        MicroblogPoster_Poster::update_xing($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb);
         MicroblogPoster_Poster::update_pinterest($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full);
         MicroblogPoster_Poster::update_flickr($cdriven, $old, $mp, $dash, $post_title, $update, $tags, $post_content, $post_ID, $featured_image_path_full, $post_content_actual_lkn);
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
-        MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         
@@ -749,11 +747,9 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_blogger($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb, $featured_image_src_full);
         MicroblogPoster_Poster::update_instapaper($cdriven, $old, $mp, $dash, $post_title, $permalink, $post_content, $post_ID);
         MicroblogPoster_Poster::update_vkontakte($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $featured_image_src_thumbnail, $permalink_actual);
-        MicroblogPoster_Poster::update_xing($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb);
         MicroblogPoster_Poster::update_pinterest($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full);
         MicroblogPoster_Poster::update_flickr($cdriven, $old, $mp, $dash, $post_title, $update, $tags, $post_content, $post_ID, $featured_image_path_full, $post_content_actual_lkn);
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
-        MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         
@@ -2788,206 +2784,6 @@ class MicroblogPoster_Poster
     }
     
     /**
-    * Updates status on tumblr
-    *
-    * @param string  $update Text to be posted on microblogging site
-    * @param array $post_content
-    * @return void
-    */
-    public static function update_xing($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual)
-    {   
-        
-        $xing_accounts = MicroblogPoster_Poster::get_accounts_by_mode('xing', $post_ID);
-        
-        if(!empty($xing_accounts))
-        {
-            foreach($xing_accounts as $xing_account)
-            {
-                if($dash == 1 && $mp['val'] == 0 && $old == 0)
-                {
-                    if($cdriven)
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_cdriven($xing_account['account_id'], $post_ID, $xing_account['extra']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $xing_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account($xing_account['account_id']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $xing_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    
-                }
-                elseif($dash == 1 && $mp['val'] == 1 && $old == 0)
-                {
-                    $active = MicroblogPoster_Poster::filter_single_account_mp($xing_account['account_id']);
-                    if($active === false)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if(isset($active['message_format']) && $active['message_format'])
-                        {
-                            $xing_account['message_format'] = $active['message_format'];
-                        }
-                    }
-                }
-                elseif($dash == 1 && $mp['val'] == 0 && $old == 1)
-                {
-                    if($cdriven)
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_cdriven_old($xing_account['account_id'], $post_ID, $xing_account['extra']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $xing_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_old($xing_account['account_id']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $xing_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    
-                }
-                elseif($cdriven)
-                {
-                    $active = MicroblogPoster_Poster::filter_single_account_cdriven_wodash($xing_account['account_id'], $post_ID, $xing_account['extra']);
-                    if($active === false)
-                    {
-                        continue;
-                    }
-                }
-                elseif($dash == 0 && $mp['val'] == 0 && $old == 0)
-                {
-                    if(MicroblogPoster_Poster::isScheduled($post_ID))
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_scheduled($xing_account['account_id'],$post_ID);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $xing_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                }
-                
-                if($xing_account['message_format'] && $mp['val'] == 0)
-                {
-                    $xing_account['message_format'] = str_ireplace('{content}', '', $xing_account['message_format']);
-                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes(), $post_content, $xing_account['message_format']);
-                }
-                elseif($xing_account['message_format'] && $mp['val'] == 1 && $mp['type'] == 'link')
-                {
-                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes_mp(), $post_content, $xing_account['message_format']);
-                }
-                
-                $extra = json_decode($xing_account['extra'], true);
-                if(!$extra)
-                {
-                    continue;
-                }
-                if($mp['val'] == 1 && $mp['type'] == 'text')
-                {
-                    $extra['post_type'] = 'text';
-                }
-                
-                if($extra['post_type'] == 'text')
-                {
-                    $result = MicroblogPoster_Poster::send_signed_request(
-                        $xing_account['consumer_key'],
-                        $xing_account['consumer_secret'],
-                        $xing_account['access_token'],
-                        $xing_account['access_token_secret'],
-                        "https://api.xing.com/v1/users/{$extra['user_id']}/status_message",
-                        array("id"=>$extra['user_id'],"message"=>$update)
-                    );
-                }
-                elseif($extra['post_type'] == 'link')
-                {
-                    $result = MicroblogPoster_Poster::send_signed_request(
-                        $xing_account['consumer_key'],
-                        $xing_account['consumer_secret'],
-                        $xing_account['access_token'],
-                        $xing_account['access_token_secret'],
-                        "https://api.xing.com/v1/users/me/share/link",
-                        array("uri"=>$permalink,"text"=>$update)
-                    );
-                }
-                
-                $action_result = 2;
-                $result_dec = json_decode($result, true);
-                if(($result && $result == 'Status update has been posted') ||
-                    ($result_dec && isset($result_dec['ids'])))
-                {
-                    $action_result = 1;
-                    $result = "Success";
-                }
-                
-                $log_data = array();
-                $log_data['account_id'] = $xing_account['account_id'];
-                $log_data['account_type'] = "xing";
-                $log_data['username'] = $xing_account['username'];
-                $log_data['post_id'] = $post_ID;
-                $log_data['action_result'] = $action_result;
-                $log_data['update_message'] = $update;
-                $log_data['log_message'] = $result;
-                if($mp['val'] == 1)
-                {
-                    $log_data['log_type'] = 'manual';
-                }
-                elseif($old == 1)
-                {
-                    $log_data['log_type'] = 'old';
-                }
-                MicroblogPoster_Poster::insert_log($log_data);
-            }
-        }
-        
-    }
-    
-    /**
     * Make new post to blogger blogs
     *
     * @param string  $update Text to be posted on microblogging site
@@ -3667,212 +3463,7 @@ class MicroblogPoster_Poster
             }
         }
     }
-    
-    public static function update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $tags)
-    {
-	if($mp['val'] == 1 && $mp['type'] == 'text')
-        {
-            return;
-        }
-        $curl = new MicroblogPoster_Curl();
-        $googleplus_accounts = MicroblogPoster_Poster::get_accounts_by_mode('googleplus', $post_ID);
-        
-        if(!empty($googleplus_accounts))
-        {
-            foreach($googleplus_accounts as $googleplus_account)
-            {
-                if($dash == 1 && $mp['val'] == 0 && $old == 0)
-                {
-                    if($cdriven)
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_cdriven($googleplus_account['account_id'], $post_ID, $googleplus_account['extra']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $googleplus_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account($googleplus_account['account_id']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $googleplus_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    
-                }
-                elseif($dash == 1 && $mp['val'] == 1 && $old == 0)
-                {
-                    $active = MicroblogPoster_Poster::filter_single_account_mp($googleplus_account['account_id']);
-                    if($active === false)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if(isset($active['message_format']) && $active['message_format'])
-                        {
-                            $googleplus_account['message_format'] = $active['message_format'];
-                        }
-                    }
-                }
-                elseif($dash == 1 && $mp['val'] == 0 && $old == 1)
-                {
-                    if($cdriven)
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_cdriven_old($googleplus_account['account_id'], $post_ID, $googleplus_account['extra']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $googleplus_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_old($googleplus_account['account_id']);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $googleplus_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                    
-                }
-                elseif($cdriven)
-                {
-                    $active = MicroblogPoster_Poster::filter_single_account_cdriven_wodash($googleplus_account['account_id'], $post_ID, $googleplus_account['extra']);
-                    if($active === false)
-                    {
-                        continue;
-                    }
-                }
-                elseif($dash == 0 && $mp['val'] == 0 && $old == 0)
-                {
-                    if(MicroblogPoster_Poster::isScheduled($post_ID))
-                    {
-                        $active = MicroblogPoster_Poster::filter_single_account_scheduled($googleplus_account['account_id'],$post_ID);
-                        if($active === false)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            if(isset($active['message_format']) && $active['message_format'])
-                            {
-                                $googleplus_account['message_format'] = $active['message_format'];
-                            }
-                        }
-                    }
-                }
-                
-                $post_content[8] = MicroblogPoster_Poster::strip_shortcodes_and_tags($post_content[8]);
-                if($googleplus_account['message_format'] && $mp['val'] == 0)
-                {
-                    $googleplus_account['message_format'] = str_ireplace('{site_url}', '', $googleplus_account['message_format']);
-                    $googleplus_account['message_format'] = str_ireplace('{url}', '', $googleplus_account['message_format']);
-                    $googleplus_account['message_format'] = str_ireplace('{short_url}', '', $googleplus_account['message_format']);
-                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes(), $post_content, $googleplus_account['message_format']);
-                }
-                elseif($googleplus_account['message_format'] && $mp['val'] == 1 && $mp['type'] == 'link')
-                {
-                    $googleplus_account['message_format'] = str_ireplace('{url}', '', $googleplus_account['message_format']);
-                    $googleplus_account['message_format'] = str_ireplace('{short_url}', '', $googleplus_account['message_format']);
-                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes_mp(), $post_content, $googleplus_account['message_format']);
-                }
-                
-                $extra = json_decode($googleplus_account['extra'], true);
-                $update = MicroblogPoster_Poster::clean_up_content_update($update);
-                if(!$extra)
-                {
-                    continue;
-                }
-                
-                $include_tags = (isset($extra['include_tags']) && $extra['include_tags'] == 1)?true:false;
-                if($include_tags && $tags)
-                {
-                    $tags = MicroblogPoster_Poster::create_tags_string($tags);
-                    $update = $update . $tags;
-                }
-                
-                $update = $update .' '. $permalink;
-                if(isset($extra['googleplus_id']))
-                { 
-                    $access_token = MicroblogPoster_Poster::get_connected_buffer_api_key($extra['connected_buffer']);
-                    $url = 'https://api.bufferapp.com/1/updates/create.json?access_token='.$access_token;
-                    $headers = array(
-                        'Content-Type' => 'application/x-www-form-urlencoded'
-                    );
-                    $curl->set_headers($headers);
-                    $post_data = array(
-                        'profile_ids' => $extra['googleplus_id'],
-                        'now' => true,
-                        'text' => $update
-                    );
-                    $result = $curl->send_post_data($url, $post_data);
-                    $result_dec = json_decode($result, true);
-                }
-                else
-                {
-                    $result = 'Google+ ID is required';
-                }
-                
-                $action_result = 2;
-                if($result_dec && isset($result_dec['message']))
-                {
-                    $result = $result_dec['message'];
-                }
-                if($result_dec && isset($result_dec['success']) && $result_dec['success'] == 1)
-                {
-                    $action_result = 1;
-                    $result = "Success";
-                }
 
-                $log_data = array();
-                $log_data['account_id'] = $googleplus_account['account_id'];
-                $log_data['account_type'] = "googleplus";
-                $log_data['username'] = $googleplus_account['username'];
-                $log_data['post_id'] = $post_ID;
-                $log_data['action_result'] = $action_result;
-                $log_data['update_message'] = $update;
-                $log_data['log_message'] = $result;
-                if($mp['val'] == 1)
-                {
-                    $log_data['log_type'] = 'manual';
-                }
-                elseif($old == 1)
-                {
-                    $log_data['log_type'] = 'old';
-                }
-                MicroblogPoster_Poster::insert_log($log_data);
-            }
-        }
-    }
     public static function update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $tags)
     {
 	if($mp['val'] == 1 && $mp['type'] == 'text')
@@ -5051,11 +4642,9 @@ class MicroblogPoster_Poster
             MicroblogPoster_Poster::update_blogger($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb, $featured_image_src_full);
             MicroblogPoster_Poster::update_instapaper($cdriven, $old, $mp, $dash, $post_title, $permalink, $post_content, $post_ID);
             MicroblogPoster_Poster::update_vkontakte($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $featured_image_src_thumbnail, $permalink_actual);
-            MicroblogPoster_Poster::update_xing($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb);
             MicroblogPoster_Poster::update_pinterest($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $featured_image_src_full);
             MicroblogPoster_Poster::update_flickr($cdriven, $old, $mp, $dash, $post_title, $update, $tags, $post_content, $post_ID, $featured_image_path_full, $post_content_actual_lkn);
             MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
-            MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
             MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
             MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         }
@@ -5094,11 +4683,9 @@ class MicroblogPoster_Poster
             MicroblogPoster_Poster::update_blogger($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb, $featured_image_src_full);
             MicroblogPoster_Poster::update_instapaper($cdriven, $old, $mp, $dash, $post_title, $permalink, $post_content, $post_ID);
             MicroblogPoster_Poster::update_vkontakte($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $featured_image_src_thumbnail, $permalink_actual);
-            MicroblogPoster_Poster::update_xing($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_tmb);
             MicroblogPoster_Poster::update_pinterest($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $featured_image_src_full);
             MicroblogPoster_Poster::update_flickr($cdriven, $old, $mp, $dash, $post_title, $update, $tags, $post_content, $post_ID, $featured_image_path_full, $post_content_actual_lkn);
             MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
-            MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
             MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
             MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         }
@@ -6210,19 +5797,6 @@ class MicroblogPoster_Poster
             MicroblogPoster_Poster::show_common_account_dashboard_head('vkontakte');
             foreach($vkontakte_accounts as $vkontakte_account):
                 MicroblogPoster_Poster::show_common_account_dashboard($vkontakte_account, 'vkontakte');
-                ?>
-
-            <?php
-            endforeach;
-        endif;
-        ?>
-
-        <?php
-        $xing_accounts = MicroblogPoster_Poster::get_accounts_object('xing');
-        if(!empty($xing_accounts)):
-            MicroblogPoster_Poster::show_common_account_dashboard_head('xing');
-            foreach($xing_accounts as $xing_account):
-                MicroblogPoster_Poster::show_common_account_dashboard($xing_account, 'xing');
                 ?>
 
             <?php

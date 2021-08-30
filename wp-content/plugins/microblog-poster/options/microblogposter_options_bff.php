@@ -13,14 +13,6 @@ foreach($rows as $row):
     {
         $api_key = $extra['api_key'];
     }
-    if(is_array($extra['google']))
-    {
-        $gpb_count = $extra['google']['google_accounts'];
-    }
-    else
-    {
-        $gpb_count = 0;
-    }
     if(is_array($extra['facebook']))
     {
         $fbb_count = $extra['facebook']['facebook_accounts'];
@@ -33,7 +25,6 @@ foreach($rows as $row):
 
     <div id="mbp_refresh_buffer_form_wrapper">
         <a href="<?php echo $refresh_url; ?>" ><?php _e('Refresh available accounts', 'microblog-poster');?></a><br />
-        <span><?php echo "Google+ -> ($gpb_count)";?></span><br />
         <span><?php echo "Facebook -> ($fbb_count)";?></span>
     </div>
 

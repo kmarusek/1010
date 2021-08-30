@@ -3,7 +3,7 @@ Contributors: cybperic
 Tags: microblogging, bookmarking, bookmarks, auto posts, auto publish, social signals, cross-post, cross post, auto submit, auto update, social networks, social media, twitter, facebook, linkedin, tumblr, delicious, diigo, plurk, blogger, automatic, automation, links, backlinks, auto updates status, social media auto publish, social network auto publish, publish to twitter, publish to facebook
 Requires at least: 3.0
 Tested up to: 5.8
-Stable tag: 2.1.3
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,7 +50,6 @@ Please visit **Microblog Poster**'s [website](https://efficientscripts.com/web/p
 * blogger.com (blogspot.com) - Auto publish to your blog.
 * instapaper.com - Auto submit bookmark of your blogpost.
 * vk.com (vkontakte.com) - Auto publish to profile wall.
-* xing.com - Auto publish to profile wall.
 * pinterest.com - Auto publish to pinterest board.
 * flickr.com - Auto publish to flickr.
 * wordpress blog - Auto publish to another blog.
@@ -99,6 +98,14 @@ see "posted by Microblog Poster" in your updates, you'll see "posted by your own
 11. MicroblogPoster Options page, Logs Section. (Part 2)
 
 == Changelog ==
+
+= 2.1.5 (30-08-2021) =
+- Removed xing network.
+- Code cleaning.
+
+= 2.1.4 (30-08-2021) =
+- Removed google+ network.
+- Fixed twitter auto posting.
 
 = 2.1.3 (26-08-2021) =
 - Removed friendfeed and delicious networks.
@@ -583,18 +590,6 @@ Basically first you'll need to create a VKontakte APP in order to auto publish.
     posting on your behalf.
 
     6. Last step is to save the 'Access Token' that you'll get when authorizing the account.
-
-**xing.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/xing-auto-publish "Xing auto publish help with screenshots.")
-
-Basically first you'll need to create a Xing APP in order to auto publish.
-
-
-    1. Please browse to this url: https://dev.xing.com/applications/dashboard
-    then click 'Create App'.
-    
-    2. Copy the 'Consumer key' and 'Consumer secret'.
-
-    3. Configure your account in MicroblogPoster.
 
 **pinterest.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/pinterest-auto-publish "Pinterest auto publish help with screenshots.")
 

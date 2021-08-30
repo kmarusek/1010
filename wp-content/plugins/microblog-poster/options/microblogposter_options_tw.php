@@ -10,7 +10,11 @@ foreach($rows as $row):
     $authorized = false;
     $include_featured_image = false;
     $twt_link_categories = array();
-    if($row->extra)
+    if($row->consumer_key && $row->consumer_secret && $row->access_token && $row->access_token_secret)
+    {
+        $authorized = true;
+    }
+    elseif($row->extra)
     {
         $twt_acc_extra = json_decode($row->extra, true);
         if(isset($twt_acc_extra['authorized']) && $twt_acc_extra['authorized']=='1')
@@ -24,10 +28,7 @@ foreach($rows as $row):
             $twt_link_categories = json_decode($twt_link_categories, true);
         }
     }
-    elseif($row->consumer_key && $row->consumer_secret && $row->access_token && $row->access_token_secret)
-    {
-        $authorized = true;
-    }
+
 
     $authorize_step = 1;
     $authorize_url = $redirect_uri.'&microblogposter_auth_twitter=1&account_id='.$row->account_id;

@@ -619,53 +619,6 @@
     </div>
     <div id="mbp-vkontakte-upgrade-now"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
 </div>
-<div id="xing-div" class="one-account">
-    <div class="help-div"><span class="description"> Xing&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/xing-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
-    <div class="input-div">
-        <?php _e('Username:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="username" name="username" />
-    </div>
-    <div class="input-div">
-        <?php _e('Message Format:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <textarea id="message_format" name="message_format" rows="2"></textarea>
-        <span class="description"><?php _e('Message that\'s actually posted.', 'microblog-poster');?></span>
-    </div>
-    <div class="input-div">
-
-    </div>
-    <div class="input-div-large">
-        <span class="description-small"><?php echo $description_shortcodes_less;?></span>
-    </div>
-    <div class="mbp-separator"></div>
-    <div class="input-div input-div-radio">
-        <?php _e('Post Type:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="radio" name="post_type_xing" value="text" checked="checked"> <?php _e('Text', 'microblog-poster');?> - <span class="description"><?php _e('Text only status update.', 'microblog-poster');?></span><br>
-        <input type="radio" name="post_type_xing" value="link"> <?php _e('Link', 'microblog-poster');?> - <span class="description"><?php _e('(Text message + Xing link box.)', 'microblog-poster');?></span>
-    </div>
-    <div class="mbp-separator"></div>
-    <?php microblogposter_display_link_categories(array());?>
-    <div class="mbp-separator"></div>
-    <div class="input-div">
-        <?php _e('Consumer Key:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="" name="consumer_key" value="" />
-        <span class="description">(Application Consumer Key)</span>
-    </div>
-    <div class="input-div">
-        <?php _e('Consumer Secret:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="" name="consumer_secret" value="" />
-        <span class="description">(Application Consumer Secret)</span>
-    </div>
-</div>
 <div id="pinterest-div" class="one-account">
     <div class="help-div"><span class="description">Pinterest&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/pinterest-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
     <div class="input-div">
@@ -848,81 +801,7 @@
         <span class="description">(API Key)</span>
     </div>
 </div>
-<div id="googleplus-div" class="one-account">
-    <div class="help-div"><span class="description">Google+&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/googleplus-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
-    <div class="input-div">
-        <?php _e('Username:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-        <input type="text" id="username" class="gp-username" name="username" value="" />
-        <span class="description"><?php echo $description_mandatory_username;?></span>
-    </div>
-    <div class="input-div">
-        <?php _e('Buffer account:', 'microblog-poster');?>
-    </div>
-    <div class="input-div-large">
-         <select name="mbp_buffer_name" id="mbp_buffer_name">
-             <option value=""><?php _e('(None)', 'microblog-poster');?></option> 
-             <?php $dd_accounts = MicroblogPoster_Poster::get_accounts_object('buffer'); ?>
-             <?php if(!empty($dd_accounts)): ?>
-                <?php foreach($dd_accounts as $account): ?>
-                    <?php $gp_accounts = MicroblogPoster_Poster::get_googleplus_accounts($account->account_id); ?>
-                    <?php if(!empty($gp_accounts)): ?>
-                        <option value="<?php echo $account->account_id;?>"><?php echo $account->username; ?> </option> 
-                    <?php endif ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
-         </select>
-        <span class="description"></span>
-    </div>
-    <div id="mbp-googleplus-input-div">
-        <?php $dd_accounts = MicroblogPoster_Poster::get_accounts_object('buffer'); ?>
-        <?php if(!empty($dd_accounts)): ?>
-            <?php foreach($dd_accounts as $account): ?>
-            <?php $select_id = 'mbp-googleplus-accounts-div-'.$account->account_id; ?>
-            <div class="googleplus-select" id="<?php echo $select_id; ?>" >
-                <?php $gp_accounts = MicroblogPoster_Poster::get_googleplus_accounts($account->account_id); ?>
-                <?php if(!empty($gp_accounts)): ?>
-                <div class="input-div">
-                <?php _e('Google+ account:', 'microblog-poster');?>
-                </div>
-                <div class="input-div-large">
-                    <select name="mbp_googleplus_select_name" id="mbp_googleplus_select_name">
-                        <?php foreach ($gp_accounts as $key => $value): ?>
-                        <option value="<?php echo $key; ?>"><?php echo $value; ?> </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <span class="description"></span>
-                </div>
-                <?php endif; ?>
-            </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        <div class="input-div">
-            <?php _e('Message Format:', 'microblog-poster');?>
-        </div>
-        <div class="input-div-large">
-            <textarea id="message_format" name="message_format" rows="2"></textarea>
-            <span class="description"><?php _e('Message that\'s actually posted.', 'microblog-poster');?></span>
-        </div> 
-        <div class="input-div">
 
-        </div>
-        <div class="input-div-large">
-            <span class="description-small"><?php echo $description_shortcodes_bookmark;?></span>
-        </div>
-        <div class="mbp-separator"></div>
-        <div class="input-div">
-            <?php _e('Include tags:', 'microblog-poster');?>
-        </div>
-        <div class="input-div-large">
-            <input type="checkbox" id="include_tags" name="include_tags" value="1" />
-            <span class="description"><?php _e('Do you want to include tags in the bookmarks?', 'microblog-poster');?></span>
-        </div>
-        <div class="mbp-separator"></div>
-        <?php microblogposter_display_link_categories(array());?>
-    </div>
-</div>
 <div id="facebookb-div" class="one-account">
     <div class="help-div"><span class="description">Facebook&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/facebook-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
     <div class="input-div">
