@@ -885,4 +885,19 @@
     <div class="input-div-large">
         <input type="text" id="username" name="username" value="" />
     </div>
+    <div class="mbp-separator"></div>
+    <div class="input-div">
+        <?php _e('Client Id:', 'microblog-poster');?>
+    </div>
+    <div class="input-div-large">
+        <input type="text" id="" name="consumer_key" value="" />
+        <span class="description">(Client Id)</span>
+    </div>
+    <div class="input-div">
+        <?php _e('Client Secret:', 'microblog-poster');?>
+    </div>
+    <div class="input-div-large">
+        <input type="text" id="" name="consumer_secret" value="" />
+        <span class="description">(Client Secret)</span>
+    </div>
 </div>

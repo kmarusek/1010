@@ -213,20 +213,12 @@ function microblogposter_settings_output()
                 {
                     $extra_old['old_posts_active'] = 1;
                 }
-                //$extra_old['message_format_old'] = trim($_POST[$message_format_name_old]);
                 $message_format_old = trim($_POST[$message_format_name_old]);
                 $message_format_old = str_replace("\'","'",$message_format_old);
                 $message_format_old = str_replace('\"','"',$message_format_old);
                 $extra_old['message_format_old'] = $message_format_old;
                 $extra_old = json_encode($extra_old);
-                //$wpdb->escape_by_ref($extra_old);
                 $account_id_old = $account_old['account_id'];
-                /*$sql = "UPDATE {$table_accounts}
-                    SET extra='{$extra_old}' 
-                    WHERE account_id={$account_id_old}";
-
-                $wpdb->query($sql);*/
-                
                 $wpdb->update(
                         $table_accounts, 
                         array(
@@ -370,7 +362,7 @@ function microblogposter_settings_output()
     if(isset($_GET['googlemybusiness_account_id']))
     {
         $mbp_accounts_tab_selected = true;
-        
+        $gmb_locations_updated_success = false;
         $gmb_account_id = (int) $_GET['googlemybusiness_account_id'];
         $sql="SELECT * FROM $table_accounts WHERE account_id = %d LIMIT 1";
         $rows = $wpdb->get_results($wpdb->prepare($sql, $gmb_account_id));
@@ -380,11 +372,19 @@ function microblogposter_settings_output()
         if(isset($extra['refresh_token']))
         {
             $gmb_refresh_token = $extra['refresh_token'];
-            $url = "https://efficientscripts.com/api/googleMyBusinessRefresh.php?mbp_gmb_rt={$gmb_refresh_token}&mbp_lk={$customer_license_key_value['key']}";
+            $url = "https://accounts.google.com/o/oauth2/token";
+            $post_args = array(
+                'refresh_token' => $gmb_refresh_token,
+                'grant_type' => 'refresh_token',
+                'client_id' => $current_account->consumer_key,
+                'client_secret' => $current_account->consumer_secret
+            );
+
             $curl = new MicroblogPoster_Curl();
-            $json_res = $curl->fetch_url($url);
+            $json_res = $curl->send_post_data($url, $post_args);
             $response = json_decode($json_res, true);
-            if(isset($response['access_token']))
+
+            if(isset($response['access_token']) && isset($response['token_type']) && $response['token_type'] == 'Bearer')
             {
                 $extra['access_token'] = $response['access_token'];
                 $extra['expires'] = time()+3500;
@@ -427,7 +427,20 @@ function microblogposter_settings_output()
                                     'name'=>$gmb_location['locationName']
                                 );
                                 $gmb_locations_quick_access[$gmb_location['name']] = $gmb_location['locationName'];
+                                $gmb_locations_updated_success = true;
                             }
+                        }
+                        else
+                        {
+                            $log_data = array();
+                            $log_data['account_id'] = $current_account->account_id;
+                            $log_data['account_type'] = "googlemybusinessl";
+                            $log_data['username'] = $current_account->username;
+                            $log_data['post_id'] = 0;
+                            $log_data['action_result'] = 0;
+                            $log_data['update_message'] = 'Google MB Locations';
+                            $log_data['log_message'] = $result;
+                            MicroblogPoster_Poster::insert_log($log_data);
                         }
                         $extra['accounts'][] = array(
                                     'id'=>$gmb_account['name'], 
@@ -447,45 +460,58 @@ function microblogposter_settings_output()
                         )
                     );
                 }
+                else
+                {
+                    $log_data = array();
+                    $log_data['account_id'] = $current_account->account_id;
+                    $log_data['account_type'] = "googlemybusinessl";
+                    $log_data['username'] = $current_account->username;
+                    $log_data['post_id'] = 0;
+                    $log_data['action_result'] = 0;
+                    $log_data['update_message'] = 'Google MB Authorization';
+                    $log_data['log_message'] = $result;
+                    MicroblogPoster_Poster::insert_log($log_data);
+                }
             }
+            else
+            {
+                $log_data = array();
+                $log_data['account_id'] = $current_account->account_id;
+                $log_data['account_type'] = "googlemybusinessl";
+                $log_data['username'] = $current_account->username;
+                $log_data['post_id'] = 0;
+                $log_data['action_result'] = 0;
+                $log_data['update_message'] = 'Google MB Authorization';
+                $log_data['log_message'] = $json_res;
+                MicroblogPoster_Poster::insert_log($log_data);
+            }
+        }
+        if($gmb_locations_updated_success)
+        {
+            ?>
+            <div class="updated"><p><strong><?php _e('Locations refreshed successfully.', 'microblog-poster');?></strong></p></div>
+            <?php
         }
     }
     
     if(isset($_POST["update_options"]))
     {
-        //$url_shortener_value = $_POST[$url_shortener_name];
         $url_shortener_value = sanitize_text_field( $_POST[$url_shortener_name] );
-        //$bitly_api_user_value = trim($_POST[$bitly_api_user_name]);
         $bitly_api_user_value = sanitize_text_field($_POST[$bitly_api_user_name]);
-        //$bitly_api_key_value = trim($_POST[$bitly_api_key_name]);
         $bitly_api_key_value = sanitize_text_field($_POST[$bitly_api_key_name]);
-        //$bitly_access_token_value = trim($_POST[$bitly_access_token_name]);
         $bitly_access_token_value = sanitize_text_field($_POST[$bitly_access_token_name]);
-        //$googl_api_client_id_value = trim($_POST[$googl_api_client_id_name]);
         $googl_api_client_id_value = sanitize_text_field($_POST[$googl_api_client_id_name]);
-        //$googl_api_client_secret_value = trim($_POST[$googl_api_client_secret_name]);
         $googl_api_client_secret_value = sanitize_text_field($_POST[$googl_api_client_secret_name]);
-        //$adfly_api_key_value = trim($_POST[$adfly_api_key_name]);
         $adfly_api_key_value = sanitize_text_field($_POST[$adfly_api_key_name]);
-        //$adfly_api_user_id_value = trim($_POST[$adfly_api_user_id_name]);
         $adfly_api_user_id_value = sanitize_text_field($_POST[$adfly_api_user_id_name]);
-        //$adfly_api_domain_value = trim($_POST[$adfly_api_domain_name]);
         $adfly_api_domain_value = sanitize_text_field($_POST[$adfly_api_domain_name]);
-        //$adfly_api_custom_domain_value = trim($_POST[$adfly_api_custom_domain_name]);
         $adfly_api_custom_domain_value = sanitize_text_field($_POST[$adfly_api_custom_domain_name]);
-        //$adfocus_api_key_value = trim($_POST[$adfocus_api_key_name]);
         $adfocus_api_key_value = sanitize_text_field($_POST[$adfocus_api_key_name]);
-        //$ppw_user_id_value = trim($_POST[$ppw_user_id_name]);
         $ppw_user_id_value = sanitize_text_field($_POST[$ppw_user_id_name]);
-        //$default_behavior_value = $_POST[$default_behavior_name];
         $default_behavior_value = sanitize_text_field($_POST[$default_behavior_name]);
-        //$default_behavior_update_value = $_POST[$default_behavior_update_name];
         $default_behavior_update_value = sanitize_text_field($_POST[$default_behavior_update_name]);
-        //$default_pbehavior_value = $_POST[$default_pbehavior_name];
         $default_pbehavior_value = sanitize_text_field($_POST[$default_pbehavior_name]);
-        //$default_pbehavior_update_value = $_POST[$default_pbehavior_update_name];
         $default_pbehavior_update_value = sanitize_text_field($_POST[$default_pbehavior_update_name]);
-        //$page_mode_value = $_POST[$page_mode_name];
         $default_behavior_cat_driven_value = sanitize_text_field($_POST[$default_behavior_cat_driven_name]);
         $page_mode_value = sanitize_text_field($_POST[$page_mode_name]);
         $excluded_categories_value = $_POST[$excluded_categories_name];
@@ -701,7 +727,6 @@ function microblogposter_settings_output()
         
         if(isset($_POST['account_type']))
         {
-            //$account_type = trim($_POST['account_type']);
             $account_type = sanitize_text_field( $_POST['account_type'] );
         }
         $extra = array();
@@ -725,33 +750,27 @@ function microblogposter_settings_output()
         {
             if(isset($_POST['api_key']))
             {
-                //$extra['api_key'] = trim($_POST['api_key']);
                 $extra['api_key'] = sanitize_text_field( $_POST['api_key'] );
             }
         }
         if(isset($_POST['consumer_key']))
         {
-            //$consumer_key = trim($_POST['consumer_key']);
             $consumer_key = sanitize_text_field( $_POST['consumer_key'] );
         }
         if(isset($_POST['consumer_secret']))
         {
-            //$consumer_secret = trim($_POST['consumer_secret']);
             $consumer_secret = sanitize_text_field( $_POST['consumer_secret'] );
         }
         if(isset($_POST['access_token']))
         {
-            //$access_token = trim($_POST['access_token']);
             $access_token = sanitize_text_field( $_POST['access_token'] );
         }
         if(isset($_POST['access_token_secret']))
         {
-            //$access_token_secret = trim($_POST['access_token_secret']);
             $access_token_secret = sanitize_text_field( $_POST['access_token_secret'] );
         }
         if(isset($_POST['username']))
         {
-            //$username = trim($_POST['username']);
             $username = sanitize_text_field( $_POST['username'] );
         }
         if(isset($_POST['password']))
@@ -762,11 +781,8 @@ function microblogposter_settings_output()
                 $password = stripslashes($password);
                 $password = MicroblogPoster_SupportEnc::enc($password);
                 $extra['penc'] = 1;
-                
             }
-            
         }
-        
         
         if(isset($_POST['message_format']))
         {
@@ -805,63 +821,49 @@ function microblogposter_settings_output()
 
         if(isset($_POST['mbp_facebook_target_type']))
         {
-            //$extra['target_type'] = trim($_POST['mbp_facebook_target_type']);
             $extra['target_type'] = sanitize_text_field( $_POST['mbp_facebook_target_type'] );
         }
         if(isset($_POST['mbp_facebook_page_id']))
         {
-            //$extra['page_id'] = trim($_POST['mbp_facebook_page_id']);
             $extra['page_id'] = sanitize_text_field( $_POST['mbp_facebook_page_id'] );
         }
         if(isset($_POST['mbp_facebook_group_id']))
         {
-            //$extra['group_id'] = trim($_POST['mbp_facebook_group_id']);
             $extra['group_id'] = sanitize_text_field( $_POST['mbp_facebook_group_id'] );
         }
 
         if(isset($_POST['mbp_linkedin_target_type']))
         {
-            //$extra['target_type'] = trim($_POST['mbp_linkedin_target_type']);
             $extra['target_type'] = sanitize_text_field( $_POST['mbp_linkedin_target_type'] );
         }
         if(isset($_POST['mbp_linkedin_group_id']))
         {
-            //$extra['group_id'] = trim($_POST['mbp_linkedin_group_id']);
             $extra['group_id'] = sanitize_text_field( $_POST['mbp_linkedin_group_id'] );
         }
         if(isset($_POST['mbp_linkedin_company_id']))
         {
-            //$extra['company_id'] = trim($_POST['mbp_linkedin_company_id']);
             $extra['company_id'] = sanitize_text_field( $_POST['mbp_linkedin_company_id'] );
         }
 
         if(isset($_POST['mbp_post_type_tmb']))
         {
-            //$extra['post_type'] = trim($_POST['mbp_post_type_tmb']);
             $extra['post_type'] = sanitize_text_field( $_POST['mbp_post_type_tmb'] );
         }
 
         if(isset($_POST['mbp_vkontakte_target_type']))
         {
-            //$extra['target_type'] = trim($_POST['mbp_vkontakte_target_type']);
             $extra['target_type'] = sanitize_text_field( $_POST['mbp_vkontakte_target_type'] );
         }
-
-
-        
         if(isset($_POST['mbp_vkontakte_target_id']))
         {
-            //$extra['target_id'] = trim($_POST['mbp_vkontakte_target_id']);
             $extra['target_id'] = sanitize_text_field( $_POST['mbp_vkontakte_target_id'] );
         }
         if(isset($_POST['mbp_tumblr_blog_hostname']))
         {
-            //$extra['blog_hostname'] = trim($_POST['mbp_tumblr_blog_hostname']);
             $extra['blog_hostname'] = sanitize_text_field( $_POST['mbp_tumblr_blog_hostname'] );
         }
         if(isset($_POST['mbp_blogger_blog_id']))
         {
-            //$extra['blog_id'] = trim($_POST['mbp_blogger_blog_id']);
             $extra['blog_id'] = sanitize_text_field( $_POST['mbp_blogger_blog_id'] );
         }
         if(isset($_POST['mbp_pinterest_board_name']))
@@ -907,8 +909,6 @@ function microblogposter_settings_output()
         }
         
         $extra = json_encode($extra);
-        //$wpdb->escape_by_ref($extra);
-        
         if($username)
         {
             $wpdb->insert(
@@ -1141,8 +1141,6 @@ function microblogposter_settings_output()
             }
 
             $extra = json_encode($extra);
-            //$wpdb->escape_by_ref($extra);
-
             if($username)
             {
                 $wpdb->update(
@@ -1249,7 +1247,7 @@ function microblogposter_settings_output()
         
     }
     
-    // Facebook accounts authorization process
+    // oAuth 2 accounts authorization process
     
     $server_name = $_SERVER['SERVER_NAME'];
     if(isset($_SERVER['HTTP_HOST']))
@@ -1516,6 +1514,73 @@ function microblogposter_settings_output()
                     }
                 }
                 
+            }
+        }
+        elseif(preg_match('|^googlemb_microblogposter\_|i',trim($_GET['state'])))
+        {
+            $code = trim($_GET['code']);
+            $auth_user_data = explode('_', trim($_GET['state']));
+            $auth_user_id = (int) $auth_user_data[2];
+
+            if(is_int($auth_user_id))
+            {
+                $sql="SELECT * FROM $table_accounts WHERE account_id = %d";
+                $rows = $wpdb->get_results($wpdb->prepare($sql, $auth_user_id));
+                $row = $rows[0];
+                $extra = json_decode($row->extra, true);
+                $account_details = $extra;
+                $gmb_consumer_key = $row->consumer_key;
+                $gmb_consumer_secret = $row->consumer_secret;
+
+                $log_data = array();
+                $log_data['account_id'] = $row->account_id;
+                $log_data['account_type'] = "googlemybusinessl";
+                $log_data['username'] = $row->username;
+                $log_data['post_id'] = 0;
+                $log_data['action_result'] = 0;
+                $log_data['update_message'] = 'Google MB Authorization';
+
+                if($code)
+                {
+                    $url = "https://accounts.google.com/o/oauth2/token";
+                    $post_args = array(
+                        'grant_type' => 'authorization_code',
+                        'code' => $code,
+                        'redirect_uri' => $redirect_uri,
+                        'client_id' => $gmb_consumer_key,
+                        'client_secret' => $gmb_consumer_secret
+                    );
+
+                    $curl = new MicroblogPoster_Curl();
+                    $json_res = $curl->send_post_data($url, $post_args);
+                    $response = json_decode($json_res, true);
+                    if(isset($response['refresh_token']))
+                    {
+                        $gmb_account_id = $auth_user_id;
+                        $gmb_refresh_token = $response['refresh_token'];
+                        $sql="SELECT * FROM $table_accounts WHERE account_id = %d";
+                        $rows = $wpdb->get_results($wpdb->prepare($sql, $gmb_account_id));
+                        $row = $rows[0];
+                        $gmb_acc_extra_auth = json_decode($row->extra, true);
+                        $gmb_acc_extra_auth['refresh_token'] = $gmb_refresh_token;
+                        $gmb_acc_extra_auth = json_encode($gmb_acc_extra_auth);
+
+                        $wpdb->update(
+                            $table_accounts,
+                            array(
+                                'extra' => $gmb_acc_extra_auth
+                            ),
+                            array(
+                                'account_id' => $gmb_account_id
+                            )
+                        );
+                    }
+                    else
+                    {
+                        $log_data['log_message'] = $json_res;
+                        MicroblogPoster_Poster::insert_log($log_data);
+                    }
+                }
             }
         }
         elseif(preg_match('|^blogger_microblogposter\_|i',trim($_GET['state'])))
@@ -2092,7 +2157,7 @@ function microblogposter_settings_output()
             $redirect_after_auth = true;
         }
     }
-    if(isset($_GET['microblogposter_gmb_rt']) && isset($_GET['account_id']))
+    /*if(isset($_GET['microblogposter_gmb_rt']) && isset($_GET['account_id']))
     {
         $gmb_account_id = (int) $_GET['account_id'];
         $gmb_refresh_token = $_GET['microblogposter_gmb_rt'];
@@ -2112,7 +2177,7 @@ function microblogposter_settings_output()
                     'account_id' => $gmb_account_id
                 )
         );
-    }
+    }*/
     
     $shortcodes_intro = __( 'You can use shortcodes:', 'microblog-poster' );
     $title_shortcode = "{TITLE} = " . __( 'Title of the blog post.', 'microblog-poster' );

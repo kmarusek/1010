@@ -18,12 +18,12 @@ foreach($rows as $row):
             $gmb_accounts = $gmb_acc_extra['accounts'];
         }
     }
-    $client_id = '702601226893-oqkbt65mpchi8p3url8itq1cd3if4rsq.apps.googleusercontent.com';
-    $state_gmb = urlencode($redirect_uri . "&mbp_gmb_" . $row->account_id);
+    $client_id = $row->consumer_key;
+    $state_gmb = urlencode("googlemb_microblogposter_" . $row->account_id);
     $gmb_redirect_uri = "https://efficientscripts.com/api/googleMyBusinessRedirect.php";
     $promtp_gmb = urlencode("select_account consent");
     
-    $authorize_url = "https://accounts.google.com/o/oauth2/auth?client_id={$client_id}&redirect_uri={$gmb_redirect_uri}&state={$state_gmb}&scope=https://www.googleapis.com/auth/plus.business.manage&response_type=code&access_type=offline&prompt={$promtp_gmb}";
+    $authorize_url = "https://accounts.google.com/o/oauth2/auth?client_id={$client_id}&redirect_uri={$redirect_uri}&state={$state_gmb}&scope=https://www.googleapis.com/auth/plus.business.manage&response_type=code&access_type=offline&prompt={$promtp_gmb}";
 
 ?>
     
@@ -129,6 +129,22 @@ foreach($rows as $row):
                     <div class="input-div-large">
                         <input type="text" id="" name="username" value="<?php echo $row->username;?>" />
                     </div>
+                </div>
+
+                <div class="mbp-separator"></div>
+                <div class="input-div">
+                    <?php _e('Client Id:', 'microblog-poster');?>
+                </div>
+                <div class="input-div-large">
+                    <input type="text" id="" name="consumer_key" value="<?php echo $row->consumer_key;?>" />
+                    <span class="description">(Client Id)</span>
+                </div>
+                <div class="input-div">
+                    <?php _e('Client Secret:', 'microblog-poster');?>
+                </div>
+                <div class="input-div-large">
+                    <input type="text" id="" name="consumer_secret" value="<?php echo $row->consumer_secret;?>" />
+                    <span class="description">(Client Secret)</span>
                 </div>
 
                 <input type="hidden" name="account_id" value="<?php echo $row->account_id;?>" />

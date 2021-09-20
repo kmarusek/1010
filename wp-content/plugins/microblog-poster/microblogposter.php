@@ -4,7 +4,7 @@
  * Plugin Name: Microblog Poster
  * Plugin URI: https://efficientscripts.com/web/products/free
  * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger..
- * Version: 2.1.5
+ * Version: 2.1.6
  * Author: Efficient Scripts
  * Author URI: https://efficientscripts.com/
  * Text Domain: microblog-poster
@@ -3827,13 +3827,17 @@ class MicroblogPoster_Poster
                 {
                     if(isset($extra_main['expires']) && $extra_main['expires'] < time())
                     {
-                        $customer_license_key_name = "microblogposterpro_plg_customer_license_key";
-                        $customer_license_key_value = get_option($customer_license_key_name, "");
-                        $customer_license_key_value = json_decode($customer_license_key_value, true);
-                        $url = "https://efficientscripts.com/api/googleMyBusinessRefresh.php?mbp_gmb_rt={$extra_main['refresh_token']}&mbp_lk={$customer_license_key_value['key']}";
-                        $json_res = $curl->fetch_url($url);
+                        $url = "https://accounts.google.com/o/oauth2/token";
+                        $post_args = array(
+                            'refresh_token' => $extra_main['refresh_token'],
+                            'grant_type' => 'refresh_token',
+                            'client_id' => $current_account->consumer_key,
+                            'client_secret' => $current_account->consumer_secret
+                        );
+                        $json_res = $curl->send_post_data($url, $post_args);
                         $response = json_decode($json_res, true);
-                        if(isset($response['access_token']))
+
+                        if(isset($response['access_token']) && isset($response['token_type']) && $response['token_type'] == 'Bearer')
                         {
                             $extra_main['access_token'] = $response['access_token'];
                             $extra_main['expires'] = time()+3400;
