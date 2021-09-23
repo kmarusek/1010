@@ -4,7 +4,7 @@
  * Plugin Name: Disable Comments
  * Plugin URI: https://wordpress.org/plugins/disable-comments/
  * Description: Allows administrators to globally disable comments on their site. Comments can be disabled according to post type. You could bulk delete comments using Tools.
- * Version: 2.1.2
+ * Version: 2.2.0
  * Author: WPDeveloper
  * Author URI: https://wpdeveloper.net
  * License: GPL-3.0+
@@ -37,7 +37,7 @@ class Disable_Comments
 
 	function __construct()
 	{
-		define('DC_VERSION', '2.1.2');
+		define('DC_VERSION', '2.2.0');
 		define('DC_PLUGIN_SLUG', 'disable_comments_settings');
 		define('DC_PLUGIN_ROOT_PATH', dirname(__FILE__));
 		define('DC_PLUGIN_VIEWS_PATH', DC_PLUGIN_ROOT_PATH . '/views/');
@@ -61,6 +61,29 @@ class Disable_Comments
 		// Load options.
 		if ($this->networkactive && (is_network_admin() || $this->sitewide_settings !== '1')) {
 			$this->options = get_site_option('disable_comments_options', array());
+			if(!isset($this->options['disabled_sites'])){
+				$sites = get_sites();
+				$this->options['disabled_sites'] = array_map(function($site){
+					return $site->blog_id;
+				}, $sites);
+			}
+			$blog_id = get_current_blog_id();
+			if(
+				!is_network_admin() && (
+					empty($this->options['disabled_sites']) ||
+					!in_array($blog_id, $this->options['disabled_sites'])
+				)
+			){
+				$this->options = [
+					'remove_everywhere'        => false,
+					'disabled_post_types'      => array(),
+					'extra_post_types'         => array(),
+					'remove_xmlrpc_comments'   => 0,
+					'remove_rest_API_comments' => 0,
+					'settings_saved'           => true,
+					'db_version'               => $this->options['db_version']
+				];
+			}
 		} else {
 			$this->options = get_option('disable_comments_options', array());
 			$not_configured = empty($this->options) || empty($this->options['settings_saved']);
@@ -70,6 +93,7 @@ class Disable_Comments
 				$this->options['is_network_options'] = true;
 			}
 		}
+
 
 		// If it looks like first run, check compat.
 		if (empty($this->options)) {
@@ -744,6 +768,10 @@ class Disable_Comments
 
 			$this->options['is_network_admin'] = isset($formArray['is_network_admin']) && $formArray['is_network_admin'] == '1' ? true : false;
 
+			if(!empty($formArray['disabled_sites'])){
+				$this->options['disabled_sites'] = $formArray['disabled_sites'];
+			}
+
 			if (isset($formArray['mode'])) {
 				$this->options['remove_everywhere'] = (sanitize_text_field($formArray['mode']) == 'remove_everywhere');
 			}
@@ -803,9 +831,11 @@ class Disable_Comments
 			if ( !empty($formArray['is_network_admin']) && function_exists( 'get_sites' ) && class_exists( 'WP_Site_Query' ) ) {
 				$sites = get_sites();
 				foreach ( $sites as $site ) {
-					switch_to_blog( $site->blog_id );
-					$log = $this->delete_comments($_args);
-					restore_current_blog();
+					if( !empty($formArray['disabled_sites']) && in_array($site->blog_id, $formArray['disabled_sites'])){
+						switch_to_blog( $site->blog_id );
+						$log = $this->delete_comments($_args);
+						restore_current_blog();
+					}
 				}
 			}
 			else{
@@ -843,7 +873,7 @@ class Disable_Comments
 						$wpdb->query("UPDATE $wpdb->posts SET comment_count = 0");
 						$wpdb->query("OPTIMIZE TABLE $wpdb->commentmeta");
 						$wpdb->query("OPTIMIZE TABLE $wpdb->comments");
-						$log = __('All comments has been deleted', 'disable-comments');
+						$log = __('All comments have been deleted', 'disable-comments');
 					} else {
 						wp_send_json_error(array('message' => __('Internal error occured. Please try again later.', 'disable-comments')));
 						wp_die();
@@ -877,7 +907,7 @@ class Disable_Comments
 
 					$wpdb->query("OPTIMIZE TABLE $wpdb->commentmeta");
 					$wpdb->query("OPTIMIZE TABLE $wpdb->comments");
-					$log = __('All comments has been deleted', 'disable-comments');
+					$log = __('All comments have been deleted', 'disable-comments');
 				}
 			} elseif ($formArray['delete_mode'] == 'selected_delete_comment_types') {
 				$delete_comment_types = empty($formArray['delete_comment_types']) ? array() : (array) $formArray['delete_comment_types'];
@@ -900,7 +930,7 @@ class Disable_Comments
 					$wpdb->query("OPTIMIZE TABLE $wpdb->commentmeta");
 					$wpdb->query("OPTIMIZE TABLE $wpdb->comments");
 
-					$log = __('All comments has been deleted', 'disable-comments');
+					$log = __('All comments have been deleted', 'disable-comments');
 				}
 			}
 		}
