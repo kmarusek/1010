@@ -4,7 +4,7 @@
  * Plugin Name: Disable Comments
  * Plugin URI: https://wordpress.org/plugins/disable-comments/
  * Description: Allows administrators to globally disable comments on their site. Comments can be disabled according to post type. You could bulk delete comments using Tools.
- * Version: 2.2.0
+ * Version: 2.2.1
  * Author: WPDeveloper
  * Author URI: https://wpdeveloper.net
  * License: GPL-3.0+
@@ -37,7 +37,7 @@ class Disable_Comments
 
 	function __construct()
 	{
-		define('DC_VERSION', '2.2.0');
+		define('DC_VERSION', '2.2.1');
 		define('DC_PLUGIN_SLUG', 'disable_comments_settings');
 		define('DC_PLUGIN_ROOT_PATH', dirname(__FILE__));
 		define('DC_PLUGIN_VIEWS_PATH', DC_PLUGIN_ROOT_PATH . '/views/');
@@ -62,7 +62,9 @@ class Disable_Comments
 		if ($this->networkactive && (is_network_admin() || $this->sitewide_settings !== '1')) {
 			$this->options = get_site_option('disable_comments_options', array());
 			if(!isset($this->options['disabled_sites'])){
-				$sites = get_sites();
+				$sites = get_sites([
+					'number' => 0,
+				]);
 				$this->options['disabled_sites'] = array_map(function($site){
 					return $site->blog_id;
 				}, $sites);
@@ -664,7 +666,9 @@ class Disable_Comments
 		global $wpdb;
 		if ( is_network_admin() && function_exists( 'get_sites' ) && class_exists( 'WP_Site_Query' ) ) {
 			$count = 0;
-			$sites = get_sites();
+			$sites = get_sites([
+				'number' => 0,
+			]);
 			foreach ( $sites as $site ) {
 				switch_to_blog( $site->blog_id );
 				$count += $wpdb->get_var("SELECT count(comment_id) from $wpdb->comments");
@@ -680,7 +684,9 @@ class Disable_Comments
 	public function get_all_comment_types(){
 		if($this->networkactive && is_network_admin()){
 			$comment_types = [];
-			$sites = get_sites();
+			$sites = get_sites([
+				'number' => 0,
+			]);
 			foreach ( $sites as $site ) {
 				switch_to_blog( $site->blog_id );
 				$comment_types = array_merge($this->_get_all_comment_types(), $comment_types);
@@ -829,7 +835,9 @@ class Disable_Comments
 
 		if (($this->is_CLI && !empty($_args)) || wp_verify_nonce($nonce, 'disable_comments_save_settings')) {
 			if ( !empty($formArray['is_network_admin']) && function_exists( 'get_sites' ) && class_exists( 'WP_Site_Query' ) ) {
-				$sites = get_sites();
+				$sites = get_sites([
+					'number' => 0,
+				]);
 				foreach ( $sites as $site ) {
 					if( !empty($formArray['disabled_sites']) && in_array($site->blog_id, $formArray['disabled_sites'])){
 						switch_to_blog( $site->blog_id );
