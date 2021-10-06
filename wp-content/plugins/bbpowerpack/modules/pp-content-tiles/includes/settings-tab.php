@@ -119,6 +119,16 @@ do_action( 'pp_content_tiles_settings_before_form', $settings ); // e.g Add cust
 		)
 	), $settings);
 
+	FLBuilder::render_settings_field('show_date_author_all_tiles', array(
+		'type'          => 'pp-switch',
+		'label'         => __('Show Date & Author on all tiles', 'bb-powerpack'),
+		'default'       => '0',
+		'options'       => array(
+			'1'             => __('Yes', 'bb-powerpack'),
+			'0'             => __('No', 'bb-powerpack')
+		)
+	), $settings);
+
 	// Show taxonomy
 	FLBuilder::render_settings_field('show_post_taxonomies', array(
 		'type'          => 'pp-switch',

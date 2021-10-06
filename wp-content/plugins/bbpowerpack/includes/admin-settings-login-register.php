@@ -1,4 +1,11 @@
 <h3><?php _e('Login / Register Pages Setup', 'bb-powerpack'); ?></h3>
+<?php if ( ! is_network_admin() && is_multisite() ) : ?>
+
+<div class="notice notice-info">
+	<p><?php _e( '<b>NOTE:</b> By changing setting here will override the network settings.', 'bb-powerpack' ); ?></p>
+</div>
+
+<?php endif; ?>
 
 <table class="form-table maintenance-mode-config">
 	<tr align="top">

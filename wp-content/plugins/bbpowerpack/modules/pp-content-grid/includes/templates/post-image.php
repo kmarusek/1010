@@ -7,7 +7,7 @@
 
 	if ( empty( $featured_image_url ) ) {
 		$has_featured_image = false;
-		if ( ! $has_fallback_image ) {
+		if ( ! $has_fallback_image && 'none' != $settings->fallback_image ) {
 			$first_img = BB_PowerPack_Post_Helper::post_catch_image( get_the_content(), $settings->image_thumb_size );
 			$featured_image_url = ( '' != $first_img['src'] ) ? $first_img['src'] : apply_filters( 'pp_cg_placeholder_img', $module_url . 'images/placeholder.jpg' );
 			$settings->fallback_image = 'custom';

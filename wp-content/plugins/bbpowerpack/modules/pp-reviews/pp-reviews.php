@@ -465,7 +465,7 @@ class PPReviewsModule extends FLBuilderModule {
 	 */
 	public function get_source_icon( $source = false ) {
 		$icon = apply_filters( 'pp_reviews_source_icon', array(
-			'google' => 'fa fa-google',
+			'google' => 'fab fa-google',
 			'yelp'	=> 'fab fa-yelp',
 		) );
 

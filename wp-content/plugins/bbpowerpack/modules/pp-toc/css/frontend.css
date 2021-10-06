@@ -6,6 +6,11 @@
 	height: auto;
 	overflow: hidden;
 }
+/*
+body:not(.fl-builder-edit) .pp-toc-container.is-empty {
+	display: none;
+}
+*/
 
 /* ------------------------------------- */
 /* Header Section*/

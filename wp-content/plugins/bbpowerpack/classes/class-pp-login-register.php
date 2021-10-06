@@ -69,11 +69,21 @@ final class BB_PowerPack_Login_Register {
 	static public function save_settings() {
 		if ( isset( $_POST['bb_powerpack_login_page'] ) ) {
 			$login_page = wp_unslash( $_POST['bb_powerpack_login_page'] );
-			update_option( 'bb_powerpack_login_page', $login_page );
+			self::update_option( 'bb_powerpack_login_page', $login_page );
 		}
 		if ( isset( $_POST['bb_powerpack_register_page'] ) ) {
 			$register_page = wp_unslash( $_POST['bb_powerpack_register_page'] );
-			update_option( 'bb_powerpack_register_page', $register_page );
+			self::update_option( 'bb_powerpack_register_page', $register_page );
+		}
+	}
+
+	static private function update_option( $key, $value ) {
+		$is_network_admin = is_multisite() && is_network_admin();
+
+		if ( $is_network_admin ) {
+			update_site_option( $key, $value );
+		} else {
+			update_option( $key, $value );
 		}
 	}
 
@@ -113,6 +123,14 @@ final class BB_PowerPack_Login_Register {
 		return $options;
 	}
 
+	static public function get_login_page_id() {
+		return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+	}
+
+	static public function get_register_page_id() {
+		return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_register_page', true );
+	}
+
 	/**
 	 * Redirect.
 	 *
@@ -130,7 +148,7 @@ final class BB_PowerPack_Login_Register {
 		}
 
 		if ( 'register' === $action ) {
-			$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_register_page', true );
+			$page_id = self::get_register_page_id();
 			$redirect_to = get_permalink( $page_id );
 			if ( ! empty( $page_id ) && ! empty( $redirect_to ) ) {
 				wp_redirect( $redirect_to );
@@ -138,7 +156,7 @@ final class BB_PowerPack_Login_Register {
 			}
 		} else {
 			if ( ! is_user_logged_in() ) {
-				$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+				$page_id = self::get_login_page_id();
 				$redirect_to = get_permalink( $page_id );
 				if ( 'lostpassword' === $action || 'retrievepassword' === $action ) {
 					$redirect_to = add_query_arg( 'action', 'lost_pass', $redirect_to );
@@ -152,7 +170,7 @@ final class BB_PowerPack_Login_Register {
 	}
 
 	static public function login_url( $login_url, $redirect, $force_reauth ) {
-		$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+		$page_id = self::get_login_page_id();
 		
 		if ( ! empty( $page_id ) ) {
 			$login_url = get_permalink( $page_id );
@@ -187,9 +205,9 @@ final class BB_PowerPack_Login_Register {
 			$page_id = '';
 
 			if ( isset( $_GET['action'] ) && 'register' == $_GET['action'] ) {
-				$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_register_page', true );
+				$page_id = self::get_register_page_id();
 			} else {
-				$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+				$page_id = self::get_login_page_id();
 			}
 
 			if ( ! empty( $page_id ) ) {
@@ -221,7 +239,7 @@ final class BB_PowerPack_Login_Register {
 		}
 
 		if ( empty( $username ) || empty( $password ) ) {
-			$id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+			$id = self::get_login_page_id();
 		
 			if ( ! empty( $id ) ) {
 				$login_page = get_permalink( $id );
@@ -243,7 +261,7 @@ final class BB_PowerPack_Login_Register {
 	 * @return void
 	 */
 	static public function logout_redirect() {
-		$id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+		$id = self::get_login_page_id();
 		
 		if ( ! empty( $id ) ) {
 			$login_page = get_permalink( $id );
@@ -254,7 +272,7 @@ final class BB_PowerPack_Login_Register {
 	}
 
 	static public function check_reauth() {
-		$id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+		$id = self::get_login_page_id();
 
 		if ( ! empty( $id ) && isset( $_GET['redirect_to'] ) && isset( $_GET['reauth'] ) ) {
 			if ( ! empty( $_GET['redirect_to'] ) && $_GET['reauth'] ) {

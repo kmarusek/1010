@@ -29,7 +29,9 @@
 		};
 
 		this.elements			= {};
+		this.isInitialized 		= false;
 
+		this._destroy();
 		this._fillWords();
 
 		$( window ).on( 'load', $.proxy( this._initHeadlines, this ) );
@@ -61,6 +63,8 @@
 				dynamicWrapper 	= $(this.dynamicWrapper),
 				settings		= this.settings;
 
+			dynamicWrapper.html( '' );
+
 			if ( 'rotate' == this.settings.headline_style ) {
 				var rotatingText = this.settings.rotating_text.split('|');
 
@@ -91,9 +95,11 @@
 
 		_initHeadlines: function()
 		{
-			if ( 'rotate' === this.settings.headline_style ) {
+			if ( 'rotate' === this.settings.headline_style && ! this.isInitialized ) {
 				this._rotateHeadline();
 			}
+
+			this.isInitialized = true;
 		},
 
 		_rotateHeadline: function() {
@@ -307,6 +313,10 @@
 			} );
 
 			$(self.dynamicWrapper).removeAttr('style').css( 'width', width );
+		},
+
+		_destroy: function() {
+			$(this.dynamicWrapper).html('').removeAttr('style');
 		}
   	};
 

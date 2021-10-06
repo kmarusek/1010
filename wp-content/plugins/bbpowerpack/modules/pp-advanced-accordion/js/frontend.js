@@ -57,9 +57,11 @@
 						// Fix scroll after hash change.
 						window.scrollTo(0, scrollPos);
 						// Open accordion item.
-						if ( ! element.hasClass('pp-accordion-item-active') ) {
-							element.find('> .pp-accordion-button').trigger('click');
-						}
+						setTimeout(function() {
+							if ( ! element.hasClass('pp-accordion-item-active') ) {
+								element.find('> .pp-accordion-button').trigger('click');
+							}
+						}, 100);
 						// Nested accordion logic.
 						var parentModules = element.parents('.fl-module');
 						var elementNodeId = element.closest('.fl-module').data('node');

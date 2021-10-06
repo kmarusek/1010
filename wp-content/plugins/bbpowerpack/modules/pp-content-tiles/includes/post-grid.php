@@ -22,6 +22,13 @@ FLBuilderModel::default_settings($settings, array(
 $image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), $image_size );
 $featured_image = '';
 $class_prefix = 'pp-post-tile';
+$show_date_author_all_tiles = isset( $settings->show_date_author_all_tiles ) && $settings->show_date_author_all_tiles ? true : false;
+$date_author = $show_date_author_all_tiles ? true : false;
+
+if ( ! $show_date_author_all_tiles && $count == 1 ) {
+	$date_author = true;
+}
+
 
 if ( ! is_array( $image ) ) {
 	if ( isset( $settings->fallback_image ) ) {
@@ -65,11 +72,13 @@ if ( ! is_array( $image ) ) {
 			<h3 class="<?php echo $class_prefix; ?>-title" itemprop="headline">
 				<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 			</h3>
+
+			<?php do_action( 'pp_tiles_after_title', $settings, $count ); ?>
 		</div>
 
-		<?php if($settings->show_author || $settings->show_date) : ?>
+		<?php if ( $settings->show_author || $settings->show_date ) : ?>
 		<div class="<?php echo $class_prefix; ?>-meta">
-			<?php if($settings->show_author && $count == 1) : ?>
+			<?php if ( $settings->show_author && $date_author ) : ?>
 				<span class="<?php echo $class_prefix; ?>-author">
 				<?php
 
@@ -81,14 +90,16 @@ if ( ! is_array( $image ) ) {
 				?>
 				</span>
 			<?php endif; ?>
-			<?php if($settings->show_date && $count == 1) : ?>
-				<?php if($settings->show_author) : ?>
+			<?php if ( $settings->show_date && $date_author ) : ?>
+				<?php if ( $settings->show_author ) : ?>
 					<span class="pp-meta-separator"> <?php echo $settings->meta_separator; ?> </span>
 				<?php endif; ?>
 				<span class="<?php echo $class_prefix; ?>-date">
-					<?php FLBuilderLoop::post_date($settings->date_format); ?>
+					<?php FLBuilderLoop::post_date( $settings->date_format ); ?>
 				</span>
 			<?php endif; ?>
+
+			<?php do_action( 'pp_tiles_after_meta', $settings, $count ); ?>
 		</div>
 		<?php endif; ?>
 

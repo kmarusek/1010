@@ -34,6 +34,10 @@ final class BB_PowerPack_Header_Footer_Storefront {
 	 * @return void
 	 */
 	static public function setup_headers_and_footers() {
+		if ( did_action( 'pp_maintenance_mode_before_render' ) ) {
+			return;
+		}
+
 		if ( ! empty( BB_PowerPack_Header_Footer::$header ) ) {
 			remove_all_actions( 'storefront_header' );
 			add_action( 'storefront_header', __CLASS__ . '::render_header' );

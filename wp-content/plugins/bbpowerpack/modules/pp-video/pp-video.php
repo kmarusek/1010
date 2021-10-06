@@ -299,6 +299,8 @@ class PPVideoModule extends FLBuilderModule {
 
 		$frame_attributes = array_merge( $default_frame_attributes, $frame_attributes );
 
+		$frame_attributes = apply_filters( 'pp_video_iframe_attrs', $frame_attributes, $this->settings );
+
 		$title_attr = $this->get_title_attr_text();
 
 		if ( ! empty( $title_attr ) ) {

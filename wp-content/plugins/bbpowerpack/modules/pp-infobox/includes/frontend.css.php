@@ -1,10 +1,10 @@
 <?php if ( '' === $settings->responsive_display ) { ?>
-.fl-col-group-equal-height .fl-node-<?php echo $id; ?>,
-.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content,
-.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap,
-.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox,
-.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap > .pp-infobox-link,
-.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap > .pp-more-link {
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?>.pp-flexbox,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content .pp-infobox-wrap,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content .pp-infobox-wrap .pp-infobox,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content .pp-infobox-wrap > .pp-infobox-link,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content .pp-infobox-wrap > .pp-more-link {
 	display: flex;
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
@@ -20,13 +20,13 @@
 	-ms-flex: 1 1 auto;
 	flex: 1 1 auto;
 }
-.fl-col-group-equal-height.fl-col-group-align-center .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox {
+.fl-col-group-equal-height.fl-col-group-align-center .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content .pp-infobox-wrap .pp-infobox {
 	justify-content: center;
 }
-.fl-col-group-equal-height.fl-col-group-align-top .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox {
+.fl-col-group-equal-height.fl-col-group-align-top .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content .pp-infobox-wrap .pp-infobox {
 	justify-content: flex-start;
 }
-.fl-col-group-equal-height.fl-col-group-align-bottom .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox {
+.fl-col-group-equal-height.fl-col-group-align-bottom .fl-node-<?php echo $id; ?>.pp-flexbox .fl-module-content .pp-infobox-wrap .pp-infobox {
 	justify-content: flex-end;
 }
 <?php } ?>

@@ -81,7 +81,8 @@
 					'default' => '10',
 					'slider'  => true,
 					'help'    => __( 'Leave Blank or add -1 for all posts.', 'bb-powerpack' ),
-				)
+				),
+				$settings
 			);
 			FLBuilder::render_settings_field(
 				'post_order',
@@ -93,7 +94,8 @@
 						'ASC'  => __( 'Ascending', 'bb-powerpack' ),
 						'DESC' => __( 'Descending', 'bb-powerpack' ),
 					),
-				)
+				),
+				$settings
 			);
 			?>
 		</table>

@@ -261,6 +261,7 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 		$large_w    = get_option('large_size_w');
 		$ids		= array();
 		$custom_link = $this->settings->click_action;
+		$image_size = $this->settings->photo_size;
 
 		if ( ! count( $filters ) ) {
 			return $photos;
@@ -273,59 +274,50 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 		$photo_attachment_data = false;
 
 		/* Check if all photos are available on host */
-		foreach ($filter_ids as $id) {
+		foreach ( $filter_ids as $id ) {
 			if ( empty( $id ) ) {
 				continue;
 			}
-			$photo_attachment_data[$id] = FLBuilderPhoto::get_attachment_data($id);
 
-			if ( ! $photo_attachment_data[$id] ) {
+			$photo_attachment_data[ $id ] = FLBuilderPhoto::get_attachment_data( $id );
+
+			if ( ! $photo_attachment_data[ $id ] ) {
 				$photo_from_template = true;
 			}
-
 		}
 
-		foreach($filter_ids as $id) {
+		foreach( $filter_ids as $id ) {
 			if ( empty( $id ) ) {
 				continue;
 			}
-			$photo = $photo_attachment_data[$id];
+			$photo = $photo_attachment_data[ $id ];
 
 			// Use the cache if we didn't get a photo from the id.
-			if ( ! $photo && $photo_from_template ) {
+			if ( ! $photo ) {
 
 				if ( ! isset( $this->settings->photo_data ) ) {
 					continue;
-				}
-				else if ( is_array( $this->settings->photo_data ) ) {
+				} elseif ( is_array( $this->settings->photo_data ) ) {
 					$photos[ $id ] = $this->settings->photo_data[ $id ];
-					//preg_match("\{(.*)\}", $photos[ $id ], $photos);
-				}
-				else if ( is_object( $this->settings->photo_data ) ) {
+				} elseif ( is_object( $this->settings->photo_data ) ) {
 					$photos[ $id ] = $this->settings->photo_data->{$id};
-					//preg_match("\{(.*)\}", $photos[ $id ], $photos);
-				}
-				else {
+				} else {
 					continue;
 				}
 			}
 
-
 			// Only use photos who have the sizes object.
-			if (isset($photo->sizes)) {
+			if ( isset( $photo->sizes ) ) {
 
-				$data = new stdClass();
+				$data 				= new stdClass();
 
 				// Photo data object
-				$data->id = $id;
-				$data->alt = $photo->alt;
-				$data->caption = $photo->caption;
-				$data->description = $photo->description;
-				$data->title = $photo->title;
+				$data->id 			= $id;
+				$data->alt 			= $photo->alt;
+				$data->caption 		= $photo->caption;
+				$data->description 	= $photo->description;
+				$data->title 		= $photo->title;
 
-				$image_size = $this->settings->photo_size;
-
-				// Collage photo src
 				if ( $this->settings->photo_size == 'thumbnail' && isset( $photo->sizes->thumbnail ) ) {
 					$data->src = $photo->sizes->thumbnail->url;
 					$data->sizes['height'] = $photo->sizes->thumbnail->height;

@@ -701,6 +701,7 @@ class PPLoginFormModule extends FLBuilderModule {
 			$errors = new \WP_Error();
 
 			$_POST['pass1'] = $posted_fields['password_1'];
+			$_POST['pass2'] = $_POST['bs-pass2'] = $posted_fields['password_2'];
 
 			do_action( 'validate_password_reset', $errors, $user );
 

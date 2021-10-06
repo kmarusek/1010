@@ -34,6 +34,10 @@ final class BB_PowerPack_Header_Footer_Genesis {
 	 * @return void
 	 */
 	static public function setup_headers_and_footers() {
+		if ( did_action( 'pp_maintenance_mode_before_render' ) ) {
+			return;
+		}
+
 		if ( ! empty( BB_PowerPack_Header_Footer::$header ) ) {
 			remove_action( 'genesis_header', 'genesis_header_markup_open', 5 );
 			remove_action( 'genesis_header', 'genesis_do_header' );

@@ -34,6 +34,10 @@ final class BB_PowerPack_Header_Footer_BB_Theme {
 	 * @return void
 	 */
 	static public function setup_headers_and_footers() {
+		if ( did_action( 'pp_maintenance_mode_before_render' ) ) {
+			return;
+		}
+
 		if ( 'tpl-no-header-footer.php' === get_page_template_slug() && ! is_search() ) {
 			return;
 		}

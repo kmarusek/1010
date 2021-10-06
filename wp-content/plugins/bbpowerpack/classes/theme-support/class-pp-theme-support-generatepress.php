@@ -34,6 +34,10 @@ final class BB_PowerPack_Header_Footer_Generate_Press {
 	 * @return void
 	 */
 	static public function setup_headers_and_footers() {
+		if ( did_action( 'pp_maintenance_mode_before_render' ) ) {
+			return;
+		}
+
 		if ( ! empty( BB_PowerPack_Header_Footer::$header ) ) {
 			remove_action( 'generate_header', 'generate_construct_header' );
 			remove_action( 'generate_after_header', 'generate_add_navigation_after_header', 5 );

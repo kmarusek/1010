@@ -19,16 +19,13 @@ $css_id = '';
 			<div class="pp-tab-label-inner">
 				<div class="pp-tab-label-wrap">
 				<?php if ( $settings->tab_icon_position == 'left' || $settings->tab_icon_position == 'top' ) { ?>
-					<?php if ( $settings->items[ $i ]->tab_font_icon ) { ?>
-						<span class="pp-tab-icon <?php echo $settings->items[ $i ]->tab_font_icon; ?>"></span>
-					<?php } ?>
+					<?php $module->render_tab_item_icon( $item ); ?>
 				<?php } ?>
+
 				<span class="pp-tab-title"><?php echo $settings->items[ $i ]->label; ?></span>
 
 				<?php if ( $settings->tab_icon_position == 'right' || $settings->tab_icon_position == 'bottom' ) { ?>
-					<?php if ( $settings->items[ $i ]->tab_font_icon ) { ?>
-						<span class="pp-tab-icon <?php echo $settings->items[ $i ]->tab_font_icon; ?>"></span>
-					<?php } ?>
+					<?php $module->render_tab_item_icon( $item ); ?>
 				<?php } ?>
 				</div>
 				<?php if ( isset( $item->description ) && ! empty( $item->description ) ) { ?>

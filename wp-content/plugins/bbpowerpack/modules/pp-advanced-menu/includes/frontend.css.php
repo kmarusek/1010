@@ -212,8 +212,10 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .sub-menu {
 	<?php if ( $settings->submenu_width ) { ?>
 		width: <?php echo $settings->submenu_width; ?>px;
+		/*
 		margin-left: auto;
 		margin-right: auto;
+		*/
 	<?php } ?>
 	}
 }

@@ -1,6 +1,8 @@
 <?php
 $messages = $module->get_strings_i18n();
 $show_labels = isset( $settings->show_labels ) && 'show' === $settings->show_labels ? true : false;
+$name = isset( $_GET['pp_name'] ) ? sanitize_text_field( $_GET['pp_name'] ) : '';
+$email = isset( $_GET['pp_email'] ) ? sanitize_email( $_GET['pp_email'] ) : '';
 ?>
 <?php if ( 'standard' != $settings->box_type && 'fixed_bottom' != $settings->box_type ) { ?>
 	<div class="pp-subscribe-<?php echo $id; ?> pp-subscribe-<?php echo $settings->box_type; ?> pp-subscribe-box fl-node-<?php echo $id; ?> pp-clearfix">
@@ -39,7 +41,7 @@ $show_labels = isset( $settings->show_labels ) && 'show' === $settings->show_lab
 					<?php
 					}
 				 ?>
-					<input id="pp-subscribe-form-name" type="text" name="pp-subscribe-form-name" placeholder="<?php echo $settings->input_name_placeholder; ?>" />
+					<input id="pp-subscribe-form-name" type="text" name="pp-subscribe-form-name" placeholder="<?php echo $settings->input_name_placeholder; ?>" value="<?php echo $name; ?>" />
 					<div class="pp-form-error-message"><?php echo $messages['empty_name']; ?></div>
 				</div>
 
@@ -52,7 +54,7 @@ $show_labels = isset( $settings->show_labels ) && 'show' === $settings->show_lab
 					<?php
 					}
 				 ?>
-				<input id="pp-subscribe-form-email" type="email" name="pp-subscribe-form-email" placeholder="<?php echo $settings->input_email_placeholder; ?>" />
+				<input id="pp-subscribe-form-email" type="email" name="pp-subscribe-form-email" placeholder="<?php echo $settings->input_email_placeholder; ?>" value="<?php echo $email; ?>" />
 				<div class="pp-form-error-message"><?php echo $messages['empty_invalid_email']; ?></div>
 			</div>
 

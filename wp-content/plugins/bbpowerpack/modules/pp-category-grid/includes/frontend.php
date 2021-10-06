@@ -115,6 +115,7 @@ if ( is_single() && $post && $post->ID ) {
 $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->category_show_image;
 $is_tax_archive = is_tax() || is_category() || is_tag();
 $queried_object = $is_tax_archive ? get_queried_object() : false;
+$exclude_current_cat = apply_filters( 'pp_category_grid_exclude_current_category', true );
 ?>
 
 <div class="pp-categories-container<?php echo 'yes' === $settings->category_grid_slider ? ' swiper-container' : ''; ?>">
@@ -128,7 +129,7 @@ $queried_object = $is_tax_archive ? get_queried_object() : false;
 		}
 
 		// Exclude current term.
-		if ( $queried_object && $cat->term_id === $queried_object->term_id ) {
+		if ( $exclude_current_cat && $queried_object && $cat->term_id === $queried_object->term_id ) {
 			continue;
 		}
 

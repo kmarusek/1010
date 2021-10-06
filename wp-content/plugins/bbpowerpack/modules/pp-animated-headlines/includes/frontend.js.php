@@ -10,16 +10,21 @@ $durations = apply_filters( 'pp_animated_headline_durations', array(
 ), $settings );
 ?>
 
+if ( 'object' !== typeof pp_animated_headlines ) {
+	var pp_animated_headlines = {};
+}
+
 ;(function($) {
 
-    new PPAnimatedHeadlines({
+	pp_animated_headlines['<?php echo $id; ?>'] = new PPAnimatedHeadlines({
         id: '<?php echo $id; ?>',
         headline_style: '<?php echo $settings->headline_style; ?>',
         rotating_text: '<?php echo str_replace("'", "\'", $rotating_text); ?>',
         highlighted_text: '<?php echo str_replace("'", "\'", $settings->highlighted_text ); ?>',
         headline_shape: '<?php echo $settings->headline_shape; ?>',
         animation_type: '<?php echo $settings->animation_type; ?>',
-		durations: <?php echo json_encode( $durations ); ?>
+		durations: <?php echo json_encode( $durations ); ?>,
+		isBuilderActive: '<?php echo pp_is_builder_active(); ?>'
     });
 
 })(jQuery);

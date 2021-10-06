@@ -1,5 +1,9 @@
 (function($){
 
+	FLBuilder.addHook( 'didRenderLayoutJSComplete', function() {
+		FLBuilder._moduleHelpers['pp-animated-headlines']._reInit();
+	} );
+
 	FLBuilder.registerModuleHelper('pp-animated-headlines', {
 
 		init: function()
@@ -36,6 +40,17 @@
 					form.find('#fl-field-animated_selection_bg_color').show();
 					form.find('#fl-field-animated_selection_color').show();
 				}
+			}
+		},
+
+		_reInit: function() {
+			var form = $('.fl-builder-settings'),
+				nodeId = form.data('node');
+
+			if ( 'undefined' !== typeof pp_animated_headlines && 'undefined' !== typeof pp_animated_headlines[nodeId] ) {
+				pp_animated_headlines[nodeId]._destroy();
+				pp_animated_headlines[nodeId]._fillWords();
+				pp_animated_headlines[nodeId]._initHeadlines();
 			}
 		}
 	});

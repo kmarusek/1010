@@ -1,3 +1,25 @@
+== 2.18.0 ==
+Release date: September 29, 2021
+* Enhancement: Content Tiles - Added an option to enable date & author to be displayed on all tiles
+* Enhancement: Advanced Tabs - Added an option to set an image as an icon
+* Fix: Content Grid - None option in Fallback image field was not working in some cases
+* Fix: Content Grid - Post Filter Type option will always be visible to switch pagination from AJAX to static
+* Fix: Content Grid - Current category's child categories were not showing up in the taxonomy filters
+* Fix: Advanced Accordion - Total Number of Posts value was getting restored to default one after saving the module settings
+* Fix: Advanced Accordion - URL trigger was only working for the first instance when there are multiple instances on the page
+* Fix: Advanced Menu - Sub-menu alignement issue when using Expanded layout
+* Fix: Reviews - Google font awesome icon was not loading
+* Fix: Info Box - Column equal heights causes Info Box to use all available space
+* Fix: Login Form - Password reset was not working with BuddyBoss theme
+* Fix: Filterable Gallery - Images were not getting rendered in the given size in some cases
+* Fix: Animated Headlines - Animated text was not displaying in the builder when it renders the JS layout on changing module settings
+* Fix: Maintenance Mode - Header/Footer set in PowerPack settings were getting displayed while maintenance mode is enabled
+* Fix: Login/Register - Pages were not getting saved in the network admin
+* Development: Table of Contents - Added JS hooks pp_toc_before_init and pp_toc_after_init
+* Development: Table of Contents - Added is-empty and pp-toc-initialized CSS classes
+* Development: Category Grid - Added filter hook pp_category_grid_exclude_current_category
+* Development: Video - Added filter hook pp_video_iframe_attrs
+
 == 2.17.2 ==
 Release date: August 26, 2021
 * Enhancement: Login Form - Password reset success message now will show above the login form

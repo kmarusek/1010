@@ -34,6 +34,10 @@ final class BB_PowerPack_Header_Footer_Custom {
 	 * @return void
 	 */
 	static public function setup_headers_and_footers() {
+		if ( did_action( 'pp_maintenance_mode_before_render' ) ) {
+			return;
+		}
+
 		$theme_support = get_theme_support( 'pp-header-footer' );
 
 		if ( is_array( $theme_support ) && isset( $theme_support[0] ) ) {

@@ -30,8 +30,7 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 	 *
 	 * @since 1.4
 	 */
-	public function render_content( $settings )
-	{
+	public function render_content( $settings ) {
 		$html = '';
 
 		switch ( $settings->content_type ) {
@@ -66,8 +65,26 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 		return $html;
 	}
 
-	public function filter_settings( $settings, $helper )
-	{
+	public function render_tab_item_icon( $item ) {
+		$icon_type = isset( $item->tab_icon_type ) ? $item->tab_icon_type : 'icon';
+
+		if ( 'icon' === $icon_type && isset( $item->tab_font_icon ) && ! empty( $item->tab_font_icon ) ) {
+			?>
+			<span class="pp-tab-icon <?php echo $item->tab_font_icon; ?>"></span>
+			<?php
+		}
+
+		if ( 'image' === $icon_type && isset( $item->tab_image_icon ) && ! empty( $item->tab_image_icon ) ) {
+			$image_size = apply_filters( 'pp_tabs_icon_image_size', 'thumbnail', $item, $this->settings );
+			$image = wp_get_attachment_image( $item->tab_image_icon, $image_size );
+			$image = empty( $image ) ? '<img src="' . $item->tab_image_icon_src . '" alt="' . htmlspecialchars( $item->label ) . '" />' : $image;
+			?>
+			<span class="pp-tab-icon"><?php echo $image; ?></span>
+			<?php
+		}
+	}
+
+	public function filter_settings( $settings, $helper ) {
 		// Handle old content padding multitext field.
 		if ( isset( $settings->content_padding ) && is_array( $settings->content_padding ) ) {
 			$settings = PP_Module_Fields::handle_multitext_field( $settings, 'content_padding', 'padding', 'content_padding' );
@@ -723,10 +740,33 @@ FLBuilder::register_settings_form('tab_items_form', array(
 				'general'       => array(
 					'title'         => '',
 					'fields'        => array(
+						'tab_icon_type' => array(
+							'type' => 'pp-switch',
+							'label' => __( 'Icon Type', 'bb-powerpack' ),
+							'default' => 'icon',
+							'options' => array(
+								'icon' => __( 'Icon', 'bb-powerpack' ),
+								'image' => __( 'Image', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'icon' => array(
+									'fields' => array( 'tab_font_icon' ),
+								),
+								'image' => array(
+									'fields' => array( 'tab_image_icon' ),
+								),
+							),
+						),
 						'tab_font_icon' => array(
 							'type'          => 'icon',
 							'label'         => __('Icon', 'bb-powerpack'),
 							'show_remove'   => true
+						),
+						'tab_image_icon' => array(
+							'type' => 'photo',
+							'label' => __( 'Image', 'bb-powerpack' ),
+							'connections' => array( 'photo' ),
+							'show_remove' => true,
 						),
 						'label'         => array(
 							'type'          => 'text',

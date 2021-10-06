@@ -19,11 +19,19 @@ $class .= ' pp-headline-' . $settings->alignment;
 		<?php endif; ?>
 
 		<?php if ( 'rotate' == $settings->headline_style && ! empty( $settings->rotating_text ) ) : ?>
-			<span class="pp-headline-dynamic-wrapper pp-headline-text-wrapper"></span>
+			<span class="pp-headline-dynamic-wrapper pp-headline-text-wrapper">
+				<?php if ( pp_is_builder_active() ) {
+					_e( 'Preview text', 'bb-powerpack' );
+				} ?>
+			</span>
 		<?php endif; ?>
 		
 		<?php if ( 'highlight' == $settings->headline_style && ! empty( $settings->highlighted_text ) ) : ?>
-			<span class="pp-headline-dynamic-wrapper pp-headline-text-wrapper"></span>
+			<span class="pp-headline-dynamic-wrapper pp-headline-text-wrapper">
+				<?php if ( pp_is_builder_active() ) {
+					_e( 'Preview text', 'bb-powerpack' );
+				} ?>
+			</span>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $settings->after_text ) ) : ?>

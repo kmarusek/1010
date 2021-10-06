@@ -39,9 +39,6 @@
 			var listIcon = this.listIcon;
 			var listStyle = this.listStyle;
 
-			// This function adds a class to the specific heading that is excluded by the user
-			this.excludeHeadings();
-
 			// Checks for container value
 			if (0 === $( this.container ).length || 'body' === this.container) {
 				this.container = $( 'body' ).find( '.fl-builder-content:not(header):not(footer)' );
@@ -51,6 +48,11 @@
 			if ('icon' !== listStyle) {
 				listIcon = '';
 			}
+
+			$( document ).trigger( 'pp_toc_before_init', [ this ] );
+
+			// Add a class to the specific heading that is excluded by the user.
+			this.excludeHeadings();
 
 			this.insertAnchors();
 
@@ -91,6 +93,8 @@
 			this.resizeToCBody();
 
 			$( window ).on( 'resize', $.proxy( this.resizeToCBody, this ) );
+
+			$( document ).trigger( 'pp_toc_after_init', [ this ] );
 		},
 
 		getAutoId: function( index ) {
@@ -145,7 +149,16 @@
 
 			headingSelectors = options.headings.split( "," );
 
-			$( options.content ).find( options.headings ).not( '.pp-toc-exclude-element' ).each(function (index) {
+			var $headings = $( options.content ).find( options.headings ).not( '.pp-toc-exclude-element' );
+
+			if ( $headings.length === 0 ) {
+				$( this.nodeClass + ' .pp-toc-container' ).addClass( 'is-empty' );
+				return;
+			} else {
+				$( this.nodeClass + ' .pp-toc-container' ).addClass( 'pp-toc-initialized' );
+			}
+
+			$headings.each(function (index) {
 				// What level is the current heading?
 				var elem = $( this ),
 					level = $.map(headingSelectors, function (selector, index) {
@@ -184,9 +197,17 @@
 		flatView: function () {
 			var listIcon = this.listIcon;
 			var listStyle = this.listStyle;
+			var $headings = $( this.container ).find( this.headData ).not( '.pp-toc-exclude-element' );
 			var self = this;
 
-			$( this.container ).find( this.headData ).not( '.pp-toc-exclude-element' ).each(function (index) {
+			if ( $headings.length === 0 ) {
+				$( this.nodeClass + ' .pp-toc-container' ).addClass( 'is-empty' );
+				return;
+			} else {
+				$( this.nodeClass + ' .pp-toc-container' ).addClass( 'pp-toc-initialized' );
+			}
+
+			$headings.each(function (index) {
 
 				var anchor = '<a href="#' + self.getId( $(this), index ) + '">' + $( this ).text().trim() + '</a>';
 

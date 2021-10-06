@@ -95,7 +95,12 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 								$filter_terms = array_merge( $filter_terms, $current_term_children );
 								continue;	
 							} else {
-								$filter_terms[] = $term->term_id;
+								$term_children = get_term_children( $term->term_id, $term->taxonomy );
+                                if ( is_array( $term_children ) && count( $term_children ) > 0 ) {
+                                    $filter_terms = array_merge( $filter_terms, $term_children );
+                                } else {
+                                    $filter_terms[] = $term->term_id;
+                                }
 							}
 						}
 					} else {
