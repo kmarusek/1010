@@ -200,6 +200,16 @@ if ( 'button' === $settings->cta_type ) {
 	}
 	/* CSS Render Function */
 	FLBuilder::render_module_css( 'uabb-button', $id, $btn_settings );
+	if ( 'gradient' === $settings->btn_style ) {
+		if ( isset( $settings->btn_gradient ) ) {
+			?>
+			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-button-wrap a,
+			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-button-wrap a:visited {
+				background: <?php echo esc_attr( FLBuilderColor::gradient( $settings->btn_gradient ) ); ?>;
+			}
+			<?php
+		}
+	}
 }
 /* Render Separator */
 if ( 'block' === $settings->enable_separator ) {
