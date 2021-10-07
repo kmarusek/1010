@@ -64,7 +64,7 @@ function processManifest(basePath) {
         //in the chain.
         successPic = path.join(basePath, 'assets/img/huemor_logo.png');
         failurePic = path.join(basePath, 'assets/img/sad_onions.png');
-        iconFontTmpl = path.join(basePath, "./assets/tmpl/icon_manifest.less.hbs");
+        iconFontTmpl = path.join(basePath, "assets/tmpl/icon_manifest.less.hbs");
         build_directory = path.join(basePath, manifest.config.build_directory || "build");
         asset_directory = path.join(basePath, manifest.config.asset_directory || "build");
     }
@@ -225,7 +225,7 @@ function build_iconfont() {
                 .pipe(consolidate("handlebars", {
                     glyphs: glyphs,
                     fontName: 'icon',
-                    fontPath: '../build/fonts/',
+                    fontPath: '../' + asset_directory + "/",
                     nonce: Math.floor(Math.random() * 10000)
                 }))
                 .pipe(notify({
@@ -233,6 +233,7 @@ function build_iconfont() {
                     "message": "Compiled <%= file.relative %>",
                     "icon": successPic
                 }))
+                .pipe(rename("icon_manifest.less"))
                 .pipe(gulp.dest(build_directory));
         })
         .pipe(notify({
