@@ -47,8 +47,7 @@ if (!Array.prototype.includes) {
             return false;
         }
     });
-}
-//https://github.com/JamesMGreene/Function.name/blob/master/Function.name.js
+};//https://github.com/JamesMGreene/Function.name/blob/master/Function.name.js
 (function() {
 
 var fnNameMatchRegex = /^\s*function\s+([^\(\s]*)\s*/;
@@ -166,17 +165,14 @@ if (needsPolyfill) {
   }
 }
 
-})();
-!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);
-if (!String.prototype.endsWith) {
+})();;!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);;if (!String.prototype.endsWith) {
     String.prototype.endsWith = function(search, this_len) {
         if (this_len === undefined || this_len > this.length) {
             this_len = this.length;
         }
         return this.substring(this_len - search.length, this_len) === search;
     };
-}
-if (!String.prototype.includes) {
+};if (!String.prototype.includes) {
     String.prototype.includes = function(search, start) {
         'use strict';
         if (typeof start !== 'number') {
@@ -189,33 +185,11 @@ if (!String.prototype.includes) {
             return this.indexOf(search, start) !== -1;
         }
     };
-}
-if (!String.prototype.startsWith) {
+};if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(search, pos) {
         return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
     };
-}
-/*global define, window, document*/
-
-//Polyfill for Object.create.
-if (typeof Object.create !== 'function') {
-    Object.create = (function () {
-        "use strict";
-        var Temp = function () {};
-        return function (prototype) {
-            if (arguments.length > 1) {
-                throw new Error('Second argument not supported');
-            }
-            if (typeof prototype !== 'object') {
-                throw new TypeError('Argument must be an object');
-            }
-            Temp.prototype = prototype;
-            var result = new Temp();
-            Temp.prototype = null;
-            return result;
-        };
-    }());
-}
+};/*global define, window, document*/
 
 (function (root, factory) {
     "use strict";
@@ -322,8 +296,8 @@ if (typeof Object.create !== 'function') {
      *
      * TODO: Is there a non-jQuery way of handling this?
      */
-    Behavior.locate = function (elem) {
-        var $elem = $(elem), new_object, i, objectArgs = [elem], Class = this,
+    Behavior.locate = function (elem, ...objectArgs) {
+        var $elem = $(elem), new_object, i, Class = this,
             rc = $elem.data("behaviors-registered-classes");
         
         if ($elem.length === 0) {
@@ -334,17 +308,10 @@ if (typeof Object.create !== 'function') {
             rc = {};
         }
 
-        if (rc[Class.name] === undefined) {
-            //Grab the other arguments
-            for (i = 1; i < arguments.length; i += 1) {
-                objectArgs.push(arguments[i]);
-            }
-
-            new_object = Object.create(Class.prototype);
-            Class.apply(new_object, objectArgs);
-            rc[Class.name] = new_object;
+        if (rc[Class.QUERY] === undefined) {
+            rc[Class.QUERY] = new Class(elem, ...objectArgs);
         } else {
-            new_object = rc[Class.name];
+            new_object = rc[Class.QUERY];
         }
 
         $elem.data("behaviors-registered-classes", rc);
@@ -391,15 +358,15 @@ if (typeof Object.create !== 'function') {
                 return;
             }
             
-            if (rc[Class.name] === undefined) {
+            if (rc[Class.QUERY] === undefined) {
                 return;
             }
             
-            if (rc[Class.name].deinitialize === undefined) {
+            if (rc[Class.QUERY].deinitialize === undefined) {
                 return;
             }
             
-            rc[Class.name].deinitialize();
+            rc[Class.QUERY].deinitialize();
         });
     };
 
@@ -412,7 +379,19 @@ if (typeof Object.create !== 'function') {
      */
     function register_behavior(Class, name) {
         if (name === undefined) {
-            name = Class.name;
+            name = Class.QUERY;
+        }
+
+        if (behavior_registry[name] === Class) {
+            console.warn("Attempted to register the same behavior twice to the same CSS selector \"" + name + "\".");
+            return;
+        } else if (behavior_registry[name] !== undefined) {
+            console.error("Attempted to register a second behavior onto CSS selector \""
+                + name + "\". Only one behavior may be registered to a given CSS selector "
+                + "at a given time. The offending classes are " + Class.name
+                + " and " + behavior_registry[name].name + ".");
+            
+            return;
         }
 
         behavior_registry[name] = Class;
@@ -546,8 +525,7 @@ if (typeof Object.create !== 'function') {
 
     return module;
 }));
-
-/**
+;/**
  * Function used to get the height of the admin bar in pixels.
  *
  * @return {int} The height of the admin bar (in pixels)
@@ -612,8 +590,7 @@ if (typeof Object.create !== 'function') {
     // Get the classes attached to the header
     header_classes = header.classList;
     return header_classes.contains( 'fl-theme-builder-header-sticky' );
-}
-(function() {
+};(function() {
   var MutationObserver, Util, WeakMap, getComputedStyle, getComputedStyleRX,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -1126,8 +1103,7 @@ if (typeof Object.create !== 'function') {
   })();
 
 }).call(this);
-
-/*global define, console, document, window*/
+;/*global define, console, document, window*/
 /*jslint continue:true*/
 (function (root, factory) {
     "use strict";
@@ -1577,122 +1553,7 @@ if (typeof Object.create !== 'function') {
 
     return module;
 }));
-
-/*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("Animations", ["jquery", "Behaviors"], factory);
-    } else {
-        root.Animations = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    
-    var module = {};
-
-    /* Watches for the start and end of an animation.
-     *
-     * The .promise attribute stores a promise which resolves whenever the
-     * animation has completed or no animation events were detected over a
-     * timeout period of 5 second.
-     *
-     * An important caveat: Animations with delay longer than 5 seconds will
-     * fail to fire events and the animation watcher will trigger the timeout
-     * behavior instead. You can avoid this behavior by triggering another
-     * animation of any kind during the timeout period and keeping it alive
-     * until the delayed animation begins.
-     */
-    function AnimationWatcher($elem) {
-        var Class = this.constructor,
-            eventSelector = Class.get_unique_id(),
-            that = this,
-            evtStartNames = "animationstart." + eventSelector +
-                      " webkitAnimationStart." + eventSelector +
-                      " oanimationstart." + eventSelector +
-                      " MSAnimationStart." + eventSelector,
-            evtEndNames = "animationend." + eventSelector +
-                      " webkitAnimationEnd." + eventSelector +
-                      " oanimationend." + eventSelector +
-                      " MSAnimationEnd." + eventSelector,
-            animation_start = this.animation_start.bind(this),
-            animation_end = this.animation_end.bind(this),
-            animation_timeout_delay = 5000;
-
-        this.eventSelector = eventSelector;
-
-        this.$elem = $elem;
-        this.$elem.on(evtStartNames, animation_start);
-        this.$elem.on(evtEndNames, animation_end);
-
-        if (window.Modernizr && window.Modernizr.cssanimations === false) {
-            animation_timeout_delay = 0;
-        }
-
-        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
-        this.remaining_animations = [];
-
-        //We remove event handlers after one of the handlers resolves the
-        //animation promise.
-        this.promise = new Promise(function (resolve, reject) {
-            that.resolve = resolve;
-            that.reject = reject;
-        }).then(function () {
-            that.$elem.off(evtStartNames, animation_start);
-            that.$elem.off(evtEndNames, animation_end);
-        });
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
-    }
-
-    AnimationWatcher.count = 0;
-
-    AnimationWatcher.get_unique_id = function () {
-        var Class = this,
-            sel = "." + Class.name + "_" + Class.count;
-
-        Class.count += 1;
-        return sel;
-    };
-
-    AnimationWatcher.prototype.animation_start = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
-        if (this.timeout !== null) {
-            window.clearTimeout(this.timeout);
-            this.timeout = null;
-        }
-
-        this.remaining_animations.push(evt.originalEvent.animationName);
-    };
-
-    AnimationWatcher.prototype.animation_end = function (evt) {
-        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
-
-        if (loc !== -1) {
-            this.remaining_animations.splice(loc, 1);
-        }
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    AnimationWatcher.prototype.abort_animation = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    module.AnimationWatcher = AnimationWatcher;
-
-    return module;
-}));
-
-/*global define, console, window, HTMLImageElement, Promise*/
+;/*global define, console, window, HTMLImageElement, Promise*/
 
 (function (root, factory) {
     "use strict";
@@ -2101,8 +1962,120 @@ if (typeof Object.create !== 'function') {
 
     return module;
 }));
+;/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("Animations", ["jquery", "Behaviors"], factory);
+    } else {
+        root.Animations = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    
+    var module = {};
 
-/*global define, console, document, window*/
+    /* Watches for the start and end of an animation.
+     *
+     * The .promise attribute stores a promise which resolves whenever the
+     * animation has completed or no animation events were detected over a
+     * timeout period of 5 second.
+     *
+     * An important caveat: Animations with delay longer than 5 seconds will
+     * fail to fire events and the animation watcher will trigger the timeout
+     * behavior instead. You can avoid this behavior by triggering another
+     * animation of any kind during the timeout period and keeping it alive
+     * until the delayed animation begins.
+     */
+    function AnimationWatcher($elem) {
+        var Class = this.constructor,
+            eventSelector = Class.get_unique_id(),
+            that = this,
+            evtStartNames = "animationstart." + eventSelector +
+                      " webkitAnimationStart." + eventSelector +
+                      " oanimationstart." + eventSelector +
+                      " MSAnimationStart." + eventSelector,
+            evtEndNames = "animationend." + eventSelector +
+                      " webkitAnimationEnd." + eventSelector +
+                      " oanimationend." + eventSelector +
+                      " MSAnimationEnd." + eventSelector,
+            animation_start = this.animation_start.bind(this),
+            animation_end = this.animation_end.bind(this),
+            animation_timeout_delay = 5000;
+
+        this.eventSelector = eventSelector;
+
+        this.$elem = $elem;
+        this.$elem.on(evtStartNames, animation_start);
+        this.$elem.on(evtEndNames, animation_end);
+
+        if (window.Modernizr && window.Modernizr.cssanimations === false) {
+            animation_timeout_delay = 0;
+        }
+
+        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
+        this.remaining_animations = [];
+
+        //We remove event handlers after one of the handlers resolves the
+        //animation promise.
+        this.promise = new Promise(function (resolve, reject) {
+            that.resolve = resolve;
+            that.reject = reject;
+        }).then(function () {
+            that.$elem.off(evtStartNames, animation_start);
+            that.$elem.off(evtEndNames, animation_end);
+        });
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
+    }
+
+    AnimationWatcher.count = 0;
+
+    AnimationWatcher.get_unique_id = function () {
+        var Class = this,
+            sel = "." + Class.name + "_" + Class.count;
+
+        Class.count += 1;
+        return sel;
+    };
+
+    AnimationWatcher.prototype.animation_start = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
+        if (this.timeout !== null) {
+            window.clearTimeout(this.timeout);
+            this.timeout = null;
+        }
+
+        this.remaining_animations.push(evt.originalEvent.animationName);
+    };
+
+    AnimationWatcher.prototype.animation_end = function (evt) {
+        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
+
+        if (loc !== -1) {
+            this.remaining_animations.splice(loc, 1);
+        }
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    AnimationWatcher.prototype.abort_animation = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    module.AnimationWatcher = AnimationWatcher;
+
+    return module;
+}));
+;/*global define, console, document, window*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -2233,8 +2206,7 @@ if (typeof Object.create !== 'function') {
 
     return module;
 }));
-
-(function (root, factory) {
+;(function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
         define("ContentSlider", ["jquery", "Behaviors"], factory);
@@ -2542,8 +2514,7 @@ if (typeof Object.create !== 'function') {
     module.ContentSlider = ContentSlider;
     
     return module;
-}));
-/* Paginate.js
+}));;/* Paginate.js
  * A progressively-enhancing infinite scroll library
  * ©2014 HUEMOR Designs All Rights Reserved
  */
@@ -3248,8 +3219,7 @@ if (typeof Object.create !== 'function') {
     Behaviors.register_behavior(Paginate);
     
     return module;
-}));
-/*global define,google,Promise*/
+}));;/*global define,google,Promise*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -3380,8 +3350,7 @@ if (typeof Object.create !== 'function') {
     module.GoogleMap = GoogleMap;
     
     return module;
-}));
-/*global define, console*/
+}));;/*global define, console*/
 /*jslint bitwise: true */
 /* updated 9/14/2016 */
 
@@ -4324,8 +4293,7 @@ if (!Array.prototype.indexOf) {
 
     return module;
 }));
-
-/*global define, console, document, window, Promise*/
+;/*global define, console, document, window, Promise*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -4738,8 +4706,7 @@ if (!Array.prototype.indexOf) {
 
     return module;
 }));
-
-/*global window, define, Promise*/
+;/*global window, define, Promise*/
 
 (function (root, factory) {
     "use strict";
@@ -5065,8 +5032,7 @@ if (!Array.prototype.indexOf) {
 
     return module;
 }));
-
-(function (root, factory) {
+;(function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
         define("accountslidein", ["jquery", "betteroffcanvas"], factory);
@@ -5097,8 +5063,7 @@ if (!Array.prototype.indexOf) {
         betteroffcanvas.dismissOffcanvas($('#SiteHeader-accounts'));
     });
 }));
-
-(function (root, factory) {
+;(function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
         define("siteheader", ["jquery", "betteroffcanvas"], factory);
@@ -5127,8 +5092,7 @@ if (!Array.prototype.indexOf) {
 
     update_scroll();
 }));
-
-(function (root, factory) {
+;(function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
         define("StaffGrid", ["jquery", "Behaviors"], factory);
@@ -5182,8 +5146,7 @@ if (!Array.prototype.indexOf) {
     
     return module;
 }));
-
-/*global define, console, document, window*/
+;/*global define, console, document, window*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -5349,8 +5312,7 @@ if (!Array.prototype.indexOf) {
 
     return module;
 }));
-
-/*jslint continue: true, es5: true*/
+;/*jslint continue: true, es5: true*/
 /*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
 (function (root, factory) {
     "use strict";
@@ -5472,8 +5434,7 @@ if (!Array.prototype.indexOf) {
     
     return module;
 }));
-
-/*global define, window, document, Promise*/
+;/*global define, window, document, Promise*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {

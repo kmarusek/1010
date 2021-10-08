@@ -1,25 +1,5 @@
 /*global define, window, document*/
 
-//Polyfill for Object.create.
-if (typeof Object.create !== 'function') {
-    Object.create = (function () {
-        "use strict";
-        var Temp = function () {};
-        return function (prototype) {
-            if (arguments.length > 1) {
-                throw new Error('Second argument not supported');
-            }
-            if (typeof prototype !== 'object') {
-                throw new TypeError('Argument must be an object');
-            }
-            Temp.prototype = prototype;
-            var result = new Temp();
-            Temp.prototype = null;
-            return result;
-        };
-    }());
-}
-
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -125,8 +105,8 @@ if (typeof Object.create !== 'function') {
      *
      * TODO: Is there a non-jQuery way of handling this?
      */
-    Behavior.locate = function (elem) {
-        var $elem = $(elem), new_object, i, objectArgs = [elem], Class = this,
+    Behavior.locate = function (elem, ...objectArgs) {
+        var $elem = $(elem), new_object, i, Class = this,
             rc = $elem.data("behaviors-registered-classes");
         
         if ($elem.length === 0) {
@@ -137,17 +117,10 @@ if (typeof Object.create !== 'function') {
             rc = {};
         }
 
-        if (rc[Class.name] === undefined) {
-            //Grab the other arguments
-            for (i = 1; i < arguments.length; i += 1) {
-                objectArgs.push(arguments[i]);
-            }
-
-            new_object = Object.create(Class.prototype);
-            Class.apply(new_object, objectArgs);
-            rc[Class.name] = new_object;
+        if (rc[Class.QUERY] === undefined) {
+            rc[Class.QUERY] = new Class(elem, ...objectArgs);
         } else {
-            new_object = rc[Class.name];
+            new_object = rc[Class.QUERY];
         }
 
         $elem.data("behaviors-registered-classes", rc);
@@ -194,15 +167,15 @@ if (typeof Object.create !== 'function') {
                 return;
             }
             
-            if (rc[Class.name] === undefined) {
+            if (rc[Class.QUERY] === undefined) {
                 return;
             }
             
-            if (rc[Class.name].deinitialize === undefined) {
+            if (rc[Class.QUERY].deinitialize === undefined) {
                 return;
             }
             
-            rc[Class.name].deinitialize();
+            rc[Class.QUERY].deinitialize();
         });
     };
 
@@ -215,7 +188,19 @@ if (typeof Object.create !== 'function') {
      */
     function register_behavior(Class, name) {
         if (name === undefined) {
-            name = Class.name;
+            name = Class.QUERY;
+        }
+
+        if (behavior_registry[name] === Class) {
+            console.warn("Attempted to register the same behavior twice to the same CSS selector \"" + name + "\".");
+            return;
+        } else if (behavior_registry[name] !== undefined) {
+            console.error("Attempted to register a second behavior onto CSS selector \""
+                + name + "\". Only one behavior may be registered to a given CSS selector "
+                + "at a given time. The offending classes are " + Class.name
+                + " and " + behavior_registry[name].name + ".");
+            
+            return;
         }
 
         behavior_registry[name] = Class;
