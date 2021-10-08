@@ -11,7 +11,7 @@ wp-content/backupwordpress-*/
 wp-content/managewp/backups/
 wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
-wp-content/wp-rocket-config/index.html
+wp-content/wp-rocket-config/
 sitemap.xml
 sitemap.xml.gz
 
