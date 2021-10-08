@@ -6336,9 +6336,8 @@ final class FLBuilderModel {
 							if ( isset( $template->nodes ) ) {
 								$template_data[ $key ]->nodes = serialize( $template_data[ $key ]->nodes );
 							}
-
-							self::$template_data[ $template_type ] = array_merge( self::$template_data[ $template_type ], $template_data );
 						}
+						self::$template_data[ $template_type ] = array_merge( self::$template_data[ $template_type ], $template_data );
 					}
 				}
 			}

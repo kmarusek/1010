@@ -1,3 +1,20 @@
+<h4>2.5.0.2 - 10/7/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+		<li>Ignore http/https in URL check to automatically clear cache when URL changes</li>
+		<li>Subscribe Module: Update cacert for Infusionsoft and Campaign Monitor</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+		<li>Fix templates registered with <code>FLBuilder::register_templates</code> being duplicated in content panel</li>
+		<li>Fix fatal error when saving Posts module with custom layout or when BigCommerce is active</li>
+		<li>Fix modules not being greyed out until ready after being duplicated in the BB UI</li>
+		<li>Fix not being able to import settings to modules with uppercase characters in class name</li>
+		<li>Fix some icons in some icon sets not displaying due to a space being added to the class when prefix is missing for that icon</li>
+		<li>Menu Module: Fix menu opening and closing when anchor links are used on a hamburger menu</li>
+</ul>
+
 <h4>2.5.0.1 - 09/21/2021</h4>
 <p><strong>Enhancements</strong></p>
 <ul>

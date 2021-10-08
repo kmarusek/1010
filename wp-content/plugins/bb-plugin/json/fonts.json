@@ -4650,7 +4650,7 @@
   }
 }, {
   "Open Sans": {
-    "variants": ["300", "300italic", "regular", "italic", "600", "600italic", "700", "700italic", "800", "800italic"],
+    "variants": ["300", "regular", "500", "600", "700", "800", "300italic", "italic", "500italic", "600italic", "700italic", "800italic"],
     "fallback": "sans-serif"
   }
 }, {

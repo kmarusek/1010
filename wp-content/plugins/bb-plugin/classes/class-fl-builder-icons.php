@@ -467,6 +467,10 @@ final class FLBuilderIcons {
 		 */
 		do_action( 'fl_builder_enqueue_styles_for_icon', $icon );
 
+		// Make sure there is no whitespace
+		// Fixes broken uabb icons
+		$icon = ltrim( $icon );
+
 		// Is this a core icon?
 		if ( stristr( $icon, 'fa fa-' ) ) {
 			wp_enqueue_style( 'font-awesome' );

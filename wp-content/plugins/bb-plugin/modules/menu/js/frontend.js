@@ -427,7 +427,10 @@
 
 					if ( $('body').find('#'+  $targetID).length > 0 ) {
 						$( this ).toggleClass( 'fl-active' );
-						$menu.slideToggle();
+						
+						if ( ! self._isMenuToggle() ) {
+							$menu.slideToggle();	
+						} 
 					}
 				});
 			}
