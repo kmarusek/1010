@@ -142,16 +142,25 @@ final class BB_PowerPack_Templates_Lib {
 
 			if ( is_array( $page_templates ) && method_exists( 'FLBuilder', 'register_templates' ) ) {
 				$page_group = BB_PowerPack_Admin_Settings::get_option( 'ppwl_tmpcat_label' );
+				// translators: %s is for PowerPack or admin label or group name set in White Label settings.
+				$page_group = ( ! $page_group || '' == trim( $page_group ) ) ? sprintf( __( '%s Layouts', 'bb-powerpack' ), pp_get_admin_label() ) : $page_group;
+				$template_paths = array();
 
 				foreach ( $page_templates as $template ) {
 
-					if ( file_exists( self::get_upload_dir()['path'] . $template . '.dat' ) ) {
-						// Template filename should be the same as the category name.
-						FLBuilder::register_templates( self::get_upload_dir()['path'] . $template . '.dat', array(
-							'group'	=> $page_group,
-						) );
-					}
+					$template_paths[] = self::get_upload_dir()['path'] . $template . '.dat';
+
+					// if ( file_exists( self::get_upload_dir()['path'] . $template . '.dat' ) ) {
+					// 	// Template filename should be the same as the category name.
+					// 	FLBuilder::register_templates( self::get_upload_dir()['path'] . $template . '.dat', array(
+					// 		'group'	=> $page_group,
+					// 	) );
+					// }
 				}
+
+				FLBuilderModel::register_templates( $template_paths, array(
+					'group'	=> $page_group,
+				) );
 			}
 		} // End if().
 	}

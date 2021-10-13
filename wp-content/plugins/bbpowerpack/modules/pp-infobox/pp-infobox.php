@@ -280,7 +280,13 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 							'center'		=> __('Center', 'bb-powerpack'),
 							'bottom'		=> __('Bottom', 'bb-powerpack'),
 						)
-					)
+					),
+					'inherit_eql_heights' => array(
+						'type' => 'pp-switch',
+						'label' => __( 'Inherit Columns Equal Heights', 'bb-powerpack' ),
+						'default' => 'yes',
+						'help' => __( 'This option will only work if equal heights option is enabled in columns setting.', 'bb-powerpack' ),
+					),
 				)
 			),
 			'type'      => array(

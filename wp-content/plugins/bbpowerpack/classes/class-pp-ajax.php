@@ -583,6 +583,7 @@ class BB_PowerPack_Ajax {
 
 				$query->the_post();
 
+				$title_attrs = the_title_attribute( array( 'echo' => false ) );
 				$terms_list = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
 				$post_id = get_the_ID();
 				$permalink = get_permalink();

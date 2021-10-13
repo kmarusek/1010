@@ -969,3 +969,13 @@ function pp_wl_get_reset_url() {
 function pp_plugin_get_hash() {
 	return md5( 'PowerPack for Beaver Builder' );
 }
+
+function pp_get_attachment_data( $id ) {
+	add_filter( 'image_size_names_choose', 'BB_PowerPack_Post_Helper::additional_image_sizes' );
+
+	$data = FLBuilderPhoto::get_attachment_data( $id );
+
+	remove_filter( 'image_size_names_choose', 'BB_PowerPack_Post_Helper::additional_image_sizes' );
+
+	return $data;
+}

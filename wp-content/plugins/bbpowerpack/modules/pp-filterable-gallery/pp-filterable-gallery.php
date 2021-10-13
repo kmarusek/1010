@@ -279,7 +279,7 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 				continue;
 			}
 
-			$photo_attachment_data[ $id ] = FLBuilderPhoto::get_attachment_data( $id );
+			$photo_attachment_data[ $id ] = pp_get_attachment_data( $id );
 
 			if ( ! $photo_attachment_data[ $id ] ) {
 				$photo_from_template = true;

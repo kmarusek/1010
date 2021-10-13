@@ -99,14 +99,14 @@ FLBuilderCSS::typography_field_rule(
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_title,
-.fl-node-<?php echo $id; ?> .form-title {
+.fl-builder-content .fl-node-<?php echo $id; ?> .form-title {
 	<?php if ( $settings->title_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->title_color ); ?>;
 	<?php } ?>
 	display: <?php echo ( 'false' === $settings->title_field ) ? 'none' : 'block'; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .form-title {
+.fl-builder-content .fl-node-<?php echo $id; ?> .form-title {
 	display: <?php echo ( 'yes' === $settings->form_custom_title_desc ) ? 'block' : 'none'; ?>;
 }
 
@@ -117,14 +117,14 @@ FLBuilderCSS::typography_field_rule(
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper span.gform_description,
-.fl-node-<?php echo $id; ?> .form-description {
+.fl-builder-content .fl-node-<?php echo $id; ?> .form-description {
 	<?php if ( $settings->description_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->description_color ); ?>;
 	<?php } ?>
 	display: <?php echo ( 'false' === $settings->description_field ) ? 'none' : 'block'; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .form-description {
+.fl-builder-content .fl-node-<?php echo $id; ?> .form-description {
 	display: <?php echo ( 'yes' === $settings->form_custom_title_desc ) ? 'block' : 'none'; ?>;
 }
 

@@ -5,6 +5,7 @@
 	width: auto;
 	height: auto;
 	overflow: hidden;
+	transition: opacity 0.3s, visibility 0.3s;
 }
 /*
 body:not(.fl-builder-edit) .pp-toc-container.is-empty {
@@ -136,6 +137,10 @@ body:not(.fl-builder-edit) .pp-toc-container.is-empty {
 	top: 0;
 	opacity: .8;
 	z-index: 1000;
+}
+.pp-toc-sticky-fixed.pp-toc--stop {
+	opacity: 0;
+	visibility: hidden;
 }
 
 .admin-bar .pp-toc-sticky-fixed {

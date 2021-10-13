@@ -19,7 +19,6 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 		<!-- Slides wrapper -->
 		<?php if ( $is_social_reviews ) { ?>
 		<div class="swiper-wrapper">
-			<!-- Slides -->
 			<?php
 			foreach ( $reviews as $key => $review ) {
 
@@ -105,7 +104,6 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 		</div>
 		<?php } else { ?>
 			<div class="swiper-wrapper">
-			<!-- Slides -->
 			<?php
 			for ( $i = 0; $i < count( $settings->reviews ); $i++ ) {
 				$review = $settings->reviews[ $i ];

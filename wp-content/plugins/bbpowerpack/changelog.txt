@@ -1,5 +1,20 @@
+== 2.18.1 ==
+Release date: October 13, 2021
+* Enhancement: Table of Contents - Added a CSS class field under Sticky ToC settings to hide the ToC when it reaches to the row with specified CSS class
+* Fix: Info Box - Added an option in the module to inherit the columns equal heights behavior (kept enabled by default for existing users)
+* Fix: Photo Gallery - Added a workaround for the images which were not getting rendered in custom registered size
+* Fix: Filterable Gallery - Added a workaround for the images which were not getting rendered in custom registered size
+* Fix: Image Carousel - Added a workaround for the images which were not getting rendered in custom registered size
+* Fix: Registration Form - Validation error message was not showing for custom added fields
+* Fix: Gravity Forms - Text color set in the row or column setting overriding the custom title and description colors
+* Development: Photo Gallery - Added filter hook pp_gallery_image_html_attrs
+* Development: Filterable Gallery - Added filter hook pp_filterable_gallery_image_html_attrs
+* Development: Logos Grid & Carousel - Added filter hook pp_logo_image_html_attrs
+* Development: Advanced Accordion - Added filter hook pp_advanced_accordion_scroll_offset_top
+* Development: Post related modules - Added filter hook pp_post_image_settings_data
+
 == 2.18.0 ==
-Release date: September 29, 2021
+Release date: October 5, 2021
 * Enhancement: Content Tiles - Added an option to enable date & author to be displayed on all tiles
 * Enhancement: Advanced Tabs - Added an option to set an image as an icon
 * Fix: Content Grid - None option in Fallback image field was not working in some cases

@@ -1,13 +1,13 @@
 (function($) {
 
-	PPAccordion = function( settings )
-	{
+	PPAccordion = function( settings ) {
 		this.id 		= settings.id;
 		this.settings 	= settings;
 		this.nodeClass  = '.fl-node-' + settings.id;
 		this.accordion	= $( this.nodeClass ).find( '.pp-accordion' ).first();
 		this.clicked 	= false;
 		this.nestedToggle = false;
+		this.offsetTop = settings.scrollOffsetTop;
 		this._init();
 	};
 
@@ -16,6 +16,7 @@
 		settings	: {},
 		nodeClass   : '',
 		clicked		: false,
+		offsetTop   : 120,
 
 		_init: function()
 		{
@@ -40,8 +41,7 @@
 			this.accordion.addClass('pp-accordion-initialized');
 		},
 
-		_hashChange: function()
-		{
+		_hashChange: function() {
 			var scrollPos = $(window).scrollTop();
 			$(window).on('scroll', function() {
 				scrollPos = $(window).scrollTop();
@@ -51,7 +51,7 @@
 				var element = $(location.hash + '.pp-accordion-item');
 				if ( element && element.length > 0 ) {
 					$('html, body').animate({
-						scrollTop: element.offset().top - 120
+						scrollTop: element.offset().top - self.offsetTop
 					}, 0, function() {
 						location.href = '#';
 						// Fix scroll after hash change.
@@ -74,7 +74,7 @@
 										parentItem.find('> .pp-accordion-button').trigger('click');
 										self.nestedToggle = true;
 										setTimeout(function() {
-											window.scrollTo(0, element.offset().top - 120);
+											window.scrollTo(0, element.offset().top - self.offsetTop);
 										}, 800);
 									}
 								}

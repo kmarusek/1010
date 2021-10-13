@@ -12,6 +12,8 @@
 		$active_filter = 1;
 	}
 
+	$photos = $module->get_photos();
+
 	if ( count( $filter_labels ) ) : ?>
 
 		<div class="pp-gallery-filters-wrapper">
@@ -42,7 +44,6 @@
 	<div class="pp-filterable-gallery pp-photo-gallery<?php echo ( $settings->hover_effects != 'none' ) ? ' ' . $settings->hover_effects : ''; ?>">
 
 	<?php
-		$photos = $module->get_photos();
 	
 		foreach( $photos as $photo ) :
 
@@ -75,7 +76,26 @@
 				<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>"<?php echo ( '_blank' === $click_action_target && ( ! isset( $settings->custom_link_nofollow ) || 'yes' === $settings->custom_link_nofollow ) ) ? ' rel="nofollow noopener"' : ''; ?>>
 				<?php endif; ?>
 
-				<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1"<?php echo $dimensions_attrs; ?> />
+				<?php
+					$img_attrs = array(
+						'class' => 'pp-gallery-img',
+						'src' => $photo->src,
+						'alt' => $photo->alt,
+						'data-no-lazy' => 1,
+					);
+
+					$img_attrs = apply_filters( 'pp_filterable_gallery_image_html_attrs', $img_attrs, $photo, $settings );
+
+					$img_attrs_str = '';
+
+					foreach ( $img_attrs as $key => $value ) {
+						$img_attrs_str .= ' ' . $key . '=' . '"' . $value . '"';
+					}
+
+					$img_attrs_str .= $dimensions_attrs;
+				?>
+
+				<img <?php echo trim( $img_attrs_str ); ?> />
 
 				<?php if( $settings->hover_effects != 'none' || $settings->overlay_effects != 'none' || $settings->show_captions == 'hover' ) : ?>
 					<!-- overlay start -->

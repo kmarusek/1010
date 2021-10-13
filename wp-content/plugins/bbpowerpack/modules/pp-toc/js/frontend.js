@@ -325,12 +325,17 @@
 				isAdminBar = $( 'body' ).hasClass( 'admin-bar' ),
 				isFixed = 'fixed' === this.stickyType,
 				stickyOffset = $( this.nodeClass + ' .pp-toc-container' ).offset().top,
-				stickyOffsetCustom = stickyOffset + $( '.fl-node-' + nodeId + ' .pp-toc-container' ).height(),
-				stickyWidth = $( '.fl-node-' + nodeId + ' .pp-toc-container' ).outerWidth(),
-				stickyHeight = $( '.fl-node-' + nodeId + ' .pp-toc-container' ).outerHeight(),
-				placeholder = $( '<div />', { class: 'pp-toc-container-placeholder', css: { width: stickyWidth } } );
+				stickyOffsetCustom = stickyOffset + $( self.nodeClass + ' .pp-toc-container' ).height(),
+				stickyWidth = $( self.nodeClass + ' .pp-toc-container' ).outerWidth(),
+				stickyHeight = $( self.nodeClass + ' .pp-toc-container' ).outerHeight(),
+				placeholder = $( '<div />', { class: 'pp-toc-container-placeholder', css: { width: stickyWidth } } ),
+				hideTo = self.settings.hideTo;
 
-			$( '.fl-node-' + nodeId + ' .pp-toc-container' ).wrap( placeholder );
+			if ( '' !== hideTo ) {
+				hideTo = '.' + hideTo.replace( '.', '' );
+			}
+
+			$( self.nodeClass + ' .pp-toc-container' ).wrap( placeholder );
 
 			$( window ).scroll(function () {
 				if ( ! $( self.nodeClass + ' .pp-toc-container' ).hasClass( 'pp-toc-is-sticky' )) {
@@ -349,6 +354,16 @@
 				} else if (isAdminBar) {
 					scrollPos += 32;
 					//stickyOffsetFixed -= 32;
+				}
+
+				if ( '' !== hideTo && $( hideTo ).length > 0 ) {
+					var lastRowOffset = ( $( hideTo ).offset().top - ( $( self.nodeClass + ' .pp-toc-container' ).offset().top + $( self.nodeClass + ' .pp-toc-container-placeholder' ).height() ) );
+
+					if ( lastRowOffset <= 25 ) {
+						$( self.nodeClass + ' .pp-toc-container' ).addClass( 'pp-toc--stop' );
+					} else {
+						$( self.nodeClass + ' .pp-toc-container' ).removeClass( 'pp-toc--stop' );
+					}
 				}
 
 				if (isFixed) {

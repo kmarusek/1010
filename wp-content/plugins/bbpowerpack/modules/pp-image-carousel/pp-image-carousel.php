@@ -131,7 +131,7 @@ class PPImageCarouselModule extends FLBuilderModule {
 
 		/* Check if all photos are available on host */
 		foreach ( $ids as $id ) {
-			$image_attachment_data[ $id ] = FLBuilderPhoto::get_attachment_data( $id );
+			$image_attachment_data[ $id ] = pp_get_attachment_data( $id );
 
 			if ( ! $image_attachment_data[ $id ] ) {
 				$image_from_template = true;

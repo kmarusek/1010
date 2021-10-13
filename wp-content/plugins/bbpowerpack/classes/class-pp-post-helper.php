@@ -63,7 +63,7 @@ class BB_PowerPack_Post_Helper {
 			$photo_settings['link_url'] = get_the_permalink( $id );
 		}
 
-		return $photo_settings;
+		return apply_filters( 'pp_post_image_settings_data', $photo_settings, $settings );
 	}
 
 	static public function post_image_get_full_src( $id, $settings, $attachment_id = false ) {
@@ -440,5 +440,24 @@ class BB_PowerPack_Post_Helper {
 		} else {
 			return true;
 		}
+	}	
+
+	static public function additional_image_sizes( $attrs ) {
+		if ( ! function_exists( 'wp_get_additional_image_sizes' ) ) {
+			return $attrs;
+		}
+
+		// Get an array of custom image sizes
+		$allImageSizes = wp_get_additional_image_sizes();
+		$imageSizes = [];
+	
+		// Loop through the custom images, make a suitable array
+		foreach ( $allImageSizes as $key => $value ) {
+			$imageSizes[ $key ] = $key;
+		}
+	
+		// Merge the new array with the existing, and return
+		$attrs = array_merge( $attrs, $imageSizes );
+		return $attrs;
 	}
 }

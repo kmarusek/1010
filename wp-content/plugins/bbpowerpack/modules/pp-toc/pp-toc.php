@@ -258,6 +258,11 @@ BB_PowerPack::register_module(
 								'property' => 'top',
 							),
 						),
+						'hide_toc_to' => array(
+							'type' => 'text',
+							'label' => __( 'Hide ToC when reaches to', 'bb-powerpack' ),
+							'help' => __( 'Enter the CSS class of the row/section so it won\'t get overlapped by ToC.', 'bb-powerpack' ),
+						),
 					),
 				),
 				'scroll_top' => array(

@@ -226,7 +226,7 @@
 			var self = this;
 			theForm.find('.pp-rf-field.pp-rf-field-required').each(function() {
 				var field    = $(this),
-					name     = field.data( 'field-type' ),
+					name     = field.data( 'field-name' ),
 					selector = $(this).find( '[name="' + name + '"]' );
 
 				if ( selector.length > 0 ) {

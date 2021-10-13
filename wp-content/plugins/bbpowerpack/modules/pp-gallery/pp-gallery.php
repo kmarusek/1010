@@ -256,18 +256,17 @@ class PPGalleryModule extends FLBuilderModule {
 		}
 
 		/* Check if all photos are available on host */
-		foreach ($ids as $id) {
-			$photo_attachment_data[$id] = FLBuilderPhoto::get_attachment_data($id);
+		foreach ( $ids as $id ) {
+			$photo_attachment_data[$id] = pp_get_attachment_data( $id );
 
-			if ( ! $photo_attachment_data[$id] ) {
+			if ( ! $photo_attachment_data[ $id ] ) {
 				$photo_from_template = true;
 			}
-
 		}
 
-		foreach($ids as $id) {
+		foreach( $ids as $id ) {
 
-			$photo = $photo_attachment_data[$id];
+			$photo = $photo_attachment_data[ $id ];
 
 			// Use the cache if we didn't get a photo from the id.
 			if ( ! $photo && $photo_from_template ) {
@@ -288,7 +287,7 @@ class PPGalleryModule extends FLBuilderModule {
 
 
 			// Only use photos who have the sizes object.
-			if(isset($photo->sizes)) {
+			if ( isset( $photo->sizes ) ) {
 
 				$data = new stdClass();
 

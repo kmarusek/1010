@@ -44,9 +44,31 @@ if ( isset( $photo->sizes ) && ! empty( $photo->sizes['width'] ) && ! empty( $ph
 
 		<?php 
 			$srcset = apply_filters( 'pp_gallery_output_image_srcset', false ) ? esc_attr( $photo->srcset ) : '';
+			$img_attrs = array(
+				'class' => 'pp-gallery-img',
+				'src' => $photo->src,
+				'alt' => $photo->alt,
+				'data-no-lazy' => 1,
+				'itemprop' => 'thumbnail',
+			);
+
+			if ( ! empty( $srcset ) ) {
+				$img_attrs['srcset'] = $srcset;
+			}
+
+			$img_attrs = apply_filters( 'pp_gallery_image_html_attrs', $img_attrs, $photo, $settings );
+
+			$img_attrs_str = '';
+
+			foreach ( $img_attrs as $key => $value ) {
+				$img_attrs_str .= ' ' . $key . '=' . '"' . $value . '"';
+			}
+
+			$img_attrs_str .= $dimensions_attrs;
 		?>
 
-		<img class="pp-gallery-img" src="<?php echo $photo->src; ?>"<?php echo ! empty( $srcset ) ? ' srcset="' . $srcset . '"' : ''; ?> alt="<?php echo $photo->alt; ?>" data-no-lazy="1" itemprop="thumbnail"<?php echo $dimensions_attrs; ?> />
+			<img <?php echo trim( $img_attrs_str ); ?> />
+
 			<!-- Overlay Wrapper -->
 			<div class="pp-gallery-overlay">
 				<div class="pp-overlay-inner">

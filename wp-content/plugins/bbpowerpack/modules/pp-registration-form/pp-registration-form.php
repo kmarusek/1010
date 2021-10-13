@@ -385,6 +385,7 @@ class PPRegistrationFormModule extends FLBuilderModule {
 		$attrs = array(
 			'class'	=> implode( ' ', $field_wrap_class ),
 			'data-field-type' => $field->field_type,
+			'data-field-name' => $field->name,
 		);
 
 		$attrs_str = '';
