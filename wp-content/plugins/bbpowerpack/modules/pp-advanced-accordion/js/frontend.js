@@ -186,7 +186,7 @@
 				if ( item.offset().top < win.scrollTop() + 100 ) {
 					if ( ! this.clicked || this.settings.scrollAnimation ) {
 						$( 'html, body' ).animate({
-							scrollTop: item.offset().top - 100
+							scrollTop: item.offset().top - this.offsetTop
 						}, 500, 'swing');
 					}
 				}

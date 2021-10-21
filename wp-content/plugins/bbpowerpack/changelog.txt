@@ -1,3 +1,15 @@
+== 2.18.2 ==
+Release date: Ocotober 20, 2021
+* Fix: Gravity Forms - Added missing responsive controls for label font size, description font size
+* Fix: Gravity Forms - Input field padding responsive issue
+* Fix: Gravity Forms - More override fixes due to text color set in row / column
+* Fix: Countdown - Apostrophe in expire message field was breaking the layout
+* Fix: Advanced Accordion - Added missing role="tablist" HTML attribute
+* Fix: Info Box - Custom image width was not working when the module is used in site header
+* Fix: Updated French translation and added missing MO file
+* Fix: Updated Portuguese (Brazil) translations 
+* Development: Video - Added hook pp_video_lightbox_after_load
+
 == 2.18.1 ==
 Release date: October 13, 2021
 * Enhancement: Table of Contents - Added a CSS class field under Sticky ToC settings to hide the ToC when it reaches to the row with specified CSS class

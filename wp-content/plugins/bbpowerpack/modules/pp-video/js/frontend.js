@@ -87,6 +87,8 @@
 							$('.fancybox-' + id).trigger('focus');
 						}, 1200);
 					}
+
+					$(document).trigger( 'pp_video_lightbox_after_load', [ $('.fancybox-' + id), id ] );
 				},
 				iframe: {
 					preload: false

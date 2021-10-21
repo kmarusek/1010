@@ -1369,6 +1369,7 @@ BB_PowerPack::register_module(
 							'label'   => __( 'Label Font Size', 'bb-powerpack' ),
 							'units'   => array( 'px' ),
 							'slider'  => true,
+							'responsive'  => true,
 							'default' => '',
 							'preview' => array(
 								'type'     => 'css',
@@ -1382,6 +1383,7 @@ BB_PowerPack::register_module(
 							'label'   => __( 'Radio & Checkbox Label Font Size', 'bb-powerpack' ),
 							'units'   => array( 'px' ),
 							'slider'  => true,
+							'responsive'  => true,
 							'default' => '',
 							'preview' => array(
 								'type'     => 'css',
@@ -1407,6 +1409,7 @@ BB_PowerPack::register_module(
 							'label'   => __( 'Description Font Size', 'bb-powerpack' ),
 							'units'   => array( 'px' ),
 							'slider'  => true,
+							'responsive'  => true,
 							'default' => '',
 							'preview' => array(
 								'type'     => 'css',

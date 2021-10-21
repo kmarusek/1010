@@ -128,7 +128,7 @@ FLBuilderCSS::border_field_rule( array(
 			text-align: <?php echo $settings->alignment; ?>
 		<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-infobox-image img {
+	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-infobox-image img {
 		height: auto;
 		<?php if( $settings->icon_box_size ) { ?>padding: <?php echo $settings->icon_box_size; ?>px;<?php } ?>
 		<?php if( $settings->image_width_type == 'custom' && $settings->image_width ) { ?>width: <?php echo $settings->image_width; ?>px;<?php } ?>

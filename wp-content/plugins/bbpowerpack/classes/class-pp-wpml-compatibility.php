@@ -37,7 +37,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'notification_content',
 						'type'        => __( 'Alert Box - Content', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 				),
 			),
@@ -70,7 +70,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'announcement_content',
 						'type'        => __( 'Annoucement Bar - Content', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'announcement_link_text',
@@ -94,7 +94,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'custom_description',
 						'type'        => __( 'Contact Form - Custom Description', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'name_label',
@@ -124,7 +124,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'success_message',
 						'type'        => __( 'Contact Form - Success Message', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'success_url',
@@ -262,7 +262,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'custom_description',
 						'type'        => __( 'Gravity Form Styler - Custom Description', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 				),
 			),
@@ -271,7 +271,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'box_content',
 						'type'        => __( 'Highlight Box - Text', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'box_link',
@@ -397,7 +397,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'pullquote_content',
 						'type'        => __( 'Pullquote - Quote', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'pullquote_title',
@@ -430,7 +430,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'banner_description',
 						'type'        => __( 'Smart Banner - Description', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'button_text',
@@ -1150,8 +1150,8 @@ class BB_PowerPack_WPML {
 				'fields' => array(
 					array(
 						'field'       => 'row_ids',
-						'type'        => __( 'Login Form - Row Ids', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'type'        => __( 'Dot Nav - Row Ids', 'bb-powerpack' ),
+						'editor_type' => 'AREA',
 					),
 				),
 			),
@@ -1279,7 +1279,7 @@ class BB_PowerPack_WPML {
 					array(
 						'field'       => 'video_desc',
 						'type'        => __( 'Video - Structured Data Video Description', 'bb-powerpack' ),
-						'editor_type' => 'TEXTAREA',
+						'editor_type' => 'AREA',
 					),
 				),
 			),

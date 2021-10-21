@@ -127,7 +127,7 @@ $fixed_timer_labels = array(
 		timer_layout: default_layout,
 		redirect_link_target: '<?php echo ( '' != $settings->redirect_link_target ) ? $settings->redirect_link_target : ''; ?>',
 		redirect_link: '<?php echo ( '' != $settings->redirect_link ) ? $settings->redirect_link : ''; ?>',
-		expire_message: '<?php echo ( '' != $settings->expire_message ) ? preg_replace( '/\s+/', ' ', $settings->expire_message ) : ''; ?>',
+		expire_message: <?php echo json_encode( '' != $settings->expire_message ? preg_replace( '/\s+/', ' ', $settings->expire_message ) : '' ); ?>,
 		timer_labels: '<?php echo $fixed_timer_labels['year']['plural']; ?>,<?php echo $fixed_timer_labels['month']['plural']; ?>,,<?php echo $fixed_timer_labels['day']['plural']; ?>,<?php echo $fixed_timer_labels['hour']['plural']; ?>,<?php echo $fixed_timer_labels['minute']['plural']; ?>,<?php echo $fixed_timer_labels['second']['plural']; ?>',
 		timer_labels_singular: 	'<?php echo $fixed_timer_labels['year']['singular']; ?>,<?php echo $fixed_timer_labels['month']['singular']; ?>,,<?php echo $fixed_timer_labels['day']['singular']; ?>,<?php echo $fixed_timer_labels['hour']['singular']; ?>,<?php echo $fixed_timer_labels['minute']['singular']; ?>,<?php echo $fixed_timer_labels['second']['singular']; ?>',
 		evergreen_date_days: '<?php echo isset( $settings->evergreen_date_days ) ? $settings->evergreen_date_days : ''; ?>',

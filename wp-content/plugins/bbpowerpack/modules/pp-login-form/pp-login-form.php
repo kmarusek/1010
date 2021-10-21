@@ -257,6 +257,9 @@ class PPLoginFormModule extends FLBuilderModule {
 					}
 				}
 
+				// Prevent other plugins from breaking authentication by adding their stuff.
+				//remove_all_filters( 'authenticate', 99 );
+
 				// Prevent other plugins from doing anything when users are logging in.
 				remove_all_actions( 'wp_login' );
 
