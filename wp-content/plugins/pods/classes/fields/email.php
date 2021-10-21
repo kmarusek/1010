@@ -30,8 +30,7 @@ class PodsField_Email extends PodsField {
 	 */
 	public function setup() {
 
-		static::$group = __( 'Text', 'pods' );
-		static::$label = __( 'E-mail', 'pods' );
+		self::$label = __( 'E-mail', 'pods' );
 	}
 
 	/**
@@ -56,7 +55,7 @@ class PodsField_Email extends PodsField {
 				'help'    => __( 'Set to -1 for no limit', 'pods' ),
 			),
 			static::$type . '_html5'       => array(
-				'label'   => __( 'Enable HTML5 Input Field', 'pods' ),
+				'label'   => __( 'Enable HTML5 Input Field?', 'pods' ),
 				'default' => apply_filters( 'pods_form_ui_field_html5', 0, static::$type ),
 				'type'    => 'boolean',
 			),
@@ -95,7 +94,7 @@ class PodsField_Email extends PodsField {
 	 */
 	public function input( $name, $value = null, $options = null, $pod = null, $id = null ) {
 
-		$options         = ( is_array( $options ) || is_object( $options ) ) ? $options : (array) $options;
+		$options         = (array) $options;
 		$form_field_type = PodsForm::$field_type;
 
 		if ( is_array( $value ) ) {
@@ -104,7 +103,7 @@ class PodsField_Email extends PodsField {
 
 		$field_type = 'email';
 
-		if ( isset( $options['name'] ) && ! pods_permission( $options ) ) {
+		if ( isset( $options['name'] ) && false === PodsForm::permission( static::$type, $options['name'], $options, null, $pod, $id ) ) {
 			if ( pods_v( 'read_only', $options, false ) ) {
 				$options['readonly'] = true;
 
@@ -118,18 +117,7 @@ class PodsField_Email extends PodsField {
 			$field_type = 'text';
 		}
 
-		if ( ! empty( $options['disable_dfv'] ) ) {
-			return pods_view( PODS_DIR . 'ui/fields/email.php', compact( array_keys( get_defined_vars() ) ) );
-		}
-
-		wp_enqueue_script( 'pods-dfv' );
-
-		$type = pods_v( 'type', $options, static::$type );
-
-		$args = compact( array_keys( get_defined_vars() ) );
-		$args = (object) $args;
-
-		$this->render_input_script( $args );
+		pods_view( PODS_DIR . 'ui/fields/' . $field_type . '.php', compact( array_keys( get_defined_vars() ) ) );
 	}
 
 	/**
@@ -172,7 +160,7 @@ class PodsField_Email extends PodsField {
 	 */
 	public function pre_save( $value, $id = null, $name = null, $options = null, $fields = null, $pod = null, $params = null ) {
 
-		$options = ( is_array( $options ) || is_object( $options ) ) ? $options : (array) $options;
+		$options = (array) $options;
 
 		if ( ! is_email( $value ) ) {
 			$value = '';

@@ -39,11 +39,13 @@ if ( version_compare( $pods_version, '2.0.0-b-10', '<' ) ) {
 
 // Update to 2.0.0-b-11
 if ( version_compare( $pods_version, '2.0.0-b-11', '<' ) ) {
-	$date_fields = $wpdb->get_results( "
+	$date_fields = $wpdb->get_results(
+		"
             SELECT `ID`
             FROM `{$wpdb->posts}`
             WHERE ( `post_name` = 'created' OR `post_name` = 'modified' ) AND `post_type` = '_pods_field'
-        " );
+        "
+	);
 
 	if ( ! empty( $date_fields ) ) {
 		foreach ( $date_fields as $date ) {
@@ -69,7 +71,8 @@ if ( version_compare( $pods_version, '2.0.0-b-12', '<' ) ) {
 
 	$_GET = $oldget;
 
-	$number_fields = $wpdb->get_results( "
+	$number_fields = $wpdb->get_results(
+		"
             SELECT `p`.`ID`
             FROM `{$wpdb->posts}` AS `p`
             LEFT JOIN `{$wpdb->postmeta}` AS `pm` ON `pm`.`post_id` = `p`.`ID`
@@ -77,7 +80,8 @@ if ( version_compare( $pods_version, '2.0.0-b-12', '<' ) ) {
                 `p`.`post_type` = '_pods_field'
                 AND `pm`.`meta_key` = 'type'
                 AND `pm`.`meta_value` = 'number'
-        " );
+        "
+	);
 
 	if ( ! empty( $number_fields ) ) {
 		foreach ( $number_fields as $number ) {
@@ -151,7 +155,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
 	pods_no_conflict_on( 'post' );
 
 	// convert field types based on options set
-	$fields = $wpdb->get_results( "
+	$fields = $wpdb->get_results(
+		"
             SELECT `p`.`ID`
             FROM `{$wpdb->posts}` AS `p`
             LEFT JOIN `{$wpdb->postmeta}` AS `pm` ON `pm`.`post_id` = `p`.`ID`
@@ -159,7 +164,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
                 `p`.`post_type` = '_pods_field'
                 AND `pm`.`meta_key` = 'type'
                 AND `pm`.`meta_value` = 'date'
-        " );
+        "
+	);
 
 	if ( ! empty( $fields ) ) {
 		foreach ( $fields as $field ) {
@@ -186,7 +192,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
 		}//end foreach
 	}//end if
 
-	$fields = $wpdb->get_results( "
+	$fields = $wpdb->get_results(
+		"
             SELECT `p`.`ID`
             FROM `{$wpdb->posts}` AS `p`
             LEFT JOIN `{$wpdb->postmeta}` AS `pm` ON `pm`.`post_id` = `p`.`ID`
@@ -194,7 +201,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
                 `p`.`post_type` = '_pods_field'
                 AND `pm`.`meta_key` = 'type'
                 AND `pm`.`meta_value` = 'number'
-        " );
+        "
+	);
 
 	if ( ! empty( $fields ) ) {
 		foreach ( $fields as $field ) {
@@ -215,7 +223,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
 		}
 	}
 
-	$fields = $wpdb->get_results( "
+	$fields = $wpdb->get_results(
+		"
             SELECT `p`.`ID`
             FROM `{$wpdb->posts}` AS `p`
             LEFT JOIN `{$wpdb->postmeta}` AS `pm` ON `pm`.`post_id` = `p`.`ID`
@@ -223,7 +232,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
                 `p`.`post_type` = '_pods_field'
                 AND `pm`.`meta_key` = 'type'
                 AND `pm`.`meta_value` = 'paragraph'
-        " );
+        "
+	);
 
 	if ( ! empty( $fields ) ) {
 		foreach ( $fields as $field ) {
@@ -245,7 +255,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
 		}
 	}
 
-	$fields = $wpdb->get_results( "
+	$fields = $wpdb->get_results(
+		"
             SELECT `p`.`ID`
             FROM `{$wpdb->posts}` AS `p`
             LEFT JOIN `{$wpdb->postmeta}` AS `pm` ON `pm`.`post_id` = `p`.`ID`
@@ -253,7 +264,8 @@ if ( version_compare( $pods_version, '2.0.0-b-14', '<' ) ) {
                 `p`.`post_type` = '_pods_field'
                 AND `pm`.`meta_key` = 'type'
                 AND `pm`.`meta_value` = 'text'
-        " );
+        "
+	);
 
 	if ( ! empty( $fields ) ) {
 		foreach ( $fields as $field ) {
@@ -326,13 +338,18 @@ Old upgrade code from Alpha to Beta
  * @param $options
  */
 function pods_2_beta_migrate_type( $id, $options ) {
+
 	global $wpdb;
 
 	foreach ( $options as $old => $new ) {
-		$wpdb->query( $wpdb->prepare( "UPDATE `{$wpdb->postmeta}` SET `meta_key` = %s WHERE `meta_key` = %s", array(
-				$new,
-				$old,
-			) ) );
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE `{$wpdb->postmeta}` SET `meta_key` = %s WHERE `meta_key` = %s", array(
+					$new,
+					$old,
+				)
+			)
+		);
 	}
 }
 
@@ -340,6 +357,7 @@ function pods_2_beta_migrate_type( $id, $options ) {
  * @return array
  */
 function pods_2_alpha_migrate_pods() {
+
 	$api = pods_api();
 
 	$api->display_errors = true;
@@ -418,6 +436,7 @@ function pods_2_alpha_migrate_pods() {
  * @return array
  */
 function pods_2_alpha_migrate_helpers() {
+
 	$api = pods_api();
 
 	$helper_rows = pods_query( "SELECT * FROM `@wp_pods_objects` WHERE `type` = 'helper'", false );
@@ -447,6 +466,7 @@ function pods_2_alpha_migrate_helpers() {
  * @return array
  */
 function pods_2_alpha_migrate_pages() {
+
 	$api = pods_api();
 
 	$page_rows = pods_query( "SELECT * FROM `@wp_pods_objects` WHERE `type` = 'page'", false );
@@ -475,6 +495,7 @@ function pods_2_alpha_migrate_pages() {
  * @return array
  */
 function pods_2_alpha_migrate_templates() {
+
 	$api = pods_api();
 
 	$tpl_rows = pods_query( "SELECT * FROM `@wp_pods_objects` WHERE `type` = 'template'", false );

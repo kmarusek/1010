@@ -30,8 +30,7 @@ class PodsField_Text extends PodsField {
 	 */
 	public function setup() {
 
-		static::$group = __( 'Text', 'pods' );
-		static::$label = __( 'Plain Text', 'pods' );
+		self::$label = __( 'Plain Text', 'pods' );
 	}
 
 	/**
@@ -51,22 +50,15 @@ class PodsField_Text extends PodsField {
 			),
 			'output_options'                     => array(
 				'label' => __( 'Output Options', 'pods' ),
-				'type'  => 'boolean_group',
-				'boolean_group' => array(
-					static::$type . '_trim'      => array(
-						'label'      => __( 'Trim extra whitespace before/after contents', 'pods' ),
-						'default'    => 1,
-						'type'       => 'boolean',
-						'dependency' => true,
-					),
-					static::$type . '_allow_html'      => array(
-						'label'      => __( 'Allow HTML', 'pods' ),
+				'group' => array(
+					static::$type . '_allow_shortcode' => array(
+						'label'      => __( 'Allow Shortcodes?', 'pods' ),
 						'default'    => 0,
 						'type'       => 'boolean',
 						'dependency' => true,
 					),
-					static::$type . '_allow_shortcode' => array(
-						'label'      => __( 'Allow Shortcodes', 'pods' ),
+					static::$type . '_allow_html'      => array(
+						'label'      => __( 'Allow HTML?', 'pods' ),
 						'default'    => 0,
 						'type'       => 'boolean',
 						'dependency' => true,
@@ -119,9 +111,8 @@ class PodsField_Text extends PodsField {
 	 * {@inheritdoc}
 	 */
 	public function display( $value = null, $name = null, $options = null, $pod = null, $id = null ) {
+
 		$value = $this->strip_html( $value, $options );
-		$value = $this->strip_shortcodes( $value, $options );
-		$value = $this->trim_whitespace( $value, $options );
 
 		if ( 1 === (int) pods_v( static::$type . '_allow_shortcode', $options ) ) {
 			$value = do_shortcode( $value );
@@ -135,7 +126,7 @@ class PodsField_Text extends PodsField {
 	 */
 	public function input( $name, $value = null, $options = null, $pod = null, $id = null ) {
 
-		$options         = ( is_array( $options ) || is_object( $options ) ) ? $options : (array) $options;
+		$options         = (array) $options;
 		$form_field_type = PodsForm::$field_type;
 
 		if ( is_array( $value ) ) {
@@ -144,7 +135,7 @@ class PodsField_Text extends PodsField {
 
 		$is_read_only = (boolean) pods_v( 'read_only', $options, false );
 
-		if ( isset( $options['name'] ) && ! pods_permission( $options ) ) {
+		if ( isset( $options['name'] ) && false === PodsForm::permission( static::$type, $options['name'], $options, null, $pod, $id ) ) {
 			if ( $is_read_only ) {
 				$options['readonly'] = true;
 			} else {
@@ -154,18 +145,7 @@ class PodsField_Text extends PodsField {
 			$options['readonly'] = true;
 		}
 
-		if ( ! empty( $options['disable_dfv'] ) ) {
-			return pods_view( PODS_DIR . 'ui/fields/text.php', compact( array_keys( get_defined_vars() ) ) );
-		}
-
-		wp_enqueue_script( 'pods-dfv' );
-
-		$type = pods_v( 'type', $options, static::$type );
-
-		$args = compact( array_keys( get_defined_vars() ) );
-		$args = (object) $args;
-
-		$this->render_input_script( $args );
+		pods_view( PODS_DIR . 'ui/fields/text.php', compact( array_keys( get_defined_vars() ) ) );
 	}
 
 	/**
@@ -203,9 +183,8 @@ class PodsField_Text extends PodsField {
 	 * {@inheritdoc}
 	 */
 	public function pre_save( $value, $id = null, $name = null, $options = null, $fields = null, $pod = null, $params = null ) {
+
 		$value = $this->strip_html( $value, $options );
-		$value = $this->strip_shortcodes( $value, $options );
-		$value = $this->trim_whitespace( $value, $options );
 
 		$length = (int) pods_v( static::$type . '_max_length', $options, 255 );
 
@@ -220,9 +199,8 @@ class PodsField_Text extends PodsField {
 	 * {@inheritdoc}
 	 */
 	public function ui( $id, $value, $name = null, $options = null, $fields = null, $pod = null ) {
+
 		$value = $this->strip_html( $value, $options );
-		$value = $this->strip_shortcodes( $value, $options );
-		$value = $this->trim_whitespace( $value, $options );
 
 		if ( 0 === (int) pods_v( static::$type . '_allow_html', $options, 0, true ) ) {
 			$value = wp_trim_words( $value );

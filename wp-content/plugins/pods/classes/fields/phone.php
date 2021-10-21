@@ -30,8 +30,7 @@ class PodsField_Phone extends PodsField {
 	 */
 	public function setup() {
 
-		static::$group = __( 'Text', 'pods' );
-		static::$label = __( 'Phone', 'pods' );
+		self::$label = __( 'Phone', 'pods' );
 	}
 
 	/**
@@ -63,14 +62,12 @@ class PodsField_Phone extends PodsField {
 						'international' => __( 'Any (no validation available)', 'pods' ),
 					),
 				),
-				'pick_show_select_text' => 0,
 			),
 			static::$type . '_options'     => array(
 				'label' => __( 'Phone Options', 'pods' ),
-				'type'  => 'boolean_group',
-				'boolean_group' => array(
+				'group' => array(
 					static::$type . '_enable_phone_extension' => array(
-						'label'   => __( 'Enable Phone Extension', 'pods' ),
+						'label'   => __( 'Enable Phone Extension?', 'pods' ),
 						'default' => 1,
 						'type'    => 'boolean',
 					),
@@ -83,7 +80,7 @@ class PodsField_Phone extends PodsField {
 				'help'    => __( 'Set to -1 for no limit', 'pods' ),
 			),
 			static::$type . '_html5'       => array(
-				'label'   => __( 'Enable HTML5 Input Field', 'pods' ),
+				'label'   => __( 'Enable HTML5 Input Field?', 'pods' ),
 				'default' => apply_filters( 'pods_form_ui_field_html5', 0, static::$type ),
 				'type'    => 'boolean',
 			),
@@ -122,7 +119,7 @@ class PodsField_Phone extends PodsField {
 	 */
 	public function input( $name, $value = null, $options = null, $pod = null, $id = null ) {
 
-		$options         = ( is_array( $options ) || is_object( $options ) ) ? $options : (array) $options;
+		$options         = (array) $options;
 		$form_field_type = PodsForm::$field_type;
 
 		if ( is_array( $value ) ) {
@@ -131,7 +128,7 @@ class PodsField_Phone extends PodsField {
 
 		$field_type = 'phone';
 
-		if ( isset( $options['name'] ) && ! pods_permission( $options ) ) {
+		if ( isset( $options['name'] ) && false === PodsForm::permission( static::$type, $options['name'], $options, null, $pod, $id ) ) {
 			if ( pods_v( 'read_only', $options, false ) ) {
 				$options['readonly'] = true;
 
@@ -145,18 +142,7 @@ class PodsField_Phone extends PodsField {
 			$field_type = 'text';
 		}
 
-		if ( ! empty( $options['disable_dfv'] ) ) {
-			return pods_view( PODS_DIR . 'ui/fields/phone.php', compact( array_keys( get_defined_vars() ) ) );
-		}
-
-		wp_enqueue_script( 'pods-dfv' );
-
-		$type = pods_v( 'type', $options, static::$type );
-
-		$args = compact( array_keys( get_defined_vars() ) );
-		$args = (object) $args;
-
-		$this->render_input_script( $args );
+		pods_view( PODS_DIR . 'ui/fields/' . $field_type . '.php', compact( array_keys( get_defined_vars() ) ) );
 	}
 
 	/**
@@ -177,11 +163,13 @@ class PodsField_Phone extends PodsField {
 
 		if ( is_array( $check ) ) {
 			$errors = $check;
-		} elseif ( '' === $check && 0 < strlen( $value ) ) {
-			if ( $this->is_required( $options ) ) {
-				$errors[] = sprintf( __( 'The %s field is required.', 'pods' ), $label );
-			} else {
-				$errors[] = sprintf( __( 'Invalid phone number provided for the field %s.', 'pods' ), $label );
+		} else {
+			if ( 0 < strlen( $value ) && '' === $check ) {
+				if ( $this->is_required( $options ) ) {
+					$errors[] = sprintf( __( 'The %s field is required.', 'pods' ), $label );
+				} else {
+					$errors[] = sprintf( __( 'Invalid phone number provided for the field %s.', 'pods' ), $label );
+				}
 			}
 		}
 
@@ -196,45 +184,38 @@ class PodsField_Phone extends PodsField {
 	 * {@inheritdoc}
 	 */
 	public function pre_save( $value, $id = null, $name = null, $options = null, $fields = null, $pod = null, $params = null ) {
-		$options = ( is_array( $options ) || is_object( $options ) ) ? $options : (array) $options;
 
-		$phone_format = pods_v( static::$type . '_format', $options, '999-999-9999 x999', true );
+		$options = (array) $options;
 
-		if ( 'international' !== $phone_format ) {
+		if ( 'international' !== pods_v( static::$type . '_format', $options ) ) {
 			// Clean input
-			$number = preg_replace( '/(\+\d+)/', '', $value );
-			$number = preg_replace( '/([^0-9ext])/', '', $number );
+			$number = preg_replace( '/([^0-9ext])/', '', $value );
 
 			$number = str_replace(
-				[
-					'ext',
-					'x',
-					't',
-					'e'
-				],
-				[
+				array( '-', '.', 'ext', 'x', 't', 'e', '(', ')' ), array(
+					'',
+					'',
 					'|',
 					'|',
 					'',
 					'',
-				],
-				$number
+					'',
+					'',
+				), $number
 			);
 
-			$extension = '';
-
 			// Get extension
-			$extension_data = explode( '|', $number );
-
-			if ( 1 < count( $extension_data ) ) {
-				$number    = $extension_data[0];
-				$extension = $extension_data[1];
+			$extension = explode( '|', $number );
+			if ( 1 < count( $extension ) ) {
+				$number    = preg_replace( '/([^0-9])/', '', $extension[0] );
+				$extension = preg_replace( '/([^0-9])/', '', $extension[1] );
+			} else {
+				$extension = '';
 			}
 
 			// Build number array
 			$numbers = str_split( $number, 3 );
 
-			// Split up the numbers: 123-456-7890: 123[0] 456[1] 789[2]0[3]
 			if ( isset( $numbers[3] ) ) {
 				$numbers[2] .= $numbers[3];
 				$numbers     = array( $numbers[0], $numbers[1], $numbers[2] );
@@ -243,20 +224,17 @@ class PodsField_Phone extends PodsField {
 			}
 
 			// Format number
-			if ( '(999) 999-9999 x999' === $phone_format ) {
+			if ( '(999) 999-9999 x999' === pods_v( static::$type . '_format', $options ) ) {
 				$number_count = count( $numbers );
 
 				if ( 1 === $number_count ) {
-					// Invalid number.
 					$value = '';
 				} elseif ( 2 === $number_count ) {
-					// Basic number, no area code!
 					$value = implode( '-', $numbers );
 				} else {
-					// Full number.
 					$value = '(' . $numbers[0] . ') ' . $numbers[1] . '-' . $numbers[2];
 				}
-			} elseif ( '999.999.9999 x999' === $phone_format ) {
+			} elseif ( '999.999.9999 x999' === pods_v( static::$type . '_format', $options ) ) {
 				$value = implode( '.', $numbers );
 			} else {
 				$value = implode( '-', $numbers );

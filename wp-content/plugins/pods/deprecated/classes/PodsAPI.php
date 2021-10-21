@@ -24,9 +24,10 @@ class PodsAPI_Deprecated {
 	 * @param object $obj The PodsAPI object
 	 *
 	 * @license http://www.gnu.org/licenses/gpl-2.0.html
-	 * @since   2.0.0
+	 * @since 2.0.0
 	 */
 	public function __construct( $obj ) {
+
 		// backwards-compatibility with references to $this->var_name
 		$vars = get_object_vars( $obj );
 
@@ -58,6 +59,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function save_column( $params ) {
+
 		pods_deprecated( 'PodsAPI::save_field', '2.0' );
 
 		return $this->obj->save_field( $params );
@@ -72,6 +74,7 @@ class PodsAPI_Deprecated {
 	 * @return bool
 	 */
 	public function save_roles( $params ) {
+
 		pods_deprecated( '[use WP roles and capabilities instead]', '2.0' );
 
 		return false;
@@ -88,6 +91,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function drop_pod( $params ) {
+
 		pods_deprecated( 'PodsAPI::delete_pod', '2.0' );
 
 		return $this->obj->delete_pod( $params );
@@ -106,6 +110,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function drop_column( $params ) {
+
 		pods_deprecated( 'PodsAPI::delete_field', '2.0' );
 
 		return $this->obj->delete_field( $params );
@@ -122,6 +127,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function drop_template( $params ) {
+
 		pods_deprecated( 'PodsAPI::delete_template', '2.0' );
 
 		return $this->obj->delete_template( $params );
@@ -138,6 +144,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function drop_page( $params ) {
+
 		pods_deprecated( 'PodsAPI::delete_page', '2.0' );
 
 		return $this->obj->delete_page( $params );
@@ -154,6 +161,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function drop_helper( $params ) {
+
 		pods_deprecated( 'PodsAPI::delete_helper', '2.0' );
 
 		return $this->obj->delete_helper( $params );
@@ -172,6 +180,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function drop_pod_item( $params ) {
+
 		pods_deprecated( 'PodsAPI::delete_pod_item', '2.0' );
 
 		return $this->obj->delete_pod_item( $params );
@@ -189,6 +198,7 @@ class PodsAPI_Deprecated {
 	 * @since 1.7.9
 	 */
 	public function load_column( $params ) {
+
 		pods_deprecated( 'PodsAPI::load_column', '2.0', 'PodsAPI::load_field' );
 
 		return $this->obj->load_field( $params );

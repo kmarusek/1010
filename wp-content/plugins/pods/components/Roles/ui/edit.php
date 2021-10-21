@@ -1,4 +1,7 @@
 <div class="wrap pods-admin">
+	<script>
+		var PODS_URL = '<?php echo esc_js( PODS_URL ); ?>';
+	</script>
 	<div id="icon-pods" class="icon32"><br /></div>
 
 	<form action="" method="post" class="pods-submittable pods-form">
@@ -77,11 +80,11 @@
 
 									<div class="inside pods-manage-field pods-dependency">
 										<div class="pods-field-option-group">
-											<div class="pods-pick-values pods-pick-checkbox pods-zebra">
-												<p>
-													<a href="#toggle" class="button" id="toggle-all"><?php _e( 'Toggle All Capabilities on / off', 'pods' ); ?></a>
-												</p>
+											<p>
+												<a href="#toggle" class="button" id="toggle-all"><?php _e( 'Toggle All Capabilities on / off', 'pods' ); ?></a>
+											</p>
 
+											<div class="pods-pick-values pods-pick-checkbox pods-zebra">
 												<ul>
 													<?php
 													$zebra = false;
@@ -98,12 +101,7 @@
 														$zebra = ( ! $zebra );
 														?>
 														<li class="pods-zebra-<?php echo esc_attr( $class ); ?>" data-capability="<?php echo esc_attr( $capability ); ?>">
-															<?php
-															echo PodsForm::field( 'capabilities[' . $capability . ']', pods_var_raw( 'capabilities[' . $capability . ']', 'post', $checked ), 'boolean', [
-																'boolean_yes_label' => $capability,
-																'disable_dfv'       => true,
-															] );
-															?>
+															<?php echo PodsForm::field( 'capabilities[' . $capability . ']', pods_var_raw( 'capabilities[' . $capability . ']', 'post', $checked ), 'boolean', array( 'boolean_yes_label' => $capability ) ); ?>
 														</li>
 														<?php
 													}
@@ -122,18 +120,10 @@
 											<div class="pods-pick-values pods-pick-checkbox">
 												<ul id="custom-capabilities">
 													<li class="pods-repeater hidden">
-														<?php
-														echo PodsForm::field( 'custom_capabilities[--1]', '', 'text', [
-															'disable_dfv' => true,
-														] );
-														?>
+														<?php echo PodsForm::field( 'custom_capabilities[--1]', '', 'text' ); ?>
 													</li>
 													<li>
-														<?php
-														echo PodsForm::field( 'custom_capabilities[0]', '', 'text', [
-															'disable_dfv' => true,
-														] );
-														?>
+														<?php echo PodsForm::field( 'custom_capabilities[0]', '', 'text' ); ?>
 													</li>
 												</ul>
 

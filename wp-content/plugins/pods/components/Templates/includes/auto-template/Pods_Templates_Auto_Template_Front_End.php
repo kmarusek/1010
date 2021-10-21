@@ -26,7 +26,7 @@ class Pods_Templates_Auto_Template_Front_End {
 	 *
 	 * @since 2.7.25
 	 */
-	private $auto_pods = array();
+	private $auto_pods = [];
 
 	/**
 	 * Pods_Templates_Auto_Template_Front_End constructor.
@@ -49,36 +49,24 @@ class Pods_Templates_Auto_Template_Front_End {
 	 * @since 2.6.6
 	 */
 	public function hook_content() {
+		/**
+		 * Allows plugin to append/replace the_excerpt.
+		 *
+		 * Default is false, set to true to enable.
+		 */
+		if ( ! defined( 'PFAT_USE_ON_EXCERPT' ) ) {
+			define( 'PFAT_USE_ON_EXCERPT', false );
+		}
+
 		$possible_pods = $this->auto_pods();
 
-		// Always register archive hooks.
 		foreach ( $possible_pods as $pod_name => $pod ) {
-			$filter = pods_v( 'archive_filter', $pod, '', true );
-			if ( $filter ) {
-				$this->filtered_content[ $filter ] = 10.5;
-			}
-		}
+			$filter = $this->get_pod_filter( $pod_name );
 
-		// Optionally register single hook for current object.
-		$obj = get_queried_object();
-		$pod = null;
-		switch ( true ) {
-			case $obj instanceof WP_Post:
-				$pod = $obj->post_type;
-				break;
-			case $obj instanceof WP_Term:
-				$pod = $obj->name;
-				break;
-			case $obj instanceof WP_User:
-				$pod = 'user';
-				break;
-		}
+			$this->filtered_content[ $filter ] = 10.5;
 
-		if ( ! empty( $possible_pods[ $pod ] ) ) {
-			// No need to check for default hooks, this is already done in auto_pods().
-			$filter = pods_v( 'single_filter', $possible_pods[ $pod ], '', true );
-			if ( $filter ) {
-				$this->filtered_content[ $filter ] = 10.5;
+			if ( PFAT_USE_ON_EXCERPT && ! empty( $possible_pods[ $pod_name ]['type'] ) && 'post_type' === $possible_pods[ $pod_name ]['type'] ) {
+				$this->filtered_content['the_excerpt'] = 10;
 			}
 		}
 
@@ -140,7 +128,7 @@ class Pods_Templates_Auto_Template_Front_End {
 			);
 
 			// cache the results.
-			pods_transient_set( $key, $the_pods, WEEK_IN_SECONDS );
+			pods_transient_set( $key, $the_pods );
 
 		}
 
@@ -271,7 +259,7 @@ class Pods_Templates_Auto_Template_Front_End {
 			}//end foreach
 
 			// cache the results.
-			pods_transient_set( $key, $auto_pods, WEEK_IN_SECONDS );
+			pods_transient_set( $key, $auto_pods );
 		}//end if
 
 		/**
@@ -288,6 +276,39 @@ class Pods_Templates_Auto_Template_Front_End {
 		$this->auto_pods = apply_filters( 'pods_pfat_auto_pods', $auto_pods );
 
 		return $this->auto_pods;
+
+	}
+
+	/**
+	 * Get the filter used for a Pod.
+	 *
+	 * @param string $pod_name The pod name.
+	 *
+	 * @return string
+	 * @since  1.7.2
+	 */
+	public function get_pod_filter( $pod_name = '' ) {
+		$filter = 'the_content';
+
+		if ( ! $pod_name ) {
+			// Get the current post type.
+			$pod_name = $this->get_pod_name();
+		}
+
+		// Now use other methods in class to build array to search in/ use.
+		$possible_pods = $this->auto_pods();
+
+		if ( isset( $possible_pods[ $pod_name ] ) ) {
+			$this_pod = $possible_pods[ $pod_name ];
+
+			if ( in_the_loop() && ! is_singular() ) {
+				$filter = pods_v( 'archive_filter', $this_pod, $filter, true );
+			} else {
+				$filter = pods_v( 'single_filter', $this_pod, $filter, true );
+			}
+		}
+
+		return $filter;
 	}
 
 	/**
@@ -432,7 +453,7 @@ class Pods_Templates_Auto_Template_Front_End {
 				}
 			}
 
-			if ( $is_single && ( ! $in_the_loop || is_singular( $pod_name ) ) ) {
+			if ( $is_single && ( ! $in_the_loop || is_singular() ) ) {
 				$type        = 'single';
 				$type_filter = 'single_filter';
 				$type_append = 'single_append';

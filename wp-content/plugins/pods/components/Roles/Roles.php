@@ -83,8 +83,8 @@ class Pods_Roles extends PodsComponent {
 			'data'             => $roles,
 			'total'            => count( $roles ),
 			'total_found'      => count( $roles ),
-			'items'            => __( 'Roles', 'pods' ),
-			'item'             => __( 'Role', 'pods' ),
+			'items'            => 'Roles',
+			'item'             => 'Role',
 			'fields'           => array(
 				'manage' => array(
 					'label'        => array( 'label' => __( 'Label', 'pods' ) ),
@@ -95,7 +95,7 @@ class Pods_Roles extends PodsComponent {
 						'type'    => 'text',
 						'options' => array(
 							'text_allow_html'        => 1,
-							'text_allowed_html_tags' => 'strong em a ul ol li b i br',
+							'text_allowed_html_tags' => '',
 						),
 					),
 				),
@@ -303,7 +303,7 @@ class Pods_Roles extends PodsComponent {
 			return pods_error( __( 'Role label is required', 'pods' ) );
 		}
 
-		return add_role( $role_name, $role_label, $capabilities ) instanceof WP_Role;
+		return add_role( $role_name, $role_label, $capabilities );
 	}
 
 	/**

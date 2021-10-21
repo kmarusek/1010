@@ -30,8 +30,7 @@ class PodsField_Number extends PodsField {
 	 */
 	public function setup() {
 
-		static::$group = __( 'Number', 'pods' );
-		static::$label = __( 'Plain Number', 'pods' );
+		self::$label = __( 'Plain Number', 'pods' );
 	}
 
 	/**
@@ -57,33 +56,29 @@ class PodsField_Number extends PodsField {
 					'number' => __( 'Freeform Number', 'pods' ),
 					'slider' => __( 'Slider', 'pods' ),
 				),
-				'pick_show_select_text' => 0,
 				'dependency' => true,
 			),
 			static::$type . '_format'      => array(
-				'label'   => __( 'Number Format', 'pods' ),
+				'label'   => __( 'Format', 'pods' ),
 				'default' => apply_filters( 'pods_form_ui_field_number_format_default', 'i18n' ),
 				'type'    => 'pick',
 				'data'    => array(
-					'i18n'      => __( 'Localized Default', 'pods' ),
-					'9,999.99'  => '1,234.00',
-					'9999.99'   => '1234.00',
-					'9.999,99'  => '1.234,00',
-					'9999,99'   => '1234,00',
-					'9 999,99'  => '1 234,00',
-					'9\'999.99' => '1\'234.00',
+					'i18n'     => __( 'Localized Default', 'pods' ),
+					'9,999.99' => '1,234.00',
+					'9.999,99' => '1.234,00',
+					'9 999,99' => '1 234,00',
+					'9999.99'  => '1234.00',
+					'9999,99'  => '1234,00',
 				),
-				'pick_show_select_text' => 0,
 			),
 			static::$type . '_decimals'    => array(
 				'label'      => __( 'Decimals', 'pods' ),
 				'default'    => 0,
 				'type'       => 'number',
 				'dependency' => true,
-				'help'    => __( 'Set to a positive number to enable decimals. The upper limit in the database for this field is 30 decimals.', 'pods' ),
 			),
 			static::$type . '_format_soft' => array(
-				'label'       => __( 'Soft Formatting', 'pods' ),
+				'label'       => __( 'Soft format?', 'pods' ),
 				'help'        => __( 'Remove trailing decimals (0)', 'pods' ),
 				'default'     => 0,
 				'type'        => 'boolean',
@@ -97,33 +92,21 @@ class PodsField_Number extends PodsField {
 			),
 			static::$type . '_min'         => array(
 				'label'      => __( 'Minimum Number', 'pods' ),
-				'depends-on-any' => array(
-					static::$type . '_format_type' => 'slider',
-					static::$type . '_html5' => true,
-				),
-				'default'    => '',
+				'depends-on' => array( static::$type . '_format_type' => 'slider' ),
+				'default'    => 0,
 				'type'       => 'text',
 			),
 			static::$type . '_max'         => array(
 				'label'      => __( 'Maximum Number', 'pods' ),
-				'depends-on-any' => array(
-					static::$type . '_format_type' => 'slider',
-					static::$type . '_html5' => true,
-				),
-				'default'    => '',
+				'depends-on' => array( static::$type . '_format_type' => 'slider' ),
+				'default'    => 100,
 				'type'       => 'text',
 			),
 			static::$type . '_max_length'  => array(
-				'label'   => __( 'Maximum Digits', 'pods' ),
+				'label'   => __( 'Maximum Length', 'pods' ),
 				'default' => 12,
 				'type'    => 'number',
-				'help'    => __( 'Set to -1 for no limit. The upper limit in the database for this field is 64 digits.', 'pods' ),
-			),
-			static::$type . '_html5'       => array(
-				'label'   => __( 'Enable HTML5 Input Field', 'pods' ),
-				'default' => apply_filters( 'pods_form_ui_field_html5', 0, static::$type ),
-				'depends-on' => array( static::$type . '_format_type' => 'number' ),
-				'type'    => 'boolean',
+				'help'    => __( 'Set to -1 for no limit', 'pods' ),
 			),
 			static::$type . '_placeholder' => array(
 				'label'   => __( 'HTML Placeholder', 'pods' ),
@@ -211,7 +194,7 @@ class PodsField_Number extends PodsField {
 	 */
 	public function input( $name, $value = null, $options = null, $pod = null, $id = null ) {
 
-		$options         = ( is_array( $options ) || is_object( $options ) ) ? $options : (array) $options;
+		$options         = (array) $options;
 		$form_field_type = PodsForm::$field_type;
 		$is_read_only    = false;
 
@@ -225,7 +208,7 @@ class PodsField_Number extends PodsField {
 			$field_type = static::$type;
 		}
 
-		if ( isset( $options['name'] ) && ! pods_permission( $options ) ) {
+		if ( isset( $options['name'] ) && false === PodsForm::permission( static::$type, $options['name'], $options, null, $pod, $id ) ) {
 			if ( pods_v( 'read_only', $options, false ) ) {
 				$is_read_only = true;
 			} else {
@@ -243,22 +226,8 @@ class PodsField_Number extends PodsField {
 			$value = $this->format( $value, $name, $options, $pod, $id );
 		}
 
-		// Enforce boolean.
-		$options[ static::$type . '_html5' ]       = filter_var( pods_v( static::$type . '_html5', $options, false ), FILTER_VALIDATE_BOOLEAN );
-		$options[ static::$type . '_format_soft' ] = filter_var( pods_v( static::$type . '_format_soft', $options, false ), FILTER_VALIDATE_BOOLEAN );
+		pods_view( PODS_DIR . 'ui/fields/' . $field_type . '.php', compact( array_keys( get_defined_vars() ) ) );
 
-		if ( ! empty( $options['disable_dfv'] ) ) {
-			return pods_view( PODS_DIR . 'ui/fields/number.php', compact( array_keys( get_defined_vars() ) ) );
-		}
-
-		wp_enqueue_script( 'pods-dfv' );
-
-		$type = pods_v( 'type', $options, static::$type );
-
-		$args = compact( array_keys( get_defined_vars() ) );
-		$args = (object) $args;
-
-		$this->render_input_script( $args );
 	}
 
 	/**
@@ -294,7 +263,6 @@ class PodsField_Number extends PodsField {
 			array( '', '.', '' ),
 			$value
 		);
-
 		$check = trim( $check );
 
 		$check = preg_replace( '/[0-9\.\-\s]/', '', $check );

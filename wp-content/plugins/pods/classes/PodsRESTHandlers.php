@@ -149,15 +149,19 @@ class PodsRESTHandlers {
 						 * @var $related_pod Pods
 						 */
 						foreach ( $related_pod_items as $related_pod ) {
-							if ( ! is_object( $related_pod ) || ! $related_pod instanceof Pods ) {
+							if ( ! is_object( $related_pod ) || ! is_a( $related_pod, 'Pods' ) ) {
 								$items = $related_pod_items;
 
 								break;
 							}
 
 							if ( false === $fields ) {
-								$fields = pods_config_get_all_fields( $related_pod );
+								$fields = $related_pod->fields();
 								$fields = array_keys( $fields );
+
+								if ( isset( $related_pod->pod_data['object_fields'] ) && ! empty( $related_pod->pod_data['object_fields'] ) ) {
+									$fields = array_merge( $fields, array_keys( $related_pod->pod_data['object_fields'] ) );
+								}
 
 								/**
 								 * What fields to show in a related field REST response.
@@ -225,19 +229,19 @@ class PodsRESTHandlers {
 	 */
 	public static function save_handler( $object, $request, $creating ) {
 
-		if ( $object instanceof WP_Post ) {
+		if ( is_a( $object, 'WP_Post' ) ) {
 			$type = $object->post_type;
 
 			$id = $object->ID;
-		} elseif ( $object instanceof WP_Term ) {
+		} elseif ( is_a( $object, 'WP_Term' ) ) {
 			$type = $object->taxonomy;
 
 			$id = $object->term_id;
-		} elseif ( $object instanceof WP_User ) {
+		} elseif ( is_a( $object, 'WP_User' ) ) {
 			$type = 'user';
 
 			$id = $object->ID;
-		} elseif ( $object instanceof WP_Comment ) {
+		} elseif ( is_a( $object, 'WP_Comment' ) ) {
 			$type = 'comment';
 
 			$id = $object->comment_ID;
@@ -248,7 +252,7 @@ class PodsRESTHandlers {
 
 		$pod_name = $type;
 
-		if ( 'attachment' === $type && $object instanceof WP_Post ) {
+		if ( 'attachment' === $type && is_a( $object, 'WP_Post' ) ) {
 			$pod_name = 'media';
 		}
 
