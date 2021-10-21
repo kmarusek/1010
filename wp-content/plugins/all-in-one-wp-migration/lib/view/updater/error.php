@@ -28,6 +28,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<?php if ( ! empty( $updater['update_message'] ) ) : ?>
-	<br /><span class="ai1wm-update-message"><?php echo $updater['update_message']; ?></span>
-<?php endif; ?>
+<span class="ai1wm-error-message"><?php printf( __( 'Error: %s', AI1WM_PLUGIN_NAME ), $message ); ?></span>
