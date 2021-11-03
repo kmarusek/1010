@@ -289,7 +289,7 @@ FLBuilderCSS::responsive_rule(
 		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gfield input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 							.fl-node-$id .pp-gf-content .gform_wrapper .gfield select,
 							.fl-node-$id .pp-gf-content .gform_wrapper .gfield textarea",
-		'prop'         => 'font-size',
+		'prop'         => 'padding',
 		'unit'		   => 'px',
 	)
 );

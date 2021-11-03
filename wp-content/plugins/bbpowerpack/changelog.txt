@@ -1,5 +1,15 @@
+== 2.18.3 ==
+Release date: October 29, 2021
+* Enhancement: Image - Introducing CSS class "shrink-header-fix" to override custom width when module is used inside shrinkable header
+* Fix: Gravity Forms - Padding wasn't getting applied on input fields in some cases
+* Fix: Advanced Menu - Responsive submenu background color was not working in some cases
+* Fix: Contact Form 7 - Column classes were not working in some cases
+* Fix: Highlight Box - Font size was not working for dashicons
+* Fix: Post Timeline - Icon size was not working for dashicons
+* Development: Added filter hook pp_expandable_row_icon_html
+
 == 2.18.2 ==
-Release date: Ocotober 20, 2021
+Release date: October 20, 2021
 * Fix: Gravity Forms - Added missing responsive controls for label font size, description font size
 * Fix: Gravity Forms - Input field padding responsive issue
 * Fix: Gravity Forms - More override fixes due to text color set in row / column

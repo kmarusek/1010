@@ -56,12 +56,14 @@
 					$marker_image = $data->marker_img_src;
 				}
 			}
-			
-			$marker_data['markerName'][] = ( isset( $data->map_name ) ) ? $data->map_name : 'default';
-			$marker_data['markerData'][] = array(
+
+			$latlong = array(
 				'latitude' => do_shortcode( $data->map_latitude ),
 				'longitude' => do_shortcode( $data->map_longitude ),
 			);
+			
+			$marker_data['markerName'][] = ( isset( $data->map_name ) ) ? $data->map_name : 'default';
+			$marker_data['markerData'][] = $latlong;
 			$marker_data['markerPoint'][] = ( isset( $data->marker_point ) ) ? $data->marker_point : 'default';
 			$marker_data['markerImage'][] = $marker_image;
 			$marker_data['markerImageWidth'][] = isset( $data->marker_width ) && ! empty( $data->marker_width ) ? $data->marker_width : '';

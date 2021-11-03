@@ -467,10 +467,12 @@ function pp_row_expandable_js( $js, $nodes, $global_settings ) {
         ob_start();
 
         if ( $row->settings->enable_expandable == 'yes' ) {
+			$er_icon_html = '<span class="pp-er-arrow fa ' . ( $row->settings->er_arrow_weight == "bold" ? "fa-chevron-down" : "fa-angle-down" ) . '"></span>';
+			$er_icon_html = apply_filters( 'pp_expandable_row_icon_html', $er_icon_html, $row );
         ?>
 
             ;(function($) {
-                var html = '<div class="pp-er pp-er-<?php echo $row->node; ?>"> <div class="pp-er-wrap"> <div class="pp-er-inner"> <div class="pp-er-title-wrap"> <?php if ( "" != $row->settings->er_title ) { ?> <span class="pp-er-title"><?php echo htmlspecialchars( $row->settings->er_title, ENT_QUOTES | ENT_HTML5 ); ?></span> <?php } ?> <span class="pp-er-arrow fa <?php echo $row->settings->er_arrow_weight == 'bold' ? 'fa-chevron-down' : 'fa-angle-down'; ?>"></span> </div> </div> </div> </div>';
+                var html = '<div class="pp-er pp-er-<?php echo $row->node; ?>"> <div class="pp-er-wrap"> <div class="pp-er-inner"> <div class="pp-er-title-wrap"> <?php if ( "" != $row->settings->er_title ) { ?> <span class="pp-er-title"><?php echo htmlspecialchars( $row->settings->er_title, ENT_QUOTES | ENT_HTML5 ); ?></span> <?php } ?> <?php echo $er_icon_html; ?> </div> </div> </div> </div>';
 				if ( $('.fl-row.fl-node-<?php echo $row->node; ?>').find('.pp-er').length === 0 ) {
                 	$('.fl-row.fl-node-<?php echo $row->node; ?>').prepend(html);
 				}

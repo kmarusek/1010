@@ -9,6 +9,9 @@
 .fl-module .pp-cf7-content input.wpcf7-submit {
     clear: both;
 }
+.pp-cf7-content label {
+	display: block;
+}
 
 @media only screen and (min-width: 769px) {
     .pp-cf7-content .pp-cf7-col-1 {

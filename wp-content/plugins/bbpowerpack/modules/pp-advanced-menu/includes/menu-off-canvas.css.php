@@ -91,6 +91,7 @@ FLBuilderCSS::dimension_field_rule( array(
 }
 <?php } ?>
 
+/*
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu > li > a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu > li > .pp-has-submenu-container > a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > a,
@@ -101,6 +102,7 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > .pp-has-submenu-container > a:focus {
 	background-color: transparent;
 }
+*/
 
 <?php if ( ! empty( $settings->submenu_background_color ) ) { ?>
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > a,

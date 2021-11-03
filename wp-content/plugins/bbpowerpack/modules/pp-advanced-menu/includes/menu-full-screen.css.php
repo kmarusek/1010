@@ -38,6 +38,7 @@ FLBuilderCSS::dimension_field_rule( array(
 }
 <?php } ?>
 
+/*
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu > li > a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu > li > .pp-has-submenu-container > a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .sub-menu > li > a,
@@ -48,6 +49,7 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .sub-menu > li > .pp-has-submenu-container > a:focus {
 	background-color: transparent;
 }
+*/
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a {

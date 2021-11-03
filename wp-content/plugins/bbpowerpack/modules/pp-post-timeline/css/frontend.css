@@ -142,8 +142,8 @@ html:not(.fl-builder-edit) .pp-post-timeline .pp-post-timeline-content-wrapper .
 	margin-right: 0;
 }
 
-.pp-post-timeline .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon .dashicons,
-.pp-post-timeline .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon .dashicons-before:before {
+.pp-post-timeline .pp-post-timeline-content-wrapper .pp-post-timeline-icon .dashicons,
+.pp-post-timeline .pp-post-timeline-content-wrapper .pp-post-timeline-icon .dashicons-before:before {
 	font-size: inherit;
 	height: auto;
 	width: auto;

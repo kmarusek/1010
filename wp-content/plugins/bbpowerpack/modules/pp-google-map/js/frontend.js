@@ -56,7 +56,10 @@
 				return false;
 			}
 
-			this.latlng = new google.maps.LatLng( this.markerData[0]['latitude'], this.markerData[0]['longitude'] );
+			var lat = this.markerData[0]['latitude'],
+				long = this.markerData[0]['longitude'];
+
+			this.latlng = new google.maps.LatLng( lat, long );
 
 			this.mapOptions = {
 				zoom:              this.mapZoom,

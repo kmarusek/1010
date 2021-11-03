@@ -150,14 +150,7 @@ FLBuilderCSS::typography_field_rule( array(
         -o-box-shadow: <?php echo ($settings->shadow_direction == 'inset') ? $settings->shadow_direction : ''; ?> 0 0 10px #<?php echo $settings->shadow_color; ?>;
     <?php } ?>
 }
-.fl-node-<?php echo $id; ?> .pp-cf7-content form p:before,
-.fl-node-<?php echo $id; ?> .pp-cf7-content form p:after {
-    content: "";
-    display: table;
-}
-.fl-node-<?php echo $id; ?> .pp-cf7-content form p:after {
-    clear: both;
-}
+
 .fl-node-<?php echo $id; ?> .pp-cf7-content input.wpcf7-submit {
     <?php if ( ! empty( $settings->button_text_color ) ) { ?>
 		color: #<?php echo $settings->button_text_color; ?>;

@@ -35,6 +35,9 @@
     width: auto;
     height: auto;
 }
+.fl-builder-content[data-shrink="1"] .shrink-header-fix img.pp-photo-img:not([src$=".svg"]) {
+	width: auto !important;
+}
 .pp-photo-crop-circle img {
 	-webkit-border-radius: 100% !important;
 	-moz-border-radius: 100% !important;

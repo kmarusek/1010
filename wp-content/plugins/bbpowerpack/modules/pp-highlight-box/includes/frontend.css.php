@@ -78,6 +78,12 @@ FLBuilderCSS::dimension_field_rule( array(
     	color: <?php echo pp_get_color_value($settings->box_font_icon_color); ?>;
     <?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-highlight-box-content .font_icon .dashicons,
+.fl-node-<?php echo $id; ?> .pp-highlight-box-content .font_icon .dashicons:before {
+	<?php if( $settings->box_font_icon_size ) { ?>
+    font-size: <?php echo $settings->box_font_icon_size; ?>px;
+    <?php } ?>
+}
 
 .fl-node-<?php echo $id; ?> .pp-highlight-box-content .font_icon,
 .fl-node-<?php echo $id; ?> .pp-highlight-box-content .custom_icon {
