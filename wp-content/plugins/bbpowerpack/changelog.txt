@@ -1,3 +1,15 @@
+== 2.18.4 ==
+Release date: November 10, 2021
+* Enhancement: Content Grid - Added an option to provide custom separator for taxonomy terms
+* Fix: Row Animated Background - Fix background size issue when using an image as background
+* Fix: Added missing strings in French translations (props: Emmanuel SOYER)
+* Fix: WPForms - Removed empty custom title and description HTML tags
+* Fix: Countdown Timer - Expiry message for the fixed timer shows Unfefined in some cases
+* Fix: Video - Added missing reset option for play icon border hover color
+* Fix: Video Gallery - Added missing reset option for play icon border hover color
+* Fix: Hotspot - PHP warning in some cases
+* Fix: Custom Link field in media modal was not showing when Envira Gallery plugin is active
+
 == 2.18.3 ==
 Release date: October 29, 2021
 * Enhancement: Image - Introducing CSS class "shrink-header-fix" to override custom width when module is used inside shrinkable header

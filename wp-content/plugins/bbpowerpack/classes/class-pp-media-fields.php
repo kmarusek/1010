@@ -35,8 +35,8 @@ if ( ! class_exists( 'PP_Media_Fields' ) ) {
 		 */
 		public function __construct() {
 			if ( defined( 'DOING_AJAX' ) ) {
-				add_filter( 'attachment_fields_to_edit', array( $this, 'attachment_field_cta' ), 10, 2 );
-				add_filter( 'attachment_fields_to_save', array( $this, 'attachment_field_cta_save' ), 10, 2 );
+				add_filter( 'attachment_fields_to_edit', array( $this, 'attachment_field_cta' ), 12, 2 );
+				add_filter( 'attachment_fields_to_save', array( $this, 'attachment_field_cta_save' ), 12, 2 );
 			}
 
 			add_action( 'fl_page_data_add_properties', array( $this, 'add_field_connection' ) );

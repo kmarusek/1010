@@ -177,10 +177,12 @@ FLBuilderCSS::border_field_rule(
 	bottom: 0;
 	right: 0;
 	background: rgba(0, 0, 0, 0.5);
+	<?php if ( is_array( $settings->img_border ) && isset( $settings->img_border['radius'] ) ) { ?>
 	border-top-left-radius: <?php echo $settings->img_border['radius']['top_left']; ?>px;
 	border-top-right-radius:  <?php echo $settings->img_border['radius']['top_right']; ?>px;
 	border-bottom-left-radius:  <?php echo $settings->img_border['radius']['bottom_left']; ?>px;
 	border-bottom-right-radius:  <?php echo $settings->img_border['radius']['bottom_right']; ?>px;
+	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-hotspot-overlay-button {
 	position: absolute;
@@ -367,16 +369,20 @@ FLBuilderCSS::dimension_field_rule(
 	}
 	.fl-node-<?php echo $id; ?> .pp-hotspot-content .pp-hotspot-marker:before,
 	.fl-node-<?php echo $id; ?> .pp-hotspot-content .pp-marker-image {
+		<?php if ( is_array( $settings->marker_border_medium ) && isset( $settings->marker_border_medium['radius'] ) ) { ?>
 		border-top-left-radius: <?php echo $settings->marker_border_medium['radius']['top_left']; ?>px;
 		border-top-right-radius:  <?php echo $settings->marker_border_medium['radius']['top_right']; ?>px;
 		border-bottom-left-radius:  <?php echo $settings->marker_border_medium['radius']['bottom_left']; ?>px;
 		border-bottom-right-radius:  <?php echo $settings->marker_border_medium['radius']['bottom_right']; ?>px;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-hotspot-overlay {
+		<?php if ( is_array( $settings->img_border_medium ) && isset( $settings->img_border_medium['radius'] ) ) { ?>
 		border-top-left-radius: <?php echo $settings->img_border_medium['radius']['top_left']; ?>px;
 		border-top-right-radius:  <?php echo $settings->img_border_medium['radius']['top_right']; ?>px;
 		border-bottom-left-radius:  <?php echo $settings->img_border_medium['radius']['bottom_left']; ?>px;
 		border-bottom-right-radius:  <?php echo $settings->img_border_medium['radius']['bottom_right']; ?>px;
+		<?php } ?>
 	}
 	.pp-tooltip-wrap-<?php echo $id; ?>.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-tooltip-close {
 		font-size: <?php echo $settings->close_font_size_medium . 'px'; ?>;
@@ -408,16 +414,20 @@ FLBuilderCSS::dimension_field_rule(
 	}
 	.fl-node-<?php echo $id; ?> .pp-hotspot-content .pp-hotspot-marker:before,
 	.fl-node-<?php echo $id; ?> .pp-hotspot-content .pp-marker-image {
+		<?php if ( is_array( $settings->marker_border_responsive ) && isset( $settings->marker_border_responsive['radius'] ) ) { ?>
 		border-top-left-radius: <?php echo $settings->marker_border_responsive['radius']['top_left']; ?>px;
 		border-top-right-radius:  <?php echo $settings->marker_border_responsive['radius']['top_right']; ?>px;
 		border-bottom-left-radius:  <?php echo $settings->marker_border_responsive['radius']['bottom_left']; ?>px;
 		border-bottom-right-radius:  <?php echo $settings->marker_border_responsive['radius']['bottom_right']; ?>px;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-hotspot-overlay {
+		<?php if ( is_array( $settings->img_border_responsive ) && isset( $settings->img_border_responsive['radius'] ) ) { ?>
 		border-top-left-radius: <?php echo $settings->img_border_responsive['radius']['top_left']; ?>px;
 		border-top-right-radius:  <?php echo $settings->img_border_responsive['radius']['top_right']; ?>px;
 		border-bottom-left-radius:  <?php echo $settings->img_border_responsive['radius']['bottom_left']; ?>px;
 		border-bottom-right-radius:  <?php echo $settings->img_border_responsive['radius']['bottom_right']; ?>px;
+		<?php } ?>
 	}
 	.pp-tooltip-wrap-<?php echo $id; ?>.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-tooltip-close {
 		font-size: <?php echo $settings->close_font_size_responsive . 'px'; ?>;

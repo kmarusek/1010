@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PowerPack for Beaver Builder package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-04-25 09:21:11+0000\n"
+"PO-Revision-Date: 2021-11-01 09:05:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,533 +13,533 @@ msgstr ""
 
 #: modules/pp-image-carousel/pp-image-carousel.php:240
 msgid "Slides Per View"
-msgstr ""
+msgstr "Diapositives par vue"
 
 #: modules/pp-image-carousel/pp-image-carousel.php:253
 msgid "Slides to Scroll"
-msgstr ""
+msgstr "Diapositives à faire défiler"
 
 #: modules/pp-image-carousel/pp-image-carousel.php:263
 msgid "Set numbers of slides to move at a time."
-msgstr ""
+msgstr "Définissez le nombre de diapositives à déplacer à la fois."
 
 #: modules/pp-image-carousel/pp-image-carousel.php:389
 msgid "Size / Quality"
-msgstr ""
+msgstr "Taille / Qualité"
 
 #: modules/pp-infobox/pp-infobox.php:125
 msgid "Align Icon Vertically"
-msgstr ""
+msgstr "Aligner l’icône verticalement"
 
 #: modules/pp-infobox/pp-infobox.php:359
 msgid "Link nofollow"
-msgstr ""
+msgstr "Lien nofollow"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:72
 msgid "Filter the feed by Hashtag"
-msgstr ""
+msgstr "Filtrer le flux par Hashtag"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:218
 msgid "Image Link Type"
-msgstr ""
+msgstr "Type de lien image"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:222
 msgid "Popup"
-msgstr ""
+msgstr "Fenêtre modale"
 
 #: modules/pp-logos-grid/pp-logos-grid.php:190
 msgid "Move Items"
-msgstr ""
+msgstr "Déplacer des éléments"
 
 #: modules/pp-modal-box/pp-modal-box.php:286
 msgid "Your unique modal box ID is %s. If you are using any form in the modal box, you can use the following JS to hide the modal box after submission: %s"
-msgstr ""
+msgstr "Votre ID de boîte modale unique est %s. Si vous utilisez un formulaire dans la zone modale, vous pouvez utiliser le JS suivant pour masquer la zone modale après la soumission : %s"
 
 #: modules/pp-subscribe-form/includes/frontend.php:47
 #: modules/pp-subscribe-form/includes/frontend.php:83
 #: modules/pp-subscribe-form/pp-subscribe-form.php:72
 msgid "Please check the required field."
-msgstr ""
+msgstr "Veuillez vérifier le champ obligatoire."
 
 #: modules/pp-subscribe-form/pp-subscribe-form.php:371
 msgid "Checkbox Field"
-msgstr ""
+msgstr "Champ de Case à cocher"
 
 #: modules/pp-subscribe-form/pp-subscribe-form.php:397
 msgid "Checkbox Field Text"
-msgstr ""
+msgstr "Texte du champ de case à cocher"
 
 #: modules/pp-subscribe-form/pp-subscribe-form.php:398
 msgid "I accept the Terms & Conditions"
-msgstr ""
+msgstr "J’accepte les Termes & Conditions"
 
 #: modules/pp-subscribe-form/pp-subscribe-form.php:429
 msgid "Notification Subject"
-msgstr ""
+msgstr "Objet de la notification"
 
 #: modules/pp-subscribe-form/pp-subscribe-form.php:431
 msgid "Subscribe Form Signup"
-msgstr ""
+msgstr "Formulaire d’inscription"
 
 #: modules/pp-subscribe-form/pp-subscribe-form.php:1772
 msgid "Checkbox Text Color"
-msgstr ""
+msgstr "Couleur du texte de la case à cocher"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:14
 msgid "Twitter Buttons"
-msgstr ""
+msgstr "Boutons Twitter"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:15
 msgid "A module to embed twitter buttons."
-msgstr ""
+msgstr "Un module pour intégrer des boutons Twitter."
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:43
 msgid "Share"
-msgstr ""
+msgstr "Partager"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:44
 msgid "Follow"
-msgstr ""
+msgstr "Suivre"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:45
 msgid "Mention"
-msgstr ""
+msgstr "Mention"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:46
 msgid "Hashtag"
-msgstr ""
+msgstr "Hashtag"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:69
 msgid "Profile URL or Username"
-msgstr ""
+msgstr "URL du profil ou nom d’utilisateur"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:75
 msgid "Recipient ID"
-msgstr ""
+msgstr "ID du destinataire"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:78
 msgid "Required. The user ID of the recipient @username that will receive the message. <br>Step 1 - Go to Twitter and sign in. Then click on profile button from header and open \"Settings and privacy\".<br> Step 2 - Click on the \"Your Twitter data\" tab from the sidebar and confirm your password.<br> Step 3 - Done. Now you can see your User ID, under the username."
-msgstr ""
+msgstr "Obligatoire. L’ID utilisateur du destinataire @username qui recevra le message. <br>Étape 1 - Accédez à Twitter et connectez-vous. Cliquez ensuite sur le bouton de profil dans l’en-tête et ouvrez « Paramètres et confidentialité ».<br> Étape 2 - Cliquez sur l’onglet « Vos données Twitter » dans la barre latérale et confirmez votre mot de passe.<br> Étape 3 - Terminé. Vous pouvez maintenant voir votre ID utilisateur, sous le nom d’utilisateur."
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:82
 msgid "Default Text"
-msgstr ""
+msgstr "Texte par défaut"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:85
 msgid "Optional. Use this field to pre-populate message text."
-msgstr ""
+msgstr "Optionnel. Utilisez ce champ pour pré-remplir le texte du message."
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:89
 msgid "Hashtag URL or #hashtag"
-msgstr ""
+msgstr "URL du hashtag ou #hashtag"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:95
 msgid "Via (twitter handler)"
-msgstr ""
+msgstr "Via (gestionnaire Twitter)"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:101
 msgid "Custom Share Text"
-msgstr ""
+msgstr "Texte de partage personnalisé"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:107
 msgid "Custom Share URL"
-msgstr ""
+msgstr "URL de partage personnalisée"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:113
 msgid "Show Count"
-msgstr ""
+msgstr "Afficher Compteur"
 
 #: modules/pp-twitter-buttons/pp-twitter-buttons.php:122
 msgid "Large Button?"
-msgstr ""
+msgstr "Grand bouton?"
 
 #: modules/pp-twitter-grid/pp-twitter-grid.php:14
 msgid "Twitter Embedded Grid"
-msgstr ""
+msgstr "Grille intégrée Twitter"
 
 #: modules/pp-twitter-grid/pp-twitter-grid.php:15
 msgid "A collection timeline displays multiple Tweets curated by a Twitter user in their chosen display order or sorted by time."
-msgstr ""
+msgstr "Une chronologie de collection affiche plusieurs Tweets organisés par un utilisateur Twitter dans l’ordre d’affichage de son choix ou triés par heure."
 
 #: modules/pp-twitter-grid/pp-twitter-grid.php:35
 msgid "Please refer these guidelines %s and %s"
-msgstr ""
+msgstr "Veuillez vous référer à ces lignes directrices %s et %s"
 
 #: modules/pp-twitter-grid/pp-twitter-grid.php:45
 msgid "Collection URL"
-msgstr ""
+msgstr "URL de la Collection"
 
 #: modules/pp-twitter-grid/pp-twitter-grid.php:51
 msgid "Show Footer?"
-msgstr ""
+msgstr "Afficher le pied de page ?"
 
 #: modules/pp-twitter-grid/pp-twitter-grid.php:67
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:93
 msgid "Tweet Limit"
-msgstr ""
+msgstr "Limite du Tweet"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:14
 msgid "Twitter Embedded Timeline"
-msgstr ""
+msgstr "Chronologie intégrée Twitter"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:15
 msgid "A module to embed twitter timeline."
-msgstr ""
+msgstr "Un module pour intégrer la chronologie Twitter."
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:40
 msgid "User Name"
-msgstr ""
+msgstr "Nom d’utilisateur"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:55
 msgid "Show Replies"
-msgstr ""
+msgstr "Afficher les Réponses"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:68
 msgid "No Header"
-msgstr ""
+msgstr "Sans en-tête"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:69
 msgid "No Footer"
-msgstr ""
+msgstr "Sans pied de page"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:72
 msgid "No Scroll Bar"
-msgstr ""
+msgstr "Sans barre de défilement"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:75
 msgid "Press <strong>ctrl + click</strong> OR <strong>cmd + click</strong> OR <strong>shift + click</strong> to select multiple."
-msgstr ""
+msgstr "Appuyez sur <strong>Ctrl + clic</strong> OU <strong>cmd + clic</strong> OU <strong>maj + clic</strong> pour en sélectionner plusieurs."
 
 #: modules/pp-twitter-tweet/pp-twitter-tweet.php:14
 msgid "Twitter Embedded Tweet"
-msgstr ""
+msgstr "Tweet intégré Twitter"
 
 #: modules/pp-twitter-tweet/pp-twitter-tweet.php:15
 msgid "A module to embed twitter tweet."
-msgstr ""
+msgstr "Un module pour intégrer Twitter tweet."
 
 #: modules/pp-twitter-tweet/pp-twitter-tweet.php:40
 msgid "Tweet URL"
-msgstr ""
+msgstr "URL du Tweet"
 
 #: includes/admin-settings-integration.php:2
 msgid "Facebook App ID is required only if you want to use Facebook Comments Module. All other Facebook Modules can be used without a Facebook App ID. Note that this option will not work on local sites and on domains that don't have public access."
-msgstr ""
+msgstr "L’ID de l’application Facebook est requis uniquement si vous souhaitez utiliser le module de commentaires Facebook. Tous les autres modules Facebook peuvent être utilisés sans ID d’application Facebook. Notez que cette option ne fonctionnera pas sur les sites locaux et sur les domaines qui n’ont pas d’accès public."
 
 #: includes/admin-settings-wl.php:121
 msgid "Hide Integration setting tab"
-msgstr ""
+msgstr "Masquer l'onglet des paramètres d’intégration"
 
 #: includes/updater/update-config.php:92 includes/updater/update-config.php:140
 #: includes/updater/update-config.php:200
 msgid "An error occurred, please try again."
-msgstr ""
+msgstr "Une erreur est survenue, veuillez réessayer."
 
 #: includes/updater/update-config.php:107
 msgid "Your license key expired on %s."
-msgstr ""
+msgstr "Votre clé de licence a expiré le %s."
 
 #: includes/updater/update-config.php:114
 msgid "Your license key has been disabled."
-msgstr ""
+msgstr "Votre clé de licence a été désactivée."
 
 #: includes/updater/update-config.php:119
 msgid "Invalid license."
-msgstr ""
+msgstr "Licence invalide."
 
 #: includes/updater/update-config.php:125
 msgid "Your license is not active for this URL."
-msgstr ""
+msgstr "Votre licence n'est pas active pour cette URL."
 
 #: includes/updater/update-config.php:130
 msgid "This appears to be an invalid license key for %s."
-msgstr ""
+msgstr "Cette clé de licence semble être invalide pour %s."
 
 #: includes/updater/update-config.php:135
 msgid "Your license key has reached its activation limit."
-msgstr ""
+msgstr "Votre clé de licence a atteint sa limite d'activation."
 
 #: modules/pp-3d-slider/pp-3d-slider.php:235
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:360
 #: modules/pp-gallery/pp-gallery.php:416
 #: modules/pp-image-carousel/pp-image-carousel.php:464
 msgid "Show Caption in Lightbox"
-msgstr ""
+msgstr "Afficher la légende dans Lightbox"
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:979
 msgid "Hamburger Icon Alignment"
-msgstr ""
+msgstr "Alignement de l’icône hamburger"
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:1362
 msgid "Thickness"
-msgstr ""
+msgstr "Épaisseur"
 
 #: modules/pp-advanced-tabs/pp-advanced-tabs.php:166
 msgid "Responsive Closed?"
-msgstr ""
+msgstr "Responsive fermé?"
 
 #: modules/pp-animated-headlines/pp-animated-headlines.php:390
 msgid "Selection Background Color"
-msgstr ""
+msgstr "Couleur de fond de la sélection"
 
 #: modules/pp-animated-headlines/pp-animated-headlines.php:398
 #: modules/pp-animated-headlines/pp-animated-headlines.php:410
 msgid "Leave this field empty for default color."
-msgstr ""
+msgstr "Laissez ce champ vide pour la couleur par défaut."
 
 #: modules/pp-animated-headlines/pp-animated-headlines.php:402
 msgid "Selection Text Color"
-msgstr ""
+msgstr "Couleur du Texte de la sélection"
 
 #: modules/pp-contact-form/includes/frontend.php:81
 msgctxt "Contact form custom checkbox field label."
 msgid "I accept the Terms & Conditions"
-msgstr ""
+msgstr "J’accepte les termes et conditions"
 
 #: modules/pp-contact-form/includes/frontend.php:82
 msgid "Please check this field."
-msgstr ""
+msgstr "Veuillez vérifier ce champ."
 
 #: modules/pp-contact-form/pp-contact-form.php:259
 msgid "Fields"
-msgstr ""
+msgstr "Champs"
 
 #: modules/pp-contact-form/pp-contact-form.php:320
 #: modules/pp-contact-form/pp-contact-form.php:387
 msgid "Custom Checkbox Field"
-msgstr ""
+msgstr "Champ de case à cocher personnalisé"
 
 #: modules/pp-contact-form/pp-contact-form.php:334
 msgid "Checked by default"
-msgstr ""
+msgstr "Cochée par défaut"
 
 #: modules/pp-contact-form/pp-contact-form.php:388
 msgctxt "Contact form custom checkbox label."
 msgid "I accept the Terms & Conditions"
-msgstr ""
+msgstr "J’accepte les termes et conditions"
 
 #: modules/pp-contact-form/pp-contact-form.php:1862
 #: modules/pp-subscribe-form/pp-subscribe-form.php:1720
 msgid "Checkbox"
-msgstr ""
+msgstr "Case à cocher"
 
 #: modules/pp-content-grid/includes/frontend.php:194
 msgid "Loading..."
-msgstr ""
+msgstr "Chargement en cours…"
 
 #: modules/pp-content-grid/includes/loop-settings.php:73
 msgid "Relationship"
-msgstr ""
+msgstr "Relationnel"
 
 #: modules/pp-content-grid/includes/loop-settings.php:74
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #: modules/pp-content-grid/includes/loop-settings.php:80
 msgid "Key"
-msgstr ""
+msgstr "Clé"
 
 #: modules/pp-content-grid/includes/loop-settings.php:404
 #: modules/pp-content-grid/pp-content-grid.php:2517
 msgid "The Events Calendar"
-msgstr ""
+msgstr "The Events Calendar"
 
 #: modules/pp-content-grid/includes/loop-settings.php:409
 msgid "Enable Events Calendar"
-msgstr ""
+msgstr "Activer The Events Calendar"
 
 #: modules/pp-content-grid/includes/loop-settings.php:425
 msgid "Show Event Date"
-msgstr ""
+msgstr "Afficher la date de l'évenement"
 
 #: modules/pp-content-grid/includes/loop-settings.php:435
 msgid "Show Event Venue"
-msgstr ""
+msgstr "Afficher le lieu de l’événement"
 
 #: modules/pp-content-grid/includes/loop-settings.php:445
 msgid "Show Event Cost"
-msgstr ""
+msgstr "Afficher le prix de l’événement"
 
 #: modules/pp-content-grid/pp-content-grid.php:379
 msgid "Autoplay Timeout"
-msgstr ""
+msgstr "Delai de lecture automatique"
 
 #: modules/pp-content-grid/pp-content-grid.php:386
 msgid "Slides Speed"
-msgstr ""
+msgstr "Vitesse des diapositives"
 
 #: modules/pp-content-grid/pp-content-grid.php:427
 msgid "Carousel Navigation Arrow"
-msgstr ""
+msgstr "Flèches de navigation du carrousel"
 
 #: modules/pp-content-grid/pp-content-grid.php:599
 msgid "Carousel Navigation Dots"
-msgstr ""
+msgstr "Points de navigation du carrousel"
 
 #: modules/pp-content-grid/pp-content-grid.php:1436
 #: modules/pp-gallery/pp-gallery.php:1208
 msgid "Load More Button"
-msgstr ""
+msgstr "Bouton \"Afficher plus\""
 
 #: modules/pp-content-grid/pp-content-grid.php:1451
 msgid "Load More Text"
-msgstr ""
+msgstr "Texte \"Afficher plus\""
 
 #: modules/pp-content-grid/pp-content-grid.php:1452
 #: modules/pp-gallery/pp-gallery.php:1225
 msgid "Load More"
-msgstr ""
+msgstr "Afficher plus"
 
 #: modules/pp-content-grid/pp-content-grid.php:1471
 msgid "Pagination nofollow"
-msgstr ""
+msgstr "Pagination nofollow"
 
 #: modules/pp-content-grid/pp-content-grid.php:1508
 msgid "Spacing Vertical"
-msgstr ""
+msgstr "Espacement vertical"
 
 #: modules/pp-content-grid/pp-content-grid.php:1536
 msgid "Spacing Horizontal"
-msgstr ""
+msgstr "Espacement horizontal"
 
 #: modules/pp-content-grid/pp-content-grid.php:1547
 msgid "It will only work for Numbers pagination."
-msgstr ""
+msgstr "Cela ne fonctionnera que pour la pagination numérotée."
 
 #: modules/pp-content-grid/pp-content-grid.php:1767
 msgid "Filter Toggle Breakpoint"
-msgstr ""
+msgstr "Point d’arrêt du filtre à bascule"
 
 #: modules/pp-content-grid/pp-content-grid.php:1771
 msgid "All devices"
-msgstr ""
+msgstr "Tous les écrans"
 
 #: modules/pp-content-grid/pp-content-grid.php:1772
 msgid "Large devices"
-msgstr ""
+msgstr "Grands écrans"
 
 #: modules/pp-content-grid/pp-content-grid.php:1773
 msgid "Large & Medium devices"
-msgstr ""
+msgstr "Grands &amp; moyens écrans"
 
 #: modules/pp-content-grid/pp-content-grid.php:1774
 msgid "Medium devices"
-msgstr ""
+msgstr "Moyens écrans"
 
 #: modules/pp-content-grid/pp-content-grid.php:1775
 msgid "Medium & Small devices"
-msgstr ""
+msgstr "Moyens &amp; petits écrans"
 
 #: modules/pp-content-grid/pp-content-grid.php:1776
 msgid "Small devices"
-msgstr ""
+msgstr "Petits écrans"
 
 #: modules/pp-content-grid/pp-content-grid.php:2016
 msgid "Toggle"
-msgstr ""
+msgstr "Bascule"
 
 #: modules/pp-content-grid/pp-content-grid.php:2521
 msgid "Date Color"
-msgstr ""
+msgstr "Couleur de la date"
 
 #: modules/pp-content-grid/pp-content-grid.php:2550
 msgid "Venue Color"
-msgstr ""
+msgstr "Couleur du lieu"
 
 #: modules/pp-content-grid/pp-content-grid.php:2564
 msgid "Cost Color"
-msgstr ""
+msgstr "Couleur du prix"
 
 #: modules/pp-content-tiles/includes/settings-tab.php:57
 msgid "If post does not have any image set, you can use this option to set placeholder or any custom image."
-msgstr ""
+msgstr "Si la publication n’a pas d’image définie, vous pouvez utiliser cette option pour définir un espace réservé ou une image personnalisée."
 
 #: modules/pp-content-tiles/includes/settings-tab.php:61
 msgid "Fallback Image Custom"
-msgstr ""
+msgstr "Image de substitution personnalisée"
 
 #: modules/pp-content-tiles/pp-content-tiles.php:122
 msgid "Other Posts"
-msgstr ""
+msgstr "Autres articles"
 
 #: modules/pp-content-tiles/pp-content-tiles.php:126
 msgid "Show Other Posts"
-msgstr ""
+msgstr "Afficher d’autres articles"
 
 #: modules/pp-content-tiles/pp-content-tiles.php:140
 msgid "Number of Other Posts"
-msgstr ""
+msgstr "Nombre d’autres postes"
 
 #: modules/pp-content-tiles/pp-content-tiles.php:143
 msgid "Leave blank to show all posts."
-msgstr ""
+msgstr "Laissez vide pour afficher tous les articles."
 
 #: modules/pp-content-tiles/pp-content-tiles.php:147
 msgid "Column Width"
-msgstr ""
+msgstr "Largeur de colonne"
 
 #: modules/pp-countdown/pp-countdown.php:13
 msgid "Countdown"
-msgstr ""
+msgstr "Compte à rebours"
 
 #: modules/pp-countdown/pp-countdown.php:14
 msgid "A module for countdown."
-msgstr ""
+msgstr "Un module pour le compte à rebours."
 
 #: modules/pp-countdown/pp-countdown.php:119
 msgid "Timer Type"
-msgstr ""
+msgstr "Type de minuteur"
 
 #: modules/pp-countdown/pp-countdown.php:123
 msgid "Evergreen"
-msgstr ""
+msgstr "Evergreen"
 
 #: modules/pp-countdown/pp-countdown.php:136
 msgid "Select Date & Time"
-msgstr ""
+msgstr "Sélectionnez la date & l’heure"
 
 #: modules/pp-countdown/pp-countdown.php:141
 msgid "Expire Countdown In"
-msgstr ""
+msgstr "Terminer le compte à rebours dans"
 
 #: modules/pp-countdown/pp-countdown.php:147
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #: modules/pp-countdown/pp-countdown.php:151
 msgid "Action after time expires"
-msgstr ""
+msgstr "Action après l’expiration du délai"
 
 #: modules/pp-countdown/pp-countdown.php:155
 #: modules/pp-countdown/pp-countdown.php:170
 msgid "Hide Timer"
-msgstr ""
+msgstr "Masquer le minuteur"
 
 #: modules/pp-countdown/pp-countdown.php:156
 #: modules/pp-countdown/pp-countdown.php:172
 msgid "Display Message"
-msgstr ""
+msgstr "Afficher le message"
 
 #: modules/pp-countdown/pp-countdown.php:157
 #: modules/pp-countdown/pp-countdown.php:173
 msgid "Redirect to URL"
-msgstr ""
+msgstr "Rediriger vers l'URL"
 
 #: modules/pp-countdown/pp-countdown.php:165
 msgid "Action After Timer Expires"
-msgstr ""
+msgstr "Action après l’expiration du minuteur"
 
 #: modules/pp-countdown/pp-countdown.php:171
 msgid "Reset Timer"
-msgstr ""
+msgstr "Réinitialiser le minuteur"
 
 #: modules/pp-countdown/pp-countdown.php:212
 msgid "Show Labels"
-msgstr ""
+msgstr "Afficher les étiquettes"
 
 #: modules/pp-countdown/pp-countdown.php:231
 msgid "Show Years"
-msgstr ""
+msgstr "Afficher les années"
 
 #: modules/pp-countdown/pp-countdown.php:245
 #: modules/pp-countdown/pp-countdown.php:277
@@ -548,7 +548,7 @@ msgstr ""
 #: modules/pp-countdown/pp-countdown.php:373
 #: modules/pp-countdown/pp-countdown.php:405
 msgid "Label in Plural"
-msgstr ""
+msgstr "Label au pluriel"
 
 #: modules/pp-countdown/pp-countdown.php:251
 #: modules/pp-countdown/pp-countdown.php:283
@@ -557,320 +557,320 @@ msgstr ""
 #: modules/pp-countdown/pp-countdown.php:379
 #: modules/pp-countdown/pp-countdown.php:411
 msgid "Label in Singular"
-msgstr ""
+msgstr "Etiquette au singulier"
 
 #: modules/pp-countdown/pp-countdown.php:253
 msgid "Year"
-msgstr ""
+msgstr "Année"
 
 #: modules/pp-countdown/pp-countdown.php:263
 msgid "Show Months"
-msgstr ""
+msgstr "Afficher les mois"
 
 #: modules/pp-countdown/pp-countdown.php:285
 msgid "Month"
-msgstr ""
+msgstr "Mois"
 
 #: modules/pp-countdown/pp-countdown.php:295
 msgid "Show Days"
-msgstr ""
+msgstr "Affichez les jours"
 
 #: modules/pp-countdown/pp-countdown.php:327
 msgid "Show Hours"
-msgstr ""
+msgstr "Affichez les heures"
 
 #: modules/pp-countdown/pp-countdown.php:349
 msgid "Hour"
-msgstr ""
+msgstr "Heure"
 
 #: modules/pp-countdown/pp-countdown.php:359
 msgid "Show Minutes"
-msgstr ""
+msgstr "Affichez les minutes"
 
 #: modules/pp-countdown/pp-countdown.php:381
 msgid "Minute"
-msgstr ""
+msgstr "Minute"
 
 #: modules/pp-countdown/pp-countdown.php:391
 msgid "Show Seconds"
-msgstr ""
+msgstr "Afficher les secondes"
 
 #: modules/pp-countdown/pp-countdown.php:413
 msgid "Second"
-msgstr ""
+msgstr "Seconde"
 
 #: modules/pp-countdown/pp-countdown.php:437 modules/pp-image/pp-image.php:499
 #: modules/pp-infobox/pp-infobox.php:754
 msgid "Responsive Alignment"
-msgstr ""
+msgstr "Alignement responsive"
 
 #: modules/pp-countdown/pp-countdown.php:448
 msgid "Space between label & digit"
-msgstr ""
+msgstr "Espace entre l’étiquette et le chiffre"
 
 #: modules/pp-countdown/pp-countdown.php:450
 #: modules/pp-countdown/pp-countdown.php:457
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: modules/pp-countdown/pp-countdown.php:455
 msgid "Space between blocks"
-msgstr ""
+msgstr "Espace entre les blocs"
 
 #: modules/pp-countdown/pp-countdown.php:458
 msgid "This option controls the left-right spacing of each countdown block."
-msgstr ""
+msgstr "Cette option contrôle l’espacement gauche-droite de chaque bloc de compte à rebours."
 
 #: modules/pp-countdown/pp-countdown.php:468
 msgid "Show separator between blocks"
-msgstr ""
+msgstr "Afficher le séparateur entre les blocs"
 
 #: modules/pp-countdown/pp-countdown.php:485
 msgid "Colon"
-msgstr ""
+msgstr "Deux points"
 
 #: modules/pp-countdown/pp-countdown.php:510
 msgid "Hide on mobile"
-msgstr ""
+msgstr "Masquer sur mobile"
 
 #: modules/pp-countdown/pp-countdown.php:520
 msgid "Blocks"
-msgstr ""
+msgstr "Blocs"
 
 #: modules/pp-countdown/pp-countdown.php:547
 msgid "100"
-msgstr ""
+msgstr "100"
 
 #: modules/pp-countdown/pp-countdown.php:596
 #: modules/pp-countdown/pp-countdown.php:613
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: modules/pp-countdown/pp-countdown.php:681
 msgid "Label Position"
-msgstr ""
+msgstr "Position du libellé"
 
 #: modules/pp-countdown/pp-countdown.php:684
 msgid "Inside Digit Container"
-msgstr ""
+msgstr "À l'intérieur du conteneur de chiffres"
 
 #: modules/pp-countdown/pp-countdown.php:685
 msgid "Outside Digit Container"
-msgstr ""
+msgstr "À l'extérieur du conteneur de chiffres"
 
 #: modules/pp-countdown/pp-countdown.php:698
 msgid "Label Inside Position"
-msgstr ""
+msgstr "Position intérieure de l’étiquette"
 
 #: modules/pp-countdown/pp-countdown.php:701
 #: modules/pp-countdown/pp-countdown.php:710
 #: modules/pp-countdown/pp-countdown.php:721
 msgid "Below Digit"
-msgstr ""
+msgstr "Sous le chiffre"
 
 #: modules/pp-countdown/pp-countdown.php:702
 #: modules/pp-countdown/pp-countdown.php:711
 #: modules/pp-countdown/pp-countdown.php:722
 msgid "Above Digit"
-msgstr ""
+msgstr "Au-dessus du chiffre"
 
 #: modules/pp-countdown/pp-countdown.php:707
 msgid "Label Outside Position"
-msgstr ""
+msgstr "Position extérieure de l'étiquette"
 
 #: modules/pp-countdown/pp-countdown.php:712
 msgid "Right Side of Digit"
-msgstr ""
+msgstr "Côté droit du chiffre"
 
 #: modules/pp-countdown/pp-countdown.php:713
 msgid "Left Side of Digit"
-msgstr ""
+msgstr "Côté gauche du chiffre"
 
 #: modules/pp-countdown/pp-countdown.php:718
 msgid "Select Position"
-msgstr ""
+msgstr "Sélectionnez la position"
 
 #: modules/pp-countdown/pp-countdown.php:754
 msgid "Digit"
-msgstr ""
+msgstr "Chiffre"
 
 #: modules/pp-countdown/pp-countdown.php:758
 #: modules/pp-countdown/pp-countdown.php:852
 msgid "Select Tag"
-msgstr ""
+msgstr "Sélectionner un mot clé"
 
 #: modules/pp-countdown/pp-countdown.php:971
 msgid "Expire Message"
-msgstr ""
+msgstr "Message d'expiration"
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:427
 msgid "Show \"All\" filter button"
-msgstr ""
+msgstr "Afficher le bouton de filtre « Tous »"
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:436
 msgid "Rename \"All\" text?"
-msgstr ""
+msgstr "Renommer le texte « Tous »?"
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:451
 msgid "Custom Text"
-msgstr ""
+msgstr "Texte personnalisé"
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:462
 msgid "mygallery"
-msgstr ""
+msgstr "ma-galerie"
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:463
 msgid "To filter the gallery using URL parameters, a prefix that will be applied to ID attribute of filter button in HTML. For example, prefix \"mygallery\" will be applied as \"mygallery-1\", \"mygallery-2\" in ID attribute of filter button 1 and filter button 2 respectively. It should only contain dashes, underscores, letters or numbers. No spaces and no other special characters."
-msgstr ""
+msgstr "Pour filtrer la galerie à l’aide de paramètres d’URL, un préfixe sera appliqué à l’attribut ID du bouton de filtre en HTML. Par exemple, le préfixe « ma-galerie » sera appliqué comme « ma-galerie-1 », « ma-galerie-2 » dans l’attribut ID du bouton de filtre 1 et du bouton de filtre 2 respectivement. Il ne doit contenir que des tirets, des traits de soulignement, des lettres ou des chiffres. Pas d’espaces et pas d’autres caractères spéciaux."
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:467
 msgid "Active Filter Index"
-msgstr ""
+msgstr "Index de filtre actif"
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:470
 msgid "Add an index number of a filter to be activated on page load. For example, place 1 for the first filter."
-msgstr ""
+msgstr "Ajoutez un numéro d’index de filtre à activer lors du chargement de la page. Par exemple, placez 1 pour le premier filtre."
 
 #: modules/pp-filterable-gallery/pp-filterable-gallery.php:1203
 msgid "Filters Toggle"
-msgstr ""
+msgstr "Bascule des filtres"
 
 #: modules/pp-gallery/pp-gallery.php:391
 msgid "Custom URL field is available in media uploader modal where you have added the images."
-msgstr ""
+msgstr "Le champ d'URL personnalisée est disponible dans la fenêtre modale de téléchargement media où vous avez ajouté les images."
 
 #: modules/pp-gallery/pp-gallery.php:395
 msgid "Show Thumbnail Navigation in Lightbox?"
-msgstr ""
+msgstr "Afficher les miniatures de navigation dans la visionneuse ?"
 
 #: modules/pp-gallery/pp-gallery.php:1218
 msgid "Images Per Page"
-msgstr ""
+msgstr "Images par page"
 
 #: modules/pp-gallery/pp-gallery.php:1224
 msgid "Load More Button Text"
-msgstr ""
+msgstr "Texte du bouton \"Afficher plus\""
 
 #: modules/pp-gravity-form/pp-gravity-form.php:1342
 msgid "Label Font Size"
-msgstr ""
+msgstr "Taille de police de l'étiquette"
 
 #: modules/pp-gravity-form/pp-gravity-form.php:1355
 msgid "Radio & Checkbox Label Font Size"
-msgstr ""
+msgstr "Taille de police de l’étiquette bouton radio et case à cocher"
 
 #: modules/pp-heading/pp-heading.php:911 modules/pp-heading/pp-heading.php:1171
 msgid "Enable Text Shadow"
-msgstr ""
+msgstr "Activer l'ombre du texte"
 
 #: modules/pp-heading/pp-heading.php:925 modules/pp-heading/pp-heading.php:1185
 msgid "Text Shadow"
-msgstr ""
+msgstr "Ombre du texte"
 
 #: modules/pp-heading/pp-heading.php:957 modules/pp-heading/pp-heading.php:1217
 msgid "Enable Gradient Text"
-msgstr ""
+msgstr "Activer le texte dégradé"
 
 #: modules/pp-heading/pp-heading.php:985 modules/pp-heading/pp-heading.php:1245
 msgid "Degree"
-msgstr ""
+msgstr "Degré"
 
 #: classes/class-module-fields.php:350 classes/class-module-fields.php:374
 #: classes/class-module-fields.php:466 classes/class-module-fields.php:483
 #: modules/pp-countdown/pp-countdown.php:311
 msgid "Days"
-msgstr ""
+msgstr "Jours"
 
 #: classes/class-module-fields.php:378 classes/class-module-fields.php:391
 #: modules/pp-countdown/pp-countdown.php:279
 msgid "Months"
-msgstr ""
+msgstr "Mois"
 
 #: classes/class-module-fields.php:395 classes/class-module-fields.php:409
 #: modules/pp-countdown/pp-countdown.php:246
 msgid "Years"
-msgstr ""
+msgstr "Années"
 
 #: classes/class-module-fields.php:413 classes/class-module-fields.php:432
 #: classes/class-module-fields.php:488 classes/class-module-fields.php:505
 #: modules/pp-countdown/pp-countdown.php:343
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #: classes/class-module-fields.php:436 classes/class-module-fields.php:455
 #: classes/class-module-fields.php:507 classes/class-module-fields.php:525
 #: modules/pp-countdown/pp-countdown.php:375
 msgid "Minutes"
-msgstr ""
+msgstr "Minutes"
 
 #: classes/class-module-fields.php:527 classes/class-module-fields.php:544
 #: modules/pp-countdown/pp-countdown.php:407
 msgid "Seconds"
-msgstr ""
+msgstr "Secondes"
 
 #: classes/class-pp-ajax.php:360
 msgid "No templates found!"
-msgstr ""
+msgstr "Aucun gabarit trouvé!"
 
 #: classes/class-pp-post-module.php:39
 msgid "Custom Layout"
-msgstr ""
+msgstr "Présentation personnalisée"
 
 #: classes/class-pp-post-module.php:55
 msgid "Customize Layout"
-msgstr ""
+msgstr "Personnaliser la présentation"
 
 #: classes/class-pp-templates-library.php:263
 msgid "Template has downloaded successfully!"
-msgstr ""
+msgstr "Le gabarit a été téléchargé avec succès !"
 
 #: classes/class-pp-templates-library.php:270
 msgid "Could not find the template file."
-msgstr ""
+msgstr "Impossible de trouver le fichier de gabarit."
 
 #: classes/class-wpml-compatibility.php:174
 msgid "Contact Form 7 Styler - Custom Title"
-msgstr ""
+msgstr "Styliser Contact Form 7 - Titre personnalisé"
 
 #: classes/class-wpml-compatibility.php:179
 msgid "Contact Form 7 Styler - Custom Description"
-msgstr ""
+msgstr "Styliser Contact Form 7 - Description personnalisée"
 
 #: classes/class-wpml-compatibility.php:265
 msgid "Gravity Form Styler - Custom Title"
-msgstr ""
+msgstr "Styliser Gravity Forms - Titre personnalisé"
 
 #: classes/class-wpml-compatibility.php:270
 msgid "Gravity Form Styler - Custom Description"
-msgstr ""
+msgstr "Styliser Gravity Forms - Description personnalisée"
 
 #: classes/class-wpml-compatibility.php:525
 msgid "Subscribe Form - Checkbox Field Text"
-msgstr ""
+msgstr "Formulaire d’abonnement - Texte du champ de case à cocher"
 
 #: classes/class-wpml-compatibility.php:680
 msgid "Caledra Form Styler - Custom Title"
-msgstr ""
+msgstr "Styliser Caldera Forms - Titre personnalisé"
 
 #: classes/class-wpml-compatibility.php:685
 msgid "Caldera Form Styler - Custom Description"
-msgstr ""
+msgstr "Styliser Caldera Forms - Description personnalisée"
 
 #: classes/class-wpml-compatibility.php:694
 msgid "Ninja Form Styler - Custom Title"
-msgstr ""
+msgstr "Styliser Ninja Forms - Titre personnalisé"
 
 #: classes/class-wpml-compatibility.php:699
 msgid "Ninja Form Styler - Custom Description"
-msgstr ""
+msgstr "Styliser Ninja Forms - Description personnalisée"
 
 #: classes/class-wpml-compatibility.php:708
 msgid "WPForms Styler - Custom Title"
-msgstr ""
+msgstr "Styliser WPForms - Titre personnalisé"
 
 #: classes/class-wpml-compatibility.php:713
 msgid "WPForms Styler - Custom Description"
-msgstr ""
+msgstr "Styliser WPForms - Description personnalisée"
 
 #: modules/pp-pricing-table/pp-pricing-table.php:270
 msgid "Apply Border to"
@@ -959,7 +959,7 @@ msgstr "Image de remplacement personnalisée"
 
 #: modules/pp-content-grid/pp-content-grid.php:1778
 msgid "By eneabling this option will convert filters into a toggle. If you want to display the filters as they are appearing on desktop, keep it disabled."
-msgstr ""
+msgstr "En activant cette option, vous convertirez les filtres en bascule. Si vous souhaitez afficher les filtres tels qu’ils apparaissent sur le bureau, maintenez-les désactivés."
 
 #: modules/pp-content-tiles/includes/settings-tab.php:33
 msgid "Large Tile Image Size"
@@ -1152,7 +1152,7 @@ msgstr "degré"
 
 #: modules/pp-post-timeline/pp-post-timeline.php:18
 msgid "Display posts in timeline format."
-msgstr "Afficher les messages au format chronologique"
+msgstr "Afficher les messages au format chronologique."
 
 #: modules/pp-pricing-table/pp-pricing-table.php:121
 msgid "Enable Dual Pricing"
@@ -1244,7 +1244,7 @@ msgstr "Jeton d'accès"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:61
 msgid "Client ID"
-msgstr "identité du client"
+msgstr "ID client"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:68
 msgid "Feed Settings"
@@ -1288,7 +1288,7 @@ msgstr "Moins apprécié"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:116
 msgid "Most Commented"
-msgstr "le plus commenté"
+msgstr "Le plus commenté"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:117
 msgid "Least Commented"
@@ -1304,7 +1304,7 @@ msgstr "Aime"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:200
 msgid "Comments"
-msgstr "commentaires"
+msgstr "Commentaires"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:209
 msgid "Content Visibility"
@@ -1345,7 +1345,7 @@ msgstr "Articles visibles"
 #: modules/pp-instagram-feed/pp-instagram-feed.php:326
 msgctxt "Value unit for form field of time in mili seconds. Such as: \"5000 ms\""
 msgid "ms"
-msgstr "Mme"
+msgstr "ms"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:330
 msgid "Infinite Loop"
@@ -1391,7 +1391,7 @@ msgstr "Centre droit"
 #: modules/pp-instagram-feed/pp-instagram-feed.php:742
 #: modules/pp-instagram-feed/pp-instagram-feed.php:846
 msgid "Likes & Comments Color"
-msgstr "Aime et Commentaires Couleur"
+msgstr "Couleur des \"Likes\" et Commentaires"
 
 #: modules/pp-instagram-feed/pp-instagram-feed.php:754
 msgid "Image Hover"
@@ -1612,7 +1612,7 @@ msgstr "Slider"
 #: modules/pp-post-timeline/pp-post-timeline.php:166
 msgctxt "Value unit for form field of time in seconds. Such as: \"5 seconds\""
 msgid "ms"
-msgstr "Mme"
+msgstr "ms"
 
 #: modules/pp-post-timeline/pp-post-timeline.php:204
 msgid "Navigation Arrow"
@@ -1712,13 +1712,13 @@ msgstr "Paramètres de diapos"
 
 #: modules/pp-image-carousel/pp-image-carousel.php:235
 msgid "Cube"
-msgstr "cube"
+msgstr "Cube"
 
 #: modules/pp-image-carousel/pp-image-carousel.php:493
 #: modules/pp-image-carousel/pp-image-carousel.php:514
 msgctxt "Value unit for form field of time in mili seconds. Such as: \"500 ms\""
 msgid "ms"
-msgstr "Mme"
+msgstr "ms"
 
 #: modules/pp-image-carousel/pp-image-carousel.php:511
 #: modules/pp-instagram-feed/pp-instagram-feed.php:323
@@ -2933,7 +2933,7 @@ msgstr "Couleur du fond de lien au survol"
 
 #: modules/pp-countdown/pp-countdown.php:482
 msgid "Separator Type"
-msgstr ""
+msgstr "Type de séparateur"
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:956
 msgid "Container"
@@ -7865,7 +7865,7 @@ msgstr "Fente"
 #: modules/pp-contact-form/pp-contact-form.php:358
 msgctxt "Contact form Name field label."
 msgid "Name"
-msgstr "prénom"
+msgstr "Nom"
 
 #: modules/pp-gravity-form/pp-gravity-form.php:1126
 msgid "Error Field Background Color"
@@ -12527,7 +12527,7 @@ msgstr "Superposition"
 
 #: includes/updater/update-config.php:275
 msgid "Please activate the license to enable automatic updates for this plugin."
-msgstr ""
+msgstr "Veuillez activer la licence pour permettre les mises à jour automatiques de ce plugin."
 
 #: modules/pp-animated-headlines/pp-animated-headlines.php:70
 #: modules/pp-content-grid/includes/loop-settings.php:492
@@ -14884,7 +14884,7 @@ msgstr "Définir la balise HTML pour la sortie du titre"
 
 #: modules/pp-twitter-timeline/pp-twitter-timeline.php:70
 msgid "No Borders"
-msgstr ""
+msgstr "Pas de bordure"
 
 #: modules/pp-advanced-tabs/pp-advanced-tabs.php:570
 msgid "Responsive Toggle Icons"

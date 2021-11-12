@@ -12,19 +12,14 @@
 
 ?>
 <div class="pp-wpforms-content">
-	<h3 class="pp-form-title">
-	<?php if ( $settings->custom_title ) {
-	 	echo $settings->custom_title;
-	} ?>
-	</h3>
-	<p class="pp-form-description">
-	<?php if ( $settings->custom_description ) {
-		echo $settings->custom_description;
-	} ?>
-	</p>
-    <?php
-    if ( $settings->select_form_field ) {
+	<?php if ( $settings->custom_title && ! empty( $settings->custom_title ) ) { ?>
+		<h3 class="pp-form-title"><?php echo $settings->custom_title; ?></h3>
+	<?php } ?>
+	<?php if ( $settings->custom_description && ! empty( $settings->custom_description ) ) { ?>
+		<p class="pp-form-description"><?php echo $settings->custom_description; ?></p>
+	<?php } ?>
+
+    <?php if ( $settings->select_form_field ) {
         echo do_shortcode( '[wpforms id='.$settings->select_form_field.' title='.$settings->title_field.' description='.$settings->description_field.']' );
-    }
-    ?>
+    } ?>
 </div>

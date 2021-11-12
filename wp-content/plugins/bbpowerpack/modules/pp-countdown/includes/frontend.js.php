@@ -136,7 +136,7 @@ $fixed_timer_labels = array(
 		evergreen_date_seconds: '<?php echo isset( $settings->evergreen_date_seconds ) ? $settings->evergreen_date_seconds : ''; ?>',
 		time_zone: '<?php echo $module->get_gmt_difference(); ?>',
 		<?php if ( isset( $settings->fixed_timer_action ) && 'msg' == $settings->fixed_timer_action ) { ?>
-		timer_exp_text: '<div class="pp-countdown-expire-message">'+ $.cookie( "countdown-<?php echo $id ;?>expiremsg" ) +'</div>'
+		timer_exp_text: $.cookie( "countdown-<?php echo $id ;?>expiremsg" )
 		<?php } ?>
 	});
 

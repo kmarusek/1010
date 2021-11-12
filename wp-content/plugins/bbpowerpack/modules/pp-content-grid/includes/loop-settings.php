@@ -13,6 +13,7 @@ FLBuilderModel::default_settings($settings, array(
 	'date_format'		=> '',
 	'show_categories'	=> 'no',
 	'meta_separator'	=> ' | ',
+	'terms_separator'	=> ' / ',
 	'show_content'		=> 'yes',
 	'content_type'		=> 'excerpt',
 	'content_length'	=> 300,
@@ -842,6 +843,13 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				'type'          => 'text',
 				'label'         => __('Meta Separator', 'bb-powerpack'),
 				'default'       => ' | ',
+				'size'			=> 5
+			), $settings);
+
+			FLBuilder::render_settings_field('terms_separator', array(
+				'type'          => 'text',
+				'label'         => __('Terms Separator', 'bb-powerpack'),
+				'default'       => ' / ',
 				'size'			=> 5
 			), $settings);
 			?>

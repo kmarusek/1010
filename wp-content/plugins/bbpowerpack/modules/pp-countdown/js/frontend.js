@@ -25,8 +25,10 @@
 			this.timezone = null;
 		}
 
-		if ( settings.timer_exp_text ) {
-			this.timer_exp_text	= settings.timer_exp_text;
+		if ( 'undefined' !== typeof settings.timer_exp_text ) {
+			this.timer_exp_text	= '<div class="pp-countdown-expire-message">' + settings.timer_exp_text + '</div>';
+		} else {
+			this.timer_exp_text	= '<div class="pp-countdown-expire-message">' + settings.expire_message + '</div>';
 		}
 
 		if( this.timertype == "fixed" ) {

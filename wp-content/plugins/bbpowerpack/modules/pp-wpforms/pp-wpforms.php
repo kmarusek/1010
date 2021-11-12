@@ -315,10 +315,6 @@ BB_PowerPack::register_module('PPWPFormsModule', array(
                         'default'       => '',
                         'description'   => '',
                         'connections'   => array('string'),
-						'preview'       => array(
-                            'type'      => 'text',
-                            'selector'  => '.pp-form-title'
-                        )
                     ),
                     'description_field' => array(
                         'type'          => 'pp-switch',
@@ -336,10 +332,6 @@ BB_PowerPack::register_module('PPWPFormsModule', array(
                         'placeholder'       => '',
                         'rows'              => '6',
                         'connections'   => array('string', 'html'),
-                        'preview'           => array(
-                            'type'          => 'text',
-                            'selector'      => '.pp-form-description'
-                        )
                     ),
                     'display_labels'   => array(
                         'type'         => 'pp-switch',

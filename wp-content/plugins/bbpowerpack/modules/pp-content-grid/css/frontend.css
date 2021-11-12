@@ -776,6 +776,19 @@ body .pp-post-feed-meta {
 	width: 100% !important;
 }
 
+
+.cg-equal-align-button .pp-content-post,
+.cg-equal-align-button .pp-content-post .pp-content-body,
+.cg-equal-align-button .pp-content-post-data {
+	display: flex;
+  	flex-direction: column;
+}
+.cg-equal-align-button .pp-content-post .pp-content-body,
+.cg-equal-align-button .pp-content-post-data,
+.cg-equal-align-button .pp-content-post .pp-post-content {
+  	height: 100%;
+}
+
 @media only screen and (max-width: 768px) {
 	.pp-content-post-carousel .owl-theme .owl-controls .owl-buttons div.owl-prev {
 	    left: 0;

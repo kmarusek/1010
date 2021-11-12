@@ -1,5 +1,6 @@
 <?php
 $remove_child = false;
+$terms_separator = isset( $settings->terms_separator ) ? $settings->terms_separator : ' / ';
 if ( $remove_child ) : // use this code to display only parent terms. ?>
 <div class="pp-content-category-list pp-post-meta">
     <?php $terms_html = array();
@@ -10,7 +11,7 @@ if ( $remove_child ) : // use this code to display only parent terms. ?>
 		$terms_html[] = '<a href="' . get_term_link( $term ) . '" class="pp-post-meta-term term-' . $term->slug . '">' . $term->name . '</a>';
 	endforeach;
     ?>
-    <?php echo implode( ' / ', $terms_html ); ?>
+    <?php echo implode( $terms_separator, $terms_html ); ?>
 </div>
 <?php endif; ?>
 
@@ -21,7 +22,7 @@ if ( $remove_child ) : // use this code to display only parent terms. ?>
 		?>
 		<a href="<?php echo get_term_link( $term ); ?>" class="pp-post-meta-term term-<?php echo $term->slug; ?><?php echo $class; ?>"><?php echo $term->name; ?></a>
 		<?php if ( $i != count( $terms_list ) ) { ?>
-			<span class="pp-post-meta-separator"> / </span>
+			<span class="pp-post-meta-separator"><?php echo $terms_separator; ?></span>
 		<?php } ?>
     <?php $i++; endforeach; ?>
 </div>

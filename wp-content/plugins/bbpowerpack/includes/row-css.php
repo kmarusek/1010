@@ -817,7 +817,7 @@ function pp_row_animated_bg_css( $css, $nodes, $global_settings ) {
 				<?php if ( 'yes' == $row->settings->part_bg_type ) { ?>
 					.fl-node-<?php echo $row->node; ?> .pp-particles-wrap {
 						background-image: url(<?php echo isset($row->settings->part_bg_image) ? $row->settings->part_bg_image_src : ''; ?>);
-						background-size: <?php echo isset($row->settings->part_bg_size) ? $row->settings->part_bg_size . '%' : '50%'; ?>;
+						background-size: <?php echo isset($row->settings->part_bg_size) ? $row->settings->part_bg_size . '%' : 'cover'; ?>;
 						background-repeat: no-repeat;
 						background-position: <?php echo isset($row->settings->part_bg_position) ? $row->settings->part_bg_position : '50% 50%'; ?>;
 					}

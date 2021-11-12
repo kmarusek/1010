@@ -955,6 +955,7 @@ BB_PowerPack::register_module(
 							'type'		=> 'color',
 							'label'		=> __( 'Border Hover Color', 'bb-powerpack' ),
 							'default'	=> '',
+							'show_reset' => true,
 							'connections'	=> array( 'color' ),
 							'preview'	=> array(
 								'type'		=> 'none',
