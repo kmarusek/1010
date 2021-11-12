@@ -64,6 +64,7 @@ class EPS_Redirects_Plugin
     add_action('redirects_admin_tab', array($this, 'admin_tab_redirects'), 10, 1);
     add_action('404s_admin_tab', array($this, 'admin_tab_404s'), 10, 1);
     add_action('support_admin_tab', array($this, 'admin_tab_support'), 10, 1);
+    add_action('link-scanner_admin_tab', array($this, 'admin_tab_link_scanner'), 10, 1);
     add_action('error_admin_tab', array($this, 'admin_tab_error'), 10, 1);
     add_action('import-export_admin_tab', array($this, 'admin_tab_import_export'), 10, 1);
     add_action('eps_redirects_panels_left', array($this, 'admin_panel_cache'));
@@ -74,17 +75,6 @@ class EPS_Redirects_Plugin
     // Actions
     add_action('admin_init',            array($this, 'check_plugin_actions'));
   }
-
-  public function resolve_dependencies()
-  {
-    include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-    foreach ($this->dependencies as $name => $path_to_plugin) {
-      if (!is_plugin_active($path_to_plugin)) {
-        echo $name . ' IS NOT INSTALLED!';
-      }
-    }
-  }
-
 
   private function resource_path($path, $resource)
   {
@@ -124,7 +114,7 @@ class EPS_Redirects_Plugin
 
     $notices = get_option('301-redirects-notices', array());
 
-    if ($_GET['notice'] == 'rate') {
+    if (sanitize_text_field($_GET['notice']) == 'rate') {
       $notices['dismiss_rate'] = true;
     } else {
       wp_safe_redirect(admin_url());
@@ -147,7 +137,7 @@ class EPS_Redirects_Plugin
     global $wpdb;
     $table_name = $wpdb->prefix . "redirects";
 
-    if (@$_GET['page'] != 'eps_redirects') {
+    if (empty($_GET['page']) || sanitize_text_field($_GET['page']) != 'eps_redirects') {
       return;
     }
 
@@ -166,7 +156,7 @@ class EPS_Redirects_Plugin
     $rate_url = 'https://wordpress.org/support/plugin/eps-301-redirects/reviews/?filter=5&rate=5#new-post';
     $dismiss_url = add_query_arg(array('action' => '301_dismiss_notice', 'notice' => 'rate', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
 
-    echo '<div id="301_rate_notice" style="font-size: 14px;" class="notice-info notice"><p>Hi!<br>Saw that you already have ' . $tmp2 . ' redirect rules that got used ' . $tmp1 . ' times - that\'s awesome! We wanted to ask for your help to <b>make the plugin better</b>.<br>We just need a minute of your time to rate the plugin. It helps us out a lot!';
+    echo '<div id="301_rate_notice" style="font-size: 14px;" class="notice-info notice"><p>Hi!<br>Saw that you already have ' . esc_attr($tmp2) . ' redirect rules that got used ' . esc_attr($tmp1) . ' times - that\'s awesome! We wanted to ask for your help to <b>make the plugin better</b>.<br>We just need a minute of your time to rate the plugin. It helps us out a lot!';
 
     echo '<br><a target="_blank" href="' . esc_url($rate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">Help make the plugin better by rating it</a>';
     echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '">I\'ve already rated the plugin</a>';
@@ -280,7 +270,7 @@ class EPS_Redirects_Plugin
 
     $pointers = get_option('eps_pointers');
 
-    if (is_admin() && $pointers && !empty($wp_rewrite->permalink_structure) && (empty($_GET['page']) || $_GET['page'] != $EPS_Redirects_Plugin->config('page_slug'))) {
+    if (is_admin() && $pointers && !empty($wp_rewrite->permalink_structure) && (empty($_GET['page']) || sanitize_text_field($_GET['page']) != $EPS_Redirects_Plugin->config('page_slug'))) {
       $pointers['_nonce_dismiss_pointer'] = wp_create_nonce('eps_dismiss_pointer');
       wp_enqueue_script('wp-pointer');
       wp_enqueue_script('eps-pointers', plugins_url('js/eps-admin-pointers.js', __FILE__), array('jquery'), EPS_REDIRECT_VERSION, true);
@@ -288,7 +278,7 @@ class EPS_Redirects_Plugin
       wp_localize_script('wp-pointer', 'eps_pointers', $pointers);
     }
 
-    if (is_admin() && isset($_GET['page']) && $_GET['page'] == $EPS_Redirects_Plugin->config('page_slug')) {
+    if (is_admin() && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $EPS_Redirects_Plugin->config('page_slug')) {
       // uncomment if we want to remove pointer after plugin settings are open
       // unset($pointers['welcome']);
       // update_option('eps_pointers', $pointers);
@@ -350,7 +340,7 @@ class EPS_Redirects_Plugin
      */
   public function check_plugin_actions()
   {
-    if (is_admin() && isset($_GET['page']) && $_GET['page'] == $this->config('page_slug')) {
+    if (is_admin() && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config('page_slug')) {
       // Upload a CSV
       if (isset($_POST['eps_redirect_upload']) && wp_verify_nonce($_POST['eps_redirect_nonce_submit'], 'eps_redirect_nonce')) {
         self::_upload();
@@ -377,13 +367,19 @@ class EPS_Redirects_Plugin
         $this->add_admin_message("Success: All Redirect Rules Deleted.", "updated");
       }
 
+      // reset redirect hits
+      if (isset($_POST['eps_reset_stats']) && wp_verify_nonce($_POST['eps_redirect_nonce_submit'], 'eps_redirect_nonce')) {
+        self::reset_stats();
+        $this->add_admin_message("Success: Redirect hits have been reset.", "updated");
+      }
+
       // Save Redirects
       if (isset($_POST['eps_redirect_submit']) && wp_verify_nonce($_POST['eps_redirect_nonce_submit'], 'eps_redirect_nonce')) {
         self::_save_redirects(EPS_Redirects::_parse_serial_array($_POST['redirect']));
       }
 
       // Create tables
-      if (isset($_GET['action']) && $_GET['action'] == 'eps_create_tables') {
+      if (isset($_GET['action']) && sanitize_text_field($_GET['action']) == 'eps_create_tables') {
         $result = self::_create_redirect_table();
       }
     }
@@ -393,6 +389,15 @@ class EPS_Redirects_Plugin
     global $wpdb;
     $table = $wpdb->prefix . 'redirects';
     $wpdb->query('TRUNCATE TABLE ' . $table);
+
+    return true;
+  }
+
+  static function reset_stats() {
+    global $wpdb;
+    $table = $wpdb->prefix . 'redirects';
+
+    $wpdb->query('UPDATE ' . $table . ' SET count = 0');
 
     return true;
   }
@@ -460,7 +465,7 @@ class EPS_Redirects_Plugin
           $entry->url_to,
           $entry->count
         );
-        echo implode(',', $csv);
+        echo esc_attr(implode(',', $csv));
         echo "\n";
       }
 
@@ -587,7 +592,7 @@ class EPS_Redirects_Plugin
       $save_redirects = array();
       foreach ($new_redirects as $redirect) {
         // Decide how to handle duplicates:
-        switch (strtolower($_POST['eps_redirect_upload_method'])) {
+        switch (strtolower(sanitize_text_field($_POST['eps_redirect_upload_method']))) {
           case 'skip':
             if (!EPS_Redirects::redirect_exists($redirect)) {
               $save_redirects[] = $redirect;
@@ -661,6 +666,10 @@ class EPS_Redirects_Plugin
   {
     include(EPS_REDIRECT_PATH . 'templates/admin-tab-support.php');
   }
+  public static function admin_tab_link_scanner($options)
+  {
+    include(EPS_REDIRECT_PATH . 'templates/admin-tab-link-scanner.php');
+  }
   public static function admin_tab_import_export($options)
   {
     include(EPS_REDIRECT_PATH . 'templates/admin-tab-import-export.php');
@@ -716,6 +725,7 @@ class EPS_Redirects_Plugin
     $this->messages[] = array($code => $message);
     add_action('admin_notices', array($this, 'display_admin_messages'));
   }
+
   public static function display_admin_messages()
   {
     global $EPS_Redirects_Plugin;
@@ -735,9 +745,10 @@ class EPS_Redirects_Plugin
   {
     printf(
       '<div class="%s"><p>%s</p></div>',
-      $type,
-      $string
+      esc_attr($type),
+      wp_kses_post($string)
     );
+
   }
 
 

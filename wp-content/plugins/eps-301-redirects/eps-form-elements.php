@@ -78,16 +78,16 @@ function eps_get_destination($redirect = false)
       // This redirect points to a post
       if (get_permalink($redirect->url_to)) {
         ?>
-<a target="_blank" class="eps-url" href="<?php echo get_permalink($redirect->url_to); ?>" title="<?php echo get_permalink($redirect->url_to); ?>">
-  <span class="eps-url-root eps-url-startcap"><?php echo strtoupper(get_post_type($redirect->url_to)); ?></span><span class="eps-url-root">ID:
-    <?php echo $redirect->url_to; ?> </span><span class="eps-url-fragment eps-url-endcap "><?php echo get_the_title($redirect->url_to); ?> </span>
+<a target="_blank" class="eps-url" href="<?php echo esc_url(get_permalink($redirect->url_to)); ?>" title="<?php echo esc_url(get_permalink($redirect->url_to)); ?>">
+  <span class="eps-url-root eps-url-startcap"><?php echo esc_attr(strtoupper(get_post_type($redirect->url_to))); ?></span><span class="eps-url-root">ID:
+    <?php echo esc_url($redirect->url_to); ?> </span><span class="eps-url-fragment eps-url-endcap "><?php echo esc_attr(get_the_title($redirect->url_to)); ?> </span>
 </a>
 <?php
 
 } else {
   ?>
 <span class="eps-url eps-warning">
-  <span class="eps-url-root eps-url-startcap">ID: <?php echo $redirect->url_to; ?> </span>
+  <span class="eps-url-root eps-url-startcap">ID: <?php echo esc_attr($redirect->url_to); ?> </span>
   <span class="eps-url-fragment eps-url-endcap ">DOES NOT EXIST</span>
 </span>
 <?php
@@ -96,9 +96,9 @@ function eps_get_destination($redirect = false)
 } else {
   // This is redirect points to a url
   ?>
-<a target="_blank" class="eps-url" href="<?php echo stripslashes(esc_url($redirect->url_to)); ?>" title="<?php echo stripslashes(esc_attr($redirect->url_to)); ?>">
+<a target="_blank" class="eps-url" href="<?php echo esc_url(stripslashes($redirect->url_to)); ?>" title="<?php echo esc_attr(stripslashes($redirect->url_to)); ?>">
   <span class="eps-url-root eps-url-startcap">URL:</span><span
-    class="eps-url-fragment eps-url-endcap "><?php echo stripslashes(esc_attr($redirect->url_to)); ?></span>
+    class="eps-url-fragment eps-url-endcap "><?php echo esc_attr(stripslashes($redirect->url_to)); ?></span>
 </a>
 <?php
 
@@ -203,10 +203,10 @@ function eps_get_ordered_filter($field, $label, $classes = array())
   $nextOrder = 'asc';
   $arrow = false;
 
-  if (isset($_GET['orderby']) &&  $_GET['orderby'] ==  $field) {
+  if (isset($_GET['orderby']) &&  sanitize_text_field($_GET['orderby']) ==  $field) {
     $arrow = '&darr;';
 
-    if (isset($_GET['order']) && $_GET['order'] != 'desc') {
+    if (isset($_GET['order']) && sanitize_text_field($_GET['order']) != 'desc') {
       $nextOrder = 'desc';
       $arrow = '&uarr;';
     }
@@ -214,9 +214,9 @@ function eps_get_ordered_filter($field, $label, $classes = array())
 
   printf(
     '<a class="%s" href="%s">%s %s</a>',
-    implode(' ', $classes),
-    $EPS_Redirects_Plugin->admin_url(array('orderby' => $field, 'order' => $nextOrder)),
-    $label,
-    $arrow
+    esc_attr(implode(' ', $classes)),
+    esc_url($EPS_Redirects_Plugin->admin_url(array('orderby' => $field, 'order' => $nextOrder))),
+    esc_attr($label),
+    esc_attr($arrow)
   );
 }

@@ -112,7 +112,7 @@ if (false == class_exists('wf_flyout')) {
       $out .= $this->config['custom_css'];
       $out .= '</style>';
 
-      echo $out;
+      EPS_Redirects::wp_kses_wf($out);
     } // admin_head
 
 
@@ -161,7 +161,7 @@ if (false == class_exists('wf_flyout')) {
 
       $out .= '</div>'; // #wf-flyout
 
-      echo $out;
+      EPS_Redirects::wp_kses_wf($out);
     } // admin_footer
   } // wf_flyout
 } // if class exists

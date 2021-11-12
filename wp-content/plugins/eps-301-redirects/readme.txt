@@ -2,13 +2,13 @@
 Contributors: WebFactory
 Tags: 301 redirect, redirects, redirect, 404 error log, redirection, 302 redirect, 302, seo, 302 redirect, 404, 404 redirect, 301, 307, 404 log
 Requires at least: 4.0
-Tested up to: 5.7
-Stable tag: 2.70
+Tested up to: 5.8
+Stable tag: 2.72
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily manage 301 & 302 redirects. Simple to use & validate redirects. Includes redirect stats & 404 error log.
+Manage 301 & 302 redirects. Simple redirection & redirects validation. Includes redirect stats & 404 error log.
 
 == Description ==
 
@@ -30,7 +30,7 @@ Easily manage 301 & 302 redirects. Simple to use & validate redirects. Includes 
 * Fully compatible with translation plugins (Weglot, TranslatePress, Gtranslate, Loco Translate) that use lang prefix in URL
 
 **Need more features?**
-<a href="https://wp301redirects.com/?ref=wporg">WP 301 Redirects PRO</a> offers wildcard & regular expression URL matching, auto-typo fixing in URLs, complete redirect and 404 log, and a centralized SaaS dashboard to monitor redirects on all your sites from one place.
+<a href="https://wp301redirects.com/?ref=wporg">WP 301 Redirects PRO</a> offers wildcard & regular expression URL matching, auto-typo fixing in URLs, complete redirect and 404 log, link scanner, and a centralized SaaS dashboard to monitor redirects on all your sites from one place.
 
 **What is a 301 Redirect?**
 A redirect is a simple way to re-route traffic coming to a *Requested URL* to different *Destination URL*.
@@ -68,6 +68,11 @@ The 404 error log does not collect user IPs. It collects the following data: tim
 
 
 == Changelog ==
+
+= 2.72 =
+* 2021/11/11
+* security fixes
+* added "Reset Redirect Hits" tool
 
 = 2.70 =
 * 2021/05/01

@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
     <td colspan="5">
         <form id="eps-redirect-save" method="post" action="">
             <table class="eps-table">
-                <tr class="id-<?php echo ($redirect_id) ? $redirect_id : 'new'; ?>">
+                <tr class="id-<?php echo ($redirect_id) ? esc_attr($redirect_id) : 'new'; ?>">
                     <?php include(EPS_REDIRECT_PATH . 'templates/template.redirect-entry-edit.php'); ?>
                     <td class="redirect-actions">
                         <?php if ($redirect_id) { ?>

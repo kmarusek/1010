@@ -48,7 +48,6 @@ jQuery(document).ready(function($) {
       },
       success: function(data) {
         var data = jQuery.parseJSON(data);
-        //console.log(data);
         $('#eps-redirect-edit').remove();
         $('tr.redirect-entry').removeClass('active');
         $('tr.redirect-entry[data-id=' + data.redirect_id + ']').addClass(
@@ -140,7 +139,6 @@ jQuery(document).ready(function($) {
     $(this).prop('disabled', true);
     $(this).attr('disabled', 'disabled'); // Disable button to disallow multiple submissions.
 
-    // Do the request
     $.ajax({
       type: 'POST',
       url: ajaxurl,
@@ -159,7 +157,6 @@ jQuery(document).ready(function($) {
           $('#eps-redirect-add').hide();
           $(data.html).insertBefore('tr#eps-redirect-add');
         } else {
-          // If it's a new blank form.. why have an id?
           alert('Something strange happened. A new entry could not be loaded.');
         }
         $('#eps-redirect-new').removeProp('disabled');
@@ -215,10 +212,21 @@ jQuery(document).ready(function($) {
   });
 
   /**
+   * Reset redirect stats
+   */
+   $('#eps_reset_stats').on('click', function(e) {
+    if (confirm('Are you sure you want to reset hits count on all redirect rules? There is NO undo!')) {
+      return true;
+    } else {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  /**
    * Tabs
    */
   $('#eps-tab-nav .eps-tab-nav-item').on('click', function(e) {
-    //e.preventDefault();
     var target = $(this).attr('href');
 
     $('#eps-tabs .eps-tab').hide();
@@ -271,7 +279,7 @@ jQuery(document).ready(function($) {
     dialogClass: 'wp-dialog eps-pro-dialog',
     modal: true,
     resizable: false,
-    width: 800,
+    width: 850,
     height: 'auto',
     show: 'fade',
     hide: 'fade',
@@ -288,6 +296,18 @@ jQuery(document).ready(function($) {
   if (eps_301.auto_open_pro_dialog) {
     $('#eps-pro-dialog').dialog('open');
   }
+
+  if(window.location.hash == '#open-pro-dialog' && !eps_301.auto_open_pro_dialog) {
+    pro_feature = 'url-hash';
+
+    $('#eps-pro-dialog').dialog('open');
+
+    $('#eps-pro-table .button-buy').each(function(ind, el) {
+      tmp = $(el).data('href-org');
+      tmp = tmp.replace('pricing-table', pro_feature);
+      $(el).attr('href', tmp);
+    });
+  };
 }); // on ready
 
 function eps_fix_dialog_close(event, ui) {

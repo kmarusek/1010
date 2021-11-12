@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 $redirect = self::get_redirect($redirect_id);
 ?>
 <td>
-    <input type="hidden" type="text" name="redirect[id][]" value="<?php echo ($redirect_id) ? $redirect_id : ''; ?>">
+    <input type="hidden" type="text" name="redirect[id][]" value="<?php echo ($redirect_id) ? esc_attr($redirect_id) : ''; ?>">
 
     <select name="redirect[status][]" class="eps-small-select">
         <option default value="301" <?php echo ($redirect && $redirect->status == '301') ? 'selected="selected"' : null; ?>>301</option>
@@ -27,5 +27,5 @@ $redirect = self::get_redirect($redirect_id);
     <input class="eps-url-input" type="text" name="redirect[url_from][]" value="<?php echo ($redirect) ? esc_attr(stripslashes($redirect->url_from)) : ''; ?>"><br><small>Need wildcard support for matching multiple URLs? Check out the <a href="#" class="open-301-pro-dialog" data-pro-feature="new-rule-wildcard">PRO version.</small>
 </td>
 <td>
-    <?php echo eps_get_selector($redirect); ?>
+    <?php EPS_Redirects::wp_kses_wf(eps_get_selector($redirect)); ?>
 </td>

@@ -70,6 +70,13 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
     'callback' => '404s',
     'fields' => array(),
   ),
+  'link-scanner' =>
+  array (
+    'title' => 'Link Scanner',
+    'description' => '',
+    'callback' => 'link_scanner',
+    'fields' => array(),
+  ),
   'import-export' =>
   array (
     'title' => 'Tools &amp; Options',
@@ -196,12 +203,12 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
     function section_callback($args)
     {
       if (isset($_GET['tab'])) {
-        $tab = $_GET['tab'];
+        $tab = sanitize_text_field($_GET['tab']);
       } else {
         $sections = array_keys($this->settings);
         $tab = $sections[0];
       }
-      echo $this->settings[$tab]['description'];
+      EPS_Redirects::wp_kses_wf($this->settings[$tab]['description']);
     }
 
     /**
@@ -217,10 +224,10 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
       $setting = get_option($this->setting_slug($args['section']));
       printf(
         "<input type='text' name='%s[%s]' value='%s' /><small>%s</small>",
-        $option_slug,
-        $args['slug'],
-        (isset($setting[$args['slug']]) ? $setting[$args['slug']] : null),
-        $args['description']
+        esc_attr($option_slug),
+        esc_attr($args['slug']),
+        (isset($setting[$args['slug']]) ? esc_attr(setting[$args['slug']]) : null),
+        esc_attr($args['description'])
       );
     }
 
@@ -241,7 +248,7 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
         return $func($this->plugin->name, $this->plugin->name, $this->plugin->config('page_permission'), $this->plugin->config('page_slug'), array($this, 'do_admin_page'));
       } else {
         // TODO proper errors dude.
-        printf('ERROR: menu location "%s" not valid.', $this->config['menu_location']);
+        printf('ERROR: menu location "%s" not valid.', esc_attr($this->config['menu_location']));
       }
       return false;
     }
@@ -257,26 +264,27 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
      */
     public function do_admin_page()
     {
-      $current_tab = isset($_GET['tab']) ? $_GET['tab'] : false;
+      $current_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : false;
       if (!$current_tab) {
         $sections = $this->settings;
         $current_tab = key($sections);
       }
       ?>
 <div class="wrap">
-  <h1><img src="<?php echo EPS_REDIRECT_URL . 'images/wp-301-logo.png' ?>" alt="<?php echo $this->plugin->name; ?>" title="<?php echo $this->plugin->name; ?>"><span><?php echo $this->plugin->name; ?></span></h1><br>
+  <h1><img src="<?php echo esc_attr(EPS_REDIRECT_URL) . 'images/wp-301-logo.png' ?>" alt="<?php echo esc_attr($this->plugin->name); ?>" title="<?php echo esc_attr($this->plugin->name); ?>"><span><?php echo esc_attr($this->plugin->name); ?></span></h1><br>
   <div id="eps-tabs-wrapper">
     <?php $this->get_tab_nav($current_tab); ?>
     <?php $this->get_tab($current_tab); ?>
   </div>
   <div id="eps-sidebar-wrapper">
   <div class="sidebar-box pro-ad-box">
-  <p class="text-center"><a href="https://wp301redirects.com/?ref=eps-free-sidebar-box" target="_blank"><img src="<?php echo EPS_REDIRECT_URL . 'images/wp-301-logo-full.png'; ?>" alt="WP 301 Redirects PRO" title="WP 301 Redirects PRO"></a><br><b>PRO version</b> is here! Grab the launch discount - <b>all prices are LIFETIME!</b></p>
+  <p class="text-center"><a href="https://wp301redirects.com/?ref=eps-free-sidebar-box" target="_blank"><img src="<?php echo esc_attr(EPS_REDIRECT_URL) . 'images/wp-301-logo-full.png'; ?>" alt="WP 301 Redirects PRO" title="WP 301 Redirects PRO"></a><br><b>PRO version</b> is here! Grab the launch discount - <b>all prices are LIFETIME!</b></p>
 
   <ul class="plain-list">
       <li>Advanced Redirects Management &amp; URL Matching Rules</li>
       <li>Auto-fix URL Typos (no rules needed)</li>
       <li>Detailed 404 &amp; Redirect Stats + Email Reports</li>
+      <li>Link Scanner - check every single link on your site</li>
       <li>URL Cloaking + other features for affiliate marketers</li>
       <li>Licenses &amp; Sites Manager (remote SaaS dashboard)</li>
       <li>Remote Site Stats (stats for all your sites in one place)</li>
@@ -294,7 +302,7 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
   </div>
 </div>
 <?php
-  echo $this->pro_dialog();
+  EPS_Redirects::wp_kses_wf($this->pro_dialog());
 }
 
 /**
@@ -312,10 +320,10 @@ function get_tab_nav($current = 'general')
     $class .= ($tab == $current) ? ' nav-tab-active' : '';
     printf(
       "<a class='nav-tab %s' href='?page=%s&tab=%s'>%s</a>",
-      $class,
-      $this->plugin->config('option_slug'),
-      $tab,
-      $args['title']
+      esc_attr($class),
+      esc_attr($this->plugin->config('option_slug')),
+      esc_attr($tab),
+      esc_attr($args['title'])
     );
   }
   echo '</h2>';
@@ -408,11 +416,13 @@ function pro_dialog() {
   $out .= '<td><span class="dashicons dashicons-yes"></span><b>100 Sites License</b> ($1 per site)</td>';
   $out .= '</tr>';
 
+  /*
   $out .= '<tr>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>Advanced Redirects Management</td>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>Advanced Redirects Management</td>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>Advanced Redirects Management</td>';
   $out .= '</tr>';
+  */
 
   $out .= '<tr>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>Advanced URL Matching Rules</td>';
@@ -421,9 +431,9 @@ function pro_dialog() {
   $out .= '</tr>';
 
   $out .= '<tr>';
-  $out .= '<td><span class="dashicons dashicons-yes"></span>Auto-fix URL Typos</td>';
-  $out .= '<td><span class="dashicons dashicons-yes"></span>Auto-fix URL Typos</td>';
-  $out .= '<td><span class="dashicons dashicons-yes"></span>Auto-fix URL Typos</td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span>Auto-fix URL Typos &amp; URL Cloaking</td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span>Auto-fix URL Typos &amp; URL Cloaking</td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span>Auto-fix URL Typos &amp; URL Cloaking</td>';
   $out .= '</tr>';
 
   $out .= '<tr>';
@@ -432,13 +442,19 @@ function pro_dialog() {
   $out .= '<td><span class="dashicons dashicons-yes"></span>Detailed 404 &amp; Redirect Stats</td>';
   $out .= '</tr>';
 
-
+  /*
   $out .= '<tr>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>URL Cloaking</td>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>URL Cloaking</td>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>URL Cloaking</td>';
   $out .= '</tr>';
+  */
 
+  $out .= '<tr>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span>Link Scanner</td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span>Link Scanner</td>';
+  $out .= '<td><span class="dashicons dashicons-yes"></span>Link Scanner</td>';
+  $out .= '</tr>';
 
   $out .= '<tr>';
   $out .= '<td><span class="dashicons dashicons-yes"></span>Licenses & Sites Manager (SaaS)</td>';
@@ -477,7 +493,7 @@ function pro_dialog() {
   $out .= '</tr>';
 
   $out .= '<tr>';
-  $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" target="_blank">BUY NOW</a><br>- or -<br><a target="_blank" class="button-buy" data-href-org="https://wp301redirects.com/buy/?product=personal-monthly&ref=pricing-table" href="https://wp301redirects.com/buy/?product=personal-monthly&ref=pricing-table">Only $5.99 <small>/month</small></a></td>';
+  $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=personal-launch&ref=pricing-table" target="_blank">BUY NOW</a><br>or <a target="_blank" class="button-buy" data-href-org="https://wp301redirects.com/buy/?product=personal-monthly&ref=pricing-table" href="https://wp301redirects.com/buy/?product=personal-monthly&ref=pricing-table">only $5.99 <small>/month</small></a></td>';
   $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=team-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=team-launch&ref=pricing-table" target="_blank">BUY NOW</a></td>';
   $out .= '<td><span>one-time payment</span><a class="button button-buy" data-href-org="https://wp301redirects.com/buy/?product=agency-launch&ref=pricing-table" href="https://wp301redirects.com/buy/?product=agency-launch&ref=pricing-table" target="_blank">BUY NOW</a></td>';
   $out .= '</tr>';

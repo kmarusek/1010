@@ -43,6 +43,13 @@ if (!defined('ABSPATH')) {
         <input type="submit" name="eps_delete_rules" id="eps_delete_rules" class="button button-secondary" value="Delete all Redirect Rules" />
          <p class="eps-grey-text">If you have a lot of rules and don't want to delete them one by one, use this tool. Please be carefull. There is NO UNDO.</p>
     </form>
+
+    <br>
+    <form method="post" action="">
+        <?php wp_nonce_field('eps_redirect_nonce', 'eps_redirect_nonce_submit');   ?>
+        <input type="submit" name="eps_reset_stats" id="eps_reset_stats" class="button button-secondary" value="Reset Redirect Rules' Hits" />
+         <p class="eps-grey-text">Use this tool to reset the hits count on all redirect rules to zero. Redirect rules are NOT affected by this tool, just the hits count. Please be carefull. There is NO UNDO.</p>
+    </form>
   </div>
 
   <div class="eps-panel eps-margin-top">
@@ -57,7 +64,7 @@ if (!defined('ABSPATH')) {
       </p>
 
       <p class="eps-grey-text">Supply Columns: <strong>Status</strong> (301,302,307,inactive), <strong>Request URL</strong>, <strong>Redirect
-          To</strong> (ID or URL). <a href="<?php echo EPS_REDIRECT_URL . 'misc/example-import.csv' ?>" target="_blank">Download Example CSV</a></p>
+          To</strong> (ID or URL). <a href="<?php echo esc_attr(EPS_REDIRECT_URL . 'misc/example-import.csv'); ?>" target="_blank">Download Example CSV</a></p>
     </form>
   </div>
 

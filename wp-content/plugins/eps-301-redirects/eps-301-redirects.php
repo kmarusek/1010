@@ -2,13 +2,13 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage redirect rules, and view 404 error log.
-Version: 2.70
+Version: 2.72
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
 Text Domain: eps-301-redirects
 Requires at least: 3.6
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 5.2
 
   Copyright 2015 - 2021  WebFactory Ltd  (email: 301redirects@webfactoryltd.com)
@@ -52,7 +52,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
   register_activation_hook(__FILE__, array('EPS_Redirects_Plugin', '_activation'));
   register_deactivation_hook(__FILE__, array('EPS_Redirects_Plugin', '_deactivation'));
   add_action('plugins_loaded', array('EPS_Redirects_Plugin', 'protect_from_translation_plugins'), -9999);
-
+  
   class EPS_Redirects
   {
     /**
@@ -68,7 +68,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
       if (is_admin()) {
 
-        if (isset($_GET['page']) && $_GET['page'] == $EPS_Redirects_Plugin->config('page_slug')) {
+        if (isset($_GET['page']) && sanitize_text_field($_GET['page']) == $EPS_Redirects_Plugin->config('page_slug')) {
           add_action('admin_init', array($this, 'clear_cache'));
         }
 
@@ -91,9 +91,12 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
     function plugin_action_links($links)
     {
+      $pro_link = '<a href="' . admin_url('options-general.php?page=eps_redirects#open-pro-dialog') . '" title="' . __('Get PRO', 'eps-301-redirects') . '"><b>' . __('Get PRO', 'eps-301-redirects') . '</b></a>';
+
       $settings_link = '<a href="' . admin_url('options-general.php?page=eps_redirects') . '" title="' . __('Manage Redirects', 'eps-301-redirects') . '">' . __('Manage Redirects', 'eps-301-redirects') . '</a>';
 
       array_unshift($links, $settings_link);
+      $links[] = $pro_link;
 
       return $links;
     } // plugin_action_links
@@ -104,7 +107,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
     check_ajax_referer('eps_dismiss_pointer');
 
     $pointers = get_option('eps_pointers');
-    $pointer = trim($_POST['pointer_name']);
+    $pointer = trim(sanitize_text_field($_POST['pointer_name']));
 
     if (empty($pointers) || empty($pointers[$pointer])) {
       wp_send_json_error();
@@ -123,28 +126,329 @@ if (!defined('WF301_PLUGIN_FILE')) {
     }
   } // add_widget
 
+  static function wp_kses_wf($html)
+    {
+        add_filter('safe_style_css', function ($styles) {
+            $styles_wf = array(
+                'text-align',
+                'margin',
+                'color',
+                'float',
+                'border',
+                'background',
+                'background-color',
+                'border-bottom',
+                'border-bottom-color',
+                'border-bottom-style',
+                'border-bottom-width',
+                'border-collapse',
+                'border-color',
+                'border-left',
+                'border-left-color',
+                'border-left-style',
+                'border-left-width',
+                'border-right',
+                'border-right-color',
+                'border-right-style',
+                'border-right-width',
+                'border-spacing',
+                'border-style',
+                'border-top',
+                'border-top-color',
+                'border-top-style',
+                'border-top-width',
+                'border-width',
+                'caption-side',
+                'clear',
+                'cursor',
+                'direction',
+                'font',
+                'font-family',
+                'font-size',
+                'font-style',
+                'font-variant',
+                'font-weight',
+                'height',
+                'letter-spacing',
+                'line-height',
+                'margin-bottom',
+                'margin-left',
+                'margin-right',
+                'margin-top',
+                'overflow',
+                'padding',
+                'padding-bottom',
+                'padding-left',
+                'padding-right',
+                'padding-top',
+                'text-decoration',
+                'text-indent',
+                'vertical-align',
+                'width',
+                'display',
+            );
+
+            foreach ($styles_wf as $style_wf) {
+                $styles[] = $style_wf;
+            }
+            return $styles;
+        });
+
+        $allowed_tags = wp_kses_allowed_html('post');
+        $allowed_tags['input'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'data-*' => true,
+            'size' => true,
+            'disabled' => true
+        );
+
+        $allowed_tags['textarea'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'data-*' => true,
+            'cols' => true,
+            'rows' => true,
+            'disabled' => true
+        );
+
+        $allowed_tags['select'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'data-*' => true,
+            'multiple' => true,
+            'disabled' => true
+        );
+
+        $allowed_tags['option'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'selected' => true,
+            'data-*' => true
+        );
+        $allowed_tags['optgroup'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'selected' => true,
+            'data-*' => true,
+            'label' => true
+        );
+
+        $allowed_tags['a'] = array(
+            'href' => true,
+            'data-*' => true,
+            'class' => true,
+            'style' => true,
+            'id' => true,
+            'target' => true,
+            'data-*' => true,
+            'role' => true,
+            'aria-controls' => true,
+            'aria-selected' => true,
+            'disabled' => true
+        );
+
+        $allowed_tags['div'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'data-*' => true,
+            'role' => true,
+            'aria-labelledby' => true,
+            'value' => true,
+            'aria-modal' => true,
+            'tabindex' => true
+        );
+
+        $allowed_tags['li'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'data-*' => true,
+            'role' => true,
+            'aria-labelledby' => true,
+            'value' => true,
+            'aria-modal' => true,
+            'tabindex' => true
+        );
+
+        $allowed_tags['span'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'data-*' => true,
+            'aria-hidden' => true
+        );
+
+        $allowed_tags['form'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'method' => true,
+            'action' => true,
+            'data-*' => true
+        );
+
+        $allowed_tags['style'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'method' => true,
+            'action' => true,
+            'data-*' => true
+        );
+
+        $allowed_tags['p'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'method' => true,
+            'action' => true,
+            'data-*' => true
+        );
+
+        $allowed_tags['br'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'method' => true,
+            'action' => true,
+            'data-*' => true
+        );
+        
+        echo wp_kses($html, $allowed_tags);
+
+        add_filter('safe_style_css', function ($styles) {
+
+            $styles_wf = array(
+                'text-align',
+                'margin',
+                'color',
+                'float',
+                'border',
+                'background',
+                'background-color',
+                'border-bottom',
+                'border-bottom-color',
+                'border-bottom-style',
+                'border-bottom-width',
+                'border-collapse',
+                'border-color',
+                'border-left',
+                'border-left-color',
+                'border-left-style',
+                'border-left-width',
+                'border-right',
+                'border-right-color',
+                'border-right-style',
+                'border-right-width',
+                'border-spacing',
+                'border-style',
+                'border-top',
+                'border-top-color',
+                'border-top-style',
+                'border-top-width',
+                'border-width',
+                'caption-side',
+                'clear',
+                'cursor',
+                'direction',
+                'font',
+                'font-family',
+                'font-size',
+                'font-style',
+                'font-variant',
+                'font-weight',
+                'height',
+                'letter-spacing',
+                'line-height',
+                'margin-bottom',
+                'margin-left',
+                'margin-right',
+                'margin-top',
+                'overflow',
+                'padding',
+                'padding-bottom',
+                'padding-left',
+                'padding-right',
+                'padding-top',
+                'text-decoration',
+                'text-indent',
+                'vertical-align',
+                'width'
+            );
+
+            foreach ($styles_wf as $style_wf) {
+                if (($key = array_search($style_wf, $styles)) !== false) {
+                    unset($styles[$key]);
+                }
+            }
+            return $styles;
+        });
+    }
 
   // render widget
   function widget_content() {
     require EPS_REDIRECT_PATH . '/libs/UserAgentParser.php';
 
     $log = get_option('eps_redirects_404_log', array());
+    $widget_html = '';
     if (!sizeof($log)) {
-      echo '<p>You currently don\'t have any data in the 404 error log. That means that you either just installed the plugin, or that you never had a 404 error happen which is <b>awesome 🚀</b>!</p>';
-      echo '<p>Don\'t like seeing an empty error log? Or just want to see see if the log works? Open any <a target="_blank" title="Open an nonexistent URL to see if the 404 error log works" href="' . home_url('/nonexistent/url/') . '">nonexistent URL</a> and then reload this page.</p>';
+      $widget_html .= '<p>You currently don\'t have any data in the 404 error log. That means that you either just installed the plugin, or that you never had a 404 error happen which is <b>awesome 🚀</b>!</p>';
+      $widget_html .= '<p>Don\'t like seeing an empty error log? Or just want to see see if the log works? Open any <a target="_blank" title="Open an nonexistent URL to see if the 404 error log works" href="' . home_url('/nonexistent/url/') . '">nonexistent URL</a> and then reload this page.</p>';
     } else {
-      echo '<style>#wp301_404_errors .inside { padding: 0; margin: 0; }';
-      echo '#wp301_404_errors table td { max-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }';
-      echo '#wp301_404_errors table th { font-weight: 500; }';
-      echo '#wp301_404_errors table { border-left: none; border-right: none; border-top: none; }';
-      echo '#wp301_404_errors p { padding: 0 12px 12px 12px; }';
-      echo '#wp301_404_errors .dashicons { opacity: 0.75; font-size: 17px; line-height: 17px; width: 17px; height: 17px;vertical-align: bottom; }</style>';
-      echo '<table class="striped widefat">';
-      echo '<tr>';
-      echo '<th>Date &amp;<br>Time <span class="dashicons dashicons-arrow-down"></span></th>';
-      echo '<th>Target URL</th>';
-      echo '<th>User Device</th>';
-      echo '</tr>';
+      $widget_html .= '<style>#wp301_404_errors .inside { padding: 0; margin: 0; }';
+      $widget_html .= '#wp301_404_errors table td { max-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }';
+      $widget_html .= '#wp301_404_errors table th { font-weight: 500; }';
+      $widget_html .= '#wp301_404_errors table { border-left: none; border-right: none; border-top: none; }';
+      $widget_html .= '#wp301_404_errors p { padding: 0 12px 12px 12px; }';
+      $widget_html .= '#wp301_404_errors .dashicons { opacity: 0.75; font-size: 17px; line-height: 17px; width: 17px; height: 17px;vertical-align: bottom; }</style>';
+      $widget_html .= '<table class="striped widefat">';
+      $widget_html .= '<tr>';
+      $widget_html .= '<th>Date &amp;<br>Time <span class="dashicons dashicons-arrow-down"></span></th>';
+      $widget_html .= '<th>Target URL</th>';
+      $widget_html .= '<th>User Device</th>';
+      $widget_html .= '</tr>';
 
       $i = 1;
       foreach ($log as $l) {
@@ -153,20 +457,21 @@ if (!defined('WF301_PLUGIN_FILE')) {
         if (empty($agent)) {
           $agent = '<i>unknown</i>';
         }
-        echo '<tr>';
-        echo '<td nowrap><abbr title="' . date(get_option('date_format'), $l['timestamp']) . ' @ ' . date(get_option('time_format'), $l['timestamp'])  . '">' . human_time_diff(current_time('timestamp'), $l['timestamp']) . ' ago</abbr></td>';
-        echo '<td><a title="Open target URL in a new tab" target="_blank" href="' . $l['url'] . '">' . $l['url'] . '</a> <span class="dashicons dashicons-external"></span></td>';
-        echo '<td>' . $agent . '</td>';
-        echo '</tr>';
+        $widget_html .= '<tr>';
+        $widget_html .= '<td nowrap><abbr title="' . date(get_option('date_format'), $l['timestamp']) . ' @ ' . date(get_option('time_format'), $l['timestamp'])  . '">' . human_time_diff(current_time('timestamp'), $l['timestamp']) . ' ago</abbr></td>';
+        $widget_html .= '<td><a title="Open target URL in a new tab" target="_blank" href="' . $l['url'] . '">' . $l['url'] . '</a> <span class="dashicons dashicons-external"></span></td>';
+        $widget_html .= '<td>' . $agent . '</td>';
+        $widget_html .= '</tr>';
         $i++;
         if ($i >= 6) {
           break;
         }
       } // foreach
-      echo '</table>';
+      $widget_html .= '</table>';
 
-      echo '<p>View the entire <a href="' . admin_url('options-general.php?page=eps_redirects&tab=404s') . '">404 error log</a> in the 301 Redirects plugin or <a href="' . admin_url('options-general.php?page=eps_redirects') . '">create new redirect rules</a> to fix 404 errors.</p>';
+      $widget_html .= '<p>View the entire <a href="' . admin_url('options-general.php?page=eps_redirects&tab=404s') . '">404 error log</a> in the 301 Redirects plugin or <a href="' . admin_url('options-general.php?page=eps_redirects') . '">create new redirect rules</a> to fix 404 errors.</p>';
     }
+    self::wp_kses_wf($widget_html);
   } // widget_content
 
 
@@ -300,8 +605,8 @@ if (!defined('WF301_PLUGIN_FILE')) {
         if (empty($array['url_to'][$i]) || empty($array['url_from'][$i])) continue;
         $new_redirects[] = array(
           'id'        => isset($array['id'][$i]) ? $array['id'][$i] : null,
-          'url_from'  => esc_attr($array['url_from'][$i]),
-          'url_to'    => esc_attr($array['url_to'][$i]),
+          'url_from'  => sanitize_text_field($array['url_from'][$i]),
+          'url_to'    => sanitize_text_field($array['url_to'][$i]),
           'type'      => (is_numeric($array['url_to'][$i])) ? 'post' : 'url',
           'status'    => isset($array['status'][$i]) ? $array['status'][$i] : '301'
         );
@@ -331,10 +636,10 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
       $update = array(
         'id'        => ($_POST['id']) ? intval($_POST['id']) : false,
-        'url_from'  => esc_attr($_POST['url_from']), // remove the $root from the url if supplied, and a leading /
-        'url_to'    => esc_attr($_POST['url_to']),
+        'url_from'  => sanitize_text_field($_POST['url_from']), // remove the $root from the url if supplied, and a leading /
+        'url_to'    => sanitize_text_field($_POST['url_to']),
         'type'      => (is_numeric($_POST['url_to']) ? 'post' : 'url'),
-        'status'    => $_POST['status']
+        'status'    => sanitize_text_field($_POST['status'])
       );
 
       $ids = self::_save_redirects(array($update));
@@ -458,8 +763,8 @@ if (!defined('WF301_PLUGIN_FILE')) {
     {
       global $wpdb;
       $table_name = $wpdb->prefix . "redirects";
-      $orderby = (isset($_GET['orderby']))  ?  esc_sql($_GET['orderby']) : 'id';
-      $order = (isset($_GET['order']))    ? esc_sql($_GET['order']) : 'desc';
+      $orderby = (isset($_GET['orderby']))  ?  esc_sql(sanitize_text_field($_GET['orderby'])) : 'id';
+      $order = (isset($_GET['order']))    ? esc_sql(sanitize_text_field($_GET['order'])) : 'desc';
       $orderby = (in_array(strtolower($orderby), array('id', 'url_from', 'url_to', 'count'))) ? $orderby : 'id';
       $order = (in_array(strtolower($order), array('asc', 'desc'))) ? $order : 'desc';
 
@@ -564,7 +869,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
       global $wpdb;
       $table_name = $wpdb->prefix . "redirects";
       $results = $wpdb->delete($table_name, array('ID' => intval($_POST['id'])));
-      echo json_encode(array('id' => $_POST['id']));
+      echo json_encode(array('id' => intval($_POST['id'])));
       exit();
     }
     private static function _delete($id)
@@ -590,7 +895,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
     {
       ob_start();
       ?>
-<tr class="id-<?php echo ($redirect_id) ? $redirect_id : 'new'; ?>">
+<tr class="id-<?php echo ($redirect_id) ? esc_html($redirect_id) : 'new'; ?>">
   <?php include(EPS_REDIRECT_PATH . 'templates/template.redirect-entry-edit.php'); ?>
 </tr>
 <?php
@@ -635,7 +940,7 @@ public static function ajax_get_entry()
     wp_die('You are not allowed to run this action.');
   }
 
-  echo self::get_entry();
+  self::wp_kses_wf(self::get_entry());
   exit();
 }
 

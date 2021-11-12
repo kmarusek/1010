@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
     <?php do_action('eps_redirects_admin_head'); ?>
 
     <div class="eps-notice eps-warning">
-        <?php echo $options['description']; ?>
+        <?php EPS_Redirects::wp_kses_wf($options['description']); ?>
     </div>
 
 

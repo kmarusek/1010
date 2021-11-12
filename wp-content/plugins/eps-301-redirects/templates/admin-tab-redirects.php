@@ -34,8 +34,8 @@ global $EPS_Redirects_Plugin;
     </tr>
 
     <?php
-        echo EPS_Redirects::get_inline_edit_entry();
-        echo EPS_Redirects::list_redirects();
+        EPS_Redirects::wp_kses_wf(EPS_Redirects::get_inline_edit_entry());
+        EPS_Redirects::wp_kses_wf(EPS_Redirects::list_redirects());
         ?>
   </table>
 

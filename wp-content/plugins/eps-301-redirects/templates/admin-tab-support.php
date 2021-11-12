@@ -34,8 +34,5 @@ if (!defined('ABSPATH')) {
         <?php  ?>
     </div>
     <div class="left">
-        <?php
-    // do_action('eps_redirects_panels_left');
-        ?>
     </div>
 </div>
