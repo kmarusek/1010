@@ -551,6 +551,8 @@ class PPRegistrationFormHandler extends PPRegistrationFormModule {
 			'admin_email_content'   => isset( $settings->admin_email_content ) ? wpautop( $settings->admin_email_content ) : '',
 		);
 
+		$email_fields = apply_filters( 'pp_rf_email_fields', $email_fields, $settings );
+
 		foreach ( $email_fields as $key => $value ) {
 			$value = trim( $value );
 			$value = $this->replace_tags( $value );

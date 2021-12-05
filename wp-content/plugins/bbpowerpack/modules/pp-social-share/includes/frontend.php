@@ -31,6 +31,8 @@ if ( $settings->alignment_responsive ) {
 $main_el_class .= ' pp-share-buttons-color-' . $settings->color_source;
 
 $button_class = 'pp-share-button';
+
+$url = $module->get_current_url();
 ?>
 <div class="<?php echo $main_el_class; ?>">
 	<div class="pp-social-share-inner">
@@ -48,7 +50,6 @@ $button_class = 'pp-share-button';
 		if ( 'custom' == $settings->share_url_type ) {
 			$url = $settings->share_url;
 		} else {
-			$url   = get_permalink();
 			$title = urlencode( get_the_title() );
 		}
 

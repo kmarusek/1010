@@ -305,12 +305,16 @@ BB_PowerPack::register_module(
 							),
 						),
 						'discount_position' => array(
-							'type'    => 'pp-switch',
+							'type'    => 'select',
 							'label'   => __( 'Position', 'bb-powerpack' ),
 							'default' => 'left',
 							'options' => array(
-								'left'  => __( 'Left', 'bb-powerpack' ),
-								'right' => __( 'Right', 'bb-powerpack' ),
+								'left'  => __( 'Top - Left', 'bb-powerpack' ),
+								'right' => __( 'Top - Right', 'bb-powerpack' ),
+								'bottom-left' => __( 'Bottom - Left', 'bb-powerpack' ),
+								'bottom-right' => __( 'Bottom - Right', 'bb-powerpack' ),
+								'above-title' => __( 'Above - Title', 'bb-powerpack' ),
+								'below-title' => __( 'Below - Title', 'bb-powerpack' ),
 							),
 						),
 						'discount_border'   => array(
@@ -393,12 +397,16 @@ BB_PowerPack::register_module(
 					'collapsed' => true,
 					'fields'    => array(
 						'coupon_code_position' => array(
-							'type'    => 'pp-switch',
+							'type'    => 'select',
 							'label'   => __( 'Position', 'bb-powerpack' ),
 							'default' => 'left',
 							'options' => array(
-								'left'  => __( 'Left', 'bb-powerpack' ),
-								'right' => __( 'Right', 'bb-powerpack' ),
+								'left'  => __( 'Bottom - Left', 'bb-powerpack' ),
+								'right' => __( 'Bottom - Right', 'bb-powerpack' ),
+								'top-left' => __( 'Top - Left', 'bb-powerpack' ),
+								'top-right' => __( 'Top - Right', 'bb-powerpack' ),
+								//'above-desc' => __( 'Above - Description', 'bb-powerpack' ),
+								'below-desc' => __( 'Below - Description', 'bb-powerpack' ),
 							),
 						),
 						'coupon_code_color'    => array(

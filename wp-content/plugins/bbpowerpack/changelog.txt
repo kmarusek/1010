@@ -1,3 +1,32 @@
+== 2.19.1 ==
+Release date: December 2, 2021
+* Fix: Content Grid - Pagination was not working properly when using custom query on category archives
+* Fix: Content Grid - PHP warning after recent update
+* Fix: Animated Headlines - Shortcodes were not working in the text field
+* Fix: Table - File field value in ACF repeater was not getting outputted
+* Fix: Filterable Gallery - Filter by URL was not working sometimes in Firefox
+
+== 2.19.0 ==
+Release date: November 29, 2021
+* Enhancement: Maintenance Mode - Added scheduling feature
+* Enhancement: Content Grid - Slide can be swiped using the URL hash in carousel
+* Enhancement: Coupon - Added more position options for discount code and offer info
+* Enhancement: Subscribe Form - Added form width and alignement options
+* Enhancement: Logos Grid & Carousel - Added background color option for individual logo item
+* Enhancement: Pricing Table - Added package title padding option for individual package item
+* Fix: Logos Carousel - Update number of slides on window resize
+* Fix: Contact Form - Empty message body getting sent in the email content when the message field is hidden
+* Fix: Content Grid - Filters were not working when taxonomy terms slugs are in non-English letters
+* Fix: Content Grid - FontAwesome CSS was not loading when using font awesome icon in the custom layout
+* Fix: Hotspot - Trouble getting tooltip in touch devices when tooltip display setting is set to hover
+* Fix: Social Share - Wrong sharing URL on user profile page by Ultimate Member plugin
+* Fix: Breadcrumbs - Alignment setting was not working for responsive devices
+* Fix: Info List - Removed empty CSS output for title margin
+* Fix: Social Share - Facebook Messenger sharing was no longer working on mobile
+* Fix: Timeline - Timeline items not loading in Off-Canvas panel
+* Fix: Info List - Icon alignment issue when the whole box is linked
+* Development: Registration Form - Added filter hook pp_rf_email_fields
+
 == 2.18.4 ==
 Release date: November 10, 2021
 * Enhancement: Content Grid - Added an option to provide custom separator for taxonomy terms

@@ -32,6 +32,7 @@ class BB_PowerPack_Ajax {
 		add_action( 'wp_ajax_pp_get_saved_templates', 			__CLASS__ . '::get_saved_templates' );
 		add_action( 'wp_ajax_nopriv_pp_get_saved_templates', 	__CLASS__ . '::get_saved_templates' );
 		add_action( 'wp_ajax_pp_notice_close', 					__CLASS__ . '::close_notice' );
+		add_filter( 'found_posts', 								__CLASS__ . '::found_posts', 1, 2 );
 	}
 
 	/**
@@ -209,6 +210,7 @@ class BB_PowerPack_Ajax {
 		);
 
 		$post_type = $settings->post_type;
+		$offset    = isset( $settings->offset ) ? intval( $settings->offset ) : 0;
 
 		global $post;
 		global $wp_query;
@@ -220,6 +222,7 @@ class BB_PowerPack_Ajax {
 				'relation' => 'AND',
 			),
 			'ignore_sticky_posts'   => true,
+			'pp_original_offset'    => $offset,
 			'pp_content_grid'       => true,
 			'pp_node_id'			=> $node_id,
 			'pp_node_html_id'		=> isset( $settings->id ) ? $settings->id : '',
@@ -267,7 +270,7 @@ class BB_PowerPack_Ajax {
 				),
 			);
 		} else {
-			if ( isset( $_POST['taxonomy'] ) && isset( $_POST['term'] ) ) {
+			if ( 'custom_query' !== $settings->data_source && isset( $_POST['taxonomy'] ) && isset( $_POST['term'] ) ) {
 				$args['tax_query'] = array(
 					'relation'	=> 'AND',
 					array(
@@ -615,6 +618,14 @@ class BB_PowerPack_Ajax {
 		$response = apply_filters( 'pp_post_grid_ajax_response', $response, $settings, $query );
 
 		wp_send_json( $response );
+	}
+
+	static public function found_posts( $found_posts, $query ) {
+		if ( isset( $query->query ) && isset( $query->query['pp_content_grid'] ) ) {
+			return (int) $found_posts - (int) $query->query['pp_original_offset'];
+		}
+
+		return $found_posts;
 	}
 
 	/**

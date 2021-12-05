@@ -806,7 +806,7 @@ FLBuilder::register_settings_form(
 								'connections'   => array( 'url' ),
 								'show_target'   => true,
 								'show_nofollow' => true,
-								'description'   => __( '<p style="background: #3786fd;color: #fff;padding: 10px;">This Link only work, when Tooltip Disabled.</p>', 'bb-powerpack' ),
+								'description'   => __( '<p style="padding: 10px;">Note: Link will only work when tooltip is disabled.</p>', 'bb-powerpack' ),
 							),
 							'marker_color'               => array(
 								'type'        => 'color',

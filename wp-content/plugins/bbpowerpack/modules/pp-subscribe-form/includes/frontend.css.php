@@ -16,6 +16,17 @@ if ( 'standard' != $settings->box_type && 'fixed_bottom' != $settings->box_type 
 		),
 	) );
 } 
+// Form Width.
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'form_width',
+		'selector'     => ".fl-node-$id .pp-subscribe-form",
+		'prop'         => 'width',
+		'unit'         => isset( $settings->form_width_unit ) ? $settings->form_width_unit : 'px',
+	)
+);
+
 // Form Padding
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
@@ -301,6 +312,18 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
 		-webkit-transition: 0.3s bottom ease-in-out;
 		-moz-transition: 0.3s bottom ease-in-out;
 		transition: 0.3s bottom ease-in-out;
+	<?php } ?>
+
+	<?php if ( isset( $settings->form_alignment ) ) { ?>
+		<?php if ( 'center' === $settings->form_alignment ) { ?>
+			margin: 0 auto;
+		<?php } ?>
+		<?php if ( 'left' === $settings->form_alignment ) { ?>
+			margin: auto auto auto 0;
+		<?php } ?>
+		<?php if ( 'right' === $settings->form_alignment ) { ?>
+			margin: auto 0 auto auto;
+		<?php } ?>
 	<?php } ?>
 }
 <?php if ( 'fixed_bottom' == $settings->box_type && ! FLBuilderModel::is_builder_active() ) { ?>
@@ -620,4 +643,33 @@ if ( ( isset( $settings->name_label ) || isset( $settings->email_label ) ) && 's
 		display: block;
 	}
 <?php
+}
+?>
+
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>) {
+	<?php if ( isset( $settings->form_alignment_medium ) ) { ?>
+		<?php if ( 'center' === $settings->form_alignment_medium ) { ?>
+			margin: 0 auto;
+		<?php } ?>
+		<?php if ( 'left' === $settings->form_alignment_medium ) { ?>
+			margin: auto auto auto 0;
+		<?php } ?>
+		<?php if ( 'right' === $settings->form_alignment_medium ) { ?>
+			margin: auto 0 auto auto;
+		<?php } ?>
+	<?php } ?>
+}
+
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>) {
+	<?php if ( isset( $settings->form_alignment_responsive ) ) { ?>
+		<?php if ( 'center' === $settings->form_alignment_responsive ) { ?>
+			margin: 0 auto;
+		<?php } ?>
+		<?php if ( 'left' === $settings->form_alignment_responsive ) { ?>
+			margin: auto auto auto 0;
+		<?php } ?>
+		<?php if ( 'right' === $settings->form_alignment_responsive ) { ?>
+			margin: auto 0 auto auto;
+		<?php } ?>
+	<?php } ?>
 }

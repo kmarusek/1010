@@ -96,6 +96,24 @@ final class BB_PowerPack_Maintenance_Mode {
 		$access_type 	= get_option( 'bb_powerpack_maintenance_mode_access_type' );
 		$ips 			= get_option( 'bb_powerpack_maintenance_mode_ip_whitelist' );
 		$access_key 	= get_option( 'bb_powerpack_maintenance_mode_access_key' );
+		$schedule 	 	= get_option( 'bb_powerpack_maintenance_mode_schedule' );
+
+		if ( is_array( $schedule ) ) {
+			$current_time = current_time( 'timestamp' );
+			if ( ! empty( $schedule['start'] ) ) {
+				$start_time = strtotime( $schedule['start'] );
+				if ( $start_time > $current_time ) {
+					return;
+				}
+			}
+			if ( ! empty( $schedule['end'] ) ) {
+				$end_time = strtotime( $schedule['end'] );
+				if ( $end_time < $current_time ) {
+					update_option( 'bb_powerpack_maintenance_mode_enable', 'no' );
+					return;
+				}
+			}
+		}
 
 		// Access type.
 		if ( 'logged_in' === $access && is_user_logged_in() ) {
@@ -420,6 +438,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		$access_urls 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_access_urls'] );
 		$ip_whitelist 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_ip_whitelist'] );
 		$access_key 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_access_key'] );
+		$schedule 		= $_POST['bb_powerpack_maintenance_mode_schedule'];
 		$template 		= isset( $_POST['bb_powerpack_maintenance_mode_template'] ) ? sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_template'] ) : '';
 		$roles 			= array();
 
@@ -438,6 +457,22 @@ final class BB_PowerPack_Maintenance_Mode {
 		update_option( 'bb_powerpack_maintenance_mode_access_urls', $access_urls );
 		update_option( 'bb_powerpack_maintenance_mode_ip_whitelist', $ip_whitelist );
 		update_option( 'bb_powerpack_maintenance_mode_access_key', $access_key );
+
+		$schedule_value = array(
+			'start' => '',
+			'end' => '',
+		);
+
+		if ( is_array( $schedule ) ) {
+			if ( isset( $schedule['start'] ) ) {
+				$schedule_value['start'] = sanitize_text_field( $schedule['start'] );
+			}
+			if ( isset( $schedule['end'] ) ) {
+				$schedule_value['end'] = sanitize_text_field( $schedule['end'] );
+			}
+		}
+
+		update_option( 'bb_powerpack_maintenance_mode_schedule', $schedule_value );
 
 		// Clear BB's assets cache.
 		if ( class_exists( 'FLBuilderModel' ) && method_exists( 'FLBuilderModel', 'delete_asset_cache_for_all_posts' ) ) {

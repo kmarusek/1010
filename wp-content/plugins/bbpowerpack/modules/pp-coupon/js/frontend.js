@@ -12,7 +12,10 @@
 	PPCoupon.prototype = {
 		_init: function () {
 			var self = this;
-			self.node.find('.pp-coupon-code').not('.pp-copied').on('click', function(){
+			self.node.find('.pp-coupon-code:not(.pp-coupon-style-no_code)').not('.pp-copied').on('click', function(){
+				if ( $(this).find( '.pp-coupon-code-no-code' ).length > 0 ) {
+					return;
+				}
 				var clicked = $(this);
 				var tempInput = '<input type="text" value="' + self.couponCode + '" id="ppCouponInput">';
 

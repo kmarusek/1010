@@ -71,9 +71,12 @@ if ( 'csv_import' == $source ) {
 	}
 
 	foreach ( $sub_fields as $sub_field ) {
-		if ( 'image' === $sub_field['type'] && isset( $sub_field['return_format'] ) ) {
+		if ( ( 'image' === $sub_field['type'] || 'file' === $sub_field['type'] ) && isset( $sub_field['return_format'] ) ) {
 			$field_name = $sub_field['name'];
-			$image_fields[ $field_name ] = $sub_field['return_format'];
+			$image_fields[ $field_name ] = array(
+				'type' => $sub_field['type'],
+				'return_format' => $sub_field['return_format']
+			);
 		}
 		$tableheaders[] = $sub_field['label'];
 	}
@@ -82,9 +85,14 @@ if ( 'csv_import' == $source ) {
 		$row_cell = $repeater_row;
 		foreach ( $repeater_row as $key => $value ) {
 			if ( isset( $image_fields[ $key ] ) ) {
-				$url = 'url' === $image_fields[ $key ] ? $value : '';
-				$url = 'array' === $image_fields[ $key ] ? $value['url'] : $value;
-				$row_cell[ $key ] = '<img src="' . $url . '" alt="' . basename( $url ) . '" />';
+				$url = 'url' === $image_fields[ $key ]['return_format'] ? $value : '';
+				$url = 'array' === $image_fields[ $key ]['return_format'] ? $value['url'] : $value;
+
+				if ( 'image' === $image_fields[ $key ]['type'] ) {
+					$row_cell[ $key ] = '<img src="' . $url . '" alt="' . basename( $url ) . '" />';
+				} else {
+					$row_cell[ $key ] = $url;
+				}
 			}
 		}
 
@@ -98,6 +106,9 @@ if ( 'csv_import' == $source ) {
 	$tableheaders = $settings->header;
 	$tablerows = $settings->rows;
 }
+
+$tableheaders = apply_filters( 'pp_table_headers', $tableheaders, $settings );
+$tablerows = apply_filters( 'pp_table_rows', $tablerows, $settings );
 
 if ( ! empty( $tableheaders[0] ) ) {
 	do_action( 'pp_before_table_module', $settings );
@@ -122,19 +133,11 @@ if ( ! empty( $tableheaders[0] ) ) {
 		<?php
 		if ( ! empty( $tablerows[0] ) ) {
 			foreach ( $tablerows as $tablerow ) {
-				if ( count( $tablerow->cell ) !== 1 ) {
-					echo '<tr class="pp-table-row">';
-					foreach ( $tablerow->cell as $tablecell ) {
-						echo '<td>' . trim( $tablecell ) . '</td>';
-					}
-					echo '</tr>';
-				} else {
-					if ( ! empty( trim( $tablerow->cell[0] ) ) ) {
-						echo '<tr class="pp-table-row">';
-						echo '<td>' . trim( $tablerow->cell[0] ) . '</td>';
-						echo '</tr>';
-					}
+				echo '<tr class="pp-table-row">';
+				foreach ( $tablerow->cell as $tablecell ) {
+					echo '<td>' . trim( $tablecell ) . '</td>';
 				}
+				echo '</tr>';
 			}
 		}
 		?>

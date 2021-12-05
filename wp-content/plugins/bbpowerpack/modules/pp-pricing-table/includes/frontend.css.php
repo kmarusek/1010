@@ -424,12 +424,28 @@ FLBuilderCSS::dimension_field_rule( array(
 
 <?php
 // Loop through and style each pricing box
-for($i = 0; $i < count($settings->pricing_columns); $i++) :
+for ( $i = 0; $i < count( $settings->pricing_columns ); $i++ ) :
 
-	if(!is_object($settings->pricing_columns[$i])) continue;
+	if ( ! is_object( $settings->pricing_columns[ $i ] ) ) continue;
 
 	// Pricing Box Settings
-	$pricing_column = $settings->pricing_columns[$i];
+	$pricing_column = $settings->pricing_columns[ $i ];
+
+	// Title - Padding
+	FLBuilderCSS::dimension_field_rule(
+		array(
+			'settings'     => $pricing_column,
+			'setting_name' => 'title_padding',
+			'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column-$i .pp-pricing-table-title",
+			'unit'         => 'px',
+			'props'        => array(
+				'padding-top'    => 'title_padding_top',
+				'padding-right'  => 'title_padding_right',
+				'padding-bottom' => 'title_padding_bottom',
+				'padding-left'   => 'title_padding_left',
+			),
+		)
+	);
 
 ?>
 

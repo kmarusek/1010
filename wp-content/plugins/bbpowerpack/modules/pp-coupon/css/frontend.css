@@ -10,6 +10,9 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+.pp-coupon-style-no_code {
+	pointer-events: none;
+}
 .pp-coupon-image-wrapper,
 .pp-coupon-image-wrapper img,
 .pp-coupon-content-wrapper {

@@ -68,7 +68,35 @@
 	<?php if( $settings->logo_grid_bg_color ) { ?>
     background-color: #<?php echo $settings->logo_grid_bg_color; ?>;
     <?php } ?>
+	transition: background-color 0.3s ease-in-out;
 }
+
+<?php
+	for ( $i = 0; $i < count( $settings->logos_grid ); $i++ ) {
+
+		if ( ! is_object( $settings->logos_grid[ $i ] ) ) {
+			continue;
+		}
+
+		$item = $settings->logos_grid[ $i ];
+
+		if ( isset( $item->item_bg_color ) && ! empty( $item->item_bg_color ) ) {
+		?>
+			.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo-<?php echo $i; ?> {
+				background-color: <?php echo pp_get_color_value( $item->item_bg_color ); ?>
+			}
+		<?php
+		}
+
+		if ( isset( $item->item_bg_hover ) && ! empty( $item->item_bg_hover ) ) {
+		?>
+			.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo-<?php echo $i; ?>:hover {
+				background-color: <?php echo pp_get_color_value( $item->item_bg_hover ); ?>
+			}
+		<?php
+		}
+	}
+?>
 
 <?php
 	// Logo Grid - Border

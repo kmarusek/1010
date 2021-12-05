@@ -22,7 +22,7 @@
 $date_format = isset( $settings->date_format ) ? $settings->date_format : '';
 
 ?>
-<div class="pp-content-post pp-content-carousel-post pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . PPContentGridModule::schema_itemtype() . '"' ); ?>>
+<div class="pp-content-post pp-content-carousel-post pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . PPContentGridModule::schema_itemtype() . '"' ); ?> data-hash="pp-post-<?php echo $post_id; ?>">
 
 	<?php PPContentGridModule::schema_meta(); ?>
 	

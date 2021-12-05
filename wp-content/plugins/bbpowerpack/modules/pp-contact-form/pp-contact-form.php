@@ -258,9 +258,9 @@ class PPContactFormModule extends FLBuilderModule {
 
 			if ( isset( $settings->message_toggle ) && 'show' == $settings->message_toggle ) {
 				$msg = isset( $_POST['message'] ) ? stripslashes( $_POST['message'] ) : '';
-			}
 
-			$template .= __('Message', 'bb-powerpack') . ": \r\n" . $msg;
+				$template .= __('Message', 'bb-powerpack') . ": \r\n" . $msg;
+			}
 
 			// Double check the mailto email is proper and no validation error found, then send.
 			if ( $mailto && false === $response['error'] ) {

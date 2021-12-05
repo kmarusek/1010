@@ -1,9 +1,19 @@
 .fl-node-<?php echo $id; ?> .pp-breadcrumbs {
-	text-align: <?php echo $settings->alignment; ?>;
 	<?php if ( ! empty( $settings->box_bg_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->box_bg_color ); ?>;
 	<?php } ?>
 }
+
+<?php
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'alignment',
+		'selector'     => ".fl-node-$id .pp-breadcrumbs",
+		'prop'         => 'text-align',
+	)
+);
+?>
 
 <?php if ( ! empty( $settings->text_color ) ) { ?>
 .fl-node-<?php echo $id; ?> .pp-breadcrumbs,

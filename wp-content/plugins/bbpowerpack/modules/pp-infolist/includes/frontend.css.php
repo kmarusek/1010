@@ -11,7 +11,9 @@ $layout = $settings->layouts;
 
 <?php if ( isset( $settings->icon_position ) && 'with_heading' === $settings->icon_position ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-1 .pp-list-item,
-	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-2 .pp-list-item {
+	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-2 .pp-list-item,
+	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-1 .pp-list-item > a,
+	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-2 .pp-list-item > a {
 		align-items: flex-start;
 	}
 <?php } ?>
@@ -34,8 +36,12 @@ $layout = $settings->layouts;
 	<?php if ( $settings->title_color ) { ?>
 		color: #<?php echo $settings->title_color; ?>;
 	<?php } ?>
+	<?php if ( isset( $settings->title_margin['top'] ) && $settings->title_margin['top'] >= 0 ) { ?>
 	margin-top: <?php echo $settings->title_margin['top']; ?>px;
+	<?php } ?>
+	<?php if ( isset( $settings->title_margin['bottom'] ) && $settings->title_margin['bottom'] >= 0 ) { ?>
 	margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
+	<?php } ?>
 	transition: color 0.2s ease-in-out;
 }
 .fl-node-<?php echo $id; ?> .pp-infolist-title .pp-infolist-title-text:hover {

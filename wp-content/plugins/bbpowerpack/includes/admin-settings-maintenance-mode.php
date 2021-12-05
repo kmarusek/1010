@@ -149,6 +149,44 @@
 			</p>
 		</td>
 	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_maintenance_mode_schedule"><?php esc_html_e( 'Schedule', 'bb-powerpack' ); ?></label>
+		</th>
+		<td>
+			<?php
+			$schedule = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_schedule', true);
+			$schedule = ! is_array( $schedule ) ? array( 'start' => '', 'end' => '' ) : $schedule;
+			?>
+			<label for="bb_powerpack_maintenance_mode_schedule_start" style="display: block;">
+				<?php _e( 'Start', 'bb-powerpack' ); ?>
+				<input
+					type="datetime-local"
+					id="bb_powerpack_maintenance_mode_schedule_start"
+					name="bb_powerpack_maintenance_mode_schedule[start]"
+					value="<?php echo $schedule['start']; ?>"
+					style="max-width: 240px;"
+				/>
+			</label>
+			&nbsp;
+			<label for="bb_powerpack_maintenance_mode_schedule_end" style="display: block;">
+				<?php _e( 'End', 'bb-powerpack' ); ?>
+				<input
+					type="datetime-local"
+					id="bb_powerpack_maintenance_mode_schedule_end"
+					name="bb_powerpack_maintenance_mode_schedule[end]"
+					value="<?php echo $schedule['end']; ?>"
+					style="max-width: 240px;"
+				/>
+			</label>
+			<p class="description">
+				<?php
+				// translators: %s for General settings link.
+				echo sprintf( __( 'Maintenance mode will activate on the given Start time and will deactivate on the End time. Please note that it uses the timezone set in the <a href="%s">General</a> settings of the site, not the visitor\'s local timezone.', 'bb-powerpack' ), admin_url( 'options-general.php' ) );
+				?>
+			</p>
+		</td>
+	</tr>
 </table>
 
 <?php submit_button(); ?>
@@ -199,6 +237,20 @@
 				.find('a.edit-template').attr('href', '<?php echo home_url(); ?>?p=' + $(this).val() + '&fl_builder');
 		}
 	}).trigger('change');
+
+	$('#pp-settings-form').on('submit', function(e) {
+		var endTime = $('#bb_powerpack_maintenance_mode_schedule_end').val();
+
+		if ( '' !== endTime ) {
+			var currentTime = new Date().getTime();
+			endTime = new Date( endTime ).getTime();
+
+			if ( endTime < currentTime ) {
+				e.preventDefault();
+				alert( '<?php _e( 'Schedule: End time must be a future time or leave it empty.', 'bb-powerpack' ); ?>' );
+			}
+		}
+	});
 
 })(jQuery);
 </script>

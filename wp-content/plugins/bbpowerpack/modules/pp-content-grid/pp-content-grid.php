@@ -9,8 +9,7 @@ class PPContentGridModule extends FLBuilderModule {
 	/**
 	 * @method __construct
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct(array(
 			'name'          	=> __('Content Grid', 'bb-powerpack'),
 			'description'   	=> __('Display posts and pages in grid or carousel format.', 'bb-powerpack'),
@@ -27,15 +26,18 @@ class PPContentGridModule extends FLBuilderModule {
 	/**
 	 * @method enqueue_scripts
 	 */
-	public function enqueue_scripts()
-	{
+	public function enqueue_scripts() {
 		$this->add_js( 'imagesloaded' );
+		$is_builder_active = FLBuilderModel::is_builder_active();
 
-		if(FLBuilderModel::is_builder_active() || $this->settings->layout == 'grid') {
+		if ( $is_builder_active || 'grid' === $this->settings->layout ) {
 			$this->add_js( 'jquery-isotope' );
+			if ( isset( $this->settings->post_grid_style_select ) && 'custom' === $this->settings->post_grid_style_select ) {
+				$this->add_css( BB_POWERPACK()->fa_css );
+			}
 		}
 
-		if(FLBuilderModel::is_builder_active() || $this->settings->layout == 'carousel') {
+		if ( $is_builder_active || 'carousel' === $this->settings->layout ) {
 			$this->add_css( BB_POWERPACK()->fa_css );
 			$this->add_css( 'pp-owl-carousel' );
 			$this->add_css( 'pp-owl-carousel-theme' );

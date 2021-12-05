@@ -272,6 +272,7 @@
 				onRefreshed: $.proxy(this._gridLayoutMatchHeightSimple, this),
 				onLoadedLazy: $.proxy(this._gridLayoutMatchHeightSimple, this),
 				rtl: $('body').hasClass( 'rtl' ),
+				URLhashListener: true
 			};
 			if ( $(this.postClass).length < this.settings.carousel.items ) {
 				this.settings.carousel.slideBy = 'page';

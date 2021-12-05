@@ -95,7 +95,7 @@ if ( in_array( $settings->feed_layout, array( 'square-grid', 'carousel' ) ) && !
 							<a href="<?php echo ( 'yes' === $settings->image_popup ) ? $module->get_insta_image_url( $item ) : $item['link']; ?>" target="_blank" rel="nofollow noopener">
 						<?php } ?>
 						<div class="pp-overlay-container"><span class="fas fa-search" style="display: none;"></span></div>
-						<img src="<?php echo $module->get_insta_image_url( $item, $module->get_insta_image_size() ); ?>" alt="<?php echo htmlspecialchars( $alt ); ?>" />
+						<img src="<?php echo $module->get_insta_image_url( $item, $module->get_insta_image_size() ); ?>" alt="<?php echo htmlspecialchars( $alt ); ?>" class="pp-instagram-feed-img" />
 						<?php if ( 'no' !== $settings->image_popup ) { // Anchor wrapper end. ?>
 							</a>
 						<?php } ?>

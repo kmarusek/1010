@@ -51,6 +51,7 @@
 }
 .pp-infolist-wrap .pp-list-item > a {
 	display: flex;
+	align-items: center;
 }
 .pp-list-item:last-of-type .pp-list-connector {
 	display: none;

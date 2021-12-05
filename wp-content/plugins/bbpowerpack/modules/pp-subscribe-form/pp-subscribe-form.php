@@ -761,6 +761,17 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 				'title'         => __('Form Structure', 'bb-powerpack'), // Section Title
 				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
+					'form_width'   => array(
+						'type' 			=> 'unit',
+						'label'			=> __( 'Width', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'units'			=> array( 'px', '%' ),
+					),
+					'form_alignment' => array(
+						'type'		=> 'align',
+						'label'		=> __( 'Alignment', 'bb-powerpack' ),
+						'responsive' => true,
+					),
 					'form_padding'	=> array(
                         'type'				=> 'dimension',
                         'label'				=> __('Padding', 'bb-powerpack'),

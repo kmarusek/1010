@@ -1331,3 +1331,8 @@
 	bottom: 0;
 	transform: rotate(-90deg);
 }
+
+.pp-offcanvas-body .pp-timeline .pp-is-hidden {
+    opacity: 1 !important;
+    margin: 0 !important;
+}

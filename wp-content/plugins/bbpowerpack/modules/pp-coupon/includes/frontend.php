@@ -37,7 +37,7 @@ if ( 'copy' === $settings->coupon_style ) {
 	$coupon .= "<span class='pp-coupon-copy-text'style='display: none;'></span>";
 	$coupon .= '</div>';
 } else {
-	$coupon = "<span class='pp-coupon-code-no-code' id='pp-coupon-code-" . $id . "'>" . $icon_left . $settings->no_code_need . $icon_right . '</span>';
+	$coupon = "<span class='pp-coupon-code-no-code pp-coupon-code-text' id='pp-coupon-code-" . $id . "'>" . $icon_left . $settings->no_code_need . $icon_right . '</span>';
 }
 
 // Button structure with link
@@ -76,27 +76,47 @@ if ( isset( $settings->image_select ) && ! empty( $settings->image_select ) ) {
 <div class="pp-coupon-wrap">
 	<div class="pp-coupon">
 		<div class="pp-coupon-image-wrapper">
-			<?php if ( 'yes' === $settings->show_discount ) { ?>
+			<?php if ( 'yes' === $settings->show_discount && false === strpos( $settings->discount_position, '-title' ) ) { ?>
 				<span class="pp-coupon-discount">
 					<?php echo $settings->discount; ?>
 				</span>
 			<?php } ?>
+			<?php if ( false === strpos( $settings->coupon_code_position, '-desc' ) ) { ?>
 			<span class='<?php echo $coupon_class; ?>'>
 				<?php echo $coupon; ?>
 			</span>
+			<?php } ?>
 			<?php echo $link; ?>
 				<img <?php echo $image_attr; ?>>
 			</a>
 		</div>
 		<div class="pp-coupon-content-wrapper">
-			<?php echo $link; ?>
-				<h2 class="pp-coupon-title">
-					<?php echo $settings->title; ?>
-				</h2>
-			</a>
+			<?php if ( 'yes' === $settings->show_discount && 'above-title' === $settings->discount_position ) { ?>
+				<div class="pp-coupon-discount">
+					<?php echo $settings->discount; ?>
+				</div>
+			<?php } ?>
+
+			<h2 class="pp-coupon-title">
+				<?php echo $link; ?><?php echo $settings->title; ?></a>
+			</h2>
+
+			<?php if ( 'yes' === $settings->show_discount && 'below-title' === $settings->discount_position ) { ?>
+				<div class="pp-coupon-discount">
+					<?php echo $settings->discount; ?>
+				</div>
+			<?php } ?>
+
 			<div class="pp-coupon-description">
 				<?php echo $settings->description; ?>
 			</div>
+
+			<?php if ( 'below-desc' === $settings->coupon_code_position ) { ?>
+			<div class='<?php echo $coupon_class; ?>'>
+				<?php echo $coupon; ?>
+			</div>
+			<?php } ?>
+
 			<?php if ( 'none' !== $settings->link_type ) { ?>
 				<?php if ( '0' !== $settings->separator_width ) { ?>
 					<hr class="pp-coupon-separator">

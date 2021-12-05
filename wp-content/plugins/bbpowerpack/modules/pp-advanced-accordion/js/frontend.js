@@ -20,7 +20,7 @@
 
 		_init: function()
 		{
-			if ( this.accordion.hasClass( '.pp-accordion-initialized' ) ) {
+			if ( this.accordion.hasClass( 'pp-accordion-initialized' ) ) {
 				return;
 			}
 

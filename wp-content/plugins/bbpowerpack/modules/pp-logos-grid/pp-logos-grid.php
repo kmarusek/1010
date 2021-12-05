@@ -846,6 +846,30 @@ FLBuilder::register_settings_form('logos_grid_form', array(
 					)
 				)
 			)
-		)
+		),
+		'style' => array(
+			'title'    => __( 'Style', 'bb-powerpack' ),
+			'sections' => array(
+				'style'    => array(
+					'title'    => __( 'Style', 'bb-powerpack' ),
+					'fields'   => array(
+						'item_bg_color'    => array(
+							'type'         => 'color',
+							'label'        => __('Background Color', 'bb-powerpack'),
+							'default'      => '',
+							'show_reset'   => true,
+							'connections'	=> array('color'),
+						),
+						'item_bg_hover'    => array(
+							'type'         => 'color',
+							'label'        => __('Background Color Hover', 'bb-powerpack'),
+							'default'      => '',
+							'show_reset'   => true,
+							'connections'	=> array('color'),
+						),
+					),
+				),
+			),
+		),
 	)
 ));

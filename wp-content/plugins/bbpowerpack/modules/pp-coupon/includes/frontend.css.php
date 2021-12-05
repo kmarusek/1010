@@ -31,7 +31,17 @@ FLBuilderCSS::dimension_field_rule(
 }
 
 .fl-node-<?php echo $id; ?> .pp-coupon-discount {
-	<?php echo $settings->discount_position; ?>: 0;
+	<?php if ( 'left' === $settings->discount_position || 'right' === $settings->discount_position ) { ?>
+		<?php echo $settings->discount_position; ?>: 0;
+	<?php } ?>
+	<?php if ( 'bottom-left' === $settings->discount_position || 'bottom-right' === $settings->discount_position ) { ?>
+		top: auto;
+		bottom: 0;
+		<?php echo str_replace( 'bottom-', '', $settings->discount_position ); ?>: 0;
+	<?php } ?>
+	<?php if ( false !== strpos( $settings->discount_position, '-title' ) ) { ?>
+		position: static;
+	<?php } ?>
 	<?php if ( ! empty( $settings->discount_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->discount_color ); ?>;
 	<?php } ?>
@@ -106,7 +116,17 @@ FLBuilderCSS::typography_field_rule(
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-coupon-code {
-	<?php echo $settings->coupon_code_position; ?>: 0;
+	<?php if ( 'left' === $settings->coupon_code_position || 'right' === $settings->coupon_code_position ) { ?>
+		<?php echo $settings->coupon_code_position; ?>: 0;
+	<?php } ?>
+	<?php if ( 'top-left' === $settings->coupon_code_position || 'top-right' === $settings->coupon_code_position ) { ?>
+		bottom: auto;
+		top: 0;
+		<?php echo str_replace( 'top-', '', $settings->coupon_code_position ); ?>: 0;
+	<?php } ?>
+	<?php if ( false !== strpos( $settings->coupon_code_position, '-desc' ) ) { ?>
+		position: static;
+	<?php } ?>
 	<?php if ( ! empty( $settings->coupon_code_bg ) ) { ?>
 	background: <?php echo pp_get_color_value( $settings->coupon_code_bg ); ?>;
 	<?php } ?>

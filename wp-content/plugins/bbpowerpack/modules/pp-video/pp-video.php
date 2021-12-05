@@ -71,6 +71,8 @@ class PPVideoModule extends FLBuilderModule {
 			'wistia' => '/^.*(?:wistia\.net|wistia\.com)\/(?:embed\/iframe|medias)\/(.*)/'
 		);
 
+		$provider_regex = apply_filters( 'pp_video_provider_regex', $provider_regex, $video_url );
+
 		foreach ( $provider_regex as $provider => $match_mask ) {
 			preg_match( $match_mask, $video_url, $matches );
 
@@ -232,6 +234,8 @@ class PPVideoModule extends FLBuilderModule {
 			'dailymotion' 	=> 'https://dailymotion.com/embed/video/{VIDEO_ID}',
 			'wistia' 		=> 'https://fast.wistia.net/embed/iframe/{VIDEO_ID}',
 		);
+
+		$embed_patterns = apply_filters( 'pp_video_embed_patterns', $embed_patterns, $video_url, $video_properties );
 
 		$embed_pattern = $embed_patterns[ $video_properties['provider'] ];
 

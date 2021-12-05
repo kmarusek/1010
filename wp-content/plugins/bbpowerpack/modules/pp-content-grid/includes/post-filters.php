@@ -116,6 +116,7 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 							continue;
 						}
 						$slug = $term->slug;
+						$slug = urldecode( $slug ); // Support for non-English letters.
 						$filter_active_class = '';
 						if ( $slug === $default_filter ) {
 							$filter_active_class = ' pp-filter-active';

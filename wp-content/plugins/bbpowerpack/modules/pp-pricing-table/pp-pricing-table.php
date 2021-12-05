@@ -1751,6 +1751,14 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							'show_alpha'	=> true,
 							'connections'	=> array('color'),
 						),
+						'title_padding'	=> array(
+							'type'				=> 'dimension',
+							'label'				=> __('Package Title Padding', 'bb-powerpack'),
+							'default'			=> '',
+							'units'				=> array('px'),
+							'slider'			=> true,
+							'responsive'		=> true,
+						),
 					)
 				),
 			)
