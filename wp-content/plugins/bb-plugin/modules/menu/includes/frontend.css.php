@@ -608,40 +608,45 @@ if ( 'always' != $module->get_media_breakpoint() ) :
 
 	FLBuilderCSS::rule( array(
 		'media'    => $media,
+		'enabled'  => ! empty( $settings->mobile_submenu_link_color ),
 		'selector' => "$submenu_selector > li > a, $submenu_selector > li > .fl-has-submenu-container > a",
 		'props'    => array(
-			'color' => ! empty( $settings->mobile_submenu_link_color ) ? $settings->mobile_submenu_link_color : 'inherit',
+			'color' => $settings->mobile_submenu_link_color,
 		),
 	) );
 
 	FLBuilderCSS::rule( array(
 		'media'    => $media,
+		'enabled'  => ! empty( $settings->mobile_submenu_link_color ),
 		'selector' => "$submenu_container .fl-menu-toggle:before, $submenu_selector .fl-toggle-plus .fl-menu-toggle:after",
 		'props'    => array(
-			'border-color' => ! empty( $settings->mobile_submenu_link_color ) ? $settings->mobile_submenu_link_color : 'inherit',
+			'border-color' => $settings->mobile_submenu_link_color,
 		),
 	) );
 
 	FLBuilderCSS::rule( array(
 		'media'    => $media,
+		'enabled'  => ! empty( $settings->mobile_submenu_link_hover_color ),
 		'selector' => $sub_hover_selectors,
 		'props'    => array(
-			'color' => ! empty( $settings->mobile_submenu_link_hover_color ) ? $settings->mobile_submenu_link_hover_color : 'inherit',
+			'color' => $settings->mobile_submenu_link_hover_color,
 		),
 	) );
 	FLBuilderCSS::rule( array(
 		'media'    => $media,
+		'enabled'  => ! empty( $settings->mobile_submenu_link_hover_bg_color ),
 		'selector' => $sub_hover_selectors,
 		'props'    => array(
-			'background-color' => ! empty( $settings->mobile_submenu_link_hover_bg_color ) ? $settings->mobile_submenu_link_hover_bg_color : 'transparent',
+			'background-color' => $settings->mobile_submenu_link_hover_bg_color,
 		),
 	) );
 
 	FLBuilderCSS::rule( array(
 		'media'    => $media,
+		'enabled'  => ! empty( $settings->mobile_submenu_link_hover_color ),
 		'selector' => "$submenu_container:hover > .fl-menu-toggle:before, $submenu_container:focus > .fl-menu-toggle:before, $submenu_selector .fl-toggle-plus fl-has-submenu-container:hover > .fl-menu-toggle:after, $submenu_selector .fl-toggle-plus fl-has-submenu-container:focus > .fl-menu-toggle:after",
 		'props'    => array(
-			'border-color' => ! empty( $settings->mobile_submenu_link_hover_color ) ? $settings->mobile_submenu_link_hover_color : 'inherit',
+			'border-color' => $settings->mobile_submenu_link_hover_color,
 		),
 	) );
 	?>

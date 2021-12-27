@@ -66,21 +66,6 @@ function C(){return(C=Object.assign||function(e){for(var C=1;C<arguments.length;
 
 /***/ }),
 
-/***/ "./src/vendors/bb-icons.js":
-/*!*********************************!*\
-  !*** ./src/vendors/bb-icons.js ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vendor_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vendor-icons */ "./node_modules/@beaverbuilder/icons/dist/index.es.js");
-
-window.FL = window.FL || {};
-FL.vendors = FL.vendors || {};
-FL.vendors.BBIcons = vendor_icons__WEBPACK_IMPORTED_MODULE_0__;
-
-/***/ }),
-
 /***/ "react":
 /*!************************!*\
   !*** external "React" ***!
@@ -99,8 +84,9 @@ module.exports = React;
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -158,10 +144,20 @@ module.exports = React;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__("./src/vendors/bb-icons.js");
-/******/ 	// This entry module used 'exports' so it can't be inlined
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!*********************************!*\
+  !*** ./src/vendors/bb-icons.js ***!
+  \*********************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vendor_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vendor-icons */ "./node_modules/@beaverbuilder/icons/dist/index.es.js");
+
+window.FL = window.FL || {};
+FL.vendors = FL.vendors || {};
+FL.vendors.BBIcons = vendor_icons__WEBPACK_IMPORTED_MODULE_0__;
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=vendor-bb-icons.bundle.js.map

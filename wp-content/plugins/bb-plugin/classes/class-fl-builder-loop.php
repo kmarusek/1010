@@ -1130,6 +1130,34 @@ final class FLBuilderLoop {
 
 		include FL_BUILDER_DIR . 'includes/loop-settings-matching.php';
 	}
+
+	/**
+	 * Helper function to get the_excerpt
+	 */
+	static public function the_excerpt( $post_id = false ) {
+		echo self::get_the_excerpt( $post_id );
+	}
+
+	/**
+	 * Helper function for get_the_excerpt
+	 */
+	static public function get_the_excerpt( $post_id = false ) {
+		global $post;
+		if ( ! $post_id && isset( $post->ID ) ) {
+			$post_id = $post->ID;
+		}
+		if ( ! $post_id || ! is_object( $post ) ) {
+			return '';
+		}
+
+		ob_start();
+		the_excerpt();
+		/**
+		 * Filters the output of FLBuilderLoop::get_the_excerpt
+		 * @see fl_builder_loop_get_the_excerpt
+		 */
+		return apply_filters( 'fl_builder_loop_get_the_excerpt', ob_get_clean() );
+	}
 }
 
 FLBuilderLoop::init();

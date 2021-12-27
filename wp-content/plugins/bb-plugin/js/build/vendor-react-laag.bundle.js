@@ -2,19 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/vendors/react-laag.js":
-/*!***********************************!*\
-  !*** ./src/vendors/react-laag.js ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vendor_react_laag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vendor-react-laag */ "./node_modules/react-laag/dist/index.es.js");
-
-window.ReactLaag = window.ReactLaag || vendor_react_laag__WEBPACK_IMPORTED_MODULE_0__;
-
-/***/ }),
-
 /***/ "./node_modules/react-laag/dist/index.es.js":
 /*!**************************************************!*\
   !*** ./node_modules/react-laag/dist/index.es.js ***!
@@ -2042,8 +2029,9 @@ module.exports = ReactDOM;
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -2101,10 +2089,18 @@ module.exports = ReactDOM;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__("./src/vendors/react-laag.js");
-/******/ 	// This entry module used 'exports' so it can't be inlined
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!***********************************!*\
+  !*** ./src/vendors/react-laag.js ***!
+  \***********************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vendor_react_laag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vendor-react-laag */ "./node_modules/react-laag/dist/index.es.js");
+
+window.ReactLaag = window.ReactLaag || vendor_react_laag__WEBPACK_IMPORTED_MODULE_0__;
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=vendor-react-laag.bundle.js.map

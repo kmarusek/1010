@@ -134,8 +134,12 @@ class FLBuilderSeoPlugins {
 		}
 		ob_start();
 		echo do_shortcode( "[fl_builder_insert_layout id=$id]" );
-		$data = ob_get_clean();
-		FLBuilderModel::delete_all_asset_cache( $id );
+		$data   = ob_get_clean();
+		$handle = 'fl-builder-layout-' . $id;
+		wp_dequeue_script( $handle );
+		wp_dequeue_style( $handle );
+		wp_deregister_script( $handle );
+		wp_deregister_style( $handle );
 		return str_replace( PHP_EOL, '', $data );
 	}
 

@@ -1,3 +1,73 @@
+<h4>2.5.1.1 - 12/22/2021</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+		<li>Accordion Module: Fix items not being able to be closed manually and fix smooth opening and closing not working</li>
+		<li>Button Module: Fix hover color issue</li>
+		<li>Menu Module: Fix sub-menu items using inherit for backwards compatibility</li>
+		<li>Post Grid Module: Fix FontAwesome icons being enqueued when it is not needed</li>
+		<li>Search module: fix missing an echo statement in the value attribute</li>
+		<li>Outline Panel: Fix not being able to delete unavailable modules</li>
+		<li>Fix ACF cache not being cleared for option pages properly</li>
+		<li>Fix JS error when changing a module setting and using the Publish keyboard shortcut</li>
+		<li>Fix limit on repeater field not working inside a form field</li>
+		<li>Fix FontAwesome icons preload issue</li>
+		<li>Optimize visibility fix to prevent an infinite loop</li>
+		<li>SEO Plugin integrations: don't delete assets while fetching data to prevent 404 errors with assets</li>
+</ul>
+
+<h4>2.5.1 - 12/9/2021</h4>
+<p><strong>Enhancements</strong></p>
+
+<ul>
+		<li>Add new shortcode <code>[fl-safe]</code> to wrap code in that is known to break the UI</li>
+		<li>Tweak the way we generate our unique node IDs to ensure that they always will be a string</li>
+		<li>Add offset option to Row Parallax background image</li>
+		<li>Allow user to choose images for different breakpoints when row is set to parallax background</li>
+		<li>Add support for Query Monitor to be used while inside the UI</li>
+		<li>Contact Form & Subscribe Form Modules: Show any WP_Error detected so it's easier to debug issues</li>
+		<li>Update Ace Editor to latest version</li>
+		<li>Update FontAwesome to latest version</li>
+		<li>Icon Group Module: Make spacing option responsive</li>
+		<li>Reduce number of queries for Saved nodes by switching from using <code>get_terms</code> function to <code>get_the_terms</code> since it's cached</li>
+		<li>Pricing Table Module: Make Advanced Spacing, Tooltip Icon Size, Feature Icon Size, Box Top Margin and Typography responsive</li>
+		<li>Fix conflict with Signify theme when adding media in UI</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+		<li>Fix issue with Slide Right animation</li>
+		<li>Fixed Saved nodes not retaining categories when published in BB UI</li>
+		<li>Button Group Module: Fix background animation not working</li>
+		<li>Video Module: Fixed flash on loading when set to loop</li>
+		<li>Accordion Module: Fix "Expand first item" option issue with anchor links</li>
+		<li>Content Slider Module: Fix module autoplaying when clicking on the arrows</li>
+		<li>Menu Module: Fix no smooth scrolling on mobile and not closing properly after clicking an anchor link</li>
+		<li>Button Module: Fix column text color overriding module color</li>
+		<li>Subscribe Module: Fix Mailjet integration only showing 10 lists</li>
+		<li>Callout Module: Fix issues with rel attribute</li>
+		<li>Fix UI being broken when removing some keyboard shortcuts with <code>fl_builder_keyboard_shortcuts</code> hook</li>
+		<li>Add select2 text color for UI Dark Mode</li>
+		<li>Fix issue with get_excerpt function showing wrong data when using visibility options</li>
+		<li>Pricing Table Module: Fix custom icons not working in feature list</li>
+		<li>WPML: Fix cache clear issue when switching domains</li>
+		<li>Menu Module: Fix missing closing li tags</li>
+		<li>Fix fatal error in UI in certain circumstances when plugins add widgets</li>
+		<li>Menu Module: Logo option now correctly outputs alt attribute</li>
+		<li>Fix fatal error if search enabled in Menu Module but Search module is disabled in settings and <code>is_module_disable_enabled</code>
+		is set to true</li>
+</ul>
+
+<p><strong>Development</strong></p>
+<ul>
+<li>Add new filters <code>fl_builder_render_css_row</code> <code>fl_builder_render_css_col</code> <code>fl_builder_render_css_module</code> <code>fl_builder_render_css_module_{$module->slug}</code></li>
+</ul>
+
+<h4>2.5.0.3 - 10/19/2021</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+		<li>BB Lite: Fix icon picker not working in some setups when jquery-throttle is not enqueued</li>
+</ul>
+
 <h4>2.5.0.2 - 10/7/2021</h4>
 <p><strong>Enhancements</strong></p>
 <ul>

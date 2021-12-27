@@ -16,6 +16,8 @@ final class FLBuilderFonts {
 
 	static private $enqueued_google_fonts_done = false;
 
+	static $preload_fa5 = array();
+
 	/**
 	 * @since 1.9.5
 	 * @return void
@@ -34,15 +36,25 @@ final class FLBuilderFonts {
 			'foundation-icons' => array(
 				'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.woff',
 			),
-			'font-awesome-5'   => array(
-				FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-brands-400.woff2',
-				FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-solid-900.woff2',
-				FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-regular-400.woff2',
-			),
+			'font-awesome-5'   => array(),
 		);
 
+		foreach ( array_unique( FLBuilderFonts::$preload_fa5 ) as $type ) {
+			switch ( $type ) {
+				case 'fas':
+					$icons['font-awesome-5'][] = FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-solid-900.woff2';
+					break;
+				case 'far':
+					$icons['font-awesome-5'][] = FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-regular-400.woff2';
+					break;
+				case 'fab':
+					$icons['font-awesome-5'][] = FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-brands-400.woff2';
+					break;
+			}
+		}
+
 		// if using pro cdn do not preload as we have no idea what the url will be.
-		if ( get_option( '_fl_builder_enable_fa_pro', false ) || apply_filters( 'fl_enable_fa5_pro', false ) ) {
+		if ( get_option( '_fl_builder_enable_fa_pro', false ) || apply_filters( 'fl_enable_fa5_pro', false ) || empty( $icons['font-awesome-5'] ) ) {
 			unset( $icons['font-awesome-5'] );
 		}
 

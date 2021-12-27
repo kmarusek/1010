@@ -456,11 +456,11 @@ final class FLBuilderIcons {
 	 * Enqueue the stylesheet for an icon.
 	 *
 	 * @since 1.4.6
-	 * @access private
+	 * @access public
 	 * @param string $icon The icon CSS classname.
 	 * @return void
 	 */
-	static private function enqueue_styles_for_icon( $icon ) {
+	static public function enqueue_styles_for_icon( $icon ) {
 		/**
 		 * Enqueue the stylesheet for an icon.
 		 * @see fl_builder_enqueue_styles_for_icon
@@ -492,10 +492,20 @@ final class FLBuilderIcons {
 		}
 
 		// finally check for fa5, we do this last because subsets miight be loaded in the block above.
-		if ( stristr( $icon, 'far fa-' ) || stristr( $icon, 'fas fa-' ) || stristr( $icon, 'fab fa-' ) || stristr( $icon, 'fal fa-' ) || stristr( $icon, 'fad fa-' ) ) {
-			wp_enqueue_style( 'font-awesome-5' );
-		}
+		$types = array(
+			'far',
+			'fas',
+			'fab',
+			'fal',
+			'fad',
+		);
 
+		foreach ( $types as $type ) {
+			if ( stristr( $icon, $type . ' fa-' ) ) {
+				wp_enqueue_style( 'font-awesome-5' );
+				FLBuilderFonts::$preload_fa5[] = $type;
+			}
+		}
 	}
 
 	/**

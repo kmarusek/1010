@@ -125,6 +125,23 @@
 		},
 
 		/**
+		 * Cache current settings
+		 *
+		 * @method cacheCurrentSettings
+		 */
+		cacheCurrentSettings: function() {
+			var form = $('.fl-builder-settings:visible');
+
+			if (!form.closest('.fl-lightbox-wrap[data-parent]').length) {
+				this.settings = FLBuilder._getSettingsForChangedCheck(this.config.nodeId, form);
+
+				if (FLBuilder.preview) {
+					FLBuilder.preview._savedSettings = this.settings;
+				}
+			}
+		},
+
+		/**
 		 * Loads node settings for a form if they do not exist in
 		 * the settings config cache.
 		 *
@@ -217,8 +234,6 @@
 		 * @param {Function} callback
 		 */
 		renderComplete: function( config, callback ) {
-			var form = $( '.fl-builder-settings:visible' );
-
 			// This is done on a timeout to keep it from delaying painting
 			// of the settings form in the DOM by a fraction of a second.
 			setTimeout( function() {
@@ -240,10 +255,8 @@
 					config.helper.init();
 				}
 
-				// Cache the original settings.
-				if ( ! form.closest( '.fl-lightbox-wrap[data-parent]' ).length ) {
-					this.settings = FLBuilder._getSettingsForChangedCheck( this.config.nodeId, form );
-				}
+				// Cache current settings.
+				this.cacheCurrentSettings();
 
 			}.bind( this ), 1 );
 		},
