@@ -5,6 +5,8 @@ if ( isset( $settings->three_d ) && $settings->three_d ) {
 	$settings->style = 'gradient';
 }
 
+$has_sub_text = isset( $settings->sub_text ) && ! empty( $settings->sub_text );
+
 ?>
 
 <?php
@@ -50,13 +52,48 @@ if ( empty( $settings->bg_color_primary ) && 'gradient' === $settings->style ) {
 }
 ?>
 
+<?php if ( $has_sub_text ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	<?php if ( ! empty( $settings->subtext_color ) ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button .pp-button-subtext {
+		color: #<?php echo $settings->subtext_color; ?>;
+	}
+	<?php } ?>
+
+	<?php if ( ! empty( $settings->subtext_hover_color ) ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:hover .pp-button-subtext {
+		color: #<?php echo $settings->subtext_hover_color; ?>;
+	}
+	<?php } ?>
+
+	<?php
+	// Sub Text Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'subtext_typography',
+		'selector' 		=> ".fl-node-$id .pp-button-wrap a.pp-button .pp-button-subtext",
+	) );
+	?>
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
 .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
 	text-decoration: none;
 
-	<?php if ( 'custom' == $settings->width ) : ?>
+	<?php if ( 'custom' == $settings->width ) { ?>
 		width: <?php echo $settings->custom_width; ?><?php echo isset( $settings->custom_width_unit ) ? $settings->custom_width_unit : 'px'; ?>;
-	<?php endif; ?>
+	<?php } ?>
+
+	<?php if ( 'full' == $settings->width ) { ?>
+		width: 100%;
+		<?php if ( $has_sub_text ) { ?>
+			justify-content: center;
+		<?php } ?>
+	<?php } ?>
 
 	<?php if ( isset( $settings->bg_color ) && ! empty( $settings->bg_color ) ) { ?>
 		background: <?php echo pp_get_color_value( $settings->bg_color ); ?>;

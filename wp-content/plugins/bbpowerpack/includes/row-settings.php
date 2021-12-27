@@ -1350,7 +1350,7 @@ function pp_background_toggle( $form, $id ){
 						'fields' 			=> array( 'cells_color_1', 'cells_color_2', 'cells_size', 'cells_speed' )
 					),
 					'particles'			=> array(
-						'fields' 			=> array( 'part_color','part_opacity','part_rand_opacity','part_bg_color','part_bg_type','part_quantity','part_size','part_speed','part_hover_effect','part_direction' )
+						'fields' 			=> array( 'part_color','part_opacity','part_line_color','part_rand_opacity','part_bg_color','part_bg_type','part_quantity','part_size','part_speed','part_hover_effect','part_direction' )
 					),
 					'nasa'    			=> array(
 						'fields' 			=> array( 'part_color','part_opacity','part_rand_opacity','part_bg_color','part_bg_type','part_quantity','part_size','part_speed','part_hover_effect','part_direction' )
@@ -1758,6 +1758,12 @@ function pp_background_toggle( $form, $id ){
 					'step'				=> '0.1'
 				),
 			),
+			'part_line_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Line Color', 'bb-powerpack'),
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
 			'part_rand_opacity'	=> array(
 				'type'				=> 'pp-switch',
 				'label'				=> __('Randomized Opacity', 'bb-powerpack'),
@@ -1847,7 +1853,7 @@ function pp_background_toggle( $form, $id ){
 			),
 			'part_custom_code'	=> array(
 				'type'        		=> 'editor',
-				'label'       		=> __( '', 'bb-powerpack'),
+				'label'       		=> '',
 				'connections' 		=> array( 'html', 'string', 'url' ),
 				'media_buttons' 	=> false,
 			),

@@ -84,12 +84,46 @@
 				),
 				$settings
 			);
+
+			FLBuilder::render_settings_field('post_order_by', array(
+				'type'          => 'select',
+				'label'         => __('Order By', 'bb-powerpack'),
+				'default'		=> 'date',
+				'options'       => array(
+					'author'         => __('Author', 'bb-powerpack'),
+					'comment_count'  => __('Comment Count', 'bb-powerpack'),
+					'date'           => __('Date', 'bb-powerpack'),
+					'modified'       => __('Date Last Modified', 'bb-powerpack'),
+					'ID'             => __('ID', 'bb-powerpack'),
+					'menu_order'     => __('Menu Order', 'bb-powerpack'),
+					'meta_value'     => __('Meta Value (Alphabetical)', 'bb-powerpack'),
+					'meta_value_num' => __('Meta Value (Numeric)', 'bb-powerpack'),
+					'rand'        	 => __('Random', 'bb-powerpack'),
+					'title'          => __('Title', 'bb-powerpack'),
+					'post__in'       => __( 'Selection Order', 'fl-builder' ),
+				),
+				'toggle'		=> array(
+					'meta_value' 	=> array(
+						'fields'		=> array( 'post_order_by_meta_key' )
+					),
+					'meta_value_num' => array(
+						'fields'		=> array( 'post_order_by_meta_key' )
+					)
+				)
+			), $settings);
+
+			// Meta Key
+			FLBuilder::render_settings_field('post_order_by_meta_key', array(
+				'type'          => 'text',
+				'label'         => __('Meta Key', 'bb-powerpack'),
+			), $settings);
+
 			FLBuilder::render_settings_field(
 				'post_order',
 				array(
 					'type'    => 'pp-switch',
 					'label'   => __( 'Order', 'bb-powerpack' ),
-					'default' => 'ASC',
+					'default' => 'DESC',
 					'options' => array(
 						'ASC'  => __( 'Ascending', 'bb-powerpack' ),
 						'DESC' => __( 'Descending', 'bb-powerpack' ),
@@ -97,6 +131,15 @@
 				),
 				$settings
 			);
+
+			// Offset
+			FLBuilder::render_settings_field('post_offset', array(
+				'type'          => 'text',
+				'label'         => _x('Offset', 'How many posts to skip.', 'bb-powerpack'),
+				'default'       => '0',
+				'size'          => '4',
+				'help'          => __('Skip this many posts that match the specified criteria.', 'bb-powerpack')
+			), $settings);
 			?>
 		</table>
 	</div>

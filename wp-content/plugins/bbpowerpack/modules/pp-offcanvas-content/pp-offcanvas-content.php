@@ -27,6 +27,11 @@ class PPOffcanvasContent extends FLBuilderModule {
 			)
 		);
 	}
+
+	public function enqueue_scripts() {
+		$this->add_css( BB_POWERPACK()->fa_css );
+	}
+
 	/**
 	 * Render content output on the frontend.
 	 *

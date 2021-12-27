@@ -454,6 +454,7 @@ function pp_get_client_ip() {
 	$keys = array(
 		'HTTP_CLIENT_IP',
 		'HTTP_X_FORWARDED_FOR',
+		'HTTP_X_REAL_IP',
 		'HTTP_X_FORWARDED',
 		'HTTP_X_CLUSTER_CLIENT_IP',
 		'HTTP_FORWARDED_FOR',
@@ -946,6 +947,11 @@ function pp_get_site_domain() {
 function pp_get_recaptcha_desc() {
 	// translators: %s: Integration Setting Page link
 	return sprintf( __( 'To use reCAPTCHA, you need to add the API keys in the <a href="%s" target="_blank">Integrations Settings</a> and complete the setup process.', 'bb-powerpack' ), BB_PowerPack_Admin_Settings::get_form_action( '&tab=integration' ) );
+}
+
+function pp_get_hcaptcha_desc() {
+	// translators: %s: Integration Setting Page link
+	return sprintf( __( 'To use hCaptcha, you need to add the API keys in the <a href="%s" target="_blank">Integrations Settings</a> and complete the setup process.', 'bb-powerpack' ), BB_PowerPack_Admin_Settings::get_form_action( '&tab=integration' ) );
 }
 
 function pp_is_builder_active() {

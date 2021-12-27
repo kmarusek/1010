@@ -7,9 +7,17 @@
             $('select[name=recaptcha_validate_type]').on('change', $.proxy(this._toggleReCaptcha, this));
             $('input[name=recaptcha_theme]').on('change', $.proxy(this._toggleReCaptcha, this));
 
+			// Toggle hCaptcha display
+			$('input[name=enable_hcaptcha]').on('change', $.proxy(this._toggleHCaptcha, this));
+
             // Render reCAPTCHA after layout rendered via AJAX
             if (window.onLoadPPReCaptcha) {
                 $(FLBuilder._contentClass).on('fl-builder.layout-rendered', onLoadPPReCaptcha);
+            }
+
+			// Render hCaptcha after layout rendered via AJAX
+            if (window.onLoadPPHCaptcha) {
+                $(FLBuilder._contentClass).on('fl-builder.layout-rendered', onLoadPPHCaptcha);
             }
 		},
 
@@ -111,6 +119,86 @@
                 theme: theme
             });
             captchaElement.attr('data-widgetid', widgetID);
+        },
+
+		_toggleHCaptcha: function(event) {
+			var form = $('.fl-builder-settings'),
+				nodeId = form.attr('data-node'),
+				toggle = form.find('input[name=enable_hcaptcha]'),
+				captchaKey = '',
+				hCaptcha = $('.fl-node-' + nodeId).find('.pp-hcaptcha'),
+				hCaptchaId = nodeId + '-pp-hcaptcha',
+				target = typeof event !== 'undefined' ? $(event.currentTarget) : null,
+				selectEvent = target != null && typeof target.attr('name') !== typeof undefined && target.attr('name') === 'enable_hcaptcha',
+				scriptTag = $('<script>'),
+				isRender = false;
+
+			if ( 'undefined' !== typeof pp_hcaptcha ) {
+				captchaKey = pp_hcaptcha.site_key;
+			}
+
+			// Add API script if not exists
+            if (0 === $('script#h-captcha-api').length) {
+                scriptTag
+                    .attr('src', 'https://hcaptcha.com/1/api.js')
+                    .attr('type', 'text/javascript')
+                    .attr('id', 'h-captcha-api')
+                    .attr('async', 'async')
+                    .attr('defer', 'defer')
+                    .appendTo('body');
+            }
+
+			if ('yes' === toggle.val() && captchaKey.length) {
+
+                // hCaptcha is not yet exists
+                if (0 === hCaptcha.length) {
+                    isRender = true;
+                }
+                // If hCaptcha element exists, then reset hCaptcha if existing key does not matched with the input value
+                else if (selectEvent && hCaptcha.data('sitekey') != captchaKey ) {
+                    hCaptcha.parent().remove();
+                    isRender = true;
+                }
+                else {
+                    hCaptcha.parent().show();
+                }
+
+                if (isRender) {
+                    this._renderHCaptcha(nodeId, hCaptchaId, captchaKey);
+				}
+            }
+            else if ('yes' === toggle.val() && captchaKey.length === 0 && hCaptcha.length > 0) {
+                hCaptcha.parent().remove();
+            }
+            else if ('no' === toggle.val() && hCaptcha.length > 0) {
+                hCaptcha.parent().hide();
+            }
+		},
+
+		/**
+		 * Render hCaptcha
+		 *
+		 * @param  string nodeId  		The current node ID
+		 * @param  string hCaptchaId  	The element ID to render hCaptcha
+		 * @param  string hCaptchaKey  The hCaptcha Key
+		 * @since 2.x
+		 */
+		 _renderHCaptcha: function (nodeId, hCaptchaId, hCaptchaKey) {
+            var captchaField = $('<div class="pp-login-form-field pp-field-group pp-field-type-hcaptcha">'),
+                captchaElement = $('<div id="' + hCaptchaId + '" class="pp-hcaptcha h-captcha">'),
+                widgetID;
+
+            captchaElement.attr('data-sitekey', hCaptchaKey);
+
+            // Append hCaptcha element to an appended element
+            captchaField
+                .html(captchaElement)
+                .insertBefore($('.fl-node-' + nodeId).find('.pp-login-form .pp-login-form-fields > .pp-field-type-submit'));
+
+            widgetID = hcaptcha.render(hCaptchaId, {
+                sitekey: hCaptchaKey
+            });
+            captchaElement.attr('data-hcaptcha-widget-id', widgetID);
         }
 	});
 

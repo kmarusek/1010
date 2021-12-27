@@ -533,8 +533,17 @@ FLBuilderCSS::border_field_rule( array(
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters-toggle:after {
 		<?php if( $settings->filter_toggle_icon_color ) { ?>color: #<?php echo $settings->filter_toggle_icon_color; ?>;<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-filters {
-		display: none;
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters:not(.pp-gallery-filters-open) {
+		visibility: hidden;
+		opacity: 0;
+		font-size: 0;
+		line-height: 0;
+		margin: 0;
+		padding: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters:not(.pp-gallery-filters-open) li {
+		margin: 0;
+		padding: 0;
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters li {
 		display: block;

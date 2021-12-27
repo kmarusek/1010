@@ -18,6 +18,8 @@
     if ( $responsive_display == 'mobile' ) {
         $breakpoint = '<= ' . $small_device;
     }
+
+	$load_on_scroll = isset( $settings->load_on_scroll ) ? floatval( $settings->load_on_scroll ) : 0;
 ?>
 
 var pp_modal_<?php echo $id; ?> = false;
@@ -35,6 +37,7 @@ var pp_modal_<?php echo $id; ?> = false;
         <?php } ?>
         <?php if ( 'auto' == $settings->modal_load ) { ?>
         display_after: <?php echo intval($settings->display_after_auto); ?>,
+		load_on_scroll: <?php echo $load_on_scroll; ?>,
         <?php } ?>
         delay: <?php echo ( FLBuilderModel::is_builder_active() ) ? 0 : $settings->modal_delay; ?>,
         animation_load: '<?php echo $settings->animation_load; ?>',
@@ -108,8 +111,23 @@ var pp_modal_<?php echo $id; ?> = false;
 		<?php } ?>
 
 		<?php if ( 'auto' == $settings->modal_load ) { ?>
-		pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
-    	<?php } ?>
+			<?php if ( empty( $load_on_scroll ) ) { ?>
+			pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+    		<?php } else { ?>
+				$(window).on('scroll', function() {
+					var winH = $(window).height(),
+						docH = $(document).height(),
+						percent = ( $(window).scrollTop() / ( docH - winH ) ) * 100,
+						percent = parseFloat( percent.toFixed(2) );
+
+					if ( percent >= <?php echo $load_on_scroll; ?> ) {
+						if ( false === pp_modal_<?php echo $id; ?> instanceof PPModalBox ) {
+							pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+						}
+					}
+				});
+			<?php } ?>
+		<?php } ?>
     <?php } ?>
 
 	// Bind the click event to any element with the class.

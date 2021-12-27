@@ -179,7 +179,7 @@ if ( isset( $settings->layout ) ) {
 							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
-					<div class="layout-4-content">
+					<div class="layout-4-content pp-content-wrapper">
 						<?php if ( $testimonial->testimonial ) { ?>
 							<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
 						<?php } ?>

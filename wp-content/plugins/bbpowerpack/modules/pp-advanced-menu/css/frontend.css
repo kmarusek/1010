@@ -437,6 +437,7 @@
 	z-index: 999998;
     width: 320px;
     height: 100%;
+	opacity: 0;
 	background: #333;
 	overflow-y: auto;
     overflow-x: hidden;
@@ -471,6 +472,7 @@ html.pp-off-canvas-menu-open .pp-advanced-menu.menu-open .pp-off-canvas-menu {
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
+	opacity: 1;
 }
 .pp-advanced-menu.off-canvas {
 	overflow-y: auto;
@@ -610,4 +612,51 @@ ul.pp-advanced-menu-horizontal li.mega-menu > ul.sub-menu ul.sub-menu {
 .rtl .pp-advanced-menu.off-canvas .menu .pp-has-submenu-container > a > span,
 .rtl .pp-advanced-menu.off-canvas .menu.pp-advanced-menu-horizontal.pp-toggle-arrows .pp-has-submenu-container > a > span {
 	padding-left: 0;
+}
+
+/* Search */
+.pp-advanced-menu li .pp-search-form-wrap {
+	position: absolute;
+    right: 0;
+	top: 100%;
+	z-index: 10;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.2s ease-in-out;
+}
+.pp-advanced-menu li:not(.pp-search-active) .pp-search-form-wrap {
+	height: 0;
+}
+.pp-advanced-menu li.pp-search-active .pp-search-form-wrap {
+	opacity: 1;
+	visibility: visible;
+}
+.pp-advanced-menu li .pp-search-form-wrap .pp-search-form__icon {
+	display: none;
+}
+.pp-advanced-menu  li .pp-search-form__container {
+	max-width: 100%;
+}
+.pp-advanced-menu.off-canvas li .pp-search-form-wrap,
+.pp-advanced-menu.off-canvas li .pp-search-form__container {
+	width: 100%;
+	position: static;
+}
+.pp-advanced-menu.full-screen li .pp-search-form-wrap {
+	max-width: 100%;
+}
+.pp-advanced-menu .pp-advanced-menu-accordion li .pp-search-form-wrap {
+	width: 100%;
+}
+.pp-advanced-menu .pp-advanced-menu-accordion.pp-menu-align-center li .pp-search-form__container {
+	margin: 0 auto;
+}
+.pp-advanced-menu .pp-advanced-menu-accordion.pp-menu-align-right li .pp-search-form__container {
+	margin-right: 0;
+	margin-left: auto;
+}
+
+/** Woo Cart */
+.pp-advanced-menu li.pp-menu-cart-item .pp-menu-cart-icon {
+	margin-right: 5px;
 }

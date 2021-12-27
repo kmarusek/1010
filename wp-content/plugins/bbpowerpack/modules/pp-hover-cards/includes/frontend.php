@@ -20,26 +20,26 @@ $hover_card_class = 'pp-hover-card-wrap';
 					<div class="pp-hover-card-border"></div>
 					<div class="pp-hover-card-inner">
 						<div class="card-inner-wrap">
-							<?php if($settings->style_type == 'powerpack-style') { ?>
+							<?php if ( $settings->style_type == 'powerpack-style' ) { ?>
 								<div class="powerpack-title-image-wrapper">
 							<?php } ?>
-									<?php if($settings->style_type == 'powerpack-style' && ( $cards->hover_card_font_icon != '' || $cards->hover_card_custom_icon != '' ) ) { ?>
+									<?php if ( $settings->style_type == 'powerpack-style' && ( $cards->hover_card_font_icon != '' || $cards->hover_card_custom_icon != '' ) ) { ?>
 										<div class="pp-card-image">
 											<?php if($cards->hover_card_font_icon && $cards->hover_card_image_select == 'hover_card_font_icon_select') { ?>
 												<span class="icon <?php echo $cards->hover_card_font_icon; ?>"></span>
 											<?php } ?>
 											<?php if($cards->hover_card_custom_icon && $cards->hover_card_image_select == 'hover_card_custom_icon_select') { ?>
-													<img class="icon" src="<?php echo $cards->hover_card_custom_icon_src; ?>" />
+													<img class="icon" src="<?php echo $cards->hover_card_custom_icon_src; ?>" alt="<?php echo $module->get_image_alt( $card ); ?>" />
 											<?php } ?>
 										</div>
 									<?php } ?>
 
-								<?php if( $cards->title ) { ?>
+								<?php if ( $cards->title ) { ?>
 									<div class="pp-hover-card-title">
 										<<?php echo $settings->hover_card_title_tag; ?>><?php echo $cards->title; ?></<?php echo $settings->hover_card_title_tag; ?>>
 									</div>
 								<?php } ?>
-							<?php if($settings->style_type == 'powerpack-style') { ?>
+							<?php if ( $settings->style_type == 'powerpack-style') { ?>
 								</div>
 							<?php } ?>
 							<?php if( $cards->hover_content ) { ?>

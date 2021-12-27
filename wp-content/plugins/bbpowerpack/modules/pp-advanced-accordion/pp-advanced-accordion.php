@@ -34,7 +34,7 @@ class PPAccordionModule extends FLBuilderModule {
 				'default' => 'manual',
 				'options' => array(
 					'manual' => __( 'Manual', 'bb-powerpack' ),
-					'post'   => __( 'Post', 'bb-powerpack' ),
+					'post'   => __( 'Posts', 'bb-powerpack' ),
 				),
 				'toggle'  => array(
 					'manual' => array(
@@ -105,9 +105,10 @@ class PPAccordionModule extends FLBuilderModule {
 		}
 		$data = array();
 
-		$post_type = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
-		$cpt_count = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
-		$cpt_order = ! empty( $this->settings->post_order ) ? $this->settings->post_order : 'ASC';
+		$post_type   = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
+		$cpt_count 	 = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
+		$cpt_orderby = isset( $this->settings->post_order_by ) ? $this->settings->post_order_by : 'date';
+		$cpt_order   = isset( $this->settings->post_order ) ? $this->settings->post_order : 'DESC';
 
 		$var_tax_type     = 'posts_' . $post_type . '_tax_type';
 		$tax_type         = '';
@@ -150,13 +151,31 @@ class PPAccordionModule extends FLBuilderModule {
 			}
 		}
 
-		$args = apply_filters( 'pp_accordion_cpt_query_args', array(
+		$args = array(
 			'post_type'   => $post_type,
 			'post_status' => 'publish',
 			'numberposts' => $cpt_count,
+			'orderby'     => $cpt_orderby,
 			'order'       => $cpt_order,
 			'tax_query'   => $tax_query,
-		) );
+		);
+
+		// Order by meta value arg.
+		if ( strstr( $cpt_orderby, 'meta_value' ) ) {
+			$args['meta_key'] = $this->settings->post_order_by_meta_key;
+		}
+
+		if ( isset( $this->settings->post_offset ) ) {
+			$args['offset'] = absint( $this->settings->post_offset );
+		}
+
+		$args['settings'] = $this->settings;
+
+		$args = apply_filters( 'pp_accordion_cpt_query_args', $args );
+
+		if ( isset( $args['settings'] ) ) {
+			unset( $args['settings'] );
+		}
 
 		$posts = get_posts( $args );
 

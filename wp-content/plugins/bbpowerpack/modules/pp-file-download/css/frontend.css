@@ -89,3 +89,6 @@ a.pp-button:visited {
 .pp-files-dropdown {
 	margin-bottom: 10px;
 }
+.pp-files-dropdown select {
+	max-width: 100%;
+}

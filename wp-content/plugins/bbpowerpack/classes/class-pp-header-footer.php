@@ -461,7 +461,10 @@ final class BB_PowerPack_Header_Footer {
 	static public function disable_content_rendering() {
 		global $post;
 
-		if ( is_object( $post ) ) {
+		// Additional check for empty post ID to avoid breaking the content
+		// of other plugins which use template_redirect hook and query_posts 
+		// to render their content.
+		if ( is_a( $post, 'WP_Post' ) && ! empty( $post->ID ) ) {
 			$header = get_option( 'bb_powerpack_header_footer_template_header' );
 			$footer = get_option( 'bb_powerpack_header_footer_template_footer' );
 			$has_header = $post->ID == $header;

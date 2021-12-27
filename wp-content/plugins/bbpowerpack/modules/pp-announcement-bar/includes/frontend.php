@@ -26,7 +26,7 @@ else if( $settings->announcement_bar_position == 'top' ) {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="pp-announcement-bar-close-button" tabindex="0" aria-label="<?php _e( 'Close', 'bb-powerpack' ); ?>">
+		<div class="pp-announcement-bar-close-button" tabindex="0" aria-label="<?php _e( 'Close', 'bb-powerpack' ); ?>" role="button">
 			<span class="fas fa-times pp-close-button" aria-hidden="true"></span>
 		</div>
 	</div>

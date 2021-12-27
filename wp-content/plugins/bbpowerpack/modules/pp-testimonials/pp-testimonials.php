@@ -24,13 +24,12 @@ class PPTestimonialsModule extends FLBuilderModule {
 				'enabled'       => true, // Defaults to true and can be omitted.,
 			)
 		);
-
-		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 
 	public function enqueue_scripts() {
+		$this->add_js( 'imagesloaded' );
+
 		if ( FLBuilderModel::is_builder_active() || 'slider' == $this->settings->layout ) {
-			$this->add_css( BB_POWERPACK()->fa_css );
 			$this->add_css( 'pp-owl-carousel' );
 			$this->add_css( 'pp-owl-carousel-theme' );
 			$this->add_js( 'pp-owl-carousel' );

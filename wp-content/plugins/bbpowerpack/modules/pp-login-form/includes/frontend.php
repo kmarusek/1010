@@ -101,6 +101,11 @@ if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 					if ( 'yes' === $settings->enable_recaptcha ) {
 						$module->render_recaptcha_field( $id );
 					}
+
+					// Render hCaptcha field.
+					if ( isset( $settings->enable_hcaptcha ) && 'yes' === $settings->enable_hcaptcha ) {
+						$module->render_hcaptcha_field( $id );
+					}
 					?>
 
 					<div class="pp-field-group pp-login-form-extra">

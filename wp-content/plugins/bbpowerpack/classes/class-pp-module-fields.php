@@ -644,7 +644,14 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 				case 'align':
 					$field = array(
 						'type'		=> 'align',
-						'default'	=> 'left'
+						'default'	=> 'left',
+						'responsive'	=> $responsive
+					);
+					break;
+				case 'typography':
+					$field = array(
+						'type'			=> 'typography',
+						'responsive'	=> $responsive
 					);
 					break;
 				default:
@@ -685,6 +692,7 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 				'bg_hover_color'	=> self::get_field( 'color', __('Background Hover Color', 'bb-powerpack'), array( 'preview'	=> array( 'type' => 'none' ) ) ),
 				'text_color'		=> self::get_field( 'color', __('Text Color', 'bb-powerpack') ),
 				'text_hover_color'	=> self::get_field( 'color', __('Text Hover Color', 'bb-powerpack'), array( 'preview'	=> array( 'type' => 'none' ) ) ),
+				'typography'		=> self::get_field( 'typography', __('Typography', 'bb-powerpack') ),
 				'border'			=> self::get_field( 'border', __('Border', 'bb-powerpack') ),
 				// 'border_style'		=> self::get_field( 'border-style', __('Border Style', 'bb-powerpack') ),
 				// 'border_width'		=> self::get_field( 'unit', __('Border Width', 'bb-powerpack'), array( 'responsive' => false ) ),
@@ -693,6 +701,7 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 				// 'border_radius'		=> self::get_field( 'unit', __('Round Corners', 'bb-powerpack'), array( 'responsive' => false ) ),
 				'margin_top'		=> self::get_field( 'unit', __('Margin Top', 'bb-powerpack') ),
 				'padding'			=> self::get_field( 'dimension', __('Padding', 'bb-powerpack') ),
+				'width'				=> self::get_field( 'unit', __('Width', 'bb-powerpack') ),
 				'alignment'			=> self::get_field( 'align', __('Alignment', 'bb-powerpack') ),
 			);
 

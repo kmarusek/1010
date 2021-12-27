@@ -622,7 +622,7 @@ FLBuilderCSS::dimension_field_rule( array(
 
 .woocommerce .fl-node-<?php echo $id; ?> .pp-content-post {
 	<?php if( 'grid' == $settings->layout ) { ?>
-	margin-bottom: <?php echo $settings->post_spacing; ?>%;
+	margin-bottom: <?php echo $spacing; ?>%;
 	<?php } ?>
 }
 
@@ -630,12 +630,12 @@ FLBuilderCSS::dimension_field_rule( array(
 	position: relative;
 	<?php if( 'grid' == $settings->layout ) { ?>
 	float: left;
-	margin-bottom: <?php echo $settings->post_spacing; ?>%;
+	margin-bottom: <?php echo $spacing; ?>%;
 	width: <?php echo $post_columns_desktop - 0.1; ?>%;
 	<?php } ?>
 	<?php if( 'carousel' == $settings->layout ) { ?>
-	margin-left: <?php echo ($settings->post_spacing / 2); ?>%;
-	margin-right: <?php echo ($settings->post_spacing / 2); ?>%;
+	margin-left: <?php echo ($spacing / 2); ?>%;
+	margin-right: <?php echo ($spacing / 2); ?>%;
 	<?php } ?>
 	<?php if ( isset( $settings->post_bg_color ) && ! empty( $settings->post_bg_color ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->post_bg_color ); ?>;
@@ -652,7 +652,7 @@ FLBuilderCSS::border_field_rule( array(
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-grid-space {
-	width: <?php echo $settings->post_spacing; ?>%;
+	width: <?php echo $spacing; ?>%;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-content-grid-more-link,
@@ -830,7 +830,7 @@ FLBuilderCSS::dimension_field_rule( array(
 
 	/*
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['desktop']; ?>n) {
-	    margin-right: <?php echo $settings->post_spacing; ?>%;
+	    margin-right: <?php echo $spacing; ?>%;
 	}
 	*/
 
@@ -867,7 +867,7 @@ FLBuilderCSS::dimension_field_rule( array(
 
 	/*
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['tablet']; ?>n) {
-	    margin-right: <?php echo $settings->post_spacing; ?>%;
+	    margin-right: <?php echo $spacing; ?>%;
 	}
 	*/
 

@@ -80,3 +80,7 @@ a.pp-button:visited {
 	height: auto;
 	width: auto;
 }
+.pp-button .pp-button-has-subtext {
+	display: flex;
+	flex-direction: column;
+}

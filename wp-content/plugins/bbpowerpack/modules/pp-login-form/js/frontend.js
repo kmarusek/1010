@@ -38,6 +38,40 @@
 		}
 	};
 
+	window.onLoadPPHCaptcha = function() {
+		var hCaptchaFields = $('.h-captcha'),
+			widgetID;
+
+		if (hCaptchaFields.length > 0) {
+			hCaptchaFields.each(function (i) {
+				var self = $(this),
+					frame = $(this).find('iframe'),
+					attrWidget = frame.attr('data-hcaptcha-widget-id'),
+					newID = $(this).attr('id') + '-' + i;
+
+				// Avoid re-rendering as it's throwing API error
+				if ((typeof attrWidget !== typeof undefined && attrWidget !== false)) {
+					return;
+				}
+				else {
+					// Increment ID to avoid conflict with the same form.
+					self.attr('id', newID);
+
+					widgetID = hcaptcha.render(newID, {
+						sitekey: self.data('sitekey'),
+						callback: function (response) {
+							if (response != '') {
+								self.attr('data-pp-hcaptcha-response', response);
+							}
+						}
+					});
+
+					self.attr('data-hcaptcha-widget-id', widgetID);
+				}
+			});
+		}
+	};
+
 	PPLoginForm = function( settings ) {
 		this.id			= settings.id;
 		this.node 		= $('.fl-node-' + this.id);
@@ -266,12 +300,15 @@
 				redirect 		= theForm.find( 'input[name="redirect_to"]' ),
 				reauth 			= theForm.find( 'input[name="reauth"]' ),
 				reCaptchaField 	= theForm.find( '.pp-grecaptcha' ),
-				reCaptchaValue 	= reCaptchaField.data( 'pp-grecaptcha-response' ),
+				reCaptchaValue 	= reCaptchaField.attr( 'data-pp-grecaptcha-response' ),
+				hCaptchaField 	= theForm.find( '.pp-hcaptcha' ),
+				hCaptchaValue 	= hCaptchaField.find('iframe').attr('data-hcaptcha-response'),
 				self 			= this;
 		
 			username.parent().find( '.pp-lf-error' ).remove();
 			password.parent().find( '.pp-lf-error' ).remove();
 			reCaptchaField.parent().find( '.pp-lf-error' ).remove();
+			hCaptchaField.parent().find( '.pp-lf-error' ).remove();
 
 			// Validate username.
 			if ( '' === username.val().trim() ) {
@@ -293,8 +330,23 @@
 						return;
 					} else if ( 'invisible' == reCaptchaField.data( 'validate' ) ) {
 						// Invoke the reCAPTCHA check.
-						grecaptcha.execute( reCaptchaField.data( 'widgetid' ) );
+						if ( 'undefined' !== typeof reCaptchaField.data( 'action' ) ) {
+							// V3
+							grecaptcha.execute( reCaptchaField.data( 'widgetid' ), {action: reCaptchaField.data( 'action' )} );
+						}
+						else {
+							// V2
+							grecaptcha.execute( reCaptchaField.data( 'widgetid' ) );
+						}
 					}
+				}
+			}
+
+			// Validate if hCaptcha is enabled and checked
+			if ( hCaptchaField.length > 0 ) { 
+				if ( 'undefined' === typeof hCaptchaValue || hCaptchaValue === false || hCaptchaValue === '' ) {
+					$('<span class="pp-lf-error">').insertAfter( hCaptchaField ).html( this.messages.empty_recaptcha );
+					return;
 				}
 			}
 
@@ -326,6 +378,13 @@
 			}
 			if ( reCaptchaValue ) {
 				formData.append( 'recaptcha_response', reCaptchaValue );
+			}
+
+			if ( hCaptchaField.length > 0 ) {
+				formData.append( 'hcaptcha', true );
+			}
+			if ( 'undefined' !== typeof hCaptchaValue || hCaptchaValue !== false ) {
+				formData.append( 'hcaptcha_response', hCaptchaValue );
 			}
 
 			this._disableForm();
@@ -374,19 +433,71 @@
 
 			var theForm = $(e.target),
 				username = theForm.find( 'input[name="user_login"]' ),
+				reCaptchaField 	= theForm.find( '.pp-grecaptcha' ),
+				reCaptchaValue 	= reCaptchaField.attr( 'data-pp-grecaptcha-response' ),
+				hCaptchaField 	= theForm.find( '.pp-hcaptcha' ),
+				hCaptchaValue 	= hCaptchaField.find('iframe').attr('data-hcaptcha-response'),
 				self = this;
 
 			username.parent().find( '.pp-lf-error' ).remove();
+			reCaptchaField.parent().find( '.pp-lf-error' ).remove();
+			hCaptchaField.parent().find( '.pp-lf-error' ).remove();
 
 			if ( '' === username.val().trim() ) {
 				$('<span class="pp-lf-error">').insertAfter( username ).html( this.messages.empty_username );
 				return;
 			}
 
+			// Validate reCAPTCHA.
+			if ( reCaptchaField.length > 0 ) {
+				if ( 'undefined' === typeof reCaptchaValue || reCaptchaValue === false ) {
+					if ( 'normal' == reCaptchaField.data( 'validate' ) ) {
+						$('<span class="pp-lf-error">').insertAfter( reCaptchaField ).html( this.messages.empty_recaptcha );
+						return;
+					} else if ( 'invisible' == reCaptchaField.data( 'validate' ) ) {
+						// Invoke the reCAPTCHA check.
+						if ( 'undefined' !== typeof reCaptchaField.data( 'action' ) ) {
+							// V3
+							grecaptcha.execute( reCaptchaField.data( 'widgetid' ), {action: reCaptchaField.data( 'action' )} );
+						}
+						else {
+							// V2
+							grecaptcha.execute( reCaptchaField.data( 'widgetid' ) );
+						}
+					}
+				}
+			}
+
+			// Validate if hCaptcha is enabled and checked
+			if ( hCaptchaField.length > 0 ) { 
+				if ( 'undefined' === typeof hCaptchaValue || hCaptchaValue === false || hCaptchaValue === '' ) {
+					$('<span class="pp-lf-error">').insertAfter( hCaptchaField ).html( this.messages.empty_recaptcha );
+					return;
+				}
+			}
+
 			var formData = new FormData( theForm[0] );
 
 			formData.append( 'action', 'pp_lf_process_lost_pass' );
 			formData.append( 'page_url', this.settings.page_url );
+
+			if ( reCaptchaField.length > 0 ) {
+				formData.append( 'recaptcha', true );
+				formData.append( 'recaptcha_validate', reCaptchaField.data( 'validate' ) );
+				if ( reCaptchaField.data( 'invisible' ) ) {
+					formData.append( 'recaptcha_invisible', true );
+				}
+			}
+			if ( reCaptchaValue ) {
+				formData.append( 'recaptcha_response', reCaptchaValue );
+			}
+
+			if ( hCaptchaField.length > 0 ) {
+				formData.append( 'hcaptcha', true );
+			}
+			if ( 'undefined' !== typeof hCaptchaValue || hCaptchaValue !== false ) {
+				formData.append( 'hcaptcha_response', hCaptchaValue );
+			}
 
 			this._disableForm();
 

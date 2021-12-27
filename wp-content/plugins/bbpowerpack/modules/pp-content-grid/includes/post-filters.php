@@ -63,7 +63,48 @@ if ( 'main_query' === $settings->data_source && $terms_children_on_archive ) {
 } else {
 	$terms = ( count( $post_filter_terms ) > 0 ) ? $post_filter_terms : get_terms( $post_filter_args );
 }
-$count = is_array( $terms ) ? count( $terms ) : 0;
+
+if ( apply_filters( 'pp_cg_filters_show_available_posts_terms', false, $settings ) && 'main_query' === $settings->data_source ) {
+
+	$sub_query = clone $query;
+
+	$sub_query->set( 'numberposts', '-1' );
+	$sub_query->set( 'nopaging', true );
+
+	$rendered_posts = $sub_query->query( $sub_query->query_vars );
+
+	$rendered_terms = array();
+		
+	foreach ( $rendered_posts as $single ) {
+		$post_terms = wp_get_object_terms( $single->ID, $post_filter_tax, array( 'fields' => 'ids' ) );
+		if ( ! is_wp_error( $post_terms ) ) {
+			foreach ( $post_terms as $term ) {
+				$rendered_terms[] = $term;
+			}
+		}
+	}
+
+	$rendered_terms = array_unique( $rendered_terms );
+	
+	if ( ! empty( $rendered_terms ) ) {
+		$new_terms = array();
+		
+		foreach ( $terms as $term ) {
+			if ( in_array( $term->term_id, $rendered_terms ) ) {
+				$new_terms[] = $term;
+			}
+		}
+		
+		$terms = $new_terms;
+	} else {
+		$terms = array();
+	}
+
+	unset( $sub_query );
+	unset( $rendered_posts );
+}
+
+$terms = apply_filters( 'pp_cg_filter_terms', $terms, $settings );
 ?>
 <div class="pp-post-filters-wrapper">
 	<div class="pp-post-filters-toggle">
@@ -76,8 +117,7 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 			} else {
 				echo apply_filters( 'pp_cg_filters_all', '<li class="pp-post-filter" data-filter="*" tabindex="0" aria-label="'. strip_tags( $all_label ) .'">' . $all_label . '</li>', $settings );
 			}
-			if ( $count > 0 ) {
-				$terms = apply_filters( 'pp_cg_filter_terms', $terms, $settings );
+			if ( is_array( $terms ) && count( $terms ) ) {
 				$filter_terms = array();
 				foreach ( $terms as $term ) {
 					if ( ! empty( $terms_to_show ) ) {
@@ -112,7 +152,7 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 					$filter_terms = apply_filters( 'pp_cg_filtered_terms', $filter_terms, $terms, $settings );
 					foreach ( $filter_terms as $term_id ) {
 						$term = apply_filters( 'pp_cg_filtered_term', get_term( $term_id ), $filter_terms, $settings );
-						if ( empty( $term ) ) {
+						if ( empty( $term ) || 0 == $term->count ) {
 							continue;
 						}
 						$slug = $term->slug;

@@ -147,7 +147,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::responsive_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'button_align',
-	'selector'		=> ".fl-node-$id .pp-field-group.pp-field-type-submit, .fl-node-$id .pp-field-group.pp-field-type-link, .fl-node-$id .pp-field-group.pp-field-type-recaptcha",
+	'selector'		=> ".fl-node-$id .pp-field-group.pp-field-type-submit, .fl-node-$id .pp-field-group.pp-field-type-link, .fl-node-$id .pp-field-group.pp-field-type-recaptcha, .fl-node-$id .pp-field-group.pp-field-type-hcaptcha",
 	'prop'			=> 'text-align'
 ) );
 

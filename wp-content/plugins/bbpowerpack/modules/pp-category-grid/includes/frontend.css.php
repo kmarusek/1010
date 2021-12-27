@@ -20,6 +20,8 @@ $margin_left   = isset( $settings->category_margin_left ) && ! empty( $settings-
 $margin_right  = isset( $settings->category_margin_right ) && ! empty( $settings->category_margin_right ) ? $settings->category_margin_right : 0;
 $speed         = 0.3;
 
+$content_arrangement = isset( $settings->content_arrangement ) ? $settings->content_arrangement : 'overlay';
+
 // *************************************** Border ***************************************
 // Box Border - Settings
 FLBuilderCSS::border_field_rule(
@@ -249,7 +251,9 @@ if ( 'no' === $settings->category_grid_slider ) {
 
 .fl-node-<?php echo $id; ?> .pp-category {
 	width: <?php echo $width_desktop . '%'; ?>;
+	<?php if ( 'overlay' === $content_arrangement ) { ?>
 	height: <?php echo $height . 'px'; ?>;
+	<?php } ?>
 	float: left;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -269,7 +273,9 @@ if ( 'no' === $settings->category_grid_slider ) {
 	}
 	?>
 }
+
 .fl-node-<?php echo $id; ?> .pp-category .pp-category__content {
+	<?php if ( 'overlay' === $content_arrangement ) { ?>
 
 	<?php
 	if ( 'bottom' === $settings->overlay_vertical_align ) {
@@ -293,7 +299,9 @@ if ( 'no' === $settings->category_grid_slider ) {
 		<?php
 	}
 	?>
+	<?php if ( ! empty( $height ) ) { ?>
 	height: <?php echo ( $height - ( $margin_top + $margin_bottom ) ); ?>px;
+	<?php } ?>
 	width: calc( 100% - <?php echo ( $margin_left + $margin_right ); ?>px );
 
 	<?php
@@ -313,8 +321,16 @@ if ( 'no' === $settings->category_grid_slider ) {
 			<?php
 		}
 	}
-
 	?>
+
+	<?php } else { ?>
+		transform: none;
+		position: static;
+		top: auto;
+		left: auto;
+		right: auto;
+		bottom: auto;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-category.pp-category__no-image .pp-category__content {
@@ -323,7 +339,9 @@ if ( 'no' === $settings->category_grid_slider ) {
     left: 0;
     right: 0;
     transform: none;
+	<?php if ( '' !== $height ) { ?>
 	height: <?php echo $height; ?>px !important;
+	<?php } ?>
 	<?php
 	if ( 'bottom' === $settings->overlay_vertical_align ) {
 		?>
@@ -690,7 +708,7 @@ if ( 'style-0' === $category_style ) {
 		?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-category .pp-category__content {
-		<?php if ( ! empty( $height_medium ) ) { ?>
+		<?php if ( '' !== $height_medium ) { ?>
 			height: <?php echo ( $height_medium - 40 ); ?>px;
 		<?php } ?>
 	}
@@ -781,7 +799,7 @@ if ( 'style-0' === $category_style ) {
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-category .pp-category__content {
-		<?php if ( ! empty( $height_responsive ) ) { ?>
+		<?php if ( '' !== $height_responsive ) { ?>
 			height: <?php echo ( $height_responsive - 40 ); ?>px;
 		<?php } ?>
 	}

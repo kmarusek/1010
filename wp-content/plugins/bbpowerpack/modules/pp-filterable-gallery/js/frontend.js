@@ -34,7 +34,7 @@
 			this._initFilterData();
 			this._gridLayout();
 
-			$( window ).on( 'load', $.proxy( this._hashChange, this ) );
+			this._hashChange();
 
 			$( window ).on( 'hashchange', $.proxy( this._hashChange, this ) );
 		},
@@ -88,47 +88,42 @@
 			var filterToggle 	= node.find('.pp-gallery-filters-toggle');
 			var isMasonry		= this.masonry;
 			
-			wrap.imagesLoaded( $.proxy( function() {
+			wrap.imagesLoaded( function() {
 
 				if ( wrap.find( '.pp-gallery-overlay' ).length > 0 ) {
 					var imgW = wrap.find( '.pp-gallery-img' ).outerWidth();
 					wrap.find( '.pp-gallery-overlay' ).css('max-width', imgW + 'px');
 				}
 
-				filterToggle.off('click').on('click', function () {
-					filtersWrap.slideToggle(function () {
-						if ($(this).is(':visible')) {
-							$(this).addClass('pp-gallery-filters-open');
-						}
-						if (!$(this).is(':visible')) {
-							$(this).removeClass('pp-gallery-filters-open');
-						}
-					});
-				});
+			} );
 
-				filtersWrap.on('click', '.pp-gallery-filter-label', function() {
-                    var filterVal = $(this).attr('data-filter');
-                    filters.isotope({ filter: filterVal });
+			filterToggle.off('click').on('click', function () {
+				filtersWrap.toggleClass('pp-gallery-filters-open');
+			});
 
-					filtersWrap.find('.pp-gallery-filter-label').removeClass('pp-filter-active');
-					$(this).addClass('pp-filter-active');
-					
-					filterToggle.find('span.toggle-text').html($(this).text());
-					if (filtersWrap.hasClass('pp-gallery-filters-open')) {
-						filtersWrap.slideUp();
-					}
-                });
+			filtersWrap.on('click', '.pp-gallery-filter-label', function() {
+				var filterVal = $(this).attr('data-filter');
+				filters.isotope({ filter: filterVal });
 
-                setTimeout( function() {
-					node.find('.pp-filter-active').trigger('click');
-					if ( isMasonry ) {
-						wrap.isotope('layout');
-					}
+				filtersWrap.find('.pp-gallery-filter-label').removeClass('pp-filter-active');
+				$(this).addClass('pp-filter-active');
+				
+				filterToggle.find('span.toggle-text').html($(this).text());
+				if (filtersWrap.hasClass('pp-gallery-filters-open')) {
+					filtersWrap.removeClass('pp-gallery-filters-open');
+				}
 
-					items.css('visibility', 'visible');
-                }, 1000 );
+				$(document).trigger( 'pp_filterable_gallery_filter_change', [$(this), node] );
+			});
 
-			}, this ) );
+			setTimeout( function() {
+				node.find('.pp-filter-active').trigger('click');
+				if ( isMasonry ) {
+					wrap.isotope('layout');
+				}
+
+				items.css('visibility', 'visible');
+			}, 1000 );
 		},
 	};
 

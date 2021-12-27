@@ -1232,6 +1232,12 @@ BB_PowerPack::register_module('PPGalleryModule', array(
 								'property'	=> 'color'
 							)
 						),
+						'typography' => array(
+							'preview' => array(
+								'type' => 'css',
+								'selector' => '.pp-gallery-pagination .pp-gallery-load-more',
+							),
+						),
 						'border'	=> array(
 							'preview'	=> array(
 								'type'		=> 'css',
@@ -1258,13 +1264,16 @@ BB_PowerPack::register_module('PPGalleryModule', array(
 						'padding'	=> array(
 							'default'	=> '10',
 						),
+						'width'		=> array(
+							'units'		=> array( 'px', '%' ),
+						),
 						'alignment'	=> array(
 							'preview'	=> array(
 								'type'		=> 'css',
 								'selector'	=> '.pp-gallery-pagination',
 								'property'	=> 'text-align'
 							)
-						)
+						),
 					)
 				)
 			)

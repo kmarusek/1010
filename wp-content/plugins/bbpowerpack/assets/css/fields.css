@@ -337,6 +337,15 @@ span.pp-multitext.fa-long-arrow-right:before {
     flex-direction: row;
     flex: 1 1 auto;
 }
+.pp-switch + .fl-field-description {
+    margin-top: 10px;
+    display: inline-block;
+	font-style: italic !important;
+	opacity: 0.85;
+}
+.pp-switch + .fl-field-description a {
+    text-decoration: underline;
+}
 .fl-builder-ui-skin--light .pp-switch,
 .fl-builder-ui-skin--dark .pp-switch {
     height: 34px;

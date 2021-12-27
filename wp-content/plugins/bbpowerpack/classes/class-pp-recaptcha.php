@@ -6,14 +6,16 @@ class BB_PowerPack_ReCaptcha {
 	private $secret_key;
 	private $validate_type;
 	private $response;
+	private $action;
 
 	protected $is_success = false;
 	protected $error = false;
 
-	public function __construct( $secret_key, $validate_type, $response ) {
+	public function __construct( $secret_key, $validate_type, $response, $action = 'Form' ) {
 		$this->secret_key = $secret_key;
 		$this->validate_type = $validate_type;
 		$this->response = $response;
+		$this->action = $action;
 
 		// Do recaptcha validation here so we can only load for php 5.3 and above.
 		require_once FL_BUILDER_DIR . 'includes/vendor/recaptcha/autoload.php';
@@ -32,7 +34,7 @@ class BB_PowerPack_ReCaptcha {
 			// @codingStandardsIgnoreStart
 			// V3
 			$response = $recaptcha->setExpectedHostname( $_SERVER['SERVER_NAME'] )
-							->setExpectedAction( 'Form' )
+							->setExpectedAction( $this->action )
 							->setScoreThreshold( 0.5 )
 							->verify( $this->response, $_SERVER['REMOTE_ADDR'] );
 			// @codingStandardsIgnoreEnd

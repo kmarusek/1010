@@ -1,3 +1,39 @@
+== 2.20.0 ==
+Release date: December 20, 2021
+* Enhancement: Advanced Menu - Added an option to enable Search in the menu
+* Enhancement: Advanced Menu - Added an option to enable Woo Cart in the menu
+* Enhancement: Advanced Menu - Added an option to use Submenu Width as min-width
+* Enhancement: Advanced Menu - Wrapped menu in <nav> HTML tag
+* Enhancement: Modal Box - Added an option to trigger popup on page scroll by certain percentage
+* Enhancement: Smart Button - Added an option to provide sub text with its own styling colors and typography
+* Enhancement: Login Form - Added hCaptcha integration
+* Enhancement: Login Form - Added reCAPTCHA and hCaptcha for lost password form as well
+* Enhancement: Category Grid - Added an option to make the content appear overlay or stacked
+* Enhancement: Content Grid - Added logic to not render empty category in filters
+* Enhancement: Content Grid - Added discernible text to slider previous/next navigation buttons for ADA compliance
+* Enhancement: Content Grid - Added discernible text to slider pagination dots for ADA compliance
+* Enhancement: Advanced Accordion - Added Order By and Offset options for Posts
+* Enhancement: Hover Cards 2 - Use image alt text from media library as primary and card title as secondary (fallback)
+* Enhancement: Photo Gallery - Added typography and width options for the Load More button
+* Enhancement: Photo Gallery - Enabled responsive option for the Load More button alignment
+* Enhancement: Testimonials - Removed unused FontAwesome stylesheet
+* Enhancement: Row Effects - Added Line Color option for Particles effect
+* Fix: Content Grid - Filters were not working properly in main query
+* Fix: Content Grid - PHP warning when Column Spacing field is empty
+* Fix: Announcement Bar - admin bar menus overlap issue
+* Fix: Announcement Bar - Close button ARIA attribute validation issue
+* Fix: Hover Cards - Missing image alt tag
+* Fix: Testimonials - Fixed height option was not working for Layout 4
+* Fix: Off-Canvas Content - Close icon was not getting displayed in some cases
+* Fix: Video Gallery - Non-English letters in filter tags were breaking the functionality
+* Fix: Advanced Tabs - ajaxurl unfefined error in some cases
+* Fix: Advanced Accordion - ajaxurl unfefined error in some cases
+* Fix: Header/Footer - Issue with Theme My Login password reset screen
+* Development: Content Grid - Added filter hook pp_cg_filters_show_available_posts_terms
+* Development: Content Grid - Added filter hook pp_cg_post_author_html
+* Development: Author Box - Added filter hook pp_author_box_image_url
+* Development: Author Box - Added filter hook pp_author_box_image_size
+
 == 2.19.1 ==
 Release date: December 2, 2021
 * Fix: Content Grid - Pagination was not working properly when using custom query on category archives

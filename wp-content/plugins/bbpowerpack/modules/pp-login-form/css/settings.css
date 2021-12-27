@@ -4,12 +4,12 @@
 	display: none !important;
 }
 
-#fl-builder-settings-section-recaptcha .fl-builder-settings-description {
+#fl-builder-settings-section-captcha .fl-builder-settings-description {
 	padding-top: 15px;
     padding-bottom: 0;
 }
-#fl-builder-settings-section-recaptcha .fl-builder-settings-description a {
-	text-decoration: underline;
+#fl-builder-settings-section-captcha .fl-builder-settings-description a {
+	text-decoration: underline !important;
 }
 
 #fl-field-facebook_login_help .fl-field-control,

@@ -14,7 +14,7 @@
 			<a class="pp-more-link-container" href="<?php echo $card->box_link == '#' ? 'javascript:void(0)' : $card->box_link; ?>" target="<?php echo $card->box_link_target; ?>">
 			<?php } ?>
 				<?php if ( $card->hover_card_bg_type == 'image' && isset( $card->hover_card_box_image_src ) ) { ?>
-					<img src="<?php echo $card->hover_card_box_image_src; ?>" class="pp-hover-card-image" alt="<?php echo $card->title; ?>" />
+					<img src="<?php echo $card->hover_card_box_image_src; ?>" class="pp-hover-card-image" alt="<?php echo $module->get_image_alt( $card, $card->hover_card_box_image ); ?>" />
 				<?php } ?>
 				<div class="pp-hover-card-inner">
 					<div class="pp-hover-card-inner-wrap">
@@ -24,8 +24,8 @@
 									<?php if ( $card->hover_card_image_select == 'icon' ) { ?>
 									<span class="pp-hover-card-icon <?php echo $card->hover_card_font_icon; ?>"></span>
 									<?php } ?>
-									<?php if ( $card->hover_card_image_select == 'image' ) { ?>
-									<span class="pp-hover-card-icon-image"><img src="<?php echo $card->hover_card_custom_icon_src; ?>"/></span>
+									<?php if ( $card->hover_card_image_select == 'image' && ! empty( $card->hover_card_custom_icon ) ) { ?>
+									<span class="pp-hover-card-icon-image"><img src="<?php echo $card->hover_card_custom_icon_src; ?>" alt="<?php echo $module->get_image_alt( $card, $card->hover_card_custom_icon ); ?>" /></span>
 									<?php } ?>
 								</div>
 							<?php } ?>

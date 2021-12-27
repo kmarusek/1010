@@ -5,6 +5,10 @@
  * @class PPAdvancedMenu
  */
 class PPAdvancedMenu extends FLBuilderModule {
+	/**
+	 * @property $pp_page_id
+	 */
+	public static $pp_page_id;
 
     /**
      * Parent class constructor.
@@ -23,128 +27,26 @@ class PPAdvancedMenu extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
         ));
 
+		// Actions
+		add_action( 'pre_get_posts', array( $this, 'set_pre_get_posts_query' ), 10, 2 );
+
+		// Filters
+		if ( class_exists( 'WooCommerce' ) ) {
+			add_filter( 'woocommerce_add_to_cart_fragments', array( $this, 'menu_woo_cart_ajax_fragments' ) );
+		}
     }
 
-	public static function _get_menus() {
-		if ( ! isset( $_GET['fl_builder'] ) ) {
-			return array();
-		}
-
-		$get_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
-		$options = array();
-
-		if ( $get_menus ) {
-
-			foreach( $get_menus as $key => $menu ) {
-
-				if ( $key == 0 ) {
-					$fields['default'] = $menu->name;
-				}
-
-				$options[ $menu->slug ] = $menu->name;
+	public function enqueue_scripts() {
+		if ( ! FLBuilderModel::is_builder_active() ) {
+			$settings = $this->settings;
+			$enqueue_fa_css = false;
+			if ( isset( $settings->show_search ) && 'yes' === $settings->show_search ) {
+				$enqueue_fa_css = true;
 			}
-
-		} else {
-			$options = array( '' => __( 'No Menus Found', 'bb-powerpack' ) );
-		}
-
-		return $options;
-	}
-
-	public function render_toggle_button() {
-
-		$toggle = $this->settings->mobile_toggle;
-		$menu_text = empty( $this->settings->custom_menu_text ) ? __( 'Menu', 'bb-powerpack' ) : $this->settings->custom_menu_text;
-
-		if ( isset( $toggle ) && $toggle != 'expanded' ) {
-			?>
-			<div class="pp-advanced-menu-mobile-toggle <?php echo $toggle; ?>">
-				<?php
-				$inner_html = '';
-
-				if ( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
-
-					$inner_html .= '<div class="pp-hamburger" tabindex="0" role="button" aria-label="' . __( 'Menu', 'bb-powerpack' ) . '">';
-					$inner_html .= '<div class="pp-hamburger-box">';
-					$inner_html .= '<div class="pp-hamburger-inner"></div>';
-					$inner_html .= '</div>';
-					$inner_html .= '</div>';
-
-					if ( $toggle == 'hamburger-label' ) {
-						$inner_html .= '<span class="pp-advanced-menu-mobile-toggle-label">' . $menu_text . '</span>';
-					}
-
-				} elseif ( $toggle == 'text' ) {
-					$inner_html .= '<span class="pp-advanced-menu-mobile-toggle-label">'. $menu_text .'</span>';
-				}
-
-				$inner_html = apply_filters( 'pp_advanced_menu_html_toggle', $inner_html, $this->settings );
-
-				echo $inner_html;
-			?>
-			</div>
-			<?php
-		}
-	}
-
-	public static function set_pre_get_posts_query( $query ) {
-		if ( ! is_admin() && $query->is_main_query() ) {
-	    	self::$fl_builder_page_id = $query->queried_object_id;
-	    }
-	}
-
-	public static function sort_nav_objects( $sorted_menu_items, $args ) {
-		$menu_items = array();
-		$parent_items = array();
-
-		foreach ( $sorted_menu_items as $key => $menu_item ) {
-			$classes = (array) $menu_item->classes;
-
-			// Setup classes for current menu item.
-			if ( $menu_item->object_id == self::$fl_builder_page_id ) {
-				$parent_items[$menu_item->object_id] = $menu_item->menu_item_parent;
-
-				if ( ! in_array( 'current-menu-item', $classes ) ) {
-					$classes[] = 'current-menu-item';
-
-					if ($menu_item->object == 'page') {
-		        		$classes[] = 'current_page_item';
-		        	}
-				}
-			}
-			$menu_item->classes = $classes;
-			$menu_items[ $key ] = $menu_item;
-		}
-
-		// Setup classes for parent's current item.
-		foreach ( $menu_items as $key => $sorted_item ) {
-			if ( in_array( $sorted_item->db_id, $parent_items ) && ! in_array( 'current-menu-parent', (array) $sorted_item->classes) ) {
-				$menu_items[ $key ]->classes[] = 'current-menu-ancestor';
-				$menu_items[ $key ]->classes[] = 'current-menu-parent';
+			if ( $enqueue_fa_css ) {
+				$this->add_css( BB_POWERPACK()->fa_css );
 			}
 		}
-
-		return $menu_items;
-	}
-
-	public function get_media_breakpoint() {
-		$global_settings = FLBuilderModel::get_global_settings();
-		$media_width = $global_settings->responsive_breakpoint;
-		$mobile_breakpoint = $this->settings->mobile_breakpoint;
-
-		if ( isset( $mobile_breakpoint ) && 'expanded' != $this->settings->mobile_toggle ) {
-			if ( 'medium-mobile' == $mobile_breakpoint ) {
-				$media_width = $global_settings->medium_breakpoint;
-			} elseif ( 'mobile' == $this->settings->mobile_breakpoint ) {
-				$media_width = $global_settings->responsive_breakpoint;
-			} elseif ( 'always' == $this->settings->mobile_breakpoint ) {
-				$media_width = 'always';
-			} elseif ( 'custom' == $this->settings->mobile_breakpoint ) {
-				$media_width = $this->settings->custom_breakpoint;
-			}
-		}
-
-		return $media_width;
 	}
 
 	public function filter_settings( $settings, $helper ) {
@@ -220,6 +122,388 @@ class PPAdvancedMenu extends FLBuilderModule {
 
 		return $settings;
 	}
+
+	public static function _get_menus() {
+		if ( ! isset( $_GET['fl_builder'] ) ) {
+			return array();
+		}
+
+		$get_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+		$options = array();
+
+		if ( $get_menus ) {
+
+			foreach( $get_menus as $key => $menu ) {
+
+				if ( $key == 0 ) {
+					$fields['default'] = $menu->name;
+				}
+
+				$options[ $menu->slug ] = $menu->name;
+			}
+
+		} else {
+			$options = array( '' => __( 'No Menus Found', 'bb-powerpack' ) );
+		}
+
+		return $options;
+	}
+
+	public function render_toggle_button() {
+
+		$toggle = $this->settings->mobile_toggle;
+		$menu_text = empty( $this->settings->custom_menu_text ) ? __( 'Menu', 'bb-powerpack' ) : $this->settings->custom_menu_text;
+
+		if ( isset( $toggle ) && $toggle != 'expanded' ) {
+			?>
+			<div class="pp-advanced-menu-mobile-toggle <?php echo $toggle; ?>">
+				<?php
+				$inner_html = '';
+
+				if ( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
+
+					$inner_html .= '<div class="pp-hamburger" tabindex="0" role="button" aria-label="' . __( 'Menu', 'bb-powerpack' ) . '">';
+					$inner_html .= '<div class="pp-hamburger-box">';
+					$inner_html .= '<div class="pp-hamburger-inner"></div>';
+					$inner_html .= '</div>';
+					$inner_html .= '</div>';
+
+					if ( $toggle == 'hamburger-label' ) {
+						$inner_html .= '<span class="pp-advanced-menu-mobile-toggle-label">' . $menu_text . '</span>';
+					}
+
+				} elseif ( $toggle == 'text' ) {
+					$inner_html .= '<span class="pp-advanced-menu-mobile-toggle-label">'. $menu_text .'</span>';
+				}
+
+				$inner_html = apply_filters( 'pp_advanced_menu_html_toggle', $inner_html, $this->settings );
+
+				echo $inner_html;
+			?>
+			</div>
+			<?php
+		}
+	}
+
+	public function set_pre_get_posts_query( $query ) {
+		if ( ! is_admin() && $query->is_main_query() ) {
+
+			if ( $query->queried_object_id ) {
+
+				self::$pp_page_id = $query->queried_object_id;
+
+			// Fix when menu module is rendered via hook
+			} elseif ( isset( $query->query_vars['page_id'] ) && 0 != $query->query_vars['page_id'] ) {
+
+				self::$pp_page_id = $query->query_vars['page_id'];
+
+			}
+		}
+	}
+
+	public function sort_nav_objects( $sorted_menu_items, $args ) {
+		$menu_items   = array();
+		$parent_items = array();
+		foreach ( $sorted_menu_items as $key => $menu_item ) {
+			$classes = (array) $menu_item->classes;
+
+			// Setup classes for current menu item.
+			if ( $menu_item->ID == self::$pp_page_id || self::$pp_page_id == $menu_item->object_id ) {
+				$parent_items[ $menu_item->object_id ] = $menu_item->menu_item_parent;
+
+				if ( ! in_array( 'current-menu-item', $classes ) ) {
+					$classes[] = 'current-menu-item';
+
+					if ( 'page' == $menu_item->object ) {
+						$classes[] = 'current_page_item';
+					}
+				}
+			}
+			$menu_item->classes = $classes;
+			$menu_items[ $key ] = $menu_item;
+		}
+
+		// Setup classes for parent's current item.
+		foreach ( $menu_items as $key => $sorted_item ) {
+			if ( in_array( $sorted_item->db_id, $parent_items ) && ! in_array( 'current-menu-parent', (array) $sorted_item->classes ) ) {
+				$menu_items[ $key ]->classes[] = 'current-menu-ancestor';
+				$menu_items[ $key ]->classes[] = 'current-menu-parent';
+			}
+		}
+
+		return $menu_items;
+	}
+
+	public function get_menu_label() {
+		if ( ! empty( $this->settings->wp_menu ) ) {
+			$menu = get_term_by( 'slug', $this->settings->wp_menu, 'nav_menu' );
+			return $menu->name;
+		}
+
+		return __( 'Menu', 'bb-powerpack' );
+	}
+
+	public function get_media_breakpoint() {
+		$global_settings = FLBuilderModel::get_global_settings();
+		$media_width = $global_settings->responsive_breakpoint;
+		$mobile_breakpoint = $this->settings->mobile_breakpoint;
+
+		if ( isset( $mobile_breakpoint ) && 'expanded' != $this->settings->mobile_toggle ) {
+			if ( 'medium-mobile' == $mobile_breakpoint ) {
+				$media_width = $global_settings->medium_breakpoint;
+			} elseif ( 'mobile' == $this->settings->mobile_breakpoint ) {
+				$media_width = $global_settings->responsive_breakpoint;
+			} elseif ( 'always' == $this->settings->mobile_breakpoint ) {
+				$media_width = 'always';
+			} elseif ( 'custom' == $this->settings->mobile_breakpoint ) {
+				$media_width = $this->settings->custom_breakpoint;
+			}
+		}
+
+		return $media_width;
+	}
+
+	public function filter_nav_menu_items( $items ) {
+		$settings = $this->settings;
+
+		if ( isset( $settings->show_woo_cart ) && 'yes' == $settings->show_woo_cart ) {
+			$items = $this->render_menu_woo_cart( $items );
+		}
+
+		if ( isset( $settings->show_search ) && 'yes' == $settings->show_search ) {
+			$items = $this->render_menu_search( $items );
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Add Woo cart to menu.
+	 *
+	 * @return string
+	 */
+	public function render_menu_woo_cart( $items ) {
+		if ( ! class_exists( 'WooCommerce' ) ) {
+			return $items;
+		}
+
+		// Bail out if no data to load.
+		if ( empty( WC()->cart ) ) {
+			return $items;
+		}
+
+		$settings = $this->settings;
+		$classes  = 'menu-item pp-menu-cart-item';
+
+		$show_on_checkout = isset( $settings->woo_cart_on_checkout ) && 'yes' == $settings->woo_cart_on_checkout;
+
+		if ( ! $show_on_checkout && ( is_checkout() || is_cart() ) ) {
+			$classes .= ' pp-menu-cart-item-hidden';
+		}
+
+		ob_start();
+		do_action( 'pp_advanced_menu_before_woo_cart_content', $settings );
+		echo $this->menu_woo_cart_content();
+		do_action( 'pp_advanced_menu_after_woo_cart_content', $settings );
+		$cart_content = ob_get_clean();
+
+		$menu_cart_content = $cart_content;
+		$menu_item_li      = "<li class='$classes'>$menu_cart_content</li>";
+		$items            .= $menu_item_li;
+
+		return $items;
+	}
+
+	public function render_menu_search( $items ) {
+		$settings = $this->menu_search_settings();
+
+		if ( class_exists( 'PPSearchFormModule' ) ) {
+			ob_start();
+			?>
+			<a href="javascript:void(0)" role="button" aria-label="<?php _e( 'Search', 'bb-powerpack' ); ?>">
+				<span class="menu-item-text"><i class="<?php echo $this->settings->search_icon; ?>" aria-hidden="true"></i></span>
+			</a>
+			<?php
+			FLBuilder::render_module_html( 'pp-search-form', $settings );
+			$search_content = ob_get_clean();
+		} else {
+			$modules_manager = BB_PowerPack_Admin_Settings::get_form_action( '&tab=modules' );
+			// translators: %1$s denotes opening anchor tag, %2$s denotes closing anchor tag.
+			$search_content = sprintf( __( '<%1$s>Click here</%2$s> enable Search module.', 'bb-powerpack' ), '<a href="' . $modules_manager . '" target="_blank">', '</a>' );
+		}
+
+		$items .= "<li class='menu-item pp-menu-search-item'>$search_content</li>";
+
+		return $items;
+	}
+
+	public function menu_search_settings() {
+		$search_module_settings = array(
+			'style' => 'minimal',
+			'placeholder' => $this->settings->search_placeholder,
+			'size' => $this->settings->search_container_size,
+		);
+
+		foreach ( $this->settings as $key => $value ) {
+			if ( strstr( $key, 'input_' ) ) {
+				$search_module_settings[ $key ] = $value;
+			}
+		}
+
+		return apply_filters( 'pp_advanced_menu_search_settings', $search_module_settings, $this->settings );
+	}
+
+	/**
+	 * Enable Woo ajax cart.
+	 *
+	 * @return array
+	 */
+	public function menu_woo_cart_ajax_fragments( $fragments ) {
+		if ( ! defined( 'WOOCOMMERCE_CART' ) ) {
+			define( 'WOOCOMMERCE_CART', true );
+		}
+
+		$menu_fragment = $this->menu_woo_cart_content();
+		if ( ! empty( $menu_fragment ) ) {
+			$fragments['a.pp-menu-cart-contents'] = $menu_fragment;
+		}
+
+		return $fragments;
+	}
+
+	public function menu_woo_cart_content() {
+		$cart_count   = WC()->cart->cart_contents_count;
+		$settings     = null;
+		$item_content = '';
+
+		if ( 0 == $cart_count ) {
+			$menu_item_args = apply_filters( 'pp_advanced_menu_woo_empty_cart_menu_item', array(
+				'title' => __( 'Start shopping', 'bb-powerpack' ),
+				'url'   => wc_get_page_permalink( 'shop' ),
+			) );
+
+			$cart_url          = $menu_item_args['url'];
+			$menu_item_title   = $menu_item_args['title'];
+			$menu_item_classes = 'pp-menu-cart-contents empty-pp-menu-cart-visible';
+		} else {
+			$menu_item_args = apply_filters( 'pp_advanced_menu_woo_cart_menu_item', array(
+				'title' => __( 'View your shopping cart', 'bb-powerpack' ),
+				'url'   => wc_get_cart_url(),
+			) );
+
+			$cart_url          = $menu_item_args['url'];
+			$menu_item_title   = $menu_item_args['title'];
+			$menu_item_classes = 'pp-menu-cart-contents';
+		}
+
+		if ( isset( $this->settings ) ) {
+			$settings = $this->settings;
+		} elseif ( $_REQUEST && isset( $_REQUEST['pp-advanced-menu-node'] ) ) {
+			$menu_node = $_REQUEST['pp-advanced-menu-node'];
+			$post_id   = (int) $_REQUEST['post-id'];
+
+			$data = FLBuilderModel::get_layout_data( 'published', $post_id );
+			if ( isset( $data[ $menu_node ] ) ) {
+				$module = $data[ $menu_node ];
+
+				if ( $module && isset( $module->settings->show_woo_cart ) && 'yes' == $module->settings->show_woo_cart ) {
+					$settings = $module->settings;
+				}
+			}
+		}
+
+		if ( $settings ) {
+			$display_type = isset( $settings->woo_cart_display_type ) ? $settings->woo_cart_display_type : 'count';
+			/* translators: %d: item count */
+			$items_count  = sprintf( _n( '%d item', '%d items', $cart_count, 'bb-powerpack' ), $cart_count );
+			$cart_total   = $this->get_woo_cart_total();
+			$cart_content = '<span class="pp-menu-cart-count">' . $items_count . '</span>';
+			$icon         = '';
+
+			if ( isset( $settings->woo_cart_icon ) && ! empty( $settings->woo_cart_icon ) ) {
+				$icon = '<i class="pp-menu-cart-icon ' . $settings->woo_cart_icon . '" role="img" aria-label="' . __( 'Cart', 'bb-powerpack' ) . '"></i>';
+			}
+
+			if ( in_array( $display_type, array( 'total', 'count-total' ) ) ) {
+				$total_content = '<span class="pp-menu-cart-total">' . $cart_total . '</span>';
+				if ( 'count-total' == $display_type ) {
+					$cart_content .= ' &ndash; ' . $total_content;
+				} else {
+					$cart_content = $total_content;
+				}
+			}
+
+			$menu_item_classes .= ' pp-menu-cart-type-' . $display_type;
+
+			$item_content  = '<a class="' . $menu_item_classes . '" href="' . $cart_url . '" title="' . $menu_item_title . '">';
+			$item_content .= $icon . $cart_content;
+			$item_content .= '</a>';
+		}
+
+		return $item_content;
+	}
+
+	/**
+	 * Get Woo cart total price.
+	 */
+	public function get_woo_cart_total() {
+		$cart_total_type     = 'subtotal'; // subtotal | checkout_total
+		$cart_contents_total = 0;
+		if ( 'subtotal' == $cart_total_type ) {
+			if ( WC()->cart->display_prices_including_tax() ) {
+				$cart_contents_total = wc_price( WC()->cart->get_subtotal() + WC()->cart->get_subtotal_tax() );
+			} else {
+				$cart_contents_total = wc_price( WC()->cart->get_subtotal() );
+			}
+		} elseif ( 'checkout_total' == $cart_total_type ) {
+			$cart_contents_total = wc_price( WC()->cart->get_total( 'edit' ) );
+		} else {
+			if ( WC()->cart->display_prices_including_tax() ) {
+				$cart_contents_total = wc_price( WC()->cart->get_cart_contents_total() + WC()->cart->get_cart_contents_tax() );
+			} else {
+				$cart_contents_total = wc_price( WC()->cart->get_cart_contents_total() );
+			}
+		}
+
+		return $cart_contents_total;
+	}
+
+	public function render_nav() {
+		$settings = $this->settings;
+
+		if ( ! empty( $settings->wp_menu ) ) {
+
+			if ( isset( $settings->menu_layout ) ) {
+				if ( in_array( $settings->menu_layout, array( 'vertical', 'horizontal' ) ) && isset( $settings->submenu_hover_toggle ) ) {
+					$toggle = ' pp-toggle-'. $settings->submenu_hover_toggle;
+				} elseif ( $settings->menu_layout == 'accordion' && isset( $settings->submenu_click_toggle ) ) {
+					$toggle = ' pp-toggle-'. $settings->submenu_click_toggle;
+				} else {
+					$toggle = ' pp-toggle-arrows';
+				}
+			} else {
+				$toggle = ' pp-toggle-arrows';
+			}
+
+			$layout = isset( $settings->menu_layout ) ? 'pp-advanced-menu-'. $settings->menu_layout : 'pp-advanced-menu-horizontal';
+
+			$defaults = array(
+				'menu'			=> $settings->wp_menu,
+				'container'		=> false,
+				'menu_class'	=> 'menu '. $layout . $toggle,
+				'walker'		=> new Advanced_Menu_Walker(),
+				'item_spacing'  => 'discard',
+			);
+
+			add_filter( 'wp_nav_menu_' . $settings->wp_menu . '_items', array( $this, 'filter_nav_menu_items' ), 10 );
+			add_filter( 'wp_nav_menu_objects', array( $this, 'sort_nav_objects' ), 10, 2 );
+
+			wp_nav_menu( $defaults );
+
+			remove_filter( 'wp_nav_menu_objects', array( $this, 'sort_nav_objects' ) );
+			remove_filter( 'wp_nav_menu_' . $settings->wp_menu . '_items', array( $this, 'filter_nav_menu_items' ), 10 );
+		}
+	}
 }
 
 /**
@@ -294,8 +578,76 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 					),
                 )
             ),
+			'search'	=> array(
+				'title'		=> __( 'Search', 'bb-powerpack' ),
+				'collapsed' => true,
+				'fields'	=> array(
+					'show_search' => array(
+						'type'	  => 'pp-switch',
+						'label'	  => __( 'Show Search', 'bb-powerpack' ),
+						'default' => 'no',
+						'toggle'  => array(
+							'yes'	=> array(
+								'sections' => array( 'search_style' ),
+								'fields' => array( 'search_icon', 'search_placeholder' ),
+							),
+						),
+					),
+					'search_icon' => array(
+						'type' => 'icon',
+						'label' => __( 'Icon', 'bb-powerpack' ),
+						'default' => 'fas fa-search',
+						'show_remove' => true,
+					),
+					'search_placeholder'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Placeholder', 'bb-powerpack'),
+						'default'		=> __('Search', 'bb-powerpack'),
+						'connections'	=> array('string'),
+					),
+				),
+			),
+			'woo_cart' => class_exists( 'WooCommerce' ) ? array(
+				'title'	    => __( 'WooCommerce', 'bb-powerpack' ),
+				'collapsed' => true,
+				'fields'    => array(
+					'show_woo_cart' => array(
+						'type'	  => 'pp-switch',
+						'label'	  => __( 'Show Cart', 'bb-powerpack' ),
+						'default' => 'no',
+						'toggle'  => array(
+							'yes'	=> array(
+								'sections' => array( 'woo_cart_style' ),
+								'fields' => array( 'woo_cart_icon', 'woo_cart_on_checkout', 'woo_cart_display_type' ),
+							),
+						),
+					),
+					'woo_cart_icon' => array(
+						'type'        => 'icon',
+						'label'       => __( 'Icon', 'bb-powerpack' ),
+						'default'     => 'fas fa-shopping-cart',
+						'show_remove' => true,
+					),
+					'woo_cart_on_checkout' => array(
+						'type'	  => 'pp-switch',
+						'label'	  => __( 'Show on Checkout', 'bb-powerpack' ),
+						'default' => 'no',
+					),
+					'woo_cart_display_type'       => array(
+						'type'    => 'select',
+						'label'   => __( 'Display Type', 'bb-powerpack' ),
+						'default' => 'count',
+						'options' => array(
+							'count'       => __( 'Items Count', 'bb-powerpack' ),
+							'total'       => __( 'Total Amount', 'bb-powerpack' ),
+							'count-total' => __( 'Items Count and Total Amount', 'bb-powerpack' ),
+						),
+					),
+				),
+			) : array(),
 			'mobile'       => array(
 				'title'         => __( 'Responsive', 'bb-powerpack' ),
+				'collapsed' 	=> true,
 				'fields'        => array(
                     'mobile_breakpoint' => array(
                         'type'          => 'select',
@@ -499,6 +851,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
             ),
             'color_settings'       => array( // Section
                 'title'         => __('Colors', 'bb-powerpack'), // Section Title
+				'collapsed' 	=> true,
                 'fields'        => array( // Section Fields
                     'link_color' => array(
                         'type'       => 'color',
@@ -574,6 +927,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
             ),
             'border_settings'       => array( // Section
                 'title'         => __('Borders', 'bb-powerpack'), // Section Title
+				'collapsed' 	=> true,
                 'fields'        => array( // Section Fields
                     'border_style' => array(
                         'type'          => 'pp-switch',
@@ -678,18 +1032,25 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
             ),
 			'submenu_style'	=> array(
 				'title'		=> __( 'Sub Menu', 'bb-powerpack' ),
+				'collapsed' => true,
 				'fields'	=> array(
 					'submenu_width'		=> array(
 						'type'				=> 'unit',
-						'label'				=> __('Submenu Minimum Width', 'bb-powerpack'),
+						'label'				=> __('Width', 'bb-powerpack'),
 						'default'			=> '220',
 						'slider'			=> true,
 						'units'				=> array('px'),
-						'help'				=> __('Minimum width of sub-menu for desktop. Default width is 220px.', 'bb-powerpack')
+						'help'				=> __('Width of sub-menu for desktop. Default width is 220px.', 'bb-powerpack')
+					),
+					'submenu_width_as_min' => array(
+						'type'					=> 'pp-switch',
+						'label'					=> __( 'Apply as min-width', 'bb-powerpack' ),
+						'default'				=> 'no',
+						'help'					=> __( 'It will apply the width as min-width in CSS. Useful in alignment issues.', 'bb-powerpack' ),
 					),
 					'submenu_spacing' => array(
 						'type'          => 'unit',
-						'label'         => __( 'Submenu Spacing', 'bb-powerpack' ),
+						'label'         => __( 'Spacing', 'bb-powerpack' ),
 						'default'       => '0',
 						'slider'		=> true,
 						'units'			=> array('px'),
@@ -834,6 +1195,172 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
                     ),
 				)
 			),
+			'search_style' => array(
+				'title' => __( 'Search', 'bb-powerpack' ),
+				'collapsed' => true,
+				'fields' => array(
+					'input_bg_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-search-form-wrap:not(.pp-search-form--style-full_screen) .pp-search-form__container:not(.pp-search-form--lightbox)',
+							'property'		=> 'background-color'
+						)
+					),
+					'input_focus_bg_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Focus Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-search-form-wrap:not(.pp-search-form--style-full_screen) .pp-search-form--focus .pp-search-form__container:not(.pp-search-form--lightbox)',
+							'property'		=> 'background-color'
+						)
+					),
+					'input_placeholder_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Placeholder Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'none',
+						)
+					),
+					'input_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-search-form__input',
+							'property'		=> 'color'
+						)
+					),
+					'input_focus_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Focus Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-search-form__input:focus',
+							'property'		=> 'color'
+						)
+					),
+					'input_border'	=> array(
+						'type'			=> 'border',
+						'label'			=> __('Border & Shadow', 'bb-powerpack'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-search-form__container:not(.pp-search-form--lightbox)'
+						)
+					),
+					'input_focus_border_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Border Focus Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-search-form--focus .pp-search-form__container:not(.pp-search-form--lightbox)',
+							'property'		=> 'border-color'
+						)
+					),
+					'search_container_size' => array(
+						'type'			=> 'unit',
+						'label'			=> __('Form Height', 'bb-powerpack'),
+						'default'		=> '40',
+						'slider'		=> true,
+						'help'			=> __( 'This option controls the height and padding.', 'bb-powerpack' ),
+					),
+					'search_container_width' => array(
+						'type'			=> 'unit',
+						'label'			=> __('Form Width', 'bb-powerpack'),
+						'default'		=> '400',
+						'units'			=> array( 'px', '%' ),
+						'responsive'	=> true,
+						'slider'		=> true,
+					),
+				),
+			),
+			'woo_cart_style' => class_exists( 'WooCommerce' ) ? array(
+				'title'	=> __( 'WooCommerce Cart', 'bb-powerpack' ),
+				'fields' => array(
+					'woo_cart_bg_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-advanced-menu .menu li.pp-menu-cart-item a.pp-menu-cart-contents',
+							'property'		=> 'background-color'
+						)
+					),
+					'woo_cart_bg_hover_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Hover Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-advanced-menu .menu li.pp-menu-cart-item:hover a.pp-menu-cart-contents',
+							'property'		=> 'background-color'
+						)
+					),
+					'woo_cart_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-advanced-menu .menu li.pp-menu-cart-item a.pp-menu-cart-contents',
+							'property'		=> 'color'
+						)
+					),
+					'woo_cart_hover_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Hover Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-advanced-menu .menu li.pp-menu-cart-item:hover a.pp-menu-cart-contents:hover',
+							'property'		=> 'color'
+						)
+					),
+					'woo_cart_border'	=> array(
+						'type'			=> 'border',
+						'label'			=> __('Border', 'bb-powerpack'),
+						'disabled'		=> array( 'default' => array( 'shadow' ) ),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-advanced-menu .menu li.pp-menu-cart-item a.pp-menu-cart-contents'
+						)
+					),
+				),
+			) : array(),
         )
     ),
 	'responsive_style'	=> array(
@@ -905,6 +1432,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 			),
 			'responsive_colors'	=> array(
 				'title'			=> __('Links', 'bb-powerpack'),
+				'collapsed' 	=> true,
 				'fields'		=> array(
 					'responsive_link_color' => array(
 						'type'       => 'color',
@@ -1004,6 +1532,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 			),
 			'responsive_border'	=> array(
 				'title'		=> __('Border', 'bb-powerpack'),
+				'collapsed' => true,
 				'fields'	=> array(
 					'responsive_link_border_width'		=> array(
 						'type'			=> 'dimension',
@@ -1028,6 +1557,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 			),
 			'menu_shadow'   => array(
                 'title'         => __('Shadow', 'bb-powerpack'),
+				'collapsed' 	=> true,
                 'fields'        => array(
                     'enable_shadow'     => array(
                         'type'              => 'pp-switch',
@@ -1092,6 +1622,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
             ),
 			'mobile_toggle_style' => array(
 				'title'	=> __( 'Mobile Toggle', 'bb-powerpack' ),
+				'collapsed' => true,
 				'fields'	=> array(
 					'mobile_toggle_size'    => array(
                         'type'          => 'unit',
@@ -1152,6 +1683,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 			),
 			'close_icon'	=> array(
 				'title'		=> __('Close Icon', 'bb-powerpack'),
+				'collapsed' => true,
 				'fields'	=> array(
 					'close_icon_size'    => array(
                         'type'          => 'unit',

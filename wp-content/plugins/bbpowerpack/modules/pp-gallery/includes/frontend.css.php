@@ -566,11 +566,6 @@ if ( 'justified' != $settings->gallery_layout ) {
 		transform: rotate(15deg) scale(1.6);
 	}
 <?php } ?>
-.fl-node-<?php echo $id; ?> .pp-gallery-pagination {
-	<?php if ( isset( $settings->load_more_alignment ) ) { ?>
-		text-align: <?php echo $settings->load_more_alignment; ?>;
-	<?php } ?>
-}
 .fl-node-<?php echo $id; ?> .pp-gallery-pagination.pagination-scroll {
 	display: none;
 }
@@ -583,6 +578,30 @@ if ( 'justified' != $settings->gallery_layout ) {
 	<?php } ?>
 }
 <?php
+	// Load More - Width
+	FLBuilderCSS::responsive_rule( array(
+		'settings'     => $settings,
+		'setting_name' => 'load_more_width',
+		'selector'     => ".fl-node-$id .pp-gallery-pagination .pp-gallery-load-more",
+		'prop'         => 'width',
+		'unit'         => $settings->load_more_width_unit,
+	) );
+
+	// Load More - Alignment
+	FLBuilderCSS::responsive_rule( array(
+		'settings'     => $settings,
+		'setting_name' => 'load_more_alignment',
+		'selector'     => ".fl-node-$id .pp-gallery-pagination",
+		'prop'         => 'text-align',
+	) );
+
+	// Load More - Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'load_more_typography',
+		'selector' 		=> ".fl-node-$id .pp-gallery-pagination .pp-gallery-load-more",
+	) );
+
 	// Load More - Border
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $settings,

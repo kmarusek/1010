@@ -475,9 +475,15 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'size'             	=> 5,
                         'default'           => 1,
                     ),
+					'load_on_scroll'		=> array(
+						'type'					=> 'unit',
+						'label'					=> __( 'Load After % Scroll', 'bb-powerpack' ),
+						'help'					=> __( 'Modal will appear when a visitor scrolls the page by a certain percentage. It can also work in conjunction with the Delay.', 'bb-powerpack' ),
+						'units'					=> array( '%' ),
+					),
                     'display_after_auto'    => array(
                         'type'                  => 'text',
-                        'label'                 => __('Display After', 'bb-powerpack'),
+                        'label'                 => __('Display After (cookie)', 'bb-powerpack'),
                         'default'               => 1,
                         'description'           => __('day(s)', 'bb-powerpack'),
                         'help'                  => __('If a user closes the modal box, it will be displayed only after the defined day(s).', 'bb-powerpack'),

@@ -21,6 +21,11 @@
 
 $date_format = isset( $settings->date_format ) ? $settings->date_format : '';
 
+$author_html = apply_filters( 'pp_cg_post_author_html', sprintf(
+	_x( 'By %s', '%s stands for author name.', 'bb-powerpack' ),
+	'<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '"><span>' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '</span></a>'
+), $post_id, $settings );
+
 ?>
 <div class="pp-content-post pp-content-carousel-post pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . PPContentGridModule::schema_itemtype() . '"' ); ?> data-hash="pp-post-<?php echo $post_id; ?>">
 
@@ -49,14 +54,7 @@ $date_format = isset( $settings->date_format ) ? $settings->date_format : '';
 	<div class="pp-content-post-meta pp-post-meta">
 		<?php if($settings->show_author == 'yes' ) : ?>
 			<span class="pp-content-post-author">
-			<?php
-
-			printf(
-				_x( 'By %s', '%s stands for author name.', 'bb-powerpack' ),
-				'<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '"><span>' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '</span></a>'
-			);
-
-			?>
+			<?php echo $author_html; ?>
 			</span>
 		<?php endif; ?>
 		<?php if($settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select ) : ?>
@@ -117,14 +115,7 @@ $date_format = isset( $settings->date_format ) ? $settings->date_format : '';
 		<div class="pp-content-post-meta pp-post-meta">
 			<?php if($settings->show_author == 'yes' ) : ?>
 				<span class="pp-content-post-author">
-				<?php
-
-				printf(
-					_x( 'By %s', '%s stands for author name.', 'bb-powerpack' ),
-					'<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '"><span>' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '</span></a>'
-				);
-
-				?>
+				<?php echo $author_html; ?>
 				</span>
 			<?php endif; ?>
 

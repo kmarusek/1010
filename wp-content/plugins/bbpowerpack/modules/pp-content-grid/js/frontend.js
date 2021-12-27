@@ -264,10 +264,19 @@
 
 		_carouselLayout: function()
 		{
+			var self = this;
 			var wrap = $(this.nodeClass + ' .pp-content-post-carousel .pp-content-posts-inner');
 
 			var owlOptions = {
-				onInitialized: $.proxy(this._gridLayoutMatchHeightSimple, this),
+				onInitialized: function(e) {
+					var count = 1;
+					$(e.target).find('.owl-dot').each(function() {
+						$(this).append( '<span class="sr-only">Slide group ' + count + '</span>' );
+						count++;
+					});
+
+					$.proxy(self._gridLayoutMatchHeightSimple, self);
+				},
 				onResized: $.proxy(this._gridLayoutMatchHeightSimple, this),
 				onRefreshed: $.proxy(this._gridLayoutMatchHeightSimple, this),
 				onLoadedLazy: $.proxy(this._gridLayoutMatchHeightSimple, this),

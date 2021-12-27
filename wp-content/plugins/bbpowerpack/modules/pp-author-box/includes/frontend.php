@@ -38,7 +38,7 @@ if ( 'custom' === $settings->source ) {
 		}
 	}
 } elseif ( 'current_author' === $settings->source ) {
-	$avatar_args['size'] = 300;
+	$avatar_args['size'] = apply_filters( 'pp_author_box_image_size', 300, $settings );
 
 	$author_id = get_the_author_meta( 'ID' );
 	if ( empty( $author_id ) ) {
@@ -62,7 +62,7 @@ if ( 'custom' === $settings->source ) {
 		$link_nofollow   = "rel='nofollow'";
 	}
 } elseif ( 'other_author' === $settings->source ) {
-	$avatar_args['size'] = 300;
+	$avatar_args['size'] = apply_filters( 'pp_author_box_image_size', 300, $settings );
 	$author_username = $settings->other_author_name;
 	if ( empty( $author_username ) ) {
 		return;
@@ -101,6 +101,8 @@ if ( isset( $settings->content_length ) && ! empty( $settings->content_length ) 
 		$biography = wp_trim_words( $biography, absint( $settings->content_length ), '...' );
 	}
 }
+
+$img_url = apply_filters( 'pp_author_box_image_url', $img_url, $settings );
 ?>
 <div class="pp-authorbox-content">
 	<div class="pp-authorbox-wrapper">

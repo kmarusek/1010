@@ -9,7 +9,7 @@
 	};
 
 	PPSearchForm.prototype = {
-		id: '',
+		id  : '',
 		node: '',
 		form: '',
 

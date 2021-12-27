@@ -266,7 +266,7 @@ class BB_PowerPack_Ajax {
 				array(
 					'taxonomy' => $settings->post_grid_filters,
 					'field'    => 'slug',
-					'terms'    => sanitize_text_field( wp_unslash( $_POST['term'] ) ),
+					'terms'    => array( sanitize_text_field( wp_unslash( $_POST['term'] ) ) ),
 				),
 			);
 		} else {
@@ -276,7 +276,7 @@ class BB_PowerPack_Ajax {
 					array(
 						'taxonomy' => sanitize_text_field( wp_unslash( $_POST['taxonomy'] ) ),
 						'field'    => 'slug',
-						'terms'    => sanitize_text_field( wp_unslash( $_POST['term'] ) ),
+						'terms'    => array( sanitize_text_field( wp_unslash( $_POST['term'] ) ) ),
 					),
 				);
 			}
@@ -496,6 +496,10 @@ class BB_PowerPack_Ajax {
 			$query = $wp_query;
 			if ( method_exists( 'WC_Query', 'pre_get_posts' ) ) {
 				WC()->query->pre_get_posts( $query );
+
+				if ( isset( $query->query_vars['wc_query'] ) ) {
+					unset( $query->query_vars['wc_query'] );
+				}
 			}
 
 			$tax_query = $query->get( 'tax_query' );

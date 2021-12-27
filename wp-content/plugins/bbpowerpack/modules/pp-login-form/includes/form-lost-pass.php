@@ -13,6 +13,17 @@ do_action( 'pp_login_form_before_lost_password_form', $settings, $id );
 			<?php } ?>
 			<input class="pp-login-form--input" type="text" name="user_login" id="user_login" size="1" autocomplete="username" />
 		</div>
+		<?php
+		// Render reCAPTCHA field.
+		if ( 'yes' === $settings->enable_recaptcha ) {
+			$module->render_recaptcha_field( $id );
+		}
+
+		// Render hCaptcha field.
+		if ( isset( $settings->enable_hcaptcha ) && 'yes' === $settings->enable_hcaptcha ) {
+			$module->render_hcaptcha_field( $id );
+		}
+		?>
 		<div class="pp-field-group pp-field-type-submit">
 			<button type="submit" name="pp-login-form-lost-pw" class="pp-login-form--button">
 				<span class="pp-login-form--button-text"><?php esc_html_e( 'Reset password', 'bb-powerpack' ); ?></span>

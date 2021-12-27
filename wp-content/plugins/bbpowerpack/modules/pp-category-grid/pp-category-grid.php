@@ -96,7 +96,6 @@ BB_PowerPack::register_module(
 		),
 		'structure'  => array(
 			'title'    => __( 'Structure', 'bb-powerpack' ),
-
 			'sections' => array(
 				'config'          => array(
 					'title'  => __( 'Structure', 'bb-powerpack' ),
@@ -172,6 +171,20 @@ BB_PowerPack::register_module(
 								'center'  => __( 'Center', 'bb-powerpack' ),
 								'left'    => __( 'Left', 'bb-powerpack' ),
 								'right'   => __( 'Right', 'bb-powerpack' ),
+							),
+						),
+						'content_arrangement' => array(
+							'type'	=> 'pp-switch',
+							'label'	=> __( 'Content Arrangement', 'bb-powerpack' ),
+							'default' => 'overlay',
+							'options' => array(
+								'overlay' => __( 'Overlay', 'bb-powerpack' ),
+								'stacked' => __( 'Stacked', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'overlay' => array(
+									'fields' => array( 'overlay_vertical_align' ),
+								),
 							),
 						),
 					),
@@ -962,8 +975,9 @@ BB_PowerPack::register_module(
 					),
 				),
 				'category_count_fonts'       => array(
-					'title'  => __( 'Category Count', 'bb-powerpack' ),
-					'fields' => array(
+					'title'     => __( 'Category Count', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
 						'category_count_typography'  => array(
 							'type'       => 'typography',
 							'label'      => __( 'Typography', 'bb-powerpack' ),
@@ -996,8 +1010,9 @@ BB_PowerPack::register_module(
 					),
 				),
 				'category_description_fonts' => array(
-					'title'  => __( 'Category Description', 'bb-powerpack' ),
-					'fields' => array(
+					'title'     => __( 'Category Description', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
 						'category_description_typography' => array(
 							'type'       => 'typography',
 							'label'      => __( 'Typography', 'bb-powerpack' ),

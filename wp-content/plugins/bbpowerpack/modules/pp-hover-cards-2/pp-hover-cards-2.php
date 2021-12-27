@@ -106,6 +106,17 @@ class PPHoverCardsModuleNew extends FLBuilderModule {
 		return $settings;
 	}
 
+	public function get_image_alt( $card, $image_id ) {
+		$title = $card->title;
+
+		$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+
+		if ( ! empty( $image_alt ) ) {
+			return htmlspecialchars( $image_alt );
+		} else {
+			return htmlspecialchars( $title );
+		}
+	}
 }
 
 /**

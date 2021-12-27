@@ -22,7 +22,7 @@
 			</div>
 			<ul class="pp-gallery-filters">
 				<?php if ( $all_filter ) { ?>
-				<li id="<?php echo $id_prefix; ?>-0" class="pp-gallery-filter-label <?php echo ! $active_filter ? 'pp-filter-active ' : ''; ?>all" data-filter="*"><?php echo $all_text; ?></li>
+				<li id="<?php echo $id_prefix; ?>-0" class="pp-gallery-filter-label <?php echo ! $active_filter ? 'pp-filter-active ' : ''; ?>all" data-filter="*"><?php echo urldecode( $all_text ); ?></li>
 				<?php } ?>
 			<?php
 				for ( $i = 0; $i < count( $settings->gallery_filter ); $i++ ) :
@@ -33,7 +33,7 @@
 						$filter_label 	= $filter->filter_label;
 
 						if ( ! empty( $filter_label ) ) {
-							echo '<li id="' . $id_prefix . '-' . ( $i + 1 ) . '" class="pp-gallery-filter-label'. ( ( $i + 1 ) == $active_filter ? ' pp-filter-active ' : '' ) .'" data-filter=".pp-group-' . ($i+1) . '">' . $filter_label . '</li>';
+							echo '<li id="' . $id_prefix . '-' . ( $i + 1 ) . '" class="pp-gallery-filter-label'. ( ( $i + 1 ) == $active_filter ? ' pp-filter-active ' : '' ) .'" data-filter=".pp-group-' . ($i+1) . '">' . urldecode( $filter_label ) . '</li>';
 						}
 
 				endfor;

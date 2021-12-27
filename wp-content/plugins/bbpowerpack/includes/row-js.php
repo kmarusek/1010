@@ -212,6 +212,7 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 							<?php } ?>
 
 							var partColor = '<?php echo isset($row->settings->part_color) && !empty($row->settings->part_color) ? '#' . $row->settings->part_color : '#fff'; ?>';
+							var partLineColor = '<?php echo isset($row->settings->part_line_color) && !empty($row->settings->part_line_color) ? '#' . $row->settings->part_line_color : '#fff'; ?>';
 
 							<?php
 							if (  ! empty($row->settings->part_quantity) && isset($row->settings->part_quantity) ){ ?>
@@ -248,8 +249,9 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 							<?php
 							if ( 'custom' == $anim_type ) {
 								if ( ! empty($row->settings->part_custom_code) && isset($row->settings->part_custom_code) ) {
-		
+
 									$json_particles_custom = wp_strip_all_tags( $row->settings->part_custom_code ); ?>
+
 									$('.fl-node-<?php echo $row->node; ?>').each(function() {
 										var id = $(this).find( '.fl-row-content-wrap > .pp-particles-wrap' ).attr('id');
 										particlesJS( id, <?php echo $json_particles_custom; ?> );
@@ -308,7 +310,7 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 										"line_linked": {
 											"enable": lineLinked,
 											"distance": 150,
-											"color": "#ffffff",
+											"color": partLineColor,
 											"opacity": 0.4,
 											"width": 1,
 										},

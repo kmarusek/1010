@@ -211,11 +211,12 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 @media (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .sub-menu {
 	<?php if ( $settings->submenu_width ) { ?>
-		width: <?php echo $settings->submenu_width; ?>px;
-		/*
-		margin-left: auto;
-		margin-right: auto;
-		*/
+		<?php if ( isset( $settings->submenu_width_as_min ) && 'yes' === $settings->submenu_width_as_min ) { ?>
+			min-width: <?php echo $settings->submenu_width; ?>px;
+			width: auto;
+		<?php } else { ?>
+			width: <?php echo $settings->submenu_width; ?>px;
+		<?php } ?>
 	<?php } ?>
 	}
 }
@@ -780,6 +781,68 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 		display: none;
 	}
 <?php } ?>
+
+<?php if ( isset( $settings->show_search ) && 'yes' === $settings->show_search && class_exists( 'PPSearchFormModule' ) ) {
+	FLBuilder::render_module_css( 'pp-search-form', $id, $module->menu_search_settings() );
+
+	// Size
+	FLBuilderCSS::responsive_rule( array(
+		'settings'     => $settings,
+		'setting_name' => 'search_container_width',
+		'selector'     => ".fl-node-$id .pp-search-form__container",
+		'prop'         => 'width',
+		'unit'			=> $settings->search_container_width_unit
+	) );
+} ?>
+
+/**
+ * Woo Menu Cart
+ */
+<?php if ( class_exists( 'WooCommerce' ) && isset( $settings->show_woo_cart ) && 'yes' == $settings->show_woo_cart ) :
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .pp-advanced-menu li.pp-menu-cart-item-hidden",
+		'enabled'  => ! empty( $settings->woo_cart_on_checkout ) && 'no' == $settings->woo_cart_on_checkout,
+		'props'    => array(
+			'display' => 'none',
+		),
+	) );
+
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .pp-advanced-menu li.pp-menu-cart-item a.pp-menu-cart-contents",
+		'enabled'  => ! empty( $settings->woo_cart_bg_color ),
+		'props'    => array(
+			'background-color' => $settings->woo_cart_bg_color,
+		),
+	) );
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .pp-advanced-menu li.pp-menu-cart-item:hover a.pp-menu-cart-contents",
+		'enabled'  => ! empty( $settings->woo_cart_bg_hover_color ),
+		'props'    => array(
+			'background-color' => $settings->woo_cart_bg_hover_color,
+		),
+	) );
+
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .pp-advanced-menu li.pp-menu-cart-item a.pp-menu-cart-contents",
+		'enabled'  => ! empty( $settings->woo_cart_color ),
+		'props'    => array(
+			'color' => $settings->woo_cart_color,
+		),
+	) );
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .pp-advanced-menu li.pp-menu-cart-item:hover a.pp-menu-cart-contents",
+		'enabled'  => ! empty( $settings->woo_cart_hover_color ),
+		'props'    => array(
+			'color' => $settings->woo_cart_hover_color,
+		),
+	) );
+
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'woo_cart_border',
+		'selector' 		=> ".fl-node-$id .pp-advanced-menu li.pp-menu-cart-item a.pp-menu-cart-contents",
+	) );
+endif; ?>
 
 
 <?php if (  'expanded' != $settings->mobile_toggle ) : ?>

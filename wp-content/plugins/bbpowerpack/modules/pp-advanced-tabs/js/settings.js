@@ -41,7 +41,7 @@
 			var self = this;
 
 			$.post(
-				ajaxurl,
+				bb_powerpack.ajaxurl,
 				{
 					action: 'pp_get_saved_templates',
 					type: type

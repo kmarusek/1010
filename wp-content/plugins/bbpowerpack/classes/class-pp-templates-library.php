@@ -270,6 +270,7 @@ final class BB_PowerPack_Templates_Lib {
 		// Retrieve templates data.
 		$response = wp_safe_remote_get( $url, array(
 			'timeout' => 30,
+			'sslverify' => false
 		) );
 
 		if ( is_wp_error( $response ) ) {

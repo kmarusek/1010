@@ -31,7 +31,7 @@
 	position: fixed;
 	right: 0;
 	width: 100%;
-	z-index: 99999;
+	z-index: 99998;
 }
 .pp-announcement-bar-wrap.pp-announcement-bar-top {
 	-webkit-transition: all .3s linear;

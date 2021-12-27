@@ -354,6 +354,12 @@ BB_PowerPack::register_module('PPSmartButtonModule', array(
 							'selector'        => '.pp-button-text'
 						)
 					),
+					'sub_text'		=> array(
+						'type'          => 'text',
+						'label'         => __('Sub Text', 'bb-powerpack'),
+						'default'       => '',
+						'connections'   => array( 'string' ),
+					),
 					'display_icon'	=> array(
 						'type'		=> 'pp-switch',
 						'label'		=> __('Display Icon', 'bb-powerpack'),
@@ -540,6 +546,28 @@ BB_PowerPack::register_module('PPSmartButtonModule', array(
 							'type'			=> 'none',
 						),
 					),
+					'subtext_color'    => array(
+						'type'          => 'color',
+						'label'         => __('Sub Text Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'    => true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-button-wrap a.pp-button .pp-button-subtext',
+							'property'	=> 'color',
+						),
+					),
+					'subtext_hover_color'    => array(
+						'type'          => 'color',
+						'label'         => __('Sub Text Hover Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'    => true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'none',
+						),
+					),
 				)
 			),
 			'formatting'    => array(
@@ -641,11 +669,20 @@ BB_PowerPack::register_module('PPSmartButtonModule', array(
 				'fields'	=> array(
 					'typography'    => array(
 						'type'        	=> 'typography',
-						'label'       	=> __( 'Typography', 'bb-powerpack' ),
+						'label'       	=> __( 'Overall Typography', 'bb-powerpack' ),
 						'responsive'  	=> true,
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-button-wrap a.pp-button',
+						),
+					),
+					'subtext_typography'    => array(
+						'type'        	=> 'typography',
+						'label'       	=> __( 'Sub Text Typography', 'bb-powerpack' ),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-button-wrap a.pp-button .pp-button-subtext',
 						),
 					),
 				),

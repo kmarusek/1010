@@ -19,6 +19,7 @@
 		this.mediaBreakpoint	 = settings.mediaBreakpoint;
 		this.mobileMenuType	 	 = settings.mobileMenuType;
 		this.offCanvasDirection	 = settings.offCanvasDirection;
+		this.postId 			 = settings.postId;
 		this.isBuilderActive	 = settings.isBuilderActive;
 		this.currentBrowserWidth = window.innerWidth;
 		this.fullScreenMenu 	= null;
@@ -202,6 +203,9 @@
 			}
 
 			$(this.wrapperClass).find('li:not(.menu-item-has-children)').on('click', 'a', $.proxy(function (e) {
+				if ( $(e.target).closest( '.pp-menu-search-item' ).length > 0 ) {
+					return;
+				}
 
 				$(this.nodeClass).find('.pp-advanced-menu').removeClass('menu-open');
 				$(this.nodeClass).find('.pp-advanced-menu').addClass('menu-close');
@@ -209,6 +213,14 @@
 				$('html').removeClass('pp-full-screen-menu-open');
 
 			}, this));
+
+			if ( $( this.wrapperClass ).find( '.pp-menu-search-item' ).length ) {
+				this._toggleMenuSearch();
+			}
+
+			if ( $( this.wrapperClass ).find( '.pp-menu-cart-item').length ) {
+				this._wooUpdateParams();
+			}
 		},
 
 		/**
@@ -746,7 +758,81 @@
 
 			module.find('.pp-advanced-menu-mobile-toggle').after(menu);
 			clone.remove();
-		}
+		},
+
+		_toggleMenuSearch: function() {
+			var items =  $( this.wrapperClass ).find( '.pp-menu-search-item' ),
+				self  = this;
+
+			items.each( function() {
+				var item = $(this);
+				var button = item.find( '> a' ),
+					form = item.find( '.pp-search-form' ),
+					input = item.find('.pp-search-form__input');
+
+				button.on( 'click', function(e) {
+					e.preventDefault();
+					item.toggleClass( 'pp-search-active' );
+					if ( item.hasClass( 'pp-search-active' ) ) {
+						setTimeout( function() {
+							input.focus();
+							self._focusMenuSearch( input );
+						}, 100 );
+					}
+
+					$('body').on('click.pp-menu-search', $.proxy( self._hideMenuSearch, self ) );
+				} );
+
+				input.on( 'focus', function() {
+					form.addClass( 'pp-search-form--focus' );
+				} ).on( 'blur', function() {
+					form.removeClass( 'pp-search-form--focus' );
+				} );
+			} );
+		},
+
+		_hideMenuSearch: function(e) {
+			if (e !== undefined) {
+				if ($(e.target).closest('.pp-menu-search-item').length > 0) {
+					return;
+				}
+			}
+
+			$( this.wrapperClass ).find( '.pp-menu-search-item' ).removeClass( 'pp-search-active' );
+			$('body').off('click.pp-menu-search');
+		},
+
+		_focusMenuSearch: function( $el ) {
+			// If this function exists... (IE 9+)
+			if ( $el[0].setSelectionRange ) {
+				// Double the length because Opera is inconsistent about whether a carriage return is one character or two.
+				var len = $el.val().length * 2;
+
+				// Timeout seems to be required for Blink
+				setTimeout(function() {
+					$el[0].setSelectionRange( len, len );
+				}, 1);
+			} else {
+				// As a fallback, replace the contents with itself
+				// Doesn't work in Chrome, but Chrome supports setSelectionRange
+				$el.val( $el.val() );
+			}
+		},
+
+		/**
+		 * Adds menu node and post ID to WooCommerce ajax URL requests.
+		 *
+		 * @since  2.20
+		 * @return void
+		 */
+		 _wooUpdateParams: function() {
+			if ( 'undefined' !== typeof wc_cart_fragments_params ) {
+				wc_cart_fragments_params.wc_ajax_url += '&pp-advanced-menu-node='+ this.settingsId +'&post-id='+ this.postId;
+			}
+			if ( 'undefined' !== typeof wc_add_to_cart_params ) {
+				wc_add_to_cart_params.wc_ajax_url += '&pp-advanced-menu-node='+ this.settingsId +'&post-id='+ this.postId;
+			}
+		},
 
 	};
 

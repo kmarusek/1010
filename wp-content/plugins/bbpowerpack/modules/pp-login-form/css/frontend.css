@@ -13,10 +13,12 @@
 .pp-login-form-wrap .pp-field-group .pp-login-form--input {
 	width: 100%;
 }
-.pp-login-form-wrap .pp-field-group.pp-field-type-recaptcha .pp-grecaptcha {
+.pp-login-form-wrap .pp-field-group.pp-field-type-recaptcha .pp-grecaptcha,
+.pp-login-form-wrap .pp-field-group.pp-field-type-hcaptcha .pp-hcaptcha {
 	display: inline-block;
 }
-.pp-login-form-wrap .pp-field-group.pp-field-type-recaptcha .pp-lf-error {
+.pp-login-form-wrap .pp-field-group.pp-field-type-recaptcha .pp-lf-error,
+.pp-login-form-wrap .pp-field-group.pp-field-type-hcaptcha .pp-lf-error {
 	display: block;
 }
 .pp-login-form-wrap:before {
