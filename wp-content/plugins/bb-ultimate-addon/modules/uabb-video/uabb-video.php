@@ -456,12 +456,15 @@ class UABBVideo extends FLBuilderModule {
 		}
 
 		if ( 'hosted' !== $this->settings->video_type ) {
-			$video_thumb = $this->get_video_thumb( $id );
+			$video_thumb      = $this->get_video_thumb( $id );
+			$video_thumb_data = FLBuilderPhoto::get_attachment_data( $this->settings->image_overlay );
+			$alt              = $video_thumb_data->alt;
 		} else {
 			if ( 'yes' === $this->settings->show_image_overlay ) {
 
-				$video_thumb = FLBuilderPhoto::get_attachment_data( $this->settings->image_overlay );
-				$video_thumb = $video_thumb->url;
+				$video_thumb_data = FLBuilderPhoto::get_attachment_data( $this->settings->image_overlay );
+				$video_thumb      = $video_thumb_data->url;
+				$alt              = $video_thumb_data->alt;
 
 			} else {
 				$video_thumb = $this->get_hosted_video_url();
@@ -522,12 +525,12 @@ class UABBVideo extends FLBuilderModule {
 			?>
 			<?php if ( 'hosted' === $this->settings->video_type && empty( $video_url ) ) { ?>
 			<span class='uabb-hosted-error-message'><?php echo esc_attr__( 'Please choose a file.', 'uabb' ); ?></span>
-		<?php } else { ?> 
+		<?php } else { ?>
 			<div class="uabb-video__outer-wrap <?php echo ( 'yes' === $this->settings->sticky_info_bar_enable ) ? 'uabb-sticky-infobar-wrap' : ''; ?> <?php echo ( 'hosted' === $this->settings->video_type ) ? 'uabb-video-type-hosted' : ''; ?>" data-autoplay="<?php echo esc_attr( $autoplay ); ?>" data-device="<?php echo esc_attr( $device ); ?> " <?php echo ( 'hosted' === $this->settings->video_type ) ? 'data-html="' . esc_attr( $video_html ) . '"' : ''; ?>>
 				<?php $this->get_header_wrap( $id ); ?>
 				<div class="uabb-video-inner-wrap">
 					<div class="uabb-video__play" data-src="<?php echo esc_url( $src ); ?>">
-					<<?php echo esc_attr( $custom_tag ); ?> src="<?php echo wp_kses_post( $video_thumb ); ?>"></<?php echo esc_attr( $custom_tag ); ?>>
+					<<?php echo esc_attr( $custom_tag ); ?> src="<?php echo wp_kses_post( $video_thumb ); ?>" <?php echo ( 'yes' === $this->settings->show_image_overlay ) ? 'alt=' . esc_attr( $alt ) : ''; ?>></<?php echo esc_attr( $custom_tag ); ?>>
 						<div class="uabb-video__play-icon <?php echo esc_attr( ( 'icon' === $this->settings->play_source ) ? $this->settings->play_icon : '' ); ?> uabb-animation-<?php echo esc_attr( $this->settings->hover_animation ); ?>">
 							<?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
