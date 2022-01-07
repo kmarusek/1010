@@ -11266,16 +11266,6 @@ const STORE_NAME = 'core/block-editor';
  * WordPress dependencies
  */
 
-var fullscreen = Object(external_wp_element_["createElement"])(external_wp_primitives_["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, Object(external_wp_element_["createElement"])(external_wp_primitives_["Path"], {
-  d: "M4.2 9h1.5V5.8H9V4.2H4.2V9zm14 9.2H15v1.5h4.8V15h-1.5v3.2zM15 4.2v1.5h3.2V9h1.5V4.2H15zM5.8 15H4.2v4.8H9v-1.5H5.8V15z"
-}));
-/* harmony default export */ var library_fullscreen = (fullscreen);
-
-// CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/block-full-height-alignment-toolbar/index.js
-
 
 
 
@@ -11283,7 +11273,7 @@ var fullscreen = Object(external_wp_element_["createElement"])(external_wp_primi
 
 
 /**
- * WordPress dependencies
+ * Internal dependencies
  */
 
 
@@ -13199,26 +13189,14 @@ InspectorControls.Slot = inspector_controls_Slot;
 
 
 /**
- * Reducer returning whether the navigation mode is enabled or not.
- *
- * @param {string} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {string} Updated state.
+ * External dependencies
  */
 
 /**
  * WordPress dependencies
  */
 
-  // Let inserting block always trigger Edit mode.
-  if (action.type === 'INSERT_BLOCKS') {
-    return false;
-  }
 
-  if (action.type === 'SET_NAVIGATION_MODE') {
-    return action.isNavigationMode;
-  }
 
 
 
@@ -15326,35 +15304,11 @@ function TextDecorationControl({
  * WordPress dependencies
  */
 
-function selectors_isNavigationMode(state) {
-  return state.isNavigationMode;
-}
 /**
  * Internal dependencies
  */
 
-function selectors_hasBlockMovingClientId(state) {
-  return state.hasBlockMovingClientId;
-}
-/**
- * Returns true if the last change was an automatic change, false otherwise.
- *
- * @param {Object} state Global application state.
- *
- * @return {boolean} Whether the last change was automatic.
- */
 
-function selectors_didAutomaticChange(state) {
-  return !!state.automaticChangeStatus;
-}
-/**
- * Returns true if the current highlighted block matches the block clientId.
- *
- * @param {Object} state Global application state.
- * @param {string} clientId The block to check.
- *
- * @return {boolean} Whether the block is currently highlighted.
- */
 
 
 /**
@@ -17420,9 +17374,7 @@ var build_module_icon = __webpack_require__("iClF");
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/hooks/layout.js
 
-/* harmony default export */ var block_breadcrumb = (BlockBreadcrumb);
 
-// CONCATENATED MODULE: ./node_modules/@wordpress/block-editor/build-module/components/block-context/index.js
 
 /**
  * External dependencies

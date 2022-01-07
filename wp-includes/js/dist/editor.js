@@ -3319,45 +3319,6 @@ const __experimentalGetDefaultTemplateType = Object(rememo["a" /* default */])((
  * @return {Object} Information about the template, including title, description, and icon.
  */
 
-var getBlockListSettings = getBlockEditorSelector('getBlockListSettings');
-/**
- * Returns the default template types.
- *
- * @param {Object} state Global application state.
- *
- * @return {Object} The template types.
- */
-
-function __experimentalGetDefaultTemplateTypes(state) {
-  var _getEditorSettings;
-
-  return (_getEditorSettings = selectors_getEditorSettings(state)) === null || _getEditorSettings === void 0 ? void 0 : _getEditorSettings.defaultTemplateTypes;
-}
-/**
- * Returns a default template type searched by slug.
- *
- * @param {Object} state Global application state.
- * @param {string} slug The template type slug.
- *
- * @return {Object} The template type.
- */
-
-var __experimentalGetDefaultTemplateType = Object(rememo["a" /* default */])(function (state, slug) {
-  return Object(external_lodash_["find"])(__experimentalGetDefaultTemplateTypes(state), {
-    slug: slug
-  }) || {};
-}, function (state, slug) {
-  return [__experimentalGetDefaultTemplateTypes(state), slug];
-});
-/**
- * Given a template entity, return information about it which is ready to be
- * rendered, such as the title and description.
- *
- * @param {Object} state Global application state.
- * @param {Object} template The template for which we need information.
- * @return {Object} Information about the template, including title and description.
- */
-
 function __experimentalGetTemplateInfo(state, template) {
   var _experimentalGetDefa;
 
@@ -10066,7 +10027,6 @@ var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 
 
-var DEBOUNCE_TIME = 300;
 function PostTextEditor() {
   const postContent = Object(external_wp_data_["useSelect"])(select => select('core/editor').getEditedPostContent(), []);
   const {
@@ -10080,18 +10040,6 @@ function PostTextEditor() {
   if (!isDirty && value !== postContent) {
     setValue(postContent);
   }
-
-  var saveText = function saveText() {
-    var blocks = Object(external_wp_blocks_["parse"])(value);
-    resetEditorBlocks(blocks);
-  };
-
-  Object(external_wp_element_["useEffect"])(function () {
-    var timeoutId = setTimeout(saveText, DEBOUNCE_TIME);
-    return function () {
-      clearTimeout(timeoutId);
-    };
-  }, [value]);
   /**
    * Handles a textarea change event to notify the onChange prop callback and
    * reflect the new value in the component's own state. This marks the start
