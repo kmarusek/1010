@@ -141,41 +141,17 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			return $args;
 		}
 
-		if ( ! isset( $settings->event_orderby ) ) {
-			return $args;
-		}
-
-		if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
-			$orderby = $settings->event_orderby;
+		if ( empty( $settings->event_orderby ) ) {
+			$args['orderby'] = $settings->order_by;
+			$args['order']   = $settings->order;
 		} else {
-			$orderby = 'EventStartDate';
+			$args['orderby']      = 'meta_value';
+			$args['eventDisplay'] = 'custom';
+			$args['meta_key']     = '_' . $settings->event_orderby;
+			$args['order']        = $settings->event_order;
 		}
 
-		if ( isset( $settings->event_order ) && '' !== $settings->event_order && 'Ascending' !== $settings->event_order ) {
-			$order = $settings->event_order;
-		} else {
-			$order = 'ASC';
-		}
-
-		if ( isset( $settings->show_events ) && ! empty( $settings->show_events ) ) {
-			switch ( $settings->show_events ) {
-				case 'past':
-					$compare = '<';
-					break;
-				case 'today':
-					$compare = '=';
-					break;
-			}
-		}
-
-		$args['orderby']      = 'meta_value';
-		$args['eventDisplay'] = 'custom';
-		$args['meta_key']     = '_' . $orderby;
-		$args['order']        = $order;
-
-		if ( isset( $settings->show_events ) && 'all' !== $settings->show_events ) {
-			$args['meta_query'] = self::get_events_meta_query( $settings->show_events );
-		}
+		$args['meta_query'] = self::get_events_meta_query( $settings->show_events );
 
 		return $args;
 	}
@@ -188,11 +164,30 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 	 * @return array
 	 */
 	static private function get_events_meta_query( $show_events ) {
-		$meta_query        = array();
-		$local_time        = current_datetime();
-		$current_timestamp = $local_time->getTimestamp() + $local_time->getOffset();
-		$today             = gmdate( 'Y-m-d 00:00:00', $current_timestamp );
-		$current_time      = gmdate( 'Y-m-d H:i:s', $current_timestamp );
+		$meta_query = array();
+
+		if ( function_exists( 'current_datetime' ) ) {
+			$local_time = current_datetime();
+		} else {
+			$tz = get_option( 'timezone_string' );
+
+			if ( empty( $tz ) ) {
+				$offset  = (float) get_option( 'gmt_offset' );
+				$hours   = (int) $offset;
+				$minutes = ( $offset - $hours );
+
+				$sign     = ( $offset < 0 ) ? '-' : '+';
+				$abs_hour = abs( $hours );
+				$abs_mins = abs( $minutes * 60 );
+				$tz       = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+			}
+
+			$local_time = new DateTimeImmutable( 'now', new DateTimeZone( $tz ) );
+		}
+
+		$current_time = $local_time->getTimestamp() + $local_time->getOffset();
+		$today        = gmdate( 'Y-m-d 00:00:00', $current_time );
+		$now          = gmdate( 'Y-m-d H:i:s', $current_time );
 
 		if ( 'today' === $show_events ) {
 
@@ -218,7 +213,7 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 				array(
 					'key'     => '_EventEndDate',
 					'compare' => '<',
-					'value'   => $current_time,
+					'value'   => $now,
 					'type'    => 'DATETIME',
 				),
 			);
@@ -229,8 +224,26 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 				array(
 					'key'     => '_EventEndDate',
 					'compare' => '>',
-					'value'   => $current_time,
+					'value'   => $now,
 					'type'    => 'DATETIME',
+				),
+			);
+
+		} elseif ( 'featured' === $show_events ) {
+
+			$meta_query = array(
+				array(
+					'key'     => '_tribe_featured',
+					'compare' => 'EXISTS',
+				),
+			);
+
+		} else {
+
+			$meta_query = array(
+				array(
+					'key'     => '_EventStartDate',
+					'compare' => 'EXISTS',
 				),
 			);
 
@@ -312,6 +325,7 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 						'EventStartDate' => __( 'Start Date', 'bb-theme-builder' ),
 						'EventEndDate'   => __( 'End Date', 'bb-theme-builder' ),
 					),
+					'help'    => __( 'Selecting "Default" will use the default sorting under Content tab.', 'bb-theme-builder' ),
 				),
 				'event_order'   => array(
 					'type'    => 'select',
@@ -327,10 +341,11 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 					'label'   => __( 'Show Events', 'bb-theme-builder' ),
 					'default' => 'future',
 					'options' => array(
-						'future' => __( 'Future Events', 'bb-theme-builder' ),
-						'past'   => __( 'Past Events', 'bb-theme-builder' ),
-						'today'  => __( 'Todays Events', 'bb-theme-builder' ),
-						'all'    => __( 'All Events', 'bb-theme-builder' ),
+						'future'   => __( 'Future Events', 'bb-theme-builder' ),
+						'past'     => __( 'Past Events', 'bb-theme-builder' ),
+						'today'    => __( 'Todays Events', 'bb-theme-builder' ),
+						'all'      => __( 'All Events', 'bb-theme-builder' ),
+						'featured' => __( 'Featured Events', 'bb-theme-builder' ),
 					),
 				),
 			),

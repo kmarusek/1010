@@ -1,3 +1,196 @@
+<h4>1.4.0.1 - 12/16/2021</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed fatal error with relational fields</li>
+</ul>
+
+<h4>1.4 - 12/2/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>NEW: Allow BB to be used on content area when Singular layout is applied</li>
+	<li>NEW: Add new option for Sticky Header to choose which breakpoints it applies to</li>
+	<li>NEW: Add dropdown for ACF field selection instead of an input box</li>
+	<li>NEW: Add defaults for Themer shortcodes</li>
+	<li>NEW: 4 new Header and Footer templates each</li>
+	<li>Sticky Header: Improvements to help with Cumulative Layout Shift issues</li>
+	<li>Add Browser options to Themer Layout Rules</li>
+	<li>Add expression support to shortcodes which allows you to check for specific values with wpbb-if</li>
+	<li>Make improvements to when Themer bundle files are deleted/regenerated to help with 404 error in certain circumstances</li>
+	<li>Post Navigation Module: Add new options to choose what to display and style various parts</li>
+	<li>Update LESS library for PHP 8</li>
+	<li>Fix jQuery Migrate warnings</li>
+	<li>Add layout's name to body tag classes</li>
+	<li>Add some changes to still be compatible with WordPress 4.9</li>
+	<li>Add field connections to Global elements</li>
+	<li>Make subcategory relationship visible in Themer Layout location box</li>
+	<li>ACF: Add support for Taxonomy fields</li>
+	<li>ACF: Allow field options and attributes for ACF Image Field connection</li>
+	<li>ACF: Color picker field now outputs in a Repeater</li>
+	<li>ACF: Allow field options and attributes for ACF Image Field connection</li>
+	<li>ACF: Expand support for True/False fields by adding the field type as an option in the field type dropdown as well as add support for the Stylized UI</li>
+	<li>ACF: Add support for Button Group Field</li>
+	<li>ACF: Gallery now supports all three return types</li>
+	<li>ACF Pro: Add support for the Smart Slider Field</li>
+	<li>TEC: Add option in Posts Module to show Featured Events Only</li>
+	<li>WooCommerce: Add to Cart Module: Add hover styling options</li>
+	<li>WooCommerce: Add support for WooCommerce Wishlist Add-on</li>
+	<li>WooCommerce: Add Woo Notices Module</li>
+	<li>WooCommerce: Add Woo Sale classes to Singular layout</li>
+	<li>TEC: Add single events classes to Single</li>
+	<li>Fix conflict with HappyFiles Pro plugin when it is enabled for Themer layouts</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>ACF: Fix Fatal error when using User Relationship Field Type, return format is User Object and are returning blank values</li>
+	<li>Fix Location dropdown showing wrong value when selected page is deleted</li>
+	<li>Header layout: fix responsive editor moving content to the left when overlay is active</li>
+	<li>TEC: Fix Organizer module showing Title even if no Organizers are added to an event</li>
+	<li>TEC Pro: Fix spinning loading GIF on Singular Venue</li>
+	<li>Fix notices on WP 5.8 Block Widget Screen</li>
+	<li>Header Layout: Fix content getting duplicated when Post module is present</li>
+	<li>Fix <code>get_woocommerce_term_meta</code> deprecated notice</li>
+	<li>Fix Post Navigation module text overflowing when background color is set</li>
+	<li>Fix Post Info module color field not working</li>
+	<li>ACF: Fix True/False field not working in conditional logic</li>
+	<li>ACF: Fix Relational > Taxonomy field not outputting single values</li>
+	<li>ACF: Fix User field not displaying output properly</li>
+	<li>ACF: Fix logic that use array data, contains etc</li>
+	<li>ACF Pro: Fix Image Field URL not working in Options page</li>
+	<li>TEC: Fix Incorrect DATETIME Value For TEC Past and Future Events when using MySQL 8+</li>
+	<li>TEC: Fix Event ordering issue</li>
+	<li>TEC: Add option in Event Map Module to choose Auto height and fix custom height</li>
+	<li>TEC: Fix colors in Export Links module not working</li>
+	<li>TEC: Fix text color not workin in Event Notices module</li>
+	<li>TEC Pro: Fix alignment in Countdown</li>
+	<li>Fixed PHP Notice on excluded pages</li>
+	<li>Fixed quote(s) in Page/Post title causing Location box to be empty</li>
+	<li>WooCommerce: Fix new feature to use BB for content area when Themer singular layout applied not working for Product Tabs module</li>
+	<li>ACF: Fix contains option in conditional logic not working with certain ACF fields</li>
+</ul>
+
+<h4>1.4 Beta 5 - 11/19/2021</h4>
+<strong>Bug Fixes</strong>
+<ul>
+	<li>WooCommerce: Fix new feature to use BB for content area when Themer singular layout applied not working for Product Tabs module</li>
+	<li>Fixed various issues with Sticky Header not behaving as expected</li>
+</ul>
+
+<h4>1.4 Beta 4 - 10/14/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>ACF Field Detection now ignores the Group field itself and prefixes the subfields of a Group field with the Group field slug</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed PHP Notice on excluded pages</li>
+	<li>Fixed glitches with Sticky Header with certain theme settings</li>
+	<li>Fixed sticky header not working with sticky breakpoint set to default</li>
+	<li>Fixed quote(s) in Page/Post title causing Location box to be empty</li>
+</ul>
+
+<h4>1.4 Beta 3 - 09/28/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Sticky Header: Improvements to help with Cumulative Layout Shift issues</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed: When editing content in BB with Themer singular layout active for post, switching back to WP Editor now shows the right content</li>
+</ul>
+
+<h4>1.4 Beta 2 - 09/2/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>WooCommerce: Add support for WooCommerce Wishlist Add-on</li>
+	<li>WooCommerce: Add Woo Notices Module</li>
+	<li>WooCommerce: Add Woo Sale classes to Singular layout</li>
+	<li>TEC: Add single events classes to Single</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Header Layout: Fix content getting duplicated when Post module is present</li>
+	<li>Fix <code>get_woocommerce_term_meta</code> deprecated notice</li>
+	<li>Fix Post Navigation module text overflowing when background color is set</li>
+	<li>Fix Post Info module color field not working</li>
+	<li>ACF: Fix True/False field not working in conditional logic</li>
+	<li>ACF: Fix image field not working when set as a shortcode default</li>
+	<li>ACF: Fix Relational > Taxonomy field not outputting single values</li>
+	<li>ACF: Fix User field not displaying output properly</li>
+	<li>ACF Pro: Fix Image Field URL not working in Options page</li>
+	<li>TEC: Fix Incorrect DATETIME Value For TEC Past and Future Events when using MySQL 8+</li>
+	<li>TEC: Fix Event ordering issue</li>
+	<li>TEC: Add option in Event Map Module to choose Auto height and fix custom height</li>
+	<li>TEC: Fix colors in Export Links module not working</li>
+	<li>TEC: Fix text color not workin in Event Notices module</li>
+	<li>TEC Pro: Fix alignment in Countdown</li>
+</ul>
+
+<h4>1.4 Beta 1 - 07/12/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Add expression support to shortcodes which allows you to check for specific values with wpbb-if</li>
+	<li>ACF: Show field slug for fields in the new field dropdown selector</li>
+	<li>ACF: Add support for Taxonomy fields</li>
+	<li>Post Navigation Module: Add new options to choose what to display and style various parts</li>
+	<li>Add to Cart Module: Add hover styling options</li>
+	<li>Add some changes to still be compatible with WordPress 4.9</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Header layout: fix responsive editor moving content to the left when overlay is active</li>
+	<li>Header layout: fix sticky header going underneath the WP Admin Bar</li>
+	<li>TEC: Fix Organizer module showing Title even if no Organizers are added to an event</li>
+	<li>Fix Themer Override menu item not showing in the Tools menu if UABB Premium is enabled</li>
+	<li>Fix WP Editor content not showing when enabling Themer Override feature and then discarded changes</li>
+	<li>Fix notices on WP 5.8 Block Widget Screen</li>
+</ul>
+
+<p><strong>Other Changes</strong></p>
+<ul>
+	<li>Remove field connection options on Archive layout that pull in some latest post data</li>
+</ul>
+
+<h4>1.4 Alpha 2 - 05/27/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>NEW: 4 new Header and Footer templates each</li>
+	<li>TEC: Add option in Posts Module to show Featured Events Only</li>
+	<li>Add Browser options to Themer Layout Rules</li>
+	<li>Fix jQuery Migrate warnings</li>
+	<li>ACF: Color picker field now outputs in a Repeater</li>
+	<li>Add layout's name to body tag classes</li>
+	<li>Update LESS library for PHP8</li>
+	<li>ACF: Allow field options and attributes for ACF Image Field connection</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Using BB to design content of a page with a Themer Singular layout applied now works with Modules connected to Post Content, not just the Post Content Module</li>
+	<li>ACF: Fix Fatal error when using User Relationship Field Type, return format is User Object and are returning blank values</li>
+	<li>Fix Location dropdown showing wrong value when selected page is deleted</li>
+</ul>
+
+<h4>1.4 Alpha 1 - 04/30/2021</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>NEW: Allow BB to be used on content area when Singular layout is applied</li>
+	<li>NEW: Add new option for Sticky Header to choose which breakpoints it applies to</li>
+	<li>NEW: Add dropdown for ACF field selection instead of an input box</li>
+	<li>NEW: Add defaults for Themer shortcodes</li>
+	<li>Make improvements to when Themer bundle files are deleted/regenerated to help with 404 error in certain circumstances</li>
+	<li>ACF: Expand support for True/False fields by adding the field type as an option in the field type dropdown as well as add support for the Stylized UI</li>
+	<li>ACF: Add support for Button Group Field</li>
+	<li>ACF Pro: Add support for the Smart Slider Field</li>
+	<li>Add field connections to Global elements</li>
+	<li>Add field connection options on Archive layout that pull in some latest post data</li>
+	<li>Make subcategory relationship visible in Themer Layout location box</li>
+</ul>
+
 <h4>1.3.3.1 - 04/07/2021</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

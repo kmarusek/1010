@@ -14,6 +14,14 @@ if ( function_exists( 'YITH_YWRAQ_Frontend' ) ) {
 	if ( is_object( $product ) ) {
 		YITH_YWRAQ_Frontend()->add_button_single_page();
 	}
+} elseif ( class_exists( 'WC_Wishlists_Plugin' ) && ! empty( $button ) ) {
+	global $product;
+
+	if ( ! empty( $product ) ) {
+		$wishlist_button      = do_shortcode( '[wc_wishlists_button]' );
+		$add_to_cart_wishlist = str_replace( '</form>', $wishlist_button . '</form>', $button );
+		echo $add_to_cart_wishlist;
+	}
 } else {
 	echo $button;
 }

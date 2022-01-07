@@ -40,11 +40,6 @@ FLBuilder::register_module( 'FLTheEventsCalendarCountdownModule', array(
 							'center' => __( 'Center', 'bb-theme-builder' ),
 							'right'  => __( 'Right', 'bb-theme-builder' ),
 						),
-						'preview' => array(
-							'type'     => 'css',
-							'selector' => '.fl-module-content',
-							'property' => 'text-align',
-						),
 					),
 					'show_seconds' => array(
 						'type'    => 'select',

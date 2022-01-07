@@ -29,13 +29,13 @@
 		 */
 		_bind: function()
 		{
-			$( '.column-fl_enabled input' ).on( 'change', this._templateChangeState );
+			$( document ).on( 'change', '.column-fl_enabled input', this._templateChangeState );
 			this._UpdateText()
 		},
 
 		_UpdateText: function() {
 			$( '.column-fl_enabled input' ).each(function(i){
-				status = $(this).is( ':checked' );
+				var status = $(this).is( ':checked' );
 				if ( 'true' === status ) {
 					$(this).attr('title', window.fl_builder_templates_status.change_to_draft)
 				} else {
@@ -54,8 +54,8 @@
 		_templateChangeState: function()
 		{
 			var checkbox = $(this),
-			id = checkbox.data('id')
-			status = checkbox.is( ':checked' ) ? 'publish' : 'draft';
+				id = checkbox.data('id'),
+				status = checkbox.is( ':checked' ) ? 'publish' : 'draft';
 
 			var data = {
 				action: 'fl_template_switch',
@@ -67,7 +67,6 @@
 			$.post(window.ajaxurl, data, function(response) {
 				window.location.reload( true );
 			});
-
 		}
 	};
 

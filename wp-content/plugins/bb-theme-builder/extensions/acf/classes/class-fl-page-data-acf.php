@@ -15,6 +15,12 @@ final class FLPageDataACF {
 		FLPageData::add_group( 'acf', array(
 			'label' => __( 'Advanced Custom Fields', 'bb-theme-builder' ),
 		) );
+
+		add_action( 'wp_enqueue_scripts', function() {
+			if ( FLBuilderModel::is_builder_active() ) {
+				wp_enqueue_script( 'bb-theme-builder-acf-fields', FL_THEME_BUILDER_ACF_URL . 'js/detected-fields.js' );
+			}
+		});
 	}
 
 	/**
@@ -37,39 +43,34 @@ final class FLPageDataACF {
 			return $content;
 		}
 
+		$value = isset( $object['value'] ) ? $object['value'] : '';
+
 		switch ( $object['type'] ) {
 			case 'text':
-				$content = self::general_compare( $settings, $object );
-				break;
 			case 'textarea':
 			case 'number':
-				$content = self::general_compare( $settings, $object );
-				break;
 			case 'email':
-				$content = self::general_compare( $settings, $object );
-				break;
 			case 'url':
-				$content = self::general_compare( $settings, $object );
-				break;
 			case 'radio':
-				$content = self::general_compare( $settings, $object );
+			case 'button_group':
+				$content = $value;
 				break;
 			case 'page_link':
 				$content = '';
 
-				if ( 'string' == gettype( $object['value'] ) ) {
-					$content = $object['value'];
-				} elseif ( ! empty( $object['value'] ) && ( 'array' == gettype( $object['value'] ) ) ) {
+				if ( 'string' == gettype( $value ) ) {
+					$content = $value;
+				} elseif ( ! empty( $value ) && ( 'array' == gettype( $value ) ) ) {
 					$separator = ( isset( $settings->separator ) ) ? $settings->separator : false;
 					if ( $separator ) {
 						$content = array();
-						foreach ( $object['value'] as $v ) {
+						foreach ( $value as $v ) {
 							$content[] = "<a href='{$v}'>{$v}</a>";
 						}
 						$content = implode( $separator, $content );
 					} else {
 						$content = '<ul>';
-						foreach ( $object['value'] as $v ) {
+						foreach ( $value as $v ) {
 							$content .= "<li><a href='{$v}'>{$v}</a></li>";
 						}
 						$content .= '</ul>';
@@ -81,19 +82,19 @@ final class FLPageDataACF {
 			case 'oembed':
 			case 'date_time_picker':
 			case 'time_picker':
-				$content = isset( $object['value'] ) ? $object['value'] : '';
+				$content = $value;
 				break;
 			case 'checkbox':
 				$values = array();
 
-				if ( ! is_array( $object['value'] ) ) {
+				if ( ! is_array( $value ) ) {
 					break;
 				} elseif ( 'text' !== $settings->checkbox_format ) {
 					$content .= '<' . $settings->checkbox_format . '>';
 				}
 
-				foreach ( $object['value'] as $value ) {
-					$values[] = is_array( $value ) ? $value['label'] : $value;
+				foreach ( $value as $v ) {
+					$values[] = is_array( $v ) ? $v['label'] : $v;
 				}
 
 				if ( 'text' === $settings->checkbox_format ) {
@@ -105,14 +106,14 @@ final class FLPageDataACF {
 				break;
 			case 'select':
 				$values    = array();
-				$obj_value = (array) $object['value'];
+				$obj_value = (array) $value;
 
 				if ( 'text' !== $settings->select_format ) {
 					$content .= '<' . $settings->select_format . '>';
 				}
 
-				foreach ( $obj_value as $value ) {
-					$values[] = is_array( $value ) ? $value['label'] : $value;
+				foreach ( $obj_value as $v ) {
+					$values[] = is_array( $v ) ? $v['label'] : $v;
 				}
 
 				if ( 'text' === $settings->select_format ) {
@@ -125,7 +126,7 @@ final class FLPageDataACF {
 			case 'date_picker':
 				if ( isset( $object['date_format'] ) && ! isset( $object['return_format'] ) ) {
 					$format = self::js_date_format_to_php( $object['display_format'] );
-					$date   = DateTime::createFromFormat( 'Ymd', $object['value'] );
+					$date   = DateTime::createFromFormat( 'Ymd', $value );
 
 					// Only pass to format() if valid date, DateTime returns false if not valid.
 					if ( $date ) {
@@ -134,16 +135,15 @@ final class FLPageDataACF {
 						$content = '';
 					}
 				} else {
-					if ( isset( $settings->format ) && '' !== $settings->format && isset( $object['value'] ) ) {
-						$date    = str_replace( '/', '-', $object['value'] );
+					if ( isset( $settings->format ) && '' !== $settings->format && isset( $value ) ) {
+						$date    = str_replace( '/', '-', $value );
 						$content = date( $settings->format, strtotime( $date ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 					} else {
-						$content = isset( $object['value'] ) ? $object['value'] : '';
+						$content = isset( $value ) ? $value : '';
 					}
 				}
 				break;
 			case 'google_map':
-				$value  = isset( $object['value'] ) ? $object['value'] : '';
 				$height = ! empty( $object['height'] ) ? $object['height'] : '400';
 				if ( ! empty( $value ) && is_array( $value ) && isset( $value['address'] ) ) {
 					$address = urlencode( $value['address'] );
@@ -153,61 +153,67 @@ final class FLPageDataACF {
 				}
 				break;
 			case 'image':
-				$content = self::get_file_url_from_object( $object, $settings->image_size );
+				$content = '';
+				if ( empty( $settings->display ) ) {
+					break;
+				}
+
+				if ( 'tag' == $settings->display ) {
+					$image_id = self::get_image_id_from_object( $object );
+					$format   = self::get_object_return_format( $object );
+					$content  = wp_get_attachment_image( $image_id, $settings->image_size );
+					if ( 'url' == $format ) {
+						$url     = self::get_file_url_from_object( $object, $settings->image_size );
+						$content = '<img src="' . $url . '" />';
+					}
+					if ( 'yes' == $settings->linked ) {
+						$content = '<a href="' . esc_url( get_permalink( get_the_ID() ) ) . '">' . $content . '</a>';
+					}
+				} elseif ( 'url' == $settings->display ) {
+					$content = self::get_file_url_from_object( $object, $settings->image_size );
+				} else {
+					$acf_image = get_field( $object['name'] );
+					if ( isset( $property['key'] ) && 'acf_option' == $property['key'] ) {
+						$acf_image = get_field( $object['name'], 'option' );
+					}
+					$content = ! empty( $acf_image[ $settings->display ] ) ? $acf_image[ $settings->display ] : '';
+					$format  = self::get_object_return_format( $object );
+
+					if ( 'id' == $format ) {
+						if ( 'alt' == $settings->display ) {
+							$content = get_post_meta( $acf_image, '_wp_attachment_image_alt', true );
+						} else {
+							$image = get_post( $acf_image );
+							if ( 'title' == $settings->display ) {
+								$content = $image->post_title;
+							} elseif ( 'caption' == $settings->display ) {
+								$content = $image->post_excerpt;
+							} elseif ( 'description' == $settings->display ) {
+								$content = $image->post_content;
+							}
+						}
+					}
+				}
 				break;
 			case 'file':
 				$content = self::get_file_url_from_object( $object );
 				break;
 			case 'true_false':
-				$content = ( $object['value'] ) ? '1' : '0';
+				$content = strval( $value );
+				if ( '1' == $object['ui'] ) {
+					$content = '1' == $content ? $object['ui_on_text'] : $object['ui_off_text'];
+				}
+				break;
+			case 'acf_smartslider3':
+				$content = '';
+				if ( class_exists( 'SmartSlider3' ) ) {
+					$content = strval( $value );
+				}
 				break;
 			default:
 				$content = '';
 		}// End switch().
 		return is_string( $content ) ? $content : '';
-	}
-
-	static public function general_compare( $settings, $object ) {
-
-		if ( ! isset( $settings->exp ) ) {
-			return isset( $object['value'] ) ? $object['value'] : '';
-		}
-
-		$meta = isset( $object['value'] ) ? untrailingslashit( $object['value'] ) : '';
-
-		$expression = $settings->exp;
-
-		$compare = untrailingslashit( $settings->value );
-
-		switch ( $expression ) {
-			case 'less':
-				return ( intval( $meta ) < intval( $compare ) ) ? $meta : '';
-				break;
-
-			case 'lessequals':
-				return ( intval( $meta ) <= intval( $compare ) ) ? $meta : '';
-				break;
-
-			case 'greater':
-				return ( intval( $meta ) > intval( $compare ) ) ? $meta : '';
-				break;
-
-			case 'greaterequals':
-				return ( intval( $meta ) >= intval( $compare ) ) ? $meta : '';
-				break;
-
-			case 'equals':
-				return ( $meta === $compare ) ? $meta : '';
-				break;
-
-			case 'notequals':
-				return ( $meta !== $compare ) ? $meta : '';
-				break;
-
-			default:
-				break;
-		}
-		return $meta;
 	}
 
 	/**
@@ -313,8 +319,16 @@ final class FLPageDataACF {
 		if ( empty( $object ) || ! isset( $object['type'] ) || 'gallery' != $object['type'] ) {
 			return $content;
 		} elseif ( is_array( $object['value'] ) ) {
-			foreach ( $object['value'] as $key => $value ) {
-				$content[] = $value['id'];
+			if ( 'id' == $object['return_format'] ) {
+				$content = $object['value'];
+			} else {
+				foreach ( $object['value'] as $key => $value ) {
+					if ( 'array' == $object['return_format'] ) {
+						$content[] = $value['id'];
+					} elseif ( 'url' == $object['return_format'] && attachment_url_to_postid( $value ) ) {
+						$content[] = attachment_url_to_postid( $value );
+					}
+				}
 			}
 		}
 
@@ -329,7 +343,11 @@ final class FLPageDataACF {
 	 */
 	static public function color_field( $settings, $property ) {
 		$content = '';
-		$object  = get_field_object( trim( $settings->name ), self::get_object_id( $property ) );
+		if ( function_exists( 'acf_get_loop' ) && acf_get_loop( 'active' ) ) {
+			$object = get_sub_field_object( trim( $settings->name ) );
+		} else {
+			$object = get_field_object( trim( $settings->name ), self::get_object_id( $property ) );
+		}
 
 		if ( empty( $object ) || ! isset( $object['type'] ) || 'color_picker' != $object['type'] ) {
 			return $content;
@@ -354,7 +372,7 @@ final class FLPageDataACF {
 			$object = get_field_object( trim( $settings->name ), self::get_object_id( $property ) );
 		}
 
-		if ( empty( $object ) || ! isset( $object['type'] ) || ! in_array( $object['type'], array( 'user', 'post_object', 'page_link' ) ) ) {
+		if ( empty( $object ) || ! isset( $object['type'] ) || ! in_array( $object['type'], array( 'user', 'post_object', 'page_link', 'taxonomy' ) ) ) {
 			return $content;
 		} elseif ( ! empty( $object['value'] ) ) {
 			$values = ( 1 == $object['multiple'] ) ? $object['value'] : array( $object['value'] );
@@ -364,6 +382,23 @@ final class FLPageDataACF {
 				$name  = '';
 
 				foreach ( $values as $user_data ) {
+
+					if ( 'id' == $object['return_format'] || 'object' == $object['return_format'] ) {
+						if ( 'id' == $object['return_format'] ) {
+							$user = get_userdata( $user_data );
+						} else {
+							$user = $user_data;
+						}
+						$user_data                   = array();
+						$user_data['ID']             = $user->ID;
+						$user_data['user_firstname'] = $user->first_name;
+						$user_data['user_lastname']  = $user->last_name;
+						$user_data['nickname']       = $user->nickname;
+						$user_data['user_nicename']  = $user->user_nicename;
+						$user_data['display_name']   = $user->display_name;
+						$user_data['user_url']       = $user->user_url;
+					}
+
 					switch ( $settings->display_type ) {
 						case 'display':
 							$name = $user_data['display_name'];
@@ -464,6 +499,60 @@ final class FLPageDataACF {
 					}
 					$content .= '</ul>';
 				}
+			} elseif ( 'taxonomy' == $object['type'] ) {
+
+				$list_item_tag = 'div';
+				$taxonomy      = $object['taxonomy'];
+				$skip_term     = false;
+				$list_tag      = $settings->list_type;
+				$content       = '<' . $list_tag . '>';
+				if ( 'ul' === $list_tag || 'ol' === $list_tag ) {
+					$list_item_tag = 'li';
+				}
+				if ( 'checkbox' == $object['field_type'] || 'multi_select' == $object['field_type'] ) {
+					foreach ( $object['value'] as $term ) {
+						$term_id   = is_object( $term ) ? $term->term_id : $term;
+						$link      = get_term_link( $term_id, $taxonomy );
+						$term_data = get_term( $term_id, $taxonomy );
+						if ( $term_data ) {
+							$term_name  = $term_data->name;
+							$post_count = $term_data->count;
+							if ( 'yes' == $settings->term_archive_link ) {
+								$term_name = "<a href='{$link}'>{$term_name}</a>";
+							}
+							if ( 'yes' == $settings->term_post_count ) {
+								$term_name .= ' (' . $post_count . ')';
+							}
+							if ( 'yes' == $settings->hide_empty && 0 == $post_count ) {
+								$skip_term = true;
+							}
+							if ( ! $skip_term ) {
+								$content .= "<{$list_item_tag} class='taxonomy-{$term_data->term_id}'>{$term_name}</{$list_item_tag}>";
+							}
+						}
+					}
+				} else {
+					$term_id   = $object['value'];
+					$link      = get_term_link( $term_id, $taxonomy );
+					$term_data = get_term( $term_id, $taxonomy );
+					if ( $term_data ) {
+						$term_name  = $term_data->name;
+						$post_count = $term_data->count;
+						if ( 'yes' == $settings->term_archive_link ) {
+							$term_name = "<a href='{$link}'>{$term_name}</a>";
+						}
+						if ( 'yes' == $settings->term_post_count ) {
+							$term_name .= ' (' . $post_count . ')';
+						}
+						if ( 'yes' == $settings->hide_empty && 0 == $post_count ) {
+							$skip_term = true;
+						}
+					}
+					if ( ! $skip_term ) {
+						$content .= "<{$list_item_tag} class='taxonomy-{$term_data->term_id}'>{$term_name}</{$list_item_tag}>";
+					}
+				}
+				$content .= '</' . $list_tag . '>';
 			}
 		}
 
@@ -658,6 +747,65 @@ final class FLPageDataACF {
 		$format = str_replace( '{2}', 'm', $format );
 
 		return $format;
+	}
+
+	/**
+	 * @since 1.3.2
+	 */
+	public static function get_custom_fields_select( $post_id, $relationship = false ) {
+		global $wpdb;
+		$form       = array();
+		$sub_fields = array();
+		$relation   = array( 'post_object', 'page_link', 'user', 'taxonomy' );
+		$results    = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field'", ARRAY_A );
+
+		// maybe filter
+		foreach ( $results as $k => $field ) {
+			$data = maybe_unserialize( $field['field_opts'] );
+			$type = $data['type'];
+			if ( $relationship ) {
+				if ( ! in_array( $type, $relation ) ) {
+					unset( $results[ $k ] );
+				}
+			} else {
+				if ( in_array( $type, $relation ) ) {
+					unset( $results[ $k ] );
+				}
+			}
+
+			// get group sub-fields
+			if ( 'group' == $data['type'] ) {
+				$field_key  = $field['field_key'];
+				$field_data = acf_get_field( $field_key, false );
+
+				if ( $field_data ) {
+					if ( isset( $field_data['sub_fields'] ) && count( $field_data['sub_fields'] ) > 0 ) {
+						foreach ( $field_data['sub_fields'] as $subfield ) {
+							$sub_fields[ $subfield['ID'] ] = $field_key . '_' . $subfield['name'];
+						}
+					}
+				}
+				unset( $results[ $k ] );
+			}
+		}
+
+		if ( ! empty( $results ) ) {
+			$form['type']    = 'select';
+			$form['label']   = __( 'Detected Fields', 'bb-theme-builder' );
+			$form['options'] = array(
+				'' => __( 'Choose ACF Field', 'bb-theme-builder' ),
+			);
+
+			foreach ( $results as $field ) {
+				if ( isset( $sub_fields[ $field['id'] ] ) ) {
+					$field['field_key'] = $sub_fields[ $field['id'] ];
+				}
+				$data                                   = maybe_unserialize( $field['field_opts'] );
+				$type                                   = isset( $data['type'] ) ? str_replace( array( '_', '-' ), ' ', $data['type'] ) : 'unknown';
+				$form['options'][ $field['field_key'] ] = sprintf( '%s (%s) [%s]', $field['field_name'], $field['field_key'], $type );
+			}
+		}
+		return $form;
 	}
 }
 

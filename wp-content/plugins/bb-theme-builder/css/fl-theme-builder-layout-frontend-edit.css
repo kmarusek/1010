@@ -79,3 +79,14 @@
 .fl-theme-builder-part.single-fl-theme-layout .fl-content {
 	width: 100% !important;
 }
+
+/* Templates */
+.fl-builder--template-collection-item[data-subtype="header"] .fl-builder--template-thumbnail,
+.fl-builder--template-collection-item[data-subtype="footer"] .fl-builder--template-thumbnail {
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.fl-builder--template-collection-item[data-subtype="header"] .fl-builder--template-thumbnail:before,
+.fl-builder--template-collection-item[data-subtype="footer"] .fl-builder--template-thumbnail:before {
+	padding-top: 100%;
+}

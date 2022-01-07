@@ -126,7 +126,6 @@ final class FLPageDataSite {
 			$settings->type = $settings->link_type;
 			$name           = '<a href="' . self::get_user_url( $settings ) . '">' . $name . '</a>';
 		}
-
 		return $name;
 	}
 

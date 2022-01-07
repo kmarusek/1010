@@ -1,14 +1,8 @@
 /* Sticky */
 .fl-builder-content[data-type="header"].fl-theme-builder-header-sticky {
-	left: 0;
 	position: fixed;
-	right: 0;
-	top: 0;
 	width: 100%;
 	z-index: 100;
-}
-.admin-bar .fl-builder-content[data-type="header"].fl-theme-builder-header-sticky {
-	top: 32px;
 }
 
 /* Shrink */
@@ -56,7 +50,7 @@
 }
 
 /* Overlay */
-.fl-builder-content[data-overlay="1"]:not(.fl-theme-builder-header-sticky) {
+.fl-builder-content[data-overlay="1"]:not(.fl-theme-builder-header-sticky):not(.fl-builder-content-editing) {
 	position: absolute;
 	width: 100%;
 	z-index: 100;

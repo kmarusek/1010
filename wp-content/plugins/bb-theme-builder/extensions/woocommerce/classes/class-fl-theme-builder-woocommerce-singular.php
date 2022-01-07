@@ -12,11 +12,17 @@ final class FLThemeBuilderWooCommerceSingular {
 	 * @return void
 	 */
 	static public function init() {
+		// Actions
+		add_action( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
+		add_action( 'fl_theme_builder_after_render_content', __CLASS__ . '::after_render_content' );
+
 		// Filters
 		add_filter( 'fl_builder_render_css', __CLASS__ . '::render_css', 10, 4 );
 		add_filter( 'body_class', __CLASS__ . '::body_class' );
-		add_filter( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
 		add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_class' );
+		add_filter( 'fl_builder_is_node_visible', __CLASS__ . '::set_node_visibility', 10, 2 );
+		add_filter( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
+		add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_class', 10, 2 );
 		add_filter( 'fl_theme_builder_after_render_content', __CLASS__ . '::after_render_content' );
 	}
 
@@ -93,23 +99,51 @@ final class FLThemeBuilderWooCommerceSingular {
 		global $wp_the_query;
 
 		if ( is_object( $wp_the_query->post ) && 'product' == $wp_the_query->post->post_type ) {
+			$has_notices_module = self::layout_has_woo_notices_module( $layout_id );
 
-			if ( function_exists( 'wc_print_notices' ) ) {
+			if ( ! $has_notices_module ) {
+				echo self::get_woo_notices();
 
-				ob_start();
-				wc_print_notices();
-				$notices = ob_get_clean();
-
-				if ( ! empty( $notices ) ) {
-					echo '<div class="fl-theme-builder-woo-notices fl-row fl-row-fixed-width">';
-					echo $notices;
-					echo '</div>';
+				if ( function_exists( 'is_product' ) && is_product() ) {
+					do_action( 'woocommerce_before_single_product' );
 				}
 			}
-			if ( function_exists( 'is_product' ) && is_product() ) {
-				do_action( 'woocommerce_before_single_product' );
+		}
+	}
+
+	/**
+	 * Checks if the Woo Notices module is instantiated on the Themer Layout.
+	 *
+	 * @since 1.4
+	 * @param string $layout_id
+	 * @return boolean
+	 */
+	static private function layout_has_woo_notices_module( $layout_id ) {
+		$data = FLBuilderModel::get_layout_data( 'published', $layout_id );
+		foreach ( $data as $node_id => $node ) {
+			if ( 'module' === $node->type && 'fl-woo-notices' === $node->settings->type ) {
+				return true;
 			}
 		}
+		return false;
+	}
+
+	/**
+	 * Woo Notices string.
+	 *
+	 * @since 1.4
+	 * @return string
+	 */
+	static public function get_woo_notices() {
+		$html = '';
+
+		if ( wc_notice_count() > 0 ) {
+			$html .= '<div class="fl-theme-builder-woo-notices fl-row fl-row-fixed-width">';
+			$html .= wc_print_notices( true );
+			$html .= '</div>';
+		}
+
+		return $html;
 	}
 
 	/**
@@ -118,11 +152,12 @@ final class FLThemeBuilderWooCommerceSingular {
 	 *
 	 * @since 1.0
 	 * @param string $classes
+	 * @param string $layout_type
 	 * @return string
 	 */
-	static public function content_class( $classes ) {
-		if ( is_singular() && 'product' == get_post_type() ) {
-			$classes .= ' product';
+	static public function content_class( $classes, $layout_type = '' ) {
+		if ( is_singular() && 'product' == get_post_type() && empty( $layout_type ) ) {
+			$classes = join( ' ', wc_get_product_class( $classes ) );
 		}
 
 		return $classes;
@@ -145,6 +180,24 @@ final class FLThemeBuilderWooCommerceSingular {
 
 		}
 	}
+
+	/**
+	 * Set the node visibility for WooCommerce Singular Product Layout.
+	 *
+	 * @since 1.4
+	 * @param bool $is_visible
+	 * @param object $node
+	 * @return bool
+	 */
+	static public function set_node_visibility( $is_visible, $node ) {
+		// Hide Woo Notices Module if there's no Woocommerce notice/message available.
+		if ( 'module' === $node->type && 'fl-woo-notices' === $node->slug ) {
+			$is_visible = function_exists( 'wc_notice_count' ) && wc_notice_count() > 0;
+		}
+
+		return $is_visible;
+	}
+
 }
 
 FLThemeBuilderWooCommerceSingular::init();

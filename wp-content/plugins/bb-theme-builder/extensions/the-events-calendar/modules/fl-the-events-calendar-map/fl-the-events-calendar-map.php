@@ -22,6 +22,25 @@ class FLTheEventsCalendarMapModule extends FLBuilderModule {
 			'enabled'         => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 		));
 	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since TBD
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		// Convert Height (Text field) to Custom Height (Unit field).
+		if ( ! empty( $settings->height ) && is_numeric( $settings->height ) ) {
+			$settings->custom_height = $settings->height;
+		}
+		unset( $settings->height );
+
+		return $settings;
+	}
 }
 
 FLBuilder::register_module( 'FLTheEventsCalendarMapModule', array(
@@ -31,13 +50,31 @@ FLBuilder::register_module( 'FLTheEventsCalendarMapModule', array(
 			'general' => array(
 				'title'  => '',
 				'fields' => array(
-					'height' => array(
-						'type'        => 'text',
-						'label'       => __( 'Height', 'bb-theme-builder' ),
-						'default'     => '350',
-						'size'        => '5',
-						'description' => 'px',
-						'placeholder' => '350',
+					'height_type'   => array(
+						'type'    => 'select',
+						'label'   => __( 'Height', 'bb-theme-builder' ),
+						'default' => 'custom',
+						'options' => array(
+							'auto'   => __( 'Auto', 'bb-theme-builder' ),
+							'custom' => __( 'Custom', 'bb-theme-builder' ),
+						),
+						'toggle'  => array(
+							'custom' => array(
+								'fields' => array( 'custom_height' ),
+							),
+						),
+					),
+					'custom_height' => array(
+						'type'         => 'unit',
+						'default'      => '350',
+						'label'        => __( 'Custom Height', 'bb-theme-builder' ),
+						'units'        => array( 'px' ),
+						'default_unit' => 'px',
+						'slider'       => array(
+							'min'  => 0,
+							'max'  => 2000,
+							'step' => 10,
+						),
 					),
 				),
 			),

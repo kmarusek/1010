@@ -284,8 +284,8 @@ final class FLPageData {
 		// Cache the value.
 		self::$values[ $object ][ $key ] = $value;
 
-		// Return the value.
-		return $value;
+		// Return the value after running it through the expression function
+		return FLThemeBuilderFieldConnections::general_compare( $settings, $value );
 	}
 
 	/**

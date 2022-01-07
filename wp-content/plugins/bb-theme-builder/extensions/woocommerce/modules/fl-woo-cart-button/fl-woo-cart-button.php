@@ -28,22 +28,53 @@ FLBuilder::register_module( 'FLWooCartButtonModule', array(
 	'general' => array(
 		'title'    => __( 'Style', 'bb-theme-builder' ),
 		'sections' => array(
-			'general' => array(
-				'title'  => '',
+			'general'            => array(
+				'title'  => 'Text',
 				'fields' => array(
-					'bg_color'   => array(
-						'type'       => 'color',
-						'label'      => __( 'Background Color', 'bb-theme-builder' ),
-						'show_reset' => true,
-					),
-					'text_color' => array(
+					'text_color'       => array(
 						'type'       => 'color',
 						'label'      => __( 'Text Color', 'bb-theme-builder' ),
 						'show_reset' => true,
 						'preview'    => array(
-							'type'     => 'css',
-							'selector' => '.fl-module-content button',
-							'property' => 'color',
+							'type'      => 'css',
+							'selector'  => 'button.button',
+							'property'  => 'color',
+							'important' => true,
+						),
+					),
+					'text_color_hover' => array(
+						'type'       => 'color',
+						'label'      => __( 'Text Hover Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type'      => 'css',
+							'selector'  => 'button.button:hover',
+							'property'  => 'color',
+							'important' => true,
+						),
+					),
+				),
+			),
+			'background-section' => array(
+				'title'  => 'Background',
+				'fields' => array(
+					'bg_color'       => array(
+						'type'       => 'color',
+						'label'      => __( 'Background Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type' => 'refresh',
+						),
+					),
+					'bg_color_hover' => array(
+						'type'       => 'color',
+						'label'      => __( 'Background Hover Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type'      => 'css',
+							'selector'  => 'button.button:hover',
+							'property'  => 'background-color',
+							'important' => true,
 						),
 					),
 				),

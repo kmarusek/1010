@@ -62,7 +62,7 @@ final class FLThemeBuilderTheEventsCalendarSingular {
 			add_filter( 'fl_builder_render_css', __CLASS__ . '::render_css', 10, 4 );
 			add_filter( 'body_class', __CLASS__ . '::body_class' );
 			add_filter( 'fl_theme_builder_content_attrs', __CLASS__ . '::content_attrs' );
-			add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_classes' );
+			add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_classes', 10, 2 );
 		}
 
 		$themer_location = FLThemeBuilderLayoutData::get_current_page_layouts();
@@ -125,7 +125,7 @@ final class FLThemeBuilderTheEventsCalendarSingular {
 		do_action( 'tribe_events_before_view' );
 
 		// Remove the AJAX loader on the Organizer page.
-		if ( 'tribe_organizer' == self::$post_type ) {
+		if ( 'tribe_organizer' == self::$post_type || 'tribe_venue' == self::$post_type ) {
 			return;
 		}
 
@@ -148,11 +148,13 @@ final class FLThemeBuilderTheEventsCalendarSingular {
 	 *
 	 * @since TBD
 	 * @param string $classes
+	 * @param string $layout_type
 	 * @return string
 	 */
-	static public function content_classes( $classes ) {
-		if ( 'tribe_events' === self::$post_type ) {
-			$classes .= ' tribe-events-single';
+	static public function content_classes( $classes, $layout_type = '' ) {
+
+		if ( 'tribe_events' === self::$post_type && empty( $layout_type ) ) {
+			$classes = join( ' ', get_post_class( $classes . ' tribe-events-single' ) );
 		} elseif ( 'tribe_organizer' === self::$post_type ) {
 			$classes .= ' tribe-events-organizer';
 		} elseif ( 'tribe_venue' === self::$post_type ) {

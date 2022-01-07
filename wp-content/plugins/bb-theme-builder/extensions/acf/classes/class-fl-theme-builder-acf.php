@@ -73,17 +73,28 @@ final class FLThemeBuilderACF {
 		}
 
 		$object = get_field( trim( $settings->data_source_acf_relational_key ), $key );
+		if ( is_int( $object ) && 'user' == $settings->data_source_acf_relational_type ) {
+			$object = get_userdata( $object );
+		}
 
 		if ( $object ) {
 			$rel_post_types = array();
 
 			foreach ( $object as $obj ) {
 				if ( is_object( $obj ) ) {
-					$object_ids[]     = $obj->ID;
-					$rel_post_types[] = $obj->post_type;
+					if ( isset( $obj->ID ) ) {
+						$object_ids[] = $obj->ID;
+					}
+					if ( isset( $obj->post_type ) ) {
+						$rel_post_types[] = $obj->post_type;
+					}
 				} elseif ( is_array( $obj ) ) {
-					$object_ids[]     = $obj['ID'];
-					$rel_post_types[] = $obj['post_type'];
+					if ( isset( $obj['ID'] ) ) {
+						$object_ids[] = $obj['ID'];
+					}
+					if ( isset( $obj['post_type'] ) ) {
+						$rel_post_types[] = $obj['post_type'];
+					}
 				} elseif ( is_int( $obj ) ) {
 					$object_ids[]     = $obj;
 					$rel_post_types[] = get_post_type( $obj );
@@ -121,7 +132,14 @@ final class FLThemeBuilderACF {
 					$args['orderby'] = 'post__in';
 				}
 			} elseif ( 'user' == $settings->data_source_acf_relational_type ) {
+				$object_ids         = array_unique( $object_ids );
 				$args['author__in'] = $object_ids;
+
+				if ( isset( $settings->data_source_acf_post_type ) && is_array( $settings->data_source_acf_post_type ) ) {
+					$args['post_type'] = $settings->data_source_acf_post_type;
+				} else {
+					$args['post_type'] = 'any';
+				}
 			}
 		} else {
 			// Reset query args so it doesn't display `post` post_type by default.
@@ -153,6 +171,9 @@ final class FLThemeBuilderACF {
 				'toggle'  => array(
 					'relationship' => array(
 						'fields' => array( 'data_source_acf_order', 'data_source_acf_order_by' ),
+					),
+					'user'         => array(
+						'fields' => array( 'data_source_acf_post_type' ),
 					),
 				),
 			), $settings);
@@ -204,6 +225,14 @@ final class FLThemeBuilderACF {
 			FLBuilder::render_settings_field('data_source_acf_order_by_meta_key', array(
 				'type'  => 'text',
 				'label' => __( 'Meta Key', 'bb-theme-builder' ),
+			), $settings);
+
+			// Post Type
+			FLBuilder::render_settings_field('data_source_acf_post_type', array(
+				'type'         => 'post-type',
+				'multi-select' => true,
+				'label'        => __( 'Post Type', 'bb-theme-builder' ),
+				'help'         => __( 'By default all post types are included, If none of the options is selected.', 'bb-theme-builder' ),
 			), $settings);
 
 		echo '</table>';

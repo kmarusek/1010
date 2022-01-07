@@ -193,7 +193,19 @@ final class FLPageDataWooCommerce {
 	 * @return string
 	 */
 	static public function get_product_tabs() {
-		return self::get_template_html( 'woocommerce_output_product_data_tabs' );
+		$is_content_building_enabled = FLThemeBuilderFrontendEdit::is_content_building_enabled();
+
+		if ( $is_content_building_enabled ) {
+			add_filter( 'the_content', 'FLPageDataPost::get_content' );
+		}
+
+		$html = self::get_template_html( 'woocommerce_output_product_data_tabs' );
+
+		if ( $is_content_building_enabled ) {
+			remove_filter( 'the_content', 'FLPageDataPost::get_content' );
+		}
+
+		return $html;
 	}
 
 	/**
@@ -230,7 +242,7 @@ final class FLPageDataWooCommerce {
 		if ( is_product_category() ) {
 
 			$category = $wp_query->get_queried_object();
-			$image_id = get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true );
+			$image_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
 			$image    = wp_get_attachment_url( $image_id );
 
 			if ( $image ) {

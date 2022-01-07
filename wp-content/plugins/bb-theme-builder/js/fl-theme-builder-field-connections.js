@@ -370,6 +370,7 @@
 					lightbox._node.find( '.fl-lightbox-content' ).html( data.html );
 
 					FLBuilder._initSettingsForms();
+					$( document ).trigger( '_initSettingsFormsComplete' );
 				} );
 		},
 
@@ -405,7 +406,7 @@
 
 				for ( prop in settings ) {
 
-					if ( ! form.find( '[name=' + prop + ']:visible' ).length ) {
+					if ( ! form.find( '[name=' + prop + ']:visible' ).length || 'name_custom' === prop ) {
 						continue;
 					}
 

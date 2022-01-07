@@ -44,15 +44,50 @@ final class BB_Logic_Rules_ACF {
 		$value = get_field( $rule->key, $object_id );
 
 		if ( is_array( $value ) ) {
-			$value = empty( $value ) ? 0 : 1;
-		} elseif ( is_object( $value ) ) {
-			$value = 1;
+			// normal array....
+			if ( isset( $value['value'] ) ) {
+				$value = $value['value'];
+			} else {
+				if ( ! empty( $value ) ) {
+					// nested array...
+					$val_arr = array();
+					foreach ( $value as $val ) {
+						if ( is_array( $val ) && isset( $val['value'] ) ) {
+							$val_arr[] = $val['value'];
+						} elseif ( is_object( $val ) && isset( $val->value ) ) {
+							$val_arr[] = $val->value;
+						} else {
+							$val_arr[] = $val;
+						}
+					}
+					$value = $val_arr;
+				} else {
+					$value = 0;
+				}
+			}
+		}
+
+		if ( is_object( $value ) ) {
+			if ( isset( $value->value ) ) {
+				$value = $value->value;
+			} else {
+				$value = 1;
+			}
+		}
+
+		$operator = $rule->operator;
+		$compare  = $rule->compare;
+		if ( in_array( $operator, array( 'equals', 'on', 'is_on', 'does_not_equal', 'not_on', 'is_not_on' ) ) ) {
+			if ( 'boolean' === gettype( $value ) ) {
+				$value   = (string) $value;
+				$compare = (string) $compare;
+			}
 		}
 
 		return BB_Logic_Rules::evaluate_rule( array(
 			'value'    => $value,
-			'operator' => $rule->operator,
-			'compare'  => $rule->compare,
+			'operator' => $operator,
+			'compare'  => $compare,
 			'isset'    => $value,
 		) );
 	}

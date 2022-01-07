@@ -2,20 +2,40 @@
 	text-align: <?php echo $settings->align; ?>;
 }
 
-<?php if ( ! empty( $settings->text_color ) ) : ?>
-#tribe-events .fl-node-<?php echo $id; ?> .tribe-events-button {
-	color: #<?php echo $settings->text_color; ?>;
-}
-<?php endif; ?>
-
-<?php if ( ! empty( $settings->bg_color ) ) : ?>
-#tribe-events .fl-node-<?php echo $id; ?> .tribe-events-button {
-	background-color: #<?php echo $settings->bg_color; ?>;
-}
-<?php endif; ?>
-
 <?php if ( is_numeric( $settings->border_radius ) ) : ?>
-#tribe-events .fl-node-<?php echo $id; ?> .tribe-events-button {
+.fl-node-<?php echo $id; ?> .tribe-events-cal-links a.tribe-events-button {
 	border-radius: <?php echo $settings->border_radius; ?>px;
 }
 <?php endif ?>
+
+<?php
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id a.tribe-events-button",
+	'props'    => array(
+		'color'            => $settings->text_color,
+		'background-color' => $settings->bg_color,
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id a.tribe-events-button:hover",
+	'props'    => array(
+		'color'            => $settings->hover_text_color,
+		'background-color' => $settings->hover_bg_color,
+	),
+) );
+
+// Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'padding',
+	'selector'     => ".fl-node-$id a.tribe-events-button, .fl-node-$id a.tribe-events-button:hover",
+	'unit'         => 'px',
+	'props'        => array(
+		'padding-top'    => 'padding_top',
+		'padding-right'  => 'padding_right',
+		'padding-bottom' => 'padding_bottom',
+		'padding-left'   => 'padding_left',
+	),
+) );

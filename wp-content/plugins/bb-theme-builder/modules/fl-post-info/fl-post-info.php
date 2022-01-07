@@ -213,6 +213,9 @@ FLBuilder::register_module( 'FLPostInfoModule', array(
 						'type'       => 'color',
 						'label'      => __( 'Color', 'bb-theme-builder' ),
 						'show_reset' => true,
+						'preview'    => array(
+							'type' => 'refresh',
+						),
 					),
 					'separator'  => array(
 						'type'    => 'text',

@@ -31,7 +31,7 @@ FLBuilder::register_module( 'FLTheEventsCalendarExportLinksModule', array(
 			'general' => array(
 				'title'  => '',
 				'fields' => array(
-					'align'         => array(
+					'align'            => array(
 						'type'    => 'select',
 						'label'   => __( 'Alignment', 'bb-theme-builder' ),
 						'default' => 'left',
@@ -46,17 +46,57 @@ FLBuilder::register_module( 'FLTheEventsCalendarExportLinksModule', array(
 							'property' => 'text-align',
 						),
 					),
-					'text_color'    => array(
+					'text_color'       => array(
 						'type'       => 'color',
 						'label'      => __( 'Text Color', 'bb-theme-builder' ),
 						'show_reset' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => 'a.tribe-events-button',
+							'property' => 'color',
+						),
 					),
-					'bg_color'      => array(
+					'bg_color'         => array(
 						'type'       => 'color',
 						'label'      => __( 'Background Color', 'bb-theme-builder' ),
 						'show_reset' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => 'a.tribe-events-button',
+							'property' => 'background-color',
+						),
 					),
-					'border_radius' => array(
+					'hover_text_color' => array(
+						'type'       => 'color',
+						'label'      => __( 'Hover Text Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type' => 'none',
+						),
+					),
+					'hover_bg_color'   => array(
+						'type'       => 'color',
+						'label'      => __( 'Hover Background Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type' => 'none',
+						),
+					),
+
+					'padding'          => array(
+						'type'       => 'dimension',
+						'label'      => __( 'Padding', 'bb-theme-builder' ),
+						'default'    => '0',
+						'responsive' => true,
+						'slider'     => true,
+						'units'      => array( 'px' ),
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => 'a.tribe-events-button',
+							'property' => 'padding',
+						),
+					),
+					'border_radius'    => array(
 						'type'        => 'text',
 						'label'       => __( 'Border Radius', 'bb-theme-builder' ),
 						'default'     => '0',

@@ -202,7 +202,7 @@
 				content = $( '.fl-builder-content-primary:not([data-type="part"])' );
 
 			if ( part.length ) {
-				content.after( '<div style="padding: 200px 100px; text-align:center; opacity:0.5;">Content Area</div>' );
+				content.after( '<div class="fl-theme-builder-content-placeholder" style="padding: 200px 100px; text-align:center; opacity:0.5;">Content Area</div>' );
 				part.after( content );
 				part.remove();
 			}

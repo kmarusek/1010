@@ -1,5 +1,5 @@
 <?php if ( ! empty( $settings->text_color ) ) : ?>
-#tribe-events .fl-node-<?php echo $id; ?> .tribe-events-notices {
+.fl-node-<?php echo $id; ?> .tribe-events-notices {
 	color: #<?php echo $settings->text_color; ?>;
 }
 <?php endif; ?>

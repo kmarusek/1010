@@ -112,6 +112,7 @@ final class BB_Logic_Editor_Beaver_Themer {
 		BB_Logic_Asset_Loader::enqueue( array(
 			'wordpress',
 			'acf',
+			'browser',
 		) );
 
 		// Styles

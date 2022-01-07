@@ -60,6 +60,27 @@
 		</td>
 	</tr>
 
+	<tr class="fl-mb-row fl-theme-layout-header-sticky-on">
+		<td  class="fl-mb-row-heading">
+			<label><?php _e( 'Sticky Breakpoint', 'bb-theme-builder' ); ?></label>
+			<i class="fl-mb-row-heading-help dashicons dashicons-editor-help" title="<?php esc_html_e( 'The screen size at which the sticky header gets applied.', 'bb-theme-builder' ); ?>"></i>
+		</td>
+		<td class="fl-mb-row-content">
+			<?php
+				$sticky_on = isset( $settings['sticky-on'] ) ? $settings['sticky-on'] : '';
+			?>
+			<select name="fl-theme-layout-settings[sticky-on]">
+				<option value="" <?php selected( $sticky_on, '' ); ?>><?php _e( 'Default', 'bb-theme-builder' ); ?></option>
+				<option value="all" <?php selected( $sticky_on, 'all' ); ?>><?php _e( 'All screen sizes', 'bb-theme-builder' ); ?></option>
+				<option value="desktop" <?php selected( $sticky_on, 'desktop' ); ?>><?php _e( 'Large Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="desktop-medium" <?php selected( $sticky_on, 'desktop-medium' ); ?>><?php _e( 'Large &amp; Medium Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="medium" <?php selected( $sticky_on, 'medium' ); ?>><?php _e( 'Medium Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="medium-mobile" <?php selected( $sticky_on, 'medium-mobile' ); ?>><?php _e( 'Medium &amp; Small Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="mobile" <?php selected( $sticky_on, 'mobile' ); ?>><?php _e( 'Small Devices Only', 'bb-theme-builder' ); ?></option>
+			</select>
+		</td>
+	</tr>
+
 	<tr class="fl-mb-row fl-theme-layout-header-shrink">
 		<td  class="fl-mb-row-heading">
 			<label><?php _e( 'Shrink', 'bb-theme-builder' ); ?></label>

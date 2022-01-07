@@ -170,12 +170,22 @@ final class BB_Logic_Rules {
 			case 'contains':
 			case 'include':
 			case 'includes':
-				$result = is_string( $value ) ? strstr( $value, $compare ) : in_array( $compare, $value );
+				if ( is_string( $value ) ) {
+					$result = strstr( $value, $compare );
+				}
+				if ( is_array( $value ) ) {
+					$result = in_array( $compare, $value );
+				}
 				break;
 			case 'does_not_contain':
 			case 'do_not_include':
 			case 'does_not_include':
-				$result = is_string( $value ) ? ! strstr( $value, $compare ) : ! in_array( $compare, $value );
+				if ( is_string( $value ) ) {
+					$result = ! strstr( $value, $compare );
+				}
+				if ( is_array( $value ) ) {
+					$result = ! in_array( $compare, $value );
+				}
 				break;
 			case 'is_set':
 				$result = $isset;

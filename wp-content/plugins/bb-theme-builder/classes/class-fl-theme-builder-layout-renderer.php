@@ -16,7 +16,7 @@ final class FLThemeBuilderLayoutRenderer {
 	static public function init() {
 		// Actions
 		add_action( 'after_switch_theme', __CLASS__ . '::delete_all_bundled_scripts' );
-		add_action( 'fl_builder_after_save_layout', __CLASS__ . '::delete_all_bundled_scripts' );
+		//add_action( 'fl_builder_after_save_layout', __CLASS__ . '::delete_all_bundled_scripts' );
 		add_action( 'template_redirect', __CLASS__ . '::disable_content_rendering' );
 		add_action( 'template_redirect', __CLASS__ . '::setup_part_hooks' );
 		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
@@ -64,10 +64,16 @@ final class FLThemeBuilderLayoutRenderer {
 	 */
 	static public function body_class( $classes ) {
 
-		$layouts = FLThemeBuilderLayoutData::get_current_page_layouts();
-
+		$layouts     = FLThemeBuilderLayoutData::get_current_page_layouts();
+		$layout_slug = '';
 		foreach ( $layouts as $key => $data ) {
+			foreach ( $data as $layout_info ) {
+				$layout_slug = get_post_field( 'post_name', $layout_info['id'] );
+			}
 			$classes[] = 'fl-theme-builder-' . $key;
+			if ( $layout_slug ) {
+				$classes[] = 'fl-theme-builder-' . $key . '-' . $layout_slug;
+			}
 		}
 
 		return $classes;
@@ -185,7 +191,7 @@ final class FLThemeBuilderLayoutRenderer {
 		}
 
 		// Delete invalid bundled cache.
-		self::delete_bundled_scripts();
+		//	self::delete_bundled_scripts();
 
 		// Get the CSS and JS for the bundles.
 		foreach ( $layouts as $layout_type => $layout_group ) {
@@ -267,6 +273,7 @@ final class FLThemeBuilderLayoutRenderer {
 		}
 	}
 
+
 	/**
 	 * Deletes all of the bundled styles and scripts cache
 	 * when a theme layout is saved.
@@ -287,7 +294,7 @@ final class FLThemeBuilderLayoutRenderer {
 			array_map( 'unlink', $js );
 		}
 
-		update_option( '_fl_theme_builder_assets_expire', self::get_cache_timeout() );
+		//update_option( '_fl_theme_builder_assets_expire', self::get_cache_timeout() );
 	}
 
 	/**
@@ -367,6 +374,7 @@ final class FLThemeBuilderLayoutRenderer {
 		$attrs = array(
 			'data-type'                => 'header',
 			'data-sticky'              => $settings['sticky'],
+			'data-sticky-on'           => isset( $settings['sticky-on'] ) ? $settings['sticky-on'] : '',
 			'data-sticky-breakpoint'   => apply_filters( 'fl_theme_builder_sticky_header_breakpoint', 'medium' ),
 			'data-shrink'              => $settings['shrink'],
 			'data-overlay'             => $settings['overlay'],
@@ -510,7 +518,7 @@ final class FLThemeBuilderLayoutRenderer {
 	 * @return string
 	 */
 	static public function override_the_content( $content ) {
-		return '<div style="padding: 200px 100px; text-align:center; opacity:0.5;">' . __( 'Content Area', 'bb-theme-builder' ) . '</div>';
+		return '<div class="fl-theme-builder-content-placeholder" style="padding: 200px 100px; text-align:center; opacity:0.5;">' . __( 'Content Area', 'bb-theme-builder' ) . '</div>';
 	}
 
 	/**

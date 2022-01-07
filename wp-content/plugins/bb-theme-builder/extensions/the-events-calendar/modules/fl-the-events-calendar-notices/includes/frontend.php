@@ -18,10 +18,7 @@ if ( FLBuilderModel::is_builder_active() ) {
 		Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'bb-theme-builder' ), $events_label ) );
 	}
 
-	ob_start();
-	tribe_the_notices();
-	$notices = ob_get_clean();
-
+	$notices = tribe_the_notices( false );
 	if ( ! empty( $notices ) ) {
 		echo $notices;
 	} else {

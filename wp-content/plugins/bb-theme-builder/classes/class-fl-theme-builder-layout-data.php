@@ -163,9 +163,13 @@ final class FLThemeBuilderLayoutData {
 		$ids = array();
 
 		if ( $type ) {
+			$is_themer_layout            = 'fl-theme-layout' != get_post_type();
+			$is_singular                 = 'singular' == $type && is_singular();
+			$is_builder_enabled          = FLBuilderModel::is_builder_enabled();
+			$is_content_building_enabled = FLThemeBuilderFrontendEdit::is_content_building_enabled();
 
-			// Make the builder still work on standard singular pages.
-			if ( 'fl-theme-layout' != get_post_type() && 'singular' == $type && is_singular() && FLBuilderModel::is_builder_enabled() ) {
+			// Make the builder still work on standard singular posts/pages?
+			if ( $is_themer_layout && $is_singular && $is_builder_enabled && ! $is_content_building_enabled ) {
 				return array();
 			}
 

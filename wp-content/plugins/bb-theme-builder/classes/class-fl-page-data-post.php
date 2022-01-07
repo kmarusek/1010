@@ -105,23 +105,48 @@ final class FLPageDataPost {
 	 * @return string
 	 */
 	static public function get_content() {
-		remove_filter( 'the_content', 'FLBuilder::render_content' );
+		$is_content_building_enabled = FLThemeBuilderFrontendEdit::is_content_building_enabled();
 
-		if ( has_filter( 'the_content', '_restore_wpautop_hook' ) && ! has_filter( 'the_content', 'wpautop' ) ) {
-			add_filter( 'the_content', 'wpautop' );
+		if ( $is_content_building_enabled ) {
+			remove_filter( 'fl_builder_do_render_content', '__return_false' );
+			ob_start();
+			FLBuilder::render_content_by_id( FLBuilderModel::get_post_id( true ) );
+			$content = ob_get_clean();
+			return $content;
+
+		} else {
+
+			$filter = false;
+			if ( has_filter( 'the_content', 'FLBuilder::render_content' ) ) {
+				remove_filter( 'the_content', 'FLBuilder::render_content' );
+				$filter = true;
+			}
+
+			if ( is_single() ) {
+				global $post;
+
+				$real_post = $post;
+				setup_postdata( $post );
+				$content = apply_filters( 'the_content', get_the_content() );
+				wp_reset_postdata();
+				$post = $real_post;
+
+			} else {
+				$content = apply_filters( 'the_content', get_the_content() );
+			}
+
+			$content .= wp_link_pages( array(
+				'before'      => '<div class="page-links">' . __( 'Pages:', 'bb-theme-builder' ),
+				'after'       => '</div>',
+				'link_before' => '<span class="page-number">',
+				'link_after'  => '</span>',
+				'echo'        => false,
+			) );
+
+			if ( $filter ) {
+				add_filter( 'the_content', 'FLBuilder::render_content' );
+			}
 		}
-
-		$content = apply_filters( 'the_content', get_the_content() );
-
-		$content .= wp_link_pages( array(
-			'before'      => '<div class="page-links">' . __( 'Pages:', 'bb-theme-builder' ),
-			'after'       => '</div>',
-			'link_before' => '<span class="page-number">',
-			'link_after'  => '</span>',
-			'echo'        => false,
-		) );
-
-		add_filter( 'the_content', 'FLBuilder::render_content' );
 
 		return $content;
 	}

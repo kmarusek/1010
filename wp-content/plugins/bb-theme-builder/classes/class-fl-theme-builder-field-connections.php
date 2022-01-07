@@ -310,10 +310,8 @@ final class FLThemeBuilderFieldConnections {
 
 		if ( 'singular' == $layout_type ) {
 			$keys = array( 'post', 'site' );
-		} elseif ( ! empty( $layout_type ) ) {
-			$keys = array( 'archive', 'post', 'site' );
 		} else {
-			$keys = array( 'post', 'site' );
+			$keys = array( 'archive', 'post', 'site' );
 		}
 
 		self::$page_data_object_keys[ $post_id ] = $keys;
@@ -574,7 +572,20 @@ final class FLThemeBuilderFieldConnections {
 			return $property['placeholder'];
 		}
 
-		return FLPageData::get_value( $type[0], $type[1], $settings );
+		$content = FLPageData::get_value( $type[0], $type[1], $settings );
+
+		// if we have content then return it.
+		if ( $content ) {
+			return $content;
+		}
+
+		// do we have any defaults passed?
+		if ( isset( $attrs['wpbb_default'] ) ) {
+			return do_shortcode( '[' . $attrs['wpbb_default'] . ']' );
+		} elseif ( isset( $attrs['default'] ) ) {
+			return $attrs['default'];
+		}
+		return '';
 	}
 
 	/**
@@ -639,6 +650,52 @@ final class FLThemeBuilderFieldConnections {
 		}
 
 		return ! is_admin();
+	}
+
+	/**
+	 * General compare function used in shortcodess
+	 */
+	static public function general_compare( $settings, $value ) {
+
+		if ( ! isset( $settings->exp ) ) {
+			return $value;
+		}
+
+		$meta = untrailingslashit( $value );
+
+		$expression = $settings->exp;
+
+		$compare = untrailingslashit( $settings->value );
+
+		switch ( $expression ) {
+			case 'less':
+				return ( intval( $meta ) < intval( $compare ) ) ? $meta : '';
+				break;
+
+			case 'lessequals':
+				return ( intval( $meta ) <= intval( $compare ) ) ? $meta : '';
+				break;
+
+			case 'greater':
+				return ( intval( $meta ) > intval( $compare ) ) ? $meta : '';
+				break;
+
+			case 'greaterequals':
+				return ( intval( $meta ) >= intval( $compare ) ) ? $meta : '';
+				break;
+
+			case 'equals':
+				return ( $meta === $compare ) ? $meta : '';
+				break;
+
+			case 'notequals':
+				return ( $meta !== $compare ) ? $meta : '';
+				break;
+
+			default:
+				break;
+		}
+		return $meta;
 	}
 }
 
