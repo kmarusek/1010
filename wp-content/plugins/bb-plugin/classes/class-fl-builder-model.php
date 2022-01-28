@@ -3498,7 +3498,7 @@ final class FLBuilderModel {
 	 * @return array $defaults Default settings for the module.
 	 */
 	static public function add_default_module( $parent_id = null, $type = null, $position = null, $defaults = null ) {
-		$parent         = ( 0 == $parent_id ) ? null : self::get_node( $parent_id );
+		$parent         = ( 0 === $parent_id ) ? null : self::get_node( $parent_id );
 		$settings       = self::get_module_defaults( $type );
 		$module_node_id = self::generate_node_id();
 
@@ -5991,7 +5991,7 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function apply_node_template( $template_id = null, $parent_id = null, $position = 0, $template = null ) {
-		$parent           = ( 0 == $parent_id ) ? null : self::get_node( $parent_id );
+		$parent           = ( 0 === $parent_id ) ? null : self::get_node( $parent_id );
 		$template_post_id = self::get_node_template_post_id( $template_id );
 		$is_col_template  = false;
 

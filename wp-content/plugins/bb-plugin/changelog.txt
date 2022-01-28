@@ -1,3 +1,9 @@
+<h4>2.5.1.2 - 01/24/2022</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+		<li>Fix issue with modules moving positions after publishing in some situations</li>
+</ul>
+
 <h4>2.5.1.1 - 12/22/2021</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>
