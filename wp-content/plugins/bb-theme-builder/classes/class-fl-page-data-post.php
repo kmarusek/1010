@@ -122,7 +122,7 @@ final class FLPageDataPost {
 				$filter = true;
 			}
 
-			if ( is_single() ) {
+			if ( is_single() && FLBuilderModel::is_builder_active() && 'product' !== get_post_type() ) {
 				global $post;
 
 				$real_post = $post;
@@ -132,6 +132,10 @@ final class FLPageDataPost {
 				$post = $real_post;
 
 			} else {
+
+				if ( has_filter( 'the_content', '_restore_wpautop_hook' ) && ! has_filter( 'the_content', 'wpautop' ) ) {
+					add_filter( 'the_content', 'wpautop' );
+				}
 				$content = apply_filters( 'the_content', get_the_content() );
 			}
 

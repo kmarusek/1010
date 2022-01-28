@@ -204,6 +204,7 @@
 				hasScrolledClass  = this.header.hasClass( 'fl-theme-builder-header-scrolled' ),
 				beforeHeader      = this.header.prevAll( '.fl-builder-content' ),
 				bodyTopPadding    = parseInt( jQuery('body').css('padding-top') ),
+				winBarHeight      = $('#wpadminbar').length ? $('#wpadminbar').outerHeight() : 0,
 				headerHeight      = 0;
 
 			if ( isNaN( bodyTopPadding ) ) {
@@ -211,13 +212,16 @@
 			}
 			
 			if ( this.hasAdminBar && this.win.width() > 600 ) {
-				winTop += Math.floor( $('#wpadminbar').outerHeight() );
+				winTop += Math.floor( winBarHeight );
 			}
 
 			if ( winTop > headerTop ) {
 				if ( ! hasStickyClass ) {
 					if ( e && 'scroll' === e.type ) {
 					 	this.header.addClass( 'fl-theme-builder-header-sticky' );
+						if ( this.overlay && beforeHeader.length ) {
+							this.header.css( 'top', winBarHeight);
+						}
 					}
 
 					if ( ! this.overlay ) {

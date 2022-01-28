@@ -200,9 +200,6 @@ final class FLPageDataACF {
 				break;
 			case 'true_false':
 				$content = strval( $value );
-				if ( '1' == $object['ui'] ) {
-					$content = '1' == $content ? $object['ui_on_text'] : $object['ui_off_text'];
-				}
 				break;
 			case 'acf_smartslider3':
 				$content = '';

@@ -1,3 +1,13 @@
+<h4>1.4.0.2 - 01/27/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix ACF True/False field not displaying correct output if Stylized UI option is enabled</li>
+	<li>Fix WP autop not being applied to first post in Post modules if classic editor is used for the posts</li>
+	<li>Fix gap with Sticky Header set to overlay when scrolled when there is a part before the header</li>
+	<li>TEC: Fix integration with Event Tickets add-on</li>
+	<li>Fix fatal error on Singular Product layout with Post Content and Comments modules when using our layout shortcode in the Product description</li>
+</ul>
+
 <h4>1.4.0.1 - 12/16/2021</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
