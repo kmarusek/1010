@@ -189,9 +189,10 @@
 }
 
 .uabb-device-orientation-landscape .uabb-device-wrap.uabb-device-tablet .uabb-device-media {
-	left: 49%;
-	top: 48%;
-	width: 80%;
+	left: 50%;
+    height: 58%;
+    top: 48.2%;
+    width: 80%;
 }
 
 .uabb-device-orientation-landscape .uabb-device-wrap.uabb-device-tablet {

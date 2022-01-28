@@ -1,15 +1,15 @@
-# Copyright (C) 2021 Brainstorm Force
+# Copyright (C) 2022 Brainstorm Force
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.34.2\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.34.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2021-12-23 04:19:08+00:00\n"
+"POT-Creation-Date: 2022-01-27 07:28:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -299,7 +299,7 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: admin/bsf-core/class-bsf-update-manager.php:578
+#: admin/bsf-core/class-bsf-update-manager.php:581
 #. translators: %1$s: $parent_name %2%s: $registration_page
 msgid ""
 " <br>This plugin is came bundled with the <i>%1$s</i>. For receiving "
@@ -307,14 +307,14 @@ msgid ""
 "href=\"%3$s\">here</a>."
 msgstr ""
 
-#: admin/bsf-core/class-bsf-update-manager.php:581
+#: admin/bsf-core/class-bsf-update-manager.php:584
 #. translators: %1$s: $registration_page %2%s: search term
 msgid "Please <a href=\"%1$s\">activate your license</a> to update the plugin."
 msgstr ""
 
-#: admin/bsf-core/class-bsf-update-manager.php:638
-#: admin/bsf-core/class-bsf-update-manager.php:646
-#: admin/bsf-core/class-bsf-update-manager.php:650
+#: admin/bsf-core/class-bsf-update-manager.php:641
+#: admin/bsf-core/class-bsf-update-manager.php:649
+#: admin/bsf-core/class-bsf-update-manager.php:653
 msgid "Downloading the update..."
 msgstr ""
 
@@ -330,27 +330,27 @@ msgstr ""
 msgid "Plugin Activated"
 msgstr ""
 
-#: admin/bsf-core/includes/helpers.php:245
+#: admin/bsf-core/includes/helpers.php:240
 msgid " requires following plugins to be active : "
 msgstr ""
 
-#: admin/bsf-core/includes/helpers.php:255
+#: admin/bsf-core/includes/helpers.php:250
 msgid " requires following plugins to be installed and activated : "
 msgstr ""
 
-#: admin/bsf-core/includes/helpers.php:264
+#: admin/bsf-core/includes/helpers.php:259
 msgid "Begin activating plugins"
 msgstr ""
 
-#: admin/bsf-core/includes/helpers.php:268
+#: admin/bsf-core/includes/helpers.php:263
 msgid "Begin installing plugins"
 msgstr ""
 
-#: admin/bsf-core/includes/helpers.php:271
+#: admin/bsf-core/includes/helpers.php:266
 msgid "Dismiss This Notice"
 msgstr ""
 
-#: admin/bsf-core/includes/helpers.php:302
+#: admin/bsf-core/includes/helpers.php:297
 #. translators: %1$s: strong tag %2%s: strong tag  %3%s: anchor tag %4%s:
 #. closing anchor tag
 msgid ""
@@ -2991,8 +2991,8 @@ msgid "Refresh"
 msgstr ""
 
 #: classes/class-uabb-cloud-templates.php:586
-#: modules/blog-posts/blog-posts.php:1843
-#: modules/blog-posts/blog-posts.php:1867
+#: modules/blog-posts/blog-posts.php:1864
+#: modules/blog-posts/blog-posts.php:1888
 #: modules/blog-posts/includes/loop-settings.php:113
 #: modules/blog-posts/includes/loop-settings.php:293
 #: modules/blog-posts/includes/loop-settings.php:294
@@ -3008,7 +3008,7 @@ msgstr ""
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:161
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:152
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:153
-#: modules/uabb-video-gallery/uabb-video-gallery.php:817
+#: modules/uabb-video-gallery/uabb-video-gallery.php:825
 msgid "All"
 msgstr ""
 
@@ -17110,7 +17110,7 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts-bb-2-2-compatibility.php:1091
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:950
-#: modules/blog-posts/blog-posts.php:2248
+#: modules/blog-posts/blog-posts.php:2269
 msgid "Comment"
 msgstr ""
 
@@ -17697,11 +17697,11 @@ msgstr ""
 msgid "Advanced Posts"
 msgstr ""
 
-#: modules/blog-posts/blog-posts.php:2113
+#: modules/blog-posts/blog-posts.php:2134
 msgid "By"
 msgstr ""
 
-#: modules/blog-posts/blog-posts.php:2248
+#: modules/blog-posts/blog-posts.php:2269
 msgid "Comments"
 msgstr ""
 
@@ -32611,9 +32611,9 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%2$s\"> Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\n"
+"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://youtu.be/HJRzUQMhJMQ</div>"
 msgstr ""
@@ -32622,15 +32622,15 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://vimeo.com/274860274</div>\n"
+"https://vimeo.com/274860274</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://vimeo.com/channels/staffpicks/274860274</div>"
 msgstr ""
 
 #: modules/uabb-video/uabb-video.php:884
-#: modules/uabb-video-gallery/uabb-video-gallery.php:905
+#: modules/uabb-video-gallery/uabb-video-gallery.php:913
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Go to your Wistia video, right click, \"Copy Link & "
@@ -32817,7 +32817,7 @@ msgstr ""
 msgid "Video  Gallery"
 msgstr ""
 
-#: modules/uabb-video-gallery/uabb-video-gallery.php:877
+#: modules/uabb-video-gallery/uabb-video-gallery.php:885
 #. translators: %s: search term
 msgid ""
 "<div style=\"%2$s\"> Make sure you add the actual URL of the video and not "
@@ -32828,7 +32828,7 @@ msgid ""
 "https://youtu.be/HJRzUQMhJMQ</div>"
 msgstr ""
 
-#: modules/uabb-video-gallery/uabb-video-gallery.php:892
+#: modules/uabb-video-gallery/uabb-video-gallery.php:900
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Make sure you add the actual URL of the video and not "

@@ -11,9 +11,9 @@
 <?php
 // @codingStandardsIgnoreStart.
 	if ( $settings->custom_title ) {
-		?>
+	?>
 				<<?php echo esc_attr( $settings->title_tag_selection ); ?> class="uabb-ff-form-title"><?php echo $settings->custom_title; ?></<?php echo esc_attr( $settings->title_tag_selection ); ?>>
-				<?php } ?>
+	<?php } ?>
 			<?php if ( $settings->custom_description ) { ?>
 				<p class="uabb-ff-form-description"><?php echo $settings->custom_description; ?></p>
 				<?php

@@ -458,7 +458,7 @@ class UABBVideo extends FLBuilderModule {
 		if ( 'hosted' !== $this->settings->video_type ) {
 			$video_thumb      = $this->get_video_thumb( $id );
 			$video_thumb_data = FLBuilderPhoto::get_attachment_data( $this->settings->image_overlay );
-			$alt              = $video_thumb_data->alt;
+			$alt              = ( isset( $video_thumb_data->alt ) ) ? $video_thumb_data->alt : '';
 		} else {
 			if ( 'yes' === $this->settings->show_image_overlay ) {
 

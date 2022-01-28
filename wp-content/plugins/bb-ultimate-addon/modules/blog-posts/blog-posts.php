@@ -49,7 +49,28 @@ class BlogPostsModule extends FLBuilderModule {
 		$this->add_css( 'font-awesome-5' );
 		add_filter( 'wp_footer', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'fl_builder_loop_query_args', array( $this, 'uabb_loop_query_args' ), 1 );
+		add_filter( 'uabb_custom_post_layout_html', array( $this, 'parse_shortcodes' ), 1 );
 	}
+
+	/**
+	 * Parse the repeater shortcode here instead of
+	 * relying on do_shortcode to make sure it's parsed
+	 * before other wpbb shortcodes.
+	 *
+	 * @since x.x.x
+	 * @param string $content Post content.
+	 * @return string
+	 */
+	public static function parse_shortcodes( $content ) {
+		return FLThemeBuilderFieldConnections::parse_shortcodes(
+			$content,
+			array(
+				'wpbb-acf-flex',
+				'wpbb-acf-repeater',
+			)
+		);
+	}
+
 	/**
 	 * Ensure backwards compatibility with old settings.
 	 *

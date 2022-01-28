@@ -378,3 +378,9 @@
 	    top: 20px;
 	}
 }
+
+/* Compatibility CSS - start */
+.theme-twentytwentyone .uabb-creative-menu button.sub-menu-toggle {
+	display: none;
+}
+/* Compatibility CSS - end */

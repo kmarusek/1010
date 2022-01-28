@@ -480,3 +480,14 @@
 	opacity: .75;
 	color: #000;
 }
+
+/* Compatibility CSS - start */
+.theme-twentytwentyone .uabb-woo-categories-carousel button.slick-prev.slick-arrow,
+.theme-twentytwentyone .uabb-woo-categories-carousel button.slick-next.slick-arrow {
+	background: unset;
+}
+
+.theme-twentytwentyone .uabb-woo-categories-carousel ul.slick-dots li button{
+	background: unset;
+}
+/* Compatibility CSS - end */

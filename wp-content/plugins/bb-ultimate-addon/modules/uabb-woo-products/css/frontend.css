@@ -1297,3 +1297,14 @@ body #uabb-quick-view-modal div.product .flex-viewport img {
 	z-index: 2;
 	color: #000;
 }
+
+/* Compatibility CSS - start */
+.theme-twentytwentyone .uabb-woo-products-carousel button.slick-prev.slick-arrow,
+.theme-twentytwentyone .uabb-woo-products-carousel button.slick-next.slick-arrow {
+	background: unset;
+}
+
+.theme-twentytwentyone .uabb-woo-products-carousel ul.slick-dots li button{
+	background: unset;
+}
+/* Compatibility CSS - end */

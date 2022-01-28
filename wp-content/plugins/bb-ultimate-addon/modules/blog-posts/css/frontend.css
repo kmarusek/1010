@@ -628,3 +628,19 @@ select.uabb-masonary-filters {
 	padding: 5px 10px;
 	margin: 0 0 5px;
 }
+
+/* Compatibility CSS - start */
+.theme-twentytwentyone .uabb-blog-posts-carousel button.slick-prev.slick-arrow,
+.theme-twentytwentyone .uabb-blog-posts-carousel button.slick-next.slick-arrow {
+	background: unset;
+}
+
+.theme-twentytwentyone .uabb-blog-posts-carousel ul.slick-dots li button{
+	background: unset;
+}
+
+.uabb-blog-posts-carousel ul.slick-dots li.slick-active button:before {
+	opacity: 0.75;
+	color: black;
+}
+/* Compatibility CSS - end */

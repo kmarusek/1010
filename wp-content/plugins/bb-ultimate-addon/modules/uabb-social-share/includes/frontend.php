@@ -48,7 +48,7 @@ if ( count( $settings->social_icons ) > 0 ) {
 			continue;
 		}
 		$url         = 'javascript:void(0);';
-		$title       = ''; //phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited 
+		$title       = ''; //phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$social_icon = $icon;
 
 
@@ -188,7 +188,7 @@ if ( count( $settings->social_icons ) > 0 ) {
 				break;
 
 			case 'print':
-				$url         = 'javascript:print()';
+				$url         = 'javascript:void(0)';
 				$share_title = __( 'Print', 'uabb' );
 				$share_icon  = 'fa fab fa-print';
 				break;
@@ -202,6 +202,8 @@ if ( count( $settings->social_icons ) > 0 ) {
 		if ( 'default' === $settings->skins ) {
 			if ( 'email' === $icon->social_share_type ) {
 				echo '<div class="uabb-social-share-link-wrap"><a class="uabb-social-share-link uabb-social-share-' . esc_attr( $icon_count ) . '" href="' . esc_url( $url ) . '" target="_self" >';
+			} elseif ( 'print' === $icon->social_share_type ) {
+				echo '<div class="uabb-social-share-link-wrap"><a class="uabb-social-share-link uabb-social-share-' . esc_attr( $icon_count ) . '" href="' . $url . '" onclick="window.print();">'; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			} else {
 				echo '<div class="uabb-social-share-link-wrap"><a class="uabb-social-share-link uabb-social-share-' . esc_attr( $icon_count ) . '" href="' . esc_url( $url ) . '" target="_blank" onclick="window.open(this.href,\'social-share\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\');return false;">';
 			}
@@ -248,8 +250,12 @@ if ( count( $settings->social_icons ) > 0 ) {
 			?>
 			<div class="uabb-ss-grid-item uabb-ss-animation-<?php echo esc_attr( $settings->hover_animation ); ?> uabb-ss-button-<?php echo esc_attr( $icon->social_share_type ); ?>">
 				<div class="uabb-ss-grid-button">
+					<?php if ( 'print' === $icon->social_share_type ) { ?>
+						<a class= "uabb-ss-grid-button-link" href="<?php echo $url; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" onclick="window.print();">
+					<?php } else { ?>
 					<a class= "uabb-ss-grid-button-link" href="<?php echo esc_url( $url ); ?>" target="_blank" onclick="window.open(this.href,'social-share','left=20,top=20,width=500,height=500,toolbar=1,resizable=0');return false;">
-						<?php if ( 'icon' === $settings->share_view || 'icon-text' === $settings->share_view ) { ?>
+					<?php } ?>
+					<?php if ( 'icon' === $settings->share_view || 'icon-text' === $settings->share_view ) { ?>
 						<span class="uabb-ss-icon">
 							<?php if ( '' !== $icon->icon ) { ?>
 							<i class="<?php echo $icon->icon; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" aria-hidden="true"></i>

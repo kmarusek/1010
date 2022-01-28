@@ -1793,3 +1793,7 @@
 .uabb-ih-item.uabb-ih-square.uabb-ih-effect13.uabb-ih-hover .uabb-ih-description {
     visibility: visible;
 }
+
+.uabb-ih-item .uabb-ih-description-block .uabb-ih-description a {
+	pointer-events: visible;
+}
