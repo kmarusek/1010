@@ -42,7 +42,7 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .fl-post-grid-text {
-	padding: <?php echo $settings->post_padding; ?>px;
+	padding: <?php echo empty( $settings->post_padding ) ? 20 : intval( $settings->post_padding ); ?>px;
 }
 
 <?php if ( ! empty( $settings->title_color ) ) : ?>

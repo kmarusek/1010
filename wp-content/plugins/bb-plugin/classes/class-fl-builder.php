@@ -1920,7 +1920,6 @@ final class FLBuilder {
 	 * @return string
 	 */
 	static public function render_content( $content ) {
-		global $render_content_forced;
 		$post_id   = FLBuilderModel::get_post_id( true );
 		$enabled   = FLBuilderModel::is_builder_enabled( $post_id );
 		$rendering = $post_id === self::$post_rendering;
@@ -1928,7 +1927,7 @@ final class FLBuilder {
 		$in_loop   = in_the_loop();
 		$is_global = in_array( $post_id, FLBuilderModel::get_global_posts() );
 
-		if ( $enabled && ! $rendering && $do_render && ( $in_loop || $is_global || true === $render_content_forced ) ) {
+		if ( $enabled && ! $rendering && $do_render && ( $in_loop || $is_global ) ) {
 			// Set the post rendering ID.
 			self::$post_rendering = $post_id;
 

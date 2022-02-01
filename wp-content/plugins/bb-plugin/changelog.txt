@@ -1,11 +1,22 @@
+<h4>2.5.1.3 - 02/1/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+		<li>Post Module: Fix fatal errors when using PHP 8 when saving certain settings with blank values</li>
+		<li>TEC Pro: Fix fatal errors when using the Events Manager Date Filters</li>
+		<li>Fix compatibility with Google Site Kit plugin and others that use Rest API</li>
+		<li>Tweak our Mod Security filter to prevent it from interfering with column resize</li>
+		<li>Remove code no longer needed for the excerpt fix we implemented in 2.5.1</li>
+		<li>On publish, ensure assets are generated properly</li>
+</ul>
+
 <h4>2.5.1.2 - 01/24/2022</h4>
-<p><strong>Bug Fixes</strong></p>
+<p><strong>Hot Fix</strong></p>
 <ul>
 		<li>Fix issue with modules moving positions after publishing in some situations</li>
 </ul>
 
 <h4>2.5.1.1 - 12/22/2021</h4>
-<p><strong>Bug Fixes</strong></p>
+<p><strong>Hot Fix</strong></p>
 <ul>
 		<li>Accordion Module: Fix items not being able to be closed manually and fix smooth opening and closing not working</li>
 		<li>Button Module: Fix hover color issue</li>

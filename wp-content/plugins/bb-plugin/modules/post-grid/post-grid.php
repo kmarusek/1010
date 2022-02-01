@@ -630,11 +630,12 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'responsive' => true,
 					),
 					'post_width'               => array(
-						'type'    => 'unit',
-						'label'   => __( 'Post Width', 'fl-builder' ),
-						'default' => '300',
-						'units'   => array( 'px' ),
-						'slider'  => array(
+						'type'     => 'unit',
+						'label'    => __( 'Post Width', 'fl-builder' ),
+						'default'  => '300',
+						'sanitize' => 'floatval',
+						'units'    => array( 'px' ),
+						'slider'   => array(
 							'max'  => 500,
 							'step' => 10,
 						),
@@ -651,11 +652,12 @@ FLBuilder::register_module('FLPostGridModule', array(
 						),
 					),
 					'post_spacing'             => array(
-						'type'    => 'unit',
-						'label'   => __( 'Post Spacing', 'fl-builder' ),
-						'default' => '60',
-						'units'   => array( 'px' ),
-						'slider'  => true,
+						'type'     => 'unit',
+						'label'    => __( 'Post Spacing', 'fl-builder' ),
+						'default'  => '60',
+						'units'    => array( 'px' ),
+						'slider'   => true,
+						'sanitize' => 'floatval',
 					),
 					'feed_post_spacing'        => array(
 						'type'    => 'unit',
@@ -801,11 +803,12 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'slider'  => true,
 					),
 					'image_width'         => array(
-						'type'    => 'unit',
-						'label'   => __( 'Image Width', 'fl-builder' ),
-						'default' => '33',
-						'units'   => array( '%' ),
-						'slider'  => true,
+						'type'     => 'unit',
+						'label'    => __( 'Image Width', 'fl-builder' ),
+						'default'  => '33',
+						'sanitize' => 'floatval',
+						'units'    => array( '%' ),
+						'slider'   => true,
 					),
 					'image_fallback'      => array(
 						'default'     => '',

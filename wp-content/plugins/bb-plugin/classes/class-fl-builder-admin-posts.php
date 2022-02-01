@@ -334,7 +334,7 @@ final class FLBuilderAdminPosts {
 	 */
 	static public function render_row_actions_link( $actions = array() ) {
 		global $post;
-		if ( 'trash' != $post->post_status && current_user_can( 'edit_post', $post->ID ) && wp_check_post_lock( $post->ID ) === false ) {
+		if ( 'trash' != $post->post_status && current_user_can( 'edit_post', $post->ID ) && ( function_exists( 'wp_check_post_lock' ) && wp_check_post_lock( $post->ID ) === false ) ) {
 
 			/**
 			 * Is post editable from admin post list

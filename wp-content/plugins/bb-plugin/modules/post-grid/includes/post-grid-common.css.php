@@ -1,12 +1,16 @@
-<?php if ( 'grid' == $settings->layout ) : ?>
+<?php
+$post_spacing = floatval( $settings->post_spacing );
+$post_width   = floatval( $settings->post_width );
+
+if ( 'grid' == $settings->layout ) : ?>
 .fl-node-<?php echo $id; ?> .fl-post-grid-post {
-	margin-bottom: <?php echo $settings->post_spacing; ?>px;
-	width: <?php echo $settings->post_width; ?>px;
+	margin-bottom: <?php echo $post_spacing; ?>px;
+	width: <?php echo $post_width; ?>px;
 }
 .fl-node-<?php echo $id; ?> .fl-post-grid-sizer {
-	width: <?php echo $settings->post_width; ?>px;
+	width: <?php echo $post_width; ?>px;
 }
-@media screen and (max-width: <?php echo $settings->post_width + $settings->post_spacing; ?>px) {
+@media screen and (max-width: <?php echo $post_width + $post_spacing; ?>px) {
 	.fl-node-<?php echo $id; ?> .fl-post-grid,
 	.fl-node-<?php echo $id; ?> .fl-post-grid-post,
 	.fl-node-<?php echo $id; ?> .fl-post-grid-sizer {
@@ -16,13 +20,13 @@
 <?php elseif ( 'columns' == $settings->layout ) : ?>
 
 .fl-node-<?php echo $id; ?> .fl-post-grid {
-	margin-left: -<?php echo $settings->post_spacing / 2; ?>px;
-	margin-right: -<?php echo $settings->post_spacing / 2; ?>px;
+	margin-left: -<?php echo $post_spacing / 2; ?>px;
+	margin-right: -<?php echo $post_spacing / 2; ?>px;
 }
 .fl-node-<?php echo $id; ?> .fl-post-column {
-	padding-bottom: <?php echo $settings->post_spacing; ?>px;
-	padding-left: <?php echo $settings->post_spacing / 2; ?>px;
-	padding-right: <?php echo $settings->post_spacing / 2; ?>px;
+	padding-bottom: <?php echo $post_spacing; ?>px;
+	padding-left: <?php echo $post_spacing / 2; ?>px;
+	padding-right: <?php echo $post_spacing / 2; ?>px;
 	width: <?php echo 100 / $settings->post_columns; ?>%;
 }
 .fl-node-<?php echo $id; ?> .fl-post-column:nth-child(<?php echo $settings->post_columns; ?>n + 1) {

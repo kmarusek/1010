@@ -10122,11 +10122,12 @@
 				else {
 
 					for ( prop in settings ) {
+						type = typeof settings[ prop ]
 
-						if ( 'string' == typeof settings[ prop ] ) {
+						if ( 'string' == type || 'number' == type ) {
 							settings[ prop ] = FLBuilder._btoa( settings[ prop ] );
 						}
-						else if( 'object' == typeof settings[ prop ] ) {
+						else if( 'object' == type ) {
 							settings[ prop ] = FLBuilder._ajaxModSecFix( settings[ prop ] );
 						}
 					}

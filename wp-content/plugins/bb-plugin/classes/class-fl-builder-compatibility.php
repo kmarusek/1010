@@ -1141,11 +1141,9 @@ final class FLBuilderCompatibility {
 	 * When in Rest, if its a BB layout use that data of wp_content
 	 */
 	public static function fix_rest_content() {
-		if ( is_admin() ) {
+		if ( is_admin() || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST ) {
 			return false;
 		}
-		global $render_content_forced;
-		$render_content_forced = true;
 		add_filter( 'get_the_excerpt', 'FLBuilderCompatibility::fix_rest_excerpt_filter', 10, 2 );
 		add_filter( 'the_content', 'FLBuilder::render_content' );
 	}

@@ -5746,7 +5746,7 @@
 }, {
   "Sawarabi Mincho": {
     "variants": ["regular"],
-    "fallback": "sans-serif"
+    "fallback": "serif"
   }
 }, {
   "Scada": {
