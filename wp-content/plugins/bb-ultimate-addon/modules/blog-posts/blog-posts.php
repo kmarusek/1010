@@ -1809,7 +1809,7 @@ class BlogPostsModule extends FLBuilderModule {
 			function( $arr ) {
 				return $arr->ID;
 			},
-			$query_posts
+			(array) $query_posts
 		);
 
 		foreach ( $taxonomies as $tax_slug => $tax ) {

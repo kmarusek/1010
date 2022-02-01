@@ -28,7 +28,7 @@ class WPML_UABB_TIMELINE extends WPML_Beaver_Builder_Module_With_Items {
 	 * @since 1.33.0
 	 */
 	public function get_fields() {
-		return array( 'heading', 'description', 'link' );
+		return array( 'label_text', 'heading', 'description', 'link' );
 	}
 
 	/**
@@ -39,6 +39,9 @@ class WPML_UABB_TIMELINE extends WPML_Beaver_Builder_Module_With_Items {
 	 */
 	protected function get_title( $field ) {
 		switch ( $field ) {
+			case 'label_text':
+				return esc_html__( 'UABB Advanced Timeline : Label Text', 'uabb' );
+
 			case 'heading':
 				return esc_html__( 'UABB Advanced Timeline : Heading', 'uabb' );
 
@@ -61,6 +64,9 @@ class WPML_UABB_TIMELINE extends WPML_Beaver_Builder_Module_With_Items {
 	 */
 	protected function get_editor_type( $field ) {
 		switch ( $field ) {
+			case 'label_text':
+				return 'LINE';
+
 			case 'heading':
 				return 'LINE';
 
