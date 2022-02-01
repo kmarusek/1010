@@ -23,6 +23,19 @@ class PPSmartButtonModule extends FLBuilderModule {
 		));
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'yes' === $settings->display_icon && ! empty( $settings->icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	/**
 	 * Ensure backwards compatibility with old settings.
 	 *

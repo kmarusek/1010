@@ -29,55 +29,55 @@ function pp_row_separator_html( $type, $position, $color, $height, $shadow ) {
     <div class="pp-row-separator pp-row-separator-<?php echo $position; ?>">
         <?php switch($type): ?>
 <?php case 'triangle': ?>
-                <svg class="pp-big-triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4.66666 0.333331" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-big-triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4.66666 0.333331" preserveAspectRatio="none" role="presentation">
                     <path class="fil0" d="M-0 0.333331l4.66666 0 0 -3.93701e-006 -2.33333 0 -2.33333 0 0 3.93701e-006zm0 -0.333331l4.66666 0 0 0.166661 -4.66666 0 0 -0.166661zm4.66666 0.332618l0 -0.165953 -4.66666 0 0 0.165953 1.16162 -0.0826181 1.17171 -0.0833228 1.17171 0.0833228 1.16162 0.0826181z"></path>
                 </svg>
             <?php break; ?>
             <?php case 'triangle_shadow': ?>
-                <svg class="pp-big-triangle-shadow" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-big-triangle-shadow" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
 				    <path class="pp-main-color" d="M0 0 L50 100 L100 0 Z" />
 				    <path class="pp-shadow-color" <?php echo '' != $shadow ? 'fill="#'.$shadow.'"' : ''; ?> d="M50 100 L100 40 L100 0 Z" />
 				</svg>
             <?php break; ?>
             <?php case 'triangle_left': ?>
-                <svg class="pp-big-triangle-left" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 2000 90" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-big-triangle-left" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 2000 90" preserveAspectRatio="none" role="presentation">
                     <polygon xmlns="http://www.w3.org/2000/svg" points="535.084,64.886 0,0 0,90 2000,90 2000,0 "></polygon>
                 </svg>
             <?php break; ?>
             <?php case 'triangle_right': ?>
-                <svg class="pp-big-triangle-right" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 2000 90" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-big-triangle-right" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 2000 90" preserveAspectRatio="none" role="presentation">
                     <polygon xmlns="http://www.w3.org/2000/svg" points="535.084,64.886 0,0 0,90 2000,90 2000,0 "></polygon>
                 </svg>
             <?php break; ?>
             <?php case 'triangle_small': ?>
-                <svg class="pp-small-triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 0.156661 0.1" role="presentation">
+                <svg class="pp-small-triangle" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 0.156661 0.1" role="presentation">
                     <polygon points="0.156661,3.93701e-006 0.156661,0.000429134 0.117665,0.05 0.0783307,0.0999961 0.0389961,0.05 -0,0.000429134 -0,3.93701e-006 0.0783307,3.93701e-006 "></polygon>
                 </svg>
             <?php break; ?>
             <?php case 'tilt_left': ?>
-                <svg class="pp-tilt-left" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4 0.266661" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-tilt-left" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4 0.266661" preserveAspectRatio="none" role="presentation">
 					<polygon class="fil0" points="4,0 4,0.266661 -0,0.266661 "></polygon>
 				</svg>
             <?php break; ?>
             <?php case 'tilt_right': ?>
-                <svg class="pp-tilt-right" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4 0.266661" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-tilt-right" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4 0.266661" preserveAspectRatio="none" role="presentation">
 					<polygon class="fil0" points="4,0 4,0.266661 -0,0.266661 "></polygon>
 				</svg>
             <?php break; ?>
             <?php case 'curve': ?>
-                <svg class="pp-curve" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4.66666 0.333331" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-curve" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 4.66666 0.333331" preserveAspectRatio="none" role="presentation">
 					<path class="fil1" d="M4.66666 0l0 7.87402e-006 -3.93701e-006 0c0,0.0920315 -1.04489,0.166665 -2.33333,0.166665 -1.28844,0 -2.33333,-0.0746339 -2.33333,-0.166665l-3.93701e-006 0 0 -7.87402e-006 4.66666 0z"></path>
 				</svg>
             <?php break; ?>
 			<?php case 'curve_layers': ?>
-                <svg class="pp-curve-layers" fill="#<?php echo $color; ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-curve-layers" fill="<?php echo $color; ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" role="presentation">
 					<path d="M 0 14 s 88.64 3.48 300 36 c 260 40 514 27 703 -10 l 12 28 l 3 36 h -1018 z"></path>
 					<path d="M 0 45 s 271 45.13 500 32 c 157 -9 330 -47 515 -63 v 86 h -1015 z"></path>
 					<path d="M 0 58 s 188.29 32 508 32 c 290 0 494 -35 494 -35 v 45 h -1002 z"></path>
 				</svg>
             <?php break; ?>
             <?php case 'wave': ?>
-                <svg class="pp-wave" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-wave" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
       				<path d="M0 0 Q 2.5 40 5 0
 						 Q 7.5 40 10 0
 						 Q 12.5 40 15 0
@@ -102,7 +102,7 @@ function pp_row_separator_html( $type, $position, $color, $height, $shadow ) {
     			</svg>
             <?php break; ?>
             <?php case 'cloud': ?>
-                <svg class="pp-cloud" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-cloud" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
     				<path d="M-5 100 Q 0 20 5 100 Z
 				         M0 100 Q 5 0 10 100
 				         M5 100 Q 10 30 15 100
@@ -128,14 +128,14 @@ function pp_row_separator_html( $type, $position, $color, $height, $shadow ) {
 				 </svg>
             <?php break; ?>
             <?php case 'slit': ?>
-                <svg class="pp-slit" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-slit" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 100 100" preserveAspectRatio="none" role="presentation">
 			        <path class="pp-slit-1" d="M50 100 C49 80 47 0 40 0 L47 0 Z"></path>
 			        <path class="pp-slit-2" d="M50 100 C51 80 53 0 60 0 L53 0 Z"></path>
 			        <path class="pp-slit-3" d="M47 0 L50 100 L53 0 Z"></path>
     			</svg>
             <?php break; ?>
             <?php case 'water': ?>
-                <svg class="pp-water-separator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" fill="#<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 1920 127" xml:space="preserve" preserveAspectRatio="none" role="presentation">
+                <svg class="pp-water-separator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" fill="<?php echo $color; ?>" width="100%" height="<?php echo $height; ?>" viewBox="0 0 1920 127" xml:space="preserve" preserveAspectRatio="none" role="presentation">
                 <path d="M0,62c0,0,91.667-14.667,175.667,30.667C236.333,124,253,113.333,290.333,91.333s53.333-10,74,4
                     s59.333,17.333,98.667-8.667c39.333-26,42,4,65.333,12S593.667,80,608.333,66C623,52,678.332,34,730.999,72s84,70.667,135.333,44
                     s31.334-50.667,100-22.667s67.998,15.333,113.332-4.667s26.667,21.333,68.667-4s61.333-34.667,144,12s111.999,12.665,137.999-4.668
@@ -154,7 +154,7 @@ function pp_row_separator_html( $type, $position, $color, $height, $shadow ) {
             <?php break; ?>
 			<?php case 'mountains': ?>
                 <div class="pp-mountains-separator">
-					<svg fill="#<?php echo $color; ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" preserveAspectRatio="none" role="presentation">  
+					<svg fill="<?php echo $color; ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" preserveAspectRatio="none" role="presentation">  
 						<path d="M 1014 264 v 122 h -808 l -172 -86 s 310.42 -22.84 402 -79 c 106 -65 154 -61 268 -12 c 107 46 195.11 5.94 275 137 z"></path>
 						<path d="M -302 55 s 235.27 208.25 352 159 c 128 -54 233 -98 303 -73 c 92.68 33.1 181.28 115.19 235 108 c 104.9 -14 176.52 -173.06 267 -118 c 85.61 52.09 145 123 145 123 v 74 l -1306 10 z"></path>  
 						<path d="M -286 255 s 214 -103 338 -129 s 203 29 384 101 c 145.57 57.91 178.7 50.79 272 0 c 79 -43 301 -224 385 -63 c 53 101.63 -62 129 -62 129 l -107 84 l -1212 12 z"></path>  
@@ -237,7 +237,7 @@ function pp_output_before_row_bg( $row ) {
     if ( 'yes' == $row->settings->enable_separator && 'none' != $row->settings->separator_type ) {
         $type       = $row->settings->separator_type;
         $position   = 'top';
-        $color      = $row->settings->separator_color;
+        $color      = pp_get_color_value( $row->settings->separator_color );
         $height     = $row->settings->separator_height;
         $shadow     = 'triangle_shadow' == $type ? $row->settings->separator_shadow : '';
         echo pp_row_separator_html( $type, $position, $color, $height, $shadow );
@@ -246,7 +246,7 @@ function pp_output_before_row_bg( $row ) {
     if ( 'yes' == $row->settings->enable_separator && isset( $row->settings->separator_type_bottom ) && 'none' != $row->settings->separator_type_bottom ) {
         $type       = $row->settings->separator_type_bottom;
         $position   = 'bottom';
-        $color      = $row->settings->separator_color_bottom;
+        $color      = pp_get_color_value( $row->settings->separator_color_bottom );
         $height     = $row->settings->separator_height_bottom;
         $shadow     = 'triangle_shadow' == $type ? $row->settings->separator_shadow_bottom : '';
         echo pp_row_separator_html( $type, $position, $color, $height, $shadow );

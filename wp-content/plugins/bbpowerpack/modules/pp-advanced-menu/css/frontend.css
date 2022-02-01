@@ -231,6 +231,10 @@
 	overflow-y: auto;
     overflow-x: hidden;
 }
+html:not(.pp-full-screen-menu-open) .fl-builder-edit .pp-advanced-menu .pp-menu-overlay,
+html:not(.pp-off-canvas-menu-open) .fl-builder-edit .pp-advanced-menu .pp-menu-overlay {
+	position: absolute;
+}
 
 .pp-advanced-menu .pp-menu-overlay > ul.menu {
     position: relative;

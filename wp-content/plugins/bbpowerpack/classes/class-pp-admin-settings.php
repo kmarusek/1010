@@ -102,6 +102,9 @@ final class BB_PowerPack_Admin_Settings {
 	 */
 	static public function enqueue_script() {
 		wp_enqueue_script( 'pp-admin-notices', BB_POWERPACK_URL . 'assets/js/admin.js', array( 'jquery' ), BB_POWERPACK_VER, true );
+		if ( isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] ) {
+			wp_enqueue_script( 'wp-util' );
+		}
 	}
 
 	static public function register_routes() {
@@ -325,7 +328,7 @@ final class BB_PowerPack_Admin_Settings {
 	 * @return string
 	 */
 	static public function get_current_tab() {
-		$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
+		$current_tab = isset( $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : 'general';
 
 		if ( ! isset( $_GET['tab'] ) ) {
 			if ( is_multisite() && ! is_network_admin() ) {

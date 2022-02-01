@@ -142,3 +142,28 @@
 .fl-module-pp-modal-box {
     z-index: 2 !important;
 }
+
+.pp-modal-wrap .pp-flexbox {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.pp-modal-wrap .pp-flexbox.layout-vertical {
+	flex-direction: column;
+}
+.pp-modal-wrap .pp-flexbox .pp-flexbox-item {
+	align-self: stretch;
+}
+.pp-modal-wrap .pp-flexbox .pp-flexbox-item.object-fit-cover img {
+	height: 100%;
+	object-fit: cover;
+}
+
+@media only screen and (max-width: 768px) {
+	.pp-modal-wrap .pp-flexbox {
+		flex-direction: column;
+	}
+	.pp-modal-wrap .pp-flexbox .pp-flexbox-item {
+		width: 100%;
+	}
+}

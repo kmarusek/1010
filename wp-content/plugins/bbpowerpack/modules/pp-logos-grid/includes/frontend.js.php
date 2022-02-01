@@ -116,8 +116,8 @@ $padding = $padding_top + $padding_right + $padding_bottom + $padding_left; ?>
 			pager : <?php echo $settings->logo_slider_dots; ?>,
 			nextSelector : '.fl-node-<?php echo $id; ?> .logo-slider-next',
 			prevSelector : '.fl-node-<?php echo $id; ?> .logo-slider-prev',
-			nextText: '<i class="fa fa-chevron-circle-right"></i>',
-			prevText: '<i class="fa fa-chevron-circle-left"></i>',
+			nextText: '<?php pp_next_icon_svg( esc_html__( 'Next', 'bb-powerpack' ) ); ?>',
+			prevText: '<?php pp_prev_icon_svg( esc_html__( 'Previous', 'bb-powerpack' ) ); ?>',
 			controls : <?php echo $settings->logo_slider_arrows; ?>,
 			onSliderLoad: function() {
 				$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper').addClass('pp-logos-wrapper-loaded');

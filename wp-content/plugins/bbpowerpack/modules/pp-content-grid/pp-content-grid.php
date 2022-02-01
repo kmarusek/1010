@@ -32,16 +32,18 @@ class PPContentGridModule extends FLBuilderModule {
 
 		if ( $is_builder_active || 'grid' === $this->settings->layout ) {
 			$this->add_js( 'jquery-isotope' );
-			if ( isset( $this->settings->post_grid_style_select ) && 'custom' === $this->settings->post_grid_style_select ) {
-				$this->add_css( BB_POWERPACK()->fa_css );
-			}
 		}
 
 		if ( $is_builder_active || 'carousel' === $this->settings->layout ) {
-			$this->add_css( BB_POWERPACK()->fa_css );
 			$this->add_css( 'pp-owl-carousel' );
 			$this->add_css( 'pp-owl-carousel-theme' );
 			$this->add_js( 'pp-owl-carousel' );
+		}
+
+		if ( isset( $this->settings ) && isset( $this->settings->post_grid_style_select ) && 'custom' === $this->settings->post_grid_style_select ) {
+			if ( apply_filters( 'pp_cg_custom_layout_enqueue_fa_stylesheet', true, $this->settings ) ) {
+				$this->add_css( BB_POWERPACK()->fa_css );
+			}
 		}
 
 		// Jetpack sharing has settings to enable sharing on posts, post types and pages.
@@ -698,7 +700,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'type'          => 'unit',
 						'label'         => __('Column Spacing', 'bb-powerpack'),
 						'default'       => '2',
-						'units'			=> array('%'),
+						'units'			=> array('%', 'px'),
 						'slider'		=> array(
 							'min'			=> '0',
 							'max'			=> '20',

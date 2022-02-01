@@ -23,9 +23,22 @@ class PPQuoteModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
 		));
-		
-		$this->add_css( BB_POWERPACK()->fa_css );
     }
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( isset( $settings->show_pullquote_icon ) && 'yes' === $settings->show_pullquote_icon ) {
+			if ( isset( $settings->pullquote_icon ) && ! empty( $settings->pullquote_icon ) ) {
+				$enqueue = true;
+			}
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
 }
 
 /**

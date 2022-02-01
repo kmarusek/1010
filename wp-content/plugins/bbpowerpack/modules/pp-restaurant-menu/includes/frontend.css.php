@@ -201,7 +201,7 @@ FLBuilderCSS::typography_field_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-inline-right-content {
 	<?php if ( $settings->inline_image_width >= 0 ) { ?>
-		<?php if ( $settings->show_price == 'no' || empty( $menu_item->menu_items_price ) ) { ?>
+		<?php if ( $settings->show_price == 'no' ) { ?>
 			width: <?php echo 100 - floatval($settings->inline_image_width); ?>%;
 		<?php } else { ?>
 			width: <?php echo 80 - floatval($settings->inline_image_width); ?>%;

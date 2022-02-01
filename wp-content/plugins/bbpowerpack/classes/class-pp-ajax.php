@@ -31,6 +31,8 @@ class BB_PowerPack_Ajax {
 		add_action( 'wp_ajax_nopriv_pp_get_taxonomies', 		__CLASS__ . '::get_post_taxonomies' );
 		add_action( 'wp_ajax_pp_get_saved_templates', 			__CLASS__ . '::get_saved_templates' );
 		add_action( 'wp_ajax_nopriv_pp_get_saved_templates', 	__CLASS__ . '::get_saved_templates' );
+		add_action( 'wp_ajax_pp_modal_dynamic_content', 		__CLASS__ . '::modal_dynamic_content' );
+		add_action( 'wp_ajax_nopriv_pp_modal_dynamic_content', 	__CLASS__ . '::modal_dynamic_content' );
 		add_action( 'wp_ajax_pp_notice_close', 					__CLASS__ . '::close_notice' );
 		add_filter( 'found_posts', 								__CLASS__ . '::found_posts', 1, 2 );
 	}
@@ -435,40 +437,33 @@ class BB_PowerPack_Ajax {
 		} // End if().
 
 		if ( 'tribe_events' === $post_type ) {
-			$compare = '>=';
+
 			if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
 				$orderby = $settings->event_orderby;
 			} else {
 				$orderby = 'EventStartDate';
 			}
+
 			if ( isset( $settings->event_order ) && '' !== $settings->event_order ) {
 				$order = $settings->event_order;
 			} else {
 				$order = 'ASC';
 			}
-			if ( isset( $settings->show_events ) && ! empty( $settings->show_events ) ) {
-				switch ( $settings->show_events ) {
-					case 'past':
-						$compare = '<';
-						break;
-					case 'today':
-						$compare = '=';
-						break;
-				}
-			}
+
 			$args['meta_key'] 		= '_' . $orderby;
 			$args['orderby'] 		= 'meta_value';
 			$args['order'] 			= $order;
 			$args['eventDisplay'] 	= 'custom';
-			if ( 'all' !== $settings->show_events ) {
-				$today              = gmdate( 'Y-m-d' ) . ' 00:00:00';
-				$args['meta_query'] = array(
-					array(
-						'key'     => '_EventStartDate',
-						'compare' => $compare,
-						'value'   => $today,
-					),
-				);
+
+			if ( 'custom_query' === $settings->data_source ) {
+				if ( isset( $settings->event_orderby ) && empty( $settings->event_orderby ) ) {
+					$args['orderby'] = $settings->order_by;
+					$args['order']   = $settings->order;
+				}
+			}
+
+			if ( 'all' !== $settings->show_events || 'custom_query' === $settings->data_source ) {
+				$args['meta_query'] = self::get_events_meta_query( $settings->show_events );
 			}
 		}
 
@@ -624,6 +619,102 @@ class BB_PowerPack_Ajax {
 		wp_send_json( $response );
 	}
 
+	/**
+	 * Determine the Post Meta Query to use by computing today's date based on the timezone settings.
+	 *
+	 * @since 2.21
+	 * @param string $show_events
+	 * @return array
+	 */
+	static private function get_events_meta_query( $show_events ) {
+		$meta_query = array();
+
+		if ( function_exists( 'current_datetime' ) ) {
+			$local_time = current_datetime();
+		} else {
+			$tz = get_option( 'timezone_string' );
+
+			if ( empty( $tz ) ) {
+				$offset  = (float) get_option( 'gmt_offset' );
+				$hours   = (int) $offset;
+				$minutes = ( $offset - $hours );
+
+				$sign     = ( $offset < 0 ) ? '-' : '+';
+				$abs_hour = abs( $hours );
+				$abs_mins = abs( $minutes * 60 );
+				$tz       = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+			}
+
+			$local_time = new DateTimeImmutable( 'now', new DateTimeZone( $tz ) );
+		}
+
+		$current_time = $local_time->getTimestamp() + $local_time->getOffset();
+		$today        = gmdate( 'Y-m-d 00:00:00', $current_time );
+		$now          = gmdate( 'Y-m-d H:i:s', $current_time );
+
+		if ( 'today' === $show_events ) {
+
+			$meta_query = array(
+				'relation' => 'AND',
+				array(
+					'key'     => '_EventStartDate',
+					'compare' => '<=',
+					'value'   => $today,
+					'type'    => 'DATE',
+				),
+				array(
+					'key'     => '_EventEndDate',
+					'compare' => '>=',
+					'value'   => $today,
+					'type'    => 'DATE',
+				),
+			);
+
+		} elseif ( 'past' === $show_events ) {
+
+			$meta_query = array(
+				array(
+					'key'     => '_EventEndDate',
+					'compare' => '<',
+					'value'   => $now,
+					'type'    => 'DATETIME',
+				),
+			);
+
+		} elseif ( 'future' === $show_events ) {
+
+			$meta_query = array(
+				array(
+					'key'     => '_EventEndDate',
+					'compare' => '>',
+					'value'   => $now,
+					'type'    => 'DATETIME',
+				),
+			);
+
+		} elseif ( 'featured' === $show_events ) {
+
+			$meta_query = array(
+				array(
+					'key'     => '_tribe_featured',
+					'compare' => 'EXISTS',
+				),
+			);
+
+		} else {
+
+			$meta_query = array(
+				array(
+					'key'     => '_EventStartDate',
+					'compare' => 'EXISTS',
+				),
+			);
+
+		}
+
+		return $meta_query;
+	}
+
 	static public function found_posts( $found_posts, $query ) {
 		if ( isset( $query->query ) && isset( $query->query['pp_content_grid'] ) ) {
 			return (int) $found_posts - (int) $query->query['pp_original_offset'];
@@ -753,6 +844,30 @@ class BB_PowerPack_Ajax {
 
 		echo json_encode( $response );
 		die;
+	}
+
+	static public function modal_dynamic_content() {
+		if ( ! isset( $_POST['content'] ) ) {
+			wp_send_json_error();
+		}
+		if ( ! isset( $_POST['postId'] ) ) {
+			wp_send_json_error();
+		}
+
+		$content = base64_decode( wp_unslash( $_POST['content'] ) );
+		$post_id = absint( wp_unslash( $_POST['postId'] ) );
+
+		if ( ! $post_id ) {
+			wp_send_json_error();
+		}
+
+		wp( 'p=' . $post_id . '&post_status=publish' );
+
+		ob_start();
+		echo do_shortcode( $content );
+		$content = ob_get_clean();
+
+		wp_send_json_success( $content );
 	}
 
 	static public function close_notice() {

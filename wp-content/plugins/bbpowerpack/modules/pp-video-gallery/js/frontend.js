@@ -160,6 +160,12 @@
 					setTimeout(function() {
 						$('.fancybox-' + id).trigger('focus');
 					}, 1200);
+
+					$('.fancybox-' + id).on('click', '.fancybox-content', function(e) {
+						if ( $(this).hasClass( 'fancybox-content' ) ) {
+							$.fancybox.close();
+						}
+					});
 				},
 				iframe: {
 					preload: false

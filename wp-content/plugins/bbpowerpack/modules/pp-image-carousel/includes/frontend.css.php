@@ -94,8 +94,20 @@
     box-shadow: none;
 }
 
-.fl-node-<?php echo $id; ?> .pp-image-carousel .pp-swiper-button {
-	font-size: <?php echo $settings->arrow_font_size; ?>px;
+<?php
+	// Arrow - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'arrow_border',
+		'selector' 		=> ".fl-node-$id .pp-image-carousel-wrapper .pp-swiper-button",
+	) );
+?>
+
+.fl-node-<?php echo $id; ?> .pp-image-carousel-wrapper .pp-swiper-button {
+	<?php if ( ! empty( $settings->arrow_font_size ) ) { ?>
+	height: <?php echo $settings->arrow_font_size + 10; ?>px;
+	width: <?php echo $settings->arrow_font_size + 10; ?>px;
+	<?php } ?>
 	<?php if( $settings->arrow_color ) { ?>
 	color: #<?php echo $settings->arrow_color; ?>;
     <?php } ?>
@@ -115,18 +127,17 @@
     padding-right: <?php echo $settings->arrow_horizontal_padding; ?>px;
     <?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-image-carousel-wrapper .pp-swiper-button svg {
+	height: <?php echo $settings->arrow_font_size; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-image-carousel-wrapper .pp-swiper-button svg path {
+	<?php if( $settings->arrow_color ) { ?>
+	fill: #<?php echo $settings->arrow_color; ?>;
+    <?php } ?>
+}
 
-<?php
-	// Arrow - Border
-	FLBuilderCSS::border_field_rule( array(
-		'settings' 		=> $settings,
-		'setting_name' 	=> 'arrow_border',
-		'selector' 		=> ".fl-node-$id .pp-image-carousel .pp-swiper-button",
-	) );
-?>
-
-.fl-node-<?php echo $id; ?> .pp-image-carousel .pp-swiper-button:hover,
-.fl-node-<?php echo $id; ?> .pp-image-carousel .pp-swiper-button:focus {
+.fl-node-<?php echo $id; ?> .pp-image-carousel-wrapper .pp-swiper-button:hover,
+.fl-node-<?php echo $id; ?> .pp-image-carousel-wrapper .pp-swiper-button:focus {
     <?php if( $settings->arrow_color_hover ) { ?>
     color: #<?php echo $settings->arrow_color_hover; ?>;
     <?php } ?>
@@ -135,6 +146,13 @@
 	<?php } ?>
     <?php if( $settings->arrow_border_hover ) { ?>
     border-color: #<?php echo $settings->arrow_border_hover; ?>;
+    <?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-image-carousel-wrapper .pp-swiper-button:hover svg path,
+.fl-node-<?php echo $id; ?> .pp-image-carousel-wrapper .pp-swiper-button:focus svg path {
+	<?php if( $settings->arrow_color_hover ) { ?>
+    fill: #<?php echo $settings->arrow_color_hover; ?>;
     <?php } ?>
 }
 

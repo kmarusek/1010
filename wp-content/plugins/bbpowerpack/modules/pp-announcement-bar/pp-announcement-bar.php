@@ -24,13 +24,27 @@ class PPAnnouncementBarModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
 		));
-
-		$this->add_css(BB_POWERPACK()->fa_css);
 	}
 	
 	public function enqueue_scripts() {
 		$this->add_js( 'jquery-cookie' );
 	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+
+		if ( isset( $this->settings ) && isset( $this->settings->announcement_icon ) && ! empty( $this->settings->announcement_icon ) ) {
+			$enqueue = true;
+		}
+		if ( isset( $this->settings ) && isset( $this->settings->close_button_icon ) && ! empty( $this->settings->close_button_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
 
 		// Handle old Anouncement button background dual color field.
@@ -149,6 +163,12 @@ BB_PowerPack::register_module('PPAnnouncementBarModule', array(
                             'bottom'    => __('Bottom', 'bb-powerpack')
                         ),
                     ),
+					'close_button_icon' => array(
+						'type'        => 'icon',
+						'label'       => __( 'Close Button Icon', 'bb-powerpack' ),
+						'default'     => 'fas fa-times',
+						'show_remove' => true,
+					),
                 ),
             ),
             'general'      => array(

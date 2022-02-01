@@ -24,7 +24,7 @@ class PPVideoModule extends FLBuilderModule {
 	 * Enqueue scripts.
 	 */
 	public function enqueue_scripts() {
-		if ( isset( $this->settings ) && $this->has_lightbox() ) {
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && $this->has_lightbox() ) ) {
 			$this->add_css( 'pp-jquery-fancybox' );
 			$this->add_js( 'pp-jquery-fancybox' );
 		}

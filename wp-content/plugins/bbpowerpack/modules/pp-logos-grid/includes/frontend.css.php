@@ -286,55 +286,53 @@ FLBuilderCSS::responsive_rule( array(
     box-shadow: none;
 }
 
-.fl-node-<?php echo $id; ?> .pp-logos-content .bx-prev .fa:before {
-    content: "\f053";
-}
-.fl-node-<?php echo $id; ?> .pp-logos-content .bx-next .fa:before {
-    content: "\f054";
-}
-
 <?php
 	// Carousel Arrow - Border
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $settings,
 		'setting_name' 	=> 'logo_grid_arrow',
-		'selector' 		=> ".fl-node-$id .pp-logos-content .fa, .fl-node-$id .pp-logos-content .fa:hover",
-	) );
-
-	// Carousel Arrow - Font Size
-	FLBuilderCSS::responsive_rule( array(
-		'settings'		=> $settings,
-		'setting_name'	=> 'logo_grid_arrow_font_size',
-		'selector'		=> ".fl-node-$id .pp-logos-content .fa, .fl-node-$id .pp-logos-content .fa:hover",
-		'prop'			=> 'font-size',
-		'unit'			=> 'px',
+		'selector' 		=> ".fl-node-$id .pp-logos-content .logo-slider-nav a, .fl-node-$id .pp-logos-content .logo-slider-nav a:hover",
 	) );
 
 	// Carousel Arrow - Padding
-	FLBuilderCSS::dimension_field_rule( array(
-		'settings'		=> $settings,
-		'setting_name' 	=> 'logo_grid_arrow_padding',
-		'selector' 		=> ".fl-node-$id .pp-logos-content .fa, .fl-node-$id .pp-logos-content .fa:hover",
-		'unit'			=> 'px',
-		'props'			=> array(
-			'padding-top' 		=> 'logo_grid_arrow_padding_top',
-			'padding-right' 	=> 'logo_grid_arrow_padding_right',
-			'padding-bottom' 	=> 'logo_grid_arrow_padding_bottom',
-			'padding-left' 		=> 'logo_grid_arrow_padding_left',
-		),
-	) );
+	// FLBuilderCSS::dimension_field_rule( array(
+	// 	'settings'		=> $settings,
+	// 	'setting_name' 	=> 'logo_grid_arrow_padding',
+	// 	'selector' 		=> ".fl-node-$id .pp-logos-content .logo-slider-nav a",
+	// 	'unit'			=> 'px',
+	// 	'props'			=> array(
+	// 		'padding-top' 		=> 'logo_grid_arrow_padding_top',
+	// 		'padding-right' 	=> 'logo_grid_arrow_padding_right',
+	// 		'padding-bottom' 	=> 'logo_grid_arrow_padding_bottom',
+	// 		'padding-left' 		=> 'logo_grid_arrow_padding_left',
+	// 	),
+	// ) );
 ?>
 
-.fl-node-<?php echo $id; ?> .pp-logos-content .fa {
+.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav a {
     <?php if( $settings->logo_slider_arrow_color ) { ?>
 	color: #<?php echo $settings->logo_slider_arrow_color; ?>;
     <?php } ?>
 	<?php if ( isset( $settings->logo_slider_arrow_bg_color ) && ! empty( $settings->logo_slider_arrow_bg_color ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->logo_slider_arrow_bg_color ); ?>;
 	<?php } ?>
+	<?php if ( isset( $settings->logo_grid_arrow_font_size ) && absint( $settings->logo_grid_arrow_font_size ) > 0 ) { ?>
+		height: <?php echo ( $settings->logo_grid_arrow_font_size + 10 ); ?>px;
+		width: <?php echo ( $settings->logo_grid_arrow_font_size + 10 ); ?>px;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav svg {
+	<?php if ( isset( $settings->logo_grid_arrow_font_size ) && absint( $settings->logo_grid_arrow_font_size ) > 0 ) { ?>
+		height: <?php echo $settings->logo_grid_arrow_font_size; ?>px;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav svg path {
+	<?php if( $settings->logo_slider_arrow_color ) { ?>
+	fill: #<?php echo $settings->logo_slider_arrow_color; ?>;
+    <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-logos-content .fa:hover {
+.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav a:hover {
     <?php if( $settings->logo_slider_arrow_color_hover ) { ?>
     color: #<?php echo $settings->logo_slider_arrow_color_hover; ?>;
     <?php } ?>
@@ -343,6 +341,12 @@ FLBuilderCSS::responsive_rule( array(
 	<?php } ?>
     <?php if( $settings->logo_grid_arrow_border_hover ) { ?>
     border-color: #<?php echo $settings->logo_grid_arrow_border_hover; ?>;
+    <?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav a:hover svg path {
+	<?php if( $settings->logo_slider_arrow_color_hover ) { ?>
+    fill: #<?php echo $settings->logo_slider_arrow_color_hover; ?>;
     <?php } ?>
 }
 
@@ -378,6 +382,17 @@ FLBuilderCSS::responsive_rule( array(
             clear: none;
         <?php } ?>
     }
+	.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav a {
+		<?php if ( isset( $settings->logo_grid_arrow_font_size_medium ) && absint( $settings->logo_grid_arrow_font_size_medium ) > 0 ) { ?>
+			height: <?php echo ( $settings->logo_grid_arrow_font_size_medium + 10 ); ?>px;
+			width: <?php echo ( $settings->logo_grid_arrow_font_size_medium + 10 ); ?>px;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav svg {
+		<?php if ( isset( $settings->logo_grid_arrow_font_size_medium ) && absint( $settings->logo_grid_arrow_font_size_medium ) > 0 ) { ?>
+			height: <?php echo $settings->logo_grid_arrow_font_size_medium; ?>px;
+		<?php } ?>
+	}
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
@@ -415,4 +430,15 @@ FLBuilderCSS::responsive_rule( array(
             margin-right: 0;
         <?php } ?>
     }
+	.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav a {
+		<?php if ( isset( $settings->logo_grid_arrow_font_size_responsive ) && absint( $settings->logo_grid_arrow_font_size_responsive ) > 0 ) { ?>
+			height: <?php echo ( $settings->logo_grid_arrow_font_size_responsive + 10 ); ?>px;
+			width: <?php echo ( $settings->logo_grid_arrow_font_size_responsive + 10 ); ?>px;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-logos-content .logo-slider-nav svg {
+		<?php if ( isset( $settings->logo_grid_arrow_font_size_responsive ) && absint( $settings->logo_grid_arrow_font_size_responsive ) > 0 ) { ?>
+			height: <?php echo $settings->logo_grid_arrow_font_size_responsive; ?>px;
+		<?php } ?>
+	}
 }

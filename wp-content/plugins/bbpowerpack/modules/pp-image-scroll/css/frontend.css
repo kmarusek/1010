@@ -1,3 +1,18 @@
+.pp-image-scroll-wrap .sr-only {
+	position: absolute !important;
+    height: 1px !important;
+    width: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px,1px,1px,1px);
+    clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+    -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+    overflow: hidden !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
 .pp-image-scroll-wrap,
 .pp-image-scroll-container {
 	transition: all 0.3s ease-in-out;

@@ -31,18 +31,36 @@ class PPInstagramFeedModule extends FLBuilderModule {
 		));
 
 		$this->access_token = $this->get_access_token();
+	}
 
-		$this->add_css( 'font-awesome' );
-
+	public function enqueue_scripts() {
 		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'jquery-magnificpopup' );
 
 		$this->add_js( 'imagesloaded' );
 
-		$this->add_css( 'jquery-swiper' );
-		$this->add_js( 'jquery-swiper' );
+		$is_builder_active = FLBuilderModel::is_builder_active();
 
-		$this->add_js('jquery-masonry');
+		if ( $is_builder_active || ( isset( $this->settings ) && isset( $this->settings->feed_layout ) && 'carousel' === $this->settings->feed_layout ) ) {
+			$this->add_css( 'jquery-swiper' );
+			$this->add_js( 'jquery-swiper' );
+		}
+		if ( $is_builder_active || ( isset( $this->settings ) && isset( $this->settings->feed_layout ) && 'grid' === $this->settings->feed_layout ) ) {
+			$this->add_js( 'jquery-masonry' );
+		}
+	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'yes' === $settings->profile_link && ! empty( $settings->insta_title_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	public function filter_settings( $settings, $helper )

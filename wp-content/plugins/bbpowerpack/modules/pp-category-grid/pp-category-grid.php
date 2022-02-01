@@ -349,26 +349,14 @@ BB_PowerPack::register_module(
 							'label'      => __( 'Slides Per View', 'bb-powerpack' ),
 							'default'    => 3,
 							'slider'     => true,
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '3',
-									'medium'     => '2',
-									'responsive' => '1',
-								),
-							),
+							'responsive' => true,
 						),
 						'slides_to_scroll' => array(
 							'type'       => 'unit',
 							'label'      => __( 'Slides to Scroll', 'bb-powerpack' ),
 							'default'    => 1,
 							'slider'     => true,
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '1',
-									'medium'     => '1',
-									'responsive' => '1',
-								),
-							),
+							'responsive' => true,
 							'help'       => __( 'Set numbers of slides to move at a time.', 'bb-powerpack' ),
 						),
 						'spacing'          => array(
@@ -423,14 +411,13 @@ BB_PowerPack::register_module(
 						'button_width_custom'  => array(
 							'type'       => 'unit',
 							'label'      => __( 'Custom Width', 'bb-powerpack' ),
-							'units'      => array( '%' ),
+							'units'      => array( '%', 'px' ),
 							'slider'     => true,
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.pp-category__button_wrapper .pp-category__button',
 								'property' => 'width',
-								'unit'     => '%',
 							),
 						),
 						'button_padding'       => array(

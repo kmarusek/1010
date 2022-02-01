@@ -24,9 +24,20 @@ class PPNotificationsModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
         ));
-
-		$this->add_css( BB_POWERPACK()->fa_css );
     }
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( isset( $settings->notification_icon ) && ! empty( $settings->notification_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
 
 	public function filter_settings( $settings, $helper )
 	{

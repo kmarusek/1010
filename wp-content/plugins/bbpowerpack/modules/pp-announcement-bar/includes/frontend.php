@@ -8,6 +8,18 @@ if( $settings->announcement_bar_position == 'bottom' ) {
 else if( $settings->announcement_bar_position == 'top' ) {
 	$classes = 'top';
 }
+
+$close_button_icon = '<span class="fas fa-times pp-close-button" aria-hidden="true"></span>';
+
+if ( isset( $settings->close_button_icon ) ) {
+	if ( empty( $settings->close_button_icon ) ) {
+		$close_button_icon = '';
+	} else {
+		$close_button_icon = '<span class="' . $settings->close_button_icon . ' pp-close-button" aria-hidden="true"></span>';
+	}
+}
+
+$close_button_icon = apply_filters( 'pp_announcement_bar_close_icon_html', $close_button_icon, $settings );
 ?>
 <div class="pp-announcement-bar-wrap pp-announcement-bar-<?php echo $classes; ?>">
 	<div class="pp-announcement-bar-inner">
@@ -26,8 +38,10 @@ else if( $settings->announcement_bar_position == 'top' ) {
 			</div>
 			<?php } ?>
 		</div>
+		<?php if ( ! empty( $close_button_icon ) ) { ?>
 		<div class="pp-announcement-bar-close-button" tabindex="0" aria-label="<?php _e( 'Close', 'bb-powerpack' ); ?>" role="button">
-			<span class="fas fa-times pp-close-button" aria-hidden="true"></span>
+			<?php echo $close_button_icon; ?>
 		</div>
+		<?php } ?>
 	</div>
 </div>

@@ -88,14 +88,22 @@
 						}, 1200);
 					}
 
+					$('.fancybox-' + id).on('click', '.fancybox-content', function(e) {
+						if ( $(this).hasClass( 'fancybox-content' ) ) {
+							$.fancybox.close();
+						}
+					});
+
 					$(document).trigger( 'pp_video_lightbox_after_load', [ $('.fancybox-' + id), id ] );
 				},
 				iframe: {
 					preload: false
 				},
-				keys : {
-					close  : [27],
-				}
+				keys: {
+					close: [27],
+				},
+				clickSlide: 'close',
+				clickOutside: 'close'
 			};
 
 			var wrapperClasses = 'pp-aspect-ratio-' + this.aspectRatio;

@@ -25,8 +25,6 @@ class PPStarRatingModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
-
-		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 }
 

@@ -30,10 +30,26 @@ class PPCardSliderModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
+	}
 
-		$this->add_css( BB_POWERPACK()->fa_css );
+	public function enqueue_scripts() {
 		$this->add_css( 'jquery-swiper' );
 		$this->add_js( 'jquery-swiper' );
+	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+
+		if ( 'yes' === $this->settings->show_date && ! empty( $this->settings->date_icon ) ) {
+			$enqueue = true;
+		}
+		if ( 'yes' === $this->settings->show_author && ! empty( $this->settings->author_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	public function get_slider_items() {

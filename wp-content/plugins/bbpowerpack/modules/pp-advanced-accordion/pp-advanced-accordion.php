@@ -22,7 +22,9 @@ class PPAccordionModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
+	}
 
+	public function enqueue_scripts() {
 		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 
@@ -199,7 +201,7 @@ class PPAccordionModule extends FLBuilderModule {
 		}
 
 		$data    = array();
-		$post_id = apply_filters( 'pp_accordion_acf_post_id', $post_id );
+		$post_id = apply_filters( 'pp_accordion_acf_post_id', $post_id, $this->settings );
 
 		$repeater_name = $this->settings->acf_repeater_name;
 		$label_name    = $this->settings->acf_repeater_label;
@@ -236,8 +238,7 @@ class PPAccordionModule extends FLBuilderModule {
 			return;
 		}
 
-		$data    = array();
-		$post_id = apply_filters( 'pp_accordion_acf_options_page_post_id', $post_id );
+		$data = array();
 
 		$repeater_name = $this->settings->acf_options_page_repeater_name;
 		$label_name    = $this->settings->acf_options_page_repeater_label;
@@ -245,12 +246,11 @@ class PPAccordionModule extends FLBuilderModule {
 
 		$repeater_rows = get_field( $repeater_name, 'option' );
 		if ( ! $repeater_rows ) {
-			return;
+			return $data;
 		}
 
 		foreach ( $repeater_rows as $row ) {
 			$item          = new stdClass;
-			$item->post_id = $post_id;
 			$item->label   = isset( $row[ $label_name ] ) ? $row[ $label_name ] : '';
 			$item->content = isset( $row[ $content_name ] ) ? $row[ $content_name ] : '';
 
@@ -259,7 +259,7 @@ class PPAccordionModule extends FLBuilderModule {
 		return $data;
 	}
 
-	public function get_accordion_items() {
+	public function get_accordion_items( $id ) {
 		$source = $this->settings->accordion_source;
 		$items = array();
 
@@ -273,7 +273,14 @@ class PPAccordionModule extends FLBuilderModule {
 			$items = $this->settings->items;
 		}
 
-		return apply_filters( 'pp_accordion_items', $items );
+		if ( ! empty( $items ) ) {
+			for ( $i = 0; $i < count( $items ); $i++ ) {
+				$html_id = ( '' !== $this->settings->accordion_id_prefix ) ? $this->settings->accordion_id_prefix . '-' . ( $i + 1 ) : 'pp-accord-' . $id . '-' . ( $i + 1 );
+				$items[ $i ]->html_id = $html_id;
+			}
+		}
+
+		return apply_filters( 'pp_accordion_items', $items, $this->settings );
 	}
 
 	public function render_accordion_item_icon( $item ) {
@@ -299,33 +306,35 @@ class PPAccordionModule extends FLBuilderModule {
 	 *
 	 * @since 1.4
 	 */
-	public function render_content( $settings ) {
+	public function render_content( $item ) {
 		$html = '';
 
-		switch ( $settings->content_type ) {
+		switch ( $item->content_type ) {
 			case 'content':
 				global $wp_embed;
 				$html  = '<div itemprop="text">';
-				$html .= wpautop( $wp_embed->autoembed( $settings->content ) );
+				$html .= wpautop( $wp_embed->autoembed( $item->content ) );
 				$html .= '</div>';
 				break;
 			case 'photo':
+				$alt   = ! empty( $item->content_photo ) ? get_post_meta( $item->content_photo , '_wp_attachment_image_alt', true ) : '';
+				$alt   =  empty( $alt ) ? htmlspecialchars( $item->label ) : htmlspecialchars( $alt );
 				$html  = '<div itemprop="image">';
-				$html .= '<img src="' . $settings->content_photo_src . '" alt="" style="max-width: 100%;" />';
+				$html .= '<img src="' . $item->content_photo_src . '" alt="' . $alt . '" style="max-width: 100%;" />';
 				$html .= '</div>';
 				break;
 			case 'video':
 				global $wp_embed;
-				$html = $wp_embed->autoembed( $settings->content_video );
+				$html = $wp_embed->autoembed( $item->content_video );
 				break;
 			case 'module':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_module . '" type="fl-builder-template"]';
+				$html = '[fl_builder_insert_layout id="' . $item->content_module . '" type="fl-builder-template"]';
 				break;
 			case 'row':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_row . '" type="fl-builder-template"]';
+				$html = '[fl_builder_insert_layout id="' . $item->content_row . '" type="fl-builder-template"]';
 				break;
 			case 'layout':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_layout . '" type="fl-builder-template"]';
+				$html = '[fl_builder_insert_layout id="' . $item->content_layout . '" type="fl-builder-template"]';
 				break;
 			default:
 				break;

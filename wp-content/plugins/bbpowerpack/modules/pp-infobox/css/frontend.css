@@ -80,6 +80,12 @@
 	height: 2em;
 	width: 2em;
 }
+.pp-infobox-image a {
+	text-decoration: none !important;
+	box-shadow: none !important;
+	border: none !important;
+	outline: none !important;
+}
 
 /* Layouts */
 

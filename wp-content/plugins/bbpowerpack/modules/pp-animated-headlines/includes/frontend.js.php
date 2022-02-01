@@ -1,7 +1,4 @@
 <?php
-$rotating_text = str_replace( array("\r\n", "\n", "\r", "<br/>", "<br>"), '|', do_shortcode( $settings->rotating_text ) );
-$highlighted_text = do_shortcode( $settings->highlighted_text );
-
 $durations = apply_filters( 'pp_animated_headline_durations', array(
 	'animationDelay' => isset( $settings->animation_delay ) && ! empty( $settings->animation_delay ) ? absint( $settings->animation_delay ) : 2500,
 	'lettersDelay' => isset( $settings->letters_delay ) && ! empty( $settings->letters_delay ) ? absint( $settings->letters_delay ) : 50,
@@ -21,8 +18,6 @@ if ( 'object' !== typeof pp_animated_headlines ) {
 	pp_animated_headlines['<?php echo $id; ?>'] = new PPAnimatedHeadlines({
         id: '<?php echo $id; ?>',
         headline_style: '<?php echo $settings->headline_style; ?>',
-        rotating_text: '<?php echo str_replace("'", "\'", $rotating_text); ?>',
-        highlighted_text: '<?php echo str_replace("'", "\'", $highlighted_text ); ?>',
         headline_shape: '<?php echo $settings->headline_shape; ?>',
         animation_type: '<?php echo $settings->animation_type; ?>',
 		durations: <?php echo json_encode( $durations ); ?>,

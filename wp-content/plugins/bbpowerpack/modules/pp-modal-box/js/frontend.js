@@ -67,6 +67,8 @@
 		{
 			var self = this;
 
+			$( this.element ).on( 'beforeload', $.proxy( this.beforeLoad, this ) );
+
 			// close modal box on Esc key press.
 			$(document).keyup(function(e) {
                 if ( self.settings.esc_exit && 27 == e.which && self.isActive && $('form[data-type="pp-modal-box"]').length === 0 ) {
@@ -123,6 +125,41 @@
 			}
 		},
 
+		beforeLoad: function() {
+			if ( this.settings.clickedElement ) {
+				var clickedElement = this.settings.clickedElement;
+				var postId = clickedElement.attr( 'data-pp-modal-post' ) || clickedElement.parents( '.pp-content-post' ).attr( 'data-id' );
+				var self = this;
+
+				if ( 'undefined' === typeof postId || '' === postId ) {
+					return;
+				}
+
+				self.element.find( '.pp-modal-content-inner' ).html('<div style="text-align: center;"><img src="' + self.settings.loaderImg + '" /></div>');
+				self.setPosition();
+
+				if ( 'html' === self.settings.type && '' !== self.settings.content ) {
+					$.ajax({
+						url: bb_powerpack.ajaxurl,
+						type: 'post',
+						data: {
+							action: 'pp_modal_dynamic_content',
+							content: self.settings.content,
+							postId: postId
+						},
+						success: function( response ) {
+							if ( ! response.success ) {
+								return;
+							}
+
+							self.element.find( '.pp-modal-content-inner' ).html( response.data );
+							self.setPosition();
+						}
+					});
+				}
+			}
+		},
+
 		show: function()
 		{
 			var self = this;
@@ -160,6 +197,7 @@
 				}
 				
                 self.restruct();
+				self.setPosition();
 
 				self.element.trigger('afterload');
 				$(document).trigger( 'pp_modal_box_rendered', [self.element] );
@@ -169,13 +207,12 @@
 
 		setup: function()
 		{
-			if ( 'url' == this.type ) {
-				var original_src = this.element.find('.pp-modal-iframe').attr('src');
-				var src = this.element.find('.pp-modal-iframe').data('url');
-				if ( original_src === undefined || original_src === '' ) {
-					this.element.find('.pp-modal-iframe').attr( 'src', src );
-				}
+			var original_src = this.element.find('.pp-modal-iframe').attr('src');
+			var src = this.element.find('.pp-modal-iframe').data('url');
+			if ( original_src === undefined || original_src === '' ) {
+				this.element.find('.pp-modal-iframe').attr( 'src', src );
 			}
+
 			var iframeAndSource = this.element.find('iframe, source');
 			if ( iframeAndSource.length > 0 && iframeAndSource.closest( '.fl-module' ).length === 0 ) {
 				var src = '';

@@ -522,13 +522,12 @@ function pp_row_downarrow_js( $js, $nodes, $global_settings ) {
 
             ;(function($) {
             	$('.pp-down-arrow').on('click', function() {
-            		var rowSelector = '.fl-node-' + $(this).data('row-id');
-            		var nextRow		= $(rowSelector).next();
+            		var currentRow = $('.fl-node-' + $(this).data('row-id'));
             		var topOffset	= ( '' === $(this).data('top-offset') ) ? 0 : $(this).data('top-offset');
                     var adminBar    = $('body').hasClass('admin-bar') ? 32 : 0;
             		var trSpeed		= $(this).data('transition-speed');
             		$('html, body').animate({
-            			scrollTop: nextRow.offset().top - (topOffset + adminBar)
+            			scrollTop: ( currentRow.offset().top + currentRow.outerHeight() ) - ( topOffset + adminBar )
             		}, trSpeed);
             	});
             })(jQuery);

@@ -41,6 +41,19 @@ class PPImageScrollModule extends FLBuilderModule {
 	public function enqueue_scripts() {
 		$this->add_js( 'imagesloaded' );
 	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'yes' === $settings->image_overlay && ( 'icon' === $settings->overlay_type || 'icon_text' === $settings->overlay_type ) && ! empty( $settings->overlay_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
 }
 
 /**
@@ -100,6 +113,11 @@ BB_PowerPack::register_module(
 							'preview'       => array(
 								'type' => 'none',
 							),
+						),
+						'sr_text'	=> array(
+							'type'		=> 'text',
+							'label'		=> __( 'Screen Reader Text', 'bb-powerpack' ),
+							'help'		=> __( 'This text will not display anywhere but will be rendered just for accessibility purpose.', 'bb-powerpack' ),
 						),
 					),
 				),

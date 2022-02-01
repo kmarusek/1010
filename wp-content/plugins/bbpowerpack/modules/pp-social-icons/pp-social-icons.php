@@ -24,7 +24,9 @@ class PPSocialIconsModule extends FLBuilderModule {
 		));
 
 		$this->_enabled_icons = FLBuilderModel::get_enabled_icons();
-		
+	}
+
+	public function enqueue_scripts() {
 		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 

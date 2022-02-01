@@ -184,7 +184,7 @@ FLBuilderCSS::responsive_rule( array(
 		'selector' 		=> ".fl-node-$id .pp-testimonials-wrap .pp-testimonials-heading",
 	) );
 ?>
-.fl-node-<?php echo $id; ?> .pp-testimonial .pp-title-wrapper h3.pp-testimonials-title {
+.fl-node-<?php echo $id; ?> .pp-testimonial .pp-title-wrapper .pp-testimonials-title {
 	<?php if ( $settings->title_color ) { ?>color: #<?php echo $settings->title_color; ?>;<?php } ?>
 	margin-top: <?php echo $settings->title_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
@@ -194,10 +194,10 @@ FLBuilderCSS::responsive_rule( array(
 	FLBuilderCSS::typography_field_rule( array(
 		'settings'		=> $settings,
 		'setting_name' 	=> 'title_typography',
-		'selector' 		=> ".fl-node-$id .pp-testimonial .pp-title-wrapper h3.pp-testimonials-title",
+		'selector' 		=> ".fl-node-$id .pp-testimonial .pp-title-wrapper .pp-testimonials-title",
 	) );
 ?>
-.fl-node-<?php echo $id; ?> .pp-testimonial .pp-title-wrapper h4.pp-testimonials-subtitle {
+.fl-node-<?php echo $id; ?> .pp-testimonial .pp-title-wrapper .pp-testimonials-subtitle {
 	<?php if ( $settings->subtitle_color ) { ?>color: #<?php echo $settings->subtitle_color; ?>;<?php } ?>
 	margin-top: <?php echo $settings->subtitle_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->subtitle_margin['bottom']; ?>px;
@@ -207,7 +207,7 @@ FLBuilderCSS::responsive_rule( array(
 	FLBuilderCSS::typography_field_rule( array(
 		'settings'		=> $settings,
 		'setting_name' 	=> 'subtitle_typography',
-		'selector' 		=> ".fl-node-$id .pp-testimonial .pp-title-wrapper h4.pp-testimonials-subtitle",
+		'selector' 		=> ".fl-node-$id .pp-testimonial .pp-title-wrapper .pp-testimonials-subtitle",
 	) );
 ?>
 .fl-node-<?php echo $id; ?> .pp-testimonial .pp-testimonials-content {

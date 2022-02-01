@@ -113,8 +113,23 @@ class PPGalleryModule extends FLBuilderModule {
 		$this->add_css( 'pp-jquery-fancybox' );
 		$this->add_js( 'pp-jquery-fancybox' );
 
-		$this->add_css( 'jquery-justifiedgallery' );
-		$this->add_js( 'jquery-justifiedgallery' );
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->gallery_layout ) && 'justified' === $this->settings->gallery_layout ) ) {
+			$this->add_css( 'jquery-justifiedgallery' );
+			$this->add_js( 'jquery-justifiedgallery' );
+		}
+	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( '1' == $settings->icon && ! empty( $settings->overlay_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	/**

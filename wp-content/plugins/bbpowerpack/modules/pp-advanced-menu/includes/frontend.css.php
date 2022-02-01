@@ -45,14 +45,14 @@ $toggle_height  = ceil( ( ( $toggle_padding * 2 ) + 14 ) * 0.65 );
 .fl-node-<?php echo $id; ?>-clone {
     display: none;
 }
-.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle + .pp-clear + ul.menu {
-    display: none;
-}
+
+/*
 @media (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle + .pp-clear + ul.menu {
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle + .pp-clear + .pp-menu-nav ul.menu {
     	display: block;
 	}
 }
+*/
 
 /**
  * Links
@@ -481,8 +481,21 @@ if ( isset( $settings->show_separator ) && $settings->show_separator == 'yes' ) 
 		border-color: #<?php echo $separator_raw_color; ?>;
 		border-color: <?php echo $separator_color; ?>;
 	}
-<?php }
+<?php } ?>
 
+<?php if ( 'always' == $module->get_media_breakpoint() ) { ?>
+.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle + .pp-clear + .pp-menu-nav ul.menu {
+    display: none;
+}
+<?php } else { ?>
+	@media only screen and (max-width: <?php echo $module->get_media_breakpoint() ?>px) {
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle + .pp-clear + .pp-menu-nav ul.menu {
+			display: none;
+		}
+	}
+<?php } ?>
+
+<?php
 /**
  * Responsive enabled
  */

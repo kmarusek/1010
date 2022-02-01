@@ -24,14 +24,19 @@ class PPFlipBoxModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
         ));
-
-        /**
-         * Use these methods to enqueue css and js already
-         * registered or to register and enqueue your own.
-         */
-        // Already registered
-		$this->add_css( BB_POWERPACK()->fa_css );
     }
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+
+		if ( isset( $this->settings->icon_type ) && 'icon' === $this->settings->icon_type && ! empty( $this->settings->icon_select ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
 
 	public function filter_settings( $settings, $helper )
 	{

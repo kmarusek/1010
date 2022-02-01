@@ -28,8 +28,8 @@ class PPDevicesModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
-		$this->add_css( BB_POWERPACK()->fa_css );
 	}
+
 	/**
 	 * Retrieve the video properties for a given video URL.
 	 *

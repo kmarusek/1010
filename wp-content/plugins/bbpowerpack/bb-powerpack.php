@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.20.0
+ * Version: 2.21.1
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -57,17 +57,19 @@ final class BB_PowerPack {
 	 * @since 1.1.4
 	 */
 	public function __construct() {
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			include_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
+		if ( is_admin() ) {
+			if ( ! function_exists( 'is_plugin_active' ) ) {
+				include_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
 
-		$lite_dirname   = 'powerpack-addon-for-beaver-builder';
-		$lite_active    = is_plugin_active( $lite_dirname . '/bb-powerpack-lite.php' );
-		$plugin_dirname = basename( dirname( dirname( __FILE__ ) ) );
+			$lite_dirname   = 'powerpack-addon-for-beaver-builder';
+			$lite_active    = is_plugin_active( $lite_dirname . '/bb-powerpack-lite.php' );
+			$plugin_dirname = basename( dirname( dirname( __FILE__ ) ) );
 
-		if ( class_exists( 'BB_PowerPack_Lite' ) || ( $plugin_dirname != $lite_dirname && $lite_active ) ) {
-			add_action( 'admin_init', array( $this, 'deactivate_lite' ) );
-			return;
+			if ( class_exists( 'BB_PowerPack_Lite' ) || ( $plugin_dirname != $lite_dirname && $lite_active ) ) {
+				add_action( 'admin_init', array( $this, 'deactivate_lite' ) );
+				return;
+			}
 		}
 
 		self::$errors = array();
@@ -119,7 +121,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.20.0' );
+		define( 'BB_POWERPACK_VER', '2.21.1' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );

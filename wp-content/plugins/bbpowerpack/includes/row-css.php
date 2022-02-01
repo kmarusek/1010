@@ -306,12 +306,12 @@ function pp_row_separators_css( $css, $nodes, $global_settings ) {
                 background-position: 50%;
             }
             .fl-node-<?php echo $row->node; ?> .pp-row-separator-top .pp-zigzag:after {
-                background-image: -webkit-gradient(linear, 0 0, 300% 100%, color-stop(0.25, #<?php echo $row->settings->separator_color; ?>), color-stop(0.25, #<?php echo $row->settings->separator_color; ?>));
-                background-image: linear-gradient(135deg, #<?php echo $row->settings->separator_color; ?> 25%, transparent 25%), linear-gradient(225deg, #<?php echo $row->settings->separator_color; ?> 25%, transparent 25%);
+                background-image: -webkit-gradient(linear, 0 0, 300% 100%, color-stop(0.25, <?php echo pp_get_color_value( $row->settings->separator_color ); ?>), color-stop(0.25, <?php echo pp_get_color_value( $row->settings->separator_color ); ?>));
+                background-image: linear-gradient(135deg, <?php echo pp_get_color_value( $row->settings->separator_color ); ?> 25%, transparent 25%), linear-gradient(225deg, <?php echo pp_get_color_value( $row->settings->separator_color ); ?> 25%, transparent 25%);
             }
             .fl-node-<?php echo $row->node; ?> .pp-row-separator-bottom .pp-zigzag:after {
-                background-image: -webkit-gradient(linear, 0 0, 300% 100%, color-stop(0.25, #<?php echo $row->settings->separator_color_bottom; ?>), color-stop(0.25, #<?php echo $row->settings->separator_color_bottom; ?>));
-                background-image: linear-gradient(135deg, #<?php echo $row->settings->separator_color_bottom; ?> 25%, transparent 25%), linear-gradient(225deg, #<?php echo $row->settings->separator_color_bottom; ?> 25%, transparent 25%);
+                background-image: -webkit-gradient(linear, 0 0, 300% 100%, color-stop(0.25, <?php echo pp_get_color_value( $row->settings->separator_color_bottom ); ?>), color-stop(0.25, <?php echo pp_get_color_value( $row->settings->separator_color_bottom ); ?>));
+                background-image: linear-gradient(135deg, <?php echo pp_get_color_value( $row->settings->separator_color_bottom ); ?> 25%, transparent 25%), linear-gradient(225deg, <?php echo pp_get_color_value( $row->settings->separator_color_bottom ); ?> 25%, transparent 25%);
             }
             <?php } ?>
 			<?php if ( 'mountains' == $row->settings->separator_type || 'mountains' == $row->settings->separator_type_bottom ) { ?>

@@ -31,7 +31,7 @@ class PPContactFormModule extends FLBuilderModule {
 	 */
 	public function enqueue_scripts() {
 		$settings = $this->settings;
-		if ( isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle ) {
+		if ( isset( $this->settings ) && isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle ) {
 
 			$site_lang = substr( get_locale(), 0, 2 );
 			$post_id    = FLBuilderModel::get_post_id();
@@ -45,7 +45,7 @@ class PPContactFormModule extends FLBuilderModule {
 			);
 		}
 
-		if ( isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle ) {
+		if ( isset( $this->settings ) && isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle ) {
 			$post_id = FLBuilderModel::get_post_id();
 
 			$this->add_js(

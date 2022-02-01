@@ -23,14 +23,17 @@ class PP3dSliderModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
         ));
-
-		$this->add_css( BB_POWERPACK()->fa_css );
-		$this->add_css( 'jquery-magnificpopup' );
-
-		$this->add_js( 'modernizr-custom' );
-		$this->add_js( 'jquery-magnificpopup' );
-		$this->add_js( 'imagesloaded' );
     }
+
+	public function enqueue_scripts() {
+		$this->add_js( 'modernizr-custom' );
+		$this->add_js( 'imagesloaded' );
+
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->lightbox ) && 'yes' === $this->settings->lightbox ) ) {
+			$this->add_css( 'jquery-magnificpopup' );
+			$this->add_js( 'jquery-magnificpopup' );
+		}
+	}
 
     /**
 	 * @method update

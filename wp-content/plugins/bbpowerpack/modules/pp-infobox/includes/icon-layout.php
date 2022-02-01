@@ -10,7 +10,13 @@
 	<?php } else { ?>
 		<?php if ( isset( $settings->image_select_src ) && ! empty( $settings->image_select_src ) ) { ?>
 			<div class="pp-infobox-image">
+			<?php if ( 'button' == $settings->pp_infobox_link_type || 'read_more' == $settings->pp_infobox_link_type ) { ?>
+			<a href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>">
+			<?php } ?>
 				<img src="<?php echo $settings->image_select_src; ?>" alt="<?php echo $module->get_alt(); ?>" />
+			<?php if ( 'button' == $settings->pp_infobox_link_type || 'read_more' == $settings->pp_infobox_link_type ) { ?>
+			</a>
+			<?php } ?>
 			</div>
 		<?php } ?>
 	<?php } ?>

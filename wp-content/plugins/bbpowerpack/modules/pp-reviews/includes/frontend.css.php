@@ -327,19 +327,13 @@
 <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-review-icon i {
-<?php if ( isset( $settings->icon_vertical_alignment ) && '' !== $settings->icon_vertical_alignment ) { ?>
-	vertical-align: <?php echo $settings->icon_vertical_alignment; ?>;
-<?php } ?>
-}
-
-.fl-node-<?php echo $id; ?> swiper-pagination-bullet {
+.fl-node-<?php echo $id; ?> .swiper-pagination-bullet {
 	<?php if ( isset( $settings->pagination_bg_color ) && ! empty( $settings->pagination_bg_color ) ) { ?>
 	background: <?php echo pp_get_color_value( $settings->pagination_bg_color ); ?>;
 	<?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .swiper-pagination-bullet-active{
+.fl-node-<?php echo $id; ?> .swiper-pagination-bullet-active {
 	<?php if ( isset( $settings->pagination_bg_hover ) && ! empty( $settings->pagination_bg_hover ) ) { ?>
 	background: <?php echo pp_get_color_value( $settings->pagination_bg_hover ); ?>;
 	<?php } ?>

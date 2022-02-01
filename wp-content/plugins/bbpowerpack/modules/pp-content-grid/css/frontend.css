@@ -803,6 +803,10 @@ body .pp-post-feed-meta {
   	height: 100%;
 }
 
+.cg-center-align .pp-content-posts {
+	margin: 0 auto;
+}
+
 @media only screen and (max-width: 768px) {
 	.pp-content-post-carousel .owl-theme .owl-controls .owl-buttons div.owl-prev {
 	    left: 0;

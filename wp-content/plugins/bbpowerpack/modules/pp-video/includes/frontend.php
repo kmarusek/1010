@@ -63,8 +63,8 @@ $schema = $module->get_structured_data( $settings );
 					'<img class="%s" src="%s" title="%s" alt="%s" />',
 					'wp-image-' . $settings->custom_overlay,
 					$settings->custom_overlay_src,
-					$attachment_data->title,
-					$attachment_data->alt
+					is_object( $attachment_data ) ? $attachment_data->title : '',
+					is_object( $attachment_data ) ? $attachment_data->alt : ''
 				);
 				echo '<script type="text/html" class="pp-video-lightbox-content">';
 				echo '<div class="pp-video-container"><div class="pp-fit-aspect-ratio">';

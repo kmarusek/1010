@@ -25,14 +25,31 @@ class PPPostTimelineModule extends FLBuilderModule {
 			'partial_refresh'   => true,
         ));
 
-		$this->add_css( BB_POWERPACK()->fa_css );
-		$this->add_js( 'imagesloaded' );
-		$this->add_css( 'jquery-slick' );
-		$this->add_css( 'jquery-slick-theme' );
-		$this->add_js( 'jquery-slick' );
-
 		add_action( 'wp_ajax_pp_timeline_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
 		add_action( 'wp_ajax_nopriv_pp_timeline_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
+	}
+
+	public function enqueue_scripts() {
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->post_timeline_layout ) && 'horizontal' === $this->settings->post_timeline_layout ) ) {
+			$this->add_css( 'jquery-slick' );
+			$this->add_css( 'jquery-slick-theme' );
+			$this->add_js( 'jquery-slick' );
+		}
+
+		$this->add_js( 'imagesloaded' );
+	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( isset( $settings->post_timeline_icon ) && ! empty( $settings->post_timeline_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	public function filter_settings( $settings, $helper )

@@ -23,8 +23,22 @@ class PPFAQModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
+	}
 
-		$this->add_css( BB_POWERPACK()->fa_css );
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( ! empty( $settings->faq_open_icon ) ) {
+			$enqueue = true;
+		}
+		if ( ! empty( $settings->faq_close_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	public function filter_settings( $settings, $helper ) {

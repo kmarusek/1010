@@ -28,8 +28,33 @@ class PPOffcanvasContent extends FLBuilderModule {
 		);
 	}
 
-	public function enqueue_scripts() {
-		$this->add_css( BB_POWERPACK()->fa_css );
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( isset( $settings->toggle_source ) && 'button' === $settings->toggle_source ) {
+			if ( isset( $settings->button_icon ) && ! empty( $settings->button_icon ) ) {
+				$enqueue = true;
+			}
+		}
+
+		if ( isset( $settings->close_button ) && 'yes' === $settings->close_button ) {
+			if ( isset( $settings->close_button_icon ) && ! empty( $settings->button_icon ) ) {
+				$enqueue = true;
+			}
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
+	public function update( $settings ) {
+		if ( ! isset( $settings->close_button_icon ) || empty( $settings->close_button_icon ) ) {
+			$settings->close_button_icon = 'fa fa-times';
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -335,6 +360,7 @@ BB_PowerPack::register_module(
 							'type'        => 'icon',
 							'label'       => __( 'Icon', 'bb-powerpack' ),
 							'show_remove' => true,
+							'default'	  => 'fa fa-times',
 							'preview'     => array(
 								'type' => 'none',
 							),

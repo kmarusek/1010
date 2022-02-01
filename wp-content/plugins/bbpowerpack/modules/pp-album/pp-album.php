@@ -27,12 +27,26 @@ class PPAlbumModule extends FLBuilderModule {
 	/**
 	 * @method enqueue_scripts
 	 */
-	public function enqueue_scripts()
-	{
+	public function enqueue_scripts() {
 		$this->add_css( 'pp-jquery-fancybox' );
 		$this->add_js( 'pp-jquery-fancybox' );
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'show' === $settings->cover_content && ! empty( $settings->content_icon ) ) {
+			$enqueue = true;
+		}
+		if ( 'button' === $settings->trigger_on && 'text' !== $settings->cover_btn_type && ! empty( $settings->cover_btn_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
 }
 
 /**

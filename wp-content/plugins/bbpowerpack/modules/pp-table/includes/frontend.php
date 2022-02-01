@@ -110,11 +110,11 @@ if ( 'csv_import' == $source ) {
 $tableheaders = apply_filters( 'pp_table_headers', $tableheaders, $settings );
 $tablerows = apply_filters( 'pp_table_rows', $tablerows, $settings );
 
-if ( ! empty( $tableheaders[0] ) ) {
-	do_action( 'pp_before_table_module', $settings );
+do_action( 'pp_before_table_module', $settings );
+	
 ?>
 <table class="pp-table-<?php echo $id; ?> pp-table-content tablesaw" <?php echo $sortable_attrs; ?> data-tablesaw-minimap>
-	<?php if ( 'manual' === $source || ( isset( $settings->first_row_header ) && 'yes' === $settings->first_row_header ) ) { ?>
+	<?php if ( ! empty( $tableheaders[0] ) && ( 'manual' === $source || ( isset( $settings->first_row_header ) && 'yes' === $settings->first_row_header ) ) ) { ?>
 	<thead>
 		<tr>
 			<?php
@@ -145,6 +145,5 @@ if ( ! empty( $tableheaders[0] ) ) {
 </table>
 <?php
 do_action( 'pp_after_table_module', $settings );
-} // End if().
 ?>
 </div>

@@ -155,7 +155,7 @@
     transform-origin: left top;
 }
 
-.pp-image-carousel .pp-swiper-button {
+.pp-image-carousel-wrapper .pp-swiper-button {
 	background-image: none;
 	width: auto;
 	height: auto;
@@ -169,18 +169,27 @@
     cursor: pointer;
     font-size: 25px;
     top: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+.pp-image-carousel-wrapper .pp-swiper-button span {
+	display: inline-flex;
+}
+.pp-image-carousel-wrapper .pp-swiper-button svg {
+	height: 25px;
 }
 
 .pp-image-carousel.pp-carousel-navigation-outside .pp-swiper-button {
 	top: calc(50% - 30px / 2);
 }
-.pp-image-carousel .pp-swiper-button-prev {
+.pp-image-carousel-wrapper .pp-swiper-button-prev {
 	left: 10px;
 }
-.pp-image-carousel .pp-swiper-button-next {
+.pp-image-carousel-wrapper .pp-swiper-button-next {
 	right: 10px;
 }
 

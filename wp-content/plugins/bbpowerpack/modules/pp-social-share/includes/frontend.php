@@ -67,7 +67,7 @@ $url = $module->get_current_url();
 			case 'pinterest':
 				if ( '' == $social_icon->fallback_image ) {
 					$pin_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-					$pin_url   = $pin_thumb['0'];
+					$pin_url   = is_array( $pin_thumb ) ? $pin_thumb['0'] : '';
 				} else {
 					$pin_url = $social_icon->fallback_image_src;
 				}

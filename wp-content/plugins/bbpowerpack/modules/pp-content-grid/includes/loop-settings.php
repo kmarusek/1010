@@ -474,7 +474,6 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				'type'	=> 'text',
 				'label'	=> __('"All" Filter Label', 'bb-powerpack'),
 				'default' => '',
-				'size'	=> 8,
 				'connections'	=> array('string')
 			), $settings);
 
@@ -657,8 +656,10 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			FLBuilder::render_settings_field( 'event_orderby', array(
 				'type'    => 'select',
 				'label'   => __( 'Events Order By', 'bb-powerpack' ),
-				'default' => 'EventStartDate',
+				'help'	  => __( 'Selecting "Default" will use the default sorting under the Content tab > Custom Query.', 'bb-powerpack' ),
+				'default' => '',
 				'options' => array(
+					''				 => __( 'Default', 'bb-powerpack' ),
 					'EventStartDate' => __( 'Start Date', 'bb-powerpack' ),
 					'EventEndDate'   => __( 'End Date', 'bb-powerpack' ),
 				),
@@ -683,6 +684,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 					'past'   => __( 'Past Events', 'bb-powerpack' ),
 					'today'  => __( 'Todays Events', 'bb-powerpack' ),
 					'all'    => __( 'All Events', 'bb-powerpack' ),
+					'featured'    => __( 'Featured Events', 'bb-powerpack' ),
 				),
 			), $settings );
 			?>

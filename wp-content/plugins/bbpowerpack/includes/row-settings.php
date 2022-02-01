@@ -400,6 +400,7 @@ function pp_row_separators( $sections ) {
 					'label'                     => __('Color', 'bb-powerpack'),
 					'default'                   => 'ffffff',
 					'show_reset'				=> true,
+					'show_alpha'				=> true,
 					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
@@ -525,6 +526,7 @@ function pp_row_separators( $sections ) {
 					'label'                     => __('Color', 'bb-powerpack'),
 					'default'                   => 'ffffff',
 					'show_reset'				=> true,
+					'show_alpha'				=> true,
 					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',

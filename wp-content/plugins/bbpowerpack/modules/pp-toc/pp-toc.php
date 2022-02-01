@@ -33,8 +33,25 @@ class PPToCModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
+	}
 
-		$this->add_css( BB_POWERPACK()->fa_css );
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'icon' === $settings->list_style && ! empty( $settings->list_icon_field ) ) {
+			$enqueue = true;
+		}
+		if ( 'yes' === $settings->collapsable_toc && ( ! empty( $settings->collapse_icon_field ) || ! empty( $settings->expand_icon_field ) ) ) {
+			$enqueue = true;
+		}
+		if ( ! empty( $settings->scroll_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	public static function get_devices() {

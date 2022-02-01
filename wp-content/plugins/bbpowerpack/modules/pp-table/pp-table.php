@@ -24,8 +24,10 @@ class PPTableModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true,
         ));
+	}
 
-        $this->add_css( 'tablesaw' );
+	public function enqueue_scripts() {
+		$this->add_css( 'tablesaw' );
 		$this->add_js( 'tablesaw' );
 	}
 	

@@ -25,6 +25,18 @@ class PPHighlightBoxModule extends FLBuilderModule {
         ));
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+
+		if ( isset( $this->settings ) && 'font_icon' === $this->settings->box_icon_select && ! empty( $this->settings->box_font_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
 		// Handle old Box Link fields.
 		$settings = PP_Module_Fields::handle_link_field( $settings, array(

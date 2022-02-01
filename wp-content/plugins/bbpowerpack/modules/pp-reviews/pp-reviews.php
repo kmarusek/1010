@@ -25,10 +25,34 @@ class PPReviewsModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
+	}
 
+	public function enqueue_scripts() {
 		$this->add_css( 'jquery-swiper' );
 		$this->add_js( 'jquery-swiper' );
-		$this->add_css( BB_POWERPACK()->fa_css );
+	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+		$items = $settings->reviews;
+
+		if ( 'default' === $settings->review_source && is_array( $items ) && count( $items ) ) {
+			foreach ( $items as $item ) {
+				if ( ! is_object( $item ) ) {
+					continue;
+				}
+
+				if ( isset( $item->icon ) && ! empty( $item->icon ) ) {
+					$enqueue = true;
+					break;
+				}
+			}
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	/**
@@ -1205,8 +1229,8 @@ BB_PowerPack::register_module(
 							),
 							'preview' => array(
 								'type'     => 'css',
-								'selector' => '.pp-review-icon i',
-								'property' => 'vertical-align',
+								'selector' => '.pp-review-icon',
+								'property' => 'align-self',
 							),
 						),
 						'icon_color'          => array(
@@ -1449,7 +1473,7 @@ BB_PowerPack::register_module(
 					'fields' => array(
 						'pagination_bg_color'   => array(
 							'type'        => 'color',
-							'label'       => __( 'Background Color', 'bb-powerpack' ),
+							'label'       => __( 'Color', 'bb-powerpack' ),
 							'default'     => '999999',
 							'show_reset'  => true,
 							'show_alpha'  => true,
@@ -1462,7 +1486,7 @@ BB_PowerPack::register_module(
 						),
 						'pagination_bg_hover'   => array(
 							'type'        => 'color',
-							'label'       => __( 'Active Background Color', 'bb-powerpack' ),
+							'label'       => __( 'Active Color', 'bb-powerpack' ),
 							'default'     => '000000',
 							'show_reset'  => true,
 							'show_alpha'  => true,

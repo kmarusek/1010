@@ -25,6 +25,20 @@ class PPHowToModule extends FLBuilderModule {
 			)
 		);
 	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'yes' === $settings->add_supply && ! empty( $settings->supply_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
 		if ( isset( $settings->total_time ) && ! empty( $settings->total_time ) ) {
 			$settings->time_minutes = $settings->total_time;

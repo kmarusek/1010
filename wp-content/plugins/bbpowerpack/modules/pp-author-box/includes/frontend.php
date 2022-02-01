@@ -50,6 +50,7 @@ if ( 'custom' === $settings->source ) {
 	$biography   = get_the_author_meta( 'description', $author_id );
 
 	$archive_url = get_author_posts_url( $author_id );
+	$link_url_target = $archive_url_target = $settings->link_to_target;
 
 	if ( 'posts_archive' === $settings->link_to ) {
 		$link_url = $archive_url;
@@ -58,7 +59,6 @@ if ( 'custom' === $settings->source ) {
 	}
 
 	if ( '_blank' === $settings->link_to_target ) {
-		$link_url_target = $settings->link_to_target;
 		$link_nofollow   = "rel='nofollow'";
 	}
 } elseif ( 'other_author' === $settings->source ) {

@@ -1,5 +1,5 @@
 <div class="pp-logos-content clearfix">
-    <div class="pp-logos-wrapper clearfix">
+    <div class="pp-logos-wrapper pp-logos-<?php echo $settings->logos_layout; ?> clearfix">
 		<?php
 		for ( $i = 0; $i < count( $settings->logos_grid ); $i++ ) {
 
@@ -59,6 +59,8 @@
 		</div>
 		<?php } ?>
 	</div>
-    <div class="logo-slider-next"></div>
-	<div class="logo-slider-prev"></div>
+	<?php if ( 'carousel' === $settings->logos_layout ) { ?>
+		<div class="logo-slider-nav logo-slider-next"></div>
+		<div class="logo-slider-nav logo-slider-prev"></div>
+	<?php } ?>
 </div>

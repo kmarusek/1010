@@ -29,7 +29,7 @@ class PPTestimonialsModule extends FLBuilderModule {
 	public function enqueue_scripts() {
 		$this->add_js( 'imagesloaded' );
 
-		if ( FLBuilderModel::is_builder_active() || 'slider' == $this->settings->layout ) {
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && 'slider' == $this->settings->layout ) ) {
 			$this->add_css( 'pp-owl-carousel' );
 			$this->add_css( 'pp-owl-carousel-theme' );
 			$this->add_js( 'pp-owl-carousel' );

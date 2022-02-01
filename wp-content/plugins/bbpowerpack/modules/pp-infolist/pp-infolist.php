@@ -24,9 +24,30 @@ class PPInfoListModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
         ));
-
-		$this->add_css( BB_POWERPACK()->fa_css );
     }
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+		$items = $settings->list_items;
+
+		if ( is_array( $items ) && count( $items ) ) {
+			foreach ( $items as $item ) {
+				if ( ! is_object( $item ) ) {
+					continue;
+				}
+
+				if ( 'icon' === $item->icon_type && ! empty( $item->icon_select ) ) {
+					$enqueue = true;
+					break;
+				}
+			}
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
 
 	public function filter_settings( $settings, $helper )
 	{

@@ -5,6 +5,7 @@ $column_desktop = isset( $columns['desktop'] ) && ! empty( $columns['desktop'] )
 $column_tablet  = isset( $columns['tablet'] ) && ! empty( $columns['tablet'] ) && intval( $columns['tablet'] ) > 0 ? intval( $columns['tablet'] ) : 2;
 $column_mobile  = isset( $columns['mobile'] ) && ! empty( $columns['mobile'] ) && intval( $columns['mobile'] ) > 0 ? intval( $columns['mobile'] ) : 1;
 $spacing		= isset( $settings->post_spacing ) && '' !== $settings->post_spacing ? $settings->post_spacing : 0;
+$spacing_unit	= isset( $settings->post_spacing_unit ) ? $settings->post_spacing_unit : '%';
 $space_desktop	= ( $column_desktop - 1 ) * $spacing;
 $space_tablet 	= ( $column_tablet - 1 ) * $spacing;
 $space_mobile 	= ( $column_mobile - 1 ) * $spacing;
@@ -622,7 +623,7 @@ FLBuilderCSS::dimension_field_rule( array(
 
 .woocommerce .fl-node-<?php echo $id; ?> .pp-content-post {
 	<?php if( 'grid' == $settings->layout ) { ?>
-	margin-bottom: <?php echo $spacing; ?>%;
+	margin-bottom: <?php echo $spacing . $spacing_unit; ?>;
 	<?php } ?>
 }
 
@@ -630,7 +631,7 @@ FLBuilderCSS::dimension_field_rule( array(
 	position: relative;
 	<?php if( 'grid' == $settings->layout ) { ?>
 	float: left;
-	margin-bottom: <?php echo $spacing; ?>%;
+	margin-bottom: <?php echo $spacing . $spacing_unit; ?>;
 	width: <?php echo $post_columns_desktop - 0.1; ?>%;
 	<?php } ?>
 	<?php if( 'carousel' == $settings->layout ) { ?>
@@ -652,7 +653,7 @@ FLBuilderCSS::border_field_rule( array(
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-grid-space {
-	width: <?php echo $spacing; ?>%;
+	width: <?php echo $spacing . $spacing_unit; ?>;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-content-grid-more-link,
@@ -830,7 +831,7 @@ FLBuilderCSS::dimension_field_rule( array(
 
 	/*
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['desktop']; ?>n) {
-	    margin-right: <?php echo $spacing; ?>%;
+	    margin-right: <?php echo $spacing . $spacing_unit; ?>;
 	}
 	*/
 
@@ -867,7 +868,7 @@ FLBuilderCSS::dimension_field_rule( array(
 
 	/*
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['tablet']; ?>n) {
-	    margin-right: <?php echo $spacing; ?>%;
+	    margin-right: <?php echo $spacing . $spacing_unit; ?>;
 	}
 	*/
 

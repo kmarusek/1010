@@ -26,6 +26,29 @@ class PPHoverCardsModuleNew extends FLBuilderModule {
         ));
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+		$items = $settings->card_content;
+
+		if ( is_array( $items ) && count( $items ) ) {
+			foreach ( $items as $item ) {
+				if ( ! is_object( $item ) ) {
+					continue;
+				}
+
+				if ( 'icon' === $item->hover_card_image_select && ! empty( $item->hover_card_font_icon ) ) {
+					$enqueue = true;
+					break;
+				}
+			}
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
 
 		// Handle hover card title's old typography fields.

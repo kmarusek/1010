@@ -5,6 +5,7 @@
 		this.settings           = settings;
 		this.nodeClass          = '.fl-node-' + settings.id;
 		this.headline			= this.nodeClass + ' .pp-headline';
+		this.headlineText 		= $( this.nodeClass + ' .pp-animated-headlines' ).attr( 'data-text' );
 		this.dynamicWrapper		= this.nodeClass + ' .pp-headline-dynamic-wrapper';
 		this.animationDelay     = settings.durations.animationDelay;
 		// letters effect
@@ -66,7 +67,7 @@
 			dynamicWrapper.html( '' );
 
 			if ( 'rotate' == this.settings.headline_style ) {
-				var rotatingText = this.settings.rotating_text.split('|');
+				var rotatingText = this.headlineText.split('|');
 
 				rotatingText.forEach( function( word, index ) {
 					var dynamicText = $('<span>', { 'class': classes.dynamicText, 'data-index': index }).html( word.replace( / /g, '&nbsp;' ) );
@@ -78,7 +79,7 @@
 					dynamicWrapper.append( dynamicText );
 				} );
 			} else {
-				var dynamicText = $('<span>', { 'class': classes.dynamicText + ' ' + classes.textActive }).text( settings.highlighted_text );
+				var dynamicText = $('<span>', { 'class': classes.dynamicText + ' ' + classes.textActive }).text( this.headlineText );
 				var svg = $('<svg>', {
 					xmlns: 'http://www.w3.org/2000/svg',
 					viewBox: '0 0 500 150',

@@ -1,6 +1,5 @@
 <?php
-$css_id        = '';
-$items         = $module->get_accordion_items();
+$items         = $module->get_accordion_items( $id );
 $source        = $settings->accordion_source;
 $icon_position = $settings->accordion_icon_position;
 
@@ -22,9 +21,9 @@ if ( ! empty( $settings->accordion_close_icon ) ) {
 		if ( empty( $items[ $i ] ) ) {
 			continue;
 		}
-		$css_id = ( '' !== $settings->accordion_id_prefix ) ? $settings->accordion_id_prefix . '-' . ( $i + 1 ) : 'pp-accord-' . $id . '-' . ( $i + 1 );
+
 		?>
-		<div id="<?php echo $css_id; ?>" class="pp-accordion-item" role="tablist">
+		<div id="<?php echo $items[ $i ]->html_id; ?>" class="pp-accordion-item" role="tablist">
 			<div class="pp-accordion-button" id="pp-accordion-<?php echo $module->node; ?>-tab-<?php echo $i; ?>" aria-selected="false" aria-controls="pp-accordion-<?php echo $module->node; ?>-panel-<?php echo $i; ?>" aria-expanded="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'false' : 'true'; ?>" role="tab" tabindex="0">
 				<?php if ( 'left' === $icon_position ) { ?>
 					<span class="<?php echo $open_icon_class; ?>" aria-hidden="true" aria-label="Close"></span>

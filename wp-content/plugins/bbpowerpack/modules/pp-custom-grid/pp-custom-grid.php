@@ -75,14 +75,12 @@ class PPCustomGridModule extends FLBuilderModule {
 	public function enqueue_scripts()
 	{
 		$this->add_js('imagesloaded');
+		$is_builder_active = FLBuilderModel::is_builder_active();
 
-		if(FLBuilderModel::is_builder_active()) {
-			$this->add_css(BB_POWERPACK()->fa_css);
-		}
-		if(FLBuilderModel::is_builder_active() || ! $this->settings->match_height) {
+		if($is_builder_active || ! $this->settings->match_height) {
 			$this->add_js('jquery-masonry');
 		}
-		if(FLBuilderModel::is_builder_active() || $this->settings->pagination == 'scroll') {
+		if($is_builder_active || $this->settings->pagination == 'scroll') {
 			$this->add_js('jquery-infinitescroll');
 		}
 

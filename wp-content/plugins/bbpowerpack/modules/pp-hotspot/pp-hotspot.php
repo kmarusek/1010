@@ -44,6 +44,19 @@ class PPHotspotModule extends FLBuilderModule {
 		$this->add_css( 'tooltipster' );
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$type_icon = 'icon' === $this->settings->navigation_type || 'icon_text' === $this->settings->navigation_type;
+
+		if ( $type_icon && ( ! empty( $this->settings->pre_icon ) || ! empty( $this->settings->next_icon ) ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 }
 
 /**

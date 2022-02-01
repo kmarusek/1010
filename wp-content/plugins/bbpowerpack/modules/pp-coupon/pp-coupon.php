@@ -21,6 +21,23 @@ class PPCoupon extends FLBuilderModule {
 			)
 		);
 	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'yes' === $settings->show_icon && ! empty( $settings->icon_select ) ) {
+			$enqueue = true;
+		}
+		if ( 'none' !== $settings->link_type && ! empty( $settings->link_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	/**
 	 * Returns button link rel based on settings
 	 * @since 2.6.9

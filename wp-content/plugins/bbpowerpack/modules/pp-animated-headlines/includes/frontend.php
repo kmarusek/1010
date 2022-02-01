@@ -11,8 +11,13 @@ if ( 'rotate' == $settings->headline_style ) {
 
 $class .= ' pp-headline-' . $settings->alignment;
 
+$rotating_text = str_replace( array("\r\n", "\n", "\r", "<br/>", "<br>"), '|', do_shortcode( $settings->rotating_text ) );
+$rotating_text = str_replace( "'", "\'", $rotating_text );
+$highlighted_text = do_shortcode( $settings->highlighted_text );
+$highlighted_text = str_replace( "'", "\'", $highlighted_text );
+$animated_text = 'rotate' === $settings->headline_style ? $rotating_text : $highlighted_text;
 ?>
-<div class="pp-animated-headlines pp-headline--style-<?php echo $settings->headline_style; ?><?php echo $loop; ?>">
+<div class="pp-animated-headlines pp-headline--style-<?php echo $settings->headline_style; ?><?php echo $loop; ?>" data-text="<?php echo urldecode( $animated_text ); ?>">
 	<<?php echo $settings->headline_tag; ?> class="<?php echo $class; ?>">
 		<?php if ( ! empty( $settings->before_text ) ) : ?>
 			<span class="pp-headline-plain-text pp-headline-text-wrapper"><?php echo $settings->before_text; ?></span>

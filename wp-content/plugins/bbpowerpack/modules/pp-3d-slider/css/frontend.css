@@ -3,6 +3,20 @@
 	height: 450px;
 	position: relative;
 }
+.pp-3d-slider .sr-only {
+	position: absolute !important;
+    height: 1px !important;
+    width: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px,1px,1px,1px);
+    clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+    -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+    overflow: hidden !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
 .pp-slider-wrapper {
 	width: 481px;
 	height: 316px;
@@ -65,16 +79,22 @@
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
 }
-.pp-3d-slider .pp-slider-nav .fa {
+.pp-3d-slider .pp-slider-nav .pp-slider-nav-button {
 	float: none;
     font-size: 30px;
 	cursor: pointer;
 	width: 40px;
 	height: 40px;
 	padding: 3px;
+	display: inline-flex;
+	align-items: center;
 }
-.pp-3d-slider .pp-slider-nav .fa,
-.pp-3d-slider .pp-slider-nav .fa:hover {
+.pp-3d-slider .pp-slider-nav .pp-slider-nav-button svg {
+	width: 40px;
+	height: 40px;
+}
+.pp-3d-slider .pp-slider-nav .pp-slider-nav-button,
+.pp-3d-slider .pp-slider-nav .pp-slider-nav-button:hover {
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;

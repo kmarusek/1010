@@ -81,10 +81,10 @@ $count = 1;
 			<?php if ( $settings->slider_navigation == 'yes' ) { ?>
 			<!-- navigation arrows -->
 			<button class="pp-swiper-button pp-swiper-button-prev" aria-label="<?php echo isset( $settings->prev_nav_sr_text ) && ! empty( $settings->prev_nav_sr_text ) ? htmlspecialchars( $settings->prev_nav_sr_text ) : __( 'Previous slide', 'bb-powerpack' ); ?>" role="button" tabindex="0">
-				<span class="fa fa-angle-left" aria-hidden="true"></span>
+				<span aria-hidden="true"><?php pp_prev_icon_svg(); ?></span>
 			</button>
 			<button class="pp-swiper-button pp-swiper-button-next" aria-label="<?php echo isset( $settings->next_nav_sr_text ) && ! empty( $settings->next_nav_sr_text ) ? htmlspecialchars( $settings->next_nav_sr_text ) : __( 'Next slide', 'bb-powerpack' ); ?>" role="button" tabindex="0">
-				<span class="fa fa-angle-right" aria-hidden="true"></span>
+				<span aria-hidden="true"><?php pp_next_icon_svg(); ?></span>
 			</button>
 			<?php } ?>
 

@@ -282,15 +282,29 @@ FLBuilderCSS::typography_field_rule(
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
-		float: <?php echo ( isset( $settings->button_alignment_medium ) && 'center' === $settings->button_alignment_medium ) ? 'none' : $settings->button_alignment_medium; ?>;
-	}
+	<?php if ( isset( $settings->button_alignment_medium ) && ! empty( $settings->button_alignment_medium ) ) { ?>
+		<?php if ( 'center' === $settings->button_alignment_medium || 'none' === $settings->button_alignment_medium ) { ?>
+			.fl-node-<?php echo $id; ?> .pp-dual-button-content {
+				text-align: center;
+			}
+		<?php } ?>
+		.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
+			float: <?php echo ( 'center' === $settings->button_alignment_medium ) ? 'none' : $settings->button_alignment_medium; ?>;
+		}
+	<?php } ?>
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
-	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
-		float: <?php echo ( isset( $settings->button_alignment_responsive ) && 'center' === $settings->button_alignment_responsive ) ? 'none' : $settings->button_alignment_responsive; ?>;
-	}
+	<?php if ( isset( $settings->button_alignment_responsive ) && ! empty( $settings->button_alignment_responsive ) ) { ?>
+		<?php if ( 'center' === $settings->button_alignment_responsive || 'none' === $settings->button_alignment_responsive ) { ?>
+			.fl-node-<?php echo $id; ?> .pp-dual-button-content {
+				text-align: center;
+			}
+		<?php } ?>
+		.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
+			float: <?php echo ( 'center' === $settings->button_alignment_responsive ) ? 'none' : $settings->button_alignment_responsive; ?>;
+		}
+	<?php } ?>
 }
 
 @media only screen and ( max-width: <?php echo $settings->responsive_breakpoint; ?>px ) {

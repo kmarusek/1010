@@ -1,3 +1,59 @@
+== 2.21.1 ==
+Release date: January 27, 2022
+* Hotfix: Photo Gallery - Images disappeared in justified layout
+
+== 2.21.0 ==
+Release date: January 26, 2022
+* Enhancement: Modules - Allow loading of icons stylesheet like FontAwesome only when the respective setting is enabled and icon is provided
+* Enhancement: Announcement Bar - Added an option to provide a custom icon for the close button from the icons library
+* Enhancement: Table - Allow render table without header
+* Enhancement: Modal Box - Added logic to link the Modal Box in any posts modules with custom layout feature to display the post content in popup
+* Enhancement: Content Grid - Added "Default" option for TEC order by field to respect the loop query order setting
+* Enhancement: Content Grid - Added "Featured Events" option under TEC Show Events dropdown
+* Enhancement: Content Grid - Introducing "cg-center-align" CSS class to center align posts whey they are less than the number of columns
+* Enhancement: Content Grid - Added px unit for column spacing
+* Enhancement: Search Form - Added an option to choose a custom icon for the input field in Minimal style
+* Enhancement: Image Scroll - Added an option to provide screen reader text for an empty anchor tag for accessibility
+* Enhancement: Row Separator - Enabled alpha channel for separator color field
+* Enhancement: 3D Slider - Allow loading of Magnific Popup scripts only when the lightbox is enabled
+* Enhancement: Image Carousel - Allow loading of Magnific Popup scripts only when the lightbox is enabled
+* Enhancement: Instagram Feed - Allow loading of carousel scripts only when the carousel layout is chosen
+* Enhancement: Logos Grid & Carousel - Allow loading of carousel scripts when the layout is set to carousel
+* Enhancement: Logos Grid & Carousel - Removed FontAwesome stylesheet instead used svg for navigation arrows
+* Enhancement: Modal Box - Allow loading of FontAwesome stylesheet when button type is icon and icon is provided
+* Enhancement: Post Timeline - Allow loading of slider scripts only when the layout is set to horizontal
+* Enhancement: Business Hours - Removed loading of unused FontAwesome stylesheet
+* Enhancement: Star Rating - Removed loading of unused FontAwesome stylesheet
+* Enhancement: Video Gallery - Removed loading of unused FontAwesome stylesheet
+* Enhancement: Columns Separator - Removed loading of FontAwesome stylesheet
+* Fix: Admin settings - Templates were not loading in some cases due to missing wp.template
+* Fix: Dual Button - Alignment issue on medium and responsive breakpoint
+* Fix: Advanced Menu - Missing Woo Cart icon after publishing the page
+* Fix: Advanced Menu - Responsive menu flash issue on page load
+* Fix: Advanced Menu - Extra spacing issue on the desktop when Off-canvas menu is chosen to be displayed on medium and small breakpoints
+* Fix: Advanced Menu - Added discernible text to Off-canvas menu close button
+* Fix: Image Scroll - Added missing alt attribute to <img> tag
+* Fix: Advanced Accordion - Added missing alt text to <img> tag when the content type is image
+* Fix: Author Box - Current author archive link target
+* Fix: Testimonial - Typography settings were not working for the HTML tag other than h3 for client name and profile
+* Fix: Hover Cards 2 - Empty spacing field breaks the page in some cases
+* Fix: Category Grid - Responsive Box Height was not working in some cases
+* Fix: Category Grid - Minor CSS fixes
+* Fix: Social Share - PHP warning for Pinterest share in some cases
+* Fix: Animated Headlines - Using TranslatePress plugin shortcode in the content was not reflecting the translated text
+* Fix: Logos Carousel - Hide the initial loading effect due to JS
+* Fix: Down Arrow (Row settings) - JS error when there is no fl-row element next to the current row in DOM
+* Fix: Content Grid - AJAX pagination was not working when taxonomy filters are disabled or equal height is set
+* Fix: Video - Background click to close was not working in lightbox
+* Fix: Off-Canvas Content - Button z-index issue
+* Fix: Restaurant Menu - PHP warning for undefined variable $menu_item
+* Fix: Reviews - Icon vertical alignement option was not working in some cases
+* Fix: Reviews - Pagination bullet color was not getting applied in some cases 
+* Development: Announcement Bar - Added filter hook pp_announcement_bar_close_icon_html
+* Development: Login Form - Added hook lostpassword_form in lost password form
+* Development: Content Grid - Added filter hook pp_cg_carousel_nav_arrows
+* Development: Content Grid - Added filter hook pp_cg_custom_layout_enqueue_fa_stylesheet
+
 == 2.20.0 ==
 Release date: December 20, 2021
 * Enhancement: Advanced Menu - Added an option to enable Search in the menu
@@ -26,8 +82,8 @@ Release date: December 20, 2021
 * Fix: Testimonials - Fixed height option was not working for Layout 4
 * Fix: Off-Canvas Content - Close icon was not getting displayed in some cases
 * Fix: Video Gallery - Non-English letters in filter tags were breaking the functionality
-* Fix: Advanced Tabs - ajaxurl unfefined error in some cases
-* Fix: Advanced Accordion - ajaxurl unfefined error in some cases
+* Fix: Advanced Tabs - ajaxurl undefined error in some cases
+* Fix: Advanced Accordion - ajaxurl undefined error in some cases
 * Fix: Header/Footer - Issue with Theme My Login password reset screen
 * Development: Content Grid - Added filter hook pp_cg_filters_show_available_posts_terms
 * Development: Content Grid - Added filter hook pp_cg_post_author_html

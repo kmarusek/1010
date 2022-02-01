@@ -36,16 +36,19 @@ class PPAdvancedMenu extends FLBuilderModule {
 		}
     }
 
-	public function enqueue_scripts() {
-		if ( ! FLBuilderModel::is_builder_active() ) {
-			$settings = $this->settings;
-			$enqueue_fa_css = false;
-			if ( isset( $settings->show_search ) && 'yes' === $settings->show_search ) {
-				$enqueue_fa_css = true;
-			}
-			if ( $enqueue_fa_css ) {
-				$this->add_css( BB_POWERPACK()->fa_css );
-			}
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( isset( $settings->show_search ) && 'yes' === $settings->show_search ) {
+			$enqueue = true;
+		}
+		if ( isset( $settings->show_woo_cart ) && 'yes' === $settings->show_woo_cart ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
 		}
 	}
 
@@ -342,6 +345,9 @@ class PPAdvancedMenu extends FLBuilderModule {
 			'style' => 'minimal',
 			'placeholder' => $this->settings->search_placeholder,
 			'size' => $this->settings->search_container_size,
+			'input_icon' => '',
+			'icon' => '',
+			'toggle_icon' => '',
 		);
 
 		foreach ( $this->settings as $key => $value ) {

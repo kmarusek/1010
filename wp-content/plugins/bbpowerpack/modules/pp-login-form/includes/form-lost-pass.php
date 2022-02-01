@@ -23,6 +23,13 @@ do_action( 'pp_login_form_before_lost_password_form', $settings, $id );
 		if ( isset( $settings->enable_hcaptcha ) && 'yes' === $settings->enable_hcaptcha ) {
 			$module->render_hcaptcha_field( $id );
 		}
+
+		/**
+		 * Fires inside the lostpassword form tags, before the hidden fields.
+		 *
+		 * @since 2.21.0
+		 */
+		do_action( 'lostpassword_form' );
 		?>
 		<div class="pp-field-group pp-field-type-submit">
 			<button type="submit" name="pp-login-form-lost-pw" class="pp-login-form--button">

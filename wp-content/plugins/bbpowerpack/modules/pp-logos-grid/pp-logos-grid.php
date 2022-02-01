@@ -24,12 +24,16 @@ class PPLogosGridModule extends FLBuilderModule {
             'enabled'           => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
         ));
-
-		$this->add_css( BB_POWERPACK()->fa_css );
-        $this->add_css('jquery-bxslider');
-		$this->add_js('jquery-bxslider');
-		$this->add_js('imagesloaded');
     }
+
+	public function enqueue_scripts() {
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->logos_layout ) && 'carousel' === $this->settings->logos_layout ) ) {
+			$this->add_css('jquery-bxslider');
+			$this->add_js('jquery-bxslider');
+		}
+
+		$this->add_js('imagesloaded');
+	}
 
 	public function filter_settings( $settings, $helper )
 	{
@@ -575,11 +579,6 @@ BB_PowerPack::register_module('PPLogosGridModule', array(
 						'show_reset'    => true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-logos-content .fa',
-							'property'      => 'background-color'
-						)
 					),
                     'logo_slider_arrow_color'       => array(
 						'type'          => 'color',
@@ -587,36 +586,21 @@ BB_PowerPack::register_module('PPLogosGridModule', array(
 						'default'       => 'ffffff',
 						'show_reset'    => true,
 						'connections'	=> array('color'),
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-logos-content .fa',
-							'property'      => 'color'
-						)
 					),
                     'logo_slider_arrow_color_hover'       => array(
 						'type'          => 'color',
-						'label'         => __('Arrow Color Hover', 'bb-powerpack'),
+						'label'         => __('Arrow Hover Color', 'bb-powerpack'),
 						'default'       => '999999',
 						'show_reset'    => true,
 						'connections'	=> array('color'),
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-logos-content .fa:hover',
-							'property'      => 'color'
-						)
 					),
                     'logo_slider_arrow_bg_hover'  => array(
 						'type'          => 'color',
-						'label'         => __('Background Color Hover', 'bb-powerpack'),
+						'label'         => __('Background Hover Color', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-logos-content .fa:hover',
-							'property'      => 'background-color'
-						)
 					),
                     'logo_grid_arrow_font_size'   => array(
                         'type'          => 'unit',
@@ -625,22 +609,11 @@ BB_PowerPack::register_module('PPLogosGridModule', array(
 						'units'			=> array( 'px' ),
 						'slider'		=> true,
 						'responsive'	=> true,
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'font-size',
-                            'unit'            => 'px'
-                        )
                     ),
 					'logo_grid_arrow'	=> array(
 						'type'          => 'border',
 						'label'         => __( 'Border', 'bb-powerpack' ),
 						'responsive'	=> true,
-						'preview'   	=> array(
-                            'type'  		=> 'css',
-                            'selector'  	=> '.pp-logos-content .fa',
-                            'property'  	=> 'border',
-                        ),
 					),
                     'logo_grid_arrow_border_hover'    => array(
                         'type'          => 'color',
@@ -648,26 +621,15 @@ BB_PowerPack::register_module('PPLogosGridModule', array(
                         'default'       => '',
 						'show_reset'    => true,
 						'connections'	=> array('color'),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa:hover',
-                            'property'        => 'border-color',
-                        )
                     ),
-                   'logo_grid_arrow_padding'	=> array(
-						'type'				=> 'dimension',
-						'label'				=> __('Padding', 'bb-powerpack'),
-						'default'			=> '0',
-						'units'				=> array('px'),
-						'slider'			=> true,
-						'responsive'		=> true,
-						'preview'			=> array(
-							'type'				=> 'css',
-							'selector'			=> '.pp-logos-content .fa, .pp-logos-content .fa:hover',
-							'property'			=> 'padding',
-							'unit'				=> 'px'
-						)
-					),
+                //    'logo_grid_arrow_padding'	=> array(
+				// 		'type'				=> 'dimension',
+				// 		'label'				=> __('Padding', 'bb-powerpack'),
+				// 		'default'			=> '0',
+				// 		'units'				=> array('px'),
+				// 		'slider'			=> true,
+				// 		'responsive'		=> true,
+				// 	),
                 )
             ),
             'logo_carousel_dot_style'   => array( // Section

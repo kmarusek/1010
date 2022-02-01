@@ -549,7 +549,7 @@ if( Tablesaw.mustard ) {
 			supportsNthChild = !isIE8();
 
 		if( !$headerCells.length ) {
-			throw new Error( "tablesaw swipe: no header cells found. Are you using <th> inside of <thead>?" );
+			//throw new Error( "tablesaw swipe: no header cells found. Are you using <th> inside of <thead>?" );
 		}
 
 		// Calculate initial widths

@@ -54,7 +54,7 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-3d-slider .pp-slider-nav .fa {
+.fl-node-<?php echo $id; ?> .pp-3d-slider .pp-slider-nav .pp-slider-nav-button {
     <?php if ( $settings->arrow_color ) { ?>
         color: <?php echo pp_get_color_value($settings->arrow_color); ?>;
     <?php } ?>
@@ -63,12 +63,22 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
     <?php } ?>
     border-radius: <?php echo $settings->arrow_radius; ?>%;
 }
-.fl-node-<?php echo $id; ?> .pp-3d-slider .pp-slider-nav .fa:hover {
+.fl-node-<?php echo $id; ?> .pp-3d-slider .pp-slider-nav .pp-slider-nav-button:hover {
     <?php if ( $settings->arrow_hover_color ) { ?>
         color: <?php echo pp_get_color_value($settings->arrow_hover_color); ?>;
     <?php } ?>
     <?php if ( $settings->arrow_bg_hover_color ) { ?>
         background-color: <?php echo pp_get_color_value($settings->arrow_bg_hover_color); ?>;
+    <?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-3d-slider .pp-slider-nav .pp-slider-nav-button svg path {
+	<?php if ( $settings->arrow_color ) { ?>
+        fill: <?php echo pp_get_color_value($settings->arrow_color); ?>;
+    <?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-3d-slider .pp-slider-nav .pp-slider-nav-button:hover svg path {
+	<?php if ( $settings->arrow_hover_color ) { ?>
+        fill: <?php echo pp_get_color_value($settings->arrow_hover_color); ?>;
     <?php } ?>
 }
 

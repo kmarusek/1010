@@ -117,6 +117,10 @@ final class BB_PowerPack_Templates_Lib {
 	 * @return void
 	 */
 	static public function init_templates_data() {
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
 		if ( is_admin() && isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] ) {
 			self::download_templates_data();
 			self::refresh_templates_data();

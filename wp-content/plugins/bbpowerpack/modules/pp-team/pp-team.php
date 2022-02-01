@@ -34,9 +34,41 @@ class PPTeamModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true,
         ));
-
-        $this->add_css(BB_POWERPACK()->fa_css);
     }
+
+	public function enqueue_scripts() {
+		$icon_sources = array(
+			'email',
+			'facebook_url',
+			'twiiter_url',
+			'googleplus_url',
+			'pinterest_url',
+			'linkedin_url',
+			'youtube_url',
+			'instagram_url',
+			'vimeo_url',
+			'github_url',
+			'dribbble_url',
+			'tumblr_url',
+			'flickr_url',
+			'wordpress_url'
+		);
+
+		$fa_enqueue = false;
+
+		foreach ( $icon_sources as $icon_source ) {
+			if ( $fa_enqueue ) {
+				break;
+			}
+			if ( isset( $this->settings->{$icon_source} ) ) {
+				$fa_enqueue = true;
+			}
+		}
+
+		if ( $fa_enqueue ) {
+			$this->add_css( BB_POWERPACK()->fa_css );
+		}
+	}
 
 	public function filter_settings( $settings, $helper )
 	{

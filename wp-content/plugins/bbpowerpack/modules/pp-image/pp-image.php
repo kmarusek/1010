@@ -116,7 +116,7 @@ class PPImageModule extends FLBuilderModule {
 	 * @method enqueue_scripts
 	 */
 	public function enqueue_scripts() {
-		if ( isset( $this->settings->link_type ) && $this->settings->link_type == 'lightbox' ) {
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->link_type ) && $this->settings->link_type == 'lightbox' ) ) {
 			$this->add_js('jquery-magnificpopup');
 			$this->add_css('jquery-magnificpopup');
 		}

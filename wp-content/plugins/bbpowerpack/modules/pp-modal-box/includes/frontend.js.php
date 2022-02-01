@@ -29,6 +29,7 @@ var pp_modal_<?php echo $id; ?> = false;
     var modal_<?php echo $id; ?> = {
         id: '<?php echo $id; ?>',
         type: '<?php echo $settings->modal_type; ?>',
+        content: '<?php echo base64_encode( $settings->modal_type_html ); ?>',
 		trigger_type: '<?php echo $settings->modal_load; ?>',
         <?php echo ( 'auto' == $settings->modal_load ) ? 'auto_load: true' : 'auto_load: false'; ?>,
         <?php echo ( 'exit_intent' == $settings->modal_load ) ? 'exit_intent: true' : 'exit_intent: false'; ?>,
@@ -55,6 +56,7 @@ var pp_modal_<?php echo $id; ?> = false;
         <?php if ( $responsive_display != '' && $breakpoint != '' ) { ?>
         visible: $(window).width() <?php echo $breakpoint; ?>,
         <?php } ?>
+		loaderImg: '<?php echo BB_POWERPACK_URL . 'assets/images/ajax-loader.gif'; ?>',
         <?php echo ( class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) ? 'previewing: true' : 'previewing: false'; ?>
     };
 
@@ -135,8 +137,10 @@ var pp_modal_<?php echo $id; ?> = false;
     $(document).on('click', '.modal-<?php echo $id; ?><?php echo $custom_class_id; ?>', function(e) {
         e.preventDefault();
 		if ( pp_modal_<?php echo $id; ?> instanceof PPModalBox ) {
+			pp_modal_<?php echo $id; ?>.settings.clickedElement = $( e.target );
 			pp_modal_<?php echo $id; ?>.show();
         } else {
+			modal_<?php echo $id; ?>.clickedElement = $( e.target );
         	pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
         }
     });

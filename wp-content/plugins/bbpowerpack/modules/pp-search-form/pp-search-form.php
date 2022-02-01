@@ -22,6 +22,25 @@ class PPSearchFormModule extends FLBuilderModule {
         ));
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'classic' === $settings->style && 'icon' === $settings->button_type && ! empty( $settings->icon ) ) {
+			$enqueue = true;
+		}
+		if ( 'minimal' === $settings->style && isset( $settings->input_icon ) && ! empty( $settings->input_icon ) ) {
+			$enqueue = true;
+		}
+		if ( 'full_screen' === $settings->style && isset( $settings->toggle_icon ) && ! empty( $settings->toggle_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	public function render_input_attrs() {
 		$attrs = apply_filters( 'pp_search_form_input_attrs', array(
 			'placeholder'	=> $this->settings->placeholder,
@@ -67,10 +86,11 @@ BB_PowerPack::register_module('PPSearchFormModule', array(
 								'sections'		=> array('size', 'button', 'button_style', 'button_typography'),
 							),
 							'minimal'		=> array(
-								'fields'		=> array('size', 'input_icon_size')
+								'sections'		=> array( 'minimal' ),
+								'fields'		=> array('size', 'input_icon_size'),
 							),
 							'full_screen'	=> array(
-								'sections'		=> array('toggle_size', 'toggle', 'toggle_style', 'overlay')
+								'sections'		=> array('toggle_size', 'toggle', 'toggle_style', 'overlay'),
 							)
 						)
 					),
@@ -153,7 +173,18 @@ BB_PowerPack::register_module('PPSearchFormModule', array(
 						)
 					),
 				)
-			)
+			),
+			'minimal'	=> array(
+				'title'		=> __( 'Minimal', 'bb-powerpack' ),
+				'fields'	=> array(
+					'input_icon'	=> array(
+						'type'			=> 'icon',
+						'label'			=> __('Input Icon', 'bb-powerpack'),
+						'default'		=> 'fa fa-search',
+						'show_remove'	=> true
+					),
+				),
+			),
 		)
 	),
 	'style'		=> array(

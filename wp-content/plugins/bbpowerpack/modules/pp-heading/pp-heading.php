@@ -27,6 +27,18 @@ class PPHeadingModule extends FLBuilderModule {
 		);
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+
+		if ( isset( $this->settings ) && 'font_icon_select' === $this->settings->heading_icon_select && ! empty( $this->settings->heading_font_icon_select ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
 		// Handle old link field.
 		$settings = PP_Module_Fields::handle_link_field(

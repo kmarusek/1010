@@ -26,6 +26,22 @@ class PPDualButtonModule extends FLBuilderModule {
 		);
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'font_icon' === $settings->button_icon_select_1 && ! empty( $settings->button_font_icon_1 ) ) {
+			$enqueue = true;
+		}
+		if ( 'font_icon' !== $settings->button_icon_select_2 && ! empty( $settings->button_font_icon_2 ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
 		// Handle old link field - Button 1.
 		$settings = PP_Module_Fields::handle_link_field(

@@ -21,7 +21,9 @@ class PPSocialShareModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
+	}
 
+	public function enqueue_scripts() {
 		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 

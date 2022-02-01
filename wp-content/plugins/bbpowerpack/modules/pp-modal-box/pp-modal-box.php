@@ -28,8 +28,24 @@ class PPModalBoxModule extends FLBuilderModule {
             $this->add_css( 'modal-settings-style', $this->url . 'css/settings.css' );
             $this->add_js( 'modal-settings-script', $this->url . 'js/settings.js', array(), '', true );
         }
-        $this->add_js( 'jquery-cookie' );
     }
+
+	public function enqueue_scripts() {
+		$this->add_js( 'jquery-cookie' );
+	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( 'icon' === $settings->button_type && ! empty( $settings->icon_source ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
 
 	public function filter_settings( $settings, $helper )
 	{
@@ -170,39 +186,46 @@ class PPModalBoxModule extends FLBuilderModule {
     public function get_modal_content( $settings )
     {
         $modal_type = $settings->modal_type;
+		$content = '';
 
         switch($modal_type) {
             case 'photo':
                 if ( isset( $settings->modal_type_photo_src ) ) {
-                    return '<img src="' . $settings->modal_type_photo_src . '" style="max-width: 100%;"/>';
+                    $content = '<img src="' . $settings->modal_type_photo_src . '" style="max-width: 100%;"/>';
                 }
-            break;
+            	break;
             case 'video':
                 global $wp_embed;
-                return $wp_embed->autoembed($settings->modal_type_video);
-            break;
+                $content = $wp_embed->autoembed($settings->modal_type_video);
+            	break;
             case 'url':
-                return '<iframe data-url="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
-            break;
+                $content = '<iframe data-url="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
+            	break;
             case 'content':
-                return wpautop( $settings->modal_type_content );
-            break;
+                $content = wpautop( $settings->modal_type_content );
+            	break;
             case 'html':
-                return $settings->modal_type_html;
-            break;
+                $content = $settings->modal_type_html;
+				if ( preg_match( '/<!--([\s\S]*?)pp-modal-post-template([\s\S]*?)\/?-->/', $content ) ) {
+					$content = '<div style="text-align: center;">';
+					$content .= '<img src="' . BB_POWERPACK_URL . 'assets/images/ajax-loader.gif' . '" alt="loader" />';
+					$content .= '</div>';
+				}
+            	break;
 			case 'templates':
 				global $post;
 				if ( is_object( $post ) && isset( $post->ID ) ) {
 					if ( $post->ID == $settings->modal_type_templates ) {
-						return __( 'You cannot use the current page as template.', 'bb-powerpack' );
+						$content = __( 'You cannot use the current page as template.', 'bb-powerpack' );
 					}
 				}
-                return '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
-            break;
+                $content = '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
+         		break;
             default:
-                return;
-            break;
+            	break;
         }
+
+		return apply_filters( 'pp_modal_box_content', $content, $settings );
     }
 }
 

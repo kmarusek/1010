@@ -1,5 +1,5 @@
 /* advanced menu overlap fix */
-.pp-offcanvas-content-wrap {
+.pp-off-canvas-menu-open .pp-offcanvas-content-wrap {
 	position: relative;
 	z-index: 999;
 }

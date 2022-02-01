@@ -140,6 +140,19 @@ class PPRegistrationFormModule extends FLBuilderModule {
 		}
 	}
 
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+		$settings = $this->settings;
+
+		if ( isset( $settings->btn_icon ) && ! empty( $settings->btn_icon ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
+	}
+
 	/**
 	 * Add attributes to the enqueued `g-recaptcha` script.
 	 * 

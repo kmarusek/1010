@@ -30,10 +30,32 @@ class PPContentTickerModule extends FLBuilderModule {
 				'partial_refresh' => true,
 			)
 		);
+	}
 
-		$this->add_css( BB_POWERPACK()->fa_css );
+	public function enqueue_scripts() {
 		$this->add_css( 'jquery-swiper' );
 		$this->add_js( 'jquery-swiper' );
+	}
+
+	public function enqueue_icon_styles() {
+		$enqueue = false;
+
+		if ( 'yes' === $this->settings->date_toggle && ! empty( $this->settings->date_icon ) ) {
+			$enqueue = true;
+		}
+		if ( 'yes' === $this->settings->author_toggle && ! empty( $this->settings->author_icon ) ) {
+			$enqueue = true;
+		}
+		if ( 'yes' === $this->settings->header_enable && ! empty( $this->settings->heading_icon ) ) {
+			$enqueue = true;
+		}
+		if ( 'yes' === $this->settings->nav_arrow && ! empty( $this->settings->arrow_type ) ) {
+			$enqueue = true;
+		}
+
+		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
+			parent::enqueue_icon_styles();
+		}
 	}
 
 	public function get_ticker_items() {
@@ -703,9 +725,10 @@ BB_PowerPack::register_module(
 					'collapsed' => true,
 					'fields'    => array(
 						'arrow_type'          => array(
-							'type'    => 'select',
-							'label'   => __( 'Choose Arrow', 'bb-powerpack' ),
+							'type'    => 'icon',
+							'label'   => __( 'Choose Icon', 'bb-powerpack' ),
 							'default' => 'fa fa-angle-right',
+							'show_remove' => true,
 							'options' => array(
 								'fa fa-angle-right'        => __( 'Angle', 'bb-powerpack' ),
 								'fa fa-angle-double-right' => __( 'Double Angle', 'bb-powerpack' ),
@@ -723,7 +746,7 @@ BB_PowerPack::register_module(
 						),
 						'arrow_size'          => array(
 							'type'       => 'unit',
-							'label'      => __( 'Arrow size', 'bb-powerpack' ),
+							'label'      => __( 'Size', 'bb-powerpack' ),
 							'units'      => array( 'px' ),
 							'slider'     => true,
 							'responsive' => true,
@@ -797,7 +820,7 @@ BB_PowerPack::register_module(
 						),
 						'arrow_spacing'       => array(
 							'type'       => 'unit',
-							'label'      => __( 'Arrow Spacing', 'bb-powerpack' ),
+							'label'      => __( 'Spacing', 'bb-powerpack' ),
 							'units'      => array( 'px' ),
 							'slider'     => true,
 							'responsive' => true,

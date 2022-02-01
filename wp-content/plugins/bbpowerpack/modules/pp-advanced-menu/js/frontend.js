@@ -484,10 +484,10 @@
 					$menu.find('ul.menu').show();
 				} else {
 					$wrapper = $(this.wrapperClass);
-					$menu = $wrapper.children('.menu');
+					$menu = $wrapper.find('.menu');
 				}
 
-				if( !$wrapper.find( '.pp-advanced-menu-mobile-toggle' ).hasClass( 'pp-active' ) ) {
+				if( !$wrapper.find( '.pp-advanced-menu-mobile-toggle' ).hasClass( 'pp-active' ) && this.mobileMenuType === 'default' ) {
 					$menu.css({ display: 'none' });
 				}
 
@@ -575,14 +575,13 @@
 				this._toggleMenu();
 				return;
 			}
-			if ( 'always' === this.mediaBreakpoint || this.mediaBreakpoint >= this.currentBrowserWidth ) {
-				if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.off-canvas').length > 0 ) {
-					this.offCanvasMenu = $(this.nodeClass).find('.pp-advanced-menu.off-canvas');
-				}
-				if ($('#pp-advanced-menu-off-canvas-'+this.settingsId).length === 0 && null !== this.offCanvasMenu) {
-					this.offCanvasMenu.appendTo('body').wrap('<div id="pp-advanced-menu-off-canvas-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
-				}
+			if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.off-canvas').length > 0 ) {
+				this.offCanvasMenu = $(this.nodeClass).find('.pp-advanced-menu.off-canvas');
 			}
+			if ($('#pp-advanced-menu-off-canvas-'+this.settingsId).length === 0 && null !== this.offCanvasMenu) {
+				this.offCanvasMenu.appendTo('body').wrap('<div id="pp-advanced-menu-off-canvas-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
+			}
+
 			this._toggleMenu();
 		},
 
@@ -598,14 +597,13 @@
 				this._toggleMenu();
 				return;
 			}
-			if ( 'always' === this.mediaBreakpoint || this.mediaBreakpoint >= this.currentBrowserWidth ) {
-				if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.full-screen').length > 0 ) {
-					this.fullScreenMenu = $(this.nodeClass).find('.pp-advanced-menu.full-screen');
-					if ( $('#pp-advanced-menu-full-screen-'+this.settingsId).length === 0 ) {
-						this.fullScreenMenu.appendTo('body').wrap('<div id="pp-advanced-menu-full-screen-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
-					}
+			if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.full-screen').length > 0 ) {
+				this.fullScreenMenu = $(this.nodeClass).find('.pp-advanced-menu.full-screen');
+				if ( $('#pp-advanced-menu-full-screen-'+this.settingsId).length === 0 ) {
+					this.fullScreenMenu.appendTo('body').wrap('<div id="pp-advanced-menu-full-screen-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
 				}
 			}
+
 			this._toggleMenu();
 		},
 

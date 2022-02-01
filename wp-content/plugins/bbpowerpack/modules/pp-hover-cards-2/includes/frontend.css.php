@@ -2,9 +2,10 @@
 $cards_desktop			= $settings->hover_card_column_width['desktop'] == '' ? 3 : $settings->hover_card_column_width['desktop'];
 $cards_tablet			= $settings->hover_card_column_width['tablet'] === '' ? $cards_desktop : $settings->hover_card_column_width['tablet'];
 $cards_mobile			= $settings->hover_card_column_width['mobile'] === '' ? $cards_desktop : $settings->hover_card_column_width['mobile'];
-$space_desktop 			= ( $settings->hover_card_column_width['desktop'] - 1 ) * $settings->hover_card_spacing;
-$space_tablet 			= ( $settings->hover_card_column_width['tablet'] - 1 ) * $settings->hover_card_spacing;
-$space_mobile 			= ( $settings->hover_card_column_width['mobile'] - 1 ) * $settings->hover_card_spacing;
+$spacing 				= '' == $settings->hover_card_spacing ? 0 : $settings->hover_card_spacing;
+$space_desktop 			= ( $settings->hover_card_column_width['desktop'] - 1 ) * $spacing;
+$space_tablet 			= ( $settings->hover_card_column_width['tablet'] - 1 ) * $spacing;
+$space_mobile 			= ( $settings->hover_card_column_width['mobile'] - 1 ) * $spacing;
 $desktop 				= ( 100 - $space_desktop ) / $cards_desktop;
 $tablet 				= ( 100 - $space_tablet ) / $cards_tablet;
 $mobile 				= ( 100 - $space_mobile ) / $cards_mobile;
@@ -37,8 +38,8 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php if ( isset( $settings->hover_card_max_width ) && $settings->hover_card_max_width['desktop'] > 0 ) { ?>
 	max-width: <?php echo $settings->hover_card_max_width['desktop']; ?>px;
 	<?php } ?>
-    margin-right: <?php echo $settings->hover_card_spacing; ?>%;
-	margin-bottom: <?php echo $settings->hover_card_spacing; ?>%;
+    margin-right: <?php echo $spacing; ?>%;
+	margin-bottom: <?php echo $spacing; ?>%;
 	float: left;
 }
 .fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {
@@ -252,7 +253,7 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
         clear: left;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['desktop']; ?>n) {
-        margin-right: <?php echo $settings->hover_card_spacing; ?>%;
+        margin-right: <?php echo $spacing; ?>%;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['tablet']; ?>n) {
         margin-right: 0;
@@ -284,7 +285,7 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
             clear: left;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['tablet']; ?>n) {
-            margin-right: <?php echo $settings->hover_card_spacing; ?>%;
+            margin-right: <?php echo $spacing; ?>%;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['mobile']; ?>n) {
             margin-right: 0;

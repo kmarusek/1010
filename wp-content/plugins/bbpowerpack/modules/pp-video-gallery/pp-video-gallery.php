@@ -24,10 +24,13 @@ class PPVideoGalleryModule extends FLBuilderModule {
 	 * Enqueue scripts.
 	 */
 	public function enqueue_scripts() {
-		$this->add_js( 'jquery-isotope' );
 		$this->add_js( 'imagesloaded' );
 
-		if ( isset( $this->settings ) && 'yes' === $this->settings->lightbox ) {
+		if ( $this->filters_enabled() ) {
+			$this->add_js( 'jquery-isotope' );
+		}
+
+		if ( isset( $this->settings->lightbox ) && 'yes' === $this->settings->lightbox ) {
 			$this->add_css( 'pp-jquery-fancybox' );
 			$this->add_js( 'pp-jquery-fancybox' );
 		}
@@ -36,8 +39,6 @@ class PPVideoGalleryModule extends FLBuilderModule {
 			$this->add_css( 'jquery-swiper' );
 			$this->add_js( 'jquery-swiper' );
 		}
-
-		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 
 	/**
