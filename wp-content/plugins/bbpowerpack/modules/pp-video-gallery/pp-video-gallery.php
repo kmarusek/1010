@@ -158,6 +158,16 @@ class PPVideoGalleryModule extends FLBuilderModule {
 		return $filters;
 	}
 
+	public function get_videos() {
+		$videos = array();
+
+		if ( isset( $this->settings->videos ) ) {
+			$videos = $this->settings->videos;
+		}
+
+		return apply_filters( 'pp_video_gallery_items', $videos, $this->settings );
+	}
+
 	/**
 	 * Renders the filters.
 	 *

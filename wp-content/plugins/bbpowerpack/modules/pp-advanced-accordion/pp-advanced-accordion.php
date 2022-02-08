@@ -75,6 +75,71 @@ class PPAccordionModule extends FLBuilderModule {
 				'label'       => __( 'ACF Repeater Sub Field Name (Content)', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
+			if ( class_exists( 'FLThemeBuilderLoader' ) ) {
+				$fields['accordion_source']['options']['acf_relationship'] = __( 'ACF Relationship Field', 'bb-powerpack' );
+				$fields['accordion_source']['toggle']['acf_relationship']['fields'] = array( 'acf_relational_type', 'acf_relational_key', 'acf_order', 'acf_order_by' );
+
+				$fields['acf_relational_type'] = array(
+					'type'		=> 'select',
+					'label'		=> __( 'Type', 'bb-powerpack' ),
+					'default'       => 'relationship',
+					'options'       => array(
+						'relationship'  => __( 'Relationship', 'bb-powerpack' ),
+						'user'          => __( 'User', 'bb-powerpack' ),
+					),
+				);
+
+				$fields['acf_relational_key'] = array(
+					'type'          => 'text',
+					'label'         => __( 'Key', 'bb-powerpack' ),
+				);
+
+				// Order
+				$fields['acf_order'] = array(
+					'type'    => 'select',
+					'label'   => __( 'Order', 'bb-powerpack' ),
+					'options' => array(
+						'DESC' => __( 'Descending', 'bb-powerpack' ),
+						'ASC'  => __( 'Ascending', 'bb-powerpack' ),
+					),
+				);
+
+				// Order by
+				$fields['acf_order_by'] = array(
+					'type'    => 'select',
+					'label'   => __( 'Order By', 'bb-powerpack' ),
+					'default' => 'post__in',
+					'options' => array(
+						'author'         => __( 'Author', 'bb-powerpack' ),
+						'comment_count'  => __( 'Comment Count', 'bb-powerpack' ),
+						'date'           => __( 'Date', 'bb-powerpack' ),
+						'modified'       => __( 'Date Last Modified', 'bb-powerpack' ),
+						'ID'             => __( 'ID', 'bb-powerpack' ),
+						'menu_order'     => __( 'Menu Order', 'bb-powerpack' ),
+						'meta_value'     => __( 'Meta Value (Alphabetical)', 'bb-powerpack' ),
+						'meta_value_num' => __( 'Meta Value (Numeric)', 'bb-powerpack' ),
+						'rand'           => __( 'Random', 'bb-powerpack' ),
+						'title'          => __( 'Title', 'bb-powerpack' ),
+						'name'          => __( 'Slug', 'bb-powerpack' ),
+						'post__in'       => __( 'Selection Order', 'bb-powerpack' ),
+					),
+					'toggle'  => array(
+						'meta_value'     => array(
+							'fields' => array( 'acf_order_by_meta_key' ),
+						),
+						'meta_value_num' => array(
+							'fields' => array( 'acf_order_by_meta_key' ),
+						),
+					),
+				);
+
+				// Meta Key
+				$fields['acf_order_by_meta_key'] = array(
+					'type'  => 'text',
+					'label' => __( 'Meta Key', 'bb-powerpack' ),
+				);
+			}
 		}
 
 		if ( function_exists( 'acf_add_options_page' ) ) {
@@ -233,6 +298,40 @@ class PPAccordionModule extends FLBuilderModule {
 		return $data;
 	}
 
+	public function get_acf_relationship_data() {
+		if ( ! isset( $this->settings->acf_relational_key ) || empty( $this->settings->acf_relational_key ) ) {
+			return;
+		}
+
+		$data = array();
+		$settings = new stdClass;
+
+		$settings->data_source = 'acf_relationship';
+		$settings->data_source_acf_relational_key = $this->settings->acf_relational_key;
+		$settings->data_source_acf_relational_type = $this->settings->acf_relational_type;
+		$settings->data_source_acf_order_by = $this->settings->acf_order_by;
+		$settings->data_source_acf_order = $this->settings->acf_order;
+		$settings->data_source_acf_order_by_meta_key = $this->settings->acf_order_by_meta_key;
+		$settings->posts_per_page = '-1';
+
+		$settings = apply_filters( 'pp_accordion_acf_relationship_data_settings', $settings, $this->settings );
+
+		$query = FLBuilderLoop::query( $settings );
+
+		if ( $query->have_posts() ) {
+			$posts = $query->get_posts();
+			foreach ( $posts as $post ) {
+				$item          = new stdClass;
+				$item->label   = isset( $post->post_title ) ? $post->post_title : '';
+				$item->content = isset( $post->post_content ) ? $post->post_content : '';
+	
+				$data[] = $item;
+			}
+		}
+
+		return $data;
+	}
+
 	public function get_acf_options_page_data( $post_id = false ) {
 		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
 			return;
@@ -267,6 +366,8 @@ class PPAccordionModule extends FLBuilderModule {
 			$items = $this->get_acf_data();
 		} elseif ( 'acf_options_page' === $source ) {
 			$items = $this->get_acf_options_page_data();
+		} elseif ( 'acf_relationship' === $source ) {
+			$items = $this->get_acf_relationship_data();
 		} elseif ( 'post' === $source ) {
 			$items = $this->get_cpt_data();
 		} else {

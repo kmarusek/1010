@@ -57,6 +57,8 @@ if ( 'grid' === $settings->layout && isset( $settings->filter_position ) && 'top
 	$wrapper_class .= ' pp-post-filters-sidebar pp-post-filters-sidebar-' . $settings->filter_position;
 }
 
+$link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_target_new ? ' target="_blank" rel="noopener bookmark"' : '';
+
 // Set custom parameteres in module settings to verify
 // our module when using filter hooks.
 if ( ! isset( $settings->pp_content_grid ) ) {
@@ -88,16 +90,22 @@ add_filter( 'fl_builder_loop_query_args', function( $args ) {
 	if ( ! isset( $_GET['filter_term'] ) ) {
 		return $args;
 	}
-	if ( ! isset( $_GET['node_id'] ) ) {
-		return $args;
+
+	if ( ! isset( $_GET['grid'] ) ) {
+		if ( ! isset( $_GET['node_id'] ) ) {
+			return $args;
+		}
 	}
 
 	if ( ! empty( $_GET['filter_term'] ) && isset( $args['settings']->pp_content_grid_id ) ) {
-		if ( ! empty( $_GET['node_id'] ) && $_GET['node_id'] == $args['settings']->pp_content_grid_id ) {
+		$node_id = $args['settings']->pp_content_grid_id;
+		$grid_id = $args['settings']->id;
+
+		if ( ( isset( $_GET['grid'] ) && $_GET['grid'] == $grid_id ) || ( isset( $_GET['node_id'] ) && $_GET['node_id'] == $node_id ) ) {
 			$args['tax_query'][] = array(
 				'taxonomy' => $args['settings']->post_grid_filters,
 				'field'    => 'slug',
-				'terms'    => $_GET['filter_term']
+				'terms'    => esc_attr( wp_unslash( $_GET['filter_term'] ) ),
 			);
 		}
 	}

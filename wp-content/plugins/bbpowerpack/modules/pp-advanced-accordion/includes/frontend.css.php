@@ -144,8 +144,10 @@ FLBuilderCSS::dimension_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-accordion-item .pp-accordion-icon {
+	<?php if ( '' !== $settings->accordion_icon_size ) { ?>
 	font-size: <?php echo $settings->accordion_icon_size; ?>px;
-	width: <?php echo ($settings->accordion_icon_size * 1.25); ?>px;
+	width: <?php echo ( $settings->accordion_icon_size * 1.25 ); ?>px;
+	<?php } ?>
 	<?php if ( isset( $settings->label_text_color_default ) ) { ?>
 	color: <?php echo pp_get_color_value( $settings->label_text_color_default ); ?>;
 	<?php } ?>

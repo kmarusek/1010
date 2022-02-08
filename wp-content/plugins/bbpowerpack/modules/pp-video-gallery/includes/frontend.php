@@ -1,6 +1,6 @@
 <?php
 $layout = $module->get_layout();
-$videos = $settings->videos;
+$videos = $module->get_videos();
 $filters_enabled = $module->filters_enabled();
 
 $wrapper_classes = array(

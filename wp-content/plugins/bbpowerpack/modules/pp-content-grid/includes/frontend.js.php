@@ -51,6 +51,7 @@ var ppcg_<?php echo $id; ?> = '';
 			tablet: <?php echo $column_tablet ?>,
 			mobile: <?php echo $column_mobile ?>,
 		},
+		breakpoints: <?php echo json_encode( $breakpoints ); ?>,
 		matchHeight: '<?php echo $settings->match_height; ?>',
 		<?php echo ( isset( $settings->post_grid_filters_display ) && 'yes' == $settings->post_grid_filters_display ) ? 'filters: true' : 'filters: false'; ?>,
 		defaultFilter: '<?php echo isset( $settings->post_grid_filters_default ) && ! empty( $settings->post_grid_filters_default ) ? $settings->post_grid_filters_default : ''; ?>',

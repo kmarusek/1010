@@ -210,6 +210,12 @@
 						$(base.nodeClass).trigger('grid.filter.change');
 					});
 
+					$( window ).on( 'resize', function() {
+						if ( ! filterToggle.is( ':visible' ) ) {
+							filterWrap.removeAttr( 'style' );
+						}
+					} );
+
 					// Default filter.
 					if ( base.settings.defaultFilter !== '' ) {
 						var defaultFilter = base.settings.defaultFilter;

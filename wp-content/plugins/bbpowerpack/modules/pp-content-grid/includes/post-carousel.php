@@ -36,14 +36,14 @@ $author_html = apply_filters( 'pp_cg_post_author_html', sprintf(
 	} else { ?>
 
 	<?php if( $settings->more_link_type == 'box' && ('product' != $settings->post_type || 'download' != $settings->post_type )) { ?>
-		<a class="pp-post-link" href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"></a>
+		<a class="pp-post-link" href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>></a>
 	<?php } ?>
 
 	<?php if( 'style-1' == $settings->post_grid_style_select ) { ?>
 
 	<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
 		<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-			<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>">
+			<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>>
 		<?php } ?>
 			<?php the_title(); ?>
 		<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
@@ -97,7 +97,7 @@ $author_html = apply_filters( 'pp_cg_post_author_html', sprintf(
 			<?php if( 'style-1' != $settings->post_grid_style_select && 'style-4' != $settings->post_grid_style_select ) { ?>
 				<<?php echo $settings->title_tag; ?> class="pp-content-carousel-title pp-post-title" itemprop="headline">
 					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-						<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>">
+						<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>>
 					<?php } ?>
 						<?php the_title(); ?>
 					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>

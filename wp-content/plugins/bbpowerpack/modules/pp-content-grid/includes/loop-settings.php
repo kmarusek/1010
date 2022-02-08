@@ -19,6 +19,7 @@ FLBuilderModel::default_settings($settings, array(
 	'content_length'	=> 300,
 	'more_link_type'	=> 'box',
 	'more_link_text'	=> __('Read More', 'bb-powerpack'),
+	'link_target_new'   => 'no',
 	'post_grid_filters_display' => 'no',
 	'post_grid_filters'	=> 'none',
 	'post_grid_filters_order_by' => 'name',
@@ -384,6 +385,16 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 					'type'	=> 'text',
 					'selector'	=> '.pp-content-grid-more'
 				)
+			), $settings);
+
+			FLBuilder::render_settings_field('link_target_new', array(
+				'type'          => 'pp-switch',
+				'label'         => __('Open link in new window', 'bb-powerpack'),
+				'default'       => 'no',
+				'options'       => array(
+					'yes'          	=> __('Yes', 'bb-powerpack'),
+					'no'         	=> __('No', 'bb-powerpack'),
+				),
 			), $settings);
 			?>
 		</table>

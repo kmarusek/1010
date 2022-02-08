@@ -1,3 +1,14 @@
+== 2.21.2 ==
+Release date: February 2, 2022
+* Enhancement: Advanced Accordion - Added ACF Relationship field as a source (requires Beaver Themer plugin)
+* Enhancement: FAQ - Added ACF Relationship field as a source (requires Beaver Themer plugin)
+* Enhancement: Content Grid - Added an option to open the link in new window
+* Fix: Content Grid - Taxonomy filters were not reappearing when resizing the window from responsive to large in some cases
+* Fix: Countdown - PHP warning in frontend.js.php due to empty "fixed date - month" field
+* Fix: Advanced Accordion - Leaving icon size field empty breaks the page on the sites running PHP 8
+* Development: FAQ - Added filter hook pp_faq_items
+* Development: Video Gallery - Added filter hook pp_video_gallery_items
+
 == 2.21.1 ==
 Release date: January 27, 2022
 * Hotfix: Photo Gallery - Images disappeared in justified layout

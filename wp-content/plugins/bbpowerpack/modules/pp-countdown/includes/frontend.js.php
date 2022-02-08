@@ -121,7 +121,7 @@ $fixed_timer_labels = array(
 		<?php if ( 'evergreen' == $settings->timer_type ) { ?>
 		timer_date: new Date(),
 		<?php } else { ?>
-		timer_date: new Date( "<?php if ( isset( $settings->fixed_date_year ) ) { echo $settings->fixed_date_year; } ?>", "<?php if ( isset( $settings->fixed_date_month ) ) { echo $settings->fixed_date_month - 1; } ?>", "<?php if ( isset( $settings->fixed_date_days ) ) { echo $settings->fixed_date_days; } ?>", "<?php if ( isset( $settings->fixed_date_hours ) ) { echo $settings->fixed_date_hours; } ?>", "<?php if ( isset( $settings->fixed_date_minutes ) ) { echo $settings->fixed_date_minutes; } ?>" ),
+		timer_date: new Date( "<?php if ( isset( $settings->fixed_date_year ) ) { echo $settings->fixed_date_year; } ?>", "<?php if ( isset( $settings->fixed_date_month ) && '' !== $settings->fixed_date_month ) { echo $settings->fixed_date_month - 1; } ?>", "<?php if ( isset( $settings->fixed_date_days ) ) { echo $settings->fixed_date_days; } ?>", "<?php if ( isset( $settings->fixed_date_hours ) ) { echo $settings->fixed_date_hours; } ?>", "<?php if ( isset( $settings->fixed_date_minutes ) ) { echo $settings->fixed_date_minutes; } ?>" ),
 		<?php } ?>
 		timer_format: '<?php if ( isset( $settings->show_year ) ) { echo $settings->show_year; } ?><?php if ( isset( $settings->show_month ) ) { echo $settings->show_month; } ?><?php if ( isset( $settings->show_day ) ) { echo $settings->show_day; } ?><?php if ( isset( $settings->show_hour ) ) { echo $settings->show_hour; } ?><?php if ( isset( $settings->show_minute ) ) { echo $settings->show_minute; } ?><?php if ( isset( $settings->show_second ) ) { echo $settings->show_second; } ?>',
 		timer_layout: default_layout,
