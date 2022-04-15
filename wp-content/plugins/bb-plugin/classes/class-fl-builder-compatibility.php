@@ -55,6 +55,7 @@ final class FLBuilderCompatibility {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'fix_3cx_live_chat' ) );
 		add_action( 'rest_api_init', array( __CLASS__, 'fix_rest_content' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_signify_theme_media' ), 11 );
+		add_action( 'pre_get_posts', array( __CLASS__, 'hide_tribe_child_recurring_events' ) );
 
 		// Filters
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'bp_pages_support' ), 11, 2 );
@@ -81,6 +82,7 @@ final class FLBuilderCompatibility {
 		add_filter( 'fl_builder_loop_rewrite_rules', array( __CLASS__, 'fix_polylang_pagination_rule' ) );
 		add_filter( 'fl_builder_loop_query_args', array( __CLASS__, 'fix_tribe_events_hide_from_listings' ) );
 		add_filter( 'tribe_events_rewrite_rules_custom', array( __CLASS__, 'fix_tribe_events_pagination_rule' ), 10, 3 );
+		add_filter( 'woocommerce_product_tabs', array( __CLASS__, 'fix_builder_on_empty_product_description' ) );
 		add_filter( 'aioseo_conflicting_shortcodes', array( __CLASS__, 'aioseo_conflicting_shortcodes' ) );
 		add_filter( 'fl_builder_responsive_ignore', array( __CLASS__, 'fix_real_media_library_lite' ) );
 		add_filter( 'duplicate_post_show_link', array( __CLASS__, 'fix_duplicate_post_show_link' ), 10, 2 );
@@ -88,6 +90,9 @@ final class FLBuilderCompatibility {
 		add_filter( 'post_row_actions', array( __CLASS__, 'fix_duplicate_post_admin_link' ), 12, 2 );
 		add_filter( 'page_row_actions', array( __CLASS__, 'fix_duplicate_post_admin_link' ), 12, 2 );
 		add_filter( 'get_the_excerpt', array( __CLASS__, 'fix_rest_excerpt_filter' ), 10, 2 );
+		add_filter( 'woocommerce_tab_manager_tab_panel_content', array( __CLASS__, 'fix_woo_tab_manager_missing_content' ), 10, 3 );
+		add_filter( 'fl_builder_loop_query_args', array( __CLASS__, 'hide_tribe_child_recurring_events_custom_query' ) );
+		add_filter( 'fl_builder_render_assets_inline', array( __CLASS__, 'fix_ultimate_dashboard_pro' ), 11 );
 	}
 
 	/**
@@ -1037,6 +1042,25 @@ final class FLBuilderCompatibility {
 	}
 
 	/**
+	 * Only show the first instance of recurring TEC Events.
+	 * This applies to the archive page ( Content Source = Main Query).
+	 *
+	 * @since 2.5.3
+	 */
+	public static function hide_tribe_child_recurring_events( $query ) {
+		if ( ! class_exists( 'Tribe__Events__Query' ) || ! class_exists( 'FLThemeBuilder' ) || is_admin() ) {
+			return;
+		}
+
+		$hide_child_events = (bool) tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
+		$is_tec_archive    = $query->is_main_query() && is_post_type_archive( 'tribe_events' );
+
+		if ( $hide_child_events && ( $is_tec_archive || 'fl-theme-layout' === get_post_type() ) ) {
+			$query->set( 'post_parent', 0 );
+		}
+	}
+
+	/**
 	 * Fix nodes below Posts module not editable when it's set to the Products post type.
 	 * @since 2.4.1
 	 */
@@ -1044,6 +1068,21 @@ final class FLBuilderCompatibility {
 		if ( class_exists( 'WOOF' ) && isset( $_GET['fl_builder'] ) ) {
 			remove_action( 'init', array( $GLOBALS['WOOF'], 'init' ), 1 );
 		}
+	}
+
+	/**
+	 * Fix Page Builder not working on empty WooCommerce Product Description.
+	 * @since 2.4.3
+	 */
+	public static function fix_builder_on_empty_product_description( $tabs ) {
+		if ( empty( $tabs['description'] ) && FLBuilderModel::is_builder_active() ) {
+			$tabs['description'] = array(
+				'title'    => __( 'Description', 'fl-builder' ),
+				'priority' => 10,
+				'callback' => 'woocommerce_product_description_tab',
+			);
+		}
+		return $tabs;
 	}
 
 	/**
@@ -1114,6 +1153,9 @@ final class FLBuilderCompatibility {
 			if ( isset( $actions['duplicate_post'] ) ) {
 				unset( $actions['duplicate_post'] );
 			}
+			if ( isset( $actions['clone'] ) ) {
+				unset( $actions['clone'] );
+			}
 		}
 		return $actions;
 	}
@@ -1166,6 +1208,61 @@ final class FLBuilderCompatibility {
 		&& ( FLBuilderModel::is_builder_active() ) ) {
 			wp_enqueue_style( 'wp-mediaelement', includes_url( '/js/mediaelement/wp-mediaelement.min.css' ) );
 		}
+	}
+
+	/**
+	 * Fix WooCommerce Tab Manager using the page builder content on products with BB enabled.
+	 * @since TBD
+	 */
+	public static function fix_woo_tab_manager_missing_content( $content, $tab, $product ) {
+		if ( empty( $product ) || empty( $tab ) || empty( $tab['id'] ) ) {
+			return $content;
+		}
+
+		if ( FLBuilderModel::is_builder_enabled( $product->get_id() ) ) {
+			$wtm_tab_post = get_post( $tab['id'] );
+			return $wtm_tab_post ? $wtm_tab_post->post_content : $content;
+		}
+		return $content;
+	}
+
+	/**
+	 * Only display first instance of a recurring event.
+	 * This applies when Content > Source = Custom Query.
+	 *
+	 * @since 2.5.3
+	 */
+	public static function hide_tribe_child_recurring_events_custom_query( $args ) {
+		if ( ! class_exists( 'Tribe__Events__Query' ) || is_admin() ) {
+			return $args;
+		}
+
+		if ( empty( $args['settings']->post_type ) || empty( $args['settings']->data_source ) ) {
+			return $args;
+		}
+
+		if ( 'tribe_events' !== $args['settings']->post_type || 'custom_query' !== $args['settings']->data_source ) {
+			return $args;
+		}
+
+		$hide_child_events = (bool) tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
+		if ( $hide_child_events ) {
+			$args['post_parent'] = 0;
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Fixes Ultimate Dashboard plugin, possibly others.
+	 * Do not render inline when is_admin is true.
+	 * @since 2.5.3.1
+	 */
+	public static function fix_ultimate_dashboard_pro( $enabled ) {
+		if ( is_admin() ) {
+			return false;
+		}
+		return $enabled;
 	}
 }
 FLBuilderCompatibility::init();

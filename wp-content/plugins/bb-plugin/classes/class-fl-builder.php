@@ -89,6 +89,9 @@ final class FLBuilder {
 		add_action( 'admin_bar_menu', __CLASS__ . '::admin_bar_menu', 999 );
 		add_action( 'wp_footer', __CLASS__ . '::render_ui' );
 
+		// TODO this needs fixing.
+		//add_action( 'wp_footer', __CLASS__ . '::check_content_filters', 1000 );
+
 		/* Filters */
 		add_filter( 'fl_builder_render_css', __CLASS__ . '::rewrite_css_cache_urls', 9999 );
 		add_filter( 'body_class', __CLASS__ . '::body_class' );
@@ -507,8 +510,8 @@ final class FLBuilder {
 	 */
 	static public function register_layout_styles_scripts() {
 		$ver     = FL_BUILDER_VERSION;
-		$css_url = plugins_url( '/css/', FL_BUILDER_FILE );
-		$js_url  = plugins_url( '/js/', FL_BUILDER_FILE );
+		$css_url = FL_BUILDER_URL . 'css/';
+		$js_url  = FL_BUILDER_URL . 'js/';
 		$min     = ( self::is_debug() ) ? '' : '.min';
 
 		// Register additional CSS
@@ -519,7 +522,7 @@ final class FLBuilder {
 
 		// Register icon CDN CSS
 		wp_register_style( 'font-awesome-5', self::get_fa5_url(), array(), $ver );
-		wp_register_style( 'font-awesome', plugins_url( '/fonts/fontawesome/' . self::get_fa5_version() . '/css/v4-shims.min.css', FL_BUILDER_FILE ), array( 'font-awesome-5' ), $ver );
+		wp_register_style( 'font-awesome', FL_BUILDER_URL . 'fonts/fontawesome/' . self::get_fa5_version() . '/css/v4-shims.min.css', array( 'font-awesome-5' ), $ver );
 
 		wp_register_style( 'foundation-icons', 'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css', array(), $ver );
 
@@ -785,9 +788,9 @@ final class FLBuilder {
 		global $wp_version;
 
 		$ver        = FL_BUILDER_VERSION;
-		$css_build  = plugins_url( '/css/build/', FL_BUILDER_FILE );
-		$js_vendors = plugins_url( '/js/vendors/', FL_BUILDER_FILE );
-		$js_build   = plugins_url( '/js/build/', FL_BUILDER_FILE );
+		$css_build  = FL_BUILDER_URL . 'css/build/';
+		$js_vendors = FL_BUILDER_URL . 'js/vendors/';
+		$js_build   = FL_BUILDER_URL . 'js/build/';
 		$tag        = '.bundle.min';
 		$vendor_tag = '.min';
 		// @beaverbuilder/app-core
@@ -878,8 +881,8 @@ final class FLBuilder {
 			remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
 			$ver     = FL_BUILDER_VERSION;
-			$css_url = plugins_url( '/css/', FL_BUILDER_FILE );
-			$js_url  = plugins_url( '/js/', FL_BUILDER_FILE );
+			$css_url = FL_BUILDER_URL . 'css/';
+			$js_url  = FL_BUILDER_URL . 'js/';
 
 			// Register React and other vendor bundles
 			self::register_shared_vendors();
@@ -1047,7 +1050,7 @@ final class FLBuilder {
 		global $wp_the_query;
 
 		$ver     = FL_BUILDER_VERSION;
-		$js_url  = plugins_url( '/js/build/', FL_BUILDER_FILE );
+		$js_url  = FL_BUILDER_URL . 'js/build/';
 		$post_id = is_object( $wp_the_query->post ) ? $wp_the_query->post->ID : null;
 
 		if ( self::is_debug() ) {
@@ -1941,6 +1944,8 @@ final class FLBuilder {
 
 			// Clear the post rendering ID.
 			self::$post_rendering = null;
+
+			do_action( 'fl_did_render_content_filter' );
 		}
 
 		return $content;
@@ -3909,7 +3914,7 @@ final class FLBuilder {
 		 * This will also enqueue the CSS from the CDN.
 		 * @see fl_enable_fa5_pro
 		 */
-		$url = ( self::fa5_pro_enabled() ) ? self::$fa5_pro_url : plugins_url( '/fonts/fontawesome/' . self::get_fa5_version() . '/css/all.min.css', FL_BUILDER_FILE );
+		$url = ( self::fa5_pro_enabled() ) ? self::$fa5_pro_url : FL_BUILDER_URL . 'fonts/fontawesome/' . self::get_fa5_version() . '/css/all.min.css';
 
 		/**
 		 * Filter FA5 URL for enqueue.
@@ -4015,6 +4020,21 @@ final class FLBuilder {
 			} else {
 				return $schema;
 			}
+		}
+	}
+
+	static public function check_content_filters() {
+
+		if ( ! did_action( 'fl_did_render_content_filter' ) ) {
+			// we need to do a popup
+			$content = __( 'You must call the_content in the current theme template in order for Beaver Builder to work on this layout.', 'fl-builder' );
+			?>
+			<script>
+				if ( FLBuilder ) {
+					FLBuilder.alert('<?php echo esc_attr( $content ); ?>');
+				}
+			</script>
+			<?php
 		}
 	}
 

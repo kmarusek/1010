@@ -48,10 +48,10 @@ if ( ! class_exists( 'FLBuilderLoader' ) ) {
 		 * @return void
 		 */
 		static private function define_constants() {
-			define( 'FL_BUILDER_VERSION', '2.5.1.3' );
+			define( 'FL_BUILDER_VERSION', '2.5.3.1' );
 			define( 'FL_BUILDER_FILE', trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'fl-builder.php' );
 			define( 'FL_BUILDER_DIR', plugin_dir_path( FL_BUILDER_FILE ) );
-			define( 'FL_BUILDER_URL', plugins_url( '/', FL_BUILDER_FILE ) );
+			define( 'FL_BUILDER_URL', esc_url( plugins_url( '/', FL_BUILDER_FILE ) ) );
 			define( 'FL_BUILDER_LITE', false );
 			define( 'FL_BUILDER_SUPPORT_URL', 'https://www.wpbeaverbuilder.com/support/' ); // Deprecated, do not use.
 			define( 'FL_BUILDER_UPGRADE_URL', 'https://www.wpbeaverbuilder.com/' ); // Deprecated, do not use.

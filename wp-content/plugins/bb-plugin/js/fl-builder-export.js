@@ -66,7 +66,7 @@
 				$.post( ajaxurl, {
 					action: 'fl_builder_export_templates_data',
 					type: $( 'input[name=content]:checked' ).val(),
-					_wpnonce: window.fl_builder_export_nonce
+					_wpnonce: window.fl_builder_export_nonce.nonce
 				}, FLBuilderExport._templateDataLoaded );
 			}
 		},

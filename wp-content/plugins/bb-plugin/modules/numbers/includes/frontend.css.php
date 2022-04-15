@@ -115,4 +115,20 @@ if ( isset( $settings->layout ) && 'bars' == $settings->layout ) {
 		'prop'         => 'height',
 		'unit'         => 'px',
 	) );
+
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .fl-number-bar .fl-number-string",
+		'enabled'  => ! empty( $settings->number_position ) && 'hidden' === $settings->number_position,
+		'props'    => array(
+			'display' => 'none',
+		),
+	) );
+
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .fl-number-bar",
+		'enabled'  => ! empty( $settings->number_position ) && 'hidden' === $settings->number_position,
+		'props'    => array(
+			'padding' => '0px',
+		),
+	) );
 }

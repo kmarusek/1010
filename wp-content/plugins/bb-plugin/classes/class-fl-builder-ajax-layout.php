@@ -963,4 +963,17 @@ final class FLBuilderAJAXLayout {
 			'attachments' => array(), // @TODO - where do attachments initially come from???
 		);
 	}
+
+	static public function refresh_layout_cache() {
+		if ( isset( $_POST['fl_builder_data'] ) && 'clear_cache_for_layout' === $_POST['fl_builder_data']['action'] ) {
+			add_filter( 'fl_builder_model_is_builder_active', '__return_false' );
+			FLBuilder::render_css( false );
+			FLBuilder::render_js( false );
+			FLBuilder::render_css( true );
+			FLBuilder::render_js( true );
+			wp_send_json_success();
+		} else {
+			wp_send_json_error();
+		}
+	}
 }

@@ -148,6 +148,7 @@ final class FLBuilderAJAX {
 		self::add_action( 'get_autosuggest_values', 'FLBuilderAutoSuggest::get_values', array( 'fields' ) );
 
 		self::add_action( 'save_browser_stats', 'FLBuilderUsage::browser_stats', array( 'browser_data' ) );
+		//	self::add_action( 'clear_cache_for_layout', 'FLBuilderAJAXLayout::refresh_layout_cache' );
 	}
 
 	/**

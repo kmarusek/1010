@@ -521,13 +521,14 @@
 		 */
 		onPublishCacheClear: function() {
 
-			url = FLBuilderConfig.url;
-			url += ( url.indexOf('?') >= 0 ? '&' : '?' ) + 'r=' + (Math.random() + 1).toString(36).substring(7);
-			console.log('ajax url: ', FLBuilderConfig.url + '' );
-			$.ajax({
-			  url: FLBuilderConfig.url + ''
+			FLBuilder.ajax({
+				action: 'clear_cache_for_layout',
+			}, function(response) {
+				console.log(response);
 			});
 		},
+
+
 
         /**
         * Hides the entire UI.

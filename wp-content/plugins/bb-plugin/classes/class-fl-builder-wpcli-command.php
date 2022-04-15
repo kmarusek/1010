@@ -200,6 +200,35 @@ class FLbuilder_WPCLI_Command extends WP_CLI_Command {
 			WP_CLI::success( sprintf( __( "Global option '%s' updated", 'fl-builder' ), $assoc_args['id'] ) );
 		}
 	}
+
+	/**
+	 * Duplicate a layout/page/post
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--id]
+	 * Post ID to duplicate
+	 *
+	 *
+	 * ## EXAMPLES
+	 *
+	 * 1. wp beaver duplicate --id=123
+	 *      - duplicate id 123
+	 */
+	public function duplicate( $args, $assoc_args ) {
+
+		if ( ! isset( $assoc_args['id'] ) || ! is_numeric( $assoc_args['id'] ) ) {
+			WP_CLI::error( 'Provide a valid ID --id=' );
+			exit;
+		}
+		$id = $assoc_args['id'];
+
+		$post_id = FLBuilderModel::duplicate_post( $id );
+		$url     = FLBuilderModel::get_edit_url( $post_id );
+
+		WP_CLI::line( $post_id );
+		WP_CLI::success( __( 'Layout duplicated', 'fl-builder' ) );
+	}
 }
 
 /**

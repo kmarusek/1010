@@ -15,10 +15,6 @@ if ( '' === $settings->width ) {
 	width: <?php echo $width; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .fl-button-group-layout-vertical {
-	text-align: <?php echo $settings->align; ?>
-}
-
 .fl-node-<?php echo $id; ?> .fl-button-group-layout-horizontal .fl-button-group-buttons {
 	<?php
 	$button_group_horiz_align = '';
@@ -34,6 +30,14 @@ if ( '' === $settings->width ) {
 }
 
 <?php
+
+// Alignment on vertical layout.
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'align',
+	'selector'     => ".fl-node-$id .fl-button-group-layout-vertical .fl-button-group-button .fl-button-wrap",
+	'prop'         => 'text-align',
+) );
 
 // Align Horizontal -- Desktop
 if ( 'horizontal' === $settings->layout && ! empty( $settings->align ) ) {

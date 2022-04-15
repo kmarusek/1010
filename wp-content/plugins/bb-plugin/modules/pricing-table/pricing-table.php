@@ -87,6 +87,12 @@ class FLPricingTableModule extends FLBuilderModule {
 
 			$pricing_column = $settings->pricing_columns[ $i ];
 
+			// Rename column field 'tooltip_icon_color' to 'pbox_tooltip_icon_color'
+			if ( isset( $settings->pricing_columns[ $i ]->tooltip_icon_color ) ) {
+				$settings->pricing_columns[ $i ]->pbox_tooltip_icon_color = $settings->pricing_columns[ $i ]->tooltip_icon_color;
+				unset( $settings->pricing_columns[ $i ]->tooltip_icon_color );
+			}
+
 			// Handle old link fields.
 			if ( isset( $settings->pricing_columns[ $i ]->btn_link_target ) ) {
 				$settings->pricing_columns[ $i ]->button_url_target = $settings->pricing_columns[ $i ]->btn_link_target;
@@ -670,10 +676,7 @@ FLBuilder::register_module('FLPricingTableModule', array(
 						'show_reset' => true,
 						'show_alpha' => true,
 						'preview'    => array(
-							'type'      => 'css',
-							'selector'  => '{node}.fl-module-pricing-table .fl-pricing-table-features .fl-pricing-table-feature-item .fl-feature-icon',
-							'property'  => 'color',
-							'important' => true,
+							'type' => 'refresh',
 						),
 					),
 					'feature_text_color'        => array(
@@ -683,9 +686,7 @@ FLBuilder::register_module('FLPricingTableModule', array(
 						'show_reset' => true,
 						'show_alpha' => true,
 						'preview'    => array(
-							'type'     => 'css',
-							'selector' => '{node}.fl-module-pricing-table .fl-pricing-table-features .fl-pricing-table-feature-item .fl-feature-text',
-							'property' => 'color',
+							'type' => 'refresh',
 						),
 					),
 					'feature_text_typography'   => array(
@@ -728,9 +729,7 @@ FLBuilder::register_module('FLPricingTableModule', array(
 						'show_reset' => true,
 						'show_alpha' => true,
 						'preview'    => array(
-							'type'     => 'css',
-							'selector' => '{node} .fl-pricing-table-features .fl-pricing-table-feature-item .fl-builder-tooltip-icon',
-							'property' => 'color',
+							'type' => 'refresh',
 						),
 					),
 					'tooltip_text_color'        => array(
@@ -1348,7 +1347,7 @@ FLBuilder::register_settings_form('pricing_column_form', array(
 								'type' => 'refresh',
 							),
 						),
-						'tooltip_icon_color'      => array(
+						'pbox_tooltip_icon_color' => array(
 							'type'       => 'color',
 							'label'      => __( 'Tooltip Icon Color', 'fl-builder' ),
 							'default'    => '',

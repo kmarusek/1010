@@ -222,10 +222,14 @@ class FLPhotoModule extends FLBuilderModule {
 					$classes[] = 'wp-image-' . $data->id;
 				}
 
-				if ( isset( $data->sizes ) ) {
+				$is_svg = ! empty( $data->mime ) && 'image/svg+xml' === $data->mime;
 
+				if ( $is_svg ) {
+					$classes[] = 'size-full';
+				}
+
+				if ( isset( $data->sizes ) && ! $is_svg ) {
 					foreach ( $data->sizes as $key => $size ) {
-
 						if ( $size->url == $this->settings->photo_src ) {
 							$classes[] = 'size-' . $key;
 							break;
@@ -343,7 +347,13 @@ class FLPhotoModule extends FLBuilderModule {
 			}
 		}
 
-		if ( is_object( $photo ) && isset( $photo->sizes ) ) {
+		$is_svg = ! empty( $photo->mime ) && 'image/svg+xml' === $photo->mime;
+
+		if ( $is_svg ) {
+			$attrs .= 'height="' . $photo->sizes->full->height . '" width="' . $photo->sizes->full->width . '" ';
+		}
+
+		if ( is_object( $photo ) && isset( $photo->sizes ) && ! $is_svg ) {
 			foreach ( $photo->sizes as $size ) {
 				if ( $size->url == $this->settings->photo_src && isset( $size->width ) && isset( $size->height ) ) {
 					$attrs .= 'height="' . $size->height . '" width="' . $size->width . '" ';

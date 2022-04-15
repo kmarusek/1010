@@ -315,6 +315,20 @@ class FLPostGridModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Renders 404 Message
+	 */
+	public function render_404() {
+		echo '<div class="fl-post-grid-empty">';
+		echo '<p>' . $this->settings->no_results_message . '</p>';
+
+		if ( $this->settings->show_search ) {
+			get_search_form();
+		}
+
+		echo '</div>';
+	}
+
+	/**
 	 * Renders the excerpt for a post.
 	 *
 	 * @since 1.10

@@ -102,7 +102,7 @@ class FLCalloutModule extends FLBuilderModule {
 	 * @method get_classname
 	 */
 	public function get_classname() {
-		$classname = 'fl-callout fl-callout-' . $this->settings->align;
+		$classname = 'fl-callout';
 
 		if ( 'photo' == $this->settings->image_type ) {
 			$classname .= ' fl-callout-has-photo fl-callout-photo-' . $this->settings->photo_position;
@@ -386,12 +386,13 @@ FLBuilder::register_module('FLCalloutModule', array(
 						),
 					),
 					'align'    => array(
-						'type'    => 'align',
-						'label'   => __( 'Alignment', 'fl-builder' ),
-						'default' => 'left',
-						'help'    => __( 'The alignment that will apply to all elements within the callout.', 'fl-builder' ),
-						'preview' => array(
-							'type' => 'none',
+						'type'       => 'align',
+						'label'      => __( 'Alignment', 'fl-builder' ),
+						'default'    => 'left',
+						'help'       => __( 'The alignment that will apply to all elements within the callout.', 'fl-builder' ),
+						'responsive' => true,
+						'preview'    => array(
+							'type' => 'refresh',
 						),
 					),
 					'padding'  => array(

@@ -424,7 +424,7 @@ final class FLBuilderFonts {
 			}
 		}
 
-		$recent = array_merge( $recent_fonts, $recent_fonts_db );
+		$recent = array_merge( (array) $recent_fonts, (array) $recent_fonts_db );
 
 		if ( isset( $_GET['fl_builder'] ) && ! empty( $recent ) && serialize( $recent ) !== serialize( $recent_fonts_db ) ) {
 			FLBuilderUtils::update_option( 'fl_builder_recent_fonts', array_slice( $recent, -11 ) );

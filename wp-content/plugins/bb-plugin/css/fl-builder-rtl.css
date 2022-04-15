@@ -221,6 +221,12 @@ ul.as-selections li {
 	margin: 0 0 0 8px;
 }
 
+/* Border Fields
+------------------------------------------------------ */
+.fl-border-field .fl-shadow-field .fl-color-picker {
+	margin: 0 0 0 8px;
+}
+
 /* Unit Fields
 ------------------------------------------------------ */
 

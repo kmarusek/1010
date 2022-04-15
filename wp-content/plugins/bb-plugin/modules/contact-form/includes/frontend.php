@@ -4,16 +4,17 @@ $label_hidden_class = isset( $settings->placeholder_labels ) && 'placeholder' ==
 $show_placeholder   = isset( $settings->placeholder_labels ) && ( 'placeholder' === $settings->placeholder_labels || 'both' === $settings->placeholder_labels ) ? true : false;
 
 $contact_form_fields = apply_filters( 'fl_builder_contact_form_fields', array(
-	'form_name'     => 'fl-name',
-	'form_subject'  => 'fl-subject',
-	'form_email'    => 'fl-email',
-	'form_phone'    => 'fl-phone',
-	'form_message'  => 'fl-message',
-	'name_error'    => 'name-error',
-	'subject_error' => 'subject-error',
-	'email_error'   => 'email-error',
-	'phone_error'   => 'phone-error',
-	'message_error' => 'message-error',
+	'form_name'        => 'fl-name',
+	'form_subject'     => 'fl-subject',
+	'form_email'       => 'fl-email',
+	'form_phone'       => 'fl-phone',
+	'form_message'     => 'fl-message',
+	'form_success_url' => 'fl-success-url',
+	'name_error'       => 'name-error',
+	'subject_error'    => 'subject-error',
+	'email_error'      => 'email-error',
+	'phone_error'      => 'phone-error',
+	'message_error'    => 'message-error',
 ), $settings );
 
 ?>
@@ -21,7 +22,7 @@ $contact_form_fields = apply_filters( 'fl_builder_contact_form_fields', array(
 	<input type="hidden" name="fl-layout-id" value="<?php echo $post->ID; ?>" />
 	<?php if ( 'show' == $settings->name_toggle ) : ?>
 	<div class="fl-input-group fl-name">
-		<label for="<?php echo esc_attr( $contact_form_fields['form_name'] ); ?> " <?php echo $label_hidden_class; ?>><?php echo esc_attr( $settings->name_placeholder ); ?></label>
+		<label for="<?php echo esc_attr( $contact_form_fields['form_name'] ); ?>" <?php echo $label_hidden_class; ?>><?php echo esc_attr( $settings->name_placeholder ); ?></label>
 		<span class="fl-contact-error" id="<?php echo esc_attr( $contact_form_fields['name_error'] ); ?>"><?php _e( 'Please enter your name.', 'fl-builder' ); ?></span>
 		<input type="text" id="<?php echo esc_attr( $contact_form_fields['form_name'] ); ?>" name="fl-name" aria-describedby="name-error" value="" placeholder="<?php echo $show_placeholder ? esc_attr( $settings->name_placeholder ) : ''; ?>" />
 	</div>
@@ -74,7 +75,7 @@ $contact_form_fields = apply_filters( 'fl_builder_contact_form_fields', array(
 	<?php endif; ?>
 	<?php FLBuilder::render_module_html( 'button', $module->get_button_settings() ); ?>
 	<?php if ( 'redirect' == $settings->success_action ) : ?>
-		<input type="text" value="<?php echo $settings->success_url; ?>" style="display: none;" class="fl-success-url">
+		<input type="text" aria-label="<?php echo esc_attr( $contact_form_fields['form_success_url'] ); ?>" value="<?php echo $settings->success_url; ?>" style="display: none;" class="fl-success-url">
 	<?php elseif ( 'none' == $settings->success_action ) : ?>
 		<span class="fl-success-none" style="display:none;"><?php _e( 'Message Sent!', 'fl-builder' ); ?></span>
 	<?php endif; ?>

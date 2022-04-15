@@ -10,8 +10,8 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getConfig": () => (/* binding */ getConfig),
-/* harmony export */   "getActions": () => (/* binding */ getActions)
+/* harmony export */   "getActions": () => (/* binding */ getActions),
+/* harmony export */   "getConfig": () => (/* binding */ getConfig)
 /* harmony export */ });
 /* harmony import */ var _nodes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./nodes */ "./src/canvas/api/nodes.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }

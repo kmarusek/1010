@@ -5,6 +5,8 @@
  */
 final class FLBuilderHistoryManager {
 
+	static private $states_cache = false;
+
 	/**
 	 * Initialize hooks.
 	 */
@@ -173,6 +175,11 @@ final class FLBuilderHistoryManager {
 	 * Returns an array of saved layout states.
 	 */
 	static public function get_states() {
+
+		if ( self::$states_cache ) {
+			return self::$states_cache;
+		}
+
 		global $wpdb;
 
 		$post_id = FLBuilderModel::get_post_id();
@@ -185,7 +192,7 @@ final class FLBuilderHistoryManager {
 				$states[] = $value;
 			}
 		}
-
+		self::$states_cache = $states;
 		return $states;
 	}
 
@@ -196,6 +203,7 @@ final class FLBuilderHistoryManager {
 		$post_id = FLBuilderModel::get_post_id();
 
 		self::delete_states( $post_id );
+		self::$states_cache = false;
 
 		foreach ( $states as $i => $state ) {
 			update_post_meta( $post_id, "_fl_builder_history_state_{$i}", $state );

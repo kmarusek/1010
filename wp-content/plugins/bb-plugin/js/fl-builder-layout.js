@@ -29,6 +29,9 @@
 			// Init backgrounds.
 			FLBuilderLayout._initBackgrounds();
 
+			// Init row shape layer height.
+			FLBuilderLayout._initRowShapeLayerHeight();
+
 			// Only init if the builder isn't active.
 			if ( 0 === $('.fl-builder-edit').length ) {
 
@@ -684,8 +687,8 @@
 					player.setVolume(0);
 				}
 				else if ("yes" === enableAudio ) {
-					// Chrome and Safari have audio policy restrictions for autoplay videos.
-					if ( ua.indexOf("Safari") > -1 || ua.indexOf("Chrome") > -1 ) {
+					// Chrome, Safari, Firefox have audio policy restrictions for autoplay videos.
+					if ( ua.indexOf("Safari") > -1 || ua.indexOf("Chrome") > -1 || ua.indexOf("Firefox") > -1 ) {
 						player.setVolume(0);
 						audioButton.show();
 					}
@@ -1347,6 +1350,40 @@
 
 			field.removeClass( 'fl-form-error' );
 			field.siblings( '.fl-form-error-message' ).hide();
+		},
+
+		/**
+		 * Init Row Shape Layer's height.
+		 * 
+		 * @since 2.5.3
+		 * @access private
+		 * @method _initRowShapeLayerHeight
+		 */
+		_initRowShapeLayerHeight: function () {
+			FLBuilderLayout._adjustRowShapeLayerHeight();
+			$( window ).on( 'resize', FLBuilderLayout._adjustRowShapeLayerHeight );
+		},
+		
+		/**
+		 * Adjust Row Shape Layer's height to fix to remove the fine line that appears on certain screen sizes.
+		 *
+		 * @since 2.5.3
+		 * @access private
+		 * @method _adjustRowShapeLayerHeight
+		 */
+		_adjustRowShapeLayerHeight: function() {
+			var rowShapeLayers = $('.fl-builder-shape-layer');
+				
+			$( rowShapeLayers ).each(function (index) {
+				var rowShapeLayer = $(this),
+					shape = $(rowShapeLayer).find('svg'),
+					height = shape.height(),
+					excludeShapes = '.fl-builder-shape-circle, .fl-builder-shape-dot-cluster, .fl-builder-shape-topography, .fl-builder-shape-rect';
+
+				if ( ! rowShapeLayer.is( excludeShapes ) ) {
+					$(shape).css('height', Math.ceil( height ) );
+				}
+			});
 		}
 	};
 

@@ -87,8 +87,9 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	 * @see fl_media_modal_types
 	 */
 	'uploadTypes'                => apply_filters( 'fl_media_modal_types', array(
-		'image' => 'image',
-		'video' => 'video',
+		'image'      => 'image',
+		'video'      => 'video',
+		'videoTypes' => 'mp4,m4v,webm',
 	) ),
 	/**
 	 * @see fl_builder_recent_icons
@@ -113,6 +114,8 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 		'ace_editor.css',
 	)),
 	'wooActive'                  => class_exists( 'WooCommerce' ) ? true : false,
+	'uploadPath'                 => ( get_option( 'upload_path' ) && get_option( 'upload_path' ) != 'wp-content/uploads' ) ? true : false,
+	'uploadUrl'                  => admin_url( 'options-media.php' ),
 	/**
 	 * @see fl_builder_default_image_select_size
 	 */

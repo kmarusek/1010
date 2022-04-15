@@ -18,7 +18,7 @@ class Plugin {
 
 		add_action( 'plugins_loaded', array( $this, 'unload_helper_plugin' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_files' ) );
-		add_action( 'init', array( $this, 'check_urls' ) );
+		add_action( 'admin_init', array( $this, 'check_urls' ) );
 		add_action( 'fl_builder_admin_settings_save', array( $this, 'save_settings' ) );
 	}
 
@@ -29,14 +29,19 @@ class Plugin {
 	public function check_urls() {
 		$replace = array( 'https://', 'http://' );
 		$current = str_replace( $replace, '', get_option( 'siteurl' ) );
-		$saved   = str_replace( $replace, '', get_option( 'fl_site_url' ) );
+		$saved   = str_replace( $replace, '', base64_decode( get_option( 'fl_site_url' ), true ) );
 
 		if ( $current !== $saved ) {
-			\FLBuilderModel::delete_asset_cache_for_all_posts();
-			if ( class_exists( '\FLCustomizer' ) && method_exists( '\FLCustomizer', 'clear_all_css_cache' ) ) {
-				\FLCustomizer::clear_all_css_cache();
+			\FLBuilderUtils::update_option( 'fl_site_url', base64_encode( $current ) );
+			if ( '' !== $saved  ) {
+				\FLBuilderModel::delete_asset_cache_for_all_posts();
+				if ( class_exists( '\FLCustomizer' ) && method_exists( '\FLCustomizer', 'clear_all_css_cache' ) ) {
+					\FLCustomizer::clear_all_css_cache();
+				}
+
+				\FLBuilder::log( 'Beaver Builder: URL change detected, cache cleared.' );
+				do_action( 'fl_site_url_changed', $current, $saved );
 			}
-			\FLBuilderUtils::update_option( 'fl_site_url', $current );
 		}
 	}
 

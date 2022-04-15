@@ -64,7 +64,7 @@ final class FLBuilderAdminPointers {
 
 		wp_enqueue_script(
 			'fl-builder-admin-pointers',
-			FL_BUILDER_URL . '/js/fl-builder-admin-pointers.js',
+			FL_BUILDER_URL . 'js/fl-builder-admin-pointers.js',
 			array( 'jquery', 'wp-pointer' ),
 			FL_BUILDER_VERSION,
 			true

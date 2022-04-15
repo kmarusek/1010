@@ -6,8 +6,19 @@ $initial_current_post = $post;
 // Get the query data.
 $query = FLBuilderLoop::query( $settings );
 
+$themer_archive_404 = false;
+if ( FLBuilderModel::is_builder_active() && class_exists( 'FLThemeBuilder' ) && 1 === $query->found_posts ) {
+	$current_url = get_permalink( get_queried_object_id() );
+
+	$themer_archive_404 = ( 'fl-theme-layout' === $query->posts[0]->post_type && stripos( $current_url, 'fl-theme-layout' ) > 0 );
+
+	if ( $themer_archive_404 ) {
+		$module->render_404();
+	}
+}
+
 // Render the posts.
-if ( $query->have_posts() ) :
+if ( ! $themer_archive_404 && $query->have_posts() ) :
 
 	do_action( 'fl_builder_posts_module_before_posts', $settings, $query );
 
@@ -76,19 +87,9 @@ if ( 'none' != $settings->pagination && $query->have_posts() && $query->max_num_
 do_action( 'fl_builder_posts_module_after_pagination', $settings, $query );
 
 // Render the empty message.
-if ( ! $query->have_posts() ) :
-
-	?>
-<div class="fl-post-grid-empty">
-	<p><?php echo $settings->no_results_message; ?></p>
-	<?php if ( $settings->show_search ) : ?>
-		<?php get_search_form(); ?>
-	<?php endif; ?>
-</div>
-
-	<?php
-
-endif;
+if ( ! $query->have_posts() ) {
+	$module->render_404();
+}
 
 wp_reset_postdata();
 

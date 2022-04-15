@@ -172,6 +172,9 @@ FLBuilder::register_module('FLButtonGroupModule', array(
 						'label'      => __( 'Align', 'fl-builder' ),
 						'default'    => 'left',
 						'responsive' => true,
+						'preview'    => array(
+							'type' => 'refresh',
+						),
 					),
 					'padding'        => array(
 						'type'       => 'dimension',

@@ -5,7 +5,7 @@
  */
 final class FLBuilderUsage {
 
-	protected static $url = 'http://stats.wpbeaverbuilder.com/';
+	protected static $url = 'https://stats.wpbeaverbuilder.com/';
 
 	protected static $seconds = 604800;
 

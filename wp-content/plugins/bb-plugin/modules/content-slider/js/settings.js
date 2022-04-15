@@ -1,7 +1,13 @@
 (function($){
 
 	FLBuilder.registerModuleHelper('content-slider', {
+		init: function() {
+			var form   = $('.fl-builder-settings'),
+				slides = form.find('#fl-field-slides');
 
+			slides.on('click', '.fl-form-field-edit', this._editSlide);
+			slides.on('click', '.fl-builder-field-add', this._reloadSlide);
+		},
 		submit: function() {
 			var form       = $('.fl-builder-settings'),
 			    transition = parseFloat( form.find('input[name=speed]').val() ) * 1000,
@@ -12,11 +18,24 @@
 				return false;
 			}
 			return true;
+		},
+		_editSlide: function() {
+			var slide = $(this).closest('.fl-builder-field-multiple');
+
+			FLBuilder.setSandbox('sliderIndex', slide.index());
+
+			setTimeout(function () {
+				FLBuilder.preview.preview();
+			}, 500);
+		},
+		_reloadSlide: function() {
+			setTimeout(function() {
+				FLBuilder.preview.preview();
+			}, 500);
 		}
 	})
 
 	FLBuilder.registerModuleHelper('content_slider_slide', {
-
 		init: function()
 		{
 			var form        = $('.fl-form-field-settings'),
@@ -31,6 +50,8 @@
 			contentLayout.trigger('change');
 			this._flipSettings();
 			icon.on( 'change', this._flipSettings );
+			form.on('click', '.fl-builder-settings-save', this._endEditSlideOnSave);
+			form.on('click', '.fl-builder-settings-cancel', this._endEditSlideOnCancel);
 		},
 		_flipSettings: function() {
 			var form  = $( '.fl-builder-settings' ),
@@ -56,7 +77,6 @@
 
 			return true;
 		},
-
 		_toggleTextAndCtaTabs: function()
 		{
 			var form          = $('.fl-builder-settings'),
@@ -77,7 +97,6 @@
 				$('a[href*=fl-builder-settings-tab-cta]').hide();
 			}
 		},
-
 		_toggleMobileTab: function()
 		{
 			var form          = $('.fl-builder-settings'),
@@ -122,6 +141,13 @@
 			else {
 				$('#fl-builder-settings-section-r_photo').hide();
 			}
+		},
+		_endEditSlideOnSave: function() {
+			FLBuilder.deleteSandbox('sliderIndex');
+		},
+		_endEditSlideOnCancel: function() {
+			FLBuilder.deleteSandbox('sliderIndex');
+			FLBuilder.preview.preview();
 		},
 	});
 

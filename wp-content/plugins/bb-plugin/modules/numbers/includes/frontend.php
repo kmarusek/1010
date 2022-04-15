@@ -24,7 +24,9 @@
 
 		<?php if ( 'hidden' == $position ) : ?>
 			<div class="fl-number-bars-container">
-				<div class="fl-number-bar"></div>
+				<div class="fl-number-bar">
+				<?php $module->render_number(); ?>
+				</div>
 			</div>
 		<?php elseif ( 'above' == $position ) : ?>
 			<?php $module->render_number(); ?>

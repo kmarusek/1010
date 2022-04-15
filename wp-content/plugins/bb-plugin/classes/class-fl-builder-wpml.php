@@ -92,7 +92,7 @@ final class FLBuilderWPML {
 		global $sitepress;
 		$settings = $sitepress->get_settings();
 		if ( '2' === $settings['language_negotiation_type'] ) {
-			return get_option( 'siteurl' );
+			return base64_encode( get_option( 'siteurl' ) );
 		}
 		return $url;
 	}

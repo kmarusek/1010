@@ -81,26 +81,12 @@ class FLLoginFormModule extends FLBuilderModule {
 				}
 
 				$args = array(
-					'url' => $settings->success_url,
+					'url' => ( 'url' === $settings->redirect_to ) ? ( empty( $settings->success_url ) ? 'current' : $settings->success_url ) : $settings->redirect_to,
 				);
 
+				do_action( 'fl_builder_login_form_submission_complete', $settings, $password, $name, $template_id, $post_id );
+
 				wp_send_json_success( $args );
-
-				// Check for an error from the service.
-				if ( $response['error'] ) {
-					$result['error'] = $response['error'];
-				} else {
-
-					$result['action'] = $settings->success_action;
-
-					if ( 'message' == $settings->success_action ) {
-						$result['message'] = $settings->success_message;
-					} else {
-						$result['url'] = $settings->success_url;
-					}
-				}
-
-				do_action( 'fl_builder_login_form_submission_complete', $response, $settings, $password, $name, $template_id, $post_id );
 			}
 		} else {
 			wp_send_json_error( $result['error'] );
@@ -213,6 +199,21 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 						'preview' => array(
 							'type'     => 'text',
 							'selector' => '.fl-button-text',
+						),
+					),
+					'redirect_to' => array(
+						'type'    => 'select',
+						'label'   => __( 'Redirect To', 'fl-builder' ),
+						'default' => 'url',
+						'options' => array(
+							'url'      => __( 'URL', 'fl-builder' ),
+							'current'  => __( 'Current URL', 'fl-builder' ),
+							'referrer' => __( 'Referrer URL', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'url' => array(
+								'fields' => array( 'success_url' ),
+							),
 						),
 					),
 					'success_url' => array(

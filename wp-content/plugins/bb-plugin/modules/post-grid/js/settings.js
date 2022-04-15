@@ -10,15 +10,18 @@
 				buttonBgColor = form.find( 'input[name=more_btn_bg_color]' ),
 				icon = form.find('input[name=icon]'),
 				layout = form.find( 'select[name=layout]' ),
+				postType = form.find( 'select[name=post_type]' ),
 				showContent = form.find( 'select[name=show_content]' );
 
 			layout.on( 'change', this._layoutChanged.bind( this ) );
+			postType.on( 'change', this._toggleEventsSection.bind( this ) );
 			showContent.on( 'change', this._showContentChanged.bind(this) );
 			resizeFields.find( 'input' ).on( 'input', this._resizeLayout.bind( this ) );
 			resizeFields.find( 'select' ).on( 'change', this._resizeLayout.bind( this ) );
 			buttonBgColor.on( 'change', this._previewButtonBackground );
 			icon.on( 'change', this._flipSettings );
-			this._flipSettings()
+			this._flipSettings();
+			this._toggleEventsSection();
 		},
 
 		/**
@@ -27,6 +30,31 @@
 		 */
 		_layoutChanged: function() {
 			this._showContentChanged();
+		},
+
+		/**
+		 * Toggle 'The Calendar Events' section.
+		 * @since TDB
+		 */
+		_toggleEventsSection: function () {
+			var form = $( '.fl-builder-settings' ),
+				tecEventsSection = form.find('#fl-builder-settings-section-events'),
+				tecEventsButtonSection = form.find('#fl-builder-settings-section-events_button'),
+				dataSource = form.find('#fl-field-data_source select').val(),
+				selectedPostType = form.find( 'select[name=post_type]' ).val();
+			
+			if ( tecEventsSection.length <= 0 || tecEventsButtonSection.length <= 0 || 'custom_query' !== dataSource ) {
+				return;
+			}
+			
+			if ( 'tribe_events' === selectedPostType ) {
+				tecEventsSection.show();
+				tecEventsButtonSection.show();
+			} else {
+				tecEventsSection.hide();
+				tecEventsButtonSection.hide();
+			}
+			
 		},
 
 		/**

@@ -314,6 +314,13 @@
 		_codeDisabled: false,
 
 		/**
+		 * Misc data container
+		 * @since 2.6
+		 * @access private
+		 */
+		_sandbox: {},
+
+		/**
 		 * Flag whether to clear preview or not
 		 * @access private
 		 */
@@ -339,6 +346,7 @@
 			FLBuilder._initDropTargets();
 			FLBuilder._initSortables();
 			FLBuilder._initStrings();
+			FLBuilder._initSanityChecks();
 			FLBuilder._initTipTips();
 			FLBuilder._initTinyMCE();
 			FLBuilder._bindEvents();
@@ -381,6 +389,14 @@
 					}
 				});
 			};
+		},
+
+		_initSanityChecks: function() {
+			if ( FLBuilderConfig.uploadPath && typeof FLBuilderLayout === 'undefined' ) {
+				url = '<a href="' + FLBuilderConfig.uploadUrl + '">wp-admin -> Settings -> Media</a>';
+				FLBuilder.alert( '<strong>Critcal Error</strong><p style="font-size:15px;">Please go to ' + url + ' and make sure uploads folder settings is blank</p>');
+				$('.fl-builder-alert-close').hide()
+			}
 		},
 
 		/**
@@ -8348,16 +8364,23 @@
 		_initSingleVideoSelector: function()
 		{
 			if(FLBuilder._singleVideoSelector === null) {
+				var defaultFileExtensions = _wpPluploadSettings.defaults.filters.mime_types[0].extensions; 
+					
+				_wpPluploadSettings['defaults']['multipart_params']['fl_upload_type'] = 'video';
+				_wpPluploadSettings.defaults.filters.mime_types[0].extensions         = FLBuilderConfig.uploadTypes.videoTypes;
 
 				FLBuilder._singleVideoSelector = wp.media({
 					title: FLBuilderStrings.selectVideo,
 					button: { text: FLBuilderStrings.selectVideo },
-					library : { type : FLBuilderConfig.uploadTypes.video },
+					library: { type: [ 'video/mp4', 'video/webm' ] },
 					multiple: false
 				});
 
 				FLBuilder._singleVideoSelector.on( 'open', FLBuilder._wpmedia_reset_errors );
-				_wpPluploadSettings['defaults']['multipart_params']['fl_upload_type']= 'video';
+			
+				FLBuilder._singleVideoSelector.on( 'close', function () {
+					_wpPluploadSettings.defaults.filters.mime_types[0].extensions = defaultFileExtensions;
+				});
 			}
 		},
 
@@ -10547,7 +10570,41 @@
 		 */
 		isBoolean: function(value) {
 			return value === true || value === false
-		}
+		},
+
+		/**
+		 * Get sandbox data.
+		 * @since 2.6
+		 * @param {string} data the JSON containing error(s)
+		 */
+		getSandbox: function (key) {
+			if (key in this._sandbox) {
+				return this._sandbox[key];
+			}
+			return false;
+		},
+
+		/**
+		 * Set sandbox data.
+		 * @since 2.6
+		 * @param {string} key
+		 * @param {any} data
+		 * @return {void}
+		 */
+		setSandbox: function (key, data) {
+			this._sandbox[key] = data;
+		},
+
+		/**
+		 * Delete sandbox data.
+		 * @since 2.6
+		 * @param {string} key
+		 * @param {any} data
+		 * @return {void}
+		 */
+		deleteSandbox: function (key) {
+			delete this._sandbox[key];
+		},
 	};
 
 	/* Start the party!!! */

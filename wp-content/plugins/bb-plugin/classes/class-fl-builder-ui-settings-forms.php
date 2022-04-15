@@ -50,6 +50,7 @@ class FLBuilderUISettingsForms {
 		add_action( 'wp_footer', __CLASS__ . '::init_js_config', 1 );
 		add_action( 'wp_footer', __CLASS__ . '::render_js_templates', 11 );
 		add_filter( 'fl_builder_ui_js_config', __CLASS__ . '::layout_css_js' );
+		add_filter( 'image_size_names_choose', __CLASS__ . '::inject_all_possible_image_size', 10, 1 );
 	}
 
 	/**
@@ -1021,6 +1022,28 @@ class FLBuilderUISettingsForms {
 
 		$config['layout_css_js'] = ( ( isset( $settings->css ) && '' !== $settings->css ) || ( isset( $settings->js ) && '' !== $settings->js ) ) ? true : false;
 		return $config;
+	}
+
+	/**
+	 * Inject all possible image sizes to
+	 * image size name choose option
+	 *
+	 * @param array $sizes
+	 * @return array
+	 */
+	static public function inject_all_possible_image_size( $sizes ) {
+		global $_wp_additional_image_sizes;
+
+		$intermediate_sizes = array();
+
+		foreach ( get_intermediate_image_sizes() as $size ) {
+			if ( 'medium_large' == $size ) {
+				continue;
+			}
+			$intermediate_sizes[ $size ] = ucwords( str_replace( array( '_', '-' ), ' ', $size ) );
+		}
+
+		return array_merge( $sizes, $intermediate_sizes );
 	}
 }
 

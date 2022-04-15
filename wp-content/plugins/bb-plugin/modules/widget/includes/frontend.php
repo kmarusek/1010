@@ -5,12 +5,13 @@
 $post_data = FLBuilderModel::get_post_data();
 
 // Widget class
+$widget_class = '';
 if ( isset( $settings->widget ) ) {
-	$widget_class = $settings->widget;
+	$widget_class = urldecode( $settings->widget );
 } elseif ( isset( $post_data['widget'] ) && FLBuilderModel::is_builder_active() ) {
-	$widget_class = $post_data['widget'];
+	$widget_class = urldecode( $post_data['widget'] );
 }
-$widget_class = urldecode( $widget_class );
+
 if ( isset( $widget_class ) && class_exists( $widget_class ) ) {
 	global $wp_widget_factory;
 

@@ -162,6 +162,7 @@ FLBuilder::register_module('FLWooCommerceModule', array(
 						'options' => array(
 							'ids'          => __( 'Products IDs', 'fl-builder' ),
 							'category'     => __( 'Product Category', 'fl-builder' ),
+							'tags'         => __( 'Product Tags', 'fl-builder' ),
 							'recent'       => __( 'Recent Products', 'fl-builder' ),
 							'featured'     => __( 'Featured Products', 'fl-builder' ),
 							'sale'         => __( 'Sale Products', 'fl-builder' ),
@@ -174,6 +175,9 @@ FLBuilder::register_module('FLWooCommerceModule', array(
 							),
 							'category'     => array(
 								'fields' => array( 'category_slug', 'num_products', 'columns', 'orderby', 'order' ),
+							),
+							'tags'         => array(
+								'fields' => array( 'tags_slug', 'num_products', 'columns', 'orderby', 'order' ),
 							),
 							'recent'       => array(
 								'fields' => array( 'num_products', 'columns', 'orderby', 'order' ),
@@ -203,6 +207,12 @@ FLBuilder::register_module('FLWooCommerceModule', array(
 						'label'   => __( 'Category Slug', 'fl-builder' ),
 						'default' => '',
 						'help'    => __( 'As you add product categories in the WooCommerce Products area, each will be assigned a unique slug or you can edit and add your own. These slugs can be found in the Categories area under WooCommerce Products. Several can be added here separated by a comma.', 'fl-builder' ),
+					),
+					'tags_slug'       => array(
+						'type'    => 'text',
+						'label'   => __( 'Tags Slug', 'fl-builder' ),
+						'default' => '',
+						'help'    => __( 'As you add product tags in the WooCommerce Products area, each will be assigned a unique slug or you can edit and add your own. These slugs can be found in the Tags area under WooCommerce Products. Several can be added here separated by a comma.', 'fl-builder' ),
 					),
 					'num_products'    => array(
 						'type'    => 'text',

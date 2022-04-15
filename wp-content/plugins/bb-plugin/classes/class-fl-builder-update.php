@@ -15,6 +15,15 @@ final class FLBuilderUpdate {
 	 */
 	static public function init() {
 		add_action( 'init', __CLASS__ . '::maybe_run', 11 );
+		add_action( 'fl_site_url_changed', array( __CLASS__, 'maybe_reregister_license' ), 10, 2 );
+	}
+
+	public static function maybe_reregister_license( $current, $saved ) {
+		$license = FLUpdater::get_subscription_license();
+		if ( '' !== $license ) {
+			FLUpdater::save_subscription_license( '' );
+			FLUpdater::save_subscription_license( $license );
+		}
 	}
 
 	/**

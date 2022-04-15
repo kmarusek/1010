@@ -661,6 +661,12 @@ if ( 'always' != $module->get_media_breakpoint() ) :
 		display: none;
 	}
 
+	.fl-node-<?php echo $id; ?> .sub-menu .menu-item a::before {
+		content: '>';
+		font-family: courier;
+		margin-right: 5px;
+	}
+
 <?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
 	} <?php // close media max-width ?>
 

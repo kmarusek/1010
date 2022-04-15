@@ -225,12 +225,12 @@
 
 .fluid table.fluid-table th:first-child, .fluid table.fluid-table td:first-child {
   border-top-left-radius: var(--fluid-radius);
-  barder-bottom-left-radius: var(--fluid-radius); }
+  border-bottom-left-radius: var(--fluid-radius); }
 
 .fluid table.fluid-table th:last-child, .fluid table.fluid-table td:last-child {
   border-right: 0;
   border-top-right-radius: var(--fluid-radius);
-  barder-bottom-right-radius: var(--fluid-radius); }
+  border-bottom-right-radius: var(--fluid-radius); }
 
 .fluid table.fluid-table tr:nth-child(even) th, .fluid table.fluid-table tr:nth-child(even) td {
   background: var(--fluid-opaque-13); }
@@ -583,7 +583,7 @@
   display: none !important; }
 
 .fluid input[type="radio"] {
-  border-radus: 50%; }
+  border-radius: 50%; }
 
 .fluid input[disabled],
 .fluid select[disabled],

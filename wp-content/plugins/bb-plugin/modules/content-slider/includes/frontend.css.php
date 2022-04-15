@@ -1,3 +1,6 @@
+.fl-node-<?php echo $id; ?> .fl-content-slider-wrapper {
+	opacity: 0;
+}
 .fl-node-<?php echo $id; ?> .fl-content-slider,
 .fl-node-<?php echo $id; ?> .fl-slide {
 	min-height: <?php echo $settings->height; ?>px;

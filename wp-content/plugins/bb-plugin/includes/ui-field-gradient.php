@@ -8,6 +8,10 @@ var defaults = {
 	stops: [ 0, 100 ],
 };
 
+if ( typeof data.field.defaults !== 'undefined' ) {
+	defaults = jQuery.extend( true, defaults, data.field.defaults );
+}
+
 var value = '' === data.value ? defaults : jQuery.extend( true, defaults, data.value );
 
 var type = wp.template( 'fl-builder-field-select' )( {

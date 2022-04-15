@@ -4,12 +4,13 @@
 $post_data = FLBuilderModel::get_post_data();
 
 // Widget slug
+$widget_class = '';
 if ( isset( $settings->widget ) ) {
-	$widget_class = $settings->widget;
+	$widget_class = urldecode( $settings->widget );
 } elseif ( isset( $post_data['widget'] ) ) {
-	$widget_class = $post_data['widget'];
+	$widget_class = urldecode( $post_data['widget'] );
 }
-$widget_class = urldecode( $widget_class );
+
 if ( isset( $widget_class ) && class_exists( $widget_class ) ) {
 
 	// Widget instance
@@ -32,7 +33,9 @@ if ( isset( $widget_class ) && class_exists( $widget_class ) ) {
 	echo '<input type="hidden" name="widget" value="' . $widget_class . '" />';
 	$widget_form = ob_get_clean();
 
-} elseif ( isset( $widget_class ) ) {
+} else {
+
+	$widget_class = ( isset( $widget_class ) ) ? $widget_class : __( 'Widget', 'fl-builder' );
 
 	// Widget doesn't exist!
 	$widget_title = __( 'Widget', 'fl-builder' );

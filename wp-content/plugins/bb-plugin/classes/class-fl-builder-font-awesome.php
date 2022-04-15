@@ -186,27 +186,10 @@ final class FLBuilderFontAwesome {
 		}
 
 		if ( self::is_installed() && ( wp_script_is( 'font-awesome-official', 'enqueued' ) || wp_style_is( 'font-awesome-official', 'enqueued' ) ) ) {
-
-			// not in builder we can just dequeue the normal css and get out.
-			if ( ! isset( $_GET['fl_builder'] ) ) {
-				wp_dequeue_style( 'font-awesome' );
-				wp_dequeue_style( 'font-awesome-5' );
-				wp_deregister_style( 'font-awesome' );
-				wp_deregister_style( 'font-awesome-5' );
-			}
-			// If there is no custom kit, or its disabled load regular css.
-			if ( isset( $_GET['fl_builder'] ) ) {
-				if ( ! $kit_enabled ) {
-					wp_dequeue_script( 'font-awesome-official' );
-					wp_dequeue_style( 'font-awesome-official' );
-				} else {
-					// we have a kit, we need the js so we need to dequeue the css.
-					wp_dequeue_style( 'font-awesome' );
-					wp_dequeue_style( 'font-awesome-5' );
-					wp_deregister_style( 'font-awesome' );
-					wp_deregister_style( 'font-awesome-5' );
-				}
-			}
+			wp_dequeue_style( 'font-awesome' );
+			wp_dequeue_style( 'font-awesome-5' );
+			wp_deregister_style( 'font-awesome' );
+			wp_deregister_style( 'font-awesome-5' );
 		}
 	}
 

@@ -34,7 +34,7 @@ final class FLBuilderExport {
 		wp_enqueue_style( 'fl-builder-export', FL_BUILDER_URL . 'css/fl-builder-export.css', array(), FL_BUILDER_VERSION );
 		wp_enqueue_script( 'fl-builder-export', FL_BUILDER_URL . 'js/fl-builder-export.js', array(), FL_BUILDER_VERSION, true );
 
-		wp_localize_script( 'fl-builder-export', 'fl_builder_export_nonce', wp_create_nonce( 'fl_builder_export_nonce' ) );
+		wp_localize_script( 'fl-builder-export', 'fl_builder_export_nonce', array( 'nonce' => wp_create_nonce( 'fl_builder_export_nonce' ) ) );
 	}
 
 	/**

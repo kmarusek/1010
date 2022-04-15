@@ -56,7 +56,7 @@ FLBuilder::register_module('FLIconGroupModule', array(
 						'units'      => array( 'px', 'em', 'rem' ),
 						'slider'     => true,
 						'preview'    => array(
-							'type' => 'none',
+							'type' => 'refresh',
 						),
 					),
 					'spacing' => array(

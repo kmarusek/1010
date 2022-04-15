@@ -23,7 +23,7 @@ body.rtl .fl-post-carousel-post {
 	top: 50%;
 	left: 0;
 	right: 0;
-	z-index: 20;
+	z-index: 2;
 	margin-top: -16px;
 }
 .fl-post-carousel-navigation a{

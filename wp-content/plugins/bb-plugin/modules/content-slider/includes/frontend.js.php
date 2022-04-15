@@ -1,9 +1,19 @@
 (function($) {
 
 	$(function() {
-		var slider = $('.fl-node-<?php echo $id; ?> .fl-content-slider-wrapper').bxSlider({
+		var sliderIndex = 'undefined' === typeof FLBuilder ? false : FLBuilder.getSandbox('sliderIndex'),
+			autoPlay    = <?php echo $settings->auto_play; ?>,
+			dots        = <?php echo $settings->dots; ?>;
+
+		// display slider immediately if not editing a specific one
+		if (false === sliderIndex) {
+			$('.fl-node-<?php echo $id; ?> .fl-content-slider-wrapper').css('opacity', '1');
+		}
+
+		var slider = $('.fl-node-<?php echo $id; ?> .fl-content-slider-wrapper').delay(1000).bxSlider({
 			adaptiveHeight: true,
-			auto: <?php echo ( $settings->auto_play ) ? 'true' : 'false'; ?>,
+			startSlide: sliderIndex ? sliderIndex : 0,
+			auto: autoPlay && false === sliderIndex ? true : false,
 			autoHover: <?php echo ( $settings->auto_hover ) ? 'true' : 'false'; ?>,
 			autoControls: <?php echo ( $settings->play_pause ) ? 'true' : 'false'; ?>,
 			pause: <?php echo $settings->delay * 1000; ?>,
@@ -11,9 +21,14 @@
 			speed: <?php echo $settings->speed * 1000; ?>,
 			controls: false,
 			infiniteLoop: <?php echo $module->is_loop_enabled(); ?>,
-			pager: <?php echo ( $settings->dots ) ? 'true' : 'false'; ?>,
+			pager: dots && false === sliderIndex ? true : false,
 			video: true,
 			onSliderLoad: function(currentIndex) {
+				// display slider after loading if editing a specific one
+				if (false !== sliderIndex) {
+					$('.fl-node-<?php echo $id; ?> .fl-content-slider-wrapper').css('opacity', '1');
+				}
+
 				$('.fl-node-<?php echo $id; ?> .fl-content-slider-wrapper').addClass('fl-content-slider-loaded');
 
 				// Remove video sources

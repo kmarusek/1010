@@ -1187,7 +1187,7 @@ body .fl-theme-builder-preview-select-item-child:hover {
 	display: none;
 	position: absolute;
 	right: 0;
-	top: 93px;
+	top: 85px;
 	left: 0;
 	bottom:0;
 	width: auto !important;
@@ -3577,11 +3577,13 @@ form.fl-builder-settings {
 	max-width: none;
 	width: 100% !important;
 }
-
+	
 /* Slim - Repeaters */
+.fl-lightbox-width-slim .fl-builder-field-multiples {
+	display: block;
+}
 .fl-lightbox-width-slim .fl-builder-field-multiple {
-	display: flex;
-	flex-wrap: wrap;
+	display: block;
 	position: relative;
 }
 .fl-lightbox-width-slim .fl-builder-field-multiple .fl-field-label {
@@ -4672,6 +4674,21 @@ input[type=number].fl-field-popup-slider-focus {
 	margin-top: 0;
 	margin-right: 0;
 	width: 66.66%;
+}
+
+/* Border Field */ 
+.fl-border-field .fl-shadow-field {
+    display: flex;
+}
+.fl-border-field .fl-shadow-field .fl-color-picker {
+    margin: 0 8px 0 0;
+    width: calc( 25% - 8px );
+}
+.fl-border-field .fl-shadow-field .fl-dimension-field-units {
+	margin-left: 0;
+	margin-top: 0;
+	margin-right: 0;
+	width: 75%;
 }
 
 /* Button Group Field */
@@ -6320,6 +6337,7 @@ Rules to ensure compatibility with v2.0.
 }
 
 .select2-dropdown {
+	top: 12px;
 	border-color: transparent !important;
 	border-style: solid !important;
 	border-radius: 4px !important;

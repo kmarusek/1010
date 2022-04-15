@@ -555,11 +555,11 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 			endif;
 
 			// Feature Item Tooltip Icon Color
-			if ( ! empty( $pricing_column->tooltip_icon_color ) ) :
+			if ( ! empty( $pricing_column->pbox_tooltip_icon_color ) ) :
 				FLBuilderCSS::rule( array(
 					'selector' => ".fl-node-$id .fl-pricing-table-column-$i .feature-item-$list_index .fl-builder-tooltip-icon",
 					'props'    => array(
-						'color' => $pricing_column->tooltip_icon_color,
+						'color' => $pricing_column->pbox_tooltip_icon_color,
 					),
 				));
 			endif;

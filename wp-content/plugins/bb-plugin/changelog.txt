@@ -1,3 +1,101 @@
+<h4>2.5.3.1 - 04/07/2022</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+		<li>Fix Rows set to minimum height but no value rendering with a min-height of 100vh</li>
+		<li>TEC: Fix TEC sections missing from the Post Grid Module when editing a TEC Themer Archive Layout</li>
+		<li>Fix conflict with Ultimate Dashboard Pro and the inline CSS filter</li>
+		<li>WooCommerce: Fix Product Tabs Description displaying even if no data</li>
+		<li>Staging Sites Fix: on site URL change, register license on site and domain manager and clear cache</li>
+		<li>Subscribe Module: Fix Drip integration not showing Workflows when WooCommerce Drip plugin active</li>
+</ul>
+
+<h4>2.5.3 - 03/31/2022</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>WooCommerce Module: Add product tags as a source</li>
+	<li>Performance: Cache duplicate queries</li>
+	<li>Adjust box shadow field so it is consistent with text shadow</li>
+	<li>Update fluid package</li>
+	<li>Update vendor packages</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Icon Group Module: Fix icon width being too narrow in preview</li>
+	<li>Fix conflict with WooCommerce Tab Manager</li>
+	<li>Post Carousel Module: Fix navigation arrows being on top of the mega menu of the Menu Module</li>
+	<li>Post Module: fix no posts message not showing when it should during preview of an Archive layout</li>
+	<li>Exclude the Block Widget from the BB UI as it has no purpose in the UI</li>
+	<li>Button Group: Hide align field when using vertical align and default width</li>
+	<li>Update stats URL to use https</li>
+	<li>Fix issue with <code>InlineEditor.onEditorChange</code> sometimes showing field is undefined</li>
+	<li>Fix search placement in content panel</li>
+	<li>WooCommerce: Fix BB not working if Product Description is blank</li>
+	<li>Fix a PHP Notice with WordPress Widgets</li>
+	<li>Fix bottom row shape leaving a thin line when using midpoint</li>
+	<li>Fix Row full height setting affecting nested rows via shortcode</li>
+	<li>Fix tooltips being narrow in form fields set to multiple</li>
+	<li>TEC: Fix recurring events being shown in the Posts module when they should be excluded</li>
+	<li>Fix fatal error in recent fonts if it's not an array</li>
+</ul>
+
+<h4>2.5.2.3 - 03/21/2022</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+		<li>Fix issue where published changes were not reflected until using the cache clearing tool in BB Settings</li>
+</ul>
+
+<h4>2.5.2.2 - 03/17/2022</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+		<li>Fix partial layout stylesheet not getting updated after making changes to the actual template</li>
+		<li>Remove extra slash in FontAwesome URL</li>
+		<li>Contact Form Module: Fix accessibility issues with form labels for Name and the Success URL</li>
+		<li>Subscribe Module: Fix PHP 8 issue with Drip integration</li>
+</ul>
+
+<h4>2.5.2.1 - 02/11/2022</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+		<li>Improve compatibility with FontAwesome 6 and our icon picker when using the official FontAwesome plugin</li>
+		<li>Revert Button module: Fix border Style not working if width not specified as it was causing border settings to not be respected in some situations</li>
+</ul>
+
+<h4>2.5.2 - 02/10/2022</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+		<li>Menu module: add submenu indicators on mobile</li>
+		<li>Content Slider: Focus on slide when editing</li>
+		<li>Login Module: Add new option for redirect</li>
+		<li>WPCLI: Add duplicate function</li>
+		<li>Prevent WP Post Page Clone plugin from adding duplicate links to posts/pages where BB is used to prevent it breaking our data</li>
+		<li>Add pop-up when upload_path is set to alert user of the issue as it will prevent the UI from working</li>
+		<li>Add database collation info to our debug mode output</li>
+		<li>If user templates are deleted in the UI, they now go to the trash first to ensure consistency with WP functions</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+		<li>Menu module: fix padding on menu items with a sub-menu</li>
+		<li>Button module: Fix border Style not working if width not specified</li>
+		<li>Photo module: Caption causes the image to go out of their container</li>
+		<li>Number Counter: fix animation not starting when number is not shown</li>
+		<li>Menu module: Fix both menus opening upon clicking on the menu button</li>
+		<li>Fix background video's Audio Control Not Shown in Firefox</li>
+		<li>Video Module: fix other video types showing as selectable when they are not supported</li>
+		<li>Fix PHP Notice WP_Scripts::localize was called incorrectly</li>
+		<li>Photo Module: Ensure the same sizes are shown in Photo module and Gallery Module lightbox option</li>
+		<li>Fix Global column disappearing from UI after saving row as global</li>
+		<li>Button Group module: Fix responsive alignment not working on vertical layout</li>
+		<li>Posts Module: Hide TEC options when post type selected is not the TEC post type</li>
+		<li>Pricing table: fix features preview not working properly</li>
+		<li>Pricing table:  fix features display in Safari</li>
+		<li>Sanitize Site URLs for our use to prevent it from breaking the UI</li>
+		<li>Fix notice: Warning: Undefined variable $widget_class</li>
+		<li>Fix glitch with select2 where it won't stay open when clicking in some cases</li>
+		<li>Remove a PHP comment that was triggering some hosts' security protection to delete the file which resulted in the Outline Panel not working</li>
+</ul>
+
 <h4>2.5.1.3 - 02/1/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

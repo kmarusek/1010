@@ -275,7 +275,7 @@ FLBuilderCSS::border_field_rule( array(
 FLBuilderCSS::responsive_rule( array(
 	'settings'     => $settings,
 	'setting_name' => 'min_height',
-	'selector'     => ".fl-node-$id > .fl-row-content-wrap",
+	'selector'     => ".fl-node-$id.fl-row-custom-height > .fl-row-content-wrap",
 	'prop'         => 'min-height',
 	'enabled'      => 'custom' === $settings->full_height,
 ) );
@@ -307,3 +307,43 @@ if ( isset( $settings->max_content_width ) ) {
 }
 
 FLBuilderArt::render_shape_layers_css( $row );
+
+?>
+
+/* Full Height Rows */
+.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap, 
+.fl-node-<?php echo $id; ?>.fl-row-custom-height > .fl-row-content-wrap {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
+	min-height: 100vh;
+}
+.fl-node-<?php echo $id; ?>.fl-row-custom-height > .fl-row-content-wrap {
+	min-height: 0;
+}
+
+.fl-builder-edit .fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
+	min-height: calc( 100vh - 48px );
+}
+
+/* Full height iPad with portrait orientation. */
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait){
+	.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
+		min-height: 1024px;
+	}
+}
+/* Full height iPad with landscape orientation. */
+@media all and (device-width: 1024px) and (device-height: 768px) and (orientation:landscape){
+	.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
+		min-height: 768px;
+	}
+}
+/* Full height iPhone 5. You can also target devices with aspect ratio. */
+@media screen and (device-aspect-ratio: 40/71) {
+	.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
+		min-height: 500px;
+	}
+}

@@ -45,7 +45,6 @@
 	outline: 0;
 }
 .fl-menu .fl-has-submenu-container{ position: relative; }
-.fl-menu .fl-has-submenu-container a{ padding-right: 38px; }
 
 /* Submenu - accordion, expanded */
 .fl-menu .fl-menu-accordion .fl-has-submenu > .sub-menu{

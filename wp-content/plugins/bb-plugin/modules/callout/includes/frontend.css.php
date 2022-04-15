@@ -1,5 +1,41 @@
 <?php
 
+// Alignment
+$align            = isset( $settings->align ) && 'right' == $settings->align ? 'right' : 'none';
+$align_medium     = isset( $settings->align_medium ) && 'right' == $settings->align_medium ? 'right' : 'none';
+$align_responsive = isset( $settings->align_responsive ) && 'right' == $settings->align_responsive ? 'right' : 'none';
+
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'align',
+	'selector'     => ".fl-node-$id .fl-callout",
+	'prop'         => 'text-align',
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-callout-icon-left, .fl-node-$id .fl-callout-icon-right",
+	'media'    => 'default',
+	'props'    => array(
+		'float' => $align,
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-callout-icon-left, .fl-node-$id .fl-callout-icon-right",
+	'media'    => 'medium',
+	'props'    => array(
+		'float' => $align_medium,
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-callout-icon-left, .fl-node-$id .fl-callout-icon-right",
+	'media'    => 'responsive',
+	'props'    => array(
+		'float' => $align_responsive,
+	),
+) );
+
 // Button Styles
 if ( 'button' == $settings->cta_type ) {
 	FLBuilder::render_module_css( 'button', $id, $module->get_button_settings() );

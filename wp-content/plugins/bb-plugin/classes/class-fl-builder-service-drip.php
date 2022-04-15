@@ -33,11 +33,11 @@ final class FLBuilderServiceDrip extends FLBuilderService {
 		if ( $this->api_instance ) {
 			return $this->api_instance;
 		}
-		if ( ! class_exists( 'Drip_Api' ) ) {
+		if ( ! class_exists( 'FL_Drip_Api' ) ) {
 			require_once FL_BUILDER_DIR . 'includes/vendor/drip/Drip_API.class.php';
 		}
 
-		$this->api_instance = new Drip_Api( $api_key );
+		$this->api_instance = new FL_Drip_Api( $api_key );
 
 		return $this->api_instance;
 	}

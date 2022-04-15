@@ -1,6 +1,6 @@
-(function($) {
+(function ($) {
 
-	FLBuilderLoginForm = function(settings) {
+	FLBuilderLoginForm = function (settings) {
 		this.settings = settings;
 		this.nodeClass = '.fl-node-' + settings.id;
 		this.loginform = $(this.nodeClass + ' .fl-login-form.login');
@@ -11,19 +11,18 @@
 	};
 
 	FLBuilderLoginForm.prototype = {
-
 		settings: {},
 		nodeClass: '',
 		form: null,
 		button: null,
 
-		_init: function() {
+		_init: function () {
 			this.loginbutton.on('click', $.proxy(this._loginForm, this));
 			this.logoutbutton.on('click', $.proxy(this._logoutForm, this));
 			this.loginform.find('input[type="password"]').on('keypress', $.proxy(this._onEnterKey, this));
 		},
 
-		_loginForm: function(e) {
+		_loginForm: function (e) {
 			var submitButton = $(e.currentTarget),
 				currentForm = submitButton.closest('.fl-login-form'),
 				postId = currentForm.closest('.fl-builder-content').data('post-id'),
@@ -35,8 +34,7 @@
 				name = currentForm.find('input[name=fl-login-form-name]'),
 				password = currentForm.find('input[name=fl-login-form-password]'),
 				remember = currentForm.find('input[name=fl-login-form-remember]'),
-				nonce = this.loginform.find( 'input#fl-login-form-nonce').val();
-				re = /\S+@\S+\.\S+/,
+				nonce = this.loginform.find('input#fl-login-form-nonce').val(),
 				valid = true,
 				ajaxData = null;
 
@@ -58,7 +56,6 @@
 			}
 
 			if (valid) {
-
 				currentForm.find('> .fl-form-error-message').hide();
 				submitButton.find('.fl-button-text').text(waitText);
 				submitButton.data('original-text', buttonText);
@@ -69,22 +66,22 @@
 					name: name.val(),
 					password: password.val(),
 					post_id: postId,
-					remember: remember.is( ':checked' ),
+					remember: remember.is(':checked'),
 					template_id: templateId,
 					template_node_id: templateNodeId,
 					node_id: nodeId,
 					nonce: nonce
 				};
 
-				$.post(FLBuilderLayoutConfig.paths.wpAjaxUrl, ajaxData, $.proxy(function(response) {
+				$.post(FLBuilderLayoutConfig.paths.wpAjaxUrl, ajaxData, $.proxy(function (response) {
 					this._loginFormComplete(response, submitButton);
 				}, this));
 			}
 		},
 
-		_logoutForm: function(e) {
+		_logoutForm: function (e) {
 			var submitButton = $(e.currentTarget),
-				nonce = this.logoutform.find( 'input#fl-login-form-nonce').val();
+				nonce = this.logoutform.find('input#fl-login-form-nonce').val();
 
 			e.preventDefault();
 
@@ -93,38 +90,36 @@
 				nonce: nonce
 			};
 
-			$.post(FLBuilderLayoutConfig.paths.wpAjaxUrl, ajaxData, $.proxy(function(response) {
+			$.post(FLBuilderLayoutConfig.paths.wpAjaxUrl, ajaxData, $.proxy(function (response) {
 				this._logoutFormComplete(response, submitButton);
-
 			}, this));
 		},
 
-		_logoutFormComplete: function(response, button) {
-
+		_logoutFormComplete: function (response, button) {
 			location.reload();
-			console.log(response)
 		},
 
-		_loginFormComplete: function(response, button) {
-
+		_loginFormComplete: function (response, button) {
 			var buttonText = button.data('original-text'),
 				form = button.closest('.fl-login-form');
-
-			console.log(response)
 
 			if (false === response.success) {
 				form.find('> .fl-form-error-message').html(response.data);
 				form.find('> .fl-form-error-message').show();
 				button.removeClass('fl-form-button-disabled');
 				button.find('.fl-button-text').text(buttonText);
-			} else if ('' !== response.data.url) {
-				window.location.href = response.data.url;
 			} else {
-				location.reload();
+				if ('current' == response.data.url) {
+					window.location.reload();
+				} else if ('referrer' == response.data.url) {
+					document.referrer ? window.location = document.referrer : history.back()
+				} else {
+					window.location.href = response.data.url;
+				}
 			}
 		},
 
-		_onEnterKey: function(e) {
+		_onEnterKey: function (e) {
 			if (e.which == 13) {
 				var currentForm = $(e.currentTarget).closest('.fl-login-form');
 				currentForm.find('a.fl-button').trigger('click');

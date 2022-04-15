@@ -167,6 +167,8 @@ final class FLBuilderModel {
 	 */
 	static private $node_template_types = array();
 
+	static private $get_user_templates_cache = false;
+
 	/**
 	 * Initialize hooks.
 	 *
@@ -565,7 +567,7 @@ final class FLBuilderModel {
 		$post_id  = ( isset( $post->ID ) ) ? $post->ID : false;
 
 		if ( null !== self::$active ) {
-			return self::$active;
+			return apply_filters( 'fl_builder_model_is_builder_active', self::$active );
 		} elseif ( ! is_admin() && is_singular() && $query_id != $post_id ) {
 			self::$active = false;
 		} elseif ( is_customize_preview() ) {
@@ -574,8 +576,7 @@ final class FLBuilderModel {
 			$post_data    = self::get_post_data();
 			self::$active = isset( $_GET['fl_builder'] ) || isset( $post_data['fl_builder'] );
 		}
-
-		return self::$active;
+		return apply_filters( 'fl_builder_model_is_builder_active', self::$active );
 	}
 
 	/**
@@ -3674,6 +3675,7 @@ final class FLBuilderModel {
 			'WP_Widget_Media_Gallery',
 			'WP_Widget_Text',
 			'WP_Widget_Custom_HTML',
+			'WP_Widget_Block',
 		) );
 
 		foreach ( $wp_widget_factory->widgets as $class => $widget ) {
@@ -5086,6 +5088,10 @@ final class FLBuilderModel {
 	 * @return array
 	 */
 	static public function get_user_templates( $type = 'layout' ) {
+
+		if ( isset( self::$get_user_templates_cache[ $type ] ) ) {
+			return self::$get_user_templates_cache[ $type ];
+		}
 		$categorized = array(
 			'uncategorized' => array(
 				'name'      => _x( 'Uncategorized', 'Default user template category.', 'fl-builder' ),
@@ -5179,11 +5185,11 @@ final class FLBuilderModel {
 
 		// sort the categories.
 		asort( $categorized );
-
-		return array(
+		self::$get_user_templates_cache[ $type ] = array(
 			'templates'   => $templates,
 			'categorized' => $categorized,
 		);
+		return self::$get_user_templates_cache[ $type ];
 	}
 
 	/**
@@ -5227,7 +5233,7 @@ final class FLBuilderModel {
 	 */
 	static public function delete_user_template( $template_id = null ) {
 		if ( isset( $template_id ) ) {
-			wp_delete_post( $template_id, true );
+			wp_trash_post( $template_id, true );
 		}
 	}
 
@@ -5684,13 +5690,14 @@ final class FLBuilderModel {
 
 			foreach ( $nodes as $node_id => $node ) {
 
-				$nodes[ $node_id ]->template_id      = $template_id;
-				$nodes[ $node_id ]->template_node_id = $node_id;
-
-				if ( $node_id == $root_node->node ) {
-					$nodes[ $node_id ]->template_root_node = true;
-				} elseif ( isset( $nodes[ $node_id ]->template_root_node ) ) {
-					unset( $nodes[ $node_id ]->template_root_node );
+				if ( false == $nodes[ $node_id ]->global ) {
+					$nodes[ $node_id ]->template_id      = $template_id;
+					$nodes[ $node_id ]->template_node_id = $node_id;
+					if ( $node_id == $root_node->node ) {
+						$nodes[ $node_id ]->template_root_node = true;
+					} elseif ( isset( $nodes[ $node_id ]->template_root_node ) ) {
+						unset( $nodes[ $node_id ]->template_root_node );
+					}
 				}
 			}
 		} else {
@@ -5814,7 +5821,7 @@ final class FLBuilderModel {
 		self::unlink_global_node_template_from_all_posts( $template_post_id );
 
 		// Delete the template post.
-		wp_delete_post( $template_post_id, true );
+		wp_trash_post( $template_post_id, true );
 	}
 
 	/**

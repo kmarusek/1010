@@ -61,10 +61,10 @@ var getStrings = function getStrings() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "deleteNode": () => (/* binding */ deleteNode),
 /* harmony export */   "copyNode": () => (/* binding */ copyNode),
-/* harmony export */   "scrollToNode": () => (/* binding */ scrollToNode),
-/* harmony export */   "moveNode": () => (/* binding */ moveNode)
+/* harmony export */   "deleteNode": () => (/* binding */ deleteNode),
+/* harmony export */   "moveNode": () => (/* binding */ moveNode),
+/* harmony export */   "scrollToNode": () => (/* binding */ scrollToNode)
 /* harmony export */ });
 /* harmony import */ var data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! data */ "./src/builder/data/index.js");
 
@@ -243,20 +243,20 @@ var openSettings = function openSettings(id) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getSystemActions": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemActions),
-/* harmony export */   "getSystemConfig": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemConfig),
-/* harmony export */   "getSystemSelectors": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemSelectors),
-/* harmony export */   "getSystemState": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemState),
-/* harmony export */   "getSystemStore": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemStore),
-/* harmony export */   "useSystemState": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.useSystemState),
 /* harmony export */   "getChildren": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.getChildren),
 /* harmony export */   "getLayoutActions": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.getLayoutActions),
 /* harmony export */   "getLayoutHooks": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.getLayoutHooks),
 /* harmony export */   "getLayoutState": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.getLayoutState),
 /* harmony export */   "getLayoutStore": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.getLayoutStore),
 /* harmony export */   "getNode": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.getNode),
+/* harmony export */   "getSystemActions": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemActions),
+/* harmony export */   "getSystemConfig": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemConfig),
+/* harmony export */   "getSystemSelectors": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemSelectors),
+/* harmony export */   "getSystemState": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemState),
+/* harmony export */   "getSystemStore": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemStore),
 /* harmony export */   "nodeExists": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.nodeExists),
-/* harmony export */   "useLayoutState": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.useLayoutState)
+/* harmony export */   "useLayoutState": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.useLayoutState),
+/* harmony export */   "useSystemState": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.useSystemState)
 /* harmony export */ });
 /* harmony import */ var _system__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./system */ "./src/builder/data/system/index.js");
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./layout */ "./src/builder/data/layout/index.js");
@@ -274,54 +274,54 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "undo": () => (/* binding */ undo),
-/* harmony export */   "redo": () => (/* binding */ redo),
-/* harmony export */   "insertNode": () => (/* binding */ insertNode),
-/* harmony export */   "insertFreeformNode": () => (/* binding */ insertFreeformNode),
-/* harmony export */   "insertNodes": () => (/* binding */ insertNodes),
-/* harmony export */   "reorderNode": () => (/* binding */ reorderNode),
-/* harmony export */   "moveNode": () => (/* binding */ moveNode),
-/* harmony export */   "renderNode": () => (/* binding */ renderNode),
-/* harmony export */   "updateNode": () => (/* binding */ updateNode),
-/* harmony export */   "updateNodeSettings": () => (/* binding */ updateNodeSettings),
-/* harmony export */   "updateNodeSetting": () => (/* binding */ updateNodeSetting),
-/* harmony export */   "deleteNode": () => (/* binding */ deleteNode),
-/* harmony export */   "addModule": () => (/* binding */ addModule),
-/* harmony export */   "copyModule": () => (/* binding */ copyModule),
-/* harmony export */   "addColumns": () => (/* binding */ addColumns),
-/* harmony export */   "reorderColumn": () => (/* binding */ reorderColumn),
-/* harmony export */   "moveColumn": () => (/* binding */ moveColumn),
-/* harmony export */   "copyColumn": () => (/* binding */ copyColumn),
-/* harmony export */   "resizeColumn": () => (/* binding */ resizeColumn),
-/* harmony export */   "deleteColumn": () => (/* binding */ deleteColumn),
-/* harmony export */   "resetColWidths": () => (/* binding */ resetColWidths),
 /* harmony export */   "addColumnGroup": () => (/* binding */ addColumnGroup),
-/* harmony export */   "addRow": () => (/* binding */ addRow),
-/* harmony export */   "copyRow": () => (/* binding */ copyRow),
-/* harmony export */   "resizeRowContent": () => (/* binding */ resizeRowContent),
-/* harmony export */   "resetRowWidth": () => (/* binding */ resetRowWidth),
-/* harmony export */   "applyTemplate": () => (/* binding */ applyTemplate),
-/* harmony export */   "addNodeTemplate": () => (/* binding */ addNodeTemplate),
-/* harmony export */   "saveNodeTemplate": () => (/* binding */ saveNodeTemplate),
-/* harmony export */   "deleteNodeTemplate": () => (/* binding */ deleteNodeTemplate),
-/* harmony export */   "saveUserTemplateSettings": () => (/* binding */ saveUserTemplateSettings),
-/* harmony export */   "deleteUserTemplate": () => (/* binding */ deleteUserTemplate),
 /* harmony export */   "addColumnTemplate": () => (/* binding */ addColumnTemplate),
+/* harmony export */   "addColumns": () => (/* binding */ addColumns),
+/* harmony export */   "addModule": () => (/* binding */ addModule),
+/* harmony export */   "addNodeTemplate": () => (/* binding */ addNodeTemplate),
+/* harmony export */   "addRow": () => (/* binding */ addRow),
 /* harmony export */   "addRowTemplate": () => (/* binding */ addRowTemplate),
-/* harmony export */   "fetchLayout": () => (/* binding */ fetchLayout),
-/* harmony export */   "setLayout": () => (/* binding */ setLayout),
-/* harmony export */   "renderLayout": () => (/* binding */ renderLayout),
-/* harmony export */   "saveLayoutSettings": () => (/* binding */ saveLayoutSettings),
-/* harmony export */   "saveGlobalSettings": () => (/* binding */ saveGlobalSettings),
-/* harmony export */   "saveLayout": () => (/* binding */ saveLayout),
-/* harmony export */   "saveDraft": () => (/* binding */ saveDraft),
-/* harmony export */   "discardDraft": () => (/* binding */ discardDraft),
-/* harmony export */   "saveHistoryState": () => (/* binding */ saveHistoryState),
-/* harmony export */   "clearHistoryStates": () => (/* binding */ clearHistoryStates),
-/* harmony export */   "renderHistoryState": () => (/* binding */ renderHistoryState),
-/* harmony export */   "displaySettings": () => (/* binding */ displaySettings),
+/* harmony export */   "applyTemplate": () => (/* binding */ applyTemplate),
 /* harmony export */   "cancelDisplaySettings": () => (/* binding */ cancelDisplaySettings),
-/* harmony export */   "resizingComplete": () => (/* binding */ resizingComplete)
+/* harmony export */   "clearHistoryStates": () => (/* binding */ clearHistoryStates),
+/* harmony export */   "copyColumn": () => (/* binding */ copyColumn),
+/* harmony export */   "copyModule": () => (/* binding */ copyModule),
+/* harmony export */   "copyRow": () => (/* binding */ copyRow),
+/* harmony export */   "deleteColumn": () => (/* binding */ deleteColumn),
+/* harmony export */   "deleteNode": () => (/* binding */ deleteNode),
+/* harmony export */   "deleteNodeTemplate": () => (/* binding */ deleteNodeTemplate),
+/* harmony export */   "deleteUserTemplate": () => (/* binding */ deleteUserTemplate),
+/* harmony export */   "discardDraft": () => (/* binding */ discardDraft),
+/* harmony export */   "displaySettings": () => (/* binding */ displaySettings),
+/* harmony export */   "fetchLayout": () => (/* binding */ fetchLayout),
+/* harmony export */   "insertFreeformNode": () => (/* binding */ insertFreeformNode),
+/* harmony export */   "insertNode": () => (/* binding */ insertNode),
+/* harmony export */   "insertNodes": () => (/* binding */ insertNodes),
+/* harmony export */   "moveColumn": () => (/* binding */ moveColumn),
+/* harmony export */   "moveNode": () => (/* binding */ moveNode),
+/* harmony export */   "redo": () => (/* binding */ redo),
+/* harmony export */   "renderHistoryState": () => (/* binding */ renderHistoryState),
+/* harmony export */   "renderLayout": () => (/* binding */ renderLayout),
+/* harmony export */   "renderNode": () => (/* binding */ renderNode),
+/* harmony export */   "reorderColumn": () => (/* binding */ reorderColumn),
+/* harmony export */   "reorderNode": () => (/* binding */ reorderNode),
+/* harmony export */   "resetColWidths": () => (/* binding */ resetColWidths),
+/* harmony export */   "resetRowWidth": () => (/* binding */ resetRowWidth),
+/* harmony export */   "resizeColumn": () => (/* binding */ resizeColumn),
+/* harmony export */   "resizeRowContent": () => (/* binding */ resizeRowContent),
+/* harmony export */   "resizingComplete": () => (/* binding */ resizingComplete),
+/* harmony export */   "saveDraft": () => (/* binding */ saveDraft),
+/* harmony export */   "saveGlobalSettings": () => (/* binding */ saveGlobalSettings),
+/* harmony export */   "saveHistoryState": () => (/* binding */ saveHistoryState),
+/* harmony export */   "saveLayout": () => (/* binding */ saveLayout),
+/* harmony export */   "saveLayoutSettings": () => (/* binding */ saveLayoutSettings),
+/* harmony export */   "saveNodeTemplate": () => (/* binding */ saveNodeTemplate),
+/* harmony export */   "saveUserTemplateSettings": () => (/* binding */ saveUserTemplateSettings),
+/* harmony export */   "setLayout": () => (/* binding */ setLayout),
+/* harmony export */   "undo": () => (/* binding */ undo),
+/* harmony export */   "updateNode": () => (/* binding */ updateNode),
+/* harmony export */   "updateNodeSetting": () => (/* binding */ updateNodeSetting),
+/* harmony export */   "updateNodeSettings": () => (/* binding */ updateNodeSettings)
 /* harmony export */ });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -772,8 +772,8 @@ var resizingComplete = function resizingComplete() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "before": () => (/* binding */ before),
-/* harmony export */   "after": () => (/* binding */ after)
+/* harmony export */   "after": () => (/* binding */ after),
+/* harmony export */   "before": () => (/* binding */ before)
 /* harmony export */ });
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/builder/data/layout/actions.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -1389,14 +1389,14 @@ var after = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getLayoutStore": () => (/* binding */ getLayoutStore),
-/* harmony export */   "getLayoutState": () => (/* binding */ getLayoutState),
+/* harmony export */   "getChildren": () => (/* binding */ getChildren),
 /* harmony export */   "getLayoutActions": () => (/* binding */ getLayoutActions),
 /* harmony export */   "getLayoutHooks": () => (/* binding */ getLayoutHooks),
-/* harmony export */   "useLayoutState": () => (/* binding */ useLayoutState),
+/* harmony export */   "getLayoutState": () => (/* binding */ getLayoutState),
+/* harmony export */   "getLayoutStore": () => (/* binding */ getLayoutStore),
 /* harmony export */   "getNode": () => (/* binding */ getNode),
-/* harmony export */   "getChildren": () => (/* binding */ getChildren),
-/* harmony export */   "nodeExists": () => (/* binding */ nodeExists)
+/* harmony export */   "nodeExists": () => (/* binding */ nodeExists),
+/* harmony export */   "useLayoutState": () => (/* binding */ useLayoutState)
 /* harmony export */ });
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./src/builder/data/layout/store/index.js");
 /* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducers */ "./src/builder/data/layout/reducers.js");
@@ -1476,8 +1476,8 @@ store.dispatch(_actions__WEBPACK_IMPORTED_MODULE_3__.fetchLayout());
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "layout": () => (/* binding */ layout),
 /* harmony export */   "editing": () => (/* binding */ editing),
+/* harmony export */   "layout": () => (/* binding */ layout),
 /* harmony export */   "resizing": () => (/* binding */ resizing)
 /* harmony export */ });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "redux");
@@ -2330,21 +2330,21 @@ var undoable = function undoable(reducer) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "defaultNode": () => (/* binding */ defaultNode),
-/* harmony export */   "sortNodes": () => (/* binding */ sortNodes),
-/* harmony export */   "nodeExists": () => (/* binding */ nodeExists),
-/* harmony export */   "getChildNodes": () => (/* binding */ getChildNodes),
-/* harmony export */   "getSiblingNodes": () => (/* binding */ getSiblingNodes),
-/* harmony export */   "mergeNode": () => (/* binding */ mergeNode),
-/* harmony export */   "insertExistingNodeAndResolvePositions": () => (/* binding */ insertExistingNodeAndResolvePositions),
-/* harmony export */   "insertNewNodeAndResolvePositions": () => (/* binding */ insertNewNodeAndResolvePositions),
 /* harmony export */   "deleteChildren": () => (/* binding */ deleteChildren),
 /* harmony export */   "deleteNodeAndResolvePositions": () => (/* binding */ deleteNodeAndResolvePositions),
-/* harmony export */   "resetColumnWidths": () => (/* binding */ resetColumnWidths),
-/* harmony export */   "isNodeEmpty": () => (/* binding */ isNodeEmpty),
+/* harmony export */   "getChildNodes": () => (/* binding */ getChildNodes),
 /* harmony export */   "getOrphans": () => (/* binding */ getOrphans),
+/* harmony export */   "getSiblingNodes": () => (/* binding */ getSiblingNodes),
+/* harmony export */   "insertExistingNodeAndResolvePositions": () => (/* binding */ insertExistingNodeAndResolvePositions),
+/* harmony export */   "insertNewNodeAndResolvePositions": () => (/* binding */ insertNewNodeAndResolvePositions),
+/* harmony export */   "isNodeEmpty": () => (/* binding */ isNodeEmpty),
+/* harmony export */   "mergeNode": () => (/* binding */ mergeNode),
+/* harmony export */   "nodeExists": () => (/* binding */ nodeExists),
+/* harmony export */   "resetColumnWidths": () => (/* binding */ resetColumnWidths),
+/* harmony export */   "sortNodes": () => (/* binding */ sortNodes),
+/* harmony export */   "verifyNoOrphans": () => (/* binding */ verifyNoOrphans),
 /* harmony export */   "verifyNodeShape": () => (/* binding */ verifyNodeShape),
-/* harmony export */   "verifyNodes": () => (/* binding */ verifyNodes),
-/* harmony export */   "verifyNoOrphans": () => (/* binding */ verifyNoOrphans)
+/* harmony export */   "verifyNodes": () => (/* binding */ verifyNodes)
 /* harmony export */ });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -2590,11 +2590,11 @@ var verifyNoOrphans = function verifyNoOrphans(nodes) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "registerStore": () => (/* binding */ registerStore),
-/* harmony export */   "useStore": () => (/* binding */ useStore),
-/* harmony export */   "getStore": () => (/* binding */ getStore),
 /* harmony export */   "getDispatch": () => (/* binding */ getDispatch),
-/* harmony export */   "getSelectors": () => (/* binding */ getSelectors)
+/* harmony export */   "getSelectors": () => (/* binding */ getSelectors),
+/* harmony export */   "getStore": () => (/* binding */ getStore),
+/* harmony export */   "registerStore": () => (/* binding */ registerStore),
+/* harmony export */   "useStore": () => (/* binding */ useStore)
 /* harmony export */ });
 /* harmony import */ var _beaverbuilder_app_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @beaverbuilder/app-core */ "@beaverbuilder/app-core");
 /* harmony import */ var _beaverbuilder_app_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_beaverbuilder_app_core__WEBPACK_IMPORTED_MODULE_0__);
@@ -2620,13 +2620,13 @@ var _createStoreRegistry = (0,_beaverbuilder_app_core__WEBPACK_IMPORTED_MODULE_0
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "setShouldShowShortcuts": () => (/* binding */ setShouldShowShortcuts),
-/* harmony export */   "registerPanel": () => (/* binding */ registerPanel),
 /* harmony export */   "displayPanel": () => (/* binding */ displayPanel),
-/* harmony export */   "togglePanel": () => (/* binding */ togglePanel),
 /* harmony export */   "hideCurrentPanel": () => (/* binding */ hideCurrentPanel),
+/* harmony export */   "registerPanel": () => (/* binding */ registerPanel),
+/* harmony export */   "setColorScheme": () => (/* binding */ setColorScheme),
 /* harmony export */   "setIsEditing": () => (/* binding */ setIsEditing),
-/* harmony export */   "setColorScheme": () => (/* binding */ setColorScheme)
+/* harmony export */   "setShouldShowShortcuts": () => (/* binding */ setShouldShowShortcuts),
+/* harmony export */   "togglePanel": () => (/* binding */ togglePanel)
 /* harmony export */ });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -2706,8 +2706,8 @@ var setColorScheme = function setColorScheme() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "before": () => (/* binding */ before),
-/* harmony export */   "after": () => (/* binding */ after)
+/* harmony export */   "after": () => (/* binding */ after),
+/* harmony export */   "before": () => (/* binding */ before)
 /* harmony export */ });
 /**
  * Effects that fire before an action.
@@ -2751,12 +2751,12 @@ var after = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useSystemState": () => (/* binding */ useSystemState),
-/* harmony export */   "getSystemStore": () => (/* binding */ getSystemStore),
-/* harmony export */   "getSystemState": () => (/* binding */ getSystemState),
 /* harmony export */   "getSystemActions": () => (/* binding */ getSystemActions),
+/* harmony export */   "getSystemConfig": () => (/* binding */ getSystemConfig),
 /* harmony export */   "getSystemSelectors": () => (/* binding */ getSystemSelectors),
-/* harmony export */   "getSystemConfig": () => (/* binding */ getSystemConfig)
+/* harmony export */   "getSystemState": () => (/* binding */ getSystemState),
+/* harmony export */   "getSystemStore": () => (/* binding */ getSystemStore),
+/* harmony export */   "useSystemState": () => (/* binding */ useSystemState)
 /* harmony export */ });
 /* harmony import */ var _registry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../registry */ "./src/builder/data/registry/index.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions */ "./src/builder/data/system/actions.js");
@@ -2809,11 +2809,11 @@ var getSystemConfig = function getSystemConfig() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "shouldShowShortcuts": () => (/* binding */ shouldShowShortcuts),
-/* harmony export */   "panels": () => (/* binding */ panels),
+/* harmony export */   "colorScheme": () => (/* binding */ colorScheme),
 /* harmony export */   "currentPanel": () => (/* binding */ currentPanel),
 /* harmony export */   "isEditing": () => (/* binding */ isEditing),
-/* harmony export */   "colorScheme": () => (/* binding */ colorScheme)
+/* harmony export */   "panels": () => (/* binding */ panels),
+/* harmony export */   "shouldShowShortcuts": () => (/* binding */ shouldShowShortcuts)
 /* harmony export */ });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -2969,8 +2969,8 @@ var querymonitor = function querymonitor() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SVGSymbols": () => (/* binding */ SVGSymbols),
-/* harmony export */   "Icon": () => (/* binding */ Icon)
+/* harmony export */   "Icon": () => (/* binding */ Icon),
+/* harmony export */   "SVGSymbols": () => (/* binding */ SVGSymbols)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -3242,8 +3242,8 @@ var ContextMenu = function ContextMenu(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "registerPanels": () => (/* binding */ registerPanels),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "registerPanels": () => (/* binding */ registerPanels)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -3639,7 +3639,7 @@ var InlineEditor = /*#__PURE__*/function (_Component) {
       var settings = jQuery(".fl-builder-settings[data-node=\"".concat(nodeId, "\"]"));
       var content = editor.getContent();
 
-      if (!settings.length) {
+      if (!settings.length || !field) {
         return;
       } else if ('editor' === field.type) {
         var textarea = settings.find("#fl-field-".concat(field.name, " textarea.wp-editor-area"));
@@ -4793,14 +4793,14 @@ var DisclosureArrow = function DisclosureArrow() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getModuleIconComponent": () => (/* binding */ getModuleIconComponent),
-/* harmony export */   "DefaultIcon": () => (/* binding */ DefaultIcon),
-/* harmony export */   "Column": () => (/* binding */ Column),
-/* harmony export */   "Row": () => (/* binding */ Row),
-/* harmony export */   "Photo": () => (/* binding */ Photo),
-/* harmony export */   "Text": () => (/* binding */ Text),
 /* harmony export */   "Alert": () => (/* binding */ Alert),
-/* harmony export */   "Visibility": () => (/* binding */ Visibility)
+/* harmony export */   "Column": () => (/* binding */ Column),
+/* harmony export */   "DefaultIcon": () => (/* binding */ DefaultIcon),
+/* harmony export */   "Photo": () => (/* binding */ Photo),
+/* harmony export */   "Row": () => (/* binding */ Row),
+/* harmony export */   "Text": () => (/* binding */ Text),
+/* harmony export */   "Visibility": () => (/* binding */ Visibility),
+/* harmony export */   "getModuleIconComponent": () => (/* binding */ getModuleIconComponent)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -4987,17 +4987,17 @@ var Visibility = function Visibility() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useSingleAndDoubleClick": () => (/* reexport safe */ _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "sanitizeString": () => (/* binding */ sanitizeString),
-/* harmony export */   "getModuleTypeLabel": () => (/* binding */ getModuleTypeLabel),
-/* harmony export */   "hasVisibility": () => (/* binding */ hasVisibility),
 /* harmony export */   "getChildNodes": () => (/* binding */ getChildNodes),
+/* harmony export */   "getModuleTypeLabel": () => (/* binding */ getModuleTypeLabel),
 /* harmony export */   "getNodeTree": () => (/* binding */ getNodeTree),
-/* harmony export */   "isHoveringBefore": () => (/* binding */ isHoveringBefore),
-/* harmony export */   "isDraggable": () => (/* binding */ isDraggable),
-/* harmony export */   "shouldAllowDrop": () => (/* binding */ shouldAllowDrop),
 /* harmony export */   "getTransparentImg": () => (/* binding */ getTransparentImg),
-/* harmony export */   "moduleHasDefinition": () => (/* binding */ moduleHasDefinition)
+/* harmony export */   "hasVisibility": () => (/* binding */ hasVisibility),
+/* harmony export */   "isDraggable": () => (/* binding */ isDraggable),
+/* harmony export */   "isHoveringBefore": () => (/* binding */ isHoveringBefore),
+/* harmony export */   "moduleHasDefinition": () => (/* binding */ moduleHasDefinition),
+/* harmony export */   "sanitizeString": () => (/* binding */ sanitizeString),
+/* harmony export */   "shouldAllowDrop": () => (/* binding */ shouldAllowDrop),
+/* harmony export */   "useSingleAndDoubleClick": () => (/* reexport safe */ _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dompurify */ "./node_modules/dompurify/dist/purify.js");
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dompurify__WEBPACK_IMPORTED_MODULE_0__);
@@ -5552,7 +5552,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   \***********************************************/
 /***/ (function(module) {
 
-/*! @license DOMPurify 2.3.5 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.5/LICENSE */
+/*! @license DOMPurify 2.3.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.6/LICENSE */
 
 (function (global, factory) {
    true ? module.exports = factory() :
@@ -5743,6 +5743,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   var IS_SCRIPT_OR_DATA = seal(/^(?:\w+script|data):/i);
   var ATTR_WHITESPACE = seal(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g // eslint-disable-line no-control-regex
   );
+  var DOCTYPE_NAME = seal(/^html$/i);
 
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -5802,7 +5803,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
      * Version label, exposed for easier checks
      * if DOMPurify is up to date or not
      */
-    DOMPurify.version = '2.3.5';
+    DOMPurify.version = '2.3.6';
 
     /**
      * Array of elements that DOMPurify removed during sanitation.
@@ -6397,7 +6398,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
      * @return {Iterator} iterator instance
      */
     var _createIterator = function _createIterator(root) {
-      return createNodeIterator.call(root.ownerDocument || root, root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT, null, false);
+      return createNodeIterator.call(root.ownerDocument || root, root,
+      // eslint-disable-next-line no-bitwise
+      NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT, null, false);
     };
 
     /**
@@ -6489,6 +6492,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       /* Remove element if anything forbids its presence */
       if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
+        /* Check if we have a custom element to handle */
+        if (!FORBID_TAGS[tagName] && _basicCustomElementTest(tagName)) {
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) return false;
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) return false;
+        }
+
         /* Keep content except for bad-listed elements */
         if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
           var parentNode = getParentNode(currentNode) || currentNode.parentNode;
@@ -6501,11 +6510,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
               parentNode.insertBefore(cloneNode(childNodes[i], true), getNextSibling(currentNode));
             }
           }
-        }
-
-        if (!FORBID_TAGS[tagName] && _basicCustomElementTest(tagName)) {
-          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) return false;
-          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) return false;
         }
 
         _forceRemove(currentNode);
@@ -6890,6 +6894,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       }
 
       var serializedHTML = WHOLE_DOCUMENT ? body.outerHTML : body.innerHTML;
+
+      /* Serialize doctype if allowed */
+      if (WHOLE_DOCUMENT && ALLOWED_TAGS['!doctype'] && body.ownerDocument && body.ownerDocument.doctype && body.ownerDocument.doctype.name && regExpTest(DOCTYPE_NAME, body.ownerDocument.doctype.name)) {
+        serializedHTML = '<!DOCTYPE ' + body.ownerDocument.doctype.name + '>\n' + serializedHTML;
+      }
 
       /* Sanitize final string template-safe */
       if (SAFE_FOR_TEMPLATES) {

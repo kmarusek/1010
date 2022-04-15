@@ -30,6 +30,7 @@ final class FLBuilderShortcodes {
 		$builder_active = FLBuilderModel::is_builder_active();
 		$post_type      = isset( $attrs['type'] ) ? $attrs['type'] : get_post_types();
 		$site_id        = isset( $attrs['site'] ) ? absint( $attrs['site'] ) : null;
+		$inline_assets  = apply_filters( 'fl_builder_render_assets_inline', false );
 		$args           = array(
 			'post_type'      => $post_type,
 			'posts_per_page' => -1,
@@ -65,8 +66,14 @@ final class FLBuilderShortcodes {
 		if ( $builder_active ) {
 			echo '<div class="fl-builder-shortcode-mask-wrap"><div class="fl-builder-shortcode-mask"></div>';
 		}
+		if ( ! $inline_assets ) {
+			add_filter( 'fl_builder_render_assets_inline', '__return_true' );
+		}
 
 		FLBuilder::render_query( $args, $site_id );
+		if ( ! $inline_assets ) {
+			add_filter( 'fl_builder_render_assets_inline', '__return_false' );
+		}
 
 		if ( $builder_active ) {
 			echo '</div>';

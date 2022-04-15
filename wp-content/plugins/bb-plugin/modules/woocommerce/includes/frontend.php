@@ -43,6 +43,8 @@ if ( isset( $pages[ $settings->layout ] ) ) {
 		echo '[products ids="' . $settings->product_ids . '" columns="' . $settings->columns . '" orderby="' . $settings->orderby . '" order="' . $settings->order . '"]';
 	} elseif ( 'category' == $settings->products_source ) {
 		echo '[product_category category="' . $settings->category_slug . '" per_page="' . $settings->num_products . '" columns="' . $settings->columns . '" orderby="' . $settings->orderby . '" order="' . $settings->order . '"]';
+	} elseif ( 'tags' == $settings->products_source ) {
+		echo '[products tag="' . $settings->tags_slug . '" per_page="' . $settings->num_products . '" columns="' . $settings->columns . '" orderby="' . $settings->orderby . '" order="' . $settings->order . '"]';
 	} elseif ( 'recent' == $settings->products_source ) { // Recent Products
 		echo '[recent_products per_page="' . $settings->num_products . '" columns="' . $settings->columns . '" orderby="' . $settings->orderby . '" order="' . $settings->order . '"]';
 	} elseif ( 'featured' == $settings->products_source ) { // Featured Products
