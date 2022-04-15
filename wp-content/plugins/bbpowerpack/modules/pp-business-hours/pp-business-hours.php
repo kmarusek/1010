@@ -133,6 +133,41 @@ class PPBusinessHoursModule extends FLBuilderModule {
 
 		return pp_long_day_format( $day );
 	}
+
+	public function get_timing( $value ) {
+		$hours = null;
+
+		if ( is_object( $value ) ) {
+			$hours = $value->hours . ':' . $value->minutes . ' ' . $value->day_period;
+		}
+		if ( is_array( $value ) ) {
+			$hours = $value['hours'] . ':' . $value['minutes'] . '&nbsp;' . $value['day_period'];
+		}
+
+		if ( isset( $this->settings->hours_24_format ) && 'yes' === $this->settings->hours_24_format ) {
+			$hours = date( "G:i", strtotime( $hours ) );
+		} else {
+			$hours = date( "g:i A", strtotime( $hours ) );
+		}
+
+		return $hours;
+	}
+
+	public function render_time_title( $timing ) {
+		$title = $this->get_day_translation( $timing->title, $timing->day_format );
+
+		if ( $timing->hours_type == 'range' ) {
+			$title = $this->get_day_translation( $timing->start_day, $timing->day_format );
+			$title .= ' - ';
+			$title .= $this->get_day_translation( $timing->end_day, $timing->day_format );
+		}
+
+		if ( $timing->hours_type == 'day' ) { ?>
+			<link itemprop="dayOfWeek" href="http://schema.org/<?php echo $timing->title; ?>" /><?php echo $title; ?>
+		<?php } else { ?>
+			<?php echo $title; ?>
+		<?php }
+	}
 }
 
 /**

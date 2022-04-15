@@ -370,28 +370,18 @@ BB_PowerPack::register_module(
 						'arrow_color'     => array(
 							'type'        => 'color',
 							'label'       => __( 'Arrow Color', 'bb-powerpack' ),
-							'default'     => '999999',
+							'default'     => '',
 							'show_alpha'  => false,
 							'show_reset'  => true,
 							'connections' => array( 'color' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.pp-testimonials-wrap .owl-theme .owl-nav button svg',
-								'property' => 'color',
-							),
 						),
 						'arrow_bg_color'  => array(
 							'type'        => 'color',
-							'label'       => __( 'Arrow Color', 'bb-powerpack' ),
+							'label'       => __( 'Arrow Background Color', 'bb-powerpack' ),
 							'default'     => '',
 							'show_alpha'  => true,
 							'show_reset'  => true,
 							'connections' => array( 'color' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.pp-testimonials-wrap .owl-theme .owl-nav button',
-								'property' => 'background',
-							),
 						),
 						'arrow_alignment' => array(
 							'type'    => 'align',

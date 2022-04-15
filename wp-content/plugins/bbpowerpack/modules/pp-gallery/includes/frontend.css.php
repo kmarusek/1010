@@ -3,6 +3,21 @@
 $photo_border_width = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['width'] ) ) ? $settings->photo_border_group['width'] : 0;
 $photo_border_radius = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['radius'] ) ) ? $settings->photo_border_group['radius'] : 0;
 $photo_border = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['style'] ) ) ? $settings->photo_border_group['style'] : 'none';
+?>
+
+.fancybox-<?php echo $id; ?> button.fancybox-button {
+	padding: 10px;
+	border-radius: 0;
+    box-shadow: none;
+}
+
+<?php if ( isset( $settings->lightbox_description ) && 'no' === $settings->lightbox_description  ) { ?>
+	.fancybox-<?php echo $id; ?> .pp-fancybox-desc {
+		display: none;
+	}
+<?php } ?>
+
+<?php
 
 if ( 'justified' != $settings->gallery_layout ) {
 
@@ -19,12 +34,6 @@ if ( 'justified' != $settings->gallery_layout ) {
 	$space_mobile = ( $mobile_col - 1 ) * $settings->photo_spacing;
 	$photo_columns_mobile = ( ( 100 - $space_mobile ) / $mobile_col ) - 0.1;
 ?>
-
-.fancybox-<?php echo $id; ?> button.fancybox-button {
-	padding: 10px;
-	border-radius: 0;
-    box-shadow: none;
-}
 
 <?php if ( 'grid' === $settings->gallery_layout ) { ?>
 .fl-node-<?php echo $id; ?> .pp-photo-gallery {
@@ -152,17 +161,6 @@ if ( 'justified' != $settings->gallery_layout ) {
 	),
 ) );
 ?>
-
-
-<?php if ( 'lightbox' == $settings->click_action && ! empty( $settings->show_captions ) ) : ?>
-	.mfp-gallery img.mfp-img {
-		padding: 0;
-	}
-
-	.mfp-counter {
-		display: block !important;
-	}
-<?php endif; ?>
 
 <?php if ( 'none' != $settings->overlay_effects ) : ?>
 	.fl-node-<?php echo $id; ?> .pp-gallery-overlay {

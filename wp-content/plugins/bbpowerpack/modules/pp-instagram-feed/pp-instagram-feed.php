@@ -217,6 +217,7 @@ class PPInstagramFeedModule extends FLBuilderModule {
 	 */
 	public function get_endpoint_url() {
 		$settings = $this->settings;
+		$images_count = ! empty( $settings->images_count ) ? $settings->images_count : 8;
 
 		if ( 'yes' === $settings->feed_by_tags ) {
 			$url = sprintf( $this->get_tags_endpoint(), $settings->tag_name );
@@ -225,8 +226,9 @@ class PPInstagramFeedModule extends FLBuilderModule {
 		} else {
 			$url = $this->get_feed_endpoint();
 			$url = add_query_arg( array(
-				'fields'       => 'id,media_type,media_url,thumbnail_url,permalink,caption,likes_count,likes,timestamp,children%7Bmedia_url,id,media_type,timestamp,permalink,thumbnail_url%7D',
+				'fields'       => 'id,media_type,media_url,thumbnail_url,permalink,caption,like_count,likes,comments_count,timestamp,children%7Bmedia_url,id,media_type,timestamp,permalink,thumbnail_url%7D',
 				'access_token' => $this->get_access_token(),
+				'limit'        => $images_count,
 			), $url );
 		}
 
@@ -349,7 +351,7 @@ class PPInstagramFeedModule extends FLBuilderModule {
 		foreach ( $posts as $post ) {
 			$_post              = array();
 
-			$_post['link']      = sprintf( $this->insta_api_url . 'p/%s/', $post['node']['shortcode'] );
+			$_post['link']      = sprintf( $this->instagram_api_url . 'p/%s/', $post['node']['shortcode'] );
 			$_post['caption']   = '';
 			$_post['comments']  = $post['node']['edge_media_to_comment']['count'];
 			$_post['likes']     = $post['node']['edge_liked_by']['count'];

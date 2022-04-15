@@ -64,7 +64,7 @@ class PPSiteMapModule extends FLBuilderModule {
 		if ( $is_taxonomy ) {
 			$items_html .= self::sitemap_html_taxonomies( $item_type, $hierarchical, $no_follow, $max_depth, $sitemap_item, $query_args );
 		} else {
-			$items_html .= self::sitemap_html_post_types( $item_type, $hierarchical, $no_follow, $max_depth, $query_args );
+			$items_html .= self::sitemap_html_post_types( $item_type, $hierarchical, $no_follow, $max_depth, $sitemap_item, $query_args );
 		}
 
 		$title = empty( $title ) ? '' : sprintf( '<%s class="pp-sitemap-label">%s</%1$s>', $label_tag, $title );
@@ -104,15 +104,16 @@ class PPSiteMapModule extends FLBuilderModule {
 		return $obj->labels->name;
 	}
 
-	private static function sitemap_html_taxonomies( $taxonomy, $hierarchical, $no_follow, $max_depth, $item_settings, $query_args ) {
-		$query_args['hide_empty']       = 'yes' === $item_settings['sitemap_taxonomy_hide_empty'];
+	private static function sitemap_html_taxonomies( $taxonomy, $hierarchical, $no_follow, $max_depth, $item, $query_args ) {
+		$query_args['hide_empty']       = 'yes' === $item['sitemap_taxonomy_hide_empty'];
 		$query_args['show_option_none'] = '';
 		$query_args['taxonomy']         = $taxonomy;
 		$query_args['title_li']         = '';
 		$query_args['echo']             = false;
 		$query_args['depth']            = $max_depth;
 		$query_args['hierarchical']     = $hierarchical;
-		$query_args['orderby']          = $item_settings['sitemap_taxonomy_orderby'];
+		$query_args['orderby']          = $item['sitemap_taxonomy_orderby'];
+		$query_args 					= apply_filters( 'pp_sitemap_taxonomy_query_args', $query_args, $item );
 		$taxonomy_list                  = wp_list_categories( $query_args );
 		$taxonomy_list                  = self::add_sitemap_no_follow( 'item' . $taxonomy, $taxonomy_list, $no_follow );
 
@@ -125,7 +126,7 @@ class PPSiteMapModule extends FLBuilderModule {
 	 *
 	 * @return \WP_Query
 	 */
-	private static function query_by_post_type( $post_type, $query_args ) {
+	private static function query_by_post_type( $post_type, $query_args, $item ) {
 		$args = [
 			'posts_per_page'         => -1,
 			'update_post_meta_cache' => false,
@@ -135,6 +136,8 @@ class PPSiteMapModule extends FLBuilderModule {
 		];
 
 		$args = array_merge( $query_args, $args );
+
+		$args = apply_filters( 'pp_sitemap_post_query_args', $args, $item );
 
 		$query = new \WP_Query( $args );
 
@@ -149,10 +152,10 @@ class PPSiteMapModule extends FLBuilderModule {
 	 *
 	 * @return string
 	 */
-	private static function sitemap_html_post_types( $post_type, $hierarchical, $no_follow, $depth, $query_args ) {
+	private static function sitemap_html_post_types( $post_type, $hierarchical, $no_follow, $depth, $item, $query_args ) {
 		$html = '';
 
-		$query_result = self::query_by_post_type( $post_type, $query_args );
+		$query_result = self::query_by_post_type( $post_type, $query_args, $item );
 		if ( empty( $query_result ) ) {
 			return '';
 		}

@@ -404,7 +404,11 @@ FLBuilderCSS::typography_field_rule( array(
 <?php if ( $settings->post_grid_style_select == 'style-8' && $settings->show_image == 'yes' ) { ?>
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-image {
     float: left;
-    width: 40%;
+	<?php if ( isset( $settings->post_content_width ) && '' !== $settings->post_content_width ) { ?>
+    width: calc( 100% - <?php echo $settings->post_content_width; ?>% );
+	<?php } else { ?>
+	width: 40%;
+	<?php } ?>
 }
 <?php } ?>
 
@@ -534,9 +538,11 @@ FLBuilderCSS::typography_field_rule( array(
 	}
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button svg {
-	width: <?php echo ( $settings->post_slider_arrow_font_size * 1.7 ); ?>px;
-	height: <?php echo ( $settings->post_slider_arrow_font_size * 1.7 ); ?>px;
+.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button {
+	<?php if ( '' !== $settings->post_slider_arrow_font_size ) { ?>
+	width: <?php echo ( floatval( $settings->post_slider_arrow_font_size ) + 10 ); ?>px;
+	height: <?php echo ( floatval( $settings->post_slider_arrow_font_size ) + 10 ); ?>px;
+	<?php } ?>
 	<?php if ( isset( $settings->arrow_color ) && ! empty( $settings->arrow_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->arrow_color ); ?>;
 	<?php } ?>
@@ -544,19 +550,22 @@ FLBuilderCSS::typography_field_rule( array(
 		background: <?php echo pp_get_color_value( $settings->arrow_bg_color ); ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button svg {
+	height: <?php echo $settings->post_slider_arrow_font_size; ?>px;
+}
 <?php
 // Arrow border
 FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
 	'setting_name' 	=> 'arrow_border',
-	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-nav button svg",
+	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-nav button",
 ) );
 
 // Arrow padding
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'arrow_padding',
-	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-nav button svg",
+	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-nav button",
 	'unit'			=> 'px',
 	'props'			=> array(
 		'padding-top' 		=> 'arrow_padding_top',
@@ -567,7 +576,7 @@ FLBuilderCSS::dimension_field_rule( array(
 ) );
 ?>
 
-.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button:hover svg {
+.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button:hover {
     <?php if ( isset( $settings->arrow_hover_color ) && ! empty( $settings->arrow_hover_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->arrow_hover_color ); ?>;
 	<?php } ?>
@@ -632,11 +641,11 @@ FLBuilderCSS::dimension_field_rule( array(
 	<?php if( 'grid' == $settings->layout ) { ?>
 	float: left;
 	margin-bottom: <?php echo $spacing . $spacing_unit; ?>;
-	width: <?php echo $post_columns_desktop - 0.1; ?>%;
+	width: calc((100% - <?php echo $space_desktop + 0.1; ?><?php echo $spacing_unit; ?>) / <?php echo $column_desktop; ?>);/*<?php echo $post_columns_desktop - 0.1; ?>%;*/
 	<?php } ?>
 	<?php if( 'carousel' == $settings->layout ) { ?>
-	margin-left: <?php echo ($spacing / 2); ?>%;
-	margin-right: <?php echo ($spacing / 2); ?>%;
+	margin-left: <?php echo ($spacing / 2); ?><?php echo $spacing_unit; ?>;
+	margin-right: <?php echo ($spacing / 2); ?><?php echo $spacing_unit; ?>;
 	<?php } ?>
 	<?php if ( isset( $settings->post_bg_color ) && ! empty( $settings->post_bg_color ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->post_bg_color ); ?>;
@@ -681,10 +690,21 @@ FLBuilderCSS::border_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-content-body {
     <?php if ( $settings->post_grid_style_select == 'style-8' ) { ?>
         float: left;
-        width: <?php echo $settings->show_image == 'yes' ? '60%' : '100%'; ?>;
+        <?php if ( $settings->show_image !== 'yes' ) { ?>
+			width: 100%;
+		<?php } ?>
     <?php } ?>
 }
 <?php
+FLBuilderCSS::responsive_rule( array(
+	'settings'	=> $settings,
+	'setting_name'	=> 'post_content_width',
+	'selector' => ".fl-node-$id .pp-content-post .pp-content-body",
+	'unit' => '%',
+	'prop' => 'width',
+	'enabled' => ( $settings->post_grid_style_select == 'style-8' && $settings->show_image == 'yes' ),
+) );
+
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'	=> $settings,
 	'setting_name'	=> 'post_content_padding',
@@ -817,8 +837,17 @@ FLBuilderCSS::dimension_field_rule( array(
 		<?php } ?>
 	}
 
+	<?php if ( $settings->post_grid_style_select == 'style-8' && $settings->show_image == 'yes' ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-image {
+		<?php if ( isset( $settings->post_content_width_medium ) && '' !== $settings->post_content_width_medium ) { ?>
+		width: calc( 100% - <?php echo $settings->post_content_width_medium; ?>% );
+		<?php } ?>
+	}
+	<?php } ?>
+
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post {
 		width: <?php echo $post_columns_tablet; ?>%;
+		width: calc((100% - <?php echo $space_tablet; ?><?php echo $spacing_unit; ?>) / <?php echo $column_tablet; ?>);
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['desktop']; ?>n+1){
@@ -855,8 +884,17 @@ FLBuilderCSS::dimension_field_rule( array(
 		<?php } ?>
 	}
 
+	<?php if ( $settings->post_grid_style_select == 'style-8' && $settings->show_image == 'yes' ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-image {
+		<?php if ( isset( $settings->post_content_width_responsive ) && '' !== $settings->post_content_width_responsive ) { ?>
+		width: calc( 100% - <?php echo $settings->post_content_width_responsive; ?>% );
+		<?php } ?>
+	}
+	<?php } ?>
+
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post {
 		width: <?php echo $post_columns_mobile; ?>%;
+		width: calc((100% - <?php echo $space_mobile; ?><?php echo $spacing_unit; ?>) / <?php echo $column_mobile; ?>);
 	}
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['tablet']; ?>n+1) {
 	    clear: none;

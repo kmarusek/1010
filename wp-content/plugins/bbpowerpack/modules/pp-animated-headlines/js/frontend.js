@@ -6,6 +6,7 @@
 		this.nodeClass          = '.fl-node-' + settings.id;
 		this.headline			= this.nodeClass + ' .pp-headline';
 		this.headlineText 		= $( this.nodeClass + ' .pp-animated-headlines' ).attr( 'data-text' );
+		this.headlineText 		= this.headlineText.replaceAll( "\\'", "'" );
 		this.dynamicWrapper		= this.nodeClass + ' .pp-headline-dynamic-wrapper';
 		this.animationDelay     = settings.durations.animationDelay;
 		// letters effect
@@ -318,7 +319,22 @@
 
 		_destroy: function() {
 			$(this.dynamicWrapper).html('').removeAttr('style');
+		},
+
+		_quoteString: function (str) {
+			if (str.match(escape)) {
+				return '"' + str.replace(escape, function (a) {
+					var c = meta[a];
+					if (typeof c === 'string') {
+						return c;
+					}
+					c = a.charCodeAt();
+					return '\\u00' + Math.floor(c / 16).toString(16) + (c % 16).toString(16);
+				}) + '"';
+			}
+			return '"' + str + '"';
 		}
+	
   	};
 
 })(jQuery);

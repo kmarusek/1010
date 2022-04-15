@@ -20,16 +20,16 @@ $scrollTo		= apply_filters( 'pp_cg_scroll_to_grid_on_filter', true );
 $js_fields 		= $module->get_fields_for_js( $module->form, $settings );
 
 $nav_arrows		= apply_filters( 'pp_cg_carousel_nav_arrows', array(
-	'left'  => '<svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg>',
-	'right' => '<svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z"></path></svg>',
+	'left'  => pp_prev_icon_svg( '', false ),
+	'right' => pp_next_icon_svg( '', false ),
 ), $settings );
 ?>
 
 var ppcg_<?php echo $id; ?> = '';
 
 ;(function($) {
-	var left_arrow_svg = '<?php echo $nav_arrows['left']; ?><span class="sr-only"><?php echo __( 'Previous', 'bb-powerpack' ); ?></span>';
-	var right_arrow_svg = '<?php echo $nav_arrows['right']; ?><span class="sr-only"><?php echo __( 'Next', 'bb-powerpack' ); ?></span>';
+	var left_arrow_svg = '<span><?php echo $nav_arrows['left']; ?><span class="sr-only"><?php echo __( 'Previous', 'bb-powerpack' ); ?></span></span>';
+	var right_arrow_svg = '<span><?php echo $nav_arrows['right']; ?><span class="sr-only"><?php echo __( 'Next', 'bb-powerpack' ); ?></span></span>';
 
 	var PPContentGridOptions = {
 		id: '<?php echo $id ?>',
@@ -155,10 +155,7 @@ var ppcg_<?php echo $id; ?> = '';
 			ppcg_<?php echo $id; ?>._gridLayoutMatchHeight();
 			if ( 'undefined' !== typeof $.fn.isotope ) {
 				setTimeout(function() {
-					if ( ! postsWrapper.hasClass('pp-isotope-initialized') ) {
-						postsWrapper.isotope('layout');
-						postsWrapper.addClass('pp-isotope-initialized');
-					}
+					postsWrapper.isotope('layout');
 				}, 500);
 			}
 		}

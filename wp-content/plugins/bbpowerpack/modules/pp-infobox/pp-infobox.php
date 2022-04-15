@@ -173,13 +173,42 @@ class PPInfoBoxModule extends FLBuilderModule {
 		return $settings;
 	}
 
+	public function render_title() {
+		$settings    = $this->settings;
+		$link_type   = $settings->pp_infobox_link_type;
+		$valid_types = array( 'title', 'button+title' );
+
+		if ( in_array( $link_type, $valid_types ) ) { ?>
+			<a class="pp-more-link pp-title-link" href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>">
+		<?php } ?>
+		<div class="pp-infobox-title-wrapper">
+			<<?php echo $settings->title_tag; ?> class="pp-infobox-title"><?php echo $settings->title; ?></<?php echo $settings->title_tag; ?>>
+		</div>
+		<?php if ( in_array( $link_type, $valid_types ) ) { ?>
+			</a>
+		<?php }
+	}
+
+	public function render_title_prefix() {
+		$settings   = $this->settings;
+
+		if ( empty( $this->settings->title_prefix ) ) {
+			return;
+		}
+
+		$prefix_tag = ( isset( $settings->title_prefix_tag ) ) ? $settings->title_prefix_tag : 'span';
+		?>
+		<<?php echo $prefix_tag; ?> class="pp-infobox-title-prefix"><?php echo $settings->title_prefix; ?></<?php echo $prefix_tag; ?>>
+		<?php
+	}
+
 	public function render_link()
 	{
 		$settings 		= $this->settings;
 		$button_class 	= ( 'button' == $settings->pp_infobox_link_type && '' != $settings->link_css_class ) ? ' ' . $settings->link_css_class : '';
 		$nofollow		= ( isset( $settings->link_nofollow ) && 'yes' == $settings->link_nofollow ) ? ' rel="nofollow"' : '';
 
-		if ( 'button' == $settings->pp_infobox_link_type ) {
+		if ( 'button' == $settings->pp_infobox_link_type || 'button+title' == $settings->pp_infobox_link_type ) {
 			?>
 			<div class="pp-infobox-button pp-button-wrap">
 				<a class="pp-more-link pp-button<?php echo $button_class; ?>" href="<?php echo $settings->link; ?>" role="button" target="<?php echo $settings->link_target; ?>"<?php echo $nofollow; ?>>
@@ -473,6 +502,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 							'title'     => __('Title Only', 'bb-powerpack'),
 							'read_more' => __('Text Link', 'bb-powerpack'),
 							'button'    => __('Button', 'bb-powerpack'),
+							'button+title' => __('Button + Title', 'bb-powerpack'),
 						),
 						'toggle'    => array(
 							'box'     => array(

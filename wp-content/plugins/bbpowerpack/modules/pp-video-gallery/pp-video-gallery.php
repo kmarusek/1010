@@ -934,11 +934,6 @@ BB_PowerPack::register_module('PPVideoGalleryModule', array(
 						'default'		=> '',
 						'show_reset'	=> true,
 						'connections'	=> array( 'color' ),
-						'preview'		=> array(
-							'type'			=> 'css',
-							'selector'		=> '.pp-video-gallery-filter.pp-filter--active span',
-							'property'		=> 'color',
-						),
 					),
 					'filters_bg_color'	=> array(
 						'type'			=> 'color',
@@ -960,11 +955,6 @@ BB_PowerPack::register_module('PPVideoGalleryModule', array(
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
 						'connections'	=> array( 'color' ),
-						'preview'		=> array(
-							'type'			=> 'css',
-							'selector'		=> '.pp-video-gallery-filter.pp-filter--active',
-							'property'		=> 'background-color',
-						),
 					),
 					'filters_border'	=> array(
 						'type'		=> 'border',

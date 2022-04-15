@@ -115,7 +115,13 @@
 
 		_bindEvents: function() {
 			this.elements.items.find('.pp-video-image-overlay').off('click');
-			this.elements.items.find('.pp-video-image-overlay').on('click', $.proxy(function(e) {
+			this.elements.items.find('.pp-video-image-overlay').on('click keyup', $.proxy(function(e) {
+				// Click or keyboard (enter or spacebar) input?
+				if ( ! this._validClick(e) ) {
+					return;
+				}
+
+				e.preventDefault();
 				e.stopPropagation();
 
 				var $item = $(e.target).parents('.pp-video-gallery-item');
@@ -131,9 +137,9 @@
 		},
 
 		_initLightbox: function($item) {
-
+			$item.find('.pp-video-play-icon').attr( 'tabindex', '-1' );
 			//$.fancybox.open($('<div class="'+wrapperClasses+'"></div>').html( $item.find('.pp-video-lightbox-content').html() ), options);
-			$.fancybox.open( this.lightboxData, this._getLightboxOptions(), this.activeIndex );
+			$.fancybox.open( this.lightboxData, this._getLightboxOptions($item), this.activeIndex );
 
 			$(document).on('keyup', function(e) {
 				if ( e.keyCode === 27 ) {
@@ -142,8 +148,7 @@
 			});
 		},
 
-		_getLightboxOptions: function() {
-			var self = this;
+		_getLightboxOptions: function($item) {
 			var id = this.id;
 			var options = {
 				modal			: false,
@@ -166,6 +171,10 @@
 							$.fancybox.close();
 						}
 					});
+				},
+				afterClose		: function() {
+					$item.find('.pp-video-play-icon').attr( 'tabindex', '0' );
+					$item.find('.pp-video-play-icon')[0].focus();
 				},
 				iframe: {
 					preload: false
@@ -285,8 +294,13 @@
 
 		_stopIframeAutoplay: function($item) {
 			if ( $item.find( '.pp-video-iframe' ).length > 0 ) {
-				$item.find( '.pp-video-iframe' )[0].src = $item.find( '.pp-video-iframe' )[0].src.replace('&autoplay=1', '');
-				$item.find( '.pp-video-iframe' )[0].src = $item.find( '.pp-video-iframe' )[0].src.replace('autoplay=1', '');
+				var src = $item.find( '.pp-video-iframe' )[0].src;
+				if ( 'undefined' !== typeof src && '' !== src ) {
+					src = src.replace('&autoplay=1', '');
+					src = src.replace('autoplay=1', '');
+
+					$item.find( '.pp-video-iframe' )[0].src = src;
+				}
 			}
 		},
 
@@ -460,6 +474,10 @@
 
 			var height = element.height() + element.find('.swiper-pagination').height();
 			element.height( (height + 22) );
+		},
+
+		_validClick: function(e) {
+			return (e.which == 1 || e.which == 13 || e.which == 32 || e.which == undefined) ? true : false;
 		}
 	};
 

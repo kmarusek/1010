@@ -182,8 +182,8 @@ class BB_PowerPack_Ajax {
 				}
 
 				if ( ! isset( $settings ) || empty( $settings ) ) {
-					$module = FLBuilderModel::get_node( $node_id );
-					if ( $module && isset( $module->settings ) ) {
+					$module = FLBuilderModel::get_module( $node_id );
+					if ( is_object( $module ) && isset( $module->settings ) ) {
 						$settings = $module->settings;
 					}
 				}
@@ -861,7 +861,9 @@ class BB_PowerPack_Ajax {
 			wp_send_json_error();
 		}
 
-		wp( 'p=' . $post_id . '&post_status=publish' );
+		wp( 'p=' . $post_id . '&post_status=publish&post_type=' . get_post_type( $post_id ) );
+
+		$GLOBALS['post'] = get_post( $post_id ); // @codingStandardsIgnoreLine
 
 		ob_start();
 		echo do_shortcode( $content );

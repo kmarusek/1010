@@ -240,6 +240,13 @@ FLBuilderCSS::responsive_rule(
 	<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-toc-container .pp-toc-list-wrapper.pp-toc-list-number li:before {
+	<?php if ( isset( $settings->list_marker_space ) && '' !== $settings->list_marker_space ) { ?>
+	padding-right: <?php echo $settings->list_marker_space; ?>px;
+	margin-right: 0;
+	<?php } ?>
+}
+
 .fl-node-<?php echo $id; ?> .pp-toc-container .pp-toc-list-wrapper li a {
 	<?php if ( isset( $settings->list_normal_color ) && ! empty( $settings->list_normal_color ) ) { ?>
 	color: #<?php echo $settings->list_normal_color; ?>;

@@ -111,6 +111,8 @@
 
 			if ( accordion.hasClass('pp-accordion-collapse') ) {
 				accordion.find( '> .pp-accordion-item-active' ).removeClass( 'pp-accordion-item-active' );
+				accordion.find( '> .pp-accordion-item-active .pp-accordion-button' ).attr('aria-expanded', 'false');
+				accordion.find( '> .pp-accordion-item-active .pp-accordion-button' ).attr('aria-hidden', 'true');
 				button.attr('aria-expanded', 'false');
 				button.attr('aria-hidden', 'true');
 				allContent.slideUp('normal');

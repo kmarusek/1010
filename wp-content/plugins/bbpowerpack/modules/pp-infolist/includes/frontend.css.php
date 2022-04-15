@@ -237,7 +237,6 @@ for ( $i=0; $i < $number_items; $i++ ) :
 @media only screen and (max-width: 768px) {
 	.fl-node-<?php echo $id; ?> .pp-infolist-wrap .layout-3 .pp-list-item {
 		width: 100%;
-		max-width: 400px;
 		float: none;
 	}
 }

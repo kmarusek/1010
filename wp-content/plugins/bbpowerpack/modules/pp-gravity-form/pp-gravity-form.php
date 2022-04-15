@@ -933,7 +933,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+								'selector' => '.gform_wrapper .gform-button, .gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
 								'property' => 'color',
 							),
 						),
@@ -945,7 +945,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.gform_wrapper .gform_footer .gform_button:hover, .gform_wrapper .gform_page_footer .button:hover',
+								'selector' => '.gform_wrapper .gform-button:hover, .gform_wrapper .gform_footer .gform_button:hover, .gform_wrapper .gform_page_footer .button:hover',
 								'property' => 'color',
 							),
 						),
@@ -958,7 +958,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+								'selector' => '.gform_wrapper .gform-button, .gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
 								'property' => 'background-color',
 							),
 						),
@@ -971,7 +971,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.gform_wrapper .gform_footer .gform_button:hover, .gform_wrapper .gform_page_footer .button:hover',
+								'selector' => '.gform_wrapper .gform-button:hover, .gform_wrapper .gform_footer .gform_button:hover, .gform_wrapper .gform_page_footer .button:hover',
 								'property' => 'background-color',
 							),
 						),
@@ -987,7 +987,7 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+								'selector' => '.gform_wrapper .gform-button, .gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
 							),
 						),
 					),
@@ -1038,12 +1038,12 @@ BB_PowerPack::register_module(
 								'type'  => 'css',
 								'rules' => array(
 									array(
-										'selector' => '.gform_wrapper .gform_footer .gform_button',
+										'selector' => '.gform_wrapper .gform-button, .gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
 										'property' => 'padding-top',
 										'unit'     => 'px',
 									),
 									array(
-										'selector' => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+										'selector' => '.gform_wrapper .gform-button, .gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
 										'property' => 'padding-bottom',
 										'unit'     => 'px',
 									),
@@ -1061,12 +1061,12 @@ BB_PowerPack::register_module(
 								'type'  => 'css',
 								'rules' => array(
 									array(
-										'selector' => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+										'selector' => '.gform_wrapper .gform-button, .gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
 										'property' => 'padding-left',
 										'unit'     => 'px',
 									),
 									array(
-										'selector' => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+										'selector' => '.gform_wrapper .gform-button, .gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
 										'property' => 'padding-right',
 										'unit'     => 'px',
 									),

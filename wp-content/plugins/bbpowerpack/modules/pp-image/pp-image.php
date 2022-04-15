@@ -401,10 +401,23 @@ class PPImageModule extends FLBuilderModule {
 		}
 
 		if ( is_object( $photo ) && isset( $photo->sizes ) ) {
+			$current_size = array();
 			foreach ( $photo->sizes as $size ) {
 				if ( $size->url == $this->settings->photo_src && isset( $size->width ) && isset( $size->height ) ) {
 					$attrs .= 'height="' . $size->height . '" width="' . $size->width . '" ';
+					$current_size[] = $size->width;
+					$current_size[] = $size->height;
 				}
+			}
+
+			if ( '' === $this->settings->crop ) {
+				$srcset = wp_get_attachment_image_srcset( $photo->id, $current_size );
+				$sizes = wp_get_attachment_image_sizes( $photo->id, $current_size );
+
+				if ( $srcset && ( $sizes || ! empty( $attr['sizes'] ) ) ) {
+                    $attrs .= 'srcset="' . $srcset . '" ';
+                    $attrs .= 'sizes="' . $sizes . '" ';
+                }
 			}
 		}
 

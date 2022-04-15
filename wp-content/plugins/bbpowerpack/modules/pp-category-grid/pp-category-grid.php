@@ -373,6 +373,85 @@ BB_PowerPack::register_module(
 								),
 							),
 						),
+						'transition_speed'     => array(
+							'type'        => 'text',
+							'label'       => __( 'Transition Speed', 'bb-powerpack' ),
+							'default'     => '1000',
+							'size'        => '5',
+							'description' => _x( 'ms', 'Value unit for form field of time in mili seconds. Such as: "500 ms"', 'bb-powerpack' ),
+						),
+						'autoplay'             => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Auto Play', 'bb-powerpack' ),
+							'default' => 'yes',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							),
+							'toggle'  => array(
+								'yes' => array(
+									'fields' => array( 'autoplay_speed' ),
+								),
+							),
+						),
+						'autoplay_speed'       => array(
+							'type'        => 'text',
+							'label'       => __( 'Auto Play Speed', 'bb-powerpack' ),
+							'default'     => '5000',
+							'size'        => '5',
+							'description' => _x( 'ms', 'Value unit for form field of time in mili seconds. Such as: "500 ms"', 'bb-powerpack' ),
+						),
+						'loop' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Loop', 'bb-powerpack' ),
+							'default' => 'yes',
+						),
+						'pause_on_interaction' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Pause on Interaction', 'bb-powerpack' ),
+							'default' => 'yes',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							),
+						),
+						'slider_navigation'    => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Show Navigation Arrows?', 'bb-powerpack' ),
+							'default' => 'no',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							),
+							'toggle'  => array(
+								'yes' => array(
+									'sections' => array( 'arrow_style' ),
+								),
+							),
+						),
+						'pagination_type'      => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Pagination Type', 'bb-powerpack' ),
+							'default' => 'bullets',
+							'options' => array(
+								'none'        => __( 'None', 'bb-powerpack' ),
+								'bullets'     => __( 'Dots', 'bb-powerpack' ),
+								'fraction'    => __( 'Fraction', 'bb-powerpack' ),
+								'progressbar' => __( 'Progress', 'bb-powerpack' ),
+							),
+							'toggle'  => array(
+								'bullets'  => array(
+									'sections' => array(),
+									'fields'   => array( 'bullets_width', 'bullets_border_radius' ),
+								),
+								'fraction' => array(
+									'sections' => array(),
+								),
+								'progress' => array(
+									'sections' => array(),
+								),
+							),
+						),
 					),
 				),
 			),
@@ -652,88 +731,8 @@ BB_PowerPack::register_module(
 						),
 					),
 				),
-				'slide_settings'   => array(
-					'title'  => __( 'Slider Settings', 'bb-powerpack' ),
-					'collapsed' => true,
-					'fields' => array(
-						'transition_speed'     => array(
-							'type'        => 'text',
-							'label'       => __( 'Transition Speed', 'bb-powerpack' ),
-							'default'     => '1000',
-							'size'        => '5',
-							'description' => _x( 'ms', 'Value unit for form field of time in mili seconds. Such as: "500 ms"', 'bb-powerpack' ),
-						),
-						'autoplay'             => array(
-							'type'    => 'pp-switch',
-							'label'   => __( 'Auto Play', 'bb-powerpack' ),
-							'default' => 'yes',
-							'options' => array(
-								'yes' => __( 'Yes', 'bb-powerpack' ),
-								'no'  => __( 'No', 'bb-powerpack' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'autoplay_speed' ),
-								),
-							),
-						),
-						'autoplay_speed'       => array(
-							'type'        => 'text',
-							'label'       => __( 'Auto Play Speed', 'bb-powerpack' ),
-							'default'     => '5000',
-							'size'        => '5',
-							'description' => _x( 'ms', 'Value unit for form field of time in mili seconds. Such as: "500 ms"', 'bb-powerpack' ),
-						),
-						'pause_on_interaction' => array(
-							'type'    => 'pp-switch',
-							'label'   => __( 'Pause on Interaction', 'bb-powerpack' ),
-							'default' => 'yes',
-							'options' => array(
-								'yes' => __( 'Yes', 'bb-powerpack' ),
-								'no'  => __( 'No', 'bb-powerpack' ),
-							),
-						),
-						'slider_navigation'    => array(
-							'type'    => 'pp-switch',
-							'label'   => __( 'Show Navigation Arrows?', 'bb-powerpack' ),
-							'default' => 'no',
-							'options' => array(
-								'yes' => __( 'Yes', 'bb-powerpack' ),
-								'no'  => __( 'No', 'bb-powerpack' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'sections' => array( 'arrow_style' ),
-								),
-							),
-						),
-						'pagination_type'      => array(
-							'type'    => 'pp-switch',
-							'label'   => __( 'Pagination Type', 'bb-powerpack' ),
-							'default' => 'bullets',
-							'options' => array(
-								'none'        => __( 'None', 'bb-powerpack' ),
-								'bullets'     => __( 'Dots', 'bb-powerpack' ),
-								'fraction'    => __( 'Fraction', 'bb-powerpack' ),
-								'progressbar' => __( 'Progress', 'bb-powerpack' ),
-							),
-							'toggle'  => array(
-								'bullets'  => array(
-									'sections' => array(),
-									'fields'   => array( 'bullets_width', 'bullets_border_radius' ),
-								),
-								'fraction' => array(
-									'sections' => array(),
-								),
-								'progress' => array(
-									'sections' => array(),
-								),
-							),
-						),
-					),
-				),
 				'pagination_style' => array(
-					'title'  => __( 'Pagination', 'bb-powerpack' ),
+					'title'  => __( 'Slider Pagination', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields' => array(
 						'pagination_bg_color'   => array(
@@ -830,7 +829,7 @@ BB_PowerPack::register_module(
 					),
 				),
 				'arrow_style'      => array(
-					'title'  => __( 'Navigation Arrows', 'bb-powerpack' ),
+					'title'  => __( 'Slider Navigation Arrows', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields' => array(
 						'arrow_size'                   => array(

@@ -777,6 +777,11 @@ BB_PowerPack::register_module('PPGalleryModule', array(
 							'caption'		=> __( 'Caption', 'bb-powerpack' ),
 						),
 					),
+					'lightbox_description' => array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Show Description in Lightbox', 'bb-powerpack'),
+						'default'	=> 'yes',
+					),
 					'toolbar_buttons'	=> array(
 						'type'				=> 'select',
 						'label'				=> __( 'Toolbar Buttons', 'bb-powerpack'),

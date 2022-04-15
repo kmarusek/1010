@@ -1,3 +1,77 @@
+== 2.22.2 ==
+Release date: April 5, 2022
+* Enhancement: Category Grid - Added loop option for the slider and re-arranged slider controls in the module settings
+* Enhancement: Image - Added srcset attribute to <img> HTML tag when crop is disabled in the module
+* Enhancement: Video - Added support for YouTube Shorts
+* Enhancement: Album - Added css class pp-album-img to <img> HTML tag
+* Fix: Video - Lightbox was not getting triggered when pressing the "Enter" key
+* Fix: Filterable Gallery - Caption in lightbox was not visible when window height is less than the image height
+* Fix: Announcement Bar - Single cookie was getting set for multiple instances of the module
+* Fix: Content Grid - Columns issue in Firefox due to the browser's pixel-rounding difference
+* Fix: Header/Footer - CSS loading sequence issue in some cases
+* Fix: Header/Footer - Hide sticky overlay header when editing other pages in builder
+* Fix: Removed default navigation arrow colors from Image Carousel, Content Grid, Logos Grid, and Testimonial modules
+* Development: Registration Form - Added filter hook pp_rf_field_html
+
+== 2.22.1 ==
+Release date: March 22, 2022
+* Fix: Modal Box - Text align under button typography fields was not working
+* Fix: Content Ticker - PHP warning in WPML translation editor screen
+* Fix: Info List - Responsive alignment issue for layout 3
+* Fix: Info Box - Missing title prefix after the recent update
+* Fix: Content Grid - Filter issue in some cases after the recent update
+* Fix: Gravity Forms - Submit button styles were not working when the button location is set to end of the last row (inline) in GF 2.6.x
+* Development: Sitemap - Added filter hook pp_sitemap_post_query_args
+* Development: Sitemap - Added filter hook pp_sitemap_taxonomy_query_args
+* Development: Added filter hook pp_prev_icon_svg
+* Development: Added filter hook pp_next_icon_svg
+
+== 2.22.0 ==
+Release date: March 16, 2022
+* Enhancement: Added support for plugin auto-update
+* Enhancement: Login Form - Render error message returning in response with 503 status
+* Enhancement: Content Grid - Added CSS class pp-post-img to the featured image <img> tag (not applicable for the custom layout)
+* Enhancement: Content Grid - Added Content Width option to control the width of the post content when featured image is enabled in Style 8
+* Enhancement: Dual Button - Enabled responsive control for the spacing field and minor CSS improvements
+* Enhancement: Subscribe Form - Added label to the close button for ADA compliance
+* Enhancement: Subscribe Form - Added integration for reCAPTCHA and hCaptcha
+* Enhancement: Sliding Menu - Reveal the submenu when the current page is inside the submenu
+* Enhancement: Photo Gallery - Added an option to show/hide image description in the lightbox
+* Enhancement: One Page Navigation - Hide the nav item when there the row does not exist on the page of the given ID
+* Enhancement: Modal Box - Added an option to choose title HTML tag
+* Enhancement: Info Box - Added an option to enable the link for both the button and title
+* Enhancement: Content Ticker - Added WPML support for module fields
+* Enhancement: Card Slider - Added WPML support for module fields
+* Enhancement: Table of Contents - Added WPML support for the title field
+* Enhancement: Video - Added keyboard navigation and play support
+* Enhancement: Video Gallery - Added keyboard navigation and play support
+* Fix: Modal Box - Popup was not displaying the content for the custom post type
+* Fix: Modal Box - Fullscreen overlay modal width issue in some cases
+* Fix: Modal Box - Video continues to play that is embedded using the <video> tag after the popup is closed
+* Fix: Subscribe Form - Duplicate HTML ID issue
+* Fix: Advanced Accordion - PHP warning in some cases in ACF Relationship field query 
+* Fix: Advanced Menu - Menu fade out issue in Off-Canvas panel in some cases
+* Fix: Advanced Menu - Alignment settings under the "Responsive" tab was not working in some cases
+* Fix: Content Grid - Layout issue on window resize when using in the Advanced Tabs module
+* Fix: Content Grid - The Events Calendar section was not getting shown on event tags archive
+* Fix: Content Grid - Columns spacing px unit breaks the columns if the given value is more than 10
+* Fix: FAQ - PHP warning in some cases in ACF Relationship field query 
+* Fix: Info List - Responsive alignment issue
+* Fix: Filterable Gallery - Applying both border and border radius was adding some spacing around the corners of images
+* Fix: Image Carousel - Applying both border and border radius was adding some spacing around the corners of images
+* Fix: Animated Headline - Using apostrophe in the text adding backslash while rendering
+* Fix: Off-Canvas Content - Custom font icon was not getting loaded
+* Fix: Image Carousel - Image repetition issue in lightbox
+* Fix: Image Carousel - Image overlap in slideshow when images are in different size
+* Fix: Team - Link field was not getting shown in WPML translation editor
+* Fix: Instagram Feed - Limit field was not working in some cases
+* Fix: Google Map - Zooming the map was not retaining the position of custom marker image in some cases
+* Fix: Header/Footer - Header was not getting sticky on responsive devices landscape mode
+* Fix: Header/Footer - Assets were not getting loaded properly in some cases
+* Fix: Row Templates - Incorrect thumbnail image was showing for Pricing Table 4 and 5 
+* Development: Video - Added filter hook pp_video_play_button_html
+* Development: Info Box - Added filter hook pp_infobox_icon_link_enabled
+
 == 2.21.2 ==
 Release date: February 2, 2022
 * Enhancement: Advanced Accordion - Added ACF Relationship field as a source (requires Beaver Themer plugin)

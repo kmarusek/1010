@@ -12,7 +12,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_border_group',
-		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gform_footer .gform_button,
+		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gform-button, .fl-node-$id .pp-gf-content .gform_wrapper .gform_footer .gform_button,
 							.fl-node-$id .pp-gf-content .gform_wrapper .gform_page_footer .button",
 	)
 );
@@ -62,7 +62,8 @@ FLBuilderCSS::typography_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_typography',
-		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gform_footer .gform_button, 
+		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gform-button,
+							.fl-node-$id .pp-gf-content .gform_wrapper .gform_footer .gform_button, 
 							.fl-node-$id .pp-gf-content .gform_wrapper .gform_page_footer .button",
 	)
 );
@@ -412,6 +413,7 @@ FLBuilderCSS::responsive_rule(
 	<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform-button,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_footer .gform_button,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_page_footer .button,
@@ -444,6 +446,7 @@ FLBuilderCSS::responsive_rule(
 	<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform-button:hover,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_footer .gform_button:hover,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_page_footer .button:hover {
 	<?php if ( $settings->button_hover_text_color ) { ?>
@@ -620,6 +623,7 @@ FLBuilderCSS::responsive_rule(
 
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform-button,
 	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_footer .gform_button,
 	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
 	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_page_footer .button,
@@ -636,6 +640,7 @@ FLBuilderCSS::responsive_rule(
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform-button,
 	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_footer .gform_button,
 	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
 	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_page_footer .button,

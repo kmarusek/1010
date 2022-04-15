@@ -55,7 +55,7 @@
 	width: 100%;
 	z-index: 100;
 }
-.fl-builder-edit body:not(.single-fl-theme-layout):not(.bb-powerpack-header-footer) .fl-builder-content[data-overlay="1"] {
+.fl-builder-edit body:not(.single-fl-theme-layout) .fl-builder-content[data-overlay="1"] {
 	display: none;
 }
 body:not(.single-fl-theme-layout):not(.fl-builder-edit) .fl-builder-content[data-overlay="1"]:not(.bb-powerpack-header-scrolled):not([data-overlay-bg="default"]) .fl-row-content-wrap,

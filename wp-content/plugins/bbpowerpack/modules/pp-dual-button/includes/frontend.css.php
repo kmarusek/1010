@@ -1,7 +1,15 @@
+<?php
+$spacing = $settings->button_spacing;
+$spacing_medium = isset( $settings->button_spacing_medium ) ? $settings->button_spacing_medium : $spacing;
+$spacing_responsive = isset( $settings->button_spacing_responsive ) ? $settings->button_spacing_responsive : $spacing_medium;
+
+$custom_breakpoint = isset( $settings->responsive_breakpoint ) && ! empty( $settings->responsive_breakpoint ) ? $settings->responsive_breakpoint : 0;
+?>
+
 .fl-node-<?php echo $id; ?> .pp-spacer {
 	float: left;
 	height: 1px;
-	width: <?php echo $settings->button_spacing; ?>px;
+	width: <?php echo $spacing; ?>px;
 }
 
 <?php
@@ -290,8 +298,15 @@ FLBuilderCSS::typography_field_rule(
 		<?php } ?>
 		.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
 			float: <?php echo ( 'center' === $settings->button_alignment_medium ) ? 'none' : $settings->button_alignment_medium; ?>;
+			text-align: center;
 		}
 	<?php } ?>
+	.fl-node-<?php echo $id; ?> .pp-spacer {
+		width: <?php echo '' === $spacing_medium ? 10 : $spacing_medium; ?>px;
+		<?php if ( $custom_breakpoint === $global_settings->medium_breakpoint ) { ?>
+			height: <?php echo '' === $spacing_medium ? 10 : $spacing_medium; ?>px;
+		<?php } ?>
+	}
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
@@ -303,16 +318,17 @@ FLBuilderCSS::typography_field_rule(
 		<?php } ?>
 		.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
 			float: <?php echo ( 'center' === $settings->button_alignment_responsive ) ? 'none' : $settings->button_alignment_responsive; ?>;
+			text-align: center;
 		}
 	<?php } ?>
+	.fl-node-<?php echo $id; ?> .pp-spacer {
+		width: <?php echo '' === $spacing_responsive ? 10 : $spacing_responsive; ?>px;
+	}
 }
 
-@media only screen and ( max-width: <?php echo $settings->responsive_breakpoint; ?>px ) {
+@media only screen and ( max-width: <?php echo $custom_breakpoint; ?>px ) {
 	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
 		float: none;
-	}
-	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-inner {
-		display: block;
 		text-align: center;
 	}
 	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button,
@@ -320,31 +336,11 @@ FLBuilderCSS::typography_field_rule(
 		display: block;
 		float: none;
 		margin: 0 auto;
-		width: 100%;
+		max-width: 100%;
 	}
 	.fl-node-<?php echo $id; ?> .pp-spacer {
-		float: left;
-		height: <?php echo $settings->button_spacing === '' ? 10 : $settings->button_spacing; ?>px;
-		width: 1px;
-	}
-	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-1 .pp-button {
-		<?php if ( $settings->button_border_radius ) { ?>
-			border-radius: <?php echo $settings->button_border_radius; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-dual-button-content .pp-dual-button-2 .pp-button {
-		<?php if ( isset( $settings->button_2_border_color_default ) && ! empty( $settings->button_2_border_color_default ) ) { ?>
-			border-color: <?php echo pp_get_color_value( $settings->button_2_border_color_default ); ?>;
-		<?php } ?>
-		<?php if ( $settings->button_border_style ) { ?>
-			border-style:  <?php echo $settings->button_border_style; ?>;
-		<?php } ?>
-		<?php if ( $settings->button_border_width ) { ?>
-			border-width: <?php echo $settings->button_border_width; ?>px;
-		<?php } ?>
-		<?php if ( $settings->button_border_radius ) { ?>
-			border-radius: <?php echo $settings->button_border_radius; ?>px;
-		<?php } ?>
+		float: none;
+		height: <?php echo '' === $spacing_responsive ? 10 : $spacing_responsive; ?>px;
 	}
 	<?php if ( isset( $settings->button_alignment_responsive ) && ! empty( $settings->button_alignment_responsive ) ) { ?>
 		<?php if ( 'center' === $settings->button_alignment_responsive || 'none' === $settings->button_alignment_responsive ) { ?>

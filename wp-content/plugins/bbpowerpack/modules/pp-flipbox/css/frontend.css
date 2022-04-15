@@ -9,7 +9,7 @@
 	clear: both;
 }
 
-.fl-builder-settings-section select[name="image_select_src"] {
+.fl-builder-pp-flipbox-settings .fl-builder-settings-section select[name="image_select_src"] {
 	display: none;
 }
 

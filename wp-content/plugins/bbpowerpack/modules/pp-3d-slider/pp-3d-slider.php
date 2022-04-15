@@ -314,19 +314,14 @@ BB_PowerPack::register_module('PP3dSliderModule', array(
                     'arrow_color'       => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
-                        'default'           => '333333',
+                        'default'           => '',
 						'show_reset'        => true,
 						'connections'		=> array('color'),
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-3d-slider .pp-slider-nav .fa',
-                            'property'          => 'color'
-                        )
                     ),
                     'arrow_hover_color' => array(
                         'type'              => 'color',
                         'label'             => __('Hover Color', 'bb-powerpack'),
-                        'default'           => '333333',
+                        'default'           => '',
 						'show_reset'        => true,
 						'connections'		=> array('color'),
                         'preview'           => array(
@@ -340,11 +335,6 @@ BB_PowerPack::register_module('PP3dSliderModule', array(
                         'show_reset'        => true,
 						'show_alpha'        => true,
 						'connections'		=> array('color'),
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-3d-slider .pp-slider-nav .fa',
-                            'property'          => 'background-color'
-                        )
                     ),
                     'arrow_bg_hover_color'  => array(
                         'type'                  => 'color',

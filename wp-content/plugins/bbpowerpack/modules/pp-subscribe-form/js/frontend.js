@@ -1,4 +1,77 @@
 ( function( $ ) {
+	window.onLoadPPReCaptcha = function () {
+		var reCaptchaFields = $('.pp-grecaptcha'),
+			widgetID;
+
+		if (reCaptchaFields.length > 0) {
+			reCaptchaFields.each(function (i) {
+				var self = $(this),
+					attrWidget = self.attr('data-widgetid'),
+					newID = $(this).attr('id') + '-' + i;
+
+				// Avoid re-rendering as it's throwing API error
+				if ((typeof attrWidget !== typeof undefined && attrWidget !== false)) {
+					return;
+				}
+				else {
+					// Increment ID to avoid conflict with the same form.
+					self.attr('id', newID);
+
+					widgetID = grecaptcha.render(newID, {
+						sitekey: self.data('sitekey'),
+						theme: self.data('theme'),
+						size: self.data('validate'),
+						callback: function (response) {
+							if (response != '') {
+								self.attr('data-pp-grecaptcha-response', response);
+
+								// Re-submitting the form after a successful invisible validation.
+								if ('invisible' == self.data('validate')) {
+									self.closest('.fl-module').find('.pp-form-button').trigger('click');
+								}
+							}
+						}
+					});
+
+					self.attr('data-widgetid', widgetID);
+				}
+			});
+		}
+	};
+
+	window.onLoadPPHCaptcha = function() {
+		var hCaptchaFields = $('.pp-hcaptcha .h-captcha'),
+			widgetID;
+
+		if (hCaptchaFields.length > 0) {
+			hCaptchaFields.each(function (i) {
+				var self = $(this),
+					frame = $(this).find('iframe'),
+					attrWidget = frame.attr('data-hcaptcha-widget-id'),
+					newID = $(this).attr('id') + '-' + i;
+
+				// Avoid re-rendering as it's throwing API error
+				if ((typeof attrWidget !== typeof undefined && attrWidget !== false)) {
+					return;
+				}
+				else {
+					// Increment ID to avoid conflict with the same form.
+					self.attr('id', newID);
+
+					widgetID = hcaptcha.render(newID, {
+						sitekey: self.data('sitekey'),
+						callback: function (response) {
+							if (response != '') {
+								self.attr('data-pp-hcaptcha-response', response);
+							}
+						}
+					});
+
+					self.attr('data-hcaptcha-widget-id', widgetID);
+				}
+			});
+		}
+	};
 
 	PPSubscribeForm = function( settings )
 	{
@@ -34,6 +107,10 @@
 				name        	= this.form.find( 'input[name=pp-subscribe-form-name]' ),
 				email       	= this.form.find( 'input[name=pp-subscribe-form-email]' ),
 				acceptance   	= this.form.find( 'input[name=pp-subscribe-form-acceptance]'),
+				reCaptchaField 	= this.form.find('.pp-grecaptcha'),
+				reCaptchaValue 	= reCaptchaField.data('pp-grecaptcha-response'),
+				hCaptchaField 	= this.form.find('.h-captcha'),
+				hCaptchaValue 	= hCaptchaField.find('iframe').data('hcaptcha-response'),
 				re          	= /\S+@\S+\.\S+/,
 				valid       	= true;
 
@@ -44,32 +121,52 @@
 			}
 			if ( name.length > 0 ) {
 				if ( name.val() == '' ) {
-					name.addClass( 'pp-form-error' );
-					name.siblings( '.pp-form-error-message' ).show();
+					name.parent().addClass( 'pp-form-error' );
 					valid = false;
 				} else {
-					name.removeClass( 'pp-form-error' );
-					name.siblings( '.pp-form-error-message' ).hide();
+					name.parent().removeClass( 'pp-form-error' );
 				}
 			}
 			if ( '' == email.val() || ! re.test( email.val() ) ) {
-				email.addClass( 'pp-form-error' );
-				email.siblings( '.pp-form-error-message' ).show();
+				email.parent().addClass( 'pp-form-error' );
 				valid = false;
 			} else {
-				email.removeClass( 'pp-form-error' );
-				email.siblings( '.pp-form-error-message' ).hide();
+				email.parent().removeClass( 'pp-form-error' );
 			}
 
 			if ( acceptance.length ) {
 				if ( ! acceptance.is(':checked') ) {
 					valid = false;
-					acceptance.addClass( 'pp-form-error' );
-					acceptance.parent().find( '.pp-form-error-message' ).show();
+					acceptance.parent().addClass( 'pp-form-error' );
 				}
 				else {
-					acceptance.removeClass( 'pp-form-error' );
-					acceptance.parent().find( '.pp-form-error-message' ).hide();
+					acceptance.parent().removeClass( 'pp-form-error' );
+				}
+			}
+
+			// validate if reCAPTCHA is enabled and checked
+			if (reCaptchaField.length > 0) {
+				if ('undefined' === typeof reCaptchaValue || reCaptchaValue === false) {
+					valid = false;
+					if ('normal' == reCaptchaField.data('validate')) {
+						reCaptchaField.parent().addClass('pp-form-error');
+					} else if ('invisible' == reCaptchaField.data('validate')) {
+
+						// Invoke the reCAPTCHA check.
+						grecaptcha.execute(reCaptchaField.data('widgetid'));
+					}
+				} else {
+					reCaptchaField.parent().removeClass('pp-form-error');
+				}
+			}
+
+			// validate if hCaptcha is enabled and checked
+			if (hCaptchaField.length > 0) {
+				if ('undefined' === typeof hCaptchaValue || hCaptchaValue === false) {
+					valid = false;
+					hCaptchaField.parent().addClass('pp-form-error');
+				} else {
+					hCaptchaField.parent().removeClass('pp-form-error');
 				}
 			}
 
@@ -80,7 +177,7 @@
 				this.button.data( 'original-text', buttonText );
 				this.button.addClass( 'pp-form-button-disabled' );
 
-				$.post( bb_powerpack.ajaxurl, {
+				var ajaxData = {
 					action  			: 'pp_subscribe_form_submit',
 					name    			: name.val(),
 					email   			: email.val(),
@@ -89,7 +186,16 @@
 					template_id 		: templateId,
 					template_node_id 	: templateNodeId,
 					node_id 			: nodeId
-				}, $.proxy( this._submitFormComplete, this ) );
+				};
+
+				if (reCaptchaValue) {
+					ajaxData.recaptcha_response = reCaptchaValue;
+				}
+				if (hCaptchaValue) {
+					ajaxData.hcaptcha_response = hCaptchaValue;
+				}
+
+				$.post( bb_powerpack.ajaxurl, ajaxData, $.proxy( this._submitFormComplete, this ) );
 			}
 		},
 
@@ -102,6 +208,9 @@
 
 				if ( data.error ) {
 					this.wrap.find( '> .pp-form-error-message' ).text( data.error );
+				}
+				if ( typeof data.errorInfo !== 'undefined' ) {
+					console.log( 'Subscribe Form:', data.errorInfo );
 				}
 
 				this.wrap.find( '> .pp-form-error-message' ).show();

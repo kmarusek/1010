@@ -140,7 +140,7 @@
 			// Add API script if not exists
             if (0 === $('script#h-captcha-api').length) {
                 scriptTag
-                    .attr('src', 'https://hcaptcha.com/1/api.js')
+					.attr('src', 'https://hcaptcha.com/1/api.js?onload=onLoadPPHCaptcha&render=explicit&recaptchacompat=off')
                     .attr('type', 'text/javascript')
                     .attr('id', 'h-captcha-api')
                     .attr('async', 'async')

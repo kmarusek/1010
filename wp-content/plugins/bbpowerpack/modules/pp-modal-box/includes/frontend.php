@@ -1,5 +1,6 @@
 <?php
 $has_overlay_animation = ! isset( $settings->overlay_animation ) || 'yes' === $settings->overlay_animation;
+$title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h2';
 ?>
 <?php if ( 'onclick' == $settings->modal_load ) { ?>
 <div class="pp-modal-button">
@@ -62,7 +63,7 @@ $has_overlay_animation = ! isset( $settings->overlay_animation ) || 'yes' === $s
 				<?php if ( 'yes' == $settings->modal_title_toggle ) { ?>
 				<div class="pp-modal-header">
 					<?php if ( 'box-top-right' == $settings->close_btn_position ) { ?>
-					<h2 class="pp-modal-title"><?php echo $settings->modal_title; ?></h2>
+						<?php echo sprintf( '<%s class="pp-modal-title">%s</%s>', $title_tag, $settings->modal_title, $title_tag ); ?>
 					<?php } ?>
 					<?php if ( 'win-top-right' != $settings->close_btn_position && 'win-top-left' != $settings->close_btn_position ) { ?>
 						<div class="pp-modal-close <?php echo $settings->close_btn_position; ?>">
@@ -73,7 +74,7 @@ $has_overlay_animation = ! isset( $settings->overlay_animation ) || 'yes' === $s
 						</div>
 					<?php } ?>
 					<?php if ( 'box-top-left' == $settings->close_btn_position ) { ?>
-					<h2 class="pp-modal-title"><?php echo $settings->modal_title; ?></h2>
+						<?php echo sprintf( '<%s class="pp-modal-title">%s</%s>', $title_tag, $settings->modal_title, $title_tag ); ?>
 					<?php } ?>
 				</div>
 				<?php } ?>

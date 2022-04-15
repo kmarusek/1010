@@ -7,6 +7,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 class BB_PowerPack_Post_Helper {
 	static public $post_slides = array();
 
+	static public function render_post_image( $settings, $post_id, $has_image ) {
+		$post_image_settings = self::post_image_get_settings(
+			$post_id,
+			$settings->image_thumb_crop,
+			$settings,
+			$has_image
+		);
+
+		ob_start();
+
+		FLBuilder::render_module_html(
+			'photo',
+			$post_image_settings
+		);
+
+		$post_image = ob_get_clean();
+		
+		$css_class = 'pp-post-img';
+
+		if ( isset( $post_image_settings['attributes'] ) && isset( $post_image_settings['attributes']['data-no-lazy'] ) ) {
+			// no-lazyload for excluding image from Smush Lazy Load.
+			$css_class .= ' no-lazyload';
+		}
+
+		echo self::img_inject_css_class( $post_image, $css_class );
+	}
+
+	static public function img_inject_css_class( $img, $class ) {
+		$pattern = "/<img(.*?)class=\"(.*?)\"(.*?)>/i";
+		$replacement = '<img$1class="$2 ' . $class . '"$3>';
+		$image = preg_replace( $pattern, $replacement, $img );
+
+		return $image;
+	}
+
 	static public function post_catch_image( $content, $size = 'large' ) {
 		$first_img = '';
 		$id = '';
@@ -61,6 +96,10 @@ class BB_PowerPack_Post_Helper {
 		if ( in_array( $settings->more_link_type, array( 'button', 'thumb', 'title_thumb' ) ) ) {
 			$photo_settings['link_type'] = 'url';
 			$photo_settings['link_url'] = get_the_permalink( $id );
+		}
+
+		if ( isset( $settings->link_target_new ) && 'yes' === $settings->link_target_new ) {
+			$photo_settings['link_url_target'] = '_blank';
 		}
 
 		return apply_filters( 'pp_post_image_settings_data', $photo_settings, $settings );

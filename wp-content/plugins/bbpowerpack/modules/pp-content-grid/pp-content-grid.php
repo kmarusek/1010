@@ -21,6 +21,9 @@ class PPContentGridModule extends FLBuilderModule {
 		));
 
 		add_filter( 'fl_builder_loop_query_args', array( $this, 'exclude_current_post' ), 10, 1 );
+
+		// Siteground Optimizer - Lazy Load image exclusion.
+		add_filter( 'sgo_lazy_load_exclude_classes', array( $this, 'exclude_image_from_lazy_load' ) );
 	}
 
 	/**
@@ -91,38 +94,6 @@ class PPContentGridModule extends FLBuilderModule {
 
 	public function pp_get_settings() {
 		return $this->settings;
-	}
-
-	public function exclude_current_post( $args ) {
-		if ( ! isset( $args['settings'] ) ) {
-			return $args;
-		}
-
-		$settings = $args['settings'];
-
-		if ( ! isset( $settings->pp_content_grid ) || ! $settings->pp_content_grid ) {
-			return $args;
-		}
-
-		if ( ! isset( $settings->exclude_current_post ) || 'no' == $settings->exclude_current_post ) {
-			return $args;
-		}
-
-		if ( ! isset( $settings->pp_post_id ) ) {
-			return $args;
-		}
-
-		if ( isset( $args['post__in'] ) && is_array( $args['post__in'] ) ) {
-			$args['post__in'] = array_diff( $args['post__in'], array( $settings->pp_post_id ) );
-		}
-		
-		if ( ! isset( $args['post__not_in'] ) || ! is_array( $args['post__not_in'] ) ) {
-			$args['post__not_in'] = array();
-		}
-
-		$args['post__not_in'][] = $settings->pp_post_id;
-
-		return $args;
 	}
 
 	public function filter_settings( $settings, $helper ) {
@@ -508,6 +479,46 @@ class PPContentGridModule extends FLBuilderModule {
 
 		return $js_fields;
 	}
+
+	public function exclude_current_post( $args ) {
+		if ( ! isset( $args['settings'] ) ) {
+			return $args;
+		}
+
+		$settings = $args['settings'];
+
+		if ( ! isset( $settings->pp_content_grid ) || ! $settings->pp_content_grid ) {
+			return $args;
+		}
+
+		if ( ! isset( $settings->exclude_current_post ) || 'no' == $settings->exclude_current_post ) {
+			return $args;
+		}
+
+		if ( ! isset( $settings->pp_post_id ) ) {
+			return $args;
+		}
+
+		if ( isset( $args['post__in'] ) && is_array( $args['post__in'] ) ) {
+			$args['post__in'] = array_diff( $args['post__in'], array( $settings->pp_post_id ) );
+		}
+		
+		if ( ! isset( $args['post__not_in'] ) || ! is_array( $args['post__not_in'] ) ) {
+			$args['post__not_in'] = array();
+		}
+
+		$args['post__not_in'][] = $settings->pp_post_id;
+
+		return $args;
+	}
+
+	public function exclude_image_from_lazy_load( $classes ) {
+		if ( is_array( $classes ) ) {
+			$classes[] = 'pp-post-img';
+		}
+
+		return $classes;
+	}
 }
 
 /**
@@ -590,6 +601,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							),
 							'style-7'	=> array(
 								'fields'	=> array('alternate_content', 'post_content_alignment')
+							),
+							'style-8'	=> array(
+								'fields'	=> array('content_width'),
 							),
 							'style-9'	=> array(
 								'fields'	=> array('custom_height', 'post_meta_bg_color')
@@ -809,7 +823,6 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'yes'          	=> __('Yes', 'bb-powerpack'),
 							'no'         	=> __('No', 'bb-powerpack'),
 						),
-						'help'			=> __('Useful when there is only one item.', 'bb-powerpack'),
 						'preview'	=> array(
 							'type'		=> 'refresh'
 						),
@@ -875,17 +888,11 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'units'   		=> array('px'),
 						'slider'      	=> true,
 						'default'       => '30',
-						'preview'         => array(
-							'type'            => 'css',
-							'selector'        => '.pp-content-post-carousel .owl-theme .owl-nav button svg',
-							'property'        => 'font-size',
-							'unit'            => 'px'
-						),
 					),
 					'arrow_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Arrow Color', 'bb-powerpack'),
-						'default'		=> '000000',
+						'default'		=> '',
 						'show_reset'	=> true,
 						'connections'	=> array('color'),
 						'preview'	=> array(
@@ -895,7 +902,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 					'arrow_hover_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Arrow Hover Color', 'bb-powerpack'),
-						'default'		=> 'eeeeee',
+						'default'		=> '',
 						'show_reset'	=> true,
 						'connections'	=> array('color'),
 						'preview'		=> array(
@@ -929,7 +936,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'label'			=> __('Border', 'bb-powerpack'),
 						'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.pp-content-post-carousel .owl-theme .owl-nav button svg',
+                            'selector'        => '.pp-content-post-carousel .owl-theme .owl-nav button',
                             'property'        => 'border',
                         )
 					),
@@ -1115,6 +1122,15 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'property'			=> 'padding',
 							'unit'				=> 'px'
 						)
+					),
+					'post_content_width' 	=> array(
+						'type'					=> 'unit',
+						'label'					=> __( 'Content Width', 'bb-powerpack' ),
+						'help'					=> __( 'This option controls the width of the post content in Style 8. It won\'t work if "Featured Image" option is disabled.', 'bb-powerpack' ),
+						'default'				=> 60,
+						'units'					=> array( '%' ),
+						'slider'				=> true,
+						'responsive'			=> true,
 					),
 					'show_image_effect'		=> array(
 						'type'					=> 'pp-switch',

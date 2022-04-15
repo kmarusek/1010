@@ -13,9 +13,6 @@
 	display: block;
 }
 
-.fl-builder-settings-section select[name="image_select_src"] {
-	display: none;
-}
 .pp-infobox-title-prefix {
 	display: block;
 }

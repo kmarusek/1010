@@ -37,16 +37,6 @@
 	) );
 ?>
 
-.fl-node-<?php echo $id; ?> .pp-image-overlay,
-.fl-node-<?php echo $id; ?> .pp-carousel-image-container {
-	<?php if ( isset( $settings->image_border_group ) && isset( $settings->image_border_group['radius'] ) ) { ?>
-		border-top-left-radius: <?php echo $settings->image_border_group['radius']['top_left']; ?>px;
-		border-top-right-radius: <?php echo $settings->image_border_group['radius']['top_right']; ?>px;
-		border-bottom-left-radius: <?php echo $settings->image_border_group['radius']['bottom_left']; ?>px;
-		border-bottom-right-radius: <?php echo $settings->image_border_group['radius']['bottom_right']; ?>px;
-	<?php } ?>
-}
-
 .fl-node-<?php echo $id; ?> .pp-image-carousel .pp-carousel-image-container {
 	background-size: <?php echo $settings->image_fit; ?>;
 }
@@ -164,11 +154,11 @@
 
 
 <?php if($settings->click_action == 'lightbox') : ?>
-.mfp-gallery img.mfp-img {
-	padding: 0;
+.mfp-<?php echo $id; ?>.mfp-gallery img.mfp-img {
+	padding: 40px 0 40px;
 }
 
-.mfp-counter {
+.mfp-<?php echo $id; ?> .mfp-counter {
 	display: block !important;
 }
 <?php endif; ?>

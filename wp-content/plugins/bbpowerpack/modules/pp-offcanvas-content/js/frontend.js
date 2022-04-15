@@ -64,6 +64,8 @@
 
 			this._setSize();
 			this._bindEvents();
+
+			$(document).trigger( 'pp_offcanvas_after_init', [ $('.pp-offcanvas-content-' + this.id) ] );
 		},
 
 		_setSize: function() {
@@ -177,6 +179,8 @@
 		},
 
 		_show: function () {
+			$(document).trigger( 'pp_offcanvas_before_reveal', [ $('.pp-offcanvas-content-' + this.id) ] );
+
 			this._previous = this._active;
 			var self = this;
 
@@ -200,9 +204,13 @@
 				direction: this.direction,
 				$button: this.button
 			};
+
+			$(document).trigger( 'pp_offcanvas_after_reveal', [ $('.pp-offcanvas-content-' + this.id) ] );
 		},
 
 		_close: function () {
+			$(document).trigger( 'pp_offcanvas_before_close', [ $('.pp-offcanvas-content-' + this.id) ] );
+
 			var hash = location.hash;
 
 			$('html').removeClass('pp-offcanvas-content-open');
@@ -225,6 +233,8 @@
 
 			this.button.removeClass('pp-is-active');
 			this._active = false;
+
+			$(document).trigger( 'pp_offcanvas_after_close', [ $('.pp-offcanvas-content-' + this.id) ] );
 		},
 
 		_closeESC: function () {

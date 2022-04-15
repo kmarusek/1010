@@ -58,8 +58,8 @@
 			if ( window.innerWidth <= this.settings.breakpoint ) {
                 this.element.removeClass('layout-standard').addClass('layout-fullscreen');
             }
-            if ( window.innerWidth <= this.element.width() ) {
-				this.element.css('width', window.innerWidth - 20 + 'px');
+            if ( window.innerWidth < this.element.width() ) {
+				this.element.css('width', window.innerWidth + 'px');
             }
 		},
 
@@ -162,9 +162,13 @@
 
 		show: function()
 		{
-			var self = this;
+			if ( this.element.length === 0 ) {
+				return;
+			}
 
 			this.setPosition();
+
+			var self = this;
 			
 			setTimeout( function() {
 				self.element.trigger('beforeload');
@@ -207,10 +211,12 @@
 
 		setup: function()
 		{
-			var original_src = this.element.find('.pp-modal-iframe').attr('src');
-			var src = this.element.find('.pp-modal-iframe').data('url');
-			if ( original_src === undefined || original_src === '' ) {
-				this.element.find('.pp-modal-iframe').attr( 'src', src );
+			if ( this.element.find('.pp-modal-iframe').length > 0 ) {
+				var original_src = this.element.find('.pp-modal-iframe').attr('src');
+				var src = this.element.find('.pp-modal-iframe').data('url');
+				if ( original_src === undefined || original_src === '' ) {
+					this.element.find('.pp-modal-iframe').attr( 'src', src );
+				}
 			}
 
 			var iframeAndSource = this.element.find('iframe, source');
@@ -234,10 +240,10 @@
 					}
 					iframeAndSource.attr('src', src);
 				}
-				
-				if ( this.element.find('video').length ) {
-					this.element.find('video')[0].play();
-				}
+			}
+
+			if ( this.element.find('video').length ) {
+				this.element.find('video')[0].play();
 			}
 		},
 
@@ -249,11 +255,10 @@
 				if ( '' !== src ) {
 					iframeAndSource.attr('data-url', src).attr('src', '');
 				}
-				
-				if ( this.element.find('video').length > 0 ) {
-                    this.element.find('video')[0].pause();
-                }
             }
+			if ( this.element.find('video').length > 0 ) {
+				this.element.find('video')[0].pause();
+			}
         },
 
 		restruct: function()

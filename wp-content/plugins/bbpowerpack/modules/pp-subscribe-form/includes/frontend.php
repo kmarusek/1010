@@ -1,13 +1,17 @@
 <?php
-$messages = $module->get_strings_i18n();
+$messages    = $module->get_strings_i18n();
 $show_labels = isset( $settings->show_labels ) && 'show' === $settings->show_labels ? true : false;
-$name = isset( $_GET['pp_name'] ) ? sanitize_text_field( $_GET['pp_name'] ) : '';
-$email = isset( $_GET['pp_email'] ) ? sanitize_email( $_GET['pp_email'] ) : '';
+$name        = isset( $_GET['pp_name'] ) ? sanitize_text_field( $_GET['pp_name'] ) : '';
+$email       = isset( $_GET['pp_email'] ) ? sanitize_email( $_GET['pp_email'] ) : '';
+
+$recaptcha_site_key   = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_site_key' );
+$recaptcha_secret_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_secret_key' );
+$hcaptcha_sitekey     = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_site_key' );
 ?>
 <?php if ( 'standard' != $settings->box_type && 'fixed_bottom' != $settings->box_type ) { ?>
 	<div class="pp-subscribe-<?php echo $id; ?> pp-subscribe-<?php echo $settings->box_type; ?> pp-subscribe-box fl-node-<?php echo $id; ?> pp-clearfix">
 		<div class="pp-subscribe-inner">
-			<a href="#" class="pp-box-close">
+			<a href="#" class="pp-box-close" aria-label="<?php esc_attr_e( 'Close', 'bb-powerpack' ); ?>">
 				<svg class="pp-box-close-svg" viewbox="0 0 40 40">
 			    	<path d="M 10,10 L 30,30 M 30,10 L 10,30" />
 			  	</svg>
@@ -37,11 +41,11 @@ $email = isset( $_GET['pp_email'] ) ? sanitize_email( $_GET['pp_email'] ) : '';
 				<div class="pp-form-field pp-name-field">
 				<?php
 					if ( $show_labels && isset( $settings->input_name_label ) && ! empty( $settings->input_name_label ) ) { ?>
-						<label for="pp-subscribe-form-name"><?php echo $settings->input_name_label; ?></label>
+						<label for="pp-subscribe-form-name-<?php echo $id; ?>"><?php echo $settings->input_name_label; ?></label>
 					<?php
 					}
 				 ?>
-					<input id="pp-subscribe-form-name" type="text" name="pp-subscribe-form-name" placeholder="<?php echo $settings->input_name_placeholder; ?>" value="<?php echo $name; ?>" />
+					<input id="pp-subscribe-form-name-<?php echo $id; ?>" type="text" name="pp-subscribe-form-name" placeholder="<?php echo esc_attr( $settings->input_name_placeholder ); ?>" value="<?php echo esc_attr( $name ); ?>" />
 					<div class="pp-form-error-message"><?php echo $messages['empty_name']; ?></div>
 				</div>
 
@@ -50,20 +54,36 @@ $email = isset( $_GET['pp_email'] ) ? sanitize_email( $_GET['pp_email'] ) : '';
 			<div class="pp-form-field pp-email-field">
 			<?php
 					if ( $show_labels && isset( $settings->input_email_label ) && ! empty( $settings->input_email_label ) ) { ?>
-						<label for="pp-subscribe-form-email"><?php echo $settings->input_email_label; ?></label>
+						<label for="pp-subscribe-form-email-<?php echo $id; ?>"><?php echo $settings->input_email_label; ?></label>
 					<?php
 					}
 				 ?>
-				<input id="pp-subscribe-form-email" type="email" name="pp-subscribe-form-email" placeholder="<?php echo $settings->input_email_placeholder; ?>" value="<?php echo $email; ?>" />
+				<input id="pp-subscribe-form-email-<?php echo $id; ?>" type="email" name="pp-subscribe-form-email" placeholder="<?php echo esc_attr( $settings->input_email_placeholder ); ?>" value="<?php echo esc_attr( $email ); ?>" />
 				<div class="pp-form-error-message"><?php echo $messages['empty_invalid_email']; ?></div>
 			</div>
 
-			<?php if ( ( 'stacked' == $settings->layout || 'compact' == $settings->layout ) && isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) : ?>
-			<div class="pp-form-field pp-acceptance-field pp-checkbox-input">
-				<input type="checkbox" name="pp-subscribe-form-acceptance" id="pp-subscribe-form-acceptance-<?php echo $id; ?>" value="1" />
-				<label for="pp-subscribe-form-acceptance-<?php echo $id; ?>"><?php echo $settings->checkbox_field_text; ?></label>
-				<div class="pp-form-error-message"><?php echo $messages['not_checked']; ?></div>
-			</div>
+			<?php if ( ( 'stacked' == $settings->layout || 'compact' == $settings->layout ) ) : ?>
+				<?php if ( isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) : ?>
+				<div class="pp-form-field pp-acceptance-field pp-checkbox-input">
+					<input type="checkbox" name="pp-subscribe-form-acceptance" id="pp-subscribe-form-acceptance-<?php echo $id; ?>" value="1" />
+					<label for="pp-subscribe-form-acceptance-<?php echo $id; ?>"><?php echo $settings->checkbox_field_text; ?></label>
+					<div class="pp-form-error-message"><?php echo $messages['not_checked']; ?></div>
+				</div>
+				<?php endif; ?>
+
+				<?php if ( isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle && ! empty( $recaptcha_site_key ) ) : ?>
+				<div class="pp-form-field pp-recaptcha">
+					<div id="<?php echo $id; ?>-pp-grecaptcha" class="pp-grecaptcha" data-sitekey="<?php echo $recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
+					<p class="pp-form-error-message"><?php echo $messages['captcha_error']; ?></p>
+				</div>
+				<?php endif; ?>
+
+				<?php if ( isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle && ! empty( $hcaptcha_sitekey ) ) : ?>
+				<div class="pp-form-field pp-hcaptcha">
+					<div id="<?php echo $id; ?>-pp-hcaptcha" class="h-captcha" data-sitekey="<?php echo $hcaptcha_sitekey; ?>"></div>
+					<p class="pp-form-error-message"><?php echo $messages['captcha_error']; ?></p>
+				</div>
+				<?php endif; ?>
 			<?php endif; ?>
 
 			<div class="pp-form-button pp-button-wrap" data-wait-text="<?php echo $messages['wait_text']; ?>">
@@ -93,12 +113,28 @@ $email = isset( $_GET['pp_email'] ) ? sanitize_email( $_GET['pp_email'] ) : '';
 
 			</div>
 
-			<?php if ( 'inline' == $settings->layout && isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) : ?>
-			<div class="pp-form-field pp-acceptance-field pp-checkbox-input">
-				<input type="checkbox" name="pp-subscribe-form-acceptance" id="pp-subscribe-form-acceptance-<?php echo $id; ?>" value="1" />
-				<label for="pp-subscribe-form-acceptance-<?php echo $id; ?>"><?php echo $settings->checkbox_field_text; ?></label>
-				<div class="pp-form-error-message"><?php echo $messages['not_checked']; ?></div>
-			</div>
+			<?php if ( 'inline' == $settings->layout ) : ?>
+				<?php if ( isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) : ?>
+				<div class="pp-form-field pp-acceptance-field pp-checkbox-input">
+					<input type="checkbox" name="pp-subscribe-form-acceptance" id="pp-subscribe-form-acceptance-<?php echo $id; ?>" value="1" />
+					<label for="pp-subscribe-form-acceptance-<?php echo $id; ?>"><?php echo $settings->checkbox_field_text; ?></label>
+					<div class="pp-form-error-message"><?php echo $messages['not_checked']; ?></div>
+				</div>
+				<?php endif; ?>
+
+				<?php if ( isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle && ! empty( $recaptcha_site_key ) ) : ?>
+				<div class="pp-form-field pp-recaptcha">
+					<div id="<?php echo $id; ?>-pp-grecaptcha" class="pp-grecaptcha" data-sitekey="<?php echo $recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
+					<p class="pp-form-error-message"><?php echo $messages['captcha_error']; ?></p>
+				</div>
+				<?php endif; ?>
+
+				<?php if ( isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle && ! empty( $hcaptcha_sitekey ) ) : ?>
+				<div class="pp-form-field pp-hcaptcha">
+					<div id="<?php echo $id; ?>-pp-hcaptcha" class="h-captcha" data-sitekey="<?php echo $hcaptcha_sitekey; ?>"></div>
+					<p class="pp-form-error-message"><?php echo $messages['captcha_error']; ?></p>
+				</div>
+				<?php endif; ?>
 			<?php endif; ?>
 
 			<div class="pp-form-error-message"><?php echo $messages['form_error']; ?></div>

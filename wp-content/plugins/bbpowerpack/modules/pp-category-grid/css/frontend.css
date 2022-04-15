@@ -1,3 +1,7 @@
+.fl-row-fixed-width {
+	min-width: 1px;
+}
+
 .pp-clear:before,
 .pp-clear:after {
 	content: " ";

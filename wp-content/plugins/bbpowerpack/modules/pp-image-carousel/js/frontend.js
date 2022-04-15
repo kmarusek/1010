@@ -270,6 +270,12 @@
 
 			if ( this._isSlideshow() ) {
 				options.loopedSlides = this._getSlidesCount();
+
+				if ( 'fade' === this._getEffect() ) {
+					options.fadeEffect = {
+						crossFade: true
+					};
+				}
 			}
 			
 			if ( ! this.settings.isBuilderActive && this.settings.autoplay_speed !== false ) {
@@ -292,6 +298,18 @@
 					spaceBetween: this._getSpaceBetweenMobile()
 				};
 			}
+
+			if ('coverflow' === this.settings.type) {
+                options.effect = 'coverflow';
+				options.centeredSlides = true;
+            }
+
+            if (this._isSlideshow()) {
+                options.slidesPerView = 1;
+
+                delete options.pagination;
+                delete options.breakpoints;
+            }
 
             var thumbsSliderOptions = {
                 slidesPerView: this._getThumbsSlidesPerView(),
@@ -316,17 +334,6 @@
                 slidesPerView: this._getThumbsSlidesPerViewMobile(),
                 spaceBetween: this._getSpaceBetweenMobile()
             };
-
-            if ('coverflow' === this.settings.type) {
-                options.effect = 'coverflow';
-            }
-
-            if (this._isSlideshow()) {
-                options.slidesPerView = 1;
-
-                delete options.pagination;
-                delete options.breakpoints;
-            }
 
             return {
                 main: options,

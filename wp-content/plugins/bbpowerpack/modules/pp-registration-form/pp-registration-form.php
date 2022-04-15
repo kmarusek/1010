@@ -438,37 +438,47 @@ class PPRegistrationFormModule extends FLBuilderModule {
 	 * @return void
 	 */
 	public function render_field_control( $field ) {
-		$field_id = $field->id;
+		$field_id   = $field->id;
 		$field_name = $field->name;
+		$field_file = '';
 
 		switch ( $field->field_type ) {
 			case 'user_login':
 			case 'first_name':
 			case 'last_name':
-				include $this->fields_dir . 'text.php';
+				$field_file = $this->fields_dir . 'text.php';
 			break;
 			case 'user_email':
-				include $this->fields_dir . 'email.php';
+				$field_file = $this->fields_dir . 'email.php';
 			break;
 			case 'user_pass':
 			case 'confirm_user_pass':
-				include $this->fields_dir . 'password.php';
+				$field_file = $this->fields_dir . 'password.php';
 			break;
 			case 'user_url':
-				include $this->fields_dir . 'url.php';
+				$field_file = $this->fields_dir . 'url.php';
 			break;
 			case 'consent':
-				include $this->fields_dir . 'consent.php';
+				$field_file = $this->fields_dir . 'consent.php';
 			break;
 			case 'static_text':
-				include $this->fields_dir . 'static-text.php';
+				$field_file = $this->fields_dir . 'static-text.php';
 			break;
 			default:
-				if ( file_exists( $this->fields_dir . $field->field_type . '.php' ) ) {
-					include $this->fields_dir . $field->field_type . '.php';	
-				}
+				$field_file = $this->fields_dir . $field->field_type . '.php';
+				if ( ! file_exists( $field_file ) ) {
+					$field_file = $this->fields_dir . 'custom.php';
+				}	
 			break;
 		}
+
+		ob_start();
+		if ( file_exists( $field_file ) ) {
+			include $field_file;
+		}
+		$field_html = ob_get_clean();
+
+		echo apply_filters( 'pp_rf_field_html', $field_html, $field->field_type, $field );
 	}
 
 	/**

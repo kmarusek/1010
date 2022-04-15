@@ -322,6 +322,8 @@ class PPFAQModule extends FLBuilderModule {
 		$settings->data_source_acf_order = $this->settings->acf_order;
 		$settings->data_source_acf_order_by_meta_key = $this->settings->acf_order_by_meta_key;
 		$settings->posts_per_page = '-1';
+		$settings->id = $this->settings->id;
+		$settings->class = $this->settings->class;
 
 		$settings = apply_filters( 'pp_faq_acf_relationship_data_settings', $settings, $this->settings );
 
@@ -427,14 +429,38 @@ class PPFAQModule extends FLBuilderModule {
 				'tax_query'   => $tax_query,
 			)
 		);
-		foreach ( $posts as $row ) {
+		foreach ( $posts as $post ) {
 			$item               = new stdClass;
-			$item->faq_question = isset( $row->post_title ) ? $row->post_title : '';
-			$item->answer       = isset( $row->post_content ) ? $row->post_content : '';
+			$item->faq_question = isset( $post->post_title ) ? $post->post_title : '';
+			$item->answer       = $this->get_post_content( $post );
 
 			$data[] = $item;
 		}
+
 		return $data;
+	}
+
+	public function get_post_content( $post ) {
+		ob_start();
+
+		if ( FLBuilderModel::is_builder_enabled( $post->ID ) ) {
+
+			// Enqueue styles and scripts for the post.
+			FLBuilder::enqueue_layout_styles_scripts_by_id( $post->ID );
+
+			// Print the styles if we are outside of the head tag.
+			if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {
+				wp_print_styles();
+			}
+
+			// Render the builder content.
+			FLBuilder::render_content_by_id( $post->ID );
+		} else {
+			// Render the WP editor content if the builder isn't enabled.
+			echo apply_filters( 'the_content', get_the_content( null, false, $post->ID ) );
+		}
+
+		return ob_get_clean();
 	}
 
 	public function get_faq_items() {

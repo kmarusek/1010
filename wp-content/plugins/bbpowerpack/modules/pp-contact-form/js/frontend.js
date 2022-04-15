@@ -284,6 +284,9 @@
 				if ( typeof response.message !== 'undefined' ) {
 					$(this.nodeClass + ' .pp-send-error').html(response.message);
 				}
+				if ( typeof response.errorInfo !== 'undefined' ) {
+					console.log( 'Contact Form: ', response.errorInfo );
+				}
 				$(this.nodeClass + ' .pp-send-error').fadeIn();
 
 				return false;

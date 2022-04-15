@@ -118,8 +118,8 @@
 
 						if ( '' !== icon_width && '' !== icon_height ) {
 							icon['scaledSize'] = new google.maps.Size(icon_width, icon_height);
-							icon['origin'] = new google.maps.Point(0, 0), // origin
-    						icon['anchor'] = new google.maps.Point(0, 0) // anchor
+							icon['origin'] = new google.maps.Point(0, 0); // origin
+    						//icon['anchor'] = new google.maps.Point(0, 0); // anchor
 						}
 					}
 					if ( 'auto' === this.zoomType ) {	
@@ -189,14 +189,14 @@
 			var map = new google.maps.Map( this.mapElement[0], this.mapOptions );
 			for (i = 0; i < this.markerData.length; i++) {
 
-			var lat = this.markerData[i]['latitude'],
-				lng = this.markerData[i]['longitude'];
+				var lat = this.markerData[i]['latitude'],
+					lng = this.markerData[i]['longitude'];
 
-			if ( lat != '' && lng != '') {
-				var latlng = [
-					new google.maps.LatLng( lat, lng ),
-				]; 
-			}
+				if ( lat != '' && lng != '') {
+					var latlng = [
+						new google.maps.LatLng( lat, lng ),
+					]; 
+				}
 
 			}
 			var latlngbounds = new google.maps.LatLngBounds();

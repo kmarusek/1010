@@ -154,6 +154,7 @@
 			var wrap = $(this.wrapperClass);
 			var postFilterData = this.filterData;
 
+			this._setLastPostClass();
 			this._setCenterAlign();
 
 			$( window ).on( 'resize', $.proxy( this._setCenterAlign, this ) );
@@ -264,6 +265,16 @@
 				$(this.nodeClass).trigger('grid.afterInit');
 
 			}, this ) );
+		},
+
+		_setLastPostClass: function() {
+			var posts = $( this.postClass );
+
+			if ( posts.length > 0 ) {
+				var last = posts[ posts.length - 1 ];
+
+				$( last ).addClass( 'pp-post-last' );
+			}
 		},
 
 		_setCenterAlign: function() {

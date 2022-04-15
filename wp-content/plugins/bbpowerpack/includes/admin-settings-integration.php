@@ -40,7 +40,7 @@
 	</tr>
 	<tr align="top">
 		<th scope="row" valign="top">
-			<label for="bb_powerpack_google_api_key"><?php esc_html_e( 'Google Map API Key', 'bb-powerpack' ); ?></label>
+			<label for="bb_powerpack_google_api_key"><?php esc_html_e( 'Google API Key', 'bb-powerpack' ); ?><p class="description"><?php esc_html_e( '(for Google Maps and Google Reviews)', 'bb-powerpack' ); ?></p></label>
 		</th>
 		<td>
 			<input id="bb_powerpack_google_api_key" name="bb_powerpack_google_api_key" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_google_api_key', true); ?>" />

@@ -590,7 +590,7 @@ BB_PowerPack::register_module(
 							'units'   => array( 'px' ),
 							'slider'  => true,
 							'preview' => array(
-								'type'     => 'css',
+								'type'     => 'refresh',
 								'selector' => '.pp-toc-container .pp-toc-list-wrapper.pp-toc-list-bullet li::before, .pp-toc-container .pp-toc-list-wrapper.pp-toc-list-number li::before, .pp-toc-container .pp-toc-list-icon span',
 								'property' => 'margin-right',
 							),

@@ -554,7 +554,7 @@ class BB_PowerPack_WPML {
 						'editor_type' => 'VISUAL',
 					),
 					array(
-						'field'       => 'link_url',
+						'field'       => 'link',
 						'type'        => __( 'Team - LINK URL', 'bb-powerpack' ),
 						'editor_type' => 'LINK',
 					),
@@ -1315,6 +1315,36 @@ class BB_PowerPack_WPML {
 				'fields'            => array(),
 				'integration-class' => 'WPML_PP_Reviews',
 			),
+			'pp-card-slider'            => array(
+				'fields'            => array(
+					array(
+						'field'       => 'not_found_msg',
+						'type'        => __( 'Card Slider - Not Found Message', 'bb-powerpack' ),
+						'editor_type' => 'LINE',
+					),
+				),
+				'integration-class' => 'WPML_PP_Card_Slider',
+			),
+			'pp-content-ticker'            => array(
+				'fields'            => array(
+					array(
+						'field'       => 'not_found_msg',
+						'type'        => __( 'Content Ticker - Not Found Message', 'bb-powerpack' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'heading_text',
+						'type'        => __( 'Content Ticker - Heading Text', 'bb-powerpack' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'heading_link',
+						'type'        => __( 'Content Ticker - Heading Link', 'bb-powerpack' ),
+						'editor_type' => 'LINK',
+					),
+				),
+				'integration-class' => 'WPML_PP_Content_Ticker',
+			),
 			'pp-post-timeline'      => array(
 				'fields' => array(
 					array(
@@ -1577,6 +1607,15 @@ class BB_PowerPack_WPML {
 					),
 				),
 			),
+			'pp-toc' => array(
+				'fields' => array(
+					array(
+						'field'       => 'heading_title',
+						'type'        => __( 'Table of Contents - Title', 'bb-powerpack' ),
+						'editor-type' => 'LINE',
+					),
+				),
+			),
 			'pp-offcanvas-content' => array(
 				'fields' => array(
 					array(
@@ -1625,6 +1664,8 @@ class BB_PowerPack_WPML {
 		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-social-share.php';
 		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-sitemap.php';
 		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-reviews.php';
+		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-card-slider.php';
+		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-content-ticker.php';
 		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-faq.php';
 		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-google-map.php';
 		require_once BB_POWERPACK_DIR . 'classes/wpml/class-wpml-pp-how-to.php';

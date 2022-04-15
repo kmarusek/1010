@@ -65,7 +65,7 @@ class PPVideoModule extends FLBuilderModule {
 	 */
 	public function get_video_properties( $video_url ) {
 		$provider_regex = array(
-			'youtube' => '/^.*(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:(?:watch|playlist)?\?(?:.*&)?(?:list|v)?=|(?:embed|v|vi|user|list)\/))([^\?&\"\'>]+)/',
+			'youtube' => '/^.*(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:(?:watch|playlist)?\?(?:.*&)?(?:list|v)?=|(?:embed|v|vi|user|list|shorts)\/))([^\?&\"\'>]+)/',
 			'vimeo' => '/^.*vimeo\.com\/(?:[a-z]*\/)*([‌​0-9]{6,11})[?]?.*/',
 			'dailymotion' => '/^.*dailymotion.com\/(?:video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/',
 			'wistia' => '/^.*(?:wistia\.net|wistia\.com)\/(?:embed\/iframe|medias)\/(.*)/'
@@ -181,6 +181,32 @@ class PPVideoModule extends FLBuilderModule {
 			$setting_value = 'yes' === $settings->{$setting_name} ? '1' : '0';
 
 			$params[ $param_name ] = $setting_value;
+		}
+
+		// Extra URL parameters.
+		if ( 'vimeo' === $settings->video_type ) {
+			$url_frags = wp_parse_url( $settings->vimeo_url );
+
+			// Workaround for private videos.
+			if ( isset( $url_frags['path'] ) ) {
+				$video_properties = $this->get_video_properties( $settings->vimeo_url );
+
+				$h_param = str_replace( $video_properties['video_id'], '', $url_frags['path'] );
+				$h_param = str_replace( '/', '', $h_param );
+
+				$params['h'] = $h_param;
+			}
+
+			if ( isset( $url_frags['query'] ) ) {
+				$url_query_args = explode( '&', $url_frags['query'] );
+
+				foreach ( $url_query_args as $arg ) {
+					$arr = explode( '=', $arg );
+					if ( ! isset( $params[ $arr[0] ] ) ) {
+						$params[ $arr[0] ] = $arr[1];
+					}
+				}
+			}
 		}
 
 		return $params;
@@ -419,7 +445,7 @@ class PPVideoModule extends FLBuilderModule {
 			$video_params['controlsList'] = 'nodownload';
 		}
 
-		if ( isset( $settings->poster_src ) ) {
+		if ( ! empty( $settings->poster ) && isset( $settings->poster_src ) ) {
 			$video_params['poster'] = $settings->poster_src;
 			$video_params['preload'] = 'none';
 		}

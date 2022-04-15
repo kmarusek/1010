@@ -73,8 +73,8 @@ $schema = $module->get_structured_data( $settings );
 				echo '</script>';
 			} ?>
 			<?php if ( 'show' === $settings->play_icon ) { ?>
-				<div class="pp-video-play-icon" role="button">
-					<?php echo file_get_contents( BB_POWERPACK_DIR . 'modules/pp-video/play-button.svg' ); ?>
+				<div class="pp-video-play-icon" role="button" tabindex="0">
+					<?php echo apply_filters( 'pp_video_play_button_html', file_get_contents( BB_POWERPACK_DIR . 'modules/pp-video/play-button.svg' ), $settings ); ?>
 					<span class="pp-screen-only"><?php _e( 'Play Video', 'bb-powerpack' ); ?></span>
 				</div>
 			<?php } ?>

@@ -30,6 +30,13 @@ FLBuilderCSS::responsive_rule( array(
 }
 
 <?php
+	// Button Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'button_typography',
+		'selector' 		=> ".fl-node-$id .pp-modal-button .pp-modal-trigger",
+	) );
+
 	// Button - Border
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $settings,
@@ -68,14 +75,6 @@ FLBuilderCSS::responsive_rule( array(
 }
 <?php } ?>
 
-<?php
-	// Button Typography
-	FLBuilderCSS::typography_field_rule( array(
-		'settings'		=> $settings,
-		'setting_name' 	=> 'button_typography',
-		'selector' 		=> ".fl-node-$id .pp-modal-trigger .pp-modal-trigger-text",
-	) );
-?>
 .fl-builder-content .fl-node-<?php echo $id; ?> .pp-modal-trigger:hover,
 .fl-node-<?php echo $id; ?> .pp-modal-trigger:hover {
     <?php if ( 'button' == $settings->button_type || 'icon' == $settings->button_type ) { ?>

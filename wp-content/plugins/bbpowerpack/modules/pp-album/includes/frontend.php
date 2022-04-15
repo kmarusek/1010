@@ -52,7 +52,7 @@ if ( 'text' === $settings->cover_btn_type ) {
 			<?php if ( 'album_cover' === $settings->trigger_on ) { ?>
 			<a class="pp-clickable pp--album-<?php echo $id; ?>">
 				<div class="pp-album-cover pp-ins-filter-target">
-					<img src="<?php echo $first_img_url[0]; ?>" alt="<?php echo $alt; ?>">
+					<img src="<?php echo $first_img_url[0]; ?>" alt="<?php echo $alt; ?>" class="pp-album-cover-img pp-album-img" />
 					<div class="pp-album-cover-overlay"></div>
 					<?php if ( 'show' === $settings->cover_content ) { ?>
 						<div class="pp-album-content-wrap">
@@ -103,12 +103,12 @@ if ( 'text' === $settings->cover_btn_type ) {
 						}
 						$src = wp_get_attachment_image_src( $photo_id, '' ); ?>
 						<a class="pp-album-image pp-album-<?php echo ( $index + 1 ); ?> pp-album-<?php echo $id; ?>" href="<?php echo $src[0]; ?>" data-fancybox="pp-album-<?php echo $id;?>" <?php echo '' != $settings->lightbox_caption ? 'data-caption="' . $data_caption . '"' : ''; ?>>
-							<img src="<?php echo $src[0]; ?>" alt="<?php echo pp_get_image_alt( $photo_id ); ?>" />
+							<img src="<?php echo $src[0]; ?>" alt="<?php echo pp_get_image_alt( $photo_id ); ?>" class="pp-album-img" />
 						</a>
 					<?php }
 				} else { ?>
 					<a class="pp-album-image pp-album-1 pp-album-<?php echo $id; ?>" href="<?php BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg';?>" data-fancybox="pp-album-<?php echo $id; ?>">
-						<img src="<?php BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg';?>" alt="Album Image" />
+						<img src="<?php BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg';?>" alt="Album Image" class="pp-album-img" />
 					</a>
 				<?php } ?>
 			</div>

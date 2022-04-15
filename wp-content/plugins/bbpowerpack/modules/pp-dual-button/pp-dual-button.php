@@ -556,6 +556,7 @@ BB_PowerPack::register_module(
 							'default' => '10',
 							'units'   => array( 'px' ),
 							'slider'  => true,
+							'responsive'  => true,
 							'preview' => array(
 								'type'     => 'css',
 								'selector' => '.pp-dual-button-content .pp-spacer',

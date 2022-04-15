@@ -101,11 +101,11 @@
 
 			if ( 'undefined' !== typeof devices ) {
 				devices = devices.split( ',' );
-				if ( $.inArray( 'tablet', devices ) && $.inArray( 'mobile', devices ) ) {
+				if ( -1 !== $.inArray( 'tablet', devices ) && -1 !== $.inArray( 'mobile', devices ) ) {
 					matches = true;
-				} else if ( $.inArray( 'tablet', devices ) ) {
+				} else if ( -1 !== $.inArray( 'tablet', devices ) ) {
 					matches = this.win.width() > breakpoints.small;
-				} else if ( $.inArray( 'mobile', devices ) ) {
+				} else if ( -1 !== $.inArray( 'mobile', devices ) ) {
 					matches = this.win.width() <= breakpoints.small || this.win.width() > breakpoints.medium;
 				}
 			}

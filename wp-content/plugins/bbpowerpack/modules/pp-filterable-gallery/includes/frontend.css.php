@@ -17,6 +17,17 @@ $space_mobile = ( $columns_mobile - 1 ) * $settings->photo_spacing;
 $photo_columns_mobile = ( 100 - $space_mobile ) / $columns_mobile;
 ?>
 
+<?php if($settings->click_action == 'lightbox' && !empty($settings->show_captions)) : ?>
+.mfp-<?php echo $id; ?>.mfp-gallery img.mfp-img {
+	padding: 40px 0 40px;
+}
+
+.mfp-<?php echo $id; ?> .mfp-counter {
+	display: block !important;
+}
+<?php endif; ?>
+
+/*
 div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close {
 	opacity: 1;
     background-color: rgba(0,0,0,0.8) !important;
@@ -44,20 +55,36 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close:hover,
 div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close:focus {
 	background-color: #000 !important;
 }
+*/
 
-div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
-    margin-top: 10px;
+/* Popup custom arrows */
+/*
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow:before,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow:after {
+	display: none !important;
 }
-
-<?php if($settings->click_action == 'lightbox' && !empty($settings->show_captions)) : ?>
-.mfp-<?php echo $id; ?> .mfp-gallery img.mfp-img {
-	padding: 0;
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow:active,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow:hover,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow:focus {
+	background-repeat: no-repeat !important;
+    background-size: 42px !important;
+    background-position: center !important;
+	background-color: transparent !important;
 }
-
-.mfp-<?php echo $id; ?> .mfp-counter {
-	display: block !important;
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-right,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-right:active,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-right:hover,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-right:focus {
+	background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQgMTIuOTdsLTIuNjggMi43MiAxLjM0IDEuMzhMMTkgMTJsLTQuOTQtNS4wNy0xLjM0IDEuMzggMi42OCAyLjcySDV2MS45NHoiIGZpbGw9IiNmZmYiPjwvcGF0aD48L3N2Zz4=") !important;
 }
-<?php endif; ?>
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-left,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-left:active,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-left:hover,
+.mfp-<?php echo $id; ?> .mfp-container .mfp-arrow-left:focus {
+	background-image: url("data:image/svg+xml;utf8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTExLjI4IDE1LjdsLTEuMzQgMS4zN0w1IDEybDQuOTQtNS4wNyAxLjM0IDEuMzgtMi42OCAyLjcySDE5djEuOTRIOC42eiIgZmlsbD0iI2ZmZiI+PC9wYXRoPjwvc3ZnPg==") !important;
+}
+*/
 
 .fl-node-<?php echo $id; ?> .pp-photo-gallery {
 	margin: -<?php echo $settings->photo_spacing / 2; ?>px;
@@ -91,6 +118,7 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 	<?php } else { ?>
 		margin-bottom: <?php echo $settings->photo_spacing; ?>%;
 	<?php } ?>
+	overflow: hidden;
 }
 <?php
 	// Photo - Border
@@ -114,22 +142,6 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 		),
 	) );
 ?>
-
-.fl-node-<?php echo $id; ?> .pp-gallery-item img,
-.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
-	<?php if ( isset( $photo_border_radius['top_left'] ) && $photo_border_radius['top_left'] >= 0 ) { ?>
-	border-top-left-radius: <?php echo $photo_border_radius['top_left']; ?>px;
-	<?php } ?>
-	<?php if ( isset( $photo_border_radius['bottom_left'] ) && $photo_border_radius['bottom_left'] >= 0 ) { ?>
-	border-bottom-left-radius: <?php echo $photo_border_radius['bottom_left']; ?>px;
-	<?php } ?>
-	<?php if ( isset( $photo_border_radius['top_right'] ) && $photo_border_radius['top_right'] >= 0 ) { ?>
-	border-top-right-radius: <?php echo $photo_border_radius['top_right']; ?>px;
-	<?php } ?>
-	<?php if ( isset( $photo_border_radius['bottom_right'] ) && $photo_border_radius['bottom_right'] >= 0 ) { ?>
-	border-bottom-right-radius: <?php echo $photo_border_radius['bottom_right']; ?>px;
-	<?php } ?>
-}
 
 .fl-node-<?php echo $id; ?> .pp-gallery-item .pp-photo-gallery-content > a {
 	display: block;

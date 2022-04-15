@@ -21,6 +21,26 @@ function pp_row_settings_init() {
     }
 
     pp_row_render_js( $extensions );
+
+	// Specify min-width to rows when fixed width is enabled.
+	add_filter( 'fl_builder_render_css', 'pp_row_extra_css', 10, 3 );
+}
+
+function pp_row_extra_css( $css, $nodes, $global_settings ) {
+	foreach ( $nodes['rows'] as $row ) {
+        ob_start();
+        ?>
+
+        <?php if ( $row->settings->content_width === 'fixed' ) { ?>
+			.fl-node-<?php echo $row->node; ?> .fl-row-content {
+				min-width: 0px;
+			}
+		<?php }
+
+		$css .= ob_get_clean();
+	}
+
+	return $css;
 }
 
 function pp_row_separator_html( $type, $position, $color, $height, $shadow ) {

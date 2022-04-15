@@ -1,15 +1,6 @@
 <div class="<?php echo $main_class; ?>">
-	<<?php echo $title_prefix_tag; ?> class="pp-infobox-title-prefix"><?php echo $settings->title_prefix; ?></<?php echo $title_prefix_tag; ?>>
-
-	<?php if( $settings->pp_infobox_link_type == 'title' ) { ?>
-		<a class="pp-more-link" href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>">
-	<?php } ?>
-	<div class="pp-infobox-title-wrapper">
-		<<?php echo $settings->title_tag; ?> class="pp-infobox-title"><?php echo $settings->title; ?></<?php echo $settings->title_tag; ?>>
-	</div>
-	<?php if( $settings->pp_infobox_link_type == 'title' ) { ?>
-		</a>
-	<?php } ?>
+	<?php $module->render_title_prefix(); ?>
+	<?php $module->render_title(); ?>
 	
 	<?php include $module->dir . 'includes/icon-layout.php'; ?>
 	

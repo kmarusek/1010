@@ -575,7 +575,7 @@ BB_PowerPack::register_module('PPLogosGridModule', array(
                     'logo_slider_arrow_bg_color'       => array(
 						'type'          => 'color',
 						'label'         => __('Background Color', 'bb-powerpack'),
-						'default'       => '000000',
+						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
@@ -583,14 +583,14 @@ BB_PowerPack::register_module('PPLogosGridModule', array(
                     'logo_slider_arrow_color'       => array(
 						'type'          => 'color',
 						'label'         => __('Arrow Color', 'bb-powerpack'),
-						'default'       => 'ffffff',
+						'default'       => '',
 						'show_reset'    => true,
 						'connections'	=> array('color'),
 					),
                     'logo_slider_arrow_color_hover'       => array(
 						'type'          => 'color',
 						'label'         => __('Arrow Hover Color', 'bb-powerpack'),
-						'default'       => '999999',
+						'default'       => '',
 						'show_reset'    => true,
 						'connections'	=> array('color'),
 					),

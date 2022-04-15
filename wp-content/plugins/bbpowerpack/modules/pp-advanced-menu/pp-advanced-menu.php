@@ -131,7 +131,7 @@ class PPAdvancedMenu extends FLBuilderModule {
 			return array();
 		}
 
-		$get_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+		$get_menus = wp_get_nav_menus( array( 'hide_empty' => true ) );
 		$options = array();
 
 		if ( $get_menus ) {
@@ -238,12 +238,14 @@ class PPAdvancedMenu extends FLBuilderModule {
 	}
 
 	public function get_menu_label() {
-		if ( ! empty( $this->settings->wp_menu ) ) {
+		$label = __( 'Menu', 'bb-powerpack' );
+
+		if ( isset( $this->settings ) && ! empty( $this->settings->wp_menu ) ) {
 			$menu = get_term_by( 'slug', $this->settings->wp_menu, 'nav_menu' );
-			return $menu->name;
+			$label = is_object( $menu ) ? $menu->name : $label;
 		}
 
-		return __( 'Menu', 'bb-powerpack' );
+		return $label;
 	}
 
 	public function get_media_breakpoint() {

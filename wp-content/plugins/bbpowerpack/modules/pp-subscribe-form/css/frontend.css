@@ -5,11 +5,14 @@
 	clear: both;
 	height: 0;
 }
-.pp-form-error-message {
+.pp-subscribe-form .pp-form-error-message {
     clear: both;
     display: none;
     padding-top: 8px;
     font-weight: lighter;
+}
+.pp-subscribe-form .pp-form-error .pp-form-error-message {
+	display: block;
 }
 .pp-form-field input,
 .pp-form-field input[type=text] {

@@ -22,13 +22,14 @@
 <div class="pp-content-grid-image pp-post-image">
     <?php if ( ! empty( $featured_image_url ) ) { ?>
 		<?php if ( 'style-9' == $settings->post_grid_style_select ) { ?>
-			<div class="pp-post-featured-img" style="background-image: url('<?php echo $featured_image_url; ?>');">
-				<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"></a>
+			<div class="pp-post-featured-img" style="background-image: url('<?php echo esc_url( $featured_image_url ); ?>');">
+				<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>></a>
 			</div>
 		<?php } else { ?>
 			<div class="pp-post-featured-img">
 				<?php
-					FLBuilder::render_module_html( 'photo', BB_PowerPack_Post_Helper::post_image_get_settings( get_the_ID(), $settings->image_thumb_crop, $settings, $has_featured_image ) );
+					BB_PowerPack_Post_Helper::render_post_image( $settings, get_the_ID(), $has_featured_image );
+
 					if ( $using_dynamic_fallback ) {
 						$settings->fallback_image = 'default';
 						$settings->fallback_image_custom = '';
@@ -47,7 +48,7 @@
 		<?php if( 'style-4' == $settings->post_grid_style_select ) { ?>
 			<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
 				<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-					<a href="<?php echo $permalink; ?>">
+					<a href="<?php echo $permalink; ?>"<?php echo $link_target; ?>>
 				<?php } ?>
 						<?php the_title(); ?>
 				<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>

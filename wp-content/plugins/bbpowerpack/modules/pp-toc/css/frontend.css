@@ -116,10 +116,12 @@ body:not(.fl-builder-edit) .pp-toc-container.is-empty {
 	content: counters(item, ".") " ";
 	color: #000;
 	width: 2em;
-	margin-left: -1.5em;
+	margin-left: -2.5em;
 	margin-right: 0.5em;
 	text-align: right;
 	font-size: 10px;
+	display: inline-block;
+	vertical-align: top;
 }
 .pp-toc-container .pp-toc-list-wrapper.pp-toc-list-number > li::before {
 	content: counters(item, ".") ". ";
@@ -127,6 +129,11 @@ body:not(.fl-builder-edit) .pp-toc-container.is-empty {
 
 .pp-toc-container .pp-toc-list-wrapper.pp-toc-list-number li {
 	counter-increment: item;
+}
+
+.pp-toc-container .pp-toc-list-wrapper.pp-toc-list-number li a {
+	display: inline-block;
+	vertical-align: top;
 }
 
 /* ------------------------------------- */

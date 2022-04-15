@@ -9,6 +9,15 @@
 class PPSubscribeFormModule extends FLBuilderModule {
 
 	/**
+	 * Holds any errors that may arise from
+	 * wp_mail.
+	 *
+	 * @since 2.21
+	 * @var array $errors
+	 */
+	static public $errors = array();
+
+	/**
 	 * @since 1.5.2
 	 * @return void
 	 */
@@ -25,12 +34,74 @@ class PPSubscribeFormModule extends FLBuilderModule {
 			'partial_refresh'	=> true,
 		));
 
+		add_action( 'wp_mail_failed', array( $this, 'mail_failed' ) );
 		add_action( 'wp_ajax_pp_subscribe_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_pp_subscribe_form_submit', array( $this, 'submit' ) );
+		add_filter( 'script_loader_tag', array( $this, 'add_async_attribute' ), 10, 2 );
 	}
 
 	public function enqueue_scripts() {
 		$this->add_js( 'jquery-cookie' );
+
+		if ( isset( $this->settings ) && isset( $this->settings->recaptcha_toggle ) && 'show' == $this->settings->recaptcha_toggle ) {
+
+			$site_lang = substr( get_locale(), 0, 2 );
+			$post_id    = FLBuilderModel::get_post_id();
+
+			$this->add_js(
+				'g-recaptcha',
+				'https://www.google.com/recaptcha/api.js?onload=onLoadPPReCaptcha&render=explicit&hl=' . $site_lang,
+				array( 'fl-builder-layout-' . $post_id ),
+				'2.0',
+				true
+			);
+		}
+
+		if ( isset( $this->settings ) && isset( $this->settings->hcaptcha_toggle ) && 'show' == $this->settings->hcaptcha_toggle ) {
+			$site_lang = substr( get_locale(), 0, 2 );
+			$post_id = FLBuilderModel::get_post_id();
+
+			$this->add_js(
+				'h-captcha',
+				'https://hcaptcha.com/1/api.js?onload=onLoadPPHCaptcha&render=explicit&recaptchacompat=off&hl=' . $site_lang,
+				array( 'fl-builder-layout-' . $post_id ),
+				'1.0',
+				true
+			);
+		}
+	}
+
+	/**
+	 * @method  add_async_attribute for the enqueued `g-recaptcha` script
+	 * @param string $tag    Script tag
+	 * @param string $handle Registered script handle
+	 */
+	public function add_async_attribute( $tag, $handle ) {
+		if ( ! in_array( $handle, array( 'g-recaptcha', 'h-captcha' ) ) ) {
+			return $tag;
+		}
+
+		if ( 'g-recaptcha' === $handle && strpos( $tag, 'g-recaptcha-api' ) === false ) {
+			return str_replace( ' src', ' id="g-recaptcha-api" async="async" defer="defer" src', $tag );
+		}
+
+		if ( 'h-captcha' === $handle && strpos( $tag, 'h-captcha-api' ) === false ) {
+			return str_replace( ' src', ' id="h-captcha-api" async="async" defer="defer" src', $tag );
+		}
+
+		return $tag;
+	}
+
+	/**
+	 *
+	 * @since 2.21
+	 * @param object $wp_error object with the PHPMailerException message.
+	 */
+	public function mail_failed( $wp_error ) {
+
+		if ( is_wp_error( $wp_error ) && ! empty( $wp_error->errors['wp_mail_failed'] ) ) {
+			self::$errors = $wp_error->errors['wp_mail_failed'][0];
+		}
 	}
 
 	/**
@@ -48,6 +119,9 @@ class PPSubscribeFormModule extends FLBuilderModule {
 		$node_id    		= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
 		$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
 		$template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
+		$recaptcha_response	= isset( $_POST['recaptcha_response'] ) ? $_POST['recaptcha_response'] : false;
+        $hcaptcha_response	= isset( $_POST['hcaptcha_response'] ) ? $_POST['hcaptcha_response'] : false;
+
 		$result    			= array(
 			'action'    		=> false,
 			'error'     		=> false,
@@ -74,6 +148,63 @@ class PPSubscribeFormModule extends FLBuilderModule {
 				$result['error'] = $messages['not_checked'];
 			}
 
+			if ( ! isset( $settings->service ) ) {
+				$result['error'] = __( 'There was an error subscribing. Please try again.', 'fl-builder' );
+			}
+
+			// Validate reCAPTCHA first if enabled
+			if ( isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle && $recaptcha_response && ! $result['error'] ) {
+				$recaptcha_site_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_site_key' );
+				$recaptcha_secret_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_secret_key' );
+
+				if ( ! empty( $recaptcha_secret_key ) && ! empty( $recaptcha_site_key ) ) {
+					if ( version_compare( phpversion(), '5.3', '>=' ) ) {
+						include FLBuilderModel::$modules['pp-subscribe-form']->dir . 'includes/validate-recaptcha.php';
+					} else {
+						$result['error'] = false;
+					}
+				} else {
+					$result['error'] = __( 'Your reCAPTCHA Site or Secret Key is missing!', 'bb-powerpack' );
+				}
+			}
+
+			// Validate hCaptcha if enabled.
+			if ( isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle && ! $result['error'] ) {
+				$hcaptcha_site_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_site_key' );
+				$hcaptcha_secret_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_secret_key' );
+
+				if ( ! empty( $hcaptcha_site_key ) && ! empty( $hcaptcha_secret_key ) ) {
+					if ( version_compare( phpversion(), '5.3', '>=' ) ) {
+						$hcaptcha_response = wp_remote_post( 'https://hcaptcha.com/siteverify', array(
+							'timeout'     => 45,
+							'httpversion' => '1.0',
+							'blocking'    => true,
+							'body'		  => array(
+								'secret'	=> $hcaptcha_secret_key,
+								'response'	=> $hcaptcha_response,
+							),
+						) );
+
+						$hcaptcha_response = wp_remote_retrieve_body( $hcaptcha_response );
+
+						if ( is_wp_error( $hcaptcha_response ) ) {
+							$result['error'] = __( 'Captcha verification failed! Please try again.', 'bb-powerpack' );
+						} else {
+							$hcaptcha_response = json_decode( $hcaptcha_response );
+							if ( $hcaptcha_response->success ) {
+								$retult['error'] = false;
+							} else {
+								$result['error'] = __( 'Captcha verification failed! Please try again.', 'bb-powerpack' );
+							}
+						}
+					} else {
+						$result['error'] = false;
+					}
+				} else {
+					$result['error'] = __( 'Your hCaptcha Site or Secret Key is missing!', 'bb-powerpack' );
+				}
+			}
+
 			if ( ! $result['error'] ) {
 				// Subscribe.
 				$instance = FLBuilderServices::get_service_instance( $settings->service );
@@ -96,6 +227,11 @@ class PPSubscribeFormModule extends FLBuilderModule {
 					}
 				}
 
+				if ( 'email-address' == $settings->service && ! empty( self::$errors ) ) {
+					$result['error']     = __( 'There was an error subscribing. Please check the console for possible error message.', 'bb-powerpack' );
+					$result['errorInfo'] = self::$errors;
+				}
+
 				do_action( 'pp_subscribe_form_submission_complete', $response, $settings, $email, $name, $template_id, $post_id );
 			}
 		}
@@ -113,6 +249,7 @@ class PPSubscribeFormModule extends FLBuilderModule {
 			'empty_name' 			=> esc_html__( 'Please enter your name.', 'bb-powerpack' ),
 			'empty_invalid_email' 	=> esc_html__( 'Please enter a valid email address.', 'bb-powerpack' ),
 			'not_checked' 			=> esc_html__( 'Please check the required field.', 'bb-powerpack' ),
+			'captcha_error' 	    => esc_html__( 'Please check the captcha to verify you are not a robot.', 'bb-powerpack' ),
 			'wait_text' 			=> esc_attr__( 'Please Wait...', 'bb-powerpack' ),
 			'form_error' 			=> esc_html__( 'Something went wrong. Please check your entries and try again.', 'bb-powerpack' ),
 			'unknown_error' 		=> esc_html__( 'There was an error subscribing. Please try again.', 'bb-powerpack' )
@@ -1607,6 +1744,77 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
                     ),
                 )
             ),
+		),
+	),
+	'captcha'	=> array(
+		'title'		  => __( 'Captcha', 'bb-powerpack' ),
+		'sections'	  => array(
+			'recaptcha_general' => array(
+				'title'			=> __( 'reCAPTCHA', 'bb-powerpack' ),
+				'fields'		=> array(
+					'recaptcha_toggle' => array(
+						'type' 			=> 'pp-switch',
+						'label' 		=> __( 'reCAPTCHA Field', 'bb-powerpack' ),
+						'default'		  => 'hide',
+						'options'		  => array(
+							'show'	   => __( 'Show', 'bb-powerpack' ),
+							'hide'	   => __( 'Hide', 'bb-powerpack' ),
+						),
+						'toggle' 		=> array(
+							'show'        => array(
+								'fields' 	=> array( 'recaptcha_validate_type', 'recaptcha_theme' ),
+							),
+						),
+						'description' => pp_get_recaptcha_desc(),
+						'preview'		=> array(
+							'type'			=> 'none',
+						),
+					),
+					'recaptcha_validate_type' => array(
+						'type'          		=> 'select',
+						'label'         		=> __( 'Validate Type', 'bb-powerpack' ),
+						'default'       		=> 'normal',
+						'options'       		=> array(
+							'normal'  				=> __( '"I\'m not a robot" checkbox (V2)', 'bb-powerpack' ),
+							'invisible'     		=> __( 'Invisible (V2)', 'bb-powerpack' ),
+						),
+						'help' 					=> __( 'Validate users with checkbox or in the background.<br />Note: Checkbox and Invisible types use seperate API keys.', 'bb-powerpack' ),
+						'preview'      		 	=> array(
+							'type'          		=> 'none',
+						),
+					),
+					'recaptcha_theme'   => array(
+						'type'          	=> 'pp-switch',
+						'label'         	=> __( 'Theme', 'bb-powerpack' ),
+						'default'       	=> 'light',
+						'options'       	=> array(
+							'light'  			=> __( 'Light', 'bb-powerpack' ),
+							'dark'     			=> __( 'Dark', 'bb-powerpack' ),
+						),
+						'preview'      		 	=> array(
+							'type'          		=> 'none',
+						),
+					),
+				),
+			),
+			'hcaptcha_general' => array(
+				'title'	=> __( 'hCaptcha', 'bb-powerpack' ),
+				'fields' => array(
+					'hcaptcha_toggle' => array(
+						'type' 			=> 'pp-switch',
+						'label' 		=> __( 'hCaptcha Field', 'bb-powerpack' ),
+						'default'		  => 'hide',
+						'options'		  => array(
+							'show'	   => __( 'Show', 'bb-powerpack' ),
+							'hide'	   => __( 'Hide', 'bb-powerpack' ),
+						),
+						'description' => pp_get_hcaptcha_desc(),
+						'preview'		=> array(
+							'type'			=> 'none',
+						),
+					),
+				),
+			),
 		),
 	),
 ));

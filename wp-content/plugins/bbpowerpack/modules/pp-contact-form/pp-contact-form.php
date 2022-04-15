@@ -6,11 +6,19 @@
 class PPContactFormModule extends FLBuilderModule {
 
 	/**
+	 * Holds any errors that may arise from
+	 * wp_mail.
+	 *
+	 * @since 2.21
+	 * @var array $errors
+	 */
+	static public $errors = array();
+
+	/**
 	 * @method __construct
 	 */
-	public function __construct()
-	{
-		parent::__construct(array(
+	public function __construct() {
+		parent::__construct( array(
 			'name'          => __('Contact Form', 'bb-powerpack'),
             'description'   => __('Advanced module for Contact Form.', 'bb-powerpack'),
 			'group'         => pp_get_modules_group(),
@@ -19,10 +27,11 @@ class PPContactFormModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-contact-form/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-		));
+		) );
 
-		add_action('wp_ajax_pp_send_email', array($this, 'send_mail'));
-        add_action('wp_ajax_nopriv_pp_send_email', array($this, 'send_mail'));
+		add_action( 'wp_mail_failed', array( $this, 'mail_failed' ) );
+		add_action( 'wp_ajax_pp_send_email', array( $this, 'send_mail' ) );
+        add_action( 'wp_ajax_nopriv_pp_send_email', array( $this, 'send_mail' ) );
         add_filter( 'script_loader_tag', array( $this, 'add_async_attribute' ), 10, 2 );
     }
     
@@ -46,11 +55,12 @@ class PPContactFormModule extends FLBuilderModule {
 		}
 
 		if ( isset( $this->settings ) && isset( $settings->hcaptcha_toggle ) && 'show' == $settings->hcaptcha_toggle ) {
+			$site_lang = substr( get_locale(), 0, 2 );
 			$post_id = FLBuilderModel::get_post_id();
 
 			$this->add_js(
 				'h-captcha',
-				'https://hcaptcha.com/1/api.js',
+				'https://hcaptcha.com/1/api.js?onload=onLoadPPHCaptcha&render=explicit&recaptchacompat=off&hl=' . $site_lang,
 				array( 'fl-builder-layout-' . $post_id ),
 				'1.0',
 				true
@@ -99,6 +109,18 @@ class PPContactFormModule extends FLBuilderModule {
 				setup_postdata( $post );
 				FLPageData::init_properties();
 			}
+		}
+	}
+
+	/**
+	 *
+	 * @since 2.21
+	 * @param object $wp_error object with the PHPMailerException message.
+	 */
+	public function mail_failed( $wp_error ) {
+
+		if ( is_wp_error( $wp_error ) && ! empty( $wp_error->errors['wp_mail_failed'] ) ) {
+			self::$errors = $wp_error->errors['wp_mail_failed'][0];
 		}
 	}
 
@@ -281,7 +303,14 @@ class PPContactFormModule extends FLBuilderModule {
 				 */
 				do_action( 'pp_contact_form_after_send', $mailto, $subject, $template, $headers, $settings, $result );
 				$response['message'] = __( 'Sent!', 'bb-powerpack' );
-				$response['error'] = false;
+
+				if ( ! empty( self::$errors ) ) {
+					$response = array(
+						'error'     => true,
+						'message'   => __( 'Message failed. Please check the console for possible error message.', 'bb-powerpack' ),
+						'errorInfo' => self::$errors,
+					);
+				}
 			}
 
 			wp_send_json( $response );

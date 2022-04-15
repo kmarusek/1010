@@ -1,4 +1,3 @@
-var carousel_<?php echo $id; ?> = '';
 ;(function($) {
 	<?php
 	$columns            = empty( $settings->columns ) ? 3 : $settings->columns;
@@ -59,9 +58,15 @@ var carousel_<?php echo $id; ?> = '';
 		},
 	};
 
-	<?php if ( 'yes' === $settings->category_grid_slider ) { ?>
-			carousel_<?php echo $id; ?> = new PPCategoryGridSlider(settings);
+	<?php if ( isset( $settings->loop ) ) { ?>
+	settings.loop = <?php echo 'yes' === $settings->loop ? 'true' : 'false'; ?>;
 	<?php } ?>
 
+	<?php if ( 'yes' === $settings->category_grid_slider ) { ?>
+	if ( 'undefined' === typeof window['pp_category_slider'] ) {
+		window['pp_category_slider'] = {};
+	}
+	window['pp_category_slider']['<?php echo $id; ?>'] =  new PPCategoryGridSlider(settings);
+	<?php } ?>
 
 })(jQuery);

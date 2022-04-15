@@ -135,11 +135,12 @@ class PPLoginFormModule extends FLBuilderModule {
 			$hcaptcha_sitekey = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_hcaptcha_site_key' );
 
 			if ( ! empty( $hcaptcha_sitekey ) ) {
+				$site_lang = substr( get_locale(), 0, 2 );
 				$post_id = FLBuilderModel::get_post_id();
 
 				$this->add_js(
 					'h-captcha',
-					'https://hcaptcha.com/1/api.js',
+					'https://hcaptcha.com/1/api.js?onload=onLoadPPHCaptcha&render=explicit&recaptchacompat=off&hl=' . $site_lang,
 					array( 'fl-builder-layout-' . $post_id ),
 					'1.0',
 					true

@@ -585,7 +585,7 @@
 					if ( 'function' === typeof callback ) {
 						callback( response );
 					}
-				},
+				}
 			};
 
 			if ( 'undefined' === typeof data.provider ) {
@@ -593,7 +593,13 @@
 				ajaxArgs.contentType = false;
 			}
 
-			$.ajax( ajaxArgs );
+			$.ajax( ajaxArgs ).fail( function( jqXhr ) {
+				if ( 503 === jqXhr.status ) {
+					if ( null !== jqXhr.responseText.match( /<!DOCTYPE|<!doctype/ ) ) {
+						document.write( jqXhr.responseText );
+					}
+				}
+			} );
 		},
 	};
 

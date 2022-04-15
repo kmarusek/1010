@@ -9,6 +9,10 @@
 	clear: both;
 }
 
+.fl-row-fixed-width {
+	min-width: 1px;
+}
+
 .pp-testimonials .sr-only {
 	position: absolute !important;
     height: 1px !important;

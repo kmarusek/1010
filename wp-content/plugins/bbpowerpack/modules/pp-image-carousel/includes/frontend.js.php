@@ -6,7 +6,7 @@ var carousel_<?php echo $id; ?> = '';
 		var gallery_selector = $( '.fl-node-<?php echo $id; ?> .pp-image-carousel' );
 		if( gallery_selector.length && typeof $.fn.magnificPopup !== 'undefined') {
 			gallery_selector.magnificPopup({
-				delegate: '.pp-image-carousel-item a',
+				delegate: '.pp-image-carousel-item:not(.swiper-slide-duplicate) a',
 				closeBtnInside: false,
 				type: 'image',
 				gallery: {
@@ -14,6 +14,7 @@ var carousel_<?php echo $id; ?> = '';
 					navigateByImgClick: true,
 					tCounter: ''
 				},
+				mainClass: 'mfp-<?php echo $id; ?>',
 				<?php if ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) { ?>
 				'image': {
 					titleSrc: function(item) {

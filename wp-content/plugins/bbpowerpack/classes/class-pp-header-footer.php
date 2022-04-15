@@ -47,6 +47,22 @@ final class BB_PowerPack_Header_Footer {
 	static public $footer;
 
 	/**
+	 * Holds boolean.
+	 *
+	 * @var int $render_css
+	 * @since 2.22.2
+	 */
+	static public $render_css = false;
+
+	/**
+	 * Holds boolean.
+	 *
+	 * @var int $render_js
+	 * @since 2.22.2
+	 */
+	static public $render_js = false;
+
+	/**
 	 * Initialize hooks.
 	 *
 	 * @since 2.7.1
@@ -129,9 +145,9 @@ final class BB_PowerPack_Header_Footer {
 		}
 
 		// Clear BB's assets cache.
-		if ( class_exists( 'FLBuilderModel' ) && method_exists( 'FLBuilderModel', 'delete_asset_cache_for_all_posts' ) ) {
-			FLBuilderModel::delete_asset_cache_for_all_posts();
-		}
+		// if ( class_exists( 'FLBuilderModel' ) && method_exists( 'FLBuilderModel', 'delete_asset_cache_for_all_posts' ) ) {
+		// 	FLBuilderModel::delete_asset_cache_for_all_posts();
+		// }
 	}
 
 	/**
@@ -326,7 +342,7 @@ final class BB_PowerPack_Header_Footer {
 	 * @return string
 	 */
 	static public function render_css( $css ) {
-		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) || empty( self::$header ) ) {
+		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) || empty( self::$header ) || self::$render_css ) {
 			return $css;
 		}
 
@@ -334,6 +350,7 @@ final class BB_PowerPack_Header_Footer {
 
 		if ( $id ) {
 			$css .= file_get_contents( BB_POWERPACK_DIR . 'assets/css/header-layout.css' );
+			self::$render_css = true;
 		}
 
 		return $css;
@@ -348,7 +365,7 @@ final class BB_PowerPack_Header_Footer {
 	 * @return string
 	 */
 	static public function render_js( $js ) {
-		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) || empty( self::$header ) ) {
+		if ( ! is_callable( 'FLBuilderModel::get_post_id' ) || empty( self::$header ) || self::$render_js ) {
 			return $js;
 		}
 
@@ -356,9 +373,37 @@ final class BB_PowerPack_Header_Footer {
 
 		if ( $id ) {
 			$js .= file_get_contents( BB_POWERPACK_DIR . 'assets/js/header-layout.js' );
+			self::$render_js = true;
 		}
 
 		return $js;
+	}
+
+	/**
+	 * Enqueue the styles and scripts for a single layout
+	 * using the provided post ID.
+	 *
+	 * @since 2.22.2
+	 * @param int $post_id
+	 * @return void
+	 */
+	static public function enqueue_layout_styles_scripts_by_id( $post_id ) {
+		if ( is_callable( 'FLBuilder::enqueue_layout_styles_scripts' ) && FLBuilderModel::is_builder_active() ) {
+			FLBuilderModel::set_post_id( $post_id );
+			FLBuilder::enqueue_layout_styles_scripts( true );
+			FLBuilderModel::reset_post_id();
+		} else {
+			if ( ( defined( 'FL_BUILDER_VERSION' ) && version_compare( FL_BUILDER_VERSION, '2.5.2.3', '<' ) ) || FLBuilderModel::is_builder_active() ) {
+				// Ensure global assets are rendered.
+				if ( is_callable( 'FLBuilder::clear_enqueued_global_assets' ) ) {
+					FLBuilder::clear_enqueued_global_assets();
+				}
+			}
+
+			if ( is_callable( 'FLBuilder::enqueue_layout_styles_scripts_by_id' ) ) {
+				FLBuilder::enqueue_layout_styles_scripts_by_id( $post_id );
+			}
+		}
 	}
 
 	/**
@@ -372,13 +417,12 @@ final class BB_PowerPack_Header_Footer {
 	static public function render_header( $tag = null ) {
 		$tag 		= ! $tag ? 'header' : $tag;
 		$id 		= self::$header;
+		$id 		= self::get_wpml_element_id( $id );
 		$is_fixed 	= get_option( 'bb_powerpack_header_footer_fixed_header' );
 		$devices 	= get_option( 'bb_powerpack_header_footer_fixed_header_devices' );
 		$is_shrink 	= get_option( 'bb_powerpack_header_footer_shrink_header' );
 		$is_overlay = get_option( 'bb_powerpack_header_footer_overlay_header' );
 		$overlay_bg = get_option( 'bb_powerpack_header_footer_overlay_header_bg', 'default' );
-		
-		$id = self::get_wpml_element_id( $id );
 
 		do_action( 'pp_header_footer_before_render_header', $id );
 
@@ -389,9 +433,7 @@ final class BB_PowerPack_Header_Footer {
 		wp_enqueue_script( 'imagesloaded' );
 
 		// Enqueue styles and scripts for this post.
-		if ( is_callable( 'FLBuilder::enqueue_layout_styles_scripts_by_id' ) ) {
-			FLBuilder::enqueue_layout_styles_scripts_by_id( $id );
-		}
+		self::enqueue_layout_styles_scripts_by_id( $id );
 
 		// Print the styles if we are outside of the head tag.
 		if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {
@@ -426,16 +468,20 @@ final class BB_PowerPack_Header_Footer {
 	 */
 	static public function render_footer( $tag = null ) {
 		$tag = ! $tag ? 'footer' : $tag;
-		$id = self::$footer;
-
-		$id = self::get_wpml_element_id( $id );
+		$id  = self::$footer;
+		$id  = self::get_wpml_element_id( $id );
 
 		do_action( 'pp_header_footer_before_render_footer', $id );
 
-		// Enqueue styles and scripts for this post.
-		if ( is_callable( 'FLBuilder::enqueue_layout_styles_scripts_by_id' ) ) {
-			FLBuilder::enqueue_layout_styles_scripts_by_id( $id );
+		if ( ( defined( 'FL_BUILDER_VERSION' ) && version_compare( FL_BUILDER_VERSION, '2.5.2.3', '<' ) ) || FLBuilderModel::is_builder_active() ) {
+			// Ensure global assets are rendered.
+			if ( is_callable( 'FLBuilder::clear_enqueued_global_assets' ) ) {
+				FLBuilder::clear_enqueued_global_assets();
+			}
 		}
+
+		// Enqueue styles and scripts for this post.
+		self::enqueue_layout_styles_scripts_by_id( $id );
 
 		// Print the styles if we are outside of the head tag.
 		if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {

@@ -854,7 +854,7 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'label'     	=> __( 'Background Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'show_alpha'	=> true,
-						'default'   	=> 'eaeaea',
+						'default'   	=> '',
 						'connections'	=> array( 'color' ),
 					),
 					'arrow_bg_hover'       => array(
@@ -862,21 +862,21 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'label'     => __( 'Background Hover Color', 'bb-powerpack' ),
 						'show_reset' => true,
 						'show_alpha'	=> true,
-						'default'   => '4c4c4c',
+						'default'   => '',
 						'connections'	=> array( 'color' ),
 					),
 					'arrow_color'       => array(
 						'type'      => 'color',
 						'label'     => __( 'Arrow Color', 'bb-powerpack' ),
 						'show_reset' => true,
-						'default'   => '000000',
+						'default'   => '',
 						'connections'	=> array( 'color' ),
 					),
 					'arrow_color_hover'       => array(
 						'type'      => 'color',
 						'label'     => __( 'Arrow Hover Color', 'bb-powerpack' ),
 						'show_reset' => true,
-						'default'   => 'eeeeee',
+						'default'   => '',
 						'connections'	=> array( 'color' ),
 					),
 					'arrow_border'	=> array(

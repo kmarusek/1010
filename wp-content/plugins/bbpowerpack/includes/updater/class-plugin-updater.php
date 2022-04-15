@@ -18,7 +18,7 @@ class PP_Plugin_Updater {
 	private $version     = '';
 	private $wp_override = false;
 	private $cache_key   = '';
-
+	private $beta        = false;
 	private $health_check_timeout = 5;
 
 	/**
@@ -106,35 +106,57 @@ class PP_Plugin_Updater {
 			return $_transient_data;
 		}
 
-		$version_info = $this->get_cached_version_info();
+		$current = $this->get_repo_api_data();
+		if ( false !== $current && is_object( $current ) && isset( $current->new_version ) ) {
+			if ( version_compare( $this->version, $current->new_version, '<' ) ) {
+				$_transient_data->response[ $this->name ] = $current;
+			} else {
+				// Populating the no_update information is required to support auto-updates in WordPress 5.5.
+				$_transient_data->no_update[ $this->name ] = $current;
+			}
 
-		if ( false === $version_info ) {
-			$version_info = $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug, 'beta' => $this->beta ) );
-
-			$this->set_version_info_cache( $version_info );
-
-		}
-
-		if ( false !== $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
-
-			$version_info->icons = array(
+			$current->icons = array(
 				'1x'      => BB_POWERPACK_URL . 'assets/images/icon-128x128.png',
 				'2x'      => BB_POWERPACK_URL . 'assets/images/icon-256x256.png',
 				'default' => BB_POWERPACK_URL . 'assets/images/icon-256x256.png',
 			);
-
-			if ( version_compare( $this->version, $version_info->new_version, '<' ) ) {
-
-				$_transient_data->response[ $this->name ] = $version_info;
-
-			}
-
-			$_transient_data->last_checked           = time();
-			$_transient_data->checked[ $this->name ] = $this->version;
-
 		}
 
+		$_transient_data->last_checked           = time();
+		$_transient_data->checked[ $this->name ] = $this->version;
+
 		return $_transient_data;
+	}
+
+	/**
+	 * Get repo API data from store.
+	 * Save to cache.
+	 *
+	 * @return \stdClass
+	 */
+	public function get_repo_api_data() {
+		$version_info = $this->get_cached_version_info();
+
+		if ( false === $version_info ) {
+			$version_info = $this->api_request(
+				'plugin_latest_version',
+				array(
+					'slug' => $this->slug,
+					'beta' => $this->beta,
+				)
+			);
+			if ( ! $version_info ) {
+				return false;
+			}
+
+			// This is required for your plugin to support auto-updates in WordPress 5.5.
+			$version_info->plugin = $this->name;
+			$version_info->id     = $this->name;
+
+			$this->set_version_info_cache( $version_info );
+		}
+
+		return $version_info;
 	}
 
 	/**
@@ -170,7 +192,7 @@ class PP_Plugin_Updater {
 
 		if ( empty( $update_cache->response ) || empty( $update_cache->response[ $this->name ] ) ) {
 
-			$version_info = $this->get_cached_version_info();
+			$version_info = $this->get_repo_api_data();
 
 			if ( false === $version_info ) {
 				$version_info = $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug, 'beta' => $this->beta ) );
@@ -192,6 +214,10 @@ class PP_Plugin_Updater {
 					);
 				}
 
+				if ( isset( $version_info->contributors ) && ! is_array( $version_info->contributors ) ) {
+					$version_info->contributors = $this->convert_object_to_array( $version_info->contributors );
+				}
+
 				$this->set_version_info_cache( $version_info );
 			}
 
@@ -200,9 +226,9 @@ class PP_Plugin_Updater {
 			}
 
 			if ( version_compare( $this->version, $version_info->new_version, '<' ) ) {
-
 				$update_cache->response[ $this->name ] = $version_info;
-
+			} else {
+				$update_cache->no_update[ $this->name ] = $version_info;
 			}
 
 			$update_cache->last_checked = time();
@@ -290,10 +316,8 @@ class PP_Plugin_Updater {
 			)
 		);
 
-		$cache_key = 'edd_api_request_' . md5( serialize( $this->slug . $this->api_data['license'] . $this->beta ) );
-
 		// Get the transient where we store the api request for this plugin for 24 hours
-		$edd_api_request_transient = $this->get_cached_version_info( $cache_key );
+		$edd_api_request_transient = $this->get_cached_version_info();
 
 		//If we have no transient-saved value, run the API, set a fresh transient with the API value, and return that value too right now.
 		if ( empty( $edd_api_request_transient ) ) {
@@ -301,7 +325,7 @@ class PP_Plugin_Updater {
 			$api_response = $this->api_request( 'plugin_information', $to_send );
 
 			// Expires in 3 hours
-			$this->set_version_info_cache( $api_response, $cache_key );
+			$this->set_version_info_cache( $api_response );
 
 			if ( false !== $api_response ) {
 				$_data = $api_response;
@@ -326,6 +350,15 @@ class PP_Plugin_Updater {
 			$_data->icons = $this->convert_object_to_array( $_data->icons );
 		}
 
+		// Convert contributors into an associative array, since we're getting an object, but Core expects an array.
+		if ( isset( $_data->contributors ) && ! is_array( $_data->contributors ) ) {
+			$_data->contributors = $this->convert_object_to_array( $_data->contributors );
+		}
+
+		if( ! isset( $_data->plugin ) ) {
+			$_data->plugin = $this->name;
+		}
+
 		return $_data;
 	}
 
@@ -342,9 +375,12 @@ class PP_Plugin_Updater {
 	 * @return array
 	 */
 	private function convert_object_to_array( $data ) {
+		if ( ! is_array( $data ) && ! is_object( $data ) ) {
+			return array();
+		}
 		$new_data = array();
 		foreach ( $data as $key => $value ) {
-			$new_data[ $key ] = $value;
+			$new_data[ $key ] = is_object( $value ) ? $this->convert_object_to_array( $value ) : $value;
 		}
 
 		return $new_data;
@@ -382,6 +418,8 @@ class PP_Plugin_Updater {
 
 		global $wp_version, $edd_plugin_url_available;
 
+		$verify_ssl = $this->verify_ssl();
+
 		// Do a quick status check on this domain if we haven't already checked it.
 		$store_hash = md5( $this->api_url );
 		if ( ! is_array( $edd_plugin_url_available ) || ! isset( $edd_plugin_url_available[ $store_hash ] ) ) {
@@ -395,7 +433,7 @@ class PP_Plugin_Updater {
 				$edd_plugin_url_available[ $store_hash ] = false;
 			} else {
 				$test_url = $scheme . '://' . $host . $port;
-				$response = wp_remote_get( $test_url, array( 'timeout' => $this->health_check_timeout, 'sslverify' => true ) );
+				$response = wp_remote_get( $test_url, array( 'timeout' => $this->health_check_timeout, 'sslverify' => $verify_ssl ) );
 				$edd_plugin_url_available[ $store_hash ] = is_wp_error( $response ) ? false : true;
 			}
 		}
@@ -426,7 +464,6 @@ class PP_Plugin_Updater {
 			'beta'       => ! empty( $data['beta'] ),
 		);
 
-		$verify_ssl = $this->verify_ssl();
 		$request    = wp_remote_post( $this->api_url, array( 'timeout' => 15, 'sslverify' => $verify_ssl, 'body' => $api_params ) );
 
 		if ( ! is_wp_error( $request ) ) {
@@ -447,7 +484,7 @@ class PP_Plugin_Updater {
 			$request->icons = maybe_unserialize( $request->icons );
 		}
 
-		if( ! empty( $request->sections ) ) {
+		if ( ! empty( $request->sections ) ) {
 			foreach( $request->sections as $key => $section ) {
 				$request->$key = (array) $section;
 			}

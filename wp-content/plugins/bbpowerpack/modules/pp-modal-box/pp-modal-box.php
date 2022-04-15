@@ -644,6 +644,10 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
 						'type'			=> 'typography',
 						'label'			=> __('Typography', 'bb-powerpack'),
 						'responsive'  	=> true,
+						'preview'       => array(
+							'type'     => 'css',
+                            'selector' => '.pp-modal-button .pp-modal-trigger',
+						),
 					),
                     'button_text_color' => array(
                         'type'              => 'color',
@@ -828,6 +832,22 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
             'modal_title'   => array( // Section
                 'title'         => __('Title', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
+					'title_tag' => array(
+						'type'          => 'select',
+						'label'         => __('HTML Tag', 'bb-powerpack'),
+						'default'       => 'h2',
+						'options'       => array(
+							'h1'            => 'H1',
+							'h2'            => 'H2',
+							'h3'            => 'H3',
+							'h4'            => 'H4',
+							'h5'            => 'H5',
+							'h6'            => 'H6',
+							'div'			=> 'div',
+							'p'				=> 'p',
+							'span'			=> 'span',
+						)
+					),
                     'title_typography'	=> array(
 						'type'			=> 'typography',
 						'label'			=> __('Typography', 'bb-powerpack'),

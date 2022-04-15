@@ -20,13 +20,20 @@ class PPFilterableGalleryModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true,
         ));
+	}
 
-		$this->add_css('jquery-magnificpopup');
-		$this->add_js('jquery-magnificpopup');
-		
-		$this->add_js('jquery-masonry');
-		$this->add_js( 'jquery-isotope' );
+	/**
+	 * @method enqueue_scripts
+	 */
+	public function enqueue_scripts()
+	{
 		$this->add_js( 'imagesloaded' );
+		$this->add_js( 'jquery-isotope' );
+
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->click_action ) && 'lightbox' === $this->settings->click_action ) ) {
+			$this->add_css('jquery-magnificpopup');
+			$this->add_js('jquery-magnificpopup');
+		}
 	}
 
 	public function filter_settings( $settings, $helper )

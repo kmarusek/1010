@@ -39,7 +39,7 @@ class PPOffcanvasContent extends FLBuilderModule {
 		}
 
 		if ( isset( $settings->close_button ) && 'yes' === $settings->close_button ) {
-			if ( isset( $settings->close_button_icon ) && ! empty( $settings->button_icon ) ) {
+			if ( isset( $settings->close_button_icon ) && ! empty( $settings->close_button_icon ) ) {
 				$enqueue = true;
 			}
 		}

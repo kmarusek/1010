@@ -53,6 +53,19 @@
 			} );
 
 			submenu.prepend(back);
+
+			var activeSub = $( this.nodeClass ).find( '.pp-slide-menu-item-current' ).parents( '.sub-menu' );
+			if ( activeSub.length ) {
+				$( this.target ).addClass( 'pp-slide-menu-is-active-parent' );
+
+				activeSub.addClass( 'pp-slide-menu-is-active' );
+
+				for ( var i = 1; i <= activeSub.length; i++ ) {
+					$( activeSub[i] ).addClass( 'pp-slide-menu-is-active-parent' );
+				}
+
+				$( this.target ).css( { height: $( activeSub[0] ).height() } );
+			}
 		}
 	};
 

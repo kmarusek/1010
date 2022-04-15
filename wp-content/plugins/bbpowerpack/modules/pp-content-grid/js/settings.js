@@ -115,7 +115,7 @@
 			}
 
 			// The Events Calendar
-			if ( 'tribe_events' !== field.val() ) {
+			if ( 'tribe_events' !== field.val() && 'main_query' !== form.find( 'select[name="data_source"]' ).val() ) {
 				$('#fl-builder-settings-section-events-calendar-settings').hide();
 				$('#fl-builder-settings-section-events_calendar_style').hide();
 			} else {

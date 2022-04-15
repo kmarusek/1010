@@ -6,7 +6,7 @@
 		if( gallery_selector.length && typeof $.fn.magnificPopup !== 'undefined') {
 			gallery_selector.magnificPopup({
 				delegate: '.pp-gallery-item:visible .pp-photo-gallery-content a',
-				closeBtnInside: true,
+				closeBtnInside: false,
 				type: 'image',
 				gallery: {
 					enabled: true,

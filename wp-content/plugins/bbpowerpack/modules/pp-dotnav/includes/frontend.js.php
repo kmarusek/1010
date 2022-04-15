@@ -1,4 +1,14 @@
 ;(function($) {
+
+	$( '#pp-dotnav-<?php echo $id; ?> .pp-dot' ).each( function() {
+		var anchor = $(this).find('a');
+		var rowID = anchor.data('row-id');
+
+		if ( $( '#' + rowID ).length == 0 ) {
+			$(this).hide();
+		}
+	} );
+
     $( '#pp-dotnav-<?php echo $id; ?> .pp-dot a' ).on( 'click', function(e) {
         e.preventDefault();
         e.stopPropagation();

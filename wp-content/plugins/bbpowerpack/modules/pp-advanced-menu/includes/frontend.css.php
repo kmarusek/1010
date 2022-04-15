@@ -857,22 +857,6 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	) );
 endif; ?>
 
-
-<?php if (  'expanded' != $settings->mobile_toggle ) : ?>
-	<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
-		@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
-
-			.fl-node-<?php echo $id; ?> .pp-advanced-menu {
-				text-align: <?php echo $settings->responsive_alignment; ?>;
-				<?php if ( ( isset( $settings->alignment_responsive ) && ! empty( $settings->alignment_responsive ) ) ) { ?>
-				text-align: <?php echo $settings->alignment_responsive; ?>;
-				<?php } ?>
-			}
-
-		}
-	<?php endif; ?>
-<?php endif; ?>
-
 <?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
 	@media ( min-width: <?php echo ( $module->get_media_breakpoint() ) + 1 ?>px ) {
 		<?php // if menu is horizontal or vertical ?>
@@ -1016,6 +1000,35 @@ endif; ?>
 	<?php } ?>
 
 }
+
+<?php if (  'expanded' != $settings->mobile_toggle ) : ?>
+	<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+		@media only screen and ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu {
+				text-align: <?php echo $settings->responsive_alignment; ?>;
+			}
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
+			<?php if ( isset( $settings->responsive_toggle_alignment ) && 'default' != $settings->responsive_toggle_alignment ) { ?>
+				text-align: <?php echo $settings->responsive_toggle_alignment; ?>;
+				<?php
+				if ( 'left' === $settings->responsive_toggle_alignment ) {
+					$toggle_alignment = 'flex-start';
+				} elseif ( 'right' === $settings->responsive_toggle_alignment ) {
+					$toggle_alignment = 'flex-end';
+				} else {
+					$toggle_alignment = 'center';
+				}
+				?>
+				-webkit-justify-content: <?php echo $toggle_alignment; ?>;
+				-ms-flex-pack: <?php echo $toggle_alignment; ?>;
+				justify-content: <?php echo $toggle_alignment; ?>;
+			<?php } ?>
+			}
+		}
+	<?php endif; ?>
+<?php endif; ?>
 
 <?php
 if( 'default' != $settings->mobile_menu_type ) {

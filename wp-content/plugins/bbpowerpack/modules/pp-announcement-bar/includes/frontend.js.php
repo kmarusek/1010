@@ -25,17 +25,22 @@
 ;(function($) {
 
 	function set_cookie() {
+		var cookieKey = 'pp_annoucement_bar_<?php echo $id; ?>';
 		if ( parseInt( <?php echo $cookie_time; ?> ) > 0 ) {
-			return $.cookie( 'pp_annoucement_bar', <?php echo $cookie_time; ?>, {expires: <?php echo $cookie_time; ?>, path: '/'} );
+			return $.cookie( cookieKey, <?php echo $cookie_time; ?>, {expires: <?php echo $cookie_time; ?>, path: '/'} );
 		} else {
-			return $.cookie( 'pp_annoucement_bar', 0, {expires: 0, path: '/'} );
+			return $.cookie( cookieKey, 0, {expires: 0, path: '/'} );
 		}
 	}
 
 	function is_cookie_set()
 	{
-		var cookie = $.cookie( 'pp_annoucement_bar' );
-		if ( cookie && cookie > 0 ) {
+		var oldCookie = $.cookie( 'pp_annoucement_bar' );
+		var newCookie = $.cookie( 'pp_annoucement_bar_<?php echo $id; ?>' );
+		if ( oldCookie && parseInt( oldCookie ) > 0 && ! newCookie ) {
+			return true;
+		}
+		if ( newCookie && parseInt( newCookie ) > 0 ) {
 			return true;
 		}
 

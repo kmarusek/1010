@@ -1,7 +1,8 @@
 <?php
-FLBuilderModel::default_settings($settings, array(
+FLBuilderModel::default_settings( $settings, array(
 	'data_source'		=> is_post_type_archive() ? 'main_query' : 'custom_query',
 	'post_type' 		=> 'post',
+	'post_status' 		=> 'publish',
 	'order_by'  		=> 'date',
 	'order'     		=> 'DESC',
 	'offset'    		=> 0,
@@ -29,7 +30,7 @@ FLBuilderModel::default_settings($settings, array(
 	'product_button_text'	=> __('Add to Cart', 'bb-powerpack'),
 	'fallback_image'	=> 'default',
 	'image_thumb_size'	=> 'large'
-));
+) );
 
 $module_dir = pp_get_module_dir('pp-content-grid');
 $module_url = pp_get_module_url('pp-content-grid');
@@ -56,8 +57,6 @@ $wrapper_class = 'pp-posts-wrapper';
 if ( 'grid' === $settings->layout && isset( $settings->filter_position ) && 'top' !== $settings->filter_position ) {
 	$wrapper_class .= ' pp-post-filters-sidebar pp-post-filters-sidebar-' . $settings->filter_position;
 }
-
-$link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_target_new ? ' target="_blank" rel="noopener bookmark"' : '';
 
 // Set custom parameteres in module settings to verify
 // our module when using filter hooks.
@@ -164,7 +163,7 @@ $query = FLBuilderLoop::query( $settings );
 		if ( 'acf_relationship' != $settings->data_source ) {
 			// Post filters.
 			if ( $settings->layout == 'grid' && $settings->post_grid_filters_display == 'yes' && 'none' != $settings->post_grid_filters ) {
-				include $module->dir . 'includes/post-filters.php';
+				include $module_dir . 'includes/post-filters.php';
 			}
 		}
 
@@ -203,7 +202,7 @@ $query = FLBuilderLoop::query( $settings );
 
 						ob_start();
 
-						include apply_filters( 'pp_cg_module_layout_path', $module->dir . 'includes/post-' . $settings->layout . '.php', $settings->layout, $settings );
+						include apply_filters( 'pp_cg_module_layout_path', $module_dir . 'includes/post-' . $settings->layout . '.php', $settings->layout, $settings );
 
 						// Do shortcodes here so they are parsed in context of the current post.
 						echo do_shortcode( ob_get_clean() );

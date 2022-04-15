@@ -44,7 +44,7 @@ class PPSlidingMenusModule extends FLBuilderModule {
 			return array();
 		}
 
-		$get_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+		$get_menus = wp_get_nav_menus( array( 'hide_empty' => true ) );
 		$options = array();
 
 		if ( $get_menus ) {

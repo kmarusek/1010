@@ -1,3 +1,7 @@
+.fl-row-fixed-width {
+	min-width: 1px;
+}
+
 .pp-video-gallery .pp-video-gallery-items:not(.swiper-wrapper) {
 	display: flex;
     flex-flow: row wrap;
