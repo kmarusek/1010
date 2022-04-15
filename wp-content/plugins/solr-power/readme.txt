@@ -3,8 +3,8 @@ Contributors: getpantheon, Outlandish Josh, 10up, collinsinternet, andrew.taylor
 Tags: search
 Requires at least: 4.6
 Requires PHP: 7.1
-Tested up to: 5.8
-Stable tag: 2.2.5
+Tested up to: 5.9
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,10 @@ In a local development environment, you can point Solr Power to a custom Solr in
     putenv( 'PANTHEON_INDEX_PORT=8983' );
     add_filter( 'solr_scheme', function(){ return 'http'; });
     define( 'SOLR_PATH', '/solr/wordpress/' );
+
+** Note for Lando users **
+
+If you are using lando for development, the MU plugin is not needed. Lando auto configures everything for your local environment to connect to the docker index it maintains and if you overrite the ENV variables it will mess with that configuration.
 
 == Development ==
 
@@ -213,6 +217,18 @@ Add the following to your `functions.php` file.
 
 
 == Changelog ==
+
+= 2.3.2 (April 1, 2022) =
+* Fixes query filtering for `'fields' => 'id=>parent'` [[#528](https://github.com/pantheon-systems/solr-power/pull/528)].
+
+= 2.3.1 (March 29, 2022) =
+* Adapts `posts_pre_query()` return values based on 'fields' argument [[#522](https://github.com/pantheon-systems/solr-power/pull/522)].
+
+= 2.3.0 (March 29, 2022) =
+* Removes incorrect use of `array_map( 'get_post' )` in `posts_pre_query` [[#521](https://github.com/pantheon-systems/solr-power/pull/521)].
+
+= 2.2.6 (February 22, 2022) =
+* Fixes PHP 8 deprecations in `class-solrpower-options.php` [[#513](https://github.com/pantheon-systems/solr-power/pull/513)].
 
 = 2.2.5 (July 27, 2021) =
 * Switches to `wp_strip_all_tags()` to remove style and script tag content [[#500](https://github.com/pantheon-systems/solr-power/pull/500)].

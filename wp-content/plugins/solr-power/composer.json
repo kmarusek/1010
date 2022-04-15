@@ -17,6 +17,9 @@
     "config": {
         "platform": {
             "php": "7.1"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "require": {
@@ -28,7 +31,8 @@
         "wp-coding-standards/wpcs": "^2.1",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "phpunit/phpunit": "^6 || ^7",
-        "phpcompatibility/php-compatibility": "^9.3"
+        "phpcompatibility/php-compatibility": "^9.3",
+        "yoast/phpunit-polyfills": "^1.0"
     },
     "scripts": {
         "lint": "@phpcs",
