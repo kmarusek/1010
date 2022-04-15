@@ -5,12 +5,14 @@
  *  @package UABB FAQ
  */
 
+$uabb_scroll = apply_filters( 'uabb_faq_scroll_animation', true );
 ?>
 
 
 jQuery(document).ready(function() {
 new UABBFAQModule ({
 id:'<?php echo esc_attr( $id ); ?>',
+scroll: '<?php echo esc_attr( $uabb_scroll ? true : false ); ?>',
 close_icon:'<?php echo esc_attr( $settings->close_icon ); ?>',
 open_icon:'<?php echo esc_attr( $settings->open_icon ); ?>',
 enable_first: '<?php echo esc_attr( $settings->faq_enable_first ); ?>'

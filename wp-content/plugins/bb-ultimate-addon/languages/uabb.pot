@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.34.4\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.34.5\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2022-02-01 10:51:10+00:00\n"
+"POT-Creation-Date: 2022-03-10 04:48:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -681,7 +681,7 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:497
 #: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:85
 #: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:97
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:545
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:578
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:61
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:73
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:325
@@ -1597,15 +1597,15 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:437
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:360
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:472
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:139
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:174
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:208
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:242
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:276
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:310
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:386
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:428
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:562
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:172
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:207
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:241
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:275
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:309
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:343
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:419
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:461
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:595
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:408
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:443
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:477
@@ -2163,15 +2163,15 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:438
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:361
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:473
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:140
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:175
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:209
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:243
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:277
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:311
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:387
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:429
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:563
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:173
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:208
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:242
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:276
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:310
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:344
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:420
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:462
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:596
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:409
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:444
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:478
@@ -2890,7 +2890,7 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:358
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-2-2-compatibility.php:590
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:687
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:446
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:479
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:242
 #: modules/uabb-devices/uabb-devices.php:377
 #: modules/uabb-fluent-form-styler/uabb-fluent-form-styler.php:582
@@ -6142,15 +6142,15 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-normal-date.php:52
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-2-2-compatibility.php:195
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-less-than-2-2-compatibility.php:129
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:188
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:221
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:457
 msgid "Month"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:94
 #: fields/uabb-date/ui-field-uabb-normal-date.php:151
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:160
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:182
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:193
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:215
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:429
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:451
 msgid "Months"
@@ -6160,15 +6160,15 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-normal-date.php:156
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-2-2-compatibility.php:196
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-less-than-2-2-compatibility.php:130
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:153
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:186
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:422
 msgid "Year"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:111
 #: fields/uabb-date/ui-field-uabb-normal-date.php:176
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:125
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:146
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:158
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:179
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:394
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:415
 msgid "Years"
@@ -6178,7 +6178,7 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-normal-date.php:181
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-2-2-compatibility.php:192
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-less-than-2-2-compatibility.php:126
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:256
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:289
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:525
 msgid "Hour"
 msgstr ""
@@ -6190,8 +6190,12 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-normal-date.php:207
 #: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:280
 #: modules/uabb-business-hours/uabb-business-hours-bb-less-than-2-2-compatibility.php:420
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:228
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:250
+#: modules/uabb-countdown/includes/frontend.js.php:34
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:132
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:133
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:135
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:261
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:283
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:497
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:519
 msgid "Hours"
@@ -6203,8 +6207,12 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:107
 #: fields/uabb-date/ui-field-uabb-normal-date.php:211
 #: fields/uabb-date/ui-field-uabb-normal-date.php:237
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:262
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:284
+#: modules/uabb-countdown/includes/frontend.js.php:35
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:139
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:140
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:142
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:295
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:317
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:531
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:553
 msgid "Minutes"
@@ -6213,8 +6221,12 @@ msgstr ""
 #: fields/uabb-date/uabb-date.php:172 fields/uabb-date/uabb-date.php:189
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:21
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:46
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:194
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:216
+#: modules/uabb-countdown/includes/frontend.js.php:33
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:125
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:126
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:128
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:227
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:249
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:463
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:485
 msgid "Days"
@@ -6223,8 +6235,12 @@ msgstr ""
 #: fields/uabb-date/uabb-date.php:231 fields/uabb-date/uabb-date.php:248
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:112
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:137
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:296
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:318
+#: modules/uabb-countdown/includes/frontend.js.php:36
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:146
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:147
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:149
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:329
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:351
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:565
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:587
 msgid "Seconds"
@@ -7442,7 +7458,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box-bb-2-2-compatibility.php:993
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:292
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:342
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:575
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:608
 msgid "Horizontal Length"
 msgstr ""
 
@@ -7454,7 +7470,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box-bb-2-2-compatibility.php:1006
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:299
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:349
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:582
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:615
 msgid "Vertical Length"
 msgstr ""
 
@@ -7466,7 +7482,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box-bb-2-2-compatibility.php:1019
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:306
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:356
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:589
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:622
 msgid "Blur Radius"
 msgstr ""
 
@@ -7478,7 +7494,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box-bb-2-2-compatibility.php:1032
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:313
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:363
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:596
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:629
 msgid "Spread Radius"
 msgstr ""
 
@@ -7490,7 +7506,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box-bb-2-2-compatibility.php:1045
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:320
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:370
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:603
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:636
 msgid "Shadow Color"
 msgstr ""
 
@@ -9646,10 +9662,10 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:596
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:624
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:617
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:668
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:691
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:735
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:763
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:701
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:724
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:768
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:796
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:600
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:448
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:471
@@ -9954,8 +9970,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1063
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:328
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:318
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:678
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:722
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:711
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:755
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:610
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:703
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:458
@@ -10059,8 +10075,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1064
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:329
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:319
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:679
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:723
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:712
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:756
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:611
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:704
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:459
@@ -10164,8 +10180,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1065
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:330
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:320
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:680
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:724
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:713
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:757
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:612
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:705
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:460
@@ -10269,8 +10285,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1066
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:331
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:321
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:681
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:725
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:714
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:758
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:613
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:706
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:461
@@ -10374,8 +10390,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1067
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:332
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:322
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:682
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:726
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:715
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:759
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:614
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:707
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:462
@@ -10479,8 +10495,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1068
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:333
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:323
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:683
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:727
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:716
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:760
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:615
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:708
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:463
@@ -10578,8 +10594,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:543
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-2-2-compatibility.php:876
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1069
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:684
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:728
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:717
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:761
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:616
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:709
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:464
@@ -10675,8 +10691,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:544
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-2-2-compatibility.php:877
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1070
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:685
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:729
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:718
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:762
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:617
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:710
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:465
@@ -10771,8 +10787,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:545
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-2-2-compatibility.php:878
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:1071
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:686
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:730
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:719
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:763
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:618
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:711
 #: modules/uabb-faq/uabb-faq-bb-2-2-compatibility.php:466
@@ -12685,7 +12701,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:720
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:386
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:498
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:513
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:546
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:300
 #: modules/uabb-faq/uabb-faq-bb-less-than-2-2-compatibility.php:139
 #: modules/uabb-faq/uabb-faq-bb-less-than-2-2-compatibility.php:302
@@ -12826,7 +12842,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:721
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:389
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:501
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:514
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:547
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:301
 #: modules/uabb-faq/uabb-faq-bb-less-than-2-2-compatibility.php:140
 #: modules/uabb-faq/uabb-faq-bb-less-than-2-2-compatibility.php:303
@@ -12966,7 +12982,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:722
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:388
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:500
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:515
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:548
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:302
 #: modules/uabb-faq/uabb-faq-bb-less-than-2-2-compatibility.php:141
 #: modules/uabb-faq/uabb-faq-bb-less-than-2-2-compatibility.php:304
@@ -14093,7 +14109,7 @@ msgstr ""
 
 #: modules/advanced-separator/advanced-separator-bb-2-2-compatibility.php:25
 #: modules/advanced-separator/advanced-separator-bb-less-than-2-2-compatibility.php:24
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:401
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:434
 #: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:170
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:112
 msgid "Line"
@@ -14279,7 +14295,7 @@ msgstr ""
 #: modules/slide-box/slide-box-bb-less-than-2-2-compatibility.php:124
 #: modules/team/team-bb-2-2-compatibility.php:97
 #: modules/team/team-bb-less-than-2-2-compatibility.php:73
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:444
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:477
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:240
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:202
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:206
@@ -14316,7 +14332,7 @@ msgstr ""
 #: modules/slide-box/slide-box-bb-less-than-2-2-compatibility.php:125
 #: modules/team/team-bb-2-2-compatibility.php:98
 #: modules/team/team-bb-less-than-2-2-compatibility.php:74
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:445
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:478
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:241
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:203
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:207
@@ -14815,12 +14831,12 @@ msgstr ""
 #: modules/photo-gallery/photo-gallery-bb-less-than-2-2-compatibility.php:243
 #: modules/photo-gallery/photo-gallery-bb-less-than-2-2-compatibility.php:332
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-2-2-compatibility.php:455
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:130
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:165
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:199
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:233
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:267
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:301
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:163
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:198
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:232
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:266
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:300
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:334
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:399
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:434
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:468
@@ -14850,12 +14866,12 @@ msgstr ""
 #: modules/photo-gallery/photo-gallery-bb-less-than-2-2-compatibility.php:242
 #: modules/photo-gallery/photo-gallery-bb-less-than-2-2-compatibility.php:331
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-2-2-compatibility.php:454
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:129
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:164
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:198
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:232
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:266
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:300
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:162
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:197
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:231
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:265
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:299
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:333
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:398
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:433
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:467
@@ -17143,7 +17159,7 @@ msgstr ""
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:827
 #: modules/uabb-beforeafterslider/uabb-beforeafterslider-bb-2-2-compatibility.php:126
 #: modules/uabb-beforeafterslider/uabb-beforeafterslider-bb-less-than-2-2-compatibility.php:125
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:339
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:372
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:198
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:238
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:237
@@ -19104,8 +19120,8 @@ msgstr ""
 #: modules/info-table/info-table-bb-2-2-compatibility.php:936
 #: modules/info-table/info-table-bb-less-than-2-2-compatibility.php:755
 #: modules/info-table/info-table-bb-less-than-2-2-compatibility.php:864
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:675
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:719
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:708
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:752
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:607
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:700
 msgid "Select Tag"
@@ -21245,7 +21261,7 @@ msgstr ""
 #: modules/team/team-bb-2-2-compatibility.php:331
 #: modules/team/team-bb-less-than-2-2-compatibility.php:313
 #: modules/team/team-bb-less-than-2-2-compatibility.php:317
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:379
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:412
 #: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:159
 #: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:162
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:101
@@ -21279,7 +21295,7 @@ msgstr ""
 #: modules/info-box/info-box-bb-2-2-compatibility.php:356
 #: modules/photo-gallery/photo-gallery-bb-2-2-compatibility.php:424
 #: modules/pricing-box/pricing-box-bb-2-2-compatibility.php:901
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:559
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:592
 msgid "Enable Box Shadow"
 msgstr ""
 
@@ -21731,7 +21747,7 @@ msgstr ""
 #: modules/info-circle/info-circle-bb-less-than-2-2-compatibility.php:1164
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:427
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:501
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:411
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:444
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:379
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:378
 msgid "Separator Color"
@@ -22081,9 +22097,9 @@ msgstr ""
 #: modules/info-list/info-list-bb-2-2-compatibility.php:407
 #: modules/info-list/info-list-bb-less-than-2-2-compatibility.php:310
 #: modules/info-list/info-list-bb-less-than-2-2-compatibility.php:427
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:701
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:748
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:774
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:734
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:781
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:807
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:148
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:671
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:766
@@ -23447,7 +23463,7 @@ msgstr ""
 
 #: modules/photo-gallery/photo-gallery-bb-2-2-compatibility.php:68
 #: modules/photo-gallery/photo-gallery-bb-less-than-2-2-compatibility.php:59
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:443
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:476
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:239
 msgid "Normal"
 msgstr ""
@@ -25125,7 +25141,7 @@ msgstr ""
 
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:412
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php:487
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:418
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:451
 msgid "Separator Size"
 msgstr ""
 
@@ -25273,7 +25289,7 @@ msgstr ""
 #: modules/uabb-beforeafterslider/uabb-beforeafterslider-bb-less-than-2-2-compatibility.php:100
 #: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:356
 #: modules/uabb-business-hours/uabb-business-hours-bb-less-than-2-2-compatibility.php:562
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:332
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:365
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:191
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:885
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1107
@@ -25542,6 +25558,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form-bb-less-than-2-2-compatibility.php:152
 #: modules/uabb-contact-form/uabb-contact-form-bb-less-than-2-2-compatibility.php:207
 #: modules/uabb-contact-form/uabb-contact-form-bb-less-than-2-2-compatibility.php:262
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:121
 #: modules/uabb-registration-form/uabb-registration-form-bb-2-2-compatibility.php:1393
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:1467
 msgid "Label"
@@ -25602,7 +25619,7 @@ msgstr ""
 #: modules/uabb-business-hours/uabb-business-hours-bb-less-than-2-2-compatibility.php:310
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-2-2-compatibility.php:193
 #: modules/uabb-business-reviews/uabb-business-reviews-bb-less-than-2-2-compatibility.php:127
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:222
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:255
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:491
 msgid "Day"
 msgstr ""
@@ -27574,17 +27591,17 @@ msgstr ""
 msgid "Enter URL"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:121
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:154
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:390
 msgid "Timer Strings"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:135
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:170
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:204
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:238
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:272
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:306
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:168
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:203
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:237
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:271
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:305
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:339
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:404
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:439
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:473
@@ -27594,153 +27611,153 @@ msgstr ""
 msgid "Custom Label"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:145
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:178
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:414
 msgid "Years Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:151
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:184
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:420
 msgid "Year Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:180
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:213
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:449
 msgid "Months Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:186
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:219
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:455
 msgid "Month Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:214
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:247
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:483
 msgid "Days Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:220
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:253
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:489
 msgid "Day Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:248
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:281
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:517
 msgid "Hours Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:254
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:287
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:523
 msgid "Hour Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:282
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:315
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:551
 msgid "Minutes Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:288
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:321
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:557
 msgid "Minute Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:290
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:323
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:559
 msgid "Minute"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:316
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:349
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:585
 msgid "Seconds Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:322
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:355
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:591
 msgid "Second Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:324
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:357
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:593
 msgid "Second"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:350
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:383
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:215
 msgid "Space Between Timer Unit & Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:372
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:405
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:224
 msgid "Space Between Elements"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:373
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:406
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:225
 msgid "This option controls the left-right spacing of each Countdown Element."
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:383
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:416
 msgid "Show separator between blocks"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:397
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:430
 msgid "Separator Type"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:400
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:433
 msgid "Colon"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:425
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:458
 msgid "Hide on mobile"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:435
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:468
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:231
 msgid "Timer Digit Styling"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:439
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:472
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:235
 msgid "Digit Area Shape"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:469
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:502
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:261
 msgid "Digit Background Color"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:484
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:517
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:283
 msgid "Digit Area Width"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:496
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:529
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:291
 msgid "Digit Border Radius"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:509
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:542
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:296
 msgid "Digit Border Style"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:520
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:553
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:310
 msgid "Digit Border Width"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:534
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:567
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:315
 msgid "Digit Border Color"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:541
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:574
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:321
 msgid "On Count Animation"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:546
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:579
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:326
 #: modules/uabb-woo-products/uabb-woo-products-bb-2-2-compatibility.php:438
 #: modules/uabb-woo-products/uabb-woo-products-bb-2-2-compatibility.php:546
@@ -27749,19 +27766,19 @@ msgstr ""
 msgid "Flash"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:547
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:580
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:327
 msgid "Shake"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:548
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:581
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:328
 #: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:311
 #: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:284
 msgid "Bounce"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:549
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:582
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:329
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:414
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:626
@@ -27769,78 +27786,78 @@ msgstr ""
 msgid "Pulse"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:555
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:588
 msgid "Timer Box Shadow"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:611
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:644
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:335
 msgid "Timer Unit Styling"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:615
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:648
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:339
 msgid "Timer Unit Position"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:619
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:652
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:343
 msgid "Inside Digit Area"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:620
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:653
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:344
 msgid "Outside Digit Area"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:633
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:643
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:655
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:666
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:676
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:688
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:357
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:367
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:379
 msgid "Select Position"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:637
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:647
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:659
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:670
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:680
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:692
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:361
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:371
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:383
 msgid "Below Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:638
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:648
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:660
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:671
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:681
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:693
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:362
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:372
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:384
 msgid "Above Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:649
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:682
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:373
 msgid "Right Side of Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:650
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:683
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:374
 msgid "Left Side of Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:671
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:704
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:603
 msgid "Timer Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:715
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:748
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:696
 msgid "Timer Unit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:759
+#: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:792
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:107
 msgid "Expiry Message Settings"
 msgstr ""

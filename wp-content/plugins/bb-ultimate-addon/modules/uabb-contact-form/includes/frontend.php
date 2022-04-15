@@ -182,7 +182,7 @@ if ( 'show' === $settings->msg_toggle && '50' === $settings->msg_width ) {
 				<div class="uabb-terms-text"><?php echo $settings->terms_text; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 			<?php endif; ?>
 			<div class="uabb-form-outter">
-				<label class="uabb-terms-label" for="uabb-terms-checkbox-<?php echo esc_attr( $id ); ?>">
+				<label class="uabb-terms-label">
 					<input aria-label="checkbox" type="checkbox" class="checkbox-inline" id="uabb-terms-checkbox-<?php echo esc_attr( $id ); ?>" name="uabb-terms-checkbox" value="1" />
 					<span class="checkbox-label">
 						<?php echo $settings->terms_checkbox_text; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

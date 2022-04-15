@@ -113,6 +113,36 @@ jQuery(document).ready(function( $ ) {
 
 	<?php endif; ?>
 
+
+	<?php if ( 'grid' === $settings->layout ) : ?>
+		var args = {
+				id: '<?php echo esc_attr( $id ); ?>',
+				uabb_ajaxurl: "<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>",
+				layout:'<?php echo esc_attr( $settings->layout ); ?>',
+				pagination: '<?php echo esc_attr( $settings->pagination ); ?>',
+				isBuilderActive: <?php echo esc_attr( FLBuilderModel::is_builder_active() ? 'true' : 'false' ); ?>,
+				imgPerPage: <?php echo esc_attr( isset( $settings->images_per_page ) ? $settings->images_per_page : 6 ); ?>,
+				settings: <?php echo wp_json_encode( $settings ); ?>,
+				total_img_count: <?php echo esc_attr( ( isset( $settings->photos ) && is_array( $settings->photos ) ) ? count( $settings->photos ) : 0 ); ?>,
+			};
+
+			/* Tab Click Trigger */
+			UABBTrigger.addHook( 'uabb-tab-click', function( argument, selector ) {
+				new UABBPhotoGallery( args );
+			});
+
+			/* Accordion Click Trigger */
+			UABBTrigger.addHook( 'uabb-accordion-click', function( argument, selector ) {
+				new UABBPhotoGallery( args );
+			});
+
+			/* Content Toggle Trigger */
+			UABBTrigger.addHook( 'uabb-toggle-click', function( argument, selector ) {
+				new UABBPhotoGallery( args );
+			});
+	<?php endif; ?>
+
+
 	$(function() {
 		$( '.fl-node-<?php echo esc_attr( $id ); ?> .uabb-gallery-img' )
 			.on( 'mouseenter', function( e ) {

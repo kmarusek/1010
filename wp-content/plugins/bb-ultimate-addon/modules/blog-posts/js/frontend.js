@@ -268,7 +268,9 @@ var UABBBlogPosts;
             if( $this.equal_height_box == 'yes' ) {
                 jQuery( nodeClass + ' .uabb-blog-posts-grid' ).imagesLoaded( $.proxy( function() {
                     this._uabbBlogPostMesonryHeight();
-                    jQuery( nodeClass + ' .uabb-blog-posts-grid' ).isotope('layout');
+                    setTimeout(() => {
+                        jQuery( nodeClass + ' .uabb-blog-posts-grid' ).isotope('layout');
+                    }, 150);
                 }, this ) );
             }
             $(window).scroll($.debounce( 25, function(){

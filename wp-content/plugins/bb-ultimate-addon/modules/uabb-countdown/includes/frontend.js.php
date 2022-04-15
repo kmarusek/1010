@@ -29,6 +29,11 @@ $fixed_singular_minute = ( isset( $settings->minute_singular_label ) && '' !== $
 $fixed_plural_second = ( isset( $settings->second_plural_label ) && '' !== $settings->second_plural_label && 'yes' === $settings->second_custom_label ) ? $settings->second_plural_label : 'Seconds';
 
 $fixed_singular_second = ( isset( $settings->second_singular_label ) && '' !== $settings->second_singular_label && 'yes' === $settings->second_custom_label ) ? $settings->second_singular_label : 'Second';
+
+$date    = ( isset( $settings->days_label ) && '' !== $settings->days_label ) ? $settings->days_label : __( 'Days', 'uabb' );
+$hours   = ( isset( $settings->hours_label ) && '' !== $settings->hours_label ) ? $settings->hours_label : __( 'Hours', 'uabb' );
+$minutes = ( isset( $settings->minutes_label ) && '' !== $settings->minutes_label ) ? $settings->minutes_label : __( 'Minutes', 'uabb' );
+$seconds = ( isset( $settings->seconds_label ) && '' !== $settings->seconds_label ) ? $settings->seconds_label : __( 'Seconds', 'uabb' );
 ?>
 
 <?php if ( 'normal' === $settings->timer_style && 'normal_below' === $settings->normal_options ) { ?>
@@ -38,13 +43,13 @@ $fixed_singular_second = ( isset( $settings->second_singular_label ) && '' !== $
 	<?php } ?>
 		default_layout += '{o<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{onn}', '{ol}' ) ); ?>' +
 		'{o>}'+
-		'{d<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{dnn}', '{dl}' ) ); ?>' +
+		'{d<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{dnn}', $date ) ); ?>' +
 		'{d>}'+
-		'{h<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{hnn}', '{hl}' ) ); ?>' +
+		'{h<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{hnn}', $hours ) ); ?>' +
 		'{h>}'+
-		'{m<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{mnn}', '{ml}' ) ); ?>' +
+		'{m<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{mnn}', $minutes ) ); ?>' +
 		'{m>}'+
-		'{s<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{snn}', '{sl}' ) ); ?>' +
+		'{s<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{snn}', $seconds ) ); ?>' +
 		'{s>}';
 <?php } elseif ( 'normal' === $settings->timer_style && 'normal_above' === $settings->normal_options ) { ?>
 
@@ -68,13 +73,13 @@ $fixed_singular_second = ( isset( $settings->second_singular_label ) && '' !== $
 
 	default_layout = '{o<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{onn}', '{ol}' ) ); ?>' +
 		'{o>}'+
-		'{d<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{dnn}', '{dl}' ) ); ?>' +
+		'{d<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{dnn}', $date ) ); ?>' +
 		'{d>}'+
-		'{h<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{hnn}', '{hl}' ) ); ?>' +
+		'{h<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{hnn}', $hours ) ); ?>' +
 		'{h>}'+
-		'{m<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{mnn}', '{ml}' ) ); ?>' +
+		'{m<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{mnn}', $minutes ) ); ?>' +
 		'{m>}'+
-		'{s<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{snn}', '{sl}' ) ); ?>' +
+		'{s<}'+ '<?php echo wp_kses_post( $module->render_normal_countdown( '{snn}', $seconds ) ); ?>' +
 		'{s>}';
 
 <?php } elseif ( 'inside' === $settings->unit_position && 'in_below' === $settings->inside_options ) { ?>
@@ -85,10 +90,10 @@ $fixed_singular_second = ( isset( $settings->second_singular_label ) && '' !== $
 	<?php } ?>
 
 	default_layout += '{o<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{onn}', '{ol}', '{o>}' ) ); ?>' +
-		'{d<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{dnn}', '{dl}', '{d>}' ) ); ?>' +
-		'{h<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{hnn}', '{hl}', '{h>}' ) ); ?>' +
-		'{m<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{mnn}', '{ml}', '{m>}' ) ); ?>' +
-		'{s<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{snn}', '{sl}', '{s>}' ) ); ?>';
+		'{d<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{dnn}', $date, '{d>}' ) ); ?>' +
+		'{h<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{hnn}', $hours, '{h>}' ) ); ?>' +
+		'{m<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{mnn}', $minutes, '{m>}' ) ); ?>' +
+		'{s<}' + '<?php echo wp_kses_post( $module->render_inside_below_countdown( '{snn}', $seconds, '{s>}' ) ); ?>';
 
 <?php } elseif ( 'inside' === $settings->unit_position && 'in_above' === $settings->inside_options ) { ?>
 

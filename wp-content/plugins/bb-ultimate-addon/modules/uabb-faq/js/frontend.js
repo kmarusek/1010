@@ -20,6 +20,7 @@
 
     _init: function()
 	{
+		window.scroll = this.settings.scroll;
 		var button_level = $( this.nodeClass ).find('.uabb-faq-questions').first().closest('.uabb-faq-module');
 		button_level.children('.uabb-faq-item').children('.uabb-faq-questions').on( 'click keypress', $.proxy( this._buttonClick, this ) );
 
@@ -110,9 +111,11 @@
 
 		if ( ! accordion.hasClass( 'uabb-faq-edit' ) ) {
 			if ( item.offset().top < win.scrollTop() + 100 ) {
-				$( 'html, body' ).animate({
-					scrollTop: item.offset().top - 100
-				}, 500, 'swing');
+				if ( window.scroll ) {
+					$( 'html, body' ).animate({
+						scrollTop: item.offset().top - 100
+					}, 500, 'swing');
+				}
 			}
 		}
 	},

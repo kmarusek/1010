@@ -117,6 +117,39 @@ FLBuilder::register_module(
 						),
 					),
 				),
+				'label_string'   => array( // Section.
+					'title'  => __( 'Label', 'uabb' ), // Section Title.
+					'fields' => array( // Section Fields.
+						'days_label'    => array(
+							'type'        => 'text',
+							'label'       => __( 'Days', 'uabb' ),
+							'default'     => __( 'Days', 'uabb' ),
+							'connections' => array( 'string', 'html' ),
+							'placeholder' => __( 'Days', 'uabb' ),
+						),
+						'hours_label'   => array(
+							'type'        => 'text',
+							'label'       => __( 'Hours', 'uabb' ),
+							'default'     => __( 'Hours', 'uabb' ),
+							'connections' => array( 'string', 'html' ),
+							'placeholder' => __( 'Hours', 'uabb' ),
+						),
+						'minutes_label' => array(
+							'type'        => 'text',
+							'label'       => __( 'Minutes', 'uabb' ),
+							'default'     => __( 'Minutes', 'uabb' ),
+							'connections' => array( 'string', 'html' ),
+							'placeholder' => __( 'Minutes', 'uabb' ),
+						),
+						'seconds_label' => array(
+							'type'        => 'text',
+							'label'       => __( 'Seconds', 'uabb' ),
+							'default'     => __( 'Seconds', 'uabb' ),
+							'connections' => array( 'string', 'html' ),
+							'placeholder' => __( 'Seconds', 'uabb' ),
+						),
+					),
+				),
 				'timer_string'   => array( // Section.
 					'title'  => __( 'Timer Strings', 'uabb' ), // Section Title.
 					'fields' => array( // Section Fields.

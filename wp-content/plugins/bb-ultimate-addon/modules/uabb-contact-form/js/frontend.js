@@ -75,24 +75,26 @@
 		
 		_submit: function( e )
 		{
-			var self        = this,
-				nodeClass   = self.nodeClass,
-				theForm	  	= $( nodeClass + ' .uabb-contact-form' ),
-				submit	  	= $( nodeClass + ' .uabb-contact-form-submit' ),
-				name	  	= $( nodeClass + ' .uabb-name input' ),
-				email		= $( nodeClass + ' .uabb-email input' ),
-				phone		= $( nodeClass + ' .uabb-phone input' ),
-				subject	  	= $( nodeClass + ' .uabb-subject input' ),
-				message	  	= $( nodeClass + ' .uabb-message textarea' ),
+			var self        	= this,
+				submitButton	= $( e.currentTarget ),
+				currentForm 	= submitButton.closest( '.uabb-contact-form' ),
+				nodeClass   	= self.nodeClass,
+				theForm	  		= $( nodeClass + ' .uabb-contact-form' ),
+				submit	  		= currentForm.find( '.uabb-contact-form-submit' ),
+				name	  		= currentForm.find( '.uabb-name input' ),
+				email      		= currentForm.find( '.uabb-email input' ),
+				phone			= currentForm.find( '.uabb-phone input' ),
+				subject	  		= currentForm.find( '.uabb-subject input' ),
+				message	  		= currentForm.find( '.uabb-message textarea' ),
 				reCaptchaField  = $( '#'+ self.settings.id + '-uabb-grecaptcha' ),
 				reCaptchaValue	= reCaptchaField.data( 'uabb-grecaptcha-response' ),
-				mailto	  	= $( nodeClass + ' .uabb-mailto' ),
-				ajaxurl	  	= self.ajaxurl, //FLBuilderLayoutConfig.paths.wpAjaxUrl,
-				_nonce      = theForm.data('nonce'),
-				email_regex = /\S+@\S+\.\S+/,
-				phone_regex = /^[ 0-9.()\[\]+-]*$/,
-				isValid	  	= true;
-				termsCheckbox 	= $( nodeClass + ' .uabb-terms-checkbox input' ),
+				mailto	  		= currentForm.find( '.uabb-mailto' ),
+				ajaxurl	  		= self.ajaxurl, //FLBuilderLayoutConfig.paths.wpAjaxUrl,
+				_nonce      	= theForm.data('nonce'),
+				email_regex 	= /\S+@\S+\.\S+/,
+				phone_regex 	= /^[ 0-9.()\[\]+-]*$/,
+				isValid	  		= true;
+				termsCheckbox 	= currentForm.find( '.uabb-terms-checkbox input' ),
 				postId      	= theForm.closest( '.fl-builder-content' ).data( 'post-id' ),
 				templateId		= theForm.data( 'template-id' ),
 				templateNodeId	= theForm.data( 'template-node-id' ),
@@ -267,7 +269,7 @@
 					node_id 			: nodeId,
 					template_id 		: templateId,
 					template_node_id 	: templateNodeId
-				}, $.proxy( self._submitComplete, self ) );
+				}, $.proxy( self._submitComplete, self, currentForm ) );
 			}
 		},
 
@@ -282,11 +284,11 @@
 			$( this ).siblings( '.uabb-form-error-message' ).hide();
 		},
 
-		_submitComplete: function( response ) {
+		_submitComplete: function( currentForm, response ) {
 			var nodeClass   = this.nodeClass,
 				urlField 	= $( nodeClass + ' .uabb-success-url' ),
 				submit	  	= $( nodeClass + ' .uabb-contact-form-submit' ),
-				noMessage 	= $( nodeClass + ' .uabb-success-none' );
+				noMessage 	= currentForm.find( ' .uabb-success-none' );
 
 			submit.html( '<span>'+this.button_text+'</span>' );
 			

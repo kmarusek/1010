@@ -1,3 +1,11 @@
+Version 1.34.5, Thursday, 10th March 2022
+- Improvement: Countdown - Added dynamic field option.
+- Improvement: FAQ - Added a filter hook "uabb_faq_scroll_animation" to enable or disable scroll animation.
+- Fixed: Advanced posts - Layout not visible properly when used as a saved module in Content Toggle/Advanced Accordion/ Advanced Tabs content.
+- Fixed: Contact Form - Sending blank emails when a form is used in a modal popup and a popup is added on a page multiple times.
+- Fixed: Dual button - The radius is not getting applied to the buttons.
+- Fixed: Photo Gallery - Layout not visible properly when used as a saved module in Content Toggle/Advanced Accordion/ Advanced Tabs content.
+
 Version 1.34.4, Tuesday, 1st February 2022
 - Improvement: Advanced Timeline - Added WPML support to the Label text.
 - Fixed: Advanced Posts - Fatal error with ACF in some cases.

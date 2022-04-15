@@ -1285,7 +1285,7 @@ if ( class_exists( 'FLBuilderCSS' ) ) {
 		array(
 			'settings'     => $settings,
 			'setting_name' => 'btn_one_border',
-			'selector'     => ".fl-node-$id .uabb-btn.uabb-btn-one",
+			'selector'     => ".fl-node-$id .uabb-dual-button-wrapper .uabb-btn.uabb-btn-one",
 		)
 	);
 }
@@ -1299,7 +1299,7 @@ if ( class_exists( 'FLBuilderCSS' ) ) {
 		array(
 			'settings'     => $settings,
 			'setting_name' => 'btn_two_border',
-			'selector'     => ".fl-node-$id .uabb-btn.uabb-btn-two",
+			'selector'     => ".fl-node-$id .uabb-dual-button-wrapper .uabb-btn.uabb-btn-two",
 		)
 	);
 }
