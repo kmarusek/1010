@@ -396,21 +396,18 @@
 				prop       = null;
 
 			if ( '' != val ) {
-				parsed = JSON.parse( val );
-				parsed.settings = settings;
+				parsed          = JSON.parse( val );
+				parsed.settings = FLThemeBuilderFieldConnections._fixDependency( settings );
 				value.val( JSON.stringify( parsed ) );
 				FLThemeBuilderFieldConnections._triggerPreview( { target : field } );
 			} else {
-
 				shortcode = '[wpbb ' + token;
 
 				for ( prop in settings ) {
-
 					if ( ! form.find( '[name=' + prop + ']:visible' ).length || 'name_custom' === prop ) {
 						continue;
 					}
-
-					shortcode += ' ' + prop + "='" + settings[ prop ] + "'";
+					shortcode += ' ' + prop.replace( /([a-z]+)_display/, 'display' ) + "='" + settings[ prop ] + "'";
 				}
 
 				shortcode += ']';
@@ -421,6 +418,22 @@
 			field.removeClass( 'fl-field-connection-editing' );
 			connection.removeClass( 'fl-field-connection-clear-on-cancel' );
 			FLBuilder._closeNestedSettings();
+		},
+
+		/**
+		 * Fix dependency settings.
+		 *
+		 * @since TBD
+		 * @access private
+		 * @method _fixDependency
+		 * @param {Object} settings
+		 */
+		_fixDependency: function( settings ) {
+			if ( 'file' == settings.type ) {
+				settings.display = settings.file_display;
+			}
+
+			return settings;
 		},
 
 		/**

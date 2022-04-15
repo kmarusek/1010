@@ -23,6 +23,7 @@ final class FLThemeBuilderSupportGeneratePress {
 		add_filter( 'body_class', __CLASS__ . '::body_class' );
 
 		add_action( 'wp', __CLASS__ . '::setup_headers_and_footers' );
+		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
 	}
 
 	/**
@@ -139,6 +140,20 @@ final class FLThemeBuilderSupportGeneratePress {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Enqueues CSS/JS for GeneratePress theme support.
+	 *
+	 * @since 1.4.1
+	 * @return void
+	 */
+	static public function enqueue_scripts() {
+		$layouts = FLThemeBuilderLayoutData::get_current_page_layouts();
+
+		if ( count( $layouts ) ) {
+			wp_enqueue_style( 'fl-theme-builder-generatepress', FL_THEME_BUILDER_THEMES_URL . 'css/generatepress.css', array(), FL_THEME_BUILDER_VERSION );
+		}
 	}
 }
 

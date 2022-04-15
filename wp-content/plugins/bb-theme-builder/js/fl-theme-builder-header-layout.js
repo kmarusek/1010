@@ -142,6 +142,7 @@
 					this._initShrink();
 				}
 
+				this._initFlyoutMenuFix( e );
 			} else {
 				this.win.off( 'scroll.fl-theme-builder-header-sticky' );
 				this.win.off( 'resize.fl-theme-builder-header-sticky' );
@@ -217,7 +218,7 @@
 
 			if ( winTop > headerTop ) {
 				if ( ! hasStickyClass ) {
-					if ( e && 'scroll' === e.type ) {
+					if ( e && ( 'scroll' === e.type || 'smartscroll' === e.type ) ) {
 					 	this.header.addClass( 'fl-theme-builder-header-sticky' );
 						if ( this.overlay && beforeHeader.length ) {
 							this.header.css( 'top', winBarHeight);
@@ -244,6 +245,155 @@
 			} else if ( hasScrolledClass ) {
 				this.header.removeClass( 'fl-theme-builder-header-scrolled' );
 			}
+
+			this._flyoutMenuFix( e );
+		},
+
+		/**
+		 * Initializes flyout menu fixes on sticky header.
+		 *
+		 * @since 1.4.1
+		 * @method _initFlyoutMenuFix
+		 */
+		_initFlyoutMenuFix: function( e ) {
+			var header       = this.header,
+			    menuModule   = header.find( '.fl-menu' ),
+				flyoutMenu   = menuModule.find( '.fl-menu-mobile-flyout' ),
+				isPushMenu   = menuModule.hasClass( 'fl-menu-responsive-flyout-push' ) || menuModule.hasClass( 'fl-menu-responsive-flyout-push-opacity' ),
+				isSticky     = header.hasClass( 'fl-theme-builder-header-sticky' ),
+				isOverlay    = menuModule.hasClass( 'fl-menu-responsive-flyout-overlay' ),
+				flyoutPos    = menuModule.hasClass( 'fl-flyout-right' ) ? 'right' : 'left',
+				headerPos    = Math.round( ( this.win.width() - header.width() ) / 2 ),
+				isFullWidth  = this.win.width() === header.width(),
+				flyoutLayout = '',
+				activePos    = 0,
+				extraPixels  = 0;
+
+			if ( ! flyoutMenu.length ) {
+				return;
+			}
+
+			if ( isOverlay ) {
+				activePos = headerPos;
+			}
+			else if ( isPushMenu ) {
+				if ( this.win.width() >= header.parent().width() ) {
+					extraPixels = Math.round( this.win.width() - header.parent().width() );
+
+					if ( extraPixels > 250 ) {
+						activePos = 250 + ((extraPixels - 250) / 2);
+					}
+					else if ( 0 === extraPixels ) {
+						activePos = 250;
+					}
+					else if ( 'right' === flyoutPos ) {
+						activePos = extraPixels;
+					}
+					else {
+						activePos = 250;
+					}
+				}
+			}
+			flyoutMenu.data( 'activePos', activePos );
+
+			if ( isPushMenu ) {
+				flyoutLayout = 'push-' + flyoutPos;
+			}
+			else if ( isOverlay ) {
+				flyoutLayout = 'overlay-' + flyoutPos;
+			}
+
+			if ( ! header.parent().hasClass( 'fl-theme-builder-flyout-menu-' + flyoutLayout ) ) {
+				header.parent().addClass( 'fl-theme-builder-flyout-menu-' + flyoutLayout );
+			}
+
+			if ( ! header.hasClass( 'fl-theme-builder-flyout-menu-overlay' ) && isOverlay ) {
+				header.addClass( 'fl-theme-builder-flyout-menu-overlay' );
+			}
+
+			if ( ! header.hasClass( 'fl-theme-builder-header-full-width' ) && isFullWidth ) {
+			   header.addClass( 'fl-theme-builder-header-full-width' );
+		    }
+			else if ( ! isFullWidth ) {
+				header.removeClass( 'fl-theme-builder-header-full-width' );
+			}
+
+			menuModule.on( 'click', '.fl-menu-mobile-toggle', $.proxy( function( e ){
+				header.parent().toggleClass( 'fl-theme-builder-flyout-menu-active' );
+				this._flyoutMenuFix( e );
+			}, this ) );
+		},
+
+		/**
+		 * Fix flyout menu inside the sticky header.
+		 *
+		 * @since 1.4.1
+		 * @method _flyoutMenuFix
+		 */
+		_flyoutMenuFix: function( e ){
+			var header      = this.header,
+			    menuModule  = header.find( '.fl-menu' ),
+				flyoutMenu  = menuModule.find( '.fl-menu-mobile-flyout' ),
+				isPushMenu  = menuModule.hasClass( 'fl-menu-responsive-flyout-push' ) || menuModule.hasClass( 'fl-menu-responsive-flyout-push-opacity' ),
+				flyoutPos   = menuModule.hasClass( 'fl-flyout-right' ) ? 'right' : 'left',
+				menuOpacity = menuModule.find( '.fl-menu-mobile-opacity' ),
+				isScroll    = 'undefined' !== typeof e && 'scroll' === e.handleObj.type,
+				activePos   = 'undefined' !== typeof flyoutMenu.data( 'activePos' ) ? flyoutMenu.data( 'activePos' ) : 0,
+				headerPos   = Math.round( ( this.win.width() - header.width() ) / 2 ),
+				inactivePos = Math.round( 254 + headerPos );
+
+			if ( ! flyoutMenu.length ) {
+				return;
+			}
+
+			if( header.parent().hasClass( 'fl-theme-builder-flyout-menu-active' ) ) {
+
+				if ( isScroll ) {
+					if ( ! flyoutMenu.hasClass( 'fl-menu-disable-transition' ) ) {
+						flyoutMenu.addClass( 'fl-menu-disable-transition' );
+					}
+				}
+
+				if ( header.hasClass( 'fl-theme-builder-header-sticky' ) ) {
+
+					if ( ! isScroll ) {
+						setTimeout( $.proxy( function(){
+							flyoutMenu.css( flyoutPos, '-' + activePos + 'px' );
+						}, this ), 1 );
+					}
+					else {
+						flyoutMenu.css( flyoutPos, '-' + activePos + 'px' );
+					}
+				}
+				else {
+					flyoutMenu.css( flyoutPos, '0px' );
+				}
+			}
+			else {
+				if ( flyoutMenu.hasClass( 'fl-menu-disable-transition' ) ) {
+					flyoutMenu.removeClass( 'fl-menu-disable-transition' );
+				}
+
+				flyoutMenu.css( flyoutPos, '-' + inactivePos + 'px' );
+
+				// Maybe reset header width for boxed layout.
+				if ( isPushMenu && header.hasClass( 'fl-theme-builder-header-full-width' ) ) {
+					setTimeout( $.proxy( function(){
+						this._adjustStickyHeaderWidth();
+					}, this ), 250 );
+				}
+			}
+
+			if( menuOpacity.length ) {
+				if ( header.hasClass( 'fl-theme-builder-header-sticky' ) ) {
+					if ( '0px' === menuOpacity.css( 'left' ) ) {
+						menuOpacity.css( 'left', '-' + activePos + 'px' );
+					}
+				}
+				else {
+					menuOpacity.css( 'left', '' );
+				}
+			}
 		},
 
 		/**
@@ -258,11 +408,18 @@
 				var parentWidth = this.header.parent().width();
 
 				// Better if this is set in the stylesheet file.
-				this.header.css({
-					'margin': '0 auto',
-					'max-width': parentWidth,
-				});
-				
+				if ( this.win.width() >= 992 ) {
+					this.header.css({
+						'margin': '0 auto',
+						'max-width': parentWidth,
+					});
+				}
+				else {
+					this.header.css({
+						'margin': '',
+						'max-width': '',
+					});
+				}
 			}
 		},
 
@@ -374,7 +531,19 @@
 				if ( ! hasClass ) {
 
 					this.header.addClass( 'fl-theme-builder-header-shrink' );
-					this.header.find( 'img' ).css( 'max-height', shrinkImageHeight );
+
+					// Shrink images but don't include lightbox and menu images.
+					this.header.find('img').each( function( i ) {
+						var image           = $( this ),
+							imageInLightbox = image.closest( '.fl-button-lightbox-content' ).length,
+							imageInNavMenu  = image.closest( '.fl-menu' ).length;
+
+						if ( ! ( imageInLightbox || imageInNavMenu ) ) {
+							image.css( 'max-height', shrinkImageHeight );
+						}
+
+					});
+										
 					this.header.find( '.fl-row-content-wrap' ).each( function() {
 
 						var row = $( this );
@@ -453,13 +622,18 @@
 			}
 
 			images.each( function( i ) {
-				var image = $( this ),
-					height = image.height(),
-					node = image.closest( '.fl-module' ).data( 'node' ),
-					className = 'fl-node-' + node + '-img-' + i;
+				var image           = $( this ),
+					height          = image.height(),
+					node            = image.closest( '.fl-module' ).data( 'node' ),
+					className       = 'fl-node-' + node + '-img-' + i,
+					imageInLightbox = image.closest( '.fl-button-lightbox-content' ).length,
+					imageInNavMenu  = image.closest( '.fl-menu' ).length;
 
-				image.addClass( className );
-				styles += '.' + className + ' { max-height: ' + height + 'px }';
+				if ( ! ( imageInLightbox || imageInNavMenu ) ) {
+					image.addClass( className );
+					styles += '.' + className + ' { max-height: ' + ( height ? height : image[0].height )  + 'px }';
+				}
+
 			} );
 
 			if ( '' !== styles ) {

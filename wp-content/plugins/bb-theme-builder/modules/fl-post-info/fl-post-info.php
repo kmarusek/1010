@@ -20,6 +20,56 @@ class FLPostInfoModule extends FLBuilderModule {
 			'enabled'         => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 		));
 	}
+
+	/**
+	 * @method update
+	 * @param $settings {object}
+	 * @return object
+	 */
+	public function update( $settings ) {
+		// remove old settings values
+		if ( isset( $settings->align ) ) {
+			unset( $settings->align );
+		}
+
+		if ( isset( $settings->font_size ) ) {
+			unset( $settings->font_size );
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+		// migrate old align with typography
+		if ( isset( $settings->align ) ) {
+			$settings->typography = array_merge(
+				is_array( $settings->typography ) ? $settings->typography : array(),
+				array(
+					'text_align' => $settings->align,
+				)
+			);
+		}
+
+		// migrate old font size with typography
+		if ( isset( $settings->font_size ) ) {
+			$settings->typography = array_merge(
+				is_array( $settings->typography ) ? $settings->typography : array(),
+				array(
+					'font_size' => array(
+						'unit'   => 'px',
+						'length' => $settings->font_size,
+					),
+				)
+			);
+		}
+
+		return $settings;
+	}
 }
 
 /**
@@ -186,30 +236,16 @@ FLBuilder::register_module( 'FLPostInfoModule', array(
 			'general' => array(
 				'title'  => '',
 				'fields' => array(
-					'align'      => array(
-						'type'    => 'select',
-						'label'   => __( 'Alignment', 'bb-theme-builder' ),
-						'default' => 'left',
-						'options' => array(
-							'left'   => __( 'Left', 'bb-theme-builder' ),
-							'center' => __( 'Center', 'bb-theme-builder' ),
-							'right'  => __( 'Right', 'bb-theme-builder' ),
-						),
-						'preview' => array(
+					'typography'       => array(
+						'type'       => 'typography',
+						'label'      => __( 'Typography', 'bb-theme-builder' ),
+						'responsive' => true,
+						'preview'    => array(
 							'type'     => 'css',
-							'selector' => '.fl-module-content',
-							'property' => 'text-align',
+							'selector' => '{node}',
 						),
 					),
-					'font_size'  => array(
-						'type'        => 'text',
-						'label'       => __( 'Font Size', 'bb-theme-builder' ),
-						'default'     => '',
-						'maxlength'   => '3',
-						'size'        => '4',
-						'description' => 'px',
-					),
-					'text_color' => array(
+					'text_color'       => array(
 						'type'       => 'color',
 						'label'      => __( 'Color', 'bb-theme-builder' ),
 						'show_reset' => true,
@@ -217,7 +253,23 @@ FLBuilder::register_module( 'FLPostInfoModule', array(
 							'type' => 'refresh',
 						),
 					),
-					'separator'  => array(
+					'link_color'       => array(
+						'type'       => 'color',
+						'label'      => __( 'Link Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type' => 'refresh',
+						),
+					),
+					'link_hover_color' => array(
+						'type'       => 'color',
+						'label'      => __( 'Link Hover Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type' => 'refresh',
+						),
+					),
+					'separator'        => array(
 						'type'    => 'text',
 						'label'   => __( 'Separator', 'bb-theme-builder' ),
 						'default' => ' | ',

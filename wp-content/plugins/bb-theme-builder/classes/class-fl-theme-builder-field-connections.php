@@ -692,6 +692,15 @@ final class FLThemeBuilderFieldConnections {
 				return ( $meta !== $compare ) ? $meta : '';
 				break;
 
+			case 'contains':
+				if ( is_string( $meta ) ) {
+					return strstr( $meta, $compare );
+				}
+				if ( is_array( $meta ) ) {
+					return in_array( $compare, $meta );
+				}
+				break;
+
 			default:
 				break;
 		}

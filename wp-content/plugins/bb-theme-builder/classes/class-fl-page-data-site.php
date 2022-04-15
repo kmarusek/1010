@@ -54,6 +54,7 @@ final class FLPageDataSite {
 			'options' => array(
 				'current'  => __( 'Current User', 'bb-theme-builder' ),
 				'specific' => __( 'Specific User', 'bb-theme-builder' ),
+				'author'   => __( 'Author', 'bb-theme-builder' ),
 			),
 			'toggle'  => array(
 				'specific' => array(
@@ -207,7 +208,8 @@ final class FLPageDataSite {
 		if ( $user ) {
 			// We get the url like this because not all custom avatar plugins filter get_avatar_url.
 			$size   = ! is_numeric( $settings->size ) ? 512 : $settings->size;
-			$avatar = get_avatar( $user->ID, $size );
+			$avatar = get_avatar( $user->ID, $size, $settings->default_img_src );
+
 			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar, $matches, PREG_SET_ORDER );
 			$url = ! empty( $matches ) && isset( $matches[0][1] ) ? $matches[0][1] : '';
 		}
@@ -265,6 +267,8 @@ final class FLPageDataSite {
 			$user = wp_get_current_user();
 		} elseif ( 'specific' == $settings->user && ! empty( $settings->user_id ) ) {
 			$user = get_user_by( 'ID', $settings->user_id );
+		} elseif ( 'author' == $settings->user && is_author() ) {
+			$user = get_user_by( 'ID', get_query_var( 'author' ) );
 		}
 
 		if ( is_object( $user ) && ! $user->ID ) {

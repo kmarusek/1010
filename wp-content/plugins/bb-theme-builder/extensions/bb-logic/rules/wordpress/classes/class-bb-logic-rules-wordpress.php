@@ -27,6 +27,7 @@ final class BB_Logic_Rules_WordPress {
 				'wordpress/author'               => __CLASS__ . '::author',
 				'wordpress/author-role'          => __CLASS__ . '::author_role',
 				'wordpress/post-comments-number' => __CLASS__ . '::post_comments_number',
+				'wordpress/post-comments-status' => __CLASS__ . '::post_comments_status',
 				'wordpress/post-content'         => __CLASS__ . '::post_content',
 				'wordpress/post-excerpt'         => __CLASS__ . '::post_excerpt',
 				'wordpress/post-featured-image'  => __CLASS__ . '::post_featured_image',
@@ -265,6 +266,25 @@ final class BB_Logic_Rules_WordPress {
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
 				'value'    => get_comments_number( $post->ID ),
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
+			) );
+		}
+		return false;
+	}
+
+	/**
+	 * Post comments status rule.
+	 *
+	 * @since  1.4
+	 * @param object $rule
+	 * @return bool
+	 */
+	static public function post_comments_status( $rule ) {
+		$post = self::get_post();
+		if ( $post ) {
+			return BB_Logic_Rules::evaluate_rule( array(
+				'value'    => comments_open( $post->ID ),
 				'operator' => $rule->operator,
 				'compare'  => $rule->compare,
 			) );

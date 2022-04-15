@@ -71,9 +71,9 @@ final class FLPageDataArchive {
 		// If we made it here it means we have a WP_Query with posts
 		$paged      = ! empty( $query->query_vars['paged'] ) ? $query->query_vars['paged'] : 1;
 		$prev_posts = ( $paged - 1 ) * $query->query_vars['posts_per_page'];
-		$from       = 1 + $prev_posts;
-		$to         = count( $query->posts ) + $prev_posts;
-		$of         = $query->found_posts;
+		$from       = number_format_i18n( 1 + $prev_posts );
+		$to         = number_format_i18n( count( $query->posts ) + $prev_posts );
+		$of         = number_format_i18n( $query->found_posts );
 
 		// Return the information
 		$showing = _x( 'Showing', 'Showing 1-5 of 25', 'bb-theme-builder' );

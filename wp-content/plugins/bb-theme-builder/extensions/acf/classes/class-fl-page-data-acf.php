@@ -197,6 +197,23 @@ final class FLPageDataACF {
 				break;
 			case 'file':
 				$content = self::get_file_url_from_object( $object );
+
+				if ( 'name' == $settings->display ) {
+					$file = pathinfo( $content );
+					if ( is_array( $file ) && isset( $file['filename'] ) ) {
+						$content = $file['filename'];
+					}
+				} elseif ( 'basename' == $settings->display ) {
+					$file = pathinfo( $content );
+					if ( is_array( $file ) && isset( $file['basename'] ) ) {
+						$content = $file['basename'];
+					}
+				} elseif ( 'ext' == $settings->display ) {
+					$file = pathinfo( $content );
+					if ( is_array( $file ) && isset( $file['extension'] ) ) {
+						$content = $file['extension'];
+					}
+				}
 				break;
 			case 'true_false':
 				$content = strval( $value );
@@ -782,6 +799,9 @@ final class FLPageDataACF {
 						}
 					}
 				}
+			}
+
+			if ( in_array( $data['type'], array( 'accordion', 'group', 'repeater', 'tab' ) ) ) {
 				unset( $results[ $k ] );
 			}
 		}

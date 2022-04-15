@@ -21,9 +21,7 @@ final class FLThemeBuilderWooCommerceSingular {
 		add_filter( 'body_class', __CLASS__ . '::body_class' );
 		add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_class' );
 		add_filter( 'fl_builder_is_node_visible', __CLASS__ . '::set_node_visibility', 10, 2 );
-		add_filter( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
 		add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_class', 10, 2 );
-		add_filter( 'fl_theme_builder_after_render_content', __CLASS__ . '::after_render_content' );
 	}
 
 	/**
@@ -176,8 +174,10 @@ final class FLThemeBuilderWooCommerceSingular {
 		if ( is_object( $wp_the_query->post ) && 'product' == $wp_the_query->post->post_type ) {
 
 			add_action( 'woocommerce_after_single_product', array( $woocommerce->structured_data, 'generate_product_data' ) );
-			do_action( 'woocommerce_after_single_product' );
 
+			if ( function_exists( 'is_product' ) && is_product() ) {
+				do_action( 'woocommerce_after_single_product' );
+			}
 		}
 	}
 

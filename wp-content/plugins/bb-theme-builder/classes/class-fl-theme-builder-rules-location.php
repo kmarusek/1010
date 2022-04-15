@@ -22,8 +22,8 @@ if ( ! class_exists( 'FLTaxonomyTermsWalker' ) ) {
 			$mdash   = str_repeat( '&mdash; ', $depth );
 			$output .= '{'
 				. '"id": ' . $item->term_id . ','
-				. '"name": "' . esc_attr( $item->name ) . '",'
-				. '"label": "' . $mdash . esc_attr( $item->name ) . '",'
+				. '"name": "' . wp_slash( esc_attr( $item->name ) ) . '",'
+				. '"label": "' . $mdash . wp_slash( esc_attr( $item->name ) ) . '",'
 				. '"depth": ' . $depth
 				. '},';
 		}
@@ -51,8 +51,8 @@ if ( ! class_exists( 'FLPageWalker' ) ) {
 			$mdash   = str_repeat( '&mdash; ', $depth );
 			$output .= '{'
 				. '"id": ' . $page->ID . ','
-				. '"name": "' . esc_attr( $page->post_title ) . '",'
-				. '"label": "' . $mdash . esc_attr( $page->post_title ) . '",'
+				. '"name": "' . wp_slash( esc_attr( $page->post_title ) ) . '",'
+				. '"label": "' . $mdash . wp_slash( esc_attr( $page->post_title ) ) . '",'
 				. '"depth": ' . $depth
 				. '},';
 		}
@@ -140,6 +140,7 @@ final class FLThemeBuilderRulesLocation {
 	static public function init() {
 		add_action( 'save_post', __CLASS__ . '::admin_edit_save' );
 		add_action( 'wp_ajax_fl_theme_builder_get_location_terms', __CLASS__ . '::ajax_get_terms' );
+		add_action( 'wp_ajax_fl_theme_builder_get_location_parent_terms', __CLASS__ . '::ajax_get_terms' );
 		add_action( 'wp_ajax_fl_theme_builder_get_location_posts', __CLASS__ . '::ajax_get_posts' );
 		add_action( 'wp', __CLASS__ . '::init_preview_query', 1 );
 		add_action( 'fl_builder_after_ui_bar_title', __CLASS__ . '::render_ui_preview_selector' );
@@ -260,6 +261,7 @@ final class FLThemeBuilderRulesLocation {
 			$meta_query .= " OR pm.meta_value RLIKE '\"{$location}:post:.*\"'";
 			$meta_query .= " OR pm.meta_value RLIKE '\"{$location}:ancestor:.*\"'";
 			$meta_query .= " OR pm.meta_value RLIKE '\"{$location}:taxonomy:.*\"'";
+			$meta_query .= " OR pm.meta_value RLIKE '\"{$location}:tax_parent:.*\"'";
 			$meta_query .= " OR pm.meta_value LIKE '%\"general:single\"%'";
 		}
 
@@ -280,7 +282,6 @@ final class FLThemeBuilderRulesLocation {
 		}
 
 		self::exclude_current_page_posts();
-
 		return self::$current_page_posts;
 	}
 
@@ -405,6 +406,28 @@ final class FLThemeBuilderRulesLocation {
 								$posts[] = $post;
 							} elseif ( 5 === count( $parts ) && has_term( $parts[4], $parts[3] ) ) {
 								$posts[] = $post;
+							}
+						}
+					}
+				}
+			}
+
+			// Check for a singular layout by parent taxonomy.
+			if ( ( empty( $posts ) || $is_part ) && is_singular() ) {
+
+				foreach ( $array as $post ) {
+					foreach ( $post['locations'] as $post_location ) {
+						if ( stristr( $post_location, ':tax_parent:' ) ) {
+							$parts = explode( ':', $post_location );
+							$terms = get_the_terms( $post_id, $parts[3] );
+							if ( $terms ) {
+								$parent_terms = array();
+								foreach ( $terms as $term ) {
+									$parent_terms[] = $term->parent;
+								}
+								if ( 5 === count( $parts ) && in_array( $parts[4], $parent_terms ) ) {
+									$posts[] = $post;
+								}
 							}
 						}
 					}
@@ -712,7 +735,7 @@ final class FLThemeBuilderRulesLocation {
 				$location[2] = (int) $location[4];
 			}
 
-			if ( 'taxonomy' == $location[0] ) {
+			if ( 'taxonomy' == $location[0] || 'tax_parent' == $location[0] ) {
 				$id          = is_numeric( $location[2] ) ? intval( $location[2] ) : $location[2];
 				$term_exists = term_exists( $id, $location[1] );
 				if ( 0 === $term_exists || null === $term_exists ) {
@@ -912,6 +935,17 @@ final class FLThemeBuilderRulesLocation {
 					'type'  => 'post',
 					'count' => wp_count_terms( $taxonomy_slug ),
 				);
+
+				if ( is_taxonomy_hierarchical( $taxonomy_slug ) ) {
+					$by_template_type['post'][ $post_type_slug . ':tax_parent:' . $taxonomy_slug ]                     =
+					$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':tax_parent:' . $taxonomy_slug ] = array( // @codingStandardsIgnoreLine
+						'id'    => $post_type_slug . ':tax_parent:' . $taxonomy_slug,
+						/* translators: 1: post type label, 2: taxonomy label */
+						'label' => sprintf( esc_html_x( '%1$s %2$s Parent', '%1$s is post type label. %2$s is taxonomy label.', 'bb-theme-builder' ), $post_type->labels->singular_name, $label ),
+						'type'  => 'post',
+						'count' => wp_count_terms( $taxonomy_slug ),
+					);
+				}
 			}
 		}
 
@@ -964,7 +998,7 @@ final class FLThemeBuilderRulesLocation {
 				$location[1] = $location[3];
 			}
 
-			if ( 'taxonomy' == $location[0] ) {
+			if ( 'taxonomy' == $location[0] || 'tax_parent' == $location[0] ) {
 				$config['taxonomy'][ $location[1] ] = self::get_taxonomy_terms( $location[1] );
 			} elseif ( ( 'post' == $location[0] || 'ancestor' == $location[0] ) && ! isset( $config['posts'][ $location[1] ] ) ) {
 				$config['post'][ $location[1] ] = self::get_post_type_posts( $location[1] );

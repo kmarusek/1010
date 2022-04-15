@@ -551,7 +551,7 @@ final class FLPageDataPost {
 		}
 		// We get the url like this because not all custom avatar plugins filter get_avatar_url.
 		$size   = ! is_numeric( $settings->size ) ? 512 : $settings->size;
-		$avatar = get_avatar( $author, $size );
+		$avatar = get_avatar( $author, $size, $settings->default_img_src );
 
 		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar, $matches, PREG_SET_ORDER );
 		$url = ! empty( $matches ) && isset( $matches[0][1] ) ? $matches[0][1] : '';
@@ -639,6 +639,40 @@ final class FLPageDataPost {
 	static public function get_id() {
 		global $post;
 		return (string) $post->ID;
+	}
+
+	/**
+	* @return string
+	*/
+	static public function get_parent( $settings ) {
+		global $post;
+		$parent_id = $post->post_parent;
+
+		if ( 0 === $parent_id ) {
+			return;
+		}
+		$parent = get_post( $parent_id );
+
+		if ( ! $parent ) {
+			return;
+		}
+
+		if ( 'url' == $settings->display ) {
+			return get_the_permalink( $parent );
+		} elseif ( 'featured_image' == $settings->display ) {
+
+			if ( isset( $settings->size ) ) {
+				return get_the_post_thumbnail_url( $parent_id, $settings->size );
+			} else {
+				return get_the_post_thumbnail_url( $parent_id );
+			}
+		} elseif ( 'content' == $settings->display ) {
+			return apply_filters( 'fl_theme_builder_parent_post_content', $parent->post_content );
+		} elseif ( 'title' == $settings->display ) {
+			return get_the_title( $parent );
+		} else {
+			return (string) $parent_id;
+		}
 	}
 
 	/**

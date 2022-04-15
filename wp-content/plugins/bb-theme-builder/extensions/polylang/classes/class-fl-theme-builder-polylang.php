@@ -76,7 +76,7 @@ final class FLThemeBuilderPolylang {
 				}
 
 				// Unset this post if it's language isn't the current language.
-				if ( ! pll_get_post( $post['id'] ) ) {
+				if ( pll_get_post_language( $post['id'] ) !== $current_lang ) {
 					unset( $layouts[ $type ][ $key ] );
 				}
 			}

@@ -22,6 +22,41 @@ FLPageData::add_post_property( 'id', array(
 ) );
 
 /**
+ * Post Parent
+ */
+FLPageData::add_post_property( 'parent', array(
+	'label'  => __( 'Post Parent', 'bb-theme-builder' ),
+	'group'  => 'posts',
+	'type'   => 'string',
+	'getter' => 'FLPageDataPost::get_parent',
+) );
+
+FLPageData::add_post_property_settings_fields( 'parent', array(
+	'display' => array(
+		'type'    => 'select',
+		'label'   => __( 'Display', 'bb-theme-builder' ),
+		'default' => 'tag',
+		'options' => array(
+			'id'             => __( 'ID', 'bb-theme-builder' ),
+			'url'            => __( 'URL', 'bb-theme-builder' ),
+			'title'          => __( 'Title', 'bb-theme-builder' ),
+			'content'        => __( 'Content', 'bb-theme-builder' ),
+			'featured_image' => __( 'Featured Image', 'bb-theme-builder' ),
+		),
+		'toggle'  => array(
+			'featured_image' => array(
+				'fields' => array( 'size' ),
+			),
+		),
+	),
+	'size'    => array(
+		'type'    => 'photo-sizes',
+		'label'   => __( 'Size', 'bb-theme-builder' ),
+		'default' => 'thumbnail',
+	),
+) );
+
+/**
  * Post Excerpt
  */
 FLPageData::add_post_property( 'excerpt', array(
@@ -508,9 +543,9 @@ FLPageData::add_post_property_settings_fields( 'author_profile_picture', array(
  * Author Picture URL
  */
 FLPageData::add_post_property( 'author_profile_picture_url', array(
-	'label'  => __( 'Author Picture', 'bb-theme-builder' ),
+	'label'  => __( 'Author Picture URL', 'bb-theme-builder' ),
 	'group'  => 'author',
-	'type'   => array( 'photo' ),
+	'type'   => array( 'photo', 'string' ),
 	'getter' => 'FLPageDataPost::get_author_profile_picture_url',
 ) );
 

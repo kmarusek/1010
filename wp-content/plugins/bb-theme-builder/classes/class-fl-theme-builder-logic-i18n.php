@@ -98,6 +98,7 @@ final class BB_Logic_I18n {
 			'Post Content'                => __( 'Post Content', 'bb-theme-builder' ),
 			'Post Featured Image'         => __( 'Post Featured Image', 'bb-theme-builder' ),
 			'Post Comments Number'        => __( 'Post Comments Number', 'bb-theme-builder' ),
+			'Post Comments Status'        => __( 'Post Comments Status', 'bb-theme-builder' ),
 			'Post Template'               => __( 'Post Template', 'bb-theme-builder' ),
 			'Post Taxonomy Term'          => __( 'Post Taxonomy Term', 'bb-theme-builder' ),
 			'Post Status'                 => __( 'Post Status', 'bb-theme-builder' ),

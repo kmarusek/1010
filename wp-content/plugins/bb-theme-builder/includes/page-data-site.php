@@ -164,9 +164,9 @@ FLPageDataSite::add_user_settings_fields( 'user_profile_picture', array(
  * User Picture URL
  */
 FLPageData::add_site_property( 'user_profile_picture_url', array(
-	'label'  => __( 'User Picture', 'bb-theme-builder' ),
+	'label'  => __( 'User Picture URL', 'bb-theme-builder' ),
 	'group'  => 'user',
-	'type'   => array( 'photo' ),
+	'type'   => array( 'photo', 'string' ),
 	'getter' => 'FLPageDataSite::get_user_profile_picture_url',
 ) );
 

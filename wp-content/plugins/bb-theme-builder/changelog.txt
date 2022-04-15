@@ -1,3 +1,42 @@
+<h4>1.4.1.1 - 03/29/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix Tag Archive not showing all posts if TEC is active</li>
+	<li>Fix WooCommerce product sorting and pagination options not appearing when Themer doesn't control the archive layouts</li>
+</ul>
+
+<h4>1.4.1 - 03/17/2022</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Add contains operator to conditional shortcode options</li>
+	<li>Add option to display the post parent with shortcodes</li>
+	<li>Add support for Parent Taxonomy in Themer layout locations</li>
+	<li>Add User Type on [wpbb site:user_meta] For Use In Author Archive Page</li>
+	<li>Adjust Header layout shrink so it does not apply to all images in header</li>
+	<li>Add Author Picture URL as a field connection option</li>
+	<li>Add conditional logic rules for comment status</li>
+	<li>Post Info Module: Convert alignment and font size to use our Typography Field</li>
+	<li>Post Info Module: Add link and link hover color settings</li>
+	<li>Improve compatibility with GeneratePress so their flex layout doesn't interfere with our full width functionality</li>
+	<li>ACF: Expand support for File Field by adding more output options</li>
+	<li>ACF: Exclude fields from field dropdown that are organizational and don't output content (accordion, tab, repeater, group)</li>
+	<li>ACF: Make sure dropdown field selector appears in for Gallery Module, URL fields</li>
+	<li>ACF: Dropdown field selector is now select2 so you can search fields</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix position of Flyout menu once scrolled</li>
+	<li>Fix gaps when using Sticky header set to shrink and a Posts Module with infinite scroll enabled</li>
+	<li>Fix: Polylang translated layout does not appear when it should</li>
+	<li>Fix compatibility with Skyverge Facebook & Google Analytics plugins and our Post Module</li>
+	<li>TEC: Fix Post Module ignoring Show Event Setting</li>
+	<li>BigCommerce: Fix Add to Cart Form not respecting alignment setting</li>
+	<li>Housekeeping: Remove duplicate <code>fl_theme_builder_after_render_content</code></li>
+	<li><code>[wpbb archive:show_count]</code> now uses i18n</li>
+	<li>Fix location box being empty if Post/Page titles contain slashes</li>
+</ul>
+
 <h4>1.4.0.2 - 01/27/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

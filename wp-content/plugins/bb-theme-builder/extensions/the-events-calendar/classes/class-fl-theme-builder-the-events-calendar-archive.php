@@ -45,7 +45,7 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		global $post;
 
 		$location          = FLThemeBuilderRulesLocation::get_preview_location( get_the_ID() );
-		$is_event_preview  = stristr( $location, 'tribe_events' );
+		$is_event_preview  = stripos( $location, 'tribe_events' ) || stripos( $location, 'post_tag' );
 		$is_theme_layout   = 'fl-theme-layout' === get_post_type();
 		$theme_layout_type = is_object( $post ) ? get_post_meta( $post->ID, '_fl_theme_layout_type', true ) : '';
 
@@ -53,7 +53,7 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			add_filter( 'body_class', __CLASS__ . '::body_class' );
 			add_filter( 'tribe_events_views_v2_assets_should_enqueue_frontend', '__return_true' );
 			add_filter( 'fl_builder_loop_query', __CLASS__ . '::builder_loop_query', 10, 2 );
-		} elseif ( is_post_type_archive( 'tribe_events' ) ) {
+		} elseif ( is_post_type_archive( 'tribe_events' ) || is_tag() ) {
 			add_filter( 'fl_builder_loop_query', __CLASS__ . '::builder_loop_query', 10, 2 );
 			add_action( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
 		}
@@ -88,6 +88,10 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		global $wp_query;
 
 		if ( isset( $settings->data_source ) && 'main_query' == $settings->data_source ) {
+
+			if ( is_tag() ) {
+				return $query;
+			}
 
 			if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
 				$orderby = $settings->event_orderby;

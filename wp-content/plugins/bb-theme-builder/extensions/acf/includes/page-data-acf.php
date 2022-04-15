@@ -69,6 +69,9 @@ $form = array(
 			'image'    => array(
 				'fields' => array( 'image_size', 'display' ),
 			),
+			'file'     => array(
+				'fields' => array( 'file_display' ),
+			),
 			'checkbox' => array(
 				'fields' => array( 'checkbox_format' ),
 			),
@@ -105,6 +108,17 @@ $form = array(
 			'url' => array(
 				'fields' => array( 'image_size' ),
 			),
+		),
+	),
+	'file_display'    => array(
+		'type'    => 'select',
+		'label'   => __( 'Display', 'bb-theme-builder' ),
+		'default' => 'url',
+		'options' => array(
+			'url'      => __( 'URL', 'bb-theme-builder' ),
+			'name'     => __( 'Name', 'bb-theme-builder' ),
+			'basename' => __( 'Base Name', 'bb-theme-builder' ),
+			'ext'      => __( 'Extension', 'bb-theme-builder' ),
 		),
 	),
 	'linked'          => array(
@@ -223,6 +237,10 @@ $form = array(
 	),
 );
 
+if ( ! empty( $name_custom ) ) {
+	$form['name_custom'] = $name_custom;
+}
+
 FLPageData::add_archive_property_settings_fields( 'acf_url', $form );
 FLPageData::add_post_property_settings_fields( 'acf_url', $form );
 FLPageData::add_post_property_settings_fields( 'acf_author_url', $form );
@@ -301,6 +319,10 @@ $form = array(
 	),
 );
 
+if ( ! empty( $name_custom ) ) {
+	$form['name_custom'] = $name_custom;
+}
+
 FLPageData::add_archive_property_settings_fields( 'acf_photo', $form );
 FLPageData::add_post_property_settings_fields( 'acf_photo', $form );
 FLPageData::add_post_property_settings_fields( 'acf_author_photo', $form );
@@ -352,6 +374,10 @@ $form = array(
 	),
 );
 
+if ( ! empty( $name_custom ) ) {
+	$form['name_custom'] = $name_custom;
+}
+
 FLPageData::add_archive_property_settings_fields( 'acf_gallery', $form );
 FLPageData::add_post_property_settings_fields( 'acf_gallery', $form );
 FLPageData::add_post_property_settings_fields( 'acf_author_gallery', $form );
@@ -402,6 +428,10 @@ $form = array(
 		'label' => __( 'Field Name', 'bb-theme-builder' ),
 	),
 );
+
+if ( ! empty( $name_custom ) ) {
+	$form['name_custom'] = $name_custom;
+}
 
 FLPageData::add_archive_property_settings_fields( 'acf_color', $form );
 FLPageData::add_post_property_settings_fields( 'acf_color', $form );

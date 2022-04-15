@@ -23,6 +23,9 @@ final class FLThemeBuilderWooCommerceArchive {
 		add_action( 'fl_builder_post_feed_after_meta', __CLASS__ . '::post_feed_after_meta' );
 		add_action( 'fl_builder_post_feed_after_content', __CLASS__ . '::post_feed_after_content' );
 		add_action( 'fl_builder_post_gallery_after_meta', __CLASS__ . '::post_gallery_after_meta' );
+		add_action( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
+		add_action( 'fl_theme_builder_after_render_content', __CLASS__ . '::after_render_content' );
+		add_action( 'wp', __CLASS__ . '::remove_product_sorting' );
 
 		// Filters
 		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::post_grid_settings', 10, 2 );
@@ -76,7 +79,10 @@ final class FLThemeBuilderWooCommerceArchive {
 				$force                                       = true;
 			}
 			echo '<div class="fl-post-module-woo-ordering">';
-			do_action( 'woocommerce_before_shop_loop' );
+
+			woocommerce_result_count();
+			woocommerce_catalog_ordering();
+
 			echo '<div class="fl-clear"></div>';
 			echo '</div>';
 			if ( $force ) {
@@ -464,6 +470,55 @@ final class FLThemeBuilderWooCommerceArchive {
 		}
 
 		return $css;
+	}
+
+	/**
+	 * Add the 'woocommerce_before_shop_loop' action hook.
+	 *
+	 * @since 1.4
+	 * @param string $layout_id
+	 * @return void
+	 */
+	static public function before_render_content( $layout_id ) {
+		global $wp_the_query;
+
+		if ( is_object( $wp_the_query->post ) && 'product' === $wp_the_query->post->post_type ) {
+			if ( is_shop() || is_product_category() || is_product_tag() ) {
+				do_action( 'woocommerce_before_shop_loop' );
+			}
+		}
+	}
+
+	/**
+	 * Add the 'woocommerce_after_shop_loop' action hook.
+	 *
+	 * @since 1.4
+	 * @param string $layout_id
+	 * @return void
+	 */
+	static public function after_render_content( $layout_id ) {
+		global $wp_the_query;
+
+		if ( is_object( $wp_the_query->post ) && 'product' === $wp_the_query->post->post_type ) {
+			if ( is_shop() || is_product_category() || is_product_tag() ) {
+				do_action( 'woocommerce_after_shop_loop' );
+			}
+		}
+	}
+
+	/**
+	 * Remove Product Sorting if Themer layout is applied to the Shop page.
+	 * It's handled by self::posts_module_before_posts().
+	 *
+	 * @since TBD
+	 * @method remove_product_sorting
+	 * @return void
+	 */
+	static public function remove_product_sorting() {
+		if ( FLThemeBuilder::has_layout( 'archive' ) ) {
+			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+		}
 	}
 }
 
