@@ -56,3 +56,7 @@ Thumbs.db
 # SASS #
 ##########
 .sass-cache
+.idea/vcs.xml
+.idea/.gitignore
+.idea/modules.xml
+.idea/space-station.iml
