@@ -24,7 +24,7 @@ class BWContentSlider extends BeaverWarriorFLModule {
         );
     }
     
-    public function getSavedRows() {
+    public static function getSavedRows() {
         $return_array = array();
 
         $args = array(
