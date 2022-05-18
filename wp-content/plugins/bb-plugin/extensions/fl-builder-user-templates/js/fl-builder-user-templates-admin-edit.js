@@ -18,6 +18,7 @@
 		_init: function()
 		{
 			this._setupPageTitle();
+			$( '#fl-builder-launch-button').on( 'click', this._launchBuilder );
 		},
 
 		/**
@@ -37,6 +38,21 @@
 			h1.html( FLBuilderConfig.pageTitle + ' ' ).append( button );
 			button.attr( 'href', url ).show();
 		},
+
+		/**
+		 * Sets a value to a hidden field to indicate that the Launch Builder button was clicked.
+		 *
+		 * @since 2.5.1 
+		 * @access private 
+		 * @method _launchBuilder
+		 * @param event
+		 */
+		 _launchBuilder: function( event )
+		 {
+			 var launchBuilder = $( event.target ).parent().find( '#fl-builder-launch' );
+		
+			 $( launchBuilder ).val( 'true' );
+		 },
 	};
 	
 	// Initialize

@@ -245,8 +245,8 @@ class FLPricingTableModule extends FLBuilderModule {
 			'<div class="fl-pricing-table-payment-frequency">
 				<span class="first_option">' . $options[0] . '</span>
 				<label class="fl-builder-switch">
-					<input class="switch-button" type="checkbox">
-					<span class="slider round first_option"></span>
+					<input class="switch-button" type="checkbox" aria-label="' . __( 'Switch', 'fl-builder' ) . '">
+					<span class="slider round first_option"><i>Switch Billing Option</i></span>
 				</label>
 				<span class="second_option">' . $options[1] . '</span>
 			</div>';

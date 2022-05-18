@@ -586,6 +586,17 @@ if ( 'always' != $module->get_media_breakpoint() ) :
 		$media = 'default';
 	}
 
+	// Indent sub-menu on responsive view.
+	if ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) :
+		FLBuilderCSS::rule( array(
+			'media'    => $media,
+			'selector' => ".fl-node-$id .menu li.fl-has-submenu ul.sub-menu",
+			'props'    => array(
+				'padding-left' => '15px',
+			),
+		) );
+	endif;
+
 	$flyout_selector  = "body.fl-builder-edit .fl-node-$id .fl-menu-responsive-flyout-overlay nav,";
 	$flyout_selector .= "body.fl-builder-edit .fl-node-$id .fl-menu-responsive-flyout-push nav,";
 	$flyout_selector .= "body.fl-builder-edit .fl-node-$id .fl-menu-responsive-flyout-push-opacity nav";
@@ -661,12 +672,14 @@ if ( 'always' != $module->get_media_breakpoint() ) :
 		display: none;
 	}
 
+<?php if ( ! empty( $settings->mobile_toggle_submenu_item_icon ) && 'r_arrow' === $settings->mobile_toggle_submenu_item_icon ) : ?>
 	.fl-node-<?php echo $id; ?> .sub-menu .menu-item a::before {
-		content: '>';
-		font-family: courier;
-		margin-right: 5px;
+		font-family: 'Font Awesome 5 <?php echo FLBuilder::fa5_pro_enabled() ? 'Pro' : 'Free'; ?>';
+		content: '\f105';
+		font-weight: 900;
+		margin-right: 10px;
 	}
-
+<?php endif; ?>
 <?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
 	} <?php // close media max-width ?>
 

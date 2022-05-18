@@ -53,6 +53,7 @@
 			wrap.find('.fl-tabs-panels:first > .fl-tabs-panel > .fl-tabs-panel-content').attr('aria-hidden', 'true').css('display', '');
 
 			wrap.find('.fl-tabs-labels:first > .fl-tabs-label[data-index="' + index + '"]').addClass('fl-tab-active').attr('aria-selected', 'true').attr('aria-expanded', 'true');
+			wrap.find('.fl-tabs-panels:first > .fl-tabs-panel > .fl-tabs-panel-label[data-index="' + index + '"]').addClass('fl-tab-active');
 			wrap.find('.fl-tabs-panels:first > .fl-tabs-panel > .fl-tabs-panel-content[data-index="' + index + '"]').addClass('fl-tab-active').attr('aria-hidden', 'false');
 
 			// Gallery module support.

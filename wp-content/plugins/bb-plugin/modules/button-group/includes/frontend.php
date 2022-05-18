@@ -26,15 +26,15 @@
 				'lightbox_video_link'   => isset( $settings->items[ $i ]->lightbox_video_link ) ? $settings->items[ $i ]->lightbox_video_link : '',
 				'custom_width'          => isset( $settings->items[ $i ]->custom_width ) ? $settings->items[ $i ]->custom_width : '200',
 				'padding'               => isset( $settings->items[ $i ]->padding ) ? $settings->items[ $i ]->padding : '',
-				'text_color'            => isset( $settings->items[ $i ]->text_color ) ? $settings->items[ $i ]->text_color : '',
-				'text_hover_coler'      => isset( $settings->items[ $i ]->text_hover_color ) ? $settings->items[ $i ]->text_hover_color : '',
-				'typography'            => isset( $settings->items[ $i ]->typography ) ? $settings->items[ $i ]->typography : '',
-				'bg_color'              => isset( $settings->items[ $i ]->bg_color ) ? $settings->items[ $i ]->bg_color : '',
-				'bg_hover_color'        => isset( $settings->items[ $i ]->bg_hover_color ) ? $settings->items[ $i ]->bg_hover_color : '',
-				'style'                 => isset( $settings->items[ $i ]->style ) ? $settings->items[ $i ]->style : '',
+				'text_color'            => isset( $settings->items[ $i ]->button_item_text_color ) ? $settings->items[ $i ]->button_item_text_color : '',
+				'text_hover_coler'      => isset( $settings->items[ $i ]->button_item_text_hover_color ) ? $settings->items[ $i ]->button_item_text_hover_color : '',
+				'typography'            => isset( $settings->items[ $i ]->button_item_typography ) ? $settings->items[ $i ]->button_item_typography : '',
+				'bg_color'              => isset( $settings->items[ $i ]->button_item_bg_color ) ? $settings->items[ $i ]->button_item_bg_color : '',
+				'bg_hover_color'        => isset( $settings->items[ $i ]->button_item_bg_hover_color ) ? $settings->items[ $i ]->button_item_bg_hover_color : '',
+				'style'                 => isset( $settings->items[ $i ]->button_item_style ) ? $settings->items[ $i ]->button_item_style : '',
 				'button_transition'     => isset( $settings->items[ $i ]->button_transition ) ? $settings->items[ $i ]->button_transition : '',
-				'border'                => isset( $settings->items[ $i ]->border ) ? $settings->items[ $i ]->border : '',
-				'border_hover_color'    => isset( $settings->items[ $i ]->border_hover_color ) ? $settings->items[ $i ]->border_hover_color : '',
+				'border'                => isset( $settings->items[ $i ]->button_item_border ) ? $settings->items[ $i ]->button_item_border : '',
+				'border_hover_color'    => isset( $settings->items[ $i ]->button_item_border_hover_color ) ? $settings->items[ $i ]->button_item_border_hover_color : '',
 			);
 
 			echo '<div id="fl-button-group-button-' . "$id-$i" . '" class="fl-button-group-button fl-button-group-button-' . "$id-$i" . '">';

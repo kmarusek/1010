@@ -2397,6 +2397,9 @@ final class FLBuilder {
 				$attrs['data-parallax-image-responsive'] = $row->settings->bg_parallax_image_responsive_src;
 			}
 		}
+		// filter node attrs first to make sure specific node has highest priority
+		$attrs = apply_filters( 'fl_builder_node_attributes', $attrs, $row );
+
 		self::render_node_attributes( apply_filters( 'fl_builder_row_attributes', $attrs, $row ) );
 	}
 
@@ -2531,6 +2534,9 @@ final class FLBuilder {
 			}
 		}
 
+		// filter node attrs first to make sure specific node has highest priority
+		$attrs = apply_filters( 'fl_builder_node_attributes', $attrs, $group );
+
 		self::render_node_attributes( apply_filters( 'fl_builder_column_group_attributes', $attrs, $group ) );
 	}
 
@@ -2635,6 +2641,9 @@ final class FLBuilder {
 		if ( $active ) {
 			$attrs['style'][] = 'width: ' . $col->settings->size . '%;';
 		}
+
+		// filter node attrs first to make sure specific node has highest priority
+		$attrs = apply_filters( 'fl_builder_node_attributes', $attrs, $col );
 
 		/**
 		 * Column attributes.
@@ -2830,6 +2839,9 @@ final class FLBuilder {
 			$attrs['data-type']   = $module->settings->type;
 			$attrs['data-name']   = $module->name;
 		}
+
+		// filter node attrs first to make sure specific node has highest priority
+		$attrs = apply_filters( 'fl_builder_node_attributes', $attrs, $module );
 
 		/**
 		 * Module attributes.
@@ -3819,7 +3831,7 @@ final class FLBuilder {
 	 * @return void
 	 */
 	static public function should_refresh_on_publish() {
-		$refresh = ! is_admin_bar_showing();
+		$refresh = ! is_admin_bar_showing() || isset( $_GET['safemode'] );
 		return apply_filters( 'fl_builder_should_refresh_on_publish', $refresh );
 	}
 

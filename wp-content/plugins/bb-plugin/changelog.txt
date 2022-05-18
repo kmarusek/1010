@@ -1,3 +1,39 @@
+<h4>2.5.4.1 - 05/12/2022</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix Saved templates not appearing after import when overriding Templates on a Multi-Site/Network Setup</li>
+	<li>Fix Outline Panel showing empty when you save a module for re-use on a layout and then open it up for editing from the content panel</li>
+	<li>TEC: Fix the BB UI not working on Events when the Block Editor is enabled for Events and the Default Events Template is used in TEC settings</li>
+</ul>
+
+<h4>2.5.4 - 05/05/2022</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Accessibility: Fix Pricing Table Module toggle button missing form label</li>
+	<li>Menu Module: Make sure sub-menu item indicators are off by default for backwards compatibility</li>
+	<li>Tabs Module: Add options so users can style the accordion buttons/labels</li>
+	<li>Add new hook to target all nodes <code>fl_builder_node_attributes</code></li>
+	<li>Post Carousel Module: Add before and after content hooks <code>fl_builder_post_carousel_grid_before_content</code> and <code>fl_builder_post_carousel_grid_after_content</code></li>
+	<li>Menu Module: Add filter for replacing the hamburger icon/SVG <code>fl_builder_mobile_menu_icon</code></li>
+	<li>Suggest Field: Add hook <code>fl_builder_auto_suggest_lookup</code></li>
+	<li>Exclude history from exported items</li>
+	<li>Fix conflict with RankMath so it doesn't prevent the Launch BB button from working</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Don't overwrite the existing post_type templates array.  This will fix Block Templates not showing up for the post type if in use</li>
+	<li>Login Form Module: Fix redirect not working</li>
+	<li>Fix extra space above/below row and column settings menu</li>
+	<li>Product Module: Fix PHP Warning</li>
+	<li>Button Module: Fix background over/focus color issue</li>
+	<li>Button Group: Fix preview issues, PHP notice about BG gradient hover, and missing field connection for individual buttons</li>
+	<li>Global Settings: If Responsive layout is disabled, hide appropriate responsive setting options</li>
+	<li>Fix PHP notices relating to colors/gradients after upgrading from 2.4 to 2.5</li>
+	<li>Safe Mode: Disable preview</li>
+	<li>Fix Parent column vertical alignment overriding child/nested column settings</li>
+</ul>
+
 <h4>2.5.3.1 - 04/07/2022</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

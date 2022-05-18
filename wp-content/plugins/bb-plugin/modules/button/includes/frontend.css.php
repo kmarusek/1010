@@ -109,7 +109,6 @@ FLBuilderCSS::border_field_rule( array(
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button *,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button span.fl-button-text,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited * {
 	color: <?php echo FLBuilderColor::hex_or_rgb( $settings->text_color ); ?>;
 }

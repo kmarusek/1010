@@ -9888,6 +9888,8 @@
 			// Tell the server that the builder is active.
 			data.fl_builder = 1;
 
+			data.safemode = FLBuilderConfig.safemode
+
 			// Append the builder namespace to the action.
 			data.fl_action = data.action;
 

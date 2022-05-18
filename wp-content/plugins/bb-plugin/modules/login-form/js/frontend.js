@@ -96,7 +96,12 @@
 		},
 
 		_logoutFormComplete: function (response, button) {
-			location.reload();
+
+			if ( this.settings.lo_url.length > 0 ) {
+				window.location.href = this.settings.lo_url;
+			} else {
+				location.reload()
+			}
 		},
 
 		_loginFormComplete: function (response, button) {

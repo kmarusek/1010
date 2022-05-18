@@ -89,6 +89,56 @@ class FLButtonGroupModule extends FLBuilderModule {
 			$settings->width = '';
 		}
 
+		// Handle individual button settings.
+		for ( $i = 0; $i < count( $settings->items ); $i++ ) {
+
+			$button_item = $settings->items[ $i ];
+
+			if ( ! is_object( $button_item ) ) {
+				continue;
+			}
+
+			// Button Item Typography -- Rename 'typography' to 'button_item_typography'.
+			if ( empty( $button_item->button_item_typography ) && ! empty( $button_item->typography ) ) {
+				$settings->items[ $i ]->button_item_typography = $button_item->typography;
+			}
+
+			// Button Item Text Color -- Rename 'text_color' to 'button_item_text_color'.
+			if ( empty( $button_item->button_item_text_color ) && ! empty( $button_item->text_color ) ) {
+				$settings->items[ $i ]->button_item_text_color = $button_item->text_color;
+			}
+
+			// Button Item Background Color -- Rename 'bg_color' to 'button_item_bg_color'.
+			if ( empty( $button_item->button_item_bg_color ) && ! empty( $button_item->bg_color ) ) {
+				$settings->items[ $i ]->button_item_bg_color = $button_item->bg_color;
+			}
+
+			// Button Item Text Hover Color -- Rename 'text_hover_color' to 'button_item_text_hover_color'.
+			if ( empty( $button_item->button_item_text_hover_color ) && ! empty( $button_item->text_hover_color ) ) {
+				$settings->items[ $i ]->button_item_text_hover_color = $button_item->text_hover_color;
+			}
+
+			// Button Item Background Hover Color -- Rename 'bg_hover_color' to 'button_item_bg_hover_color'
+			if ( empty( $button_item->button_item_bg_hover_color ) && ! empty( $button_item->bg_hover_color ) ) {
+				$settings->items[ $i ]->button_item_bg_hover_color = $button_item->bg_hover_color;
+			}
+
+			// Button Item Border Hover Color -- Rename 'border_hover_color' to 'button_item_border_hover_color'
+			if ( empty( $button_item->button_item_border_hover_color ) && ! empty( $button_item->border_hover_color ) ) {
+				$settings->items[ $i ]->button_item_border_hover_color = $button_item->border_hover_color;
+			}
+
+			// Button Item Background Style -- Rename 'style' to 'button_item_style'.
+			if ( empty( $button_item->button_item_style ) && ! empty( $button_item->style ) ) {
+				$settings->items[ $i ]->button_item_style = $button_item->style;
+			}
+
+			// Button Item Border -- Rename 'border' to 'button_item_border'.
+			if ( empty( $button_item->button_item_border ) && ! empty( $button_item->border ) ) {
+				$settings->items[ $i ]->button_item_border = $button_item->border;
+			}
+		}
+
 		return $settings;
 	}
 }
@@ -245,9 +295,7 @@ FLBuilder::register_module('FLButtonGroupModule', array(
 						'show_reset'  => true,
 						'show_alpha'  => true,
 						'preview'     => array(
-							'type'     => 'css',
-							'selector' => '.fl-button-group-buttons a.fl-button',
-							'property' => 'background-color',
+							'type' => 'refresh',
 						),
 					),
 					'bg_hover_color'    => array(
@@ -272,9 +320,7 @@ FLBuilder::register_module('FLButtonGroupModule', array(
 							'gradient' => __( 'Gradient', 'fl-builder' ),
 						),
 						'preview' => array(
-							'type'     => 'css',
-							'selector' => '.fl-button-group-buttons a.fl-button:hover',
-							'property' => 'background-color',
+							'type' => 'refresh',
 						),
 					),
 					'button_transition' => array(
@@ -462,7 +508,7 @@ FLBuilder::register_settings_form('buttons_form', array(
 		'style'   => array(
 			'title'    => __( 'Style', 'fl-builder' ),
 			'sections' => array(
-				'style'  => array(
+				'style'              => array(
 					'title'  => '',
 					'fields' => array(
 						'padding' => array(
@@ -474,10 +520,10 @@ FLBuilder::register_settings_form('buttons_form', array(
 						),
 					),
 				),
-				'text'   => array(
+				'text'               => array(
 					'title'  => __( 'Text', 'fl-builder' ),
 					'fields' => array(
-						'text_color'       => array(
+						'button_item_text_color'       => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
 							'label'       => __( 'Text Color', 'fl-builder' ),
@@ -485,7 +531,7 @@ FLBuilder::register_settings_form('buttons_form', array(
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),
-						'text_hover_color' => array(
+						'button_item_text_hover_color' => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
 							'label'       => __( 'Text Hover Color', 'fl-builder' ),
@@ -493,17 +539,17 @@ FLBuilder::register_settings_form('buttons_form', array(
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),
-						'typography'       => array(
+						'button_item_typography'       => array(
 							'type'       => 'typography',
 							'label'      => __( 'Typography', 'fl-builder' ),
 							'responsive' => true,
 						),
 					),
 				),
-				'colors' => array(
+				'colors'             => array(
 					'title'  => __( 'Background', 'fl-builder' ),
 					'fields' => array(
-						'bg_color'          => array(
+						'button_item_bg_color'       => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
 							'label'       => __( 'Background Color', 'fl-builder' ),
@@ -514,7 +560,7 @@ FLBuilder::register_settings_form('buttons_form', array(
 								'type' => 'none',
 							),
 						),
-						'bg_hover_color'    => array(
+						'button_item_bg_hover_color' => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
 							'label'       => __( 'Background Hover Color', 'fl-builder' ),
@@ -525,7 +571,7 @@ FLBuilder::register_settings_form('buttons_form', array(
 								'type' => 'none',
 							),
 						),
-						'style'             => array(
+						'button_item_style'          => array(
 							'type'    => 'select',
 							'label'   => __( 'Background Style', 'fl-builder' ),
 							'default' => 'flat',
@@ -534,7 +580,7 @@ FLBuilder::register_settings_form('buttons_form', array(
 								'gradient' => __( 'Gradient', 'fl-builder' ),
 							),
 						),
-						'button_transition' => array(
+						'button_transition'          => array(
 							'type'    => 'select',
 							'label'   => __( 'Background Animation', 'fl-builder' ),
 							'default' => 'disable',
@@ -548,10 +594,10 @@ FLBuilder::register_settings_form('buttons_form', array(
 						),
 					),
 				),
-				'border' => array(
+				'button_item_border' => array(
 					'title'  => __( 'Border', 'fl-builder' ),
 					'fields' => array(
-						'border'             => array(
+						'button_item_border'             => array(
 							'type'       => 'border',
 							'label'      => __( 'Border', 'fl-builder' ),
 							'responsive' => true,
@@ -559,7 +605,7 @@ FLBuilder::register_settings_form('buttons_form', array(
 								'type' => 'none',
 							),
 						),
-						'border_hover_color' => array(
+						'button_item_border_hover_color' => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
 							'label'       => __( 'Border Hover Color', 'fl-builder' ),

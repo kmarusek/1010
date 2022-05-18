@@ -64,6 +64,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Akshar": {
+    "variants": ["300", "regular", "500", "600", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Aladin": {
     "variants": ["regular"],
     "fallback": "cursive"
@@ -3189,6 +3194,11 @@
     "fallback": "serif"
   }
 }, {
+  "Libre Bodoni": {
+    "variants": ["regular", "500", "600", "700", "italic", "500italic", "600italic", "700italic"],
+    "fallback": "serif"
+  }
+}, {
   "Libre Caslon Display": {
     "variants": ["regular"],
     "fallback": "serif"
@@ -3794,6 +3804,11 @@
     "fallback": "cursive"
   }
 }, {
+  "Ms Madi": {
+    "variants": ["regular"],
+    "fallback": "cursive"
+  }
+}, {
   "Mukta": {
     "variants": ["200", "300", "regular", "500", "600", "700", "800"],
     "fallback": "sans-serif"
@@ -3827,6 +3842,11 @@
   "MuseoModerno": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "sans-serif"
+  }
+}, {
+  "My Soul": {
+    "variants": ["regular"],
+    "fallback": "cursive"
   }
 }, {
   "Mystery Quest": {
@@ -3952,6 +3972,11 @@
   "Noticia Text": {
     "variants": ["regular", "italic", "700", "700italic"],
     "fallback": "serif"
+  }
+}, {
+  "Noto Emoji": {
+    "variants": ["300", "regular", "500", "600", "700"],
+    "fallback": "sans-serif"
   }
 }, {
   "Noto Kufi Arabic": {
@@ -5269,6 +5294,11 @@
     "fallback": "serif"
   }
 }, {
+  "Plus Jakarta Sans": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Podkova": {
     "variants": ["regular", "500", "600", "700", "800"],
     "fallback": "serif"
@@ -5454,6 +5484,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Radio Canada": {
+    "variants": ["300", "regular", "500", "600", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Radley": {
     "variants": ["regular", "italic"],
     "fallback": "serif"
@@ -5636,6 +5671,11 @@
 }, {
   "Roboto Condensed": {
     "variants": ["300", "300italic", "regular", "italic", "700", "700italic"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Roboto Flex": {
+    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
@@ -6219,11 +6259,6 @@
     "fallback": "monospace"
   }
 }, {
-  "Spartan": {
-    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
-    "fallback": "sans-serif"
-  }
-}, {
   "Special Elite": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -6262,6 +6297,11 @@
   "Squada One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Square Peg": {
+    "variants": ["regular"],
+    "fallback": "cursive"
   }
 }, {
   "Sree Krushnadevaraya": {
@@ -6426,6 +6466,11 @@
 }, {
   "Tangerine": {
     "variants": ["regular", "700"],
+    "fallback": "cursive"
+  }
+}, {
+  "Tapestry": {
+    "variants": ["regular"],
     "fallback": "cursive"
   }
 }, {
@@ -6649,6 +6694,11 @@
     "fallback": "serif"
   }
 }, {
+  "Updock": {
+    "variants": ["regular"],
+    "fallback": "cursive"
+  }
+}, {
   "Urbanist": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
     "fallback": "sans-serif"
@@ -6769,6 +6819,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Water Brush": {
+    "variants": ["regular"],
+    "fallback": "cursive"
+  }
+}, {
   "Waterfall": {
     "variants": ["regular"],
     "fallback": "cursive"
@@ -6782,6 +6837,11 @@
   "Wendy One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Whisper": {
+    "variants": ["regular"],
+    "fallback": "cursive"
   }
 }, {
   "WindSong": {

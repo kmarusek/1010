@@ -43,6 +43,9 @@
 	width: 60px;
 	height: 34px;
 }
+.fl-module-pricing-table .fl-builder-switch .slider i {
+	display: none;
+}
 .fl-module-pricing-table .fl-builder-switch input {
 	opacity: 0;
 	width: 0;

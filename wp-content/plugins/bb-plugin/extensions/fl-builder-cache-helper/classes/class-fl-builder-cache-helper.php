@@ -33,7 +33,7 @@ class Plugin {
 
 		if ( $current !== $saved ) {
 			\FLBuilderUtils::update_option( 'fl_site_url', base64_encode( $current ) );
-			if ( '' !== $saved  ) {
+			if ( '' !== $saved ) {
 				\FLBuilderModel::delete_asset_cache_for_all_posts();
 				if ( class_exists( '\FLCustomizer' ) && method_exists( '\FLCustomizer', 'clear_all_css_cache' ) ) {
 					\FLCustomizer::clear_all_css_cache();

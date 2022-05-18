@@ -30,6 +30,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'postStatus'                 => get_post_status(),
 	'postType'                   => get_post_type(),
 	'services'                   => FLBuilderServices::get_services_data(),
+	'safemode'                   => isset( $_GET['safemode'] ) ? true : false,
 	'simpleUi'                   => $simple_ui ? true : false,
 	'upgradeUrl'                 => FLBuilderModel::get_upgrade_url( array(
 		'utm_medium'   => ( true === FL_BUILDER_LITE ? 'bb-lite' : 'bb-demo' ),

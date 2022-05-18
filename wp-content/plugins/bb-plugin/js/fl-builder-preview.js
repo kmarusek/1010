@@ -1764,6 +1764,10 @@
 				preview     = null,
 				i           = 0;
 
+			if ( FLBuilderConfig.safemode ) {
+				return false;
+			}
+
 			for( ; i < fields.length; i++) {
 
 				field = fields.eq(i);

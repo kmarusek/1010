@@ -185,7 +185,7 @@ FLBuilder::register_settings_form('global', array(
 							),
 							'toggle'  => array(
 								'1' => array(
-									'fields' => array( 'auto_spacing', 'responsive_breakpoint', 'medium_breakpoint', 'responsive_col_max_width' ),
+									'fields' => array( 'auto_spacing', 'responsive_breakpoint', 'medium_breakpoint', 'responsive_col_max_width', 'responsive_preview' ),
 								),
 							),
 						),

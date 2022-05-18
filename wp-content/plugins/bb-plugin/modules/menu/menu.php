@@ -181,9 +181,10 @@ class FLMenuModule extends FLBuilderModule {
 		if ( isset( $toggle ) && 'expanded' != $toggle ) {
 
 			if ( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
-
-				echo '<button class="fl-menu-mobile-toggle ' . $toggle . '" aria-label="' . esc_attr( $menu_title ) . '"><span class="svg-container">';
-				include FL_BUILDER_DIR . 'img/svg/hamburger-menu.svg';
+				$menu_icon = apply_filters( 'fl_builder_mobile_menu_icon', file_get_contents( FL_BUILDER_DIR . 'img/svg/hamburger-menu.svg' ) );
+				echo '<button class="fl-menu-mobile-toggle ' . $toggle . '" aria-label="' . esc_attr( $menu_title ) . '">';
+				echo '<span class="fl-menu-icon svg-container">';
+				echo $menu_icon;
 				echo '</span>';
 
 				if ( 'hamburger-label' == $toggle ) {
@@ -622,7 +623,7 @@ FLBuilder::register_module('FLMenuModule', array(
 			'mobile'               => array(
 				'title'  => __( 'Responsive', 'fl-builder' ),
 				'fields' => array(
-					'mobile_toggle'     => array(
+					'mobile_toggle'                   => array(
 						'type'    => 'select',
 						'label'   => __( 'Responsive Toggle', 'fl-builder' ),
 						'default' => 'hamburger',
@@ -650,7 +651,7 @@ FLBuilder::register_module('FLMenuModule', array(
 							),
 						),
 					),
-					'mobile_full_width' => array(
+					'mobile_full_width'               => array(
 						'type'    => 'select',
 						'label'   => __( 'Responsive Style', 'fl-builder' ),
 						'default' => 'no',
@@ -683,7 +684,7 @@ FLBuilder::register_module('FLMenuModule', array(
 							),
 						),
 					),
-					'flyout_position'   => array(
+					'flyout_position'                 => array(
 						'type'    => 'select',
 						'label'   => __( 'Flyout Position', 'fl-builder' ),
 						'default' => 'left',
@@ -695,7 +696,7 @@ FLBuilder::register_module('FLMenuModule', array(
 							'type' => 'none',
 						),
 					),
-					'mobile_breakpoint' => array(
+					'mobile_breakpoint'               => array(
 						'type'    => 'select',
 						'label'   => __( 'Responsive Breakpoint', 'fl-builder' ),
 						'default' => 'mobile',
@@ -705,13 +706,22 @@ FLBuilder::register_module('FLMenuModule', array(
 							'mobile'        => __( 'Small Devices Only', 'fl-builder' ),
 						),
 					),
-					'mobile_stacked'    => array(
+					'mobile_stacked'                  => array(
 						'type'    => 'select',
 						'label'   => __( 'Stacked Layout', 'fl-builder' ),
 						'default' => 'yes',
 						'options' => array(
 							'yes' => __( 'Yes', 'fl-builder' ),
 							'no'  => __( 'No', 'fl-builder' ),
+						),
+					),
+					'mobile_toggle_submenu_item_icon' => array(
+						'type'    => 'button-group',
+						'label'   => 'Sub-menu Item Icon',
+						'default' => '',
+						'options' => array(
+							''        => 'None',
+							'r_arrow' => 'Arrow',
 						),
 					),
 				),

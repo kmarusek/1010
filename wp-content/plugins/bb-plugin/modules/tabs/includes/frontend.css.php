@@ -58,19 +58,35 @@ FLBuilderCSS::rule( array(
 	),
 ) );
 
-// Label Text Color
+// Inactive Tabs Label Text Color
 FLBuilderCSS::rule( array(
-	'selector' => ".fl-builder-content .fl-node-$id .fl-tabs .fl-tabs-label",
+	'selector' => ".fl-node-$id .fl-tabs-label:not(.fl-tab-active), .fl-node-$id .fl-tabs-panel-label:not(.fl-tab-active)",
 	'props'    => array(
 		'color' => $settings->label_text_color,
 	),
 ) );
 
-// Label Active Color
+// Inactive Tabs Label Background Color
 FLBuilderCSS::rule( array(
-	'selector' => ".fl-builder-content .fl-node-$id .fl-tabs-label.fl-tab-active, .fl-builder-content .fl-node-$id .fl-tabs-panel-label",
+	'selector' => ".fl-node-$id .fl-tabs-label:not(.fl-tab-active), .fl-node-$id .fl-tabs-panel-label:not(.fl-tab-active)",
+	'props'    => array(
+		'background-color' => $settings->label_bg_color,
+	),
+) );
+
+// Active Tab Label Text Color
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-tabs-label.fl-tab-active, .fl-node-$id .fl-tabs-panel-label.fl-tab-active",
 	'props'    => array(
 		'color' => $settings->label_active_color,
+	),
+) );
+
+// Active Tab Label Background Color
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-tabs-label.fl-tab-active, .fl-node-$id .fl-tabs-panel-label.fl-tab-active",
+	'props'    => array(
+		'background-color' => $settings->label_active_bg_color,
 	),
 ) );
 

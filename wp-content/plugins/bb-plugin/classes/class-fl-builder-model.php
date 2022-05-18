@@ -5089,7 +5089,7 @@ final class FLBuilderModel {
 	 */
 	static public function get_user_templates( $type = 'layout' ) {
 
-		if ( isset( self::$get_user_templates_cache[ $type ] ) ) {
+		if ( isset( self::$get_user_templates_cache[ $type ] ) && ! is_multisite() ) {
 			return self::$get_user_templates_cache[ $type ];
 		}
 		$categorized = array(

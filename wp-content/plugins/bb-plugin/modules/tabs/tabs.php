@@ -105,32 +105,56 @@ FLBuilder::register_module('FLTabsModule', array(
 			'label'   => array(
 				'title'  => __( 'Label', 'fl-builder' ),
 				'fields' => array(
-					'label_text_color'   => array(
+					'label_text_color'      => array(
 						'type'        => 'color',
 						'connections' => array( 'color' ),
-						'label'       => __( 'Text Color', 'fl-builder' ),
-						'show_reset'  => true,
-						'show_alpha'  => true,
-						'preview'     => array(
-							'type'      => 'css',
-							'selector'  => '{node} .fl-tabs-label',
-							'property'  => 'color',
-							'important' => true,
-						),
-					),
-					'label_active_color' => array(
-						'type'        => 'color',
-						'connections' => array( 'color' ),
-						'label'       => __( 'Active Color', 'fl-builder' ),
+						'label'       => __( 'Inactive Label Text Color', 'fl-builder' ),
 						'show_reset'  => true,
 						'show_alpha'  => true,
 						'preview'     => array(
 							'type'     => 'css',
-							'selector' => '{node} .fl-tabs-label.fl-tab-active, {node} .fl-tabs-panel-label',
+							'selector' => '.fl-tabs-label:not(.fl-tab-active), .fl-tabs-panel-label:not(.fl-tab-active)',
+							'property' => 'color',
+							'important' => true,
+						),
+					),
+					'label_bg_color'        => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Inactive Label Background Color', 'fl-builder' ),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type'     => 'css',
+							'selector' => '.fl-tabs-label:not(.fl-tab-active), .fl-tabs-panel-label:not(.fl-tab-active)',
+							'property' => 'background-color',
+						),
+					),
+					'label_active_color'    => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Active Label Text Color', 'fl-builder' ),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type'     => 'css',
+							'selector' => '.fl-tabs-label.fl-tab-active, .fl-tabs-panel-label.fl-tab-active',
 							'property' => 'color',
 						),
 					),
-					'label_padding'      => array(
+					'label_active_bg_color' => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Active Label Background Color', 'fl-builder' ),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type'     => 'css',
+							'selector' => '.fl-tabs-label.fl-tab-active, .fl-tabs-panel-label.fl-tab-active',
+							'property' => 'background-color',
+						),
+					),
+					'label_padding'         => array(
 						'type'       => 'dimension',
 						'label'      => __( 'Padding', 'fl-builder' ),
 						'responsive' => true,
@@ -146,7 +170,7 @@ FLBuilder::register_module('FLTabsModule', array(
 							'property' => 'padding',
 						),
 					),
-					'label_typography'   => array(
+					'label_typography'      => array(
 						'type'       => 'typography',
 						'label'      => __( 'Typography', 'fl-builder' ),
 						'responsive' => true,

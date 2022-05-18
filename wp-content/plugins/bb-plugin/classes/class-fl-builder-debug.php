@@ -243,7 +243,7 @@ final class FL_Debug {
 				if ( ! empty( $modules ) ) {
 					$args = array(
 						'name' => 'Child Theme builder modules folder detected.',
-						'data' => implode( '<br>', $modules ),
+						'data' => implode( "\n", $modules ),
 					);
 					self::register( 'child_bb_modules', $args );
 				}

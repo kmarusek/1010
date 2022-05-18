@@ -131,6 +131,16 @@ final class FLBuilderColor {
 			return $gradient;
 		}
 
+		$is_gradient_field_ok = isset( $setting['type'] )
+			&& isset( $setting['angle'] )
+			&& isset( $setting['position'] )
+			&& isset( $setting['colors'] )
+			&& isset( $setting['stops'] );
+
+		if ( ! $is_gradient_field_ok ) {
+			return $gradient;
+		}
+
 		foreach ( $setting['colors'] as $i => $color ) {
 			$stop = $setting['stops'][ $i ];
 

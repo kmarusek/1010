@@ -260,6 +260,9 @@ function fl_export_wp( $post_ids = array() ) {
 		if ( '_edit_lock' == $meta_key ) {
 			$return_me = true;
 		}
+		if ( false !== strpos( $meta_key, '_fl_builder_history' ) ) {
+			$return_me = true;
+		}
 		return $return_me;
 	}
 	add_filter( 'wxr_export_skip_postmeta', 'wxr_filter_postmeta', 10, 2 );

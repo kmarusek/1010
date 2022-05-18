@@ -93,6 +93,7 @@ final class FLBuilderCompatibility {
 		add_filter( 'woocommerce_tab_manager_tab_panel_content', array( __CLASS__, 'fix_woo_tab_manager_missing_content' ), 10, 3 );
 		add_filter( 'fl_builder_loop_query_args', array( __CLASS__, 'hide_tribe_child_recurring_events_custom_query' ) );
 		add_filter( 'fl_builder_render_assets_inline', array( __CLASS__, 'fix_ultimate_dashboard_pro' ), 11 );
+		add_filter( 'the_content', __CLASS__ . '::render_tribe_event_template', 11 );
 	}
 
 	/**
@@ -619,7 +620,8 @@ final class FLBuilderCompatibility {
 	 * @since 1.10.7
 	 */
 	public static function render_module_content_filter( $contents, $module ) {
-		if ( isset( $_GET['safemode'] ) && FLBuilderModel::is_builder_active() ) {
+		$postdata = FLBuilderModel::get_post_data();
+		if ( isset( $_GET['safemode'] ) && FLBuilderModel::is_builder_active() || ( isset( $postdata['safemode'] ) && 'true' === $postdata['safemode'] ) ) {
 			return sprintf( '<h3>[%1$s] %2$s %3$s</h3>', __( 'SAFEMODE', 'fl-builder' ), $module->name, __( 'module', 'fl-builder' ) );
 		} else {
 			return $contents;
@@ -1058,6 +1060,35 @@ final class FLBuilderCompatibility {
 		if ( $hide_child_events && ( $is_tec_archive || 'fl-theme-layout' === get_post_type() ) ) {
 			$query->set( 'post_parent', 0 );
 		}
+	}
+
+	public static function render_tribe_event_template( $content ) {
+
+		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+			return $content;
+		}
+
+		if ( function_exists( 'tribe_get_option' ) && '' == tribe_get_option( 'tribeEventsTemplate', 'default' ) ) {
+			$post_id   = FLBuilderModel::get_post_id( true );
+			$enabled   = FLBuilderModel::is_builder_enabled( $post_id );
+			$rendering = FLBuilder::$post_rendering === $post_id;
+			if ( $enabled && ! $rendering ) {
+				// Set the post rendering ID.
+				FLBuilder::$post_rendering = $post_id;
+
+				// Try to enqueue here in case it didn't happen in the head for this layout.
+				FLBuilder::enqueue_layout_styles_scripts();
+
+				// Render the content.
+				ob_start();
+				FLBuilder::render_content_by_id( $post_id );
+				$content = ob_get_clean();
+
+				// Clear the post rendering ID.
+				FLBuilder::$post_rendering = null;
+			}
+		}
+		return $content;
 	}
 
 	/**

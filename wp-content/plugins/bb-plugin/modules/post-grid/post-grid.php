@@ -34,7 +34,7 @@ class FLPostGridModule extends FLBuilderModule {
 		$helper->handle_opacity_inputs( $settings, 'text_bg_opacity', 'text_bg_color' );
 
 		// Handle old border inputs.
-		if ( isset( $settings->border_type ) ) {
+		if ( isset( $settings->border_type ) && isset( $settings->border_color ) && isset( $settings->border_size ) ) {
 			$settings->border = array(
 				'style' => $settings->border_type,
 				'color' => $settings->border_color,

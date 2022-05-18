@@ -37,6 +37,7 @@ final class FLBuilderAutoSuggest {
 			}
 
 			if ( isset( $data ) ) {
+				$data = apply_filters( 'fl_builder_auto_suggest_lookup', $data, $_REQUEST['fl_as_action'] );
 				return $data;
 			}
 		}
@@ -140,7 +141,7 @@ final class FLBuilderAutoSuggest {
 			);
 		}
 
-		return $data;
+		return apply_filters( 'fl_builder_auto_suggest_posts_lookup', $data );
 	}
 
 	/**

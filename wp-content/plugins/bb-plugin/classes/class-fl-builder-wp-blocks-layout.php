@@ -52,9 +52,15 @@ final class FLBuilderWPBlocksLayout {
 				$post_type = get_post_type_object( $screen->post_type );
 
 				if ( $post_type && ( $enabled || ( $user_access && $unrestricted ) ) ) {
-					$post_type->template = array(
-						array( 'fl-builder/layout' ),
-					);
+					if ( empty( $post_type->template ) ) {
+						$post_type->template = array(
+							array( 'fl-builder/layout' ),
+						);
+					} else {
+						if ( is_array( $post_type->template ) ) {
+							array_unshift( $post_type->template, array( 'fl-builder/layout' ) );
+						}
+					}
 
 					if ( ! $user_access || ! $unrestricted ) {
 						$post_type->template_lock = 'all';
