@@ -253,6 +253,12 @@ function pp_before_render_row( $row ) {
  * Output for Rows
  */
 function pp_output_before_row_bg( $row ) {
+	if ( 'pp_animated_bg' === $row->settings->bg_type &&  isset( $row->settings->animation_type ) ) {
+		$anim_type = $row->settings->animation_type;
+		if ( 'particles' == $anim_type || 'nasa' == $anim_type || 'bubble' == $anim_type || 'snow' == $anim_type || 'custom' == $anim_type ) {
+			echo '<div id="pp-particles-wrap-' . $row->node .'" class="pp-particles-wrap"></div>';
+		}
+	}
 
     if ( 'yes' == $row->settings->enable_separator && 'none' != $row->settings->separator_type ) {
         $type       = $row->settings->separator_type;

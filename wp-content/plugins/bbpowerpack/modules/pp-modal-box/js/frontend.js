@@ -86,11 +86,13 @@
 			});
 			
 			// close modal box by clicking on the close button.
-            $(self.wrap).find('.pp-modal-close').on('click', function(e) {
+            $(self.wrap).find('.pp-modal-close').on('keypress click', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
-				self.eventClose = true;
-                self.hide();
+				if (e.which == 1 || e.which == 13 || e.which == 32 || e.which == undefined) {
+					self.eventClose = true;
+					self.hide();
+				}
 			});
 
 			$(window).resize( $.proxy( this.setResponsive, this ) );
@@ -172,6 +174,12 @@
 			
 			setTimeout( function() {
 				self.element.trigger('beforeload');
+
+				if ( ! self.isPreviewing ) {
+					setTimeout(function() {
+						self.element.attr( 'tabindex', '0' ).trigger( 'focus' );
+					}, 100);
+				}
 
 				$('html').addClass( 'pp-modal-active-' + self.id );
 
@@ -259,6 +267,26 @@
 			if ( this.element.find('video').length > 0 ) {
 				this.element.find('video')[0].pause();
 			}
+
+			this.element.attr( 'tabindex', '-1' );
+			var self = this;
+			
+			setTimeout(function() {
+				if ( self.settings.clickedElement ) {
+					var $clickedElement = self.settings.clickedElement;
+					if ( $clickedElement.closest( '.modal-' + self.id ).length ) {
+						$clickedElement.closest( '.modal-' + self.id ).trigger( 'focus' );
+					} else if ( $clickedElement.closest( '#trigger-' + self.id ).length ) {
+						$clickedElement.closest( '#trigger-' + self.id ).trigger( 'focus' );
+					} else if ( '' !== self.settings.customTrigger ) {
+						if ( $clickedElement.is( self.settings.customTrigger ) ) {
+							$clickedElement.trigger( 'focus' );
+						} else if ( $clickedElement.closest( self.settings.customTrigger ).length ) {
+							$clickedElement.closest( self.settings.customTrigger ).trigger( 'focus' );
+						}
+					}
+				}
+			}, 100);
         },
 
 		restruct: function()
@@ -299,7 +327,7 @@
                         self.element.find('iframe').css({'height':'100%', 'width':'100%'});
                     }
                 }
-            }, self.settings.auto_load ? parseFloat(self.settings.delay) * 1000 : 0);
+            }, self.settings.auto_load ? parseFloat(self.settings.delay) * 1000 : 1);
 		},
 
 		hide: function()

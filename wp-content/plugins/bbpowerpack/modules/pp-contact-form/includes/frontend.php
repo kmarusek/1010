@@ -16,16 +16,12 @@ $messages = $module->get_strings_i18n();
 
 <form class="pp-contact-form pp-form-<?php echo $settings->form_layout; ?>" <?php if ( isset( $module->template_id ) ) echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"'; ?>>
 	<input type="hidden" name="fl-layout-id" value="<?php echo $post->ID; ?>" />
-    <<?php echo $title_tag; ?> class="pp-form-title">
-	<?php if ( $settings->custom_title ) {
-	 	echo $settings->custom_title;
-	} ?>
-	</<?php echo $title_tag; ?>>
-	<p class="pp-form-description">
-	<?php if ( $settings->custom_description ) {
-		echo $settings->custom_description;
-	} ?>
-	</p>
+	<?php if ( ! empty( $settings->custom_title ) ) { ?>
+    	<<?php echo $title_tag; ?> class="pp-form-title"><?php echo $settings->custom_title; ?></<?php echo $title_tag; ?>>
+	<?php } ?>
+	<?php if ( ! empty( $settings->custom_description ) ) { ?>
+		<p class="pp-form-description"><?php echo $settings->custom_description; ?></p>
+	<?php } ?>
     <div class="pp-contact-form-inner pp-clearfix">
         <?php if( $settings->form_layout == 'stacked-inline' ) { ?>
             <div class="pp-contact-form-fields-left">

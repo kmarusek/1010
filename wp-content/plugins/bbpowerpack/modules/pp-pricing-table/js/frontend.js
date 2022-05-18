@@ -15,6 +15,10 @@
 			if ( this.settings.dualPricing ) {
 				this._initDualPricing();
 			}
+
+			/* Tooltips */
+			$(this.nodeClass + ' .pp-pricing-item-tooltip-icon').on('click', $.proxy(this._showHelpTooltip, this));
+			$('body').on('click', this._hideHelpTooltip);
 		},
 
 		_initDualPricing: function()
@@ -59,7 +63,17 @@
 					$(this.wrapperClass).find('.pp-pricing-button-' + id).trigger('click');
 				}
 			}
-		}
+		},
+
+		_showHelpTooltip: function(e) {
+			this._hideHelpTooltip();
+			$(e.target).closest('.pp-pricing-item-tooltip').find('.pp-pricing-item-tooltip-text').fadeIn();
+			e.stopPropagation();
+		},
+
+		_hideHelpTooltip: function() {
+			$('.fl-module-pp-pricing-table .pp-pricing-item-tooltip-text').fadeOut();
+		},
 	};
 
 })(jQuery);

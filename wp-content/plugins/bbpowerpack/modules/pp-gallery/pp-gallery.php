@@ -314,67 +314,32 @@ class PPGalleryModule extends FLBuilderModule {
 				$data->title = htmlspecialchars( $photo->title );
 				$data->sizes = array();
 
-				$image_size = $this->settings->photo_size;
+				$image_size    = $this->settings->photo_size;
+				$lb_image_size = $this->settings->lightbox_image_size;
 
 				// Collage photo src
-				if($this->settings->gallery_layout == 'masonry') {
-
-					if($this->settings->photo_size == 'thumbnail' && isset($photo->sizes->thumbnail)) {
-						$data->src = $photo->sizes->thumbnail->url;
-						$data->sizes['height'] = $photo->sizes->thumbnail->height;
-						$data->sizes['width'] = $photo->sizes->thumbnail->width;
-					}
-					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
-						$data->src = $photo->sizes->medium->url;
-						$data->sizes['height'] = $photo->sizes->medium->height;
-						$data->sizes['width'] = $photo->sizes->medium->width;
-					}
-					elseif( isset( $photo->sizes->{$image_size} ) ) {
-						$data->src = $photo->sizes->{$image_size}->url;
-						$data->sizes['height'] = $photo->sizes->{$image_size}->height;
-						$data->sizes['width'] = $photo->sizes->{$image_size}->width;
-					}
-					else {
-						$data->src = $photo->sizes->full->url;
-						$data->sizes['height'] = $photo->sizes->full->height;
-						$data->sizes['width'] = $photo->sizes->full->width;
-					}
-				}
-
-				// Grid photo src
-				else {
-
-					if($this->settings->photo_size == 'thumbnail' && isset($photo->sizes->thumbnail)) {
-						$data->src = $photo->sizes->thumbnail->url;
-						$data->sizes['height'] = $photo->sizes->thumbnail->height;
-						$data->sizes['width'] = $photo->sizes->thumbnail->width;
-					}
-					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
-						$data->src = $photo->sizes->medium->url;
-						$data->sizes['height'] = $photo->sizes->medium->height;
-						$data->sizes['width'] = $photo->sizes->medium->width;
-					}
-					elseif( isset( $photo->sizes->{$image_size} ) ) {
-						$data->src = $photo->sizes->{$image_size}->url;
-						$data->sizes['height'] = $photo->sizes->{$image_size}->height;
-						$data->sizes['width'] = $photo->sizes->{$image_size}->width;
-					}
-					else {
-						$data->src = $photo->sizes->full->url;
-						$data->sizes['height'] = $photo->sizes->full->height;
-						$data->sizes['width'] = $photo->sizes->full->width;
-					}
+				if ( $this->settings->photo_size == 'thumbnail' && isset( $photo->sizes->thumbnail ) ) {
+					$data->src = $photo->sizes->thumbnail->url;
+					$data->sizes['height'] = $photo->sizes->thumbnail->height;
+					$data->sizes['width'] = $photo->sizes->thumbnail->width;
+				} elseif ( $this->settings->photo_size == 'medium' && isset( $photo->sizes->medium ) ) {
+					$data->src = $photo->sizes->medium->url;
+					$data->sizes['height'] = $photo->sizes->medium->height;
+					$data->sizes['width'] = $photo->sizes->medium->width;
+				} elseif ( isset( $photo->sizes->{$image_size} ) ) {
+					$data->src = $photo->sizes->{$image_size}->url;
+					$data->sizes['height'] = $photo->sizes->{$image_size}->height;
+					$data->sizes['width'] = $photo->sizes->{$image_size}->width;
+				} else {
+					$data->src = $photo->sizes->full->url;
+					$data->sizes['height'] = $photo->sizes->full->height;
+					$data->sizes['width'] = $photo->sizes->full->width;
 				}
 
 				// Photo Link
-				if(isset($photo->sizes->large)) {
-					$data->link = $photo->sizes->large->url;
-				}
-				else {
-					$data->link = $photo->sizes->full->url;
-				}
-
-				if ( $this->settings->lightbox_image_size == 'full' ) {
+				if ( isset( $photo->sizes->{$lb_image_size} ) ) {
+					$data->link = $photo->sizes->{$lb_image_size}->url;
+				} else {
 					$data->link = $photo->sizes->full->url;
 				}
 
@@ -387,7 +352,7 @@ class PPGalleryModule extends FLBuilderModule {
 				// srcset.
 				$data->srcset = wp_get_attachment_image_srcset( $id, $image_size );
 
-				$photos[$id] = $data;
+				$photos[ $id ] = $data;
 			}
 		}
 
@@ -751,7 +716,7 @@ BB_PowerPack::register_module('PPGalleryModule', array(
 						),
 					),
 					'lightbox_image_size'	=> array(
-						'type'		=> 'pp-switch',
+						'type'		=> 'photo-sizes',
 						'label'		=> __('Lightbox Image Size', 'bb-powerpack'),
 						'default'	=> 'large',
 						'options'	=> array(

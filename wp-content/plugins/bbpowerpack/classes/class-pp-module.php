@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * PPModuleExtend.
  */
 final class PPModuleExtend {
+	private static $_faq_schema_rendered = false;
+
 	/**
 	 * @since 2.7.0
 	 * @return void
@@ -84,6 +86,7 @@ final class PPModuleExtend {
 				$settings = $node->settings;
 
 				if ( isset( $settings->enable_schema ) && 'no' == $settings->enable_schema ) {
+					self::$_faq_schema_rendered = true;
 					continue;
 				}
 
@@ -129,6 +132,8 @@ final class PPModuleExtend {
 			echo '<script type="application/ld+json">';
 			echo json_encode( $schema_data );
 			echo '</script>';
+
+			self::$_faq_schema_rendered = true;
 		}
 	}
 
@@ -145,7 +150,7 @@ final class PPModuleExtend {
 		 *
 		 * @param bool
 		 */
-		if ( apply_filters( 'pp_faq_schema_force_render', false ) ) {
+		if ( ! self::$_faq_schema_rendered || apply_filters( 'pp_faq_schema_force_render', false ) ) {
 			self::render_faq_schema( true );
 		}
 	}

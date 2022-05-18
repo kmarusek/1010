@@ -42,7 +42,7 @@
 
 	<?php if ( 'style-9' != $settings->post_grid_style_select ) { ?>
 		<?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' == $settings->post_grid_style_select) ) : ?>
-			<?php include $module_dir . 'includes/templates/post-meta.php'; ?>
+			<?php include $module_dir . 'includes/templates/post-terms.php'; ?>
 		<?php endif; ?>
 
 		<?php if( 'style-4' == $settings->post_grid_style_select ) { ?>

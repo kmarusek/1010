@@ -13,7 +13,7 @@
 
 		_init: function () {
 			$( this.nodeClass + ' .pp-tabs-labels .pp-tabs-label' ).on( 'click keyup', $.proxy( this._labelClick, this ) );
-			$( this.nodeClass + ' .pp-tabs-panels .pp-tabs-label' ).click( $.proxy( this._responsiveLabelClick, this ) );
+			$( this.nodeClass + ' .pp-tabs-panels .pp-tabs-label' ).on( 'click', $.proxy( this._responsiveLabelClick, this ) );
 
 			$( this.nodeClass + ' .pp-tabs-labels .pp-tabs-label.pp-tab-active' ).attr( 'tabindex', '0' );
 
@@ -144,6 +144,12 @@
 			// Gallery module support.
 			FLBuilderLayout.refreshGalleries( wrap.find( '.pp-tabs-panel-content[data-index="' + index + '"]' ) );
 
+			// WP audio shortcode support
+			FLBuilderLayout.resizeAudio( wrap.find('.pp-tabs-panel-content[data-index="' + index + '"]') );
+
+			// Slideshow module support.
+			FLBuilderLayout.resizeSlideshow();
+
 			$( document ).trigger( 'pp-tabs-switched', [wrap.find( '.pp-tabs-panel-content[data-index="' + index + '"]' )] );
 		},
 
@@ -185,6 +191,12 @@
 
 				// Gallery module support.
 				FLBuilderLayout.refreshGalleries( content );
+
+				// WP audio shortcode support
+				FLBuilderLayout.resizeAudio( wrap.find('.pp-tabs-panel-content[data-index="' + index + '"]') );
+
+				// Slideshow module support.
+				FLBuilderLayout.resizeSlideshow();
 
 				// Content Grid module support.
 				if ('undefined' !== typeof $.fn.isotope) {

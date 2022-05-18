@@ -56,7 +56,13 @@
 				iframeSrc = iframeSrc.replace('autoplay=0', '');
 
 				var src = iframeSrc.split('#');
-				iframeSrc = src[0] + '&autoplay=1';
+				iframeSrc = src[0];
+
+				if ( 'facebook' === this.type ) {
+					iframeSrc += '&autoplay=0';
+				} else {
+					iframeSrc += '&autoplay=1';
+				}
 
 				if ( 'undefined' !== typeof src[1] ) {
 					iframeSrc += '#' + src[1];
@@ -67,6 +73,7 @@
 
 		_initLightbox: function() {
 			var id = this.id;
+			var self = this;
 			var options = {
 				modal			: false,
 				enableEscapeButton: true,
@@ -84,7 +91,13 @@
 						iframeSrc = iframeSrc.replace('autoplay=0', '');
 
 						var src = iframeSrc.split('#');
-						iframeSrc = src[0] + '&autoplay=1';
+						iframeSrc = src[0];
+
+						if ( 'facebook' === self.type ) {
+							iframeSrc += '&autoplay=0';
+						} else {
+							iframeSrc += '&autoplay=1';
+						}
 
 						if ( 'undefined' !== typeof src[1] ) {
 							iframeSrc += '#' + src[1];

@@ -145,7 +145,7 @@ body:not(.fl-builder-edit) .pp-toc-container.is-empty {
 	opacity: .8;
 	z-index: 1000;
 }
-.pp-toc-sticky-fixed.pp-toc--stop {
+.pp-toc-is-sticky.pp-toc--stop {
 	opacity: 0;
 	visibility: hidden;
 }

@@ -146,6 +146,9 @@ final class BB_PowerPack_Login_Register {
 		if ( isset( $_REQUEST['interim-login'] ) ) {
 			return;
 		}
+		if ( 'postpass' === $action ) {
+			return;
+		}
 
 		if ( 'register' === $action ) {
 			$page_id = self::get_register_page_id();

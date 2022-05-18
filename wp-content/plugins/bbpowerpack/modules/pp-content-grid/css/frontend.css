@@ -809,6 +809,9 @@ body .pp-post-feed-meta {
 .cg-equal-align-button .pp-content-post .pp-post-content {
   	height: 100%;
 }
+.cg-equal-align-button .pp-content-post .pp-post-link {
+	margin-top: auto;
+}
 
 .cg-center-align .pp-content-posts {
 	margin: 0 auto;

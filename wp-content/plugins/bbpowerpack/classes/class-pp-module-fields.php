@@ -584,6 +584,7 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
             $fields['pp-hidden-textarea'] = BB_POWERPACK_DIR . 'includes/ui-field-pp-hidden-textarea.php';
 			$fields['pp-css-class']       = BB_POWERPACK_DIR . 'includes/ui-field-pp-css-class.php';
 			$fields['pp-media-uploader']  = BB_POWERPACK_DIR . 'includes/ui-field-pp-media-uploader.php';
+			$fields['pp-group']         = BB_POWERPACK_DIR . 'includes/ui-field-pp-group.php';
 
             return $fields;
 		}

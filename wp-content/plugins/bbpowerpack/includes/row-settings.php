@@ -1881,7 +1881,7 @@ function pp_background_toggle( $form, $id ){
 			'part_bg_size'		=> array(
 				'type'				=> 'unit',
 				'label'				=> __('Background Size', 'bb-powerpack'),
-				'default'			=> '20',
+				'default'			=> '100',
 				'units'				=> array('%'),
 				'slider'			=> array(
 					'min'				=> '1',

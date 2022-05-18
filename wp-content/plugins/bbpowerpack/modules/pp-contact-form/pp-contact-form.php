@@ -547,10 +547,6 @@ BB_PowerPack::register_module('PPContactFormModule', array(
                         'default'       => '',
                         'description'   => '',
 						'connections'   => array('string'),
-						'preview'       => array(
-                            'type'      => 'text',
-                            'selector'  => '.pp-form-title'
-                        )
                     ),
 					'custom_description'    => array(
                         'type'              => 'textarea',
@@ -559,10 +555,6 @@ BB_PowerPack::register_module('PPContactFormModule', array(
                         'placeholder'       => '',
                         'rows'              => '6',
 						'connections'   	=> array('string', 'html'),
-                        'preview'           => array(
-                            'type'          => 'text',
-                            'selector'      => '.pp-form-description'
-                        )
                     ),
 				)
 			),

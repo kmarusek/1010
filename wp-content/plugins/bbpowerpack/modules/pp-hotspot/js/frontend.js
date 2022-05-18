@@ -36,6 +36,8 @@
 		this.scrolling 			= false;
 		this.hideMaxWidth       = settings.maxWidth;
 		this.hideMinWidth       = settings.minWidth;
+		this.breakpoints        = settings.breakpoints;
+		this.tourVisibility     = settings.tourVisibility;
 		this.winWidth           = $( window ).width();
 
 		this._init();
@@ -89,7 +91,8 @@
 
 			// Start of hotspot functionality.
 			if ( 'yes' == this.tourEnable ) {
-				if ( this.winWidth > this.hideMaxWidth || this.winWidth < this.hideMinWidth || 'none' == this.hideMaxWidth || 'none' == this.hideMinWidth ) {
+				//if ( this.winWidth > this.hideMaxWidth || this.winWidth < this.hideMinWidth || 'none' == this.hideMaxWidth || 'none' == this.hideMinWidth ) {
+				if ( this._matchDevice( this.tourVisibility ) ) {
 					this._initButtonOverlay();
 				} else {
 					this.node.find('.pp-hotspot-overlay').hide();
@@ -412,7 +415,29 @@
 			// https://git.io/vznFH
 			var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
 			return mq(query);
-		}
+		},
+
+		_matchDevice: function (value) {
+			var match = false;
+
+			if ('all' === value) {
+				match = true;
+			} else if ('large' === value) {
+				match = window.innerWidth > this.breakpoints.tablet;
+			} else if ('large-medium' === value) {
+				match = window.innerWidth > this.breakpoints.mobile;
+			} else if ('large-responsive' === value) {
+				match = window.innerWidth < this.breakpoints.mobile || window.innerWidth > this.breakpoints.tablet;
+			} else if ('medium' === value) {
+				match = window.innerWidth > this.breakpoints.mobile && window.innerWidth <= this.breakpoints.tablet;
+			} else if ('medium-responsive' === value) {
+				match = window.innerWidth <= this.breakpoints.tablet;
+			} else if ('responsive' === value) {
+				match = window.innerWidth <= this.breakpoints.mobile;
+			}
+
+			return match;
+		},
 	};
 
 })(jQuery);

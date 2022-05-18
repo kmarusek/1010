@@ -52,6 +52,7 @@
 <?php if ( ! $has_aspect_ratio && ( 'square-grid' === $layout || 'carousel' === $layout ) ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item .pp-feed-item-inner {
 		display: flex;
+		flex-basis: 100%;
 	}
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item a {
 		display: flex;

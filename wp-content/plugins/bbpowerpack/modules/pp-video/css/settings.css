@@ -3,3 +3,15 @@
     padding-bottom: 0;
     font-style: normal;
 }
+#fl-field-video_type .fl-field-description {
+	background: #fffde8;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+#fl-field-video_type .fl-field-description .pp-fb-embed-desc {
+	color: #000 !important;
+}
+
+form.fl-builder-settings:not(.video-type-facebook) #fl-field-video_type .fl-field-description {
+	display: none !important;
+}

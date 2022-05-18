@@ -177,7 +177,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 					'meta_value_num' => __('Meta Value (Numeric)', 'bb-powerpack'),
 					'rand'        	 => __('Random', 'bb-powerpack'),
 					'title'          => __('Title', 'bb-powerpack'),
-					'post__in'       => __( 'Selection Order', 'fl-builder' ),
+					'post__in'       => __( 'Selection Order', 'bb-powerpack' ),
 				),
 				'toggle'		=> array(
 					'meta_value' 	=> array(

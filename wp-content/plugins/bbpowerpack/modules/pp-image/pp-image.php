@@ -410,6 +410,10 @@ class PPImageModule extends FLBuilderModule {
 				}
 			}
 
+			if ( empty( $current_size ) ) {
+				$current_size = 'full';
+			}
+
 			if ( '' === $this->settings->crop ) {
 				$srcset = wp_get_attachment_image_srcset( $photo->id, $current_size );
 				$sizes = wp_get_attachment_image_sizes( $photo->id, $current_size );
@@ -615,8 +619,7 @@ BB_PowerPack::register_module('PPImageModule', array(
 								'fields'        => array('photo')
 							),
 							'url'           => array(
-								'fields'        => array('photo_url', 'caption'),
-								'sections'		=> array('caption_section')
+								'fields'        => array('photo_url'),
 							)
 						)
 					),
@@ -624,6 +627,12 @@ BB_PowerPack::register_module('PPImageModule', array(
 						'type'          => 'photo',
 						'label'         => __('Photo', 'bb-powerpack'),
 						'connections'   => array( 'photo' ),
+					),
+					'photo_url'     => array(
+						'type'          => 'text',
+						'label'         => __('Photo URL', 'bb-powerpack'),
+						'placeholder'   => __( 'http://www.example.com/my-photo.jpg', 'bb-powerpack' ),
+						'connections'   => array( 'url' ),
 					),
 					'photo_size'	=> array(
 						'type'			=> 'unit',
@@ -638,11 +647,6 @@ BB_PowerPack::register_module('PPImageModule', array(
 							'property'		=> 'width',
 							'unit'			=> 'px'
 						)
-					),
-					'photo_url'     => array(
-						'type'          => 'text',
-						'label'         => __('Photo URL', 'bb-powerpack'),
-						'placeholder'   => __( 'http://www.example.com/my-photo.jpg', 'bb-powerpack' ),
 					),
 					'crop'          => array(
 						'type'          => 'select',
@@ -683,6 +687,11 @@ BB_PowerPack::register_module('PPImageModule', array(
 			'caption'       => array(
 				'title'         => __('Caption', 'bb-powerpack'),
 				'fields'        => array(
+					'caption'       => array(
+						'type'          => 'text',
+						'label'         => __('Custom Caption', 'bb-powerpack'),
+						'connections'   => array( 'string' ),
+					),
 					'show_caption'  => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Show Caption', 'bb-powerpack'),
@@ -695,26 +704,11 @@ BB_PowerPack::register_module('PPImageModule', array(
 						),
 						'toggle'		=> array(
 							'hover'		=> array(
-								'fields'	=> array('caption', 'hover_margin')
-							),
-							'below'		=> array(
-								'fields'	=> array('caption')
-							),
-							'overlay'		=> array(
-								'fields'	=> array('caption')
+								'fields'	=> array('hover_margin')
 							),
 						),
 					),
 				)
-			),
-			'caption_section'	=> array(
-				'title'			=> '',
-				'fields'		=> array(
-					'caption'       => array(
-						'type'          => 'text',
-						'label'         => __('Caption', 'bb-powerpack')
-					)
-				),
 			),
 			'link'          => array(
 				'title'         => __('Link', 'bb-powerpack'),

@@ -98,6 +98,8 @@
 	height: 100%;
 	background-color: #fff;
 	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
 }
 
 .pp-review-header,
@@ -106,6 +108,16 @@
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
+}
+.pp-review-content {
+	flex-direction: column;
+	flex: 1;
+}
+.pp-review-link {
+	margin-top: auto;
+}
+.pp-review-link a {
+	text-decoration: none;
 }
 
 .pp-review-header {

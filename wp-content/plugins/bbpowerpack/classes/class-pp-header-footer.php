@@ -151,23 +151,6 @@ final class BB_PowerPack_Header_Footer {
 	}
 
 	/**
-	 * Add CSS classes to the body tag.
-	 *
-	 * Fired by `body_class` filter.
-	 *
-	 * @since 2.7.1
-	 *
-	 * @param array $classes An array of body classes.
-	 *
-	 * @return array An array of body classes.
-	 */
-	static public function body_class( $classes ) {
-		$classes[] = 'bb-powerpack-header-footer';
-
-		return $classes;
-	}
-
-	/**
 	 * Get templates.
 	 *
 	 * Get all pages and BB's templates.
@@ -535,6 +518,13 @@ final class BB_PowerPack_Header_Footer {
 		return '<div style="padding: 200px 100px; text-align:center; opacity:0.5;">' . __( 'Content Area', 'bb-powerpack' ) . '</div>';
 	}
 
+	/**
+	 * Get the ID of WPML translated post.
+	 *
+	 * @param string $id	Original Post ID.
+	 * @since 2.7.1
+	 * @return string
+	 */
 	static public function get_wpml_element_id( $id ) {
 		if ( class_exists( 'sitepress' ) && class_exists( 'WPML_Post_Element' ) ) {
 			global $sitepress;
@@ -555,6 +545,34 @@ final class BB_PowerPack_Header_Footer {
 		}
 		
 		return $id;
+	}
+
+	/**
+	 * Add CSS classes to the body tag.
+	 *
+	 * Fired by `body_class` filter.
+	 *
+	 * @since 2.7.1
+	 *
+	 * @param array $classes An array of body classes.
+	 *
+	 * @return array An array of body classes.
+	 */
+	static public function body_class( $classes ) {
+		$classes[] = 'bb-powerpack-header-footer';
+
+		if ( FLBuilderModel::is_builder_active() ) {
+			$post_id = FLBuilderModel::get_post_id();
+
+			if ( self::$header == $post_id ) {
+				$classes[] = 'bb-powerpack-header-edit';
+			}
+			if ( self::$footer == $post_id ) {
+				$classes[] = 'bb-powerpack-footer-edit';
+			}
+		}
+
+		return $classes;
 	}
 }
 

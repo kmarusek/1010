@@ -34,7 +34,7 @@
 							</div>
 							<div class="pp-hover-card-description">
 								<div class="pp-hover-card-description-inner">
-									<?php echo $card->hover_content; ?>
+									<?php echo wpautop( $card->hover_content ); ?>
 								</div>
 							</div>
 						</div>

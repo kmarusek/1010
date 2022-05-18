@@ -6,7 +6,7 @@ var carousel_<?php echo $id; ?> = '';
 		var gallery_selector = $( '.fl-node-<?php echo $id; ?> .pp-image-carousel' );
 		if( gallery_selector.length && typeof $.fn.magnificPopup !== 'undefined') {
 			gallery_selector.magnificPopup({
-				delegate: '.pp-image-carousel-item:not(.swiper-slide-duplicate) a',
+				delegate: '.pp-image-carousel-item:not(.swiper-slide-duplicate) a, .pp-image-carousel-item.swiper-slide-duplicate a',
 				closeBtnInside: false,
 				type: 'image',
 				gallery: {

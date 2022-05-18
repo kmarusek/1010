@@ -1,3 +1,49 @@
+== 2.23.2 ==
+Release date: May 11, 2022
+* Enhancement: Image - Added field connection for the Photo URL and Caption fields
+* Fix: Hover Cards 2 - Content was not retaining paragraph break
+* Fix: Content Grid - Post taxonomy terms were not showing in Style 3 after recent update
+* Fix: Image - PHP warning in some cases where WordPress unable to get the image size
+* Fix: Sliding Menus - Multiple instances of the same saved module on the page causes the links to disappear
+* Fix: Icon/Number List - PHP error in WPML translation editor
+* Fix: Animated Background - Slow loading of background image
+* Fix: Header/Footer - Header was getting disappeared when editing the header page in builder
+* Fix: Login/Register - Password protected pages redirecting to custom login page set in PowerPack settings
+
+== 2.23.1 ==
+Release date: May 4, 2022
+* Hotfix: Off-Canvas Content - Missing content element after recent update
+
+== 2.23.0 ==
+Relase date: May 4, 2022
+* Enhancement: Reviews - Added an option to link the review to original profile
+* Enhancement: Reviews - Added an option to trim the review text for Google and Yelp
+* Enhancement: How-To - Added an option to enable lightbox for images in steps
+* Enhancement: Pricing Table - Button fields refactor, added border group field
+* Enhancement: Pricing Table - Improved feature items field, added icon and tooltip options
+* Enhancement: Video - Added support for Facebook video
+* Enhancement: Image Hotspot - Added an option to hide tour on desktop
+* Enhancement: Smart Headings - Added hover color option
+* Enhancement: Modal Box - Enabled responsive options for custom height option
+* Enhancement: Modal Box - Improved embedded video dimensions
+* Enhancement: Modal Box - Added support for accessibility and keyboard navigation
+* Enhancement: Off-Canvas Content - Added support for accessibility and keyboard navigation
+* Enhancement: Gravity Forms - Added an option to set custom color for "Required" text
+* Enhancement: Hover Cards 2 - Added an option to set the image as background
+* Enhancement: Hover Cards 2 - Gutter/Spacing field now supports px unit and enabled responsive controls
+* Enhancement: Image/Photo Gallery - Enabled all registered image sizes for lightbox
+* Fix: Contact Form - Removed empty HTML of custom title and description
+* Fix: Advanced Accordion - BB's Slideshow module was not working properly when used in the accordion
+* Fix: Advanced Tabs - BB's Slideshow module was not working properly when used in a tab
+* Fix: Gravity Forms - Button alignment issue with recent version of Gravity Forms
+* Fix: Modal Box - Beaver Themer's shortcode in HTML attributes was not working when called through post template
+* Fix: Image Carousel - Lightbox was not working on some duplicate images in loop
+* Fix: Instagram Feed - Square layout issue in Chrome browser in some cases
+* Fix: Sliding Menu - Submenu height issue when the module is used in the Advanced Accordion
+* Fix: Content Tiles - Fallback Image option was getting reversed to "Placeholder" after save
+* Development: Login Form - Added filter hook pp_login_form_from_email
+* Development: Login Form - Added filter hook pp_login_form_reply_to_email
+
 == 2.22.2 ==
 Release date: April 5, 2022
 * Enhancement: Category Grid - Added loop option for the slider and re-arranged slider controls in the module settings

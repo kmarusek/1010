@@ -65,10 +65,11 @@ class PPVideoModule extends FLBuilderModule {
 	 */
 	public function get_video_properties( $video_url ) {
 		$provider_regex = array(
-			'youtube' => '/^.*(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:(?:watch|playlist)?\?(?:.*&)?(?:list|v)?=|(?:embed|v|vi|user|list|shorts)\/))([^\?&\"\'>]+)/',
-			'vimeo' => '/^.*vimeo\.com\/(?:[a-z]*\/)*([‌​0-9]{6,11})[?]?.*/',
+			'youtube'     => '/^.*(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:(?:watch|playlist)?\?(?:.*&)?(?:list|v)?=|(?:embed|v|vi|user|list|shorts)\/))([^\?&\"\'>]+)/',
+			'vimeo'       => '/^.*vimeo\.com\/(?:[a-z]*\/)*([‌​0-9]{6,11})[?]?.*/',
 			'dailymotion' => '/^.*dailymotion.com\/(?:video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/',
-			'wistia' => '/^.*(?:wistia\.net|wistia\.com)\/(?:embed\/iframe|medias)\/(.*)/'
+			'wistia'      => '/^.*(?:wistia\.net|wistia\.com)\/(?:embed\/iframe|medias)\/(.*)/',
+			'facebook'    => '/^.*(?:facebook\.com)\/(?:.*)\/(.*)/'
 		);
 
 		$provider_regex = apply_filters( 'pp_video_provider_regex', $provider_regex, $video_url );
@@ -169,7 +170,15 @@ class PPVideoModule extends FLBuilderModule {
 					$params['time'] = $time[0] . 'm' . $time[1] . 's';
 				}
 			}
-		}	
+		} elseif ( 'facebook' === $settings->video_type ) {
+			$params['autoplay'] = 0;
+			$params['show_text'] = false;
+			$params['mute'] = 0;
+
+			if ( ! empty( $settings->start_time ) ) {
+				$params['t'] = $settings->start_time;
+			}
+		}
 
 		foreach ( $params_dictionary as $key => $param_name ) {
 			$setting_name = $param_name;
@@ -259,6 +268,7 @@ class PPVideoModule extends FLBuilderModule {
 			'vimeo' 		=> 'https://player.vimeo.com/video/{VIDEO_ID}#t={TIME}',
 			'dailymotion' 	=> 'https://dailymotion.com/embed/video/{VIDEO_ID}',
 			'wistia' 		=> 'https://fast.wistia.net/embed/iframe/{VIDEO_ID}',
+			'facebook' 		=> 'https://www.facebook.com/plugins/video.php?href={VIDEO_URL}',
 		);
 
 		$embed_patterns = apply_filters( 'pp_video_embed_patterns', $embed_patterns, $video_url, $video_properties );
@@ -267,6 +277,7 @@ class PPVideoModule extends FLBuilderModule {
 
 		$replacements = array(
 			'{VIDEO_ID}' => $video_properties['video_id'],
+			'{VIDEO_URL}' => $video_url,
 		);
 
 		if ( 'youtube' === $video_properties['provider'] ) {
@@ -591,11 +602,13 @@ BB_PowerPack::register_module(
 						'video_type'	=> array(
 							'type'			=> 'select',
 							'label'			=> __( 'Source', 'bb-powerpack' ),
+							'description'   => sprintf( '<span class="pp-fb-embed-desc">%s</span>', __( 'Please note that there are certain limitations from Facebook therefore you cannot set the video on autoplay and cannot provide any other options.', 'bb-powerpack' ) ),
 							'options' 		=> array(
 								'youtube' 		=> __( 'YouTube', 'bb-powerpack' ),
 								'vimeo' 		=> __( 'Vimeo', 'bb-powerpack' ),
 								'dailymotion' 	=> __( 'Dailymotion', 'bb-powerpack' ),
 								'wistia' 		=> __( 'Wistia', 'bb-powerpack' ),
+								'facebook' 		=> __( 'Facebook', 'bb-powerpack' ),
 								'hosted' 		=> __( 'Self Hosted', 'bb-powerpack' ),
 								'external'		=> __( 'External URL', 'bb-powerpack' ),
 							),
@@ -611,6 +624,9 @@ BB_PowerPack::register_module(
 								),
 								'wistia'	=> array(
 									'fields'		=> array( 'wistia_url', 'loop', 'controls', 'color' ),
+								),
+								'facebook'	=> array(
+									'fields'		=> array( 'facebook_url' ),
 								),
 								'hosted'	=> array(
 									'fields'	=> array( 'hosted_url', 'end_time', 'loop', 'controls', 'download_button', 'poster' ),
@@ -645,6 +661,14 @@ BB_PowerPack::register_module(
 							'type'			=> 'text',
 							'label'			=> __( 'Link', 'bb-powerpack' ),
 							'placeholder'	=> __( 'Enter Wistia URL', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'url' ),
+						),
+						'facebook_url'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Link', 'bb-powerpack' ),
+							'placeholder'	=> __( 'https://www.facebook.com/FacebookDevelopers/videos/10152454700553553', 'bb-powerpack' ),
+							'help'          => __( 'Make sure the Facebook video is publicly visible and should not be private or restricted. Also, make sure to provide URL in this format https://www.facebook.com/FacebookDevelopers/videos/10152454700553553', 'bb-powerpack' ),
 							'default'		=> '',
 							'connections'	=> array( 'url' ),
 						),

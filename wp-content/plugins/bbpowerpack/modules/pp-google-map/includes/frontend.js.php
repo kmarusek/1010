@@ -76,30 +76,31 @@
 	$marker_cluster_images_url = apply_filters( 'pp_google_map_cluster_images_url', BB_POWERPACK_URL . 'modules/pp-google-map/markerclusterer/images/m', $settings );
 	?>
 
-var options = $.extend({
-	id 					: '<?php echo $id; ?>',
-	apiUrl 				: '<?php echo pp_get_google_api_url(); ?>',
-	scrollZoom 			: '<?php echo ( 'yes' === $settings->scroll_zoom ) ? 'none' : 'auto'; ?>',
-	dragging 			: <?php echo $settings->dragging; ?>,
-	streetView: 		<?php echo ( 'yes' === $settings->street_view ) ? 'true' : 'false'; ?>,
-	mapTypeControl:		<?php echo ( 'yes' === $settings->map_type_control ) ? 'true' : 'false'; ?>,
-	zoomControl:		<?php echo ( 'yes' === $settings->zoom ) ? 'true' : 'false'; ?>,
-	fullscreenControl:  <?php echo ( 'yes' === $settings->fullscreen_control ) ? 'true' : 'false'; ?>,
-	mapType:           '<?php echo ( '' !== $settings->map_type ) ? $settings->map_type : 'roadmap'; ?>',
-	zoomType:          '<?php echo ( 'auto' === $settings->zoom_type ) ? 'auto' : 'custom'; ?>',
-	maxZoom:          <?php echo isset( $settings->max_zoom ) && ! empty( absint( $settings->max_zoom ) ) ? absint( $settings->max_zoom ) : 'false'; ?>,
-	mapZoom:            <?php echo ( '' !== $settings->map_zoom ) ? $settings->map_zoom : 12; ?>,
-	markerAnimation:   '<?php echo $settings->marker_animation; ?>',
-	markerClustering:	<?php echo isset( $settings->marker_clustering ) && 'yes' === $settings->marker_clustering ? 'true' : 'false'; ?>,
-	markerClusterImagesURL: '<?php echo esc_url( $marker_cluster_images_url ); ?>',
-	mapSkin:           '<?php echo $settings->map_skin; ?>',
-	mapStyleCode:      '<?php echo $map_style_code; ?>',
-	isBuilderActive:    <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
-	hideTooltip:       '<?php echo $settings->hide_tooltip; ?>',
-}, <?php echo json_encode($marker_data); ?>);
+	var options = $.extend({
+		id 					: '<?php echo $id; ?>',
+		apiUrl 				: '<?php echo pp_get_google_api_url(); ?>',
+		scrollZoom 			: '<?php echo ( 'yes' === $settings->scroll_zoom ) ? 'none' : 'auto'; ?>',
+		dragging 			: <?php echo $settings->dragging; ?>,
+		streetView: 		<?php echo ( 'yes' === $settings->street_view ) ? 'true' : 'false'; ?>,
+		mapTypeControl:		<?php echo ( 'yes' === $settings->map_type_control ) ? 'true' : 'false'; ?>,
+		zoomControl:		<?php echo ( 'yes' === $settings->zoom ) ? 'true' : 'false'; ?>,
+		fullscreenControl:  <?php echo ( 'yes' === $settings->fullscreen_control ) ? 'true' : 'false'; ?>,
+		mapType:           '<?php echo ( '' !== $settings->map_type ) ? $settings->map_type : 'roadmap'; ?>',
+		zoomType:          '<?php echo ( 'auto' === $settings->zoom_type ) ? 'auto' : 'custom'; ?>',
+		maxZoom:          <?php echo isset( $settings->max_zoom ) && ! empty( absint( $settings->max_zoom ) ) ? absint( $settings->max_zoom ) : 'false'; ?>,
+		mapZoom:            <?php echo ( '' !== $settings->map_zoom ) ? $settings->map_zoom : 12; ?>,
+		markerAnimation:   '<?php echo $settings->marker_animation; ?>',
+		markerClustering:	<?php echo isset( $settings->marker_clustering ) && 'yes' === $settings->marker_clustering ? 'true' : 'false'; ?>,
+		markerClusterImagesURL: '<?php echo esc_url( $marker_cluster_images_url ); ?>',
+		mapSkin:           '<?php echo $settings->map_skin; ?>',
+		mapStyleCode:      '<?php echo $map_style_code; ?>',
+		isBuilderActive:    <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
+		hideTooltip:       '<?php echo $settings->hide_tooltip; ?>',
+	}, <?php echo json_encode($marker_data); ?>);
 
-$(document).ready(function() {
-	new PPGoogleMap( options );
-});
+	if ( 'undefined' === typeof window['pp_map_<?php echo $id; ?>'] || ! window['pp_map_<?php echo $id; ?>'] instanceof PPGoogleMap ) {
+		window['pp_map_<?php echo $id; ?>'] = '';
+	}
+	window['pp_map_<?php echo $id; ?>'] = new PPGoogleMap( options );
 
 })(jQuery);

@@ -817,3 +817,31 @@ span.pp-switch-button:not(.pp-switch-active):hover {
 .pp-field-file-msg {
 	padding: 10px;
 }
+
+/* Group field */
+.pp-group-fieldset {
+	border: 1px solid #e7ebef !important;
+	margin-bottom: 10px;
+}
+.fl-builder-ui-skin--dark .pp-group-fieldset {
+	border: 1px solid #2c3339 !important;
+}
+.pp-group-fieldset:not(.expanded) > td.fl-field-control {
+    display: none;
+}
+body .fl-form-table tr.pp-group-fieldset > th.fl-field-label {
+	border-bottom: 1px solid #e7ebef !important;
+    padding-bottom: 10px !important;
+}
+body.fl-builder-ui-skin--dark .fl-form-table tr.pp-group-fieldset > th.fl-field-label {
+	border-bottom: 1px solid #2c3339 !important;
+}
+.pp-group-fieldset > th.fl-field-label > label {
+    cursor: pointer;
+}
+.pp-group-fields {
+	padding: 10px 15px;
+}
+.pp-group-field-row {
+    margin-bottom: 10px;
+}

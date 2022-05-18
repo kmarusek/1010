@@ -26,13 +26,6 @@ if ( $settings->post_type == 'product' ) {
 	global $post, $product;
 }
 
-$date_format = isset( $settings->date_format ) ? $settings->date_format : '';
-
-$author_html = apply_filters( 'pp_cg_post_author_html', sprintf(
-	_x( 'By %s', '%s stands for author name.', 'bb-powerpack' ),
-	'<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '"><span>' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '</span></a>'
-), $post_id, $settings );
-
 $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_target_new ? ' target="_blank" rel="noopener bookmark"' : '';
 
 $alternate_class = '';
@@ -63,32 +56,30 @@ $html_classes .= " $post_classes";
 		<?php if ( 'style-1' == $settings->post_grid_style_select ) { ?>
 
 			<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
-				<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
+				<?php if ( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
 					<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>>
 				<?php } ?>
 						<?php the_title(); ?>
-				<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
+				<?php if ( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
 					</a>
 				<?php } ?>
 			</<?php echo $settings->title_tag; ?>>
 
 			<div class="pp-content-post-meta pp-post-meta">
-				<?php if($settings->show_author == 'yes' ) : ?>
-					<span class="pp-content-post-author">
-					<?php echo $author_html; ?>
-					</span>
+				<?php if ( $settings->show_author == 'yes' ) : ?>
+					<?php
+					// Show post author.
+					include $module_dir . 'includes/templates/post-author.php';
+					?>
 				<?php endif; ?>
 				<?php if ( $settings->show_date == 'yes' ) : ?>
 					<?php if ( $settings->show_author == 'yes' ) : ?>
 						<span> <?php echo $settings->meta_separator; ?> </span>
 					<?php endif; ?>
-					<span class="pp-content-grid-date">
-						<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
-							<?php echo tribe_get_start_date( null, false, $date_format ); ?>
-						<?php } else { ?>
-							<?php echo get_the_date( $date_format ); ?>
-						<?php } ?>
-					</span>
+					<?php
+					// Show post date.
+					include $module_dir . 'includes/templates/post-date.php';
+					?>
 				<?php endif; ?>
 
 			</div>
@@ -107,7 +98,7 @@ $html_classes .= " $post_classes";
 		<div class="pp-content-grid-inner pp-content-body clearfix">
 			<?php do_action( 'pp_cg_post_body_open', $post_id, $settings ); ?>
 
-			<?php if('style-5' == $settings->post_grid_style_select && 'yes' == $settings->show_date) { ?>
+			<?php if ( 'style-5' == $settings->post_grid_style_select && 'yes' == $settings->show_date ) : ?>
 			<div class="pp-content-post-date pp-post-meta">
 				<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
 					<span class="pp-post-day"><?php echo tribe_get_start_date( null, false, 'd' ); ?></span>
@@ -117,44 +108,42 @@ $html_classes .= " $post_classes";
 					<span class="pp-post-month"><?php echo get_the_date('M'); ?></span>
 				<?php } ?>
 			</div>
-			<?php } ?>
+			<?php endif; ?>
 
 			<div class="pp-content-post-data">
-				<?php if( 'style-1' != $settings->post_grid_style_select && 'style-4' != $settings->post_grid_style_select ) { ?>
+				<?php if ( 'style-1' != $settings->post_grid_style_select && 'style-4' != $settings->post_grid_style_select ) { ?>
 					<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
-						<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
+						<?php if ( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
 							<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>>
 						<?php } ?>
 								<?php the_title(); ?>
-						<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
+						<?php if ( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
 							</a>
 						<?php } ?>
 					</<?php echo $settings->title_tag; ?>>
-					<?php if( 'style-2' == $settings->post_grid_style_select ) { ?>
+					<?php if ( 'style-2' == $settings->post_grid_style_select ) { ?>
 						<span class="pp-post-title-divider"></span>
 					<?php } ?>
 				<?php } ?>
 
-				<?php if( ($settings->show_author == 'yes' || $settings->show_date == 'yes' || $settings->show_categories == 'yes')
-						&& ('style-1' != $settings->post_grid_style_select) ) : ?>
+				<?php if ( ( $settings->show_author == 'yes' || $settings->show_date == 'yes' || $settings->show_categories == 'yes' )
+						&& ( 'style-1' != $settings->post_grid_style_select ) ) : ?>
 				<div class="pp-content-post-meta pp-post-meta">
-					<?php if( $settings->show_author == 'yes' ) : ?>
-						<span class="pp-content-post-author">
-						<?php echo $author_html; ?>
-						</span>
+					<?php if ( $settings->show_author == 'yes' ) : ?>
+						<?php
+						// Show post author.
+						include $module_dir . 'includes/templates/post-author.php';
+						?>
 					<?php endif; ?>
 
-					<?php if($settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select ) : ?>
-						<?php if($settings->show_author == 'yes' ) : ?>
+					<?php if ( $settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select ) : ?>
+						<?php if ( $settings->show_author == 'yes' ) : ?>
 							<span> <?php echo $settings->meta_separator; ?> </span>
 						<?php endif; ?>
-						<span class="pp-content-grid-date">
-							<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
-								<?php echo tribe_get_start_date( null, false, $date_format ); ?>
-							<?php } else { ?>
-								<?php echo get_the_date( $date_format ); ?>
-							<?php } ?>
-						</span>
+						<?php
+						// Show post date.
+						include $module_dir . 'includes/templates/post-date.php';
+						?>
 					<?php endif; ?>
 
 					<?php if( 'style-6' == $settings->post_grid_style_select || 'style-5' == $settings->post_grid_style_select ) : ?>
@@ -180,7 +169,7 @@ $html_classes .= " $post_classes";
 				</div>
 				<?php endif; ?>
 
-				<?php if( $settings->post_type == 'product' && $settings->product_rating == 'yes' && class_exists( 'WooCommerce' ) ) { ?>
+				<?php if ( $settings->post_type == 'product' && $settings->product_rating == 'yes' && class_exists( 'WooCommerce' ) ) { ?>
 					<?php include $module_dir . 'includes/templates/product-rating.php'; ?>
 				<?php } ?>
 
@@ -190,35 +179,35 @@ $html_classes .= " $post_classes";
 
 				<?php do_action( 'pp_cg_before_post_content', $post_id, $settings ); ?>
 
-				<?php if($settings->show_content == 'yes' || $settings->show_content == 'custom') : ?>
+				<?php if ( $settings->show_content == 'yes' || $settings->show_content == 'custom' ) : ?>
 					<?php include $module_dir . 'includes/templates/post-content.php'; ?>
 				<?php endif; ?>
 
 				<?php do_action( 'pp_cg_after_post_content', $post_id, $settings ); ?>
 
-				<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && 'product' != $settings->post_type && 'download' != $settings->post_type ) :
+				<?php if ( $settings->more_link_text != '' && $settings->more_link_type == 'button' && 'product' != $settings->post_type && 'download' != $settings->post_type ) :
 					include $module_dir . 'includes/templates/custom-button.php';
 				endif; ?>
 
-				<?php if( ( $settings->post_type == 'product' || $settings->post_type == 'download' ) && ( $settings->product_price == 'yes' || $settings->product_button == 'yes' ) ) { ?>
+				<?php if ( ( $settings->post_type == 'product' || $settings->post_type == 'download' ) && ( $settings->product_price == 'yes' || $settings->product_button == 'yes' ) ) { ?>
 					<?php if( $settings->product_price == 'yes' ) { ?>
 						<?php include $module_dir . 'includes/templates/product-price.php'; ?>
 					<?php } ?>
 
-					<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && ( 'product' == $settings->post_type || 'download' == $settings->post_type ) ) : ?>
+					<?php if ( $settings->more_link_text != '' && $settings->more_link_type == 'button' && ( 'product' == $settings->post_type || 'download' == $settings->post_type ) ) : ?>
 						<?php if ( 'no' == $settings->product_button ) :
 							include $module_dir . 'includes/templates/custom-button.php';
 						endif; ?>
 					<?php endif; ?>
 
-					<?php if( $settings->product_button == 'yes' ) { ?>
+					<?php if ( 'yes' == $settings->product_button ) { ?>
 						<?php include $module_dir . 'includes/templates/cart-button.php'; ?>
 					<?php } ?>
 				<?php } ?>
 
 			</div>
-			<?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' != $settings->post_grid_style_select && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select) ) : ?>
-				<?php include $module_dir . 'includes/templates/post-meta.php'; ?>
+			<?php if ( ( $settings->show_categories == 'yes' && taxonomy_exists( $settings->post_taxonomies ) && ! empty( $terms_list ) ) && ( 'style-3' != $settings->post_grid_style_select && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select ) ) : ?>
+				<?php include $module_dir . 'includes/templates/post-terms.php'; ?>
 			<?php endif; ?>
 
 			<?php do_action( 'pp_cg_post_body_close', $post_id, $settings ); ?>

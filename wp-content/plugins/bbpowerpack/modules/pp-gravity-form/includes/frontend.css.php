@@ -146,6 +146,11 @@ FLBuilderCSS::typography_field_rule(
 		<?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
 	<?php } ?>
 }
+.fl-builder-content .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield_required {
+	<?php if ( isset( $settings->form_required_text_color ) && ! empty( $settings->form_required_text_color ) ) { ?>
+	color: <?php echo pp_get_color_value( $settings->form_required_text_color ); ?>;
+	<?php } ?>
+}
 
 <?php
 FLBuilderCSS::responsive_rule(
@@ -410,6 +415,15 @@ FLBuilderCSS::responsive_rule(
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_footer {
 	<?php if ( $settings->button_alignment ) { ?>
 	text-align: <?php echo $settings->button_alignment; ?>;
+	<?php } ?>
+	<?php if ( 'left' === $settings->button_alignment ) { ?>
+		justify-content: flex-start;
+	<?php } ?>
+	<?php if ( 'right' === $settings->button_alignment ) { ?>
+		justify-content: flex-end;
+	<?php } ?>
+	<?php if ( 'center' === $settings->button_alignment ) { ?>
+		justify-content: center;
 	<?php } ?>
 }
 

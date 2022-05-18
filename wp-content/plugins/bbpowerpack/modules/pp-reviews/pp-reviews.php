@@ -504,6 +504,18 @@ class PPReviewsModule extends FLBuilderModule {
 		return $icon;
 	}
 
+	public function get_review_text( $review ) {
+		$settings = $this->settings;
+		$has_link = isset( $settings->link_to_review ) && 'yes' === $settings->link_to_review && 'default' !== $settings->review_source;
+		$text = $review['text'];
+
+		if ( $has_link && isset( $settings->content_length ) && ! empty( $settings->content_length ) ) {
+			$text = wp_trim_words( $text, $settings->content_length );
+		}
+
+		return $text;
+	}
+
 	/**
 	 * Get review source notice.
 	 *
@@ -566,15 +578,15 @@ BB_PowerPack::register_module(
 									'sections' => array( 'reviews_form' ),
 								),
 								'google'   => array(
-									'sections' => array( 'filter' ),
+									'sections' => array( 'filter', 'link', 'link_style', 'link_fonts' ),
 									'fields'   => array( 'google_place_id', 'google_reviews_count', 'transient_time' ),
 								),
 								'yelp'     => array(
-									'sections' => array( 'filter' ),
+									'sections' => array( 'filter', 'link', 'link_style', 'link_fonts' ),
 									'fields'   => array( 'yelp_business_id', 'yelp_reviews_count', 'transient_time' ),
 								),
 								'all'      => array(
-									'sections' => array( 'filter' ),
+									'sections' => array( 'filter', 'link', 'link_style', 'link_fonts' ),
 									'fields'   => array( 'yelp_business_id', 'google_place_id', 'total_reviews_count', 'transient_time' ),
 								),
 							),
@@ -713,6 +725,33 @@ BB_PowerPack::register_module(
 								'4'  => __( '4 stars', 'bb-powerpack' ),
 								'5'  => __( '5 stars', 'bb-powerpack' ),
 							),
+						),
+					),
+				),
+				'link' => array(
+					'title'     => __( 'Link', 'bb-powerpack' ),
+					'collapsed'	=> true,
+					'fields'    => array(
+						'link_to_review' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Link to Review', 'bb-powerpack' ),
+							'default' => 'no',
+							'toggle'  => array(
+								'yes' => array(
+									'fields' => array( 'content_length' ),
+								),
+							),
+						),
+						'link_text' => array(
+							'type'    => 'text',
+							'label'   => __( 'Link Text', 'bb-powerpack' ),
+							'default' => __( 'Read More', 'bb-powerpack' ),
+						),
+						'content_length' => array(
+							'type'  => 'unit',
+							'label' => __( 'Content Length', 'bb-powerpack' ),
+							'description' => __( 'Please note that Yelp already provides trimmed text.', 'bb-powerpack' ),
+							'units' => array( 'words' ),
 						),
 					),
 				),
@@ -1088,7 +1127,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.pp-review-content',
+								'selector' => '.pp-review-text',
 								'property' => 'color',
 							),
 						),
@@ -1100,7 +1139,7 @@ BB_PowerPack::register_module(
 							'slider'	=> true,
 							'preview' => array(
 								'type'     => 'css',
-								'selector' => '.pp-review-content',
+								'selector' => '.pp-review-text',
 								'property' => 'margin-top',
 								'unit'     => 'px',
 							),
@@ -1113,9 +1152,37 @@ BB_PowerPack::register_module(
 							'slider'	=> true,
 							'preview' => array(
 								'type'     => 'css',
-								'selector' => '.pp-review-content',
+								'selector' => '.pp-review-text',
 								'property' => 'margin-bottom',
 								'unit'     => 'px',
+							),
+						),
+					),
+				),
+				'link_style' => array(
+					'title'     => __( 'Link', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
+						'link_color' => array(
+							'type'        => 'color',
+							'label'       => __( 'Color', 'bb-powerpack' ),
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.pp-review-link a',
+								'property' => 'color',
+							),
+						),
+						'link_hover_color' => array(
+							'type'        => 'color',
+							'label'       => __( 'Hover Color', 'bb-powerpack' ),
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.pp-review-link a:hover',
+								'property' => 'color',
 							),
 						),
 					),
@@ -1617,6 +1684,21 @@ BB_PowerPack::register_module(
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.pp-review-text',
+							),
+						),
+					),
+				),
+				'link_fonts' => array(
+					'title'     => __( 'Link', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
+						'link_typography' => array(
+							'type'       => 'typography',
+							'label'      => __( 'Typography', 'bb-powerpack' ),
+							'responsive' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-review-link a',
 							),
 						),
 					),

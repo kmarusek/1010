@@ -18,7 +18,7 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 				$terms = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
 				$show_terms = array();
 				foreach ( $terms as $term ) {
-					$show_terms[get_term_link($term)] = $term->name;
+					$show_terms[ get_term_link( $term ) ] = $term->name;
 				}
 		?>
 			<div class="<?php echo $class_prefix; ?>-category pp-content-category-list pp-post-meta">

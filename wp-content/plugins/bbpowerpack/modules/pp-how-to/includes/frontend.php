@@ -264,9 +264,13 @@ if ( ! empty( $total_time ) ) {
 						<?php
 						if ( isset( $step->step_image ) && ! empty( $step->step_image ) ) {
 							$step_image_alt = get_post_meta( $step->step_image, '_wp_attachment_image_alt', true );
+							$image_src = wp_get_attachment_image_src( $step->step_image, 'large' );
+							$image_src = is_array( $image_src ) ? $image_src[0] : $step->step_image_src;
 							?>
 							<div class="pp-how-to-step-image">
-								<img src="<?php echo $step->step_image_src; ?>" alt="<?php echo $step_image_alt; ?>" />
+								<a href="<?php echo $image_src; ?>">
+									<img src="<?php echo $step->step_image_src; ?>" alt="<?php echo $step_image_alt; ?>" class="pp-how-to-step-img" />
+								</a>
 							</div>
 						<?php } ?>
 					</div>

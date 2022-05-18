@@ -34,11 +34,14 @@ $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h2';
 	</div>
 	<?php } ?>
 <?php } ?>
-<div id="modal-<?php echo $module->node; ?>" class="pp-modal-wrap<?php echo $has_overlay_animation ? ' has-overlay-animation' : ''; ?>">
+<?php
+$ariaLabelledby = ( 'yes' == $settings->modal_title_toggle ) ? ' aria-labelledby="modal-title-' . $id . '"' : '';
+?>
+<div id="modal-<?php echo $module->node; ?>" class="pp-modal-wrap<?php echo $has_overlay_animation ? ' has-overlay-animation' : ''; ?>" role="dialog"<?php echo $ariaLabelledby; ?>>
 	<div class="pp-modal-container">
 		<?php if ( 'win-top-right' == $settings->close_btn_position || 'win-top-left' == $settings->close_btn_position ) { ?>
-			<div class="pp-modal-close <?php echo $settings->close_btn_position; ?>">
-				<div class="bar-wrap">
+			<div class="pp-modal-close <?php echo $settings->close_btn_position; ?>" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Close', 'bb-powerpack' ); ?>">
+				<div class="bar-wrap" aria-hidden="true">
 					<span class="bar-1"></span>
 					<span class="bar-2"></span>
 				</div>
@@ -52,8 +55,8 @@ $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h2';
 			<div class="pp-modal-body">
 				<?php if ( 'no' == $settings->modal_title_toggle ) { ?>
 					<?php if ( 'win-top-right' != $settings->close_btn_position && 'win-top-left' != $settings->close_btn_position ) { ?>
-						<div class="pp-modal-close <?php echo $settings->close_btn_position; ?> no-modal-header">
-							<div class="bar-wrap">
+						<div class="pp-modal-close <?php echo $settings->close_btn_position; ?> no-modal-header" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Close', 'bb-powerpack' ); ?>">
+							<div class="bar-wrap" aria-hidden="true">
 								<span class="bar-1"></span>
 								<span class="bar-2"></span>
 							</div>
@@ -63,18 +66,18 @@ $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h2';
 				<?php if ( 'yes' == $settings->modal_title_toggle ) { ?>
 				<div class="pp-modal-header">
 					<?php if ( 'box-top-right' == $settings->close_btn_position ) { ?>
-						<?php echo sprintf( '<%s class="pp-modal-title">%s</%s>', $title_tag, $settings->modal_title, $title_tag ); ?>
+						<?php echo sprintf( '<%s id="modal-title-%s" class="pp-modal-title">%s</%s>', $title_tag, $id, $settings->modal_title, $title_tag ); ?>
 					<?php } ?>
 					<?php if ( 'win-top-right' != $settings->close_btn_position && 'win-top-left' != $settings->close_btn_position ) { ?>
-						<div class="pp-modal-close <?php echo $settings->close_btn_position; ?>">
-							<div class="bar-wrap">
+						<div class="pp-modal-close <?php echo $settings->close_btn_position; ?>" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Close', 'bb-powerpack' ); ?>">
+							<div class="bar-wrap" aria-hidden="true">
 								<span class="bar-1"></span>
 								<span class="bar-2"></span>
 							</div>
 						</div>
 					<?php } ?>
 					<?php if ( 'box-top-left' == $settings->close_btn_position ) { ?>
-						<?php echo sprintf( '<%s class="pp-modal-title">%s</%s>', $title_tag, $settings->modal_title, $title_tag ); ?>
+						<?php echo sprintf( '<%s id="modal-title-%s" class="pp-modal-title">%s</%s>', $title_tag, $id, $settings->modal_title, $title_tag ); ?>
 					<?php } ?>
 				</div>
 				<?php } ?>

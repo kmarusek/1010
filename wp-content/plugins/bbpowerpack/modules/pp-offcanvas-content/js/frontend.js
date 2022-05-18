@@ -126,7 +126,12 @@
 				window['pp_offcanvas_' + self.id]._onHashChange();
 			});
 
-			$('body').on('click', '.pp-offcanvas-content .pp-offcanvas-close', $.proxy(this._close, this));
+			$('body').on('click keyup', '.pp-offcanvas-content .pp-offcanvas-close', $.proxy(function(e) {
+				if (e.which == 1 || e.which == 13 || e.which == 32 || e.which == undefined) {
+					this._close();
+				}
+			}, this));
+
 			$('body').on('click keyup', '.pp-offcanvas-' + this.id + '-close', function(e) {
 				e.preventDefault();
 				window['pp_offcanvas_' + self.id]._close();
@@ -184,7 +189,6 @@
 			this._previous = this._active;
 			var self = this;
 
-			$('.pp-offcanvas-content-' + this.id).addClass('pp-offcanvas-content-visible').attr('tabindex', '0');
 			// init animation class.
 			$('html').addClass('pp-offcanvas-content-' + this.contentTransition);
 			$('html').addClass('pp-offcanvas-content-' + this.direction);
@@ -193,6 +197,7 @@
 			$('html').addClass('pp-offcanvas-content-reset');
 
 			setTimeout(function() {
+				$('.pp-offcanvas-content-' + self.id).addClass('pp-offcanvas-content-visible').attr('tabindex', '0');
 				$('.pp-offcanvas-content-' + self.id).trigger( 'focus' );
 			}, 250);
 
@@ -212,6 +217,7 @@
 			$(document).trigger( 'pp_offcanvas_before_close', [ $('.pp-offcanvas-content-' + this.id) ] );
 
 			var hash = location.hash;
+			var self = this;
 
 			$('html').removeClass('pp-offcanvas-content-open');
 			$('html').removeClass('pp-offcanvas-content-' + this.id + '-open');
@@ -230,6 +236,10 @@
 					}
 				}
 			}, this), 500);
+
+			setTimeout( function() {
+				$('.pp-offcanvas-content-' + self.id).addClass('pp-offcanvas-content-visible').attr( 'tabindex', '-1' );
+			}, 250 );
 
 			this.button.removeClass('pp-is-active');
 			this._active = false;

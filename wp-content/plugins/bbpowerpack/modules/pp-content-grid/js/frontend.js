@@ -545,7 +545,7 @@
 
 			if ( ('load_more' !== self.settings.pagination && 'scroll' !== self.settings.pagination) || self.isFiltering ) {
 				if ( self.settings.scrollTo && ! self.isDefaultFilter ) {
-					var offsetTop = wrap.offset().top - 200;
+					var offsetTop = $(self.nodeClass).offset().top - 200;
 					$('html, body').stop().animate({
 						scrollTop: offsetTop
 					}, 300);

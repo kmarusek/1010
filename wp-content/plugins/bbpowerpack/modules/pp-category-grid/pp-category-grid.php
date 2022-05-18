@@ -319,7 +319,7 @@ BB_PowerPack::register_module(
 						),
 						'category_image_size'       => array(
 							'type'    => 'photo-sizes',
-							'label'   => __( 'Image Size', 'fl-builder' ),
+							'label'   => __( 'Image Size', 'bb-powerpack' ),
 							'default' => 'medium',
 						),
 					),

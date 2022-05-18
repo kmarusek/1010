@@ -162,7 +162,8 @@ FLBuilderCSS::border_field_rule(
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column {
 	background-color: transparent;
 	border: 0;
-	padding: 0;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul {
@@ -331,6 +332,46 @@ FLBuilderCSS::typography_field_rule( array(
 			justify-content: flex-end;
 		<?php } ?>
 	<?php } ?> 
+}
+
+<?php
+// Feature icon font size.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'features_icon_size',
+	'selector'		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-icon",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+) );
+?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-icon {
+	<?php if ( isset( $settings->features_icon_color ) && ! empty( $settings->features_icon_color ) ) { ?>
+		color: #<?php echo $settings->features_icon_color; ?>;
+	<?php } ?>
+}
+
+<?php
+// Tooltip icon font size.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'tooltip_icon_size',
+	'selector'		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-icon",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+) );
+?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-icon {
+	<?php if ( isset( $settings->tooltip_icon_color ) && ! empty( $settings->tooltip_icon_color ) ) { ?>
+		color: #<?php echo $settings->tooltip_icon_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-text {
+	<?php if ( isset( $settings->tooltip_text_color ) && ! empty( $settings->tooltip_text_color ) ) { ?>
+		color: #<?php echo $settings->tooltip_text_color; ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->tooltip_bg_color ) && ! empty( $settings->tooltip_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->tooltip_bg_color ); ?>;
+	<?php } ?>
 }
 
 /* Highlight */
@@ -524,26 +565,41 @@ FLBuilderCSS::dimension_field_rule( array(
 FLBuilder::render_module_css(
 	'fl-button',
 	$id . ' .pp-pricing-table-column-' . $i,
-	array(
-		'align'             => 'center',
-		'bg_color'          => $pricing_column->btn_bg_color,
-		'bg_hover_color'    => $pricing_column->btn_bg_hover_color,
-		'bg_opacity'        => $pricing_column->btn_bg_opacity,
-		'bg_hover_opacity'  => $pricing_column->btn_bg_hover_opacity,
-		'button_transition' => $pricing_column->btn_button_transition,
-		'border_radius'     => $pricing_column->btn_border_radius,
-		'border_size'       => $pricing_column->btn_border_size,
-		'icon'              => $pricing_column->btn_icon,
-		'icon_position'     => $pricing_column->btn_icon_position,
-		'link'              => $pricing_column->button_url,
-		'link_target'       => '_self',
-		'style'             => $pricing_column->btn_style,
-		'text_color'        => $pricing_column->btn_text_color,
-		'text_hover_color'  => $pricing_column->btn_text_hover_color,
-		'width'             => $pricing_column->btn_width,
-	)
+	$module->get_button_settings( $pricing_column )
 );
 ?>
+
+<?php
+// Feature icon font size.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $pricing_column,
+	'setting_name'	=> 'features_icon_size',
+	'selector'		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-column-$i .pp-pricing-table-features .pp-pricing-item-icon",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+) );
+?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column-<?php echo $i; ?> .pp-pricing-table-features .pp-pricing-item-icon {
+	<?php if ( isset( $pricing_column->features_icon_color ) && ! empty( $pricing_column->features_icon_color ) ) { ?>
+		color: #<?php echo $pricing_column->features_icon_color; ?>;
+	<?php } ?>
+}
+
+<?php
+// Tooltip icon font size.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $pricing_column,
+	'setting_name'	=> 'tooltip_icon_size',
+	'selector'		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-column-$i .pp-pricing-table-features .pp-pricing-item-tooltip-icon",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+) );
+?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column-<?php echo $i; ?> .pp-pricing-table-features .pp-pricing-item-tooltip-icon {
+	<?php if ( isset( $pricing_column->tooltip_icon_color ) && ! empty( $pricing_column->tooltip_icon_color ) ) { ?>
+		color: #<?php echo $pricing_column->tooltip_icon_color; ?>;
+	<?php } ?>
+}
 
 <?php endfor; ?>
 

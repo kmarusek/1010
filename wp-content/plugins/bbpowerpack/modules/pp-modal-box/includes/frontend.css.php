@@ -156,10 +156,25 @@ FLBuilderCSS::responsive_rule( array(
     -o-transition: all 2s linear;
 }
 <?php } ?>
+
+<?php
+// Responsive height.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'modal_height',
+	'selector'		=> ".fl-node-$id .pp-modal.layout-standard, #modal-$id .pp-modal.layout-standard",
+	'prop'			=> 'height',
+	'unit' 			=> 'px',
+	'enabled'       => 'no' == $settings->modal_height_auto
+) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-modal.layout-standard,
 #modal-<?php echo $id; ?> .pp-modal.layout-standard {
     width: <?php echo $settings->modal_width; ?>px;
-    height: <?php echo 'yes' == $settings->modal_height_auto ? 'auto' : $settings->modal_height . 'px'; ?>;
+    <?php if ( 'yes' == $settings->modal_height_auto ) { ?>
+		height: auto;
+	<?php } ?>
     max-width: 90%;
     <?php if ( 'none' != $settings->modal_border ) { ?>
     border<?php echo $settings->modal_border_position == 'default' ? '' : '-' . $settings->modal_border_position; ?>: <?php echo $settings->modal_border_width; ?>px <?php echo $settings->modal_border; ?> #<?php echo $settings->modal_border_color; ?>;
@@ -201,27 +216,13 @@ FLBuilderCSS::responsive_rule( array(
 #modal-<?php echo $id; ?> .pp-modal .pp-modal-content {
     <?php echo ('' != $settings->content_text_color) ? 'color: #'.$settings->content_text_color.';' : ''; ?>
     padding: <?php echo $settings->modal_padding; ?>px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
 }
 .fl-node-<?php echo $id; ?> .pp-modal .pp-modal-content.pp-modal-frame:before,
 #modal-<?php echo $id; ?> .pp-modal .pp-modal-content.pp-modal-frame:before {
     background: url(<?php echo $module->url . 'loader.gif'; ?>) no-repeat;
-    background-position: 50%;
-    content: "";
-    display: block;
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3D(-50%, -50%, 0);
 }
 .fl-node-<?php echo $id; ?> .pp-modal .pp-modal-content-inner,
 #modal-<?php echo $id; ?> .pp-modal .pp-modal-content-inner {
-    position: relative;
-    height: 100%;
     <?php if ( 'fullscreen' == $settings->modal_layout ) { ?>
     overflow-y: auto;
     <?php } else { ?>
@@ -252,18 +253,12 @@ FLBuilderCSS::responsive_rule( array(
     height: <?php echo $settings->close_btn_size; ?>px;
     position: absolute;
     z-index: 5;
-    -webkit-transition: background 0.2s ease-in-out;
-    -moz-transition: background 0.2s ease-in-out;
-    transition: background 0.2s ease-in-out;
 }
 .fl-node-<?php echo $id; ?> .pp-modal-close:hover,
 #modal-<?php echo $id; ?> .pp-modal-close:hover {
 	<?php if ( isset( $settings->close_btn_bg_hover ) && ! empty( $settings->close_btn_bg_hover ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->close_btn_bg_hover ); ?>;
 	<?php } ?>
-    -webkit-transition: background 0.2s ease-in-out;
-    -moz-transition: background 0.2s ease-in-out;
-    transition: background 0.2s ease-in-out;
 }
 .fl-node-<?php echo $id; ?> .pp-modal-close.box-top-right,
 #modal-<?php echo $id; ?> .pp-modal-close.box-top-right {

@@ -146,7 +146,9 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 						if ( 'particles' == $anim_type || 'nasa' == $anim_type || 'bubble' == $anim_type || 'snow' == $anim_type || 'custom' == $anim_type ) { ?>
 							var appendDiv = '<div id="pp-particles-wrap-<?php echo $row->node; ?>" class="pp-particles-wrap"></div>';
 
-							$(".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap").prepend(appendDiv);
+							if ( $( '.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap #pp-particles-wrap-<?php echo $row->node; ?>' ).length === 0 ) {
+								$(".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap").prepend(appendDiv);
+							}
 
 							$('.pp-particles-wrap').each(function( i ) {
 								var newId = $(this).attr( 'id' ) + '-' + i;

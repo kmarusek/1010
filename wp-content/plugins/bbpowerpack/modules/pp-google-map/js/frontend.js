@@ -3,6 +3,7 @@
 		this.id                = settings.id;
 		this.nodeClass         = '.fl-node-' + this.id;
 		this.mapElement        = $(this.nodeClass).find('.pp-google-map');
+		this.mapObjects        = {};
 		this.scrollZoom        = settings.scrollZoom;
 		this.dragging          = settings.dragging;
 		this.streetView        = settings.streetView;
@@ -91,26 +92,31 @@
 				return false;
 			}
 
-			var map 		= new google.maps.Map( this.mapElement[0], this.mapOptions );
-			var infowindow 	= new google.maps.InfoWindow();
+			this.mapObjects = {
+				map: new google.maps.Map( this.mapElement[0], this.mapOptions ),
+				markers: []
+			};
+
+			this._initMarkers();
+		},
+
+		_initMarkers: function() {
 			var bounds      = new google.maps.LatLngBounds();
-			var allMarkers  = [];
 
 			for (i = 0; i < this.markerData.length; i++) {
 
 				var icon 		= '',
 					lat 		= this.markerData[i]['latitude'],
 					lng 		= this.markerData[i]['longitude'],
-					info_win 	= this.infoWindowText[i],
 					title 		= this.markerName[i],
 					icon_type 	= this.markerPoint[i],
 					icon_url 	= this.markerImage[i];
 					icon_width 	= this.markerImageWidth[i];
 					icon_height = this.markerImageHeight[i];
 
-				if ( lat != '' && lng != '') {
+				if ( lat != '' && lng != '' ) {
 
-					if ( icon_type == 'custom') {
+					if ( 'custom' === icon_type ) {
 
 						icon = {
 							url: icon_url
@@ -125,68 +131,76 @@
 					if ( 'auto' === this.zoomType ) {	
 						var loc = new google.maps.LatLng(lat, lng);
 						bounds.extend(loc);
-						map.fitBounds(bounds);
+						this.mapObjects.map.fitBounds(bounds);
 					}
 
 					var marker = new google.maps.Marker({
 						position:	new google.maps.LatLng(lat, lng),
-						map: 		map,
+						map: 		this.mapObjects.map,
 						title: 		title,
 						icon: 		icon,
 						animation: 	this.markerAnimation,
 					});
 
-					allMarkers.push( marker );
+					this.mapObjects.markers.push( marker );
 
-					if ( '' != info_win && 'yes' == this.enableInfo[i] ) {
-						var contentString = '<div class="pp-infowindow-content">';
-							contentString += info_win;
-							contentString += '</div>';
-
-						var infowindow = new google.maps.InfoWindow({
-							content: contentString,
-						});
-
-						infowindow.open(map, marker);
-
-					}
-					// Event that closes the Info Window with a click on the map
-					google.maps.event.addListener( map, 'click', ( function ( infowindow ) {
-						return function () {
-							infowindow.close();
-						}
-					})(infowindow));
-
-					if ( 'yes' === this.hideTooltip ) {
-						infowindow.close();
-					};
-
-					if ( '' != info_win && 'yes' == this.enableInfo[i] ) {
-						var self = this;
-						google.maps.event.addListener( marker, 'click', (function ( marker, i ) {
-							return function () {
-								var contentString = '<div class="pp-infowindow-content">';
-									contentString += self.infoWindowText[i];
-									contentString += '</div>';
-
-								infowindow.setContent( contentString );
-
-								infowindow.open( map, marker );
-							}
-						})(marker, i));
-					}
+					this._initInfoWindow( marker, i );
 				}
 			}
 
 			// Marker clustering
 			if ( 'undefined' !== typeof MarkerClusterer ) {
-				var markerCluster = new MarkerClusterer( map, allMarkers, {
+				var markerCluster = new MarkerClusterer( this.mapObjects.map, this.mapObjects.markers, {
 					imagePath: this.settings.markerClusterImagesURL
 				} );
 			}
 		},
-		_autoZoon: function () {
-			var map = new google.maps.Map( this.mapElement[0], this.mapOptions );
+
+		_initInfoWindow: function( marker, index ) {
+			var infoWin 	= new google.maps.InfoWindow();
+			var infoWinText = this.infoWindowText[index];
+
+			if ( '' != infoWinText && 'yes' == this.enableInfo[index] ) {
+				var contentString = '<div class="pp-infowindow-content">';
+					contentString += infoWinText;
+					contentString += '</div>';
+
+				var infoWin = new google.maps.InfoWindow({
+					content: contentString,
+				});
+
+				infoWin.open(this.mapObjects.map, marker);
+
+			}
+			// Event that closes the Info Window with a click on the map.
+			google.maps.event.addListener( this.mapObjects.map, 'click', ( function ( infowindow ) {
+				return function () {
+					infowindow.close();
+				}
+			})(infoWin));
+
+			if ( 'yes' === this.hideTooltip ) {
+				infoWin.close();
+			};
+
+			if ( '' != infoWinText && 'yes' == this.enableInfo[index] ) {
+				var self = this;
+				google.maps.event.addListener( marker, 'click', (function ( marker, i ) {
+					return function () {
+						var contentString = '<div class="pp-infowindow-content">';
+							contentString += self.infoWindowText[i];
+							contentString += '</div>';
+
+						infoWin.setContent( contentString );
+
+						infoWin.open( self.mapObjects.map, marker );
+					}
+				})(marker, index));
+			}
+		},
+
+		_autoZoom: function () {
+			var map = this.mapObjects.map;
 			for (i = 0; i < this.markerData.length; i++) {
 
 				var lat = this.markerData[i]['latitude'],

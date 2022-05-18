@@ -27,6 +27,8 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 				?>
 					<div class="pp-review-item swiper-slide">
 						<div class="pp-review">
+							<?php do_action( 'pp_reviews_before_review_content', $review, $settings ); ?>
+
 							<?php if ( isset( $settings->header_position ) && 'top' == $settings->header_position ) { ?>
 							<div class="pp-review-header">
 
@@ -61,8 +63,13 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 							<?php } ?>
 							<div class="pp-review-content">
 								<div class="pp-review-text">
-									<?php echo $review['text']; ?>
+									<?php echo $module->get_review_text( $review ); ?>
 								</div>
+								<?php if ( isset( $settings->link_to_review ) && 'yes' === $settings->link_to_review && 'default' !== $settings->review_source ) { ?>
+								<div class="pp-review-link">
+									<a href="<?php echo $review['review_url']; ?>" target="_blank" rel="noopener nofollow"><?php echo $settings->link_text; ?></a>
+								</div>
+								<?php } ?>
 							</div>
 							<?php if ( isset( $settings->header_position ) && 'bottom' == $settings->header_position ) { ?>
 							<div class="pp-review-header">
@@ -71,7 +78,7 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 								<div class="pp-review-image">
 									<img src="<?php echo $img_src; ?>" alt="<?php echo $review['author_name']; ?>" />
 								</div>
-							<?php } ?>
+								<?php } ?>
 
 								<cite class="pp-review-cite">
 									<span class="pp-review-name"><?php echo $review['author_name']; ?></span>
@@ -96,6 +103,8 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 								</div>
 							</div>
 							<?php } ?>
+
+							<?php do_action( 'pp_reviews_after_review_content', $review, $settings ); ?>
 						</div>
 					</div>
 				<?php
@@ -113,6 +122,8 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 				?>
 			<div class="pp-review-item pp-review-item-<?php echo $i; ?> swiper-slide">
 				<div class="pp-review">
+					<?php do_action( 'pp_reviews_before_review_content', $review, $settings ); ?>
+
 					<?php if ( isset( $settings->header_position ) && 'top' == $settings->header_position ) { ?>
 					<div class="pp-review-header">
 
@@ -168,6 +179,8 @@ if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
 						<div class="pp-review-icon"><i class="<?php echo $review->icon; ?>" aria-hidden="true"></i></div>
 					</div>
 					<?php } ?>
+
+					<?php do_action( 'pp_reviews_after_review_content', $review, $settings ); ?>
 				</div>
 			</div>
 				<?php

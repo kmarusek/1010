@@ -39,6 +39,16 @@ class PPHowToModule extends FLBuilderModule {
 		}
 	}
 
+	/**
+	 * @method enqueue_scripts
+	 */
+	public function enqueue_scripts() {
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->enable_lightbox ) && $this->settings->enable_lightbox == 'yes' ) ) {
+			$this->add_js( 'jquery-magnificpopup' );
+			$this->add_css( 'jquery-magnificpopup' );
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
 		if ( isset( $settings->total_time ) && ! empty( $settings->total_time ) ) {
 			$settings->time_minutes = $settings->total_time;
@@ -59,17 +69,17 @@ BB_PowerPack::register_module(
 			'title'    => __( 'General', 'bb-powerpack' ),
 			'sections' => array(
 				'schema_markup'   => array(
-					'title'  => 'Schema Markup',
+					'title'  => __( 'Schema Markup', 'bb-powerpack' ),
 					'fields' => array(
 						'enable_schema' => array(
 							'type'        => 'pp-switch',
 							'label'       => __( 'Enable Schema Markup', 'bb-powerpack' ),
 							'default'     => 'yes',
 							'description' => __( '<span style="line-height: 1.4;font-style: italic;"><br>Enable Schema Markup option if you are setting up a unique \'HowTo\' page on your website. The Module adds \'HowTo\' Page schema to the page as per Google\'s Structured Data guideline.<br><a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/data-types/how-to"><b style="color: #2d7ea2;">Click here</b></a> for more details.</span><p style="font-style: normal; padding: 10px; background: #fffbd4; color: #333; margin-top: 10px; border: 1px solid #FFEB3B; border-radius: 5px; font-size: 12px;">To use schema markup, your page must have only single instance of HowTo widget.</p>', 'bb-powerpack' ),
-							'options'     => [
+							'options'     => array(
 								'yes' => __( 'Yes', 'bb-powerpack' ),
 								'no'  => __( 'No', 'bb-powerpack' ),
-							],
+							),
 						),
 					),
 				),
@@ -302,6 +312,17 @@ BB_PowerPack::register_module(
 							'form'         => 'pp_how_to_steps',
 							'preview_text' => 'step_title',
 							'multiple'     => true,
+						),
+					),
+				),
+				'lightbox' => array(
+					'title'     => __( 'Lightbox', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
+						'enable_lightbox' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Enable Lightbox for images in steps', 'bb-powerpack' ),
+							'default' => 'no',
 						),
 					),
 				),

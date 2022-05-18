@@ -168,6 +168,12 @@
 			// Gallery module support.
 			FLBuilderLayout.refreshGalleries( content );
 
+			// WP audio shortcode support
+			FLBuilderLayout.resizeAudio( content );
+
+			// Slideshow module support.
+			FLBuilderLayout.resizeSlideshow();
+
 			// Content Grid module support.
 			if ( 'undefined' !== typeof $.fn.isotope ) {
 				var highestBox = 0;

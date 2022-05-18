@@ -19,7 +19,8 @@
         $breakpoint = '<= ' . $small_device;
     }
 
-	$load_on_scroll = isset( $settings->load_on_scroll ) ? floatval( $settings->load_on_scroll ) : 0;
+	$load_on_scroll  = isset( $settings->load_on_scroll ) ? floatval( $settings->load_on_scroll ) : 0;
+	$custom_class_id = isset( $settings->modal_custom_class ) && ! empty( $settings->modal_custom_class ) ? ',' . $settings->modal_custom_class : '';
 ?>
 
 var pp_modal_<?php echo $id; ?> = false;
@@ -129,7 +130,7 @@ var pp_modal_<?php echo $id; ?> = false;
     <?php } ?>
 
 	// Bind the click event to any element with the class.
-	<?php $custom_class_id = isset( $settings->modal_custom_class ) && ! empty( $settings->modal_custom_class ) ? ',' . $settings->modal_custom_class : ''; ?>
+	modal_<?php echo $id; ?>.customTrigger = '<?php echo str_replace( ',', '', $custom_class_id ); ?>';
     $(document).on('click', '.modal-<?php echo $id; ?><?php echo $custom_class_id; ?>', function(e) {
         e.preventDefault();
 		if ( pp_modal_<?php echo $id; ?> instanceof PPModalBox ) {

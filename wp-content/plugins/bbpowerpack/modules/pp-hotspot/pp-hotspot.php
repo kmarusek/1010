@@ -289,9 +289,18 @@ BB_PowerPack::register_module(
 							),
 							'toggle'  => array(
 								'yes' => array(
-									'fields'   => array( 'hide_tour_tablet', 'hide_tour_mobile', 'repeat_tour', 'autoplay_tour', 'launch_tour', 'non_active_marker' ),
+									'fields'   => array( 'hide_tour_desktop', 'hide_tour_tablet', 'hide_tour_mobile', 'repeat_tour', 'autoplay_tour', 'launch_tour', 'non_active_marker' ),
 									'sections' => array( 'hotspot_general', 'pre_next_text', 'button_style' ),
 								),
+							),
+						),
+						'hide_tour_desktop' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Hide Tour on Desktop', 'bb-powerpack' ),
+							'default' => 'no',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
 							),
 						),
 						'hide_tour_tablet' => array(

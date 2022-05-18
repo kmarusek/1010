@@ -1,3 +1,15 @@
+<?php
+$ig_access_token = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_instagram_access_token', true);
+$ig_token_generated_msg = '';
+
+if ( isset( $_GET['ig_access_token'] ) && ! empty( $_GET['ig_access_token'] ) ) {
+	$ig_access_token = esc_attr( $_GET['ig_access_token'] );
+	$ig_token_generated_msg = '<p style="color: red;">' . esc_html__( 'Token generated. Please save the changes.', 'bb-powerpack' ) . '</p>';
+	?>
+	<div class="notice notice-info"><p><strong><?php esc_html_e( 'A new Instagram Access Token is generated. Please save the settings below!', 'bb-powerpack' ); ?></strong></p></div>
+	<?php
+}
+?>
 <h3><?php _e( 'Integration', 'bb-powerpack' ); ?></h3>
 <p><?php echo __( 'Facebook App ID is required only if you want to use Facebook Comments Module. All other Facebook Modules can be used without a Facebook App ID. Note that this option will not work on local sites and on domains that don\'t have public access.', 'bb-powerpack' ); ?></p>
 
@@ -78,10 +90,18 @@
 			<label for="bb_powerpack_instagram_access_token"><?php esc_html_e('Instagram Access Token', 'bb-powerpack'); ?></label>
 		</th>
 		<td>
-			<input id="bb_powerpack_instagram_access_token" name="bb_powerpack_instagram_access_token" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option('bb_powerpack_instagram_access_token', true); ?>" />
+			<input id="bb_powerpack_instagram_access_token" name="bb_powerpack_instagram_access_token" type="text" class="regular-text" value="<?php echo $ig_access_token; ?>" />
+			<div style="margin-top: 8px; display: none;">
+				<a id="ig_token_generate_btn" class="button" href="https://www.instagram.com/oauth/authorize/?client_id=707735606362444&redirect_uri=https://connect.wpbeaveraddons.com/auth/instagram/redirect.php&response_type=code&scope=user_profile%2Cuser_media&state={<?php echo base64_encode( self::get_form_action( '&tab=' . $current_tab ) ); ?>}"><?php esc_html_e( 'Generate Token', 'bb-powerpack' ); ?></a>
+				<div style="display: inline-flex;flex-direction: column;margin-bottom: 10px;">
+					<span style="font-size: 12px; margin-left: 10px; margin-bottom: 5px;"><?php echo sprintf( esc_html__( 'Please note, use of this feature is subject to %1$s Facebook\'s Platform Terms %2$s', 'bb-powerpack' ), '<a href="https://developers.facebook.com/terms/" target="_blank">', '</a>' ); // translators: %1$s opening anchor tag, %2$s closing anchor tag. ?></span>
+					<span style="font-size: 12px; margin-left: 10px;"><?php esc_html_e( 'Also, you will need to manually generate the token for Instagram Business account.', 'bb-powerpack' ); ?></span>
+				</div>
+			</div>
+			<?php echo $ig_token_generated_msg; ?>
 			<p class="description">
 				<?php // translators: %s: Instagram Access Token document ?>
-				<?php echo sprintf( __( 'To get your Instagram Access Token, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), 'https://wpbeaveraddons.com/docs/powerpack/modules/instagram-feed/beaver-builder-instagram-module-setup-powerpack/' ); ?>
+				<?php echo sprintf( __( 'To manually generate Instagram Access Token, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), 'https://wpbeaveraddons.com/docs/powerpack/modules/instagram-feed/beaver-builder-instagram-module-setup-powerpack/' ); ?>
 			</p>
 		</td>
 	</tr>

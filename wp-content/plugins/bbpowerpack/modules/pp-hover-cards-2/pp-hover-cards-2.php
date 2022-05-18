@@ -182,15 +182,10 @@ BB_PowerPack::register_module('PPHoverCardsModuleNew', array(
                     'hover_card_spacing'    => array(
                         'type'                  => 'unit',
                         'label'                 => __('Gutter/Spacing', 'bb-powerpack'),
-                        'units'					=> array('%'),
+                        'units'					=> array('%', 'px'),
                         'slider'				=> true,
+                        'responsive'			=> true,
                         'default'               => 1,
-                        'preview'               => array(
-                            'type'                  => 'css',
-                            'selector'              => '.pp-hover-card',
-                            'property'              => 'margin-right',
-                            'unit'                  => '%'
-                        )
                     ),
                     'hover_card_height' => array(
                     	'type'              => 'pp-multitext',
@@ -297,6 +292,17 @@ BB_PowerPack::register_module('PPHoverCardsModuleNew', array(
                     		),
                     	)
                     ),
+					'hover_card_img_bg' => array(
+						'type'    => 'pp-switch',
+                        'label'   => __('Use Image as Background', 'bb-powerpack'),
+						'help'    => __( 'This option will set the image as background and fill the available space.', 'bb-powerpack' ),
+                        'default' => 'no',
+						'toggle'  => array(
+							'no' => array(
+								'fields' => array( 'hover_card_img_width' ),
+							),
+						),
+					),
                     'hover_card_img_width'  => array(
                         'type'                  => 'pp-switch',
                         'label'                 => __('Image Maximum Width', 'bb-powerpack'),

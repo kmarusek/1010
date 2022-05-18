@@ -47,6 +47,14 @@
 		)
 	);
 
+	FLBuilderCSS::typography_field_rule(
+		array(
+			'settings'     => $settings,
+			'setting_name' => 'link_typography',
+			'selector'     => ".fl-node-$id .pp-review-link a",
+		)
+	);
+
 	FLBuilderCSS::responsive_rule(
 		array(
 			'settings'     => $settings,
@@ -269,7 +277,7 @@
 	?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-review-content {
+.fl-node-<?php echo $id; ?> .pp-review-text {
 	<?php
 	if ( '' !== $settings->content_color ) {
 		?>
@@ -288,8 +296,18 @@
 		margin-bottom: <?php echo $settings->content_margin_bottom; ?>px;
 		<?php
 	}
-
 	?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-review-link a {
+	<?php if ( isset( $settings->link_color ) && ! empty( $settings->link_color ) ) { ?>
+		color: #<?php echo $settings->link_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-review-link a:hover {
+	<?php if ( isset( $settings->link_hover_color ) && ! empty( $settings->link_hover_color ) ) { ?>
+		color: #<?php echo $settings->link_hover_color; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-review:hover .pp-review-header {

@@ -2,25 +2,43 @@
 
 	$(document).ready(function() {
 		<?php
-			$hide_tablet = isset( $settings->hide_tour_tablet ) && ! empty( $settings->hide_tour_tablet ) ? $settings->hide_tour_tablet : '';
-			$hide_mobile = isset( $settings->hide_tour_mobile ) && ! empty( $settings->hide_tour_mobile ) ? $settings->hide_tour_mobile : '';
-			$bp_tablet   = ! empty( $global_settings->medium_breakpoint ) ? $global_settings->medium_breakpoint : 1025;
+			$hide_desktop = isset( $settings->hide_tour_desktop ) ? $settings->hide_tour_desktop : '';
+			$hide_tablet  = isset( $settings->hide_tour_tablet ) ? $settings->hide_tour_tablet : '';
+			$hide_mobile  = isset( $settings->hide_tour_mobile ) ? $settings->hide_tour_mobile : '';
+			$bp_tablet   = ! empty( $global_settings->medium_breakpoint ) ? $global_settings->medium_breakpoint : 1024;
 			$bp_mobile   = ! empty( $global_settings->responsive_breakpoint ) ? $global_settings->responsive_breakpoint : 768;
 			$max_width   = 'none';
 			$min_width   = 'none';
+			$show_on     = 'all';
 
-		if ( 'yes' === $hide_tablet && 'yes' !== $hide_mobile ) {
+		if ( 'yes' == $hide_desktop && 'yes' !== $hide_tablet && 'yes' !== $hide_mobile ) {
+			$min_width = $bp_tablet + 1;
+			$show_on = 'medium-responsive';
+		} elseif ( 'yes' == $hide_desktop && 'yes' === $hide_tablet && 'yes' !== $hide_mobile ) {
+			$min_width = $bp_mobile - 1;
+			$show_on = 'responsive';
+		} elseif ( 'yes' == $hide_desktop && 'yes' !== $hide_tablet && 'yes' === $hide_mobile ) {
 			$max_width = $bp_tablet;
 			$min_width = $bp_mobile;
-		} elseif ( 'yes' !== $hide_tablet && 'yes' === $hide_mobile ) {
-			$max_width = $bp_mobile - 1;
+			$show_on = 'medium';
+		} elseif ( 'yes' == $hide_desktop && 'yes' === $hide_tablet && 'yes' === $hide_mobile ) {
 			$min_width = 0;
-		} elseif ( 'yes' === $hide_tablet && 'yes' === $hide_mobile ) {
+			$show_on = 'none';
+		} elseif ( 'yes' !== $hide_desktop && 'yes' === $hide_tablet && 'yes' === $hide_mobile ) {
 			$max_width = $bp_tablet;
 			$min_width = 0;
+			$show_on = 'large';
+		} elseif ( 'yes' !== $hide_desktop && 'yes' !== $hide_tablet && 'yes' === $hide_mobile ) {
+			$max_width = $bp_mobile - 1;
+			$min_width = 0;
+			$show_on = 'large-medium';
+		} elseif ( 'yes' !== $hide_desktop && 'yes' === $hide_tablet && 'yes' !== $hide_mobile ) {
+			$max_width = $bp_tablet;
+			$min_width = $bp_mobile;
+			$show_on = 'large-responsive';
 		}
 		?>
-		new PPHotspot({
+		window['pp_hotspot_<?php echo $id; ?>'] = new PPHotspot({
 			id: 				'<?php echo $id; ?>',
 			markerLength:		'<?php echo sizeof( $settings->markers_content ); ?>',
 			tooltipEnable:		'<?php echo $settings->tooltip; ?>',
@@ -47,6 +65,11 @@
 			isBuilderActive:	<?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
 			maxWidth:           '<?php echo $max_width; ?>',
 			minWidth:           '<?php echo $min_width; ?>',
+			breakpoints:        {
+				tablet: <?php echo $bp_tablet; ?>,
+				mobile: <?php echo $bp_mobile; ?>
+			},
+			tourVisibility:    '<?php echo $show_on; ?>'
 		});
 	});
 

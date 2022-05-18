@@ -13,8 +13,7 @@ if ( $remove_child ) : // use this code to display only parent terms. ?>
     ?>
     <?php echo implode( $terms_separator, $terms_html ); ?>
 </div>
-<?php endif; ?>
-
+<?php else: ?>
 <div class="pp-content-category-list pp-post-meta">
     <?php $i = 1;
 	foreach ( $terms_list as $term ) :
@@ -26,3 +25,4 @@ if ( $remove_child ) : // use this code to display only parent terms. ?>
 		<?php } ?>
     <?php $i++; endforeach; ?>
 </div>
+<?php endif; ?>

@@ -7,6 +7,12 @@
 		this.target = this.nodeClass + ' .pp-slide-menu__menu';
 		this.backText = settings.backtext;
 
+		var index = 0;
+		$( this.nodeClass ).each(function() {
+			$(this).find( '.pp-sliding-menus' ).attr( 'id', 'pp-sliding-menus-' + index );
+			index++;
+		});
+
 		this._initMenu();
 	};
 
@@ -19,11 +25,11 @@
 		_initMenu: function ()
 		{
 			var self = this,
-			link = $(this.target).find('li.pp-slide-menu-item-has-children > a'),
-			submenu = link.next('.pp-slide-menu-sub-menu'),
-			arrow = link.prev('.pp-slide-menu-arrow'),
-			trigger = ( this.linknav ) ? link.add( arrow ) : arrow,
-			back = $('<li class="menu-item pp-slide-menu-item pp-slide-menu-back"><span class="pp-slide-menu-arrow"><i class="fa fa-angle-left"></i></span><a href="#" class="pp-slide-menu-item-link pp-menu-sub-item-back">' + this.backText + '</a></li>');
+				link = $(this.target).find('li.pp-slide-menu-item-has-children > a'),
+				submenu = link.next('.pp-slide-menu-sub-menu'),
+				arrow = link.prev('.pp-slide-menu-arrow'),
+				trigger = ( this.linknav ) ? link.add( arrow ) : arrow,
+				back = $('<li class="menu-item pp-slide-menu-item pp-slide-menu-back"><span class="pp-slide-menu-arrow"><i class="fa fa-angle-left"></i></span><a href="#" class="pp-slide-menu-item-link pp-menu-sub-item-back">' + this.backText + '</a></li>');
 
 			trigger.on( 'click', function(e) {
 				e.preventDefault();
@@ -54,18 +60,25 @@
 
 			submenu.prepend(back);
 
-			var activeSub = $( this.nodeClass ).find( '.pp-slide-menu-item-current' ).parents( '.sub-menu' );
-			if ( activeSub.length ) {
-				$( this.target ).addClass( 'pp-slide-menu-is-active-parent' );
+			$( this.nodeClass ).each( function() {
+				var activeSub = $( this ).find( '.pp-slide-menu-item-current' ).parents( '.sub-menu' );
+				var target = $( self.target );
+				if ( activeSub.length ) {
+					target.addClass( 'pp-slide-menu-is-active-parent' );
 
-				activeSub.addClass( 'pp-slide-menu-is-active' );
+					activeSub.addClass( 'pp-slide-menu-is-active' );
 
-				for ( var i = 1; i <= activeSub.length; i++ ) {
-					$( activeSub[i] ).addClass( 'pp-slide-menu-is-active-parent' );
+					for ( var i = 1; i <= activeSub.length; i++ ) {
+						$( activeSub[i] ).addClass( 'pp-slide-menu-is-active-parent' );
+					}
+
+					target.css( { height: $( activeSub[0] ).height() } );
+
+					$(document).on( 'pp-accordion-toggle-complete', function() {
+						target.removeAttr('style').css( { height: $( activeSub[0] ).height() } );
+					});
 				}
-
-				$( this.target ).css( { height: $( activeSub[0] ).height() } );
-			}
+			});
 		}
 	};
 

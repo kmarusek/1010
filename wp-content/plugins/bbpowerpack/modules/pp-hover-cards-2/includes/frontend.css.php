@@ -3,12 +3,17 @@ $cards_desktop			= $settings->hover_card_column_width['desktop'] == '' ? 3 : $se
 $cards_tablet			= $settings->hover_card_column_width['tablet'] === '' ? $cards_desktop : $settings->hover_card_column_width['tablet'];
 $cards_mobile			= $settings->hover_card_column_width['mobile'] === '' ? $cards_desktop : $settings->hover_card_column_width['mobile'];
 $spacing 				= '' == $settings->hover_card_spacing ? 0 : $settings->hover_card_spacing;
-$space_desktop 			= ( $settings->hover_card_column_width['desktop'] - 1 ) * $spacing;
-$space_tablet 			= ( $settings->hover_card_column_width['tablet'] - 1 ) * $spacing;
-$space_mobile 			= ( $settings->hover_card_column_width['mobile'] - 1 ) * $spacing;
-$desktop 				= ( 100 - $space_desktop ) / $cards_desktop;
-$tablet 				= ( 100 - $space_tablet ) / $cards_tablet;
-$mobile 				= ( 100 - $space_mobile ) / $cards_mobile;
+$spacing_tablet 		= isset( $settings->hover_card_spacing_medium ) && '' !== $settings->hover_card_spacing_medium ? $settings->hover_card_spacing_medium : $spacing;
+$spacing_mobile 		= isset( $settings->hover_card_spacing_responsive ) && '' !== $settings->hover_card_spacing_responsive ? $settings->hover_card_spacing_responsive : $spacing_tablet;
+$spacing_unit 			= isset( $settings->hover_card_spacing_unit ) ? $settings->hover_card_spacing_unit : '%';
+$spacing_unit_tablet 	= isset( $settings->hover_card_spacing_medium_unit ) ? $settings->hover_card_spacing_medium_unit : $spacing_unit;
+$spacing_unit_mobile 	= isset( $settings->hover_card_spacing_responsive_unit ) ? $settings->hover_card_spacing_responsive_unit : $spacing_unit_tablet;
+$size_desktop 			= ( $cards_desktop - 1 ) * $spacing;
+$size_tablet 			= ( $cards_tablet - 1 ) * $spacing_tablet;
+$size_mobile 			= ( $cards_mobile - 1 ) * $spacing_mobile;
+$desktop 				= ( 100 - $size_desktop ) / $cards_desktop;
+$tablet 				= ( 100 - $size_tablet ) / $cards_tablet;
+$mobile 				= ( 100 - $size_mobile ) / $cards_mobile;
 $hover_card_column_w 	= $settings->hover_card_column_width;
 $hover_card_column_w 	= (array) $hover_card_column_w;
 $max_height_desktop		= (isset( $settings->hover_card_max_height ) && $settings->hover_card_max_height['desktop'] > 0) ? $settings->hover_card_max_height['desktop'] : $settings->hover_card_height['desktop'];
@@ -38,9 +43,12 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php if ( isset( $settings->hover_card_max_width ) && $settings->hover_card_max_width['desktop'] > 0 ) { ?>
 	max-width: <?php echo $settings->hover_card_max_width['desktop']; ?>px;
 	<?php } ?>
-    margin-right: <?php echo $spacing; ?>%;
-	margin-bottom: <?php echo $spacing; ?>%;
+    margin-right: <?php echo $spacing; ?><?php echo $spacing_unit; ?>;
+	margin-bottom: <?php echo $spacing; ?><?php echo $spacing_unit; ?>;
 	float: left;
+	<?php if ( isset( $settings->hover_card_img_bg ) && 'yes' === $settings->hover_card_img_bg ) { ?>
+		display: flex;
+	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {
 	min-height: <?php echo $settings->hover_card_height['desktop']; ?>px;
@@ -48,6 +56,9 @@ FLBuilderCSS::typography_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-image {
 	<?php if ( $settings->hover_card_img_width == '100' ) { ?>
 	max-width: 100% !important;
+	<?php } ?>
+	<?php if ( isset( $settings->hover_card_img_bg ) && 'yes' === $settings->hover_card_img_bg ) { ?>
+		object-fit: cover;
 	<?php } ?>
 }
 
@@ -238,6 +249,7 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		float: none;
 		<?php } ?>
 		display: inline-block;
+		margin-right: <?php echo $spacing_tablet; ?><?php echo $spacing_unit_tablet; ?>;
     }
 	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {
 		min-height: <?php echo $settings->hover_card_height['tablet']; ?>px;
@@ -253,7 +265,7 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
         clear: left;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['desktop']; ?>n) {
-        margin-right: <?php echo $spacing; ?>%;
+        margin-right: <?php echo $spacing_tablet; ?><?php echo $spacing_unit_tablet; ?>;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['tablet']; ?>n) {
         margin-right: 0;
@@ -274,20 +286,21 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		<?php if ( isset( $settings->hover_card_max_width ) && $settings->hover_card_max_width['mobile'] > 0 ) { ?>
 		max-width: <?php echo $settings->hover_card_max_width['mobile']; ?>px;
 		<?php } ?>
+		margin-right: <?php echo $spacing_mobile; ?><?php echo $spacing_unit_mobile; ?>;
     }
 	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {
 		min-height: <?php echo $settings->hover_card_height['mobile']; ?>px;
 	}
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['tablet']; ?>n+1) {
-            clear: none;
+        clear: none;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['mobile']; ?>n+1) {
-            clear: left;
+        clear: left;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['tablet']; ?>n) {
-            margin-right: <?php echo $spacing; ?>%;
+        margin-right: <?php echo $spacing_mobile; ?><?php echo $spacing_unit_mobile; ?>;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['mobile']; ?>n) {
-            margin-right: 0;
+        margin-right: 0;
     }
 }

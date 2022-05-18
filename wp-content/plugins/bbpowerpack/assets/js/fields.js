@@ -21,6 +21,7 @@
                 PPFields._initSwitchFields();
                 PPFields._initMultitextFields();
                 PPFields._initDatepickerFields();
+                PPFields._initGroupFields();
                 //PPFields._settingsCloseEsc();
             });
             PPFields._bindEvents();
@@ -619,6 +620,14 @@
                 }
            });
         },
+
+		_initGroupFields: function() {
+			$('.fl-builder-settings .pp-group-fields').closest( 'tr[data-field]' ).addClass( 'pp-group-fieldset' );
+			$('body').off('click.pp-group-fieldset').on( 'click.pp-group-fieldset', '.fl-builder-settings .pp-group-fieldset > .fl-field-label', function(e) {
+				e.stopPropagation();
+				$(this).closest( '.pp-group-fieldset' ).toggleClass( 'expanded' );
+			} );
+		},
 
         /**
          * Close setting form lightbox by pressing Esc key.

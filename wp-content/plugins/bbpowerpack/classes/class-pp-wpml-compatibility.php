@@ -289,13 +289,7 @@ class BB_PowerPack_WPML {
 				'integration-class' => 'WPML_PP_Hover_Cards_2',
 			),
 			'pp-iconlist'           => array(
-				'fields'            => array(
-					array(
-						'field'       => 'list_items',
-						'type'        => __( 'Icon List - Item', 'bb-powerpack' ),
-						'editor_type' => 'LINE',
-					),
-				),
+				'fields'            => array(),
 				'integration-class' => 'WPML_PP_Icon_List',
 			),
 			'pp-image'              => array(

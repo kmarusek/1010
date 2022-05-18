@@ -596,6 +596,18 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			$image_url = isset( $item['image'] ) ? $item['image'] : '';
 		}
 
+		return $this->parse_insta_image_url( $image_url );
+	}
+
+	private function parse_insta_image_url( $image_url ) {
+		if ( 'yes' === $this->settings->feed_by_tags ) {
+			// convert to base64 to prevent CORS issue from Instagram.
+			$response = wp_remote_fopen( $image_url );
+			if ( $response ) {
+				$image_url = 'data:image/jpg;base64,' . base64_encode( $response );
+			}
+		}
+
 		return $image_url;
 	}
 

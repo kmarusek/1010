@@ -29,32 +29,57 @@ class PPPricingTableModule extends FLBuilderModule {
 	 */
 	public function render_button($column)
 	{
-		$btn_settings = array(
-			'align'				=> $this->settings->pricing_columns[$column]->btn_align,
-			'bg_color'          => $this->settings->pricing_columns[$column]->btn_bg_color,
-			'bg_hover_color'    => $this->settings->pricing_columns[$column]->btn_bg_hover_color,
-			'bg_opacity'        => $this->settings->pricing_columns[$column]->btn_bg_opacity,
-			'border_radius'     => $this->settings->pricing_columns[$column]->btn_border_radius,
-			'border_size'       => $this->settings->pricing_columns[$column]->btn_border_size,
-			'icon'              => $this->settings->pricing_columns[$column]->btn_icon,
-			'icon_position'     => $this->settings->pricing_columns[$column]->btn_icon_position,
-			'icon_animation'	=> $this->settings->pricing_columns[$column]->btn_icon_animation,
-			'link'              => $this->settings->pricing_columns[$column]->button_url,
-			'link_nofollow' 	=> $this->settings->pricing_columns[$column]->btn_link_nofollow,
-			'link_target'       => $this->settings->pricing_columns[$column]->btn_link_target,
-			'style'             => $this->settings->pricing_columns[$column]->btn_style,
-			'text'              => $this->get_shortcode_text( $this->settings->pricing_columns[$column]->button_text ),
-			'text_color'        => $this->settings->pricing_columns[$column]->btn_text_color,
-			'text_hover_color'  => $this->settings->pricing_columns[$column]->btn_text_hover_color,
-			'width'             => $this->settings->pricing_columns[$column]->btn_width,
-			'class'				=> 'pp-pricing-package-button'
-		);
+		$item = $this->settings->pricing_columns[ $column ];
+
+		$btn_settings = $this->get_button_settings( $item );
+
+		$btn_settings['text']  = $this->get_shortcode_text( $item->button_text );
+
+		// $btn_settings = array(
+		// 	'align'				=> $item->btn_align,
+		// 	'bg_color'          => $item->btn_bg_color,
+		// 	'bg_hover_color'    => $item->btn_bg_hover_color,
+		// 	'bg_opacity'        => $item->btn_bg_opacity,
+		// 	'border_radius'     => $item->btn_border_radius,
+		// 	'border_size'       => $item->btn_border_size,
+		// 	'icon'              => $item->btn_icon,
+		// 	'icon_position'     => $item->btn_icon_position,
+		// 	'icon_animation'	=> $item->btn_icon_animation,
+		// 	'link'              => $item->button_url,
+		// 	'link_nofollow' 	=> $item->btn_link_nofollow,
+		// 	'link_target'       => $item->btn_link_target,
+		// 	'style'             => $item->btn_style,
+		// 	'text'              => $this->get_shortcode_text( $item->button_text ),
+		// 	'text_color'        => $item->btn_text_color,
+		// 	'text_hover_color'  => $item->btn_text_hover_color,
+		// 	'width'             => $item->btn_width,
+		// 	'class'				=> 'pp-pricing-package-button'
+		// );
 
 		if ( 'yes' == $this->settings->dual_pricing ) {
-			$btn_settings['link_2'] = $this->settings->pricing_columns[$column]->button_url_2;
+			$btn_settings['link_2'] = $item->button_url_2;
 		}
 
 		FLBuilder::render_module_html('fl-button', $btn_settings);
+	}
+
+	public function get_button_settings( $pricing_column ) {
+		$settings = array(
+			'class'         => 'pp-pricing-package-button',
+			'text'          => $this->get_shortcode_text( $pricing_column->button_text ),
+			'link'          => $pricing_column->button_url,
+			'link_nofollow' => $pricing_column->button_url_nofollow,
+			'link_target'   => $pricing_column->button_url_target,
+		);
+
+		foreach ( $pricing_column as $key => $value ) {
+			if ( strstr( $key, 'btn_' ) ) {
+				$key              = str_replace( 'btn_', '', $key );
+				$settings[ $key ] = $value;
+			}
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -274,15 +299,153 @@ class PPPricingTableModule extends FLBuilderModule {
 				continue;
 			}
 
+			$pricing_column = $settings->pricing_columns[ $i ];
+
 			// Handle button old padding field.
-			$settings->pricing_columns[ $i ] = PP_Module_Fields::handle_multitext_field( $settings->pricing_columns[ $i ], 'button_padding', 'padding', 'button_padding' );
+			$settings->pricing_columns[ $i ] = PP_Module_Fields::handle_multitext_field( $pricing_column, 'button_padding', 'padding', 'button_padding' );
 
 			// Handle button old margin field.
-			$settings->pricing_columns[ $i ] = PP_Module_Fields::handle_multitext_field( $settings->pricing_columns[ $i ], 'button_margin', 'margin', 'button_margin' );
+			$settings->pricing_columns[ $i ] = PP_Module_Fields::handle_multitext_field( $pricing_column, 'button_margin', 'margin', 'button_margin' );
 
+			// Handle old link fields.
+			if ( isset( $settings->pricing_columns[ $i ]->btn_link_target ) ) {
+				$settings->pricing_columns[ $i ]->button_url_target = $settings->pricing_columns[ $i ]->btn_link_target;
+				unset( $settings->pricing_columns[ $i ]->btn_link_target );
+			}
+			if ( isset( $settings->pricing_columns[ $i ]->btn_link_nofollow ) ) {
+				$settings->pricing_columns[ $i ]->button_url_nofollow = $settings->pricing_columns[ $i ]->btn_link_nofollow;
+				unset( $settings->pricing_columns[ $i ]->btn_link_nofollow );
+			}
+
+			// Handle old button module settings.
+			$helper->filter_child_module_settings( 'button', $settings->pricing_columns[ $i ], array(
+				'btn_3d'                 => 'three_d',
+				'btn_style'              => 'style',
+				'btn_padding'            => 'padding',
+				'btn_padding_top'        => 'padding_top',
+				'btn_padding_bottom'     => 'padding_bottom',
+				'btn_padding_left'       => 'padding_left',
+				'btn_padding_right'      => 'padding_right',
+				'btn_mobile_align'       => 'mobile_align',
+				'btn_align_responsive'   => 'align_responsive',
+				'btn_font_size'          => 'font_size',
+				'btn_font_size_unit'     => 'font_size_unit',
+				'btn_typography'         => 'typography',
+				'btn_bg_color'           => 'bg_color',
+				'btn_bg_hover_color'     => 'bg_hover_color',
+				'btn_bg_opacity'         => 'bg_opacity',
+				'btn_bg_hover_opacity'   => 'bg_hover_opacity',
+				'btn_border'             => 'border',
+				'btn_border_hover_color' => 'border_hover_color',
+				'btn_border_radius'      => 'border_radius',
+				'btn_border_size'        => 'border_size',
+			) );
+
+			// Convert 'features' field to 'extended_features'.
+			$features_empty          = $this->is_features_empty( $pricing_column, 'features' );
+			$extended_features_empty = $this->is_features_empty( $pricing_column, 'extended_features' );
+
+			if ( ! $features_empty && $extended_features_empty ) {
+
+				$extended_features = array();
+
+				foreach ( $pricing_column->features as $feature ) {
+					$feature_obj              = new stdClass;
+					$feature_obj->text        = $feature;
+					$feature_obj->icon        = '';
+					$feature_obj->tooltip     = '';
+
+					$extended_features[] = $feature_obj;
+				}
+
+				$settings->pricing_columns[ $i ]->extended_features = $extended_features;
+
+			}
 		}
 
 		return $settings;
+	}
+
+	/**
+	 * Check if the Price Column's 'features' or 'extended_features' is empty.
+	 * This field was available prior to version 2.23 and was replaced by 'extended_features'.
+	 *
+	 * @since 2.5
+	 * @method update
+	 * @param object $pricing_column
+	 * @method string is_features_empty
+	 */
+	private function is_features_empty( $pricing_column, $key = 'features' ) {
+		$is_empty = true;
+
+		if ( ! empty( $pricing_column->{ $key } ) && 'array' === gettype( $pricing_column->{ $key } ) ) {
+			$is_empty = ( 1 === count( $pricing_column->{ $key } ) && empty( $pricing_column->{ $key }[0] ) );
+		} else {
+			$is_empty = empty( $pricing_column->{ $key } );
+		}
+
+		return $is_empty;
+	}
+
+	public function render_feature( $col_index ) {
+		$html = '<ul class="pp-pricing-table-features" role="list">';
+		$html .= $this->get_extended_features_list( $col_index );
+		$html .= '</ul>';
+
+		echo $html;
+	}
+
+	public function get_extended_features_list( $col_index ) {
+		$settings       = $this->settings;
+		$pricing_column = $settings->pricing_columns[ $col_index ];
+		$html           = '';
+		$list_index     = 1;
+
+		$extended_features = (array) $pricing_column->extended_features;
+
+		foreach ( $extended_features as $key => $ext_feature ) :
+
+			$feature = (array) $ext_feature;
+
+			$icon = '';
+			// Default feature icon
+			if ( ! empty( $settings->default_feature_icon ) ) {
+				FLBuilderIcons::enqueue_styles_for_icon( $settings->default_feature_icon );
+				$icon = '<div class="pp-pricing-item-icon-wrapper"><i class="pp-pricing-item-icon ' . $settings->default_feature_icon . '" aria-hidden="true"></i></div>';
+			}
+
+			if ( ! empty( $feature['icon'] ) ) {
+				FLBuilderIcons::enqueue_styles_for_icon( $feature['icon'] );
+				$icon = '<div class="pp-pricing-item-icon-wrapper"><i class="pp-pricing-item-icon ' . $feature['icon'] . '" aria-hidden="true"></i></div>';
+			}
+
+			$text = '';
+			if ( ! empty( $feature['text'] ) ) {
+				if ( ! empty( $settings->matrix_items ) && isset( $settings->matrix_items[ $list_index - 1 ] ) ) {
+					$text = '<span class="pp-pricing-table-item-label">' . trim( $settings->matrix_items[ $list_index - 1 ] ) . '</span>';
+				}
+				$text .= '<span class="pp-pricing-table-item-text">' . trim( $feature['text'] ) . '</span>';
+			}
+
+			$tooltip_icon = empty( $settings->default_feature_tooltip_icon ) ? 'fas fa-question-circle' : $settings->default_feature_tooltip_icon;
+
+			$tooltip = '';
+
+			if ( ! empty( $feature['tooltip'] ) ) {
+				FLBuilderIcons::enqueue_styles_for_icon( $tooltip_icon );
+				$tooltip  = '<div class="pp-pricing-item-tooltip"><i class="pp-pricing-item-tooltip-icon ' . esc_attr( $tooltip_icon ) . '" aria-hidden="true"></i>';
+				$tooltip .= '<div class="pp-pricing-item-tooltip-text" style="display: none;">';
+				$tooltip .= esc_html( $feature['tooltip'] );
+				$tooltip .= '</div></div>';
+			}
+
+			$html .= '<li role="listitem" class="pp-pricing-table-item-' . $list_index . '"><div class="pp-pricing-table-item">' . $icon . $text . $tooltip . '</div></li>';
+
+			$list_index++;
+
+		endforeach;
+
+		return $html;
 	}
 }
 
@@ -327,7 +490,8 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 				)
 			),
 			'dual_pricing_settings'	=> array(
-				'title'		=> __('Dual Pricing Button', 'bb-powerpack'),
+				'collapsed' => true,
+				'title'		=> __('Dual Pricing Buttons', 'bb-powerpack'),
 				'fields'	=> array(
 					'dp_button_1_text'	=> array(
 						'type'			=> 'text',
@@ -525,7 +689,26 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 						)
 					),
 				)
-			)
+			),
+			'icons_section'           => array(
+				'title'     => __( 'Icons', 'bb-powerpack' ),
+				'collapsed' => true,
+				'fields'    => array(
+					'default_feature_icon'         => array(
+						'type'        => 'icon',
+						'label'       => __( 'Default Feature Icon', 'bb-powerpack' ),
+						'show_remove' => true,
+						'help'        => __( 'Icon can be overridden in the individual feature options.', 'bb-powerpack' ),
+					),
+					'default_feature_tooltip_icon' => array(
+						'type'        => 'icon',
+						'label'       => __( 'Feature Tooltip Icon', 'bb-powerpack' ),
+						'default'     => 'fas fa-question-circle',
+						'show_remove' => true,
+						'help'        => __( 'If not specified, the "Question Mark" icon will be used.', 'bb-powerpack' ),
+					),
+				),
+			),
 		)
 	),
 	'columns'      => array(
@@ -731,6 +914,7 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 			),
 			'featured_title_style'	=> array(
 				'title'	=> __( 'Featured Title', 'bb-powerpack' ),
+				'collapsed' => true,
 				'fields'	=> array(
 					'featured_title_bg_color' => array(
 						'type'              => 'color',
@@ -775,6 +959,7 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 			),
 			'title_style'	=> array(
 				'title'	=> __( 'Package Title', 'bb-powerpack' ),
+				'collapsed' => true,
 				'fields'	=> array(
 					'title_position' => array(
 						'type'		=> 'pp-switch',
@@ -828,6 +1013,7 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 			),
 			'price_style'	=> array(
 				'title'	=> __( 'Price', 'bb-powerpack' ),
+				'collapsed' => true,
 				'fields'	=> array(
 					'price_bg_color'  => array(
 						'type'          => 'color',
@@ -884,6 +1070,7 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 			),
 			'features_style'	=> array(
 				'title'	=> __( 'Items', 'bb-powerpack' ),
+				'collapsed' => true,
 				'fields'	=> array(
 					'features_min_height'   => array(
 						'type'          => 'unit',
@@ -988,6 +1175,77 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 							'selector'			=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-table-features',
 							'property'			=> 'padding',
 							'unit'				=> 'px'
+						)
+					),
+					'features_icon_size'   => array(
+						'type'          => 'unit',
+						'label'         => __('Icon Size', 'bb-powerpack'),
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-icon',
+							'property'		=> 'font-size',
+							'unit'			=> 'px'
+						)
+					),
+					'features_icon_color'   => array(
+						'type'      => 'color',
+						'label'     => __('Icon Color', 'bb-powerpack'),
+						'show_reset' => true,
+						'connections'	=> array('color'),
+						'preview'   => array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-icon',
+							'property'	=> 'color',
+						)
+					),
+					'tooltip_icon_size'   => array(
+						'type'          => 'unit',
+						'label'         => __('Tooltip Icon Size', 'bb-powerpack'),
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-icon',
+							'property'		=> 'font-size',
+							'unit'			=> 'px'
+						)
+					),
+					'tooltip_icon_color'   => array(
+						'type'      => 'color',
+						'label'     => __('Tooltip Icon Color', 'bb-powerpack'),
+						'show_reset' => true,
+						'connections'	=> array('color'),
+						'preview'   => array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-icon',
+							'property'	=> 'color',
+						)
+					),
+					'tooltip_text_color'   => array(
+						'type'        => 'color',
+						'label'       => __('Tooltip Text Color', 'bb-powerpack'),
+						'show_reset'  => true,
+						'connections' => array('color'),
+						'preview'     => array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-text',
+							'property'	=> 'color',
+						)
+					),
+					'tooltip_bg_color'   => array(
+						'type'        => 'color',
+						'label'       => __('Tooltip Background Color', 'bb-powerpack'),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'connections' => array('color'),
+						'preview'     => array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-text',
+							'property'	=> 'background-color',
 						)
 					),
 				)
@@ -1500,12 +1758,34 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 				'features'       => array(
 					'title'         => _x( 'Items', 'items to be displayed in the pricing box.', 'bb-powerpack' ),
 					'fields'        => array(
-						'features'          => array(
-							'type'          => 'text',
-							'label'         => '',
-							'placeholder'   => __( 'One item per line. HTML is okay.', 'bb-powerpack' ),
-							'multiple'      => true
-						)
+						// 'features'          => array(
+						// 	'type'          => 'text',
+						// 	'label'         => '',
+						// 	'placeholder'   => __( 'One item per line. HTML is okay.', 'bb-powerpack' ),
+						// 	'multiple'      => true
+						// ),
+						'extended_features' => array(
+							'type' => 'pp-group',
+							'label' => __( 'Item', 'bb-powerpack' ),
+							'multiple' => true,
+							'fields' => array(
+								'text'   => array(
+									'type'          => 'text',
+									'label'         => __( 'Text', 'bb-powerpack' ),
+									'placeholder'   => __( 'Enter item text here', 'bb-powerpack' ),
+								),
+								'icon'  => array(
+									'type'          => 'icon',
+									'label'         => __( 'Icon', 'bb-powerpack' ),
+									'show_remove'   => true
+								),
+								'tooltip' => array(
+									'type'          => 'text',
+									'label'         => __( 'Tooltip', 'bb-powerpack' ),
+									'placeholder'   => __( 'Enter item tooltip text here', 'bb-powerpack' ),
+								),
+							),
+						),
 					)
 				)
 			)
@@ -1525,36 +1805,14 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 						'button_url'    => array(
 							'type'          => 'link',
 							'label'         => __('Button URL', 'bb-powerpack'),
+							'show_target'   => true,
+							'show_nofollow' => true,
 							'connections'   => array( 'url' ),
 						),
 						'button_url_2'    => array(
 							'type'          => 'link',
-							'label'         => __('Button URL 2', 'bb-powerpack'),
+							'label'         => __( 'Button URL 2', 'bb-powerpack' ),
 							'connections'   => array( 'url' ),
-						),
-						'btn_link_target'    	=> array(
-							'type'          => 'pp-switch',
-							'label'         => __('Link Target', 'bb-powerpack'),
-							'default'       => '_self',
-							'options'       => array(
-								'_self'         => __('Same Window', 'bb-powerpack'),
-								'_blank'        => __('New Window', 'bb-powerpack')
-							),
-							'preview'       => array(
-								'type'          => 'none'
-							)
-						),
-						'btn_link_nofollow' => array(
-							'type'          	=> 'pp-switch',
-							'label' 	        => __('Link No Follow', 'bb-powerpack'),
-							'default'       => 'no',
-							'options' 			=> array(
-								'yes' 				=> __('Yes', 'bb-powerpack'),
-								'no' 				=> __('No', 'bb-powerpack'),
-							),
-							'preview'       	=> array(
-								'type'          	=> 'none'
-							)
 						),
 						'btn_icon'      => array(
 							'type'          => 'icon',
@@ -1582,6 +1840,7 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 					)
 				),
 				'btn_colors'     => array(
+					'collapsed' => true,
 					'title'         => __('Button Colors', 'bb-powerpack'),
 					'fields'        => array(
 						'btn_bg_color'  => array(
@@ -1617,6 +1876,7 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 					)
 				),
 				'btn_style'     => array(
+					'collapsed' => true,
 					'title'         => __('Button Style', 'bb-powerpack'),
 					'fields'        => array(
 						'btn_style'     => array(
@@ -1626,7 +1886,7 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							'options'       => array(
 								'flat'          => __('Flat', 'bb-powerpack'),
 								'gradient'      => __('Gradient', 'bb-powerpack'),
-								'transparent'   => __('Transparent', 'bb-powerpack')
+								//'transparent'   => __('Transparent', 'bb-powerpack')
 							),
 							'toggle'        => array(
 								'transparent'   => array(
@@ -1634,32 +1894,32 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 								)
 							)
 						),
-						'btn_border_size' => array(
-							'type'          => 'unit',
-							'label'         => __('Border Size', 'bb-powerpack'),
-							'default'       => '2',
-							'units'   		=> array( 'px' ),
-							'slider'        => true,
-							'placeholder'   => '0'
-						),
-						'btn_bg_opacity' => array(
-							'type'          => 'text',
-							'label'         => __('Background Opacity', 'bb-powerpack'),
-							'default'       => '0',
-							'description'   => '%',
-							'maxlength'     => '3',
-							'size'          => '5',
-							'placeholder'   => '0'
-						),
-						'btn_bg_hover_opacity' => array(
-							'type'          => 'text',
-							'label'         => __('Background Hover Opacity', 'bb-powerpack'),
-							'default'       => '0',
-							'description'   => '%',
-							'maxlength'     => '3',
-							'size'          => '5',
-							'placeholder'   => '0'
-						),
+						// 'btn_border_size' => array(
+						// 	'type'          => 'unit',
+						// 	'label'         => __('Border Size', 'bb-powerpack'),
+						// 	'default'       => '2',
+						// 	'units'   		=> array( 'px' ),
+						// 	'slider'        => true,
+						// 	'placeholder'   => '0'
+						// ),
+						// 'btn_bg_opacity' => array(
+						// 	'type'          => 'text',
+						// 	'label'         => __('Background Opacity', 'bb-powerpack'),
+						// 	'default'       => '0',
+						// 	'description'   => '%',
+						// 	'maxlength'     => '3',
+						// 	'size'          => '5',
+						// 	'placeholder'   => '0'
+						// ),
+						// 'btn_bg_hover_opacity' => array(
+						// 	'type'          => 'text',
+						// 	'label'         => __('Background Hover Opacity', 'bb-powerpack'),
+						// 	'default'       => '0',
+						// 	'description'   => '%',
+						// 	'maxlength'     => '3',
+						// 	'size'          => '5',
+						// 	'placeholder'   => '0'
+						// ),
 						'btn_button_transition' => array(
 							'type'          => 'pp-switch',
 							'label'         => __('Transition', 'bb-powerpack'),
@@ -1671,7 +1931,19 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 						)
 					)
 				),
+				'btn_border' => array(
+					'collapsed' => true,
+					'title'  => __( 'Button Border', 'bb-powerpack' ),
+					'fields' => array(
+						'btn_border'	=> array(
+							'type'		   => 'border',
+							'label'		   => __('Border', 'bb-powerpack'),
+							'responsive'   => true,
+						),
+					),
+				),
 				'btn_structure' => array(
+					'collapsed' => true,
 					'title'         => __('Button Structure', 'bb-powerpack'),
 					'fields'        => array(
 						'btn_width'     => array(
@@ -1719,13 +1991,6 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 								'unit'				=> 'px'
 							)
 						),
-						'btn_border_radius' => array(
-							'type'          => 'unit',
-							'label'         => __('Round Corners', 'bb-powerpack'),
-							'default'       => '4',
-							'units'			=> array('px'),
-							'slider'		=> true,
-						)
 					)
 				)
 			)
@@ -1760,6 +2025,37 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							'responsive'		=> true,
 						),
 					)
+				),
+				'items_style' => array(
+					'title'  => __( 'Items', 'bb-powerpack' ),
+					'fields' => array(
+						'features_icon_size'   => array(
+							'type'          => 'unit',
+							'label'         => __('Icon Size', 'bb-powerpack'),
+							'units'			=> array( 'px' ),
+							'slider'		=> true,
+							'responsive'	=> true,
+						),
+						'features_icon_color'   => array(
+							'type'      => 'color',
+							'label'     => __('Icon Color', 'bb-powerpack'),
+							'show_reset' => true,
+							'connections'	=> array('color'),
+						),
+						'tooltip_icon_size'   => array(
+							'type'          => 'unit',
+							'label'         => __('Tooltip Icon Size', 'bb-powerpack'),
+							'units'			=> array( 'px' ),
+							'slider'		=> true,
+							'responsive'	=> true,
+						),
+						'tooltip_icon_color'   => array(
+							'type'      => 'color',
+							'label'     => __('Tooltip Icon Color', 'bb-powerpack'),
+							'show_reset' => true,
+							'connections'	=> array('color'),
+						),
+					),
 				),
 			)
 		)

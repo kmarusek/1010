@@ -70,6 +70,13 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 		<?php } ?>
 	<?php } ?>
 }
+div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title:hover span.pp-primary-title {
+	<?php if ( isset( $settings->heading_hover_color ) && ! empty( $settings->heading_hover_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->heading_hover_color ); ?>;
+		-webkit-text-fill-color: <?php echo pp_get_color_value( $settings->heading_hover_color ); ?>;
+		background: none;
+	<?php } ?>
+}
 
 <?php
 // Secondary Title - Border Width
@@ -131,6 +138,13 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 		border-color: <?php echo pp_get_color_value( $settings->heading2_border_color ); ?>;
 	<?php } ?>
 	margin-left: <?php echo $settings->heading2_left_margin; ?>px;
+}
+div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title:hover span.pp-secondary-title {
+	<?php if ( isset( $settings->heading2_hover_color ) && ! empty( $settings->heading2_hover_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->heading2_hover_color ); ?>;
+		-webkit-text-fill-color: <?php echo pp_get_color_value( $settings->heading2_hover_color ); ?>;
+		background: none;
+	<?php } ?>
 }
 
 <?php

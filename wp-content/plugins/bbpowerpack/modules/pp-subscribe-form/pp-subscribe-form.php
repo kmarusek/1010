@@ -149,7 +149,7 @@ class PPSubscribeFormModule extends FLBuilderModule {
 			}
 
 			if ( ! isset( $settings->service ) ) {
-				$result['error'] = __( 'There was an error subscribing. Please try again.', 'fl-builder' );
+				$result['error'] = __( 'There was an error subscribing. Please try again.', 'bb-powerpack' );
 			}
 
 			// Validate reCAPTCHA first if enabled

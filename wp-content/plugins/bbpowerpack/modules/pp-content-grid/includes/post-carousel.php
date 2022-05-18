@@ -19,13 +19,6 @@
 
 ));
 
-$date_format = isset( $settings->date_format ) ? $settings->date_format : '';
-
-$author_html = apply_filters( 'pp_cg_post_author_html', sprintf(
-	_x( 'By %s', '%s stands for author name.', 'bb-powerpack' ),
-	'<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '"><span>' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '</span></a>'
-), $post_id, $settings );
-
 $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_target_new ? ' target="_blank" rel="noopener bookmark"' : '';
 
 ?>
@@ -37,52 +30,49 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 		include $module_dir . 'includes/post-tile.php';
 	} else { ?>
 
-	<?php if( $settings->more_link_type == 'box' && ('product' != $settings->post_type || 'download' != $settings->post_type )) { ?>
+	<?php if ( $settings->more_link_type == 'box' && ( 'product' != $settings->post_type || 'download' != $settings->post_type ) ) { ?>
 		<a class="pp-post-link" href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>></a>
 	<?php } ?>
 
-	<?php if( 'style-1' == $settings->post_grid_style_select ) { ?>
+	<?php if ( 'style-1' == $settings->post_grid_style_select ) { ?>
 
-	<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
-		<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-			<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>>
-		<?php } ?>
-			<?php the_title(); ?>
-		<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-			</a>
-		<?php } ?>
-	</<?php echo $settings->title_tag; ?>>
+		<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
+			<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
+				<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>>
+			<?php } ?>
+				<?php the_title(); ?>
+			<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
+				</a>
+			<?php } ?>
+		</<?php echo $settings->title_tag; ?>>
 
-	<div class="pp-content-post-meta pp-post-meta">
-		<?php if($settings->show_author == 'yes' ) : ?>
-			<span class="pp-content-post-author">
-			<?php echo $author_html; ?>
-			</span>
-		<?php endif; ?>
-		<?php if($settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select ) : ?>
-			<?php if($settings->show_author == 'yes' ) : ?>
-				<span> <?php echo $settings->meta_separator; ?> </span>
+		<div class="pp-content-post-meta pp-post-meta">
+			<?php if ( $settings->show_author == 'yes' ) : ?>
+				<?php
+				// Show post author.
+				include $module_dir . 'includes/templates/post-author.php';
+				?>
 			<?php endif; ?>
-			<span class="pp-content-grid-date">
-				<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
-					<?php echo tribe_get_start_date( null, false, $date_format ); ?>
-				<?php } else { ?>
-					<?php echo get_the_date( $date_format ); ?>
-				<?php } ?>
-			</span>
-		<?php endif; ?>
-
-	</div>
+			<?php if ( $settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select ) : ?>
+				<?php if($settings->show_author == 'yes' ) : ?>
+					<span> <?php echo $settings->meta_separator; ?> </span>
+				<?php endif; ?>
+				<?php
+				// Show post date.
+				include $module_dir . 'includes/templates/post-date.php';
+				?>
+			<?php endif; ?>
+		</div>
 
 	<?php } ?>
 
-	<?php if($settings->show_image == 'yes') : ?>
+	<?php if ( $settings->show_image == 'yes' ) : ?>
 		<?php include $module->dir . 'includes/templates/post-image.php'; ?>
 	<?php endif; ?>
 
 	<div class="pp-content-carousel-inner pp-content-body">
 
-		<?php if('style-5' == $settings->post_grid_style_select && 'yes' == $settings->show_date) { ?>
+		<?php if ( 'style-5' == $settings->post_grid_style_select && 'yes' == $settings->show_date ) { ?>
 		<div class="pp-content-post-date pp-post-meta">
 			<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
 				<span class="pp-post-day"><?php echo tribe_get_start_date( null, false, 'd' ); ?></span>
@@ -96,7 +86,7 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 
 		<div class="pp-content-post-data">
 
-			<?php if( 'style-1' != $settings->post_grid_style_select && 'style-4' != $settings->post_grid_style_select ) { ?>
+			<?php if ( 'style-1' != $settings->post_grid_style_select && 'style-4' != $settings->post_grid_style_select ) { ?>
 				<<?php echo $settings->title_tag; ?> class="pp-content-carousel-title pp-post-title" itemprop="headline">
 					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
 						<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>>
@@ -111,36 +101,34 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 				<?php } ?>
 			<?php } ?>
 
-		<?php if(($settings->show_author == 'yes' || $settings->show_date == 'yes' || $settings->show_categories == 'yes')
-				&& ('style-1' != $settings->post_grid_style_select) ) : ?>
+			<?php if ( ( $settings->show_author == 'yes' || $settings->show_date == 'yes' || $settings->show_categories == 'yes' )
+				&& ( 'style-1' != $settings->post_grid_style_select ) ) : ?>
 
-		<div class="pp-content-post-meta pp-post-meta">
-			<?php if($settings->show_author == 'yes' ) : ?>
-				<span class="pp-content-post-author">
-				<?php echo $author_html; ?>
-				</span>
-			<?php endif; ?>
-
-				<?php if($settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select ) : ?>
-					<?php if($settings->show_author == 'yes'  ) : ?>
-						<span> <?php echo $settings->meta_separator; ?> </span>
-					<?php endif; ?>
-					<span class="pp-content-carousel-date">
-						<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
-							<?php echo tribe_get_start_date( null, false, $date_format ); ?>
-						<?php } else { ?>
-							<?php echo get_the_date( $date_format ); ?>
-						<?php } ?>
-					</span>
+			<div class="pp-content-post-meta pp-post-meta">
+				<?php if ( $settings->show_author == 'yes' ) : ?>
+					<?php
+					// Show post author.
+					include $module_dir . 'includes/templates/post-author.php';
+					?>
 				<?php endif; ?>
 
-				<?php if( 'style-6' == $settings->post_grid_style_select || 'style-5' == $settings->post_grid_style_select ) : ?>
-					<?php if($settings->show_author == 'yes' && $settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list) ) : ?>
+				<?php if ( $settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select ) : ?>
+					<?php if ( $settings->show_author == 'yes' ) : ?>
 						<span> <?php echo $settings->meta_separator; ?> </span>
 					<?php endif; ?>
-					<?php if($settings->show_categories == 'yes') { ?>
+					<?php
+					// Show post date.
+					include $module_dir . 'includes/templates/post-date.php';
+					?>
+				<?php endif; ?>
+
+				<?php if ( 'style-6' == $settings->post_grid_style_select || 'style-5' == $settings->post_grid_style_select ) : ?>
+					<?php if ( $settings->show_author == 'yes' && $settings->show_categories == 'yes' && taxonomy_exists( $settings->post_taxonomies ) && ! empty( $terms_list ) ) : ?>
+						<span> <?php echo $settings->meta_separator; ?> </span>
+					<?php endif; ?>
+					<?php if ( $settings->show_categories == 'yes' ) { ?>
 					<span class="pp-content-post-category">
-						<?php if(taxonomy_exists($settings->post_taxonomies)) { ?>
+						<?php if ( taxonomy_exists( $settings->post_taxonomies ) ) { ?>
 							<?php $i = 1;
 							foreach ($terms_list as $term):
 								?>
@@ -195,7 +183,7 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 			<?php } ?>
 
 			<?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' != $settings->post_grid_style_select && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select) ) : ?>
-				<?php include $module->dir . 'includes/templates/post-meta.php'; ?>
+				<?php include $module->dir . 'includes/templates/post-terms.php'; ?>
 			<?php endif; ?>
 		</div>
 	</div>

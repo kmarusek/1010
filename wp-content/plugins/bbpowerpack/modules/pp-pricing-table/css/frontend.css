@@ -43,24 +43,12 @@
 	margin-left: -6px;
 	margin-right: -6px;
 }
-.pp-pricing-table.pp-pricing-table-spacing-tight .pp-pricing-table-col,
-.pp-pricing-table.pp-pricing-table-spacing-medium .pp-pricing-table-col,
-.pp-pricing-table .pp-pricing-table-col {
-	/*padding-right: 6px;
-	padding-left: 6px;*/
-}
 
 /*large*/
 .pp-pricing-table.pp-pricing-table-spacing-wide,
 .pp-pricing-table.pp-pricing-table-spacing-large {
 	margin-left: -12px;
 	margin-right: -12px;
-}
-.pp-pricing-table.pp-pricing-table-spacing-wide .pp-pricing-table-col,
-.pp-pricing-table.pp-pricing-table-spacing-large .pp-pricing-table-col,
-.pp-pricing-table .pp-pricing-table-col {
-	/*padding-right: 12px;
-	padding-left: 12px;*/
 }
 
 /*None*/
@@ -148,6 +136,38 @@
 .pp-pricing-table .pp-pricing-table-features li span.pp-pricing-table-item-label {
 	display: none;
 	font-weight: bold;
+}
+.pp-pricing-table .pp-pricing-table-features .pp-pricing-table-item {
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+	justify-content: inherit;
+	width: 100%;
+}
+body:not(.rtl) .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-icon {
+    padding-right: 1em;
+}
+body.rtl .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-icon {
+    padding-left: 1em;
+}
+.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-icon {
+	cursor: pointer;
+	padding: 5px;
+    vertical-align: middle;
+    position: static;
+}
+.pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-text {
+	box-sizing: border-box;
+    background: rgb(255, 255, 255);
+    box-shadow: 3px 4px 0px 0px rgba(0, 0, 0, 0.03);
+    display: none;
+    position: absolute;
+    padding: 10px 13px;
+    font-size: 14px;
+    font-weight: normal;
+    z-index: 1000;
+    border-radius: 4px;
+    right: 5px;
 }
 .pp-pricing-table a.fl-button {
 	margin: 0 15px;

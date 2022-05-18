@@ -61,11 +61,12 @@ do_action( 'pp_content_tiles_settings_before_form', $settings ); // e.g Add cust
 			)
 		),
 		'help'	=> __('If post does not have any image set, you can use this option to set placeholder or any custom image.', 'bb-powerpack')
-	) );
+	), $settings );
+
 	FLBuilder::render_settings_field( 'fallback_image_custom', array(
 		'type'		=> 'photo',
 		'label'		=> __('Fallback Image Custom', 'bb-powerpack')
-	) );
+	), $settings );
 	?>
 	</table>
 </div>

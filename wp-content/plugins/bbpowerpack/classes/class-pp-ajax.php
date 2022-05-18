@@ -866,6 +866,9 @@ class BB_PowerPack_Ajax {
 		$GLOBALS['post'] = get_post( $post_id ); // @codingStandardsIgnoreLine
 
 		ob_start();
+		if ( is_callable( 'FLThemeBuilderFieldConnections::parse_shortcodes' ) ) {
+			$content = FLThemeBuilderFieldConnections::parse_shortcodes( stripslashes( $content ) );
+		}
 		echo do_shortcode( $content );
 		$content = ob_get_clean();
 

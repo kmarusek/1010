@@ -10,6 +10,15 @@
 			form.find('#fl-field-custom_overlay').on('DOMSubtreeModified', function() {
 				self._toggleOverlayFields();
 			});
+
+			self._setVideoTypeClass();
+
+			self._toggleVideoOptions();
+
+			form.find( 'select[name=video_type]' ).on( 'change', function() {
+				self._setVideoTypeClass();
+				self._toggleVideoOptions();
+			} );
 		},
 
 		submit: function() {
@@ -57,6 +66,30 @@
 				form.find('#fl-field-play_icon').show();
 				form.find('#fl-field-lightbox').show();
 			}
+		},
+
+		_toggleVideoOptions: function() {
+			var form = $('.fl-builder-settings');
+
+			if ( 'facebook' === form.find( 'select[name=video_type]' ).val() ) {
+				form.find( '#fl-builder-settings-section-video_options' ).hide();
+			} else {
+				form.find( '#fl-builder-settings-section-video_options' ).show();
+			}
+		},
+
+		_setVideoTypeClass: function() {
+			var form = $('.fl-builder-settings');
+
+			var $videoType = form.find( 'select[name=video_type]' );
+
+			$videoType.find( 'option' ).each(function() {
+				if ( form.hasClass( 'video-type-' + $(this).attr( 'value' ) ) ) {
+					form.removeClass( 'video-type-' + $(this).attr( 'value' ) );
+				}
+			});
+
+			form.addClass( 'video-type-' + $videoType.val() );
 		}
 	});
 })(jQuery);

@@ -722,7 +722,7 @@ class PPLoginFormModule extends FLBuilderModule {
 		// Send email notification.
 		$email_sent = $this->send_activation_email( $user_data, $reset_url );
 
-		if ( $email_sent ) {
+		if ( ! $email_sent ) {
 			$this->form_error = esc_html__( 'An error occurred sending email. Please try again.', 'bb-powerpack' );
 		}
 
@@ -752,10 +752,16 @@ class PPLoginFormModule extends FLBuilderModule {
 
 		$content = apply_filters( 'pp_login_form_password_reset_email_content', $content, $user->data, $reset_url );
 
+		$from_email    = apply_filters( 'pp_login_form_from_email', $admin_email );
+		$from_email    = ! is_email( $from_email ) ? $admin_email : $from_email;
+
+		$replyto_email = apply_filters( 'pp_login_form_reply_to_email', $admin_email );
+		$replyto_email = ! is_email( $replyto_email ) ? $admin_email : $replyto_email;
+
 		// translators: %s: email_from_name
-		$headers = sprintf( 'From: %s <%s>' . "\r\n", $blogname, get_option( 'admin_email' ) );
+		$headers = sprintf( 'From: %s <%s>' . "\r\n", $blogname, $from_email );
 		// translators: %s: email_reply_to
-		$headers .= sprintf( 'Reply-To: %s' . "\r\n", $admin_email );
+		$headers .= sprintf( 'Reply-To: %s' . "\r\n", $replyto_email );
 		$headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
 
 		// Send email to user.

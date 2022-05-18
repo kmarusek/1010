@@ -6,8 +6,30 @@
 	});
 
 	var adjustHeights = function() {
-		var spaceHeight = $('.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-card .pp-pricing-table-price').outerHeight();
-		$(".fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix .pp-pricing-table-price").css('height', spaceHeight + 'px');
+		//var spaceHeight = $('.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-card .pp-pricing-table-price').outerHeight();
+		//$(".fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix .pp-pricing-table-price").css('height', spaceHeight + 'px');
+
+		var tallestTitle = 0;
+		$('.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-card .pp-pricing-table-title').each(function() {
+			if ( $(this).outerHeight() > tallestTitle ) {
+				tallestTitle = $(this).outerHeight();
+			}
+		});
+
+		if ( tallestTitle > 0 ) {
+			$('.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-card .pp-pricing-table-title').css( 'height', tallestTitle + 'px' );
+		}
+
+		var tallest = 0;
+		$('.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-card .pp-pricing-table-header').each(function() {
+			if ( $(this).outerHeight() > tallest ) {
+				tallest = $(this).outerHeight();
+			}
+		});
+
+		if ( tallest > 0 ) {
+			$('.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix .pp-pricing-table-header').css( 'height', tallest + 'px' );
+		}
 
 		$('.fl-node-<?php echo $id; ?> .pp-pricing-table-matrix .pp-pricing-table-features li').each(function() {
 			var height = $(this).outerHeight();

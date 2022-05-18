@@ -196,7 +196,9 @@ class PPModalBoxModule extends FLBuilderModule {
             	break;
             case 'video':
                 global $wp_embed;
-                $content = $wp_embed->autoembed($settings->modal_type_video);
+				$content = '<div class="pp-modal-video-embed">';
+                $content .= $wp_embed->autoembed($settings->modal_type_video);
+				$content .= '</div>';
             	break;
             case 'url':
                 $content = '<iframe data-url="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
@@ -214,12 +216,16 @@ class PPModalBoxModule extends FLBuilderModule {
             	break;
 			case 'templates':
 				global $post;
+				$is_current = false;
 				if ( is_object( $post ) && isset( $post->ID ) ) {
 					if ( $post->ID == $settings->modal_type_templates ) {
 						$content = __( 'You cannot use the current page as template.', 'bb-powerpack' );
+						$is_current = true;
 					}
 				}
-                $content = '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
+				if ( ! $is_current ) {
+                	$content = '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
+				}
          		break;
             default:
             	break;
@@ -292,7 +298,8 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'label'             => __('Height', 'bb-powerpack'),
                         'default'           => 450,
 						'units'       		=> array( 'px' ),
-                        'slider'             => true,
+                        'slider'            => true,
+                        'responsive'        => true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -1269,7 +1276,7 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                     'content_padding'        => array(
                         'type'                  => 'unit',
                         'label'                 => __('Padding', 'bb-powerpack'),
-                        'default'               => 10,
+                        'default'               => '',
                         'units'					=> array( 'px' ),
 						'slider'				=> true,
                         'preview'               => array(
@@ -1442,11 +1449,10 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                 'title'             => __('Responsive', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields
                     'media_breakpoint'  => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Media Breakpoint', 'bb-powerpack'),
                         'default'           => 0,
-                        'class'             => 'modal-device-width',
-                        'description'       => 'px',
+                        'units'             => array( 'px' ),
                         'help'              => __('You can set a custom break point and devices with the same or below screen width will always display a full screen modal box.', 'bb-powerpack'),
                     )
                 )

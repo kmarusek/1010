@@ -8,8 +8,8 @@ $offcanvas_class .= ' pp-offcanvas-' . $settings->content_transition;
 	<div class="<?php echo $offcanvas_class; ?>" data-id="<?php echo $id; ?>">
 		<?php if ( 'yes' === $settings->close_button ) { ?>
 			<div class="pp-offcanvas-header">
-				<div class="pp-offcanvas-close" role="button" aria-label="<?php _e( 'Close Off Canvas Content', 'bb-powerpack' ); ?>">
-					<span class="<?php echo ( '' != $settings->close_button_icon ) ? $settings->close_button_icon : 'fa fa-times'; ?>"></span>
+				<div class="pp-offcanvas-close" role="button" aria-label="<?php _e( 'Close Off Canvas Content', 'bb-powerpack' ); ?>" tabindex="0">
+					<span class="<?php echo ( '' != $settings->close_button_icon ) ? $settings->close_button_icon : 'fa fa-times'; ?>" aria-hidden="true"></span>
 				</div>
 			</div>
 		<?php } ?>

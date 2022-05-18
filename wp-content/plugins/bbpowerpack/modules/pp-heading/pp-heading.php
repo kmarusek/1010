@@ -872,12 +872,20 @@ BB_PowerPack::register_module(
 						),
 						'heading_gradient_setting'	=> array(
 							'type'		=> 'gradient',
-							'label'		=> __('Gradient', 'bb-powerpack'),
+							'label'		=> __('Color', 'bb-powerpack'),
 							'preview'	=> array(
 								'type'		=> 'css',
 								'selector'  => '.pp-heading-content .pp-heading .heading-title span.pp-primary-title',
 								'property'  => 'background-image'
 							)
+						),
+						'heading_hover_color'    => array(
+							'type'          => 'color',
+							'label'         => __('Hover Color', 'bb-powerpack'),
+							'default'       => '',
+							'show_reset'    => true,
+							'show_alpha'    => true,
+							'connections'	=> array('color'),
 						),
 						'field_separator_1'  => array(
 							'type'                => 'pp-separator',
@@ -1033,12 +1041,20 @@ BB_PowerPack::register_module(
 						),
 						'heading2_gradient_setting'	=> array(
 							'type'		=> 'gradient',
-							'label'		=> __('Gradient', 'bb-powerpack'),
+							'label'		=> __('Color', 'bb-powerpack'),
 							'preview'	=> array(
 								'type'		=> 'css',
 								'selector'  => '.pp-heading-content .pp-heading .heading-title span.pp-secondary-title',
 								'property'  => 'background-image'
 							)
+						),
+						'heading2_hover_color'    => array(
+							'type'          => 'color',
+							'label'         => __('Hover Color', 'bb-powerpack'),
+							'default'       => '',
+							'show_reset'    => true,
+							'show_alpha'    => true,
+							'connections'	=> array('color'),
 						),
 						'field_separator_2_1'  => array(
 							'type'                => 'pp-separator',

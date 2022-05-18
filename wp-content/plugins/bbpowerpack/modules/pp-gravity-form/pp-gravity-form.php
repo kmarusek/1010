@@ -978,7 +978,7 @@ BB_PowerPack::register_module(
 					),
 				),
 				'button_border'   => array(
-					'title'     => __( 'Border', 'bb-powerpack' ),
+					'title'     => __( 'Border & Shadow', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields'    => array(
 						'button_border_group' => array(
@@ -1401,6 +1401,18 @@ BB_PowerPack::register_module(
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield .gfield_label, .gform_wrapper table.gfield_list thead th, .gform_wrapper span.ginput_product_price_label, .gform_wrapper span.ginput_quantity_label, .gform_wrapper .gfield_html',
+								'property' => 'color',
+							),
+						),
+						'form_required_text_color'         => array(
+							'type'        => 'color',
+							'label'       => __( '"Required" Text Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.pp-gf-content .gform_wrapper .gfield_required',
 								'property' => 'color',
 							),
 						),
