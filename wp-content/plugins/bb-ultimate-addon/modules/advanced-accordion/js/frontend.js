@@ -21,6 +21,7 @@
 		
 		_init: function()
 		{	
+			window.uabb_scroll = this.settings.uabb_scroll;
 			var button_level = $( this.nodeClass ).find('.uabb-adv-accordion-button').first().closest('.uabb-adv-accordion');
 
 			button_level.children('.uabb-adv-accordion-item').children('.uabb-adv-accordion-button').on('click keypress', $.proxy( this._buttonClick, this ) );
@@ -227,9 +228,11 @@
 			
 			if ( !accordion.hasClass( 'uabb-accordion-edit' ) ) {
 				if ( item.offset().top < win.scrollTop() + 100 ) {
-					$( 'html, body' ).animate({ 
-						scrollTop: item.offset().top - 100 
-					}, 500, 'swing');
+					if ( window.uabb_scroll ) {
+						$( 'html, body' ).animate({
+							scrollTop: item.offset().top - 100
+						}, 500, 'swing');
+					}
 				}
 			}
 			

@@ -1460,7 +1460,7 @@ if ( ! $version_bb_check ) {
 		}
 	<?php } ?>
 
-	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-off-canvas-menu {
+	.fl-builder .fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-off-canvas-menu {
 		<?php
 		if ( isset( $settings->creative_menu_responsive_overlay_padding_dimension_top_medium ) ) {
 			echo ( '' !== $settings->creative_menu_responsive_overlay_padding_dimension_top_medium ) ? 'padding-top:' . esc_attr( $settings->creative_menu_responsive_overlay_padding_dimension_top_medium ) . 'px;' : '';
@@ -1669,7 +1669,7 @@ if ( ! $version_bb_check ) {
 		}
 	<?php } ?>
 
-	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-off-canvas-menu {
+	.fl-builder .fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-off-canvas-menu {
 		<?php
 		if ( isset( $settings->creative_menu_responsive_overlay_padding_dimension_top_responsive ) ) {
 			echo ( '' !== $settings->creative_menu_responsive_overlay_padding_dimension_top_responsive ) ? 'padding-top:' . esc_attr( $settings->creative_menu_responsive_overlay_padding_dimension_top_responsive ) . 'px;' : '';

@@ -67,7 +67,7 @@ if ( isset( $settings->media_type ) && '' !== $settings->media_type && 'slider' 
 			<div class="uabb-device <?php echo esc_attr( $has_orientation_control_class ); ?>">
 
 				<div class="uabb-device-shape">
-					<img src="<?php echo esc_url( $svg_src ); ?>" />
+					<img src="<?php echo esc_url( $svg_src ); ?>" alt="<?php echo esc_attr( $device_type_class ); ?>" />
 				</div>
 
 				<div class="uabb-device-media <?php echo esc_attr( $image_fit_class . $image_slider_class ); ?>" >

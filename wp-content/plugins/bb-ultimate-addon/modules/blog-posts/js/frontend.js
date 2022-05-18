@@ -378,7 +378,7 @@ var UABBBlogPosts;
                 post_active.each(function() {
                     var $this = jQuery( this );
 
-                    $this.find( '.uabb-blog-posts-shadow' ).css( 'height', max_height );
+                    $this.find( '.uabb-blog-posts-shadow' ).css( 'height', max_height - 8 );
                 });     
 
                 grid.find('.slick-list.draggable').animate({ height: max_height }, { duration: 200, easing: 'linear' });

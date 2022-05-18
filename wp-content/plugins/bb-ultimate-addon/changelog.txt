@@ -1,3 +1,14 @@
+Version 1.34.6, Monday, 16th May 2022
+- Improvement: Advanced Accordion - Added a filter hook "uabb_acc_scroll_animation" to enable or disable scroll animation.
+- Fixed: Advanced Menu - Responsive padding setting is not working with the off-canvas layout.
+- Fixed: Advanced Tab - On the scroll down action, tabs collapse on mobile devices.
+- Fixed: Advanced Posts - Box-shadow issue in the carousel layout.
+- Fixed: Advanced Posts - Post custom meta query not working with the Events Calendar plugin.
+- Fixed: Devices - Image alt tag accessibility issue.
+- Fixed: Video - Console error when playing a self-hosted video.
+- Fixed: Video Gallery - Resolved accessibility issue.
+- Fixed: Video Gallery - Resolved carousel layout issue when video type is self-hosted.
+
 Version 1.34.5, Thursday, 10th March 2022
 - Improvement: Countdown - Added dynamic field option.
 - Improvement: FAQ - Added a filter hook "uabb_faq_scroll_animation" to enable or disable scroll animation.

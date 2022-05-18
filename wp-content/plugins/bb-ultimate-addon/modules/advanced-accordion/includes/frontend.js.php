@@ -5,6 +5,7 @@
  *  @package UABB Advanced Accordion
  */
 
+$uabb_scroll = apply_filters( 'uabb_acc_scroll_animation', true );
 ?>
 
 (function($) {
@@ -13,6 +14,7 @@
 
 		new UABBAdvAccordion({
 			id: '<?php echo esc_attr( $id ); ?>',
+			uabb_scroll: '<?php echo esc_attr( $uabb_scroll ? true : false ); ?>',
 			close_icon: ' <?php $words = explode( ' ', $settings->close_icon ); $last_word = end( $words ); echo esc_attr( $settings->close_icon ); // @codingStandardsIgnoreLine. ?>',
 			open_icon: '<?php $words = explode( ' ', $settings->open_icon ); $last_word = end( $words ); echo esc_attr( $settings->open_icon ); // @codingStandardsIgnoreLine. ?> ',
 			icon_animation: '<?php echo esc_attr( $settings->icon_animation ); ?>',

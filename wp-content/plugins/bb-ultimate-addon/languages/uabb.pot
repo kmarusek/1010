@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.34.5\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.34.6\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2022-03-10 04:48:28+00:00\n"
+"POT-Creation-Date: 2022-05-12 10:51:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3010,7 +3010,7 @@ msgstr ""
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:161
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:152
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:153
-#: modules/uabb-video-gallery/uabb-video-gallery.php:825
+#: modules/uabb-video-gallery/uabb-video-gallery.php:828
 msgid "All"
 msgstr ""
 
@@ -32634,9 +32634,9 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%2$s\"> Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\n"
+"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://youtu.be/HJRzUQMhJMQ</div>"
 msgstr ""
@@ -32645,15 +32645,15 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://vimeo.com/274860274</div>\n"
+"https://vimeo.com/274860274</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://vimeo.com/channels/staffpicks/274860274</div>"
 msgstr ""
 
 #: modules/uabb-video/uabb-video.php:884
-#: modules/uabb-video-gallery/uabb-video-gallery.php:913
+#: modules/uabb-video-gallery/uabb-video-gallery.php:916
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Go to your Wistia video, right click, \"Copy Link & "
@@ -32840,24 +32840,24 @@ msgstr ""
 msgid "Video  Gallery"
 msgstr ""
 
-#: modules/uabb-video-gallery/uabb-video-gallery.php:885
+#: modules/uabb-video-gallery/uabb-video-gallery.php:888
 #. translators: %s: search term
 msgid ""
 "<div style=\"%2$s\"> Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\n"
+"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://youtu.be/HJRzUQMhJMQ</div>"
 msgstr ""
 
-#: modules/uabb-video-gallery/uabb-video-gallery.php:900
+#: modules/uabb-video-gallery/uabb-video-gallery.php:903
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Make sure you add the actual URL of the video and not "
-"the categorized URL.</div>\n"
+"the categorized URL.</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://vimeo.com/274860274</div>\n"
+"https://vimeo.com/274860274</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://vimeo.com/channels/staffpicks/274860274</div>"
 msgstr ""

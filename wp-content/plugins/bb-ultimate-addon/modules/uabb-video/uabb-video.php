@@ -504,9 +504,9 @@ class UABBVideo extends FLBuilderModule {
 
 			$video_html = ob_get_clean();
 
-			$video_html = wp_json_encode( $video_html );
-
 			$video_html = htmlspecialchars( $video_html, ENT_QUOTES );
+
+			$video_html = wp_json_encode( $video_html );
 
 		}
 		?>

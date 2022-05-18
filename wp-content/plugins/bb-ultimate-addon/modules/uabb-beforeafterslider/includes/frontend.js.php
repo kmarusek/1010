@@ -54,8 +54,9 @@
 			var child_id = jQuery( selector + ' .fl-module-uabb-beforeafterslider' ).data('node');
 
 			if( '' !== child_id ) {
-
-				jQuery(window).trigger('resize');
+				if ( jQuery(window).width() > 768) {
+					jQuery(window).trigger('resize');
+				}
 			}
 
 		});

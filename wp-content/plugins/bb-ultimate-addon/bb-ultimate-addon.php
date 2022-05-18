@@ -3,7 +3,7 @@
  * Plugin Name: Ultimate Addons for Beaver Builder
  * Plugin URI: http://www.ultimatebeaver.com/
  * Description: Ultimate Addons is a premium extension for Beaver Builder that adds 70+ modules, 250+ templates and works on top of any Beaver Builder Package. (Free, Standard, Pro & Agency) You can use it with any WordPress theme.
- * Version: 1.34.5
+ * Version: 1.34.6
  * Author: Brainstorm Force
  * Author URI: http://www.brainstormforce.com
  * Text Domain: uabb
@@ -40,7 +40,7 @@ if ( ! class_exists( 'BB_Ultimate_Addon' ) ) {
 		 */
 		public function define_constant() {
 
-			define( 'BB_ULTIMATE_ADDON_VER', '1.34.5' );
+			define( 'BB_ULTIMATE_ADDON_VER', '1.34.6' );
 			define( 'BB_ULTIMATE_ADDON_DIR', plugin_dir_path( __FILE__ ) );
 			define( 'BB_ULTIMATE_ADDON_URL', plugins_url( '/', __FILE__ ) );
 			define( 'BSF_REMOVE_UABB_FROM_REGISTRATION_LISTING', true );
@@ -153,7 +153,7 @@ if ( is_file( $bsf_core_version_file ) ) {
 	global $bsf_core_version, $bsf_core_path;
 	$bsf_core_dir = realpath( dirname( __FILE__ ) . '/admin/bsf-core/' );
 	$version      = file_get_contents( $bsf_core_version_file );// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-	if ( version_compare( $version, $bsf_core_version, '>' ) ) {
+	if ( version_compare( $version, $bsf_core_version ? $bsf_core_version : '0.0.0', '>' ) ) {
 		$bsf_core_version = $version;
 		$bsf_core_path    = $bsf_core_dir;
 	}
