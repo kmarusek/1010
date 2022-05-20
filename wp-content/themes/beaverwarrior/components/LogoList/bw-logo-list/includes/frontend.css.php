@@ -24,10 +24,10 @@ $module->rendermoduleCSS($default_css);
 $mobile_css = [
 	'&.fl-module-bw-logo-list' => [
 		'.logo_block' => ['width' => $mobile_width.'%'],
-		'.logo_image_container' => ['padding-top' => $padding_top_responsive],
-		'.logo_image_container' => ['padding-bottom' => $padding_bottom_responsive],
-		'.logo_image_container' => ['padding-left' => $padding_left_responsive],
-		'.logo_image_container' => ['padding-right' => $padding_right_responsive]
+		'.logo_image_container' => ['padding-top' => $settings->padding_top_responsive],
+		'.logo_image_container' => ['padding-bottom' => $settings->padding_bottom_responsive],
+		'.logo_image_container' => ['padding-left' => $settings->padding_left_responsive],
+		'.logo_image_container' => ['padding-right' => $settings->padding_right_responsive]
 	]
 ];
 $module->rendermoduleCSSResponsiveMobile($mobile_css);
@@ -35,10 +35,10 @@ $module->rendermoduleCSSResponsiveMobile($mobile_css);
 $tablet_css = [
 	'&.fl-module-bw-logo-list' => [
 		'.logo_block' => ['width' => $tablet_width.'%'],
-		'.logo_image_container' => ['padding-top' => $padding_top_medium],
-		'.logo_image_container' => ['padding-bottom' => $padding_bottom_medium], 
-		'.logo_image_container' => ['padding-left' => $padding_left_medium],
-		'.logo_image_container' => ['padding-right' => $padding_right_medium]
+		'.logo_image_container' => ['padding-top' => $settings->padding_top_medium],
+		'.logo_image_container' => ['padding-bottom' => $settings->padding_bottom_medium], 
+		'.logo_image_container' => ['padding-left' => $settings->padding_left_medium],
+		'.logo_image_container' => ['padding-right' => $settings->padding_right_medium]
 	]
 ];
 $module->rendermoduleCSSResponsiveTablet($tablet_css);
@@ -48,9 +48,9 @@ $desktop_css = [
 		'.logo_block' => ['width' => $desktop_width.'%'],
 		'.logo_image_container' => [
 			'padding-top' => '50px',
-			'padding-bottom' => $padding_bottom,
-			'padding-left' => $padding_left,
-			'padding-right' => $padding_right
+			'padding-bottom' => $settings->padding_bottom,
+			'padding-left' => $settings->padding_left,
+			'padding-right' => $settings->padding_right
 		],
 	]
 ];
