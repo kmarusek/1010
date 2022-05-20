@@ -12,9 +12,9 @@ wp_enqueue_style(
     "owl-carousel-2.0-css", 
     get_stylesheet_directory_uri() . "/assets/vendor/owl-carousel/assets/owl.carousel.min.css"
 );
-$gradientClass;
-$class;
-$link;
+$gradientClass = "";
+$class = "";
+$link = "";
 if($settings->marquee == 'option-1'){
     $class='marquee';
     $gradientClass='gradient';
