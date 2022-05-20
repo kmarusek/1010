@@ -1,3 +1,18 @@
+<h4>1.4.1.3 - 05/19/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>WooCommerce: Fix pagination displaying double or displaying in places where it should not in some cases</li>
+	<li>WooCommerce: Fix Add to Cart module styling not working on a Search Results archive</li>
+	<li>ACF: Add Relational > Relationship field connection option</li>
+	<li>ACF: Fix fatal error with PHP 8 by checking to confirm if data is array</li>
+</ul>
+
+<h4>1.4.1.2 - 03/29/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Revert a housekeeping change that caused a problem with Post Titles</li>
+</ul>
+
 <h4>1.4.1.1 - 03/29/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

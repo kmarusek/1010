@@ -455,10 +455,11 @@ $form        = array(
 		'label'   => __( 'Field Type', 'bb-theme-builder' ),
 		'default' => 'user',
 		'options' => array(
-			'user'        => __( 'User', 'bb-theme-builder' ),
-			'post_object' => __( 'Post Object', 'bb-theme-builder' ),
-			'page_link'   => __( 'Page Link', 'bb-theme-builder' ),
-			'taxonomy'    => __( 'Taxonomy', 'bb-theme-builder' ),
+			'user'         => __( 'User', 'bb-theme-builder' ),
+			'post_object'  => __( 'Post Object', 'bb-theme-builder' ),
+			'page_link'    => __( 'Page Link', 'bb-theme-builder' ),
+			'relationship' => __( 'Relationship', 'bb-theme-builder' ),
+			'taxonomy'     => __( 'Taxonomy', 'bb-theme-builder' ),
 		),
 		'toggle'  => array(
 			'user'        => array(

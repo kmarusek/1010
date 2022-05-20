@@ -386,10 +386,15 @@ final class FLPageDataACF {
 			$object = get_field_object( trim( $settings->name ), self::get_object_id( $property ) );
 		}
 
-		if ( empty( $object ) || ! isset( $object['type'] ) || ! in_array( $object['type'], array( 'user', 'post_object', 'page_link', 'taxonomy' ) ) ) {
+		$bail_out = $object['type'] !== $settings->type || empty( $object ) || ! isset( $object['type'] ) || ! in_array( $object['type'], array( 'user', 'post_object', 'relationship', 'page_link', 'taxonomy' ) );
+		if ( $bail_out ) {
 			return $content;
 		} elseif ( ! empty( $object['value'] ) ) {
-			$values = ( 1 == $object['multiple'] ) ? $object['value'] : array( $object['value'] );
+			$values = ( ! empty( $object['multiple'] ) ) ? $object['value'] : array( $object['value'] );
+
+			if ( empty( $object['type'] ) ) {
+				return $content;
+			}
 
 			if ( 'user' == $object['type'] ) {
 				$users = array();
@@ -502,7 +507,6 @@ final class FLPageDataACF {
 					$content .= "<{$list_item_tag} class='post-{$post_id}'>{$list_item_text}</{$list_item_tag}>";
 				}
 				$content .= '</' . $list_tag . '>';
-
 			} elseif ( ! empty( $object['type'] ) && ( 'page_link' == $object['type'] ) ) {
 				if ( ! $object['multiple'] && 'array' === gettype( $values ) && count( $values ) <= 1 ) {
 					$content = implode( '', $values );
@@ -511,6 +515,24 @@ final class FLPageDataACF {
 					foreach ( $values as $v ) {
 						$content .= "<li><a href='{$v}'>{$v}</a></li>";
 					}
+					$content .= '</ul>';
+				}
+			} elseif ( 'relationship' === $object['type'] ) {
+				if ( 1 === count( $values ) ) {
+					$content = '<ul>';
+
+					foreach ( $values[0] as $post ) {
+						$post_id    = is_object( $post ) ? $post->ID : $post;
+						$href       = get_permalink( $post_id );
+						$title_attr = the_title_attribute( array(
+							'echo' => false,
+							'post' => $post_id,
+						) );
+
+						$post_title = get_the_title( $post_id );
+						$content   .= "<li class='post-{$post_id}'><a href='{$href}' title='{$title_attr}'>{$post_title}</a></li>";
+					}
+
 					$content .= '</ul>';
 				}
 			} elseif ( 'taxonomy' == $object['type'] ) {
@@ -770,39 +792,40 @@ final class FLPageDataACF {
 		global $wpdb;
 		$form       = array();
 		$sub_fields = array();
-		$relation   = array( 'post_object', 'page_link', 'user', 'taxonomy' );
+		$relation   = array( 'post_object', 'page_link', 'user', 'taxonomy', 'relationship' );
 		$results    = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field'", ARRAY_A );
 
 		// maybe filter
 		foreach ( $results as $k => $field ) {
 			$data = maybe_unserialize( $field['field_opts'] );
-			$type = $data['type'];
-			if ( $relationship ) {
-				if ( ! in_array( $type, $relation ) ) {
-					unset( $results[ $k ] );
+			if ( is_array( $data ) && isset( $data['type'] ) ) {
+				$type = $data['type'];
+				if ( $relationship ) {
+					if ( ! in_array( $type, $relation ) ) {
+						unset( $results[ $k ] );
+					}
+				} else {
+					if ( in_array( $type, $relation ) ) {
+						unset( $results[ $k ] );
+					}
 				}
-			} else {
-				if ( in_array( $type, $relation ) ) {
-					unset( $results[ $k ] );
-				}
-			}
 
-			// get group sub-fields
-			if ( 'group' == $data['type'] ) {
-				$field_key  = $field['field_key'];
-				$field_data = acf_get_field( $field_key, false );
+				// get group sub-fields
+				if ( 'group' == $data['type'] ) {
+					$field_key  = $field['field_key'];
+					$field_data = acf_get_field( $field_key, false );
 
-				if ( $field_data ) {
-					if ( isset( $field_data['sub_fields'] ) && count( $field_data['sub_fields'] ) > 0 ) {
-						foreach ( $field_data['sub_fields'] as $subfield ) {
-							$sub_fields[ $subfield['ID'] ] = $field_key . '_' . $subfield['name'];
+					if ( $field_data ) {
+						if ( isset( $field_data['sub_fields'] ) && count( $field_data['sub_fields'] ) > 0 ) {
+							foreach ( $field_data['sub_fields'] as $subfield ) {
+								$sub_fields[ $subfield['ID'] ] = $field_key . '_' . $subfield['name'];
+							}
 						}
 					}
 				}
-			}
-
-			if ( in_array( $data['type'], array( 'accordion', 'group', 'repeater', 'tab' ) ) ) {
-				unset( $results[ $k ] );
+				if ( in_array( $data['type'], array( 'accordion', 'group', 'repeater', 'tab' ) ) ) {
+					unset( $results[ $k ] );
+				}
 			}
 		}
 
@@ -817,9 +840,11 @@ final class FLPageDataACF {
 				if ( isset( $sub_fields[ $field['id'] ] ) ) {
 					$field['field_key'] = $sub_fields[ $field['id'] ];
 				}
-				$data                                   = maybe_unserialize( $field['field_opts'] );
-				$type                                   = isset( $data['type'] ) ? str_replace( array( '_', '-' ), ' ', $data['type'] ) : 'unknown';
-				$form['options'][ $field['field_key'] ] = sprintf( '%s (%s) [%s]', $field['field_name'], $field['field_key'], $type );
+				$data = maybe_unserialize( $field['field_opts'] );
+				if ( is_array( $data ) && isset( $data['type'] ) ) {
+					$type                                   = isset( $data['type'] ) ? str_replace( array( '_', '-' ), ' ', $data['type'] ) : 'unknown';
+					$form['options'][ $field['field_key'] ] = sprintf( '%s (%s) [%s]', $field['field_name'], $field['field_key'], $type );
+				}
 			}
 		}
 		return $form;

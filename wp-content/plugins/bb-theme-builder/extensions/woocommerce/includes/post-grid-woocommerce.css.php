@@ -41,6 +41,7 @@
 <?php endif; ?>
 
 <?php if ( ! empty( $settings->woo_button_bg_color ) ) : ?>
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button button,
 	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button a.button {
 		background: #<?php echo $settings->woo_button_bg_color; ?>;
 		border-color: #<?php echo FLBuilderColor::adjust_brightness( $settings->woo_button_bg_color, 12, 'darken' ); ?>
@@ -48,8 +49,24 @@
 <?php endif; ?>
 
 <?php if ( ! empty( $settings->woo_button_text_color ) ) : ?>
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button button,
 	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button a.button {
 		color: #<?php echo $settings->woo_button_text_color; ?>;
+	}
+<?php endif; ?>
+
+<?php if ( ! empty( $settings->woo_button_hover_bg_color ) ) : ?>
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button button:hover,
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button a.button:hover {
+		background: #<?php echo $settings->woo_button_hover_bg_color; ?>;
+		border-color: #<?php echo FLBuilderColor::adjust_brightness( $settings->woo_button_hover_bg_color, 12, 'darken' ); ?>
+	}
+<?php endif; ?>
+
+<?php if ( ! empty( $settings->woo_button_hover_text_color ) ) : ?>
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button button:hover,
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-post-module-woo-button a.button:hover {
+		color: #<?php echo $settings->woo_button_hover_text_color; ?>;
 	}
 <?php endif; ?>
 
