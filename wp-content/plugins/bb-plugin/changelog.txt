@@ -1,3 +1,10 @@
+<h4>2.5.4.2 - 05/19/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Outline Panel: Fix items showing multiple times in some cases</li>
+	<li>TEC: Tweak our fix for TEC added in previous release to make sure it does not affect other post types</li>
+</ul>
+
 <h4>2.5.4.1 - 05/12/2022</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>

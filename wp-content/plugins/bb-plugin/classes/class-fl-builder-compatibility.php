@@ -1068,7 +1068,7 @@ final class FLBuilderCompatibility {
 			return $content;
 		}
 
-		if ( function_exists( 'tribe_get_option' ) && '' == tribe_get_option( 'tribeEventsTemplate', 'default' ) ) {
+		if ( function_exists( 'tribe_get_option' ) && '' == tribe_get_option( 'tribeEventsTemplate', 'default' ) && 'tribe_events' === get_post_type() ) {
 			$post_id   = FLBuilderModel::get_post_id( true );
 			$enabled   = FLBuilderModel::is_builder_enabled( $post_id );
 			$rendering = FLBuilder::$post_rendering === $post_id;

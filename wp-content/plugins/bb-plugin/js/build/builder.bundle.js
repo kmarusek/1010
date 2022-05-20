@@ -1933,8 +1933,14 @@ var createStoreHooks = function createStoreHooks(store) {
     var parent = arguments.length > 1 ? arguments[1] : undefined;
     var nodes = state.layout.present.nodes;
 
-    if (undefined !== parent && null !== parent) {
-      nodes = getChildNodes(nodes, parent);
+    if (1 === Object.keys(nodes).length) {
+      if (undefined !== parent && null !== parent) {
+        nodes = getChildNodes(nodes, parent);
+      }
+    } else {
+      if (undefined !== parent) {
+        nodes = getChildNodes(nodes, parent);
+      }
     }
 
     return stripNodeSettings(nodes);
