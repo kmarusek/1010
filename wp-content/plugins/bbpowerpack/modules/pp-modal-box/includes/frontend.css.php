@@ -1,3 +1,9 @@
+<?php if ( 'disabled' === $settings->modal_preview ) { ?>
+	body.fl-builder-edit .fl-node-<?php echo $id; ?> .pp-modal-wrap {
+		display: none;
+	}
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-modal-button {
 	text-align: <?php echo $settings->button_alignment; ?>;
 }

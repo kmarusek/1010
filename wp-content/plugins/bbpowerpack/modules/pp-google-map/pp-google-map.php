@@ -34,7 +34,7 @@ class PPGoogleMapModule extends FLBuilderModule {
 				$url,
 				array( 'jquery' ),
 				'3.0',
-				true
+				false
 			);
 
 			if ( isset( $this->settings->marker_clustering ) && 'yes' === $this->settings->marker_clustering ) {

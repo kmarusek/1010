@@ -104,6 +104,8 @@ class PPReviewsModule extends FLBuilderModule {
 			}
 		}
 
+		$reviews = apply_filters( 'pp_reviews_data', $reviews, $source, $this->settings );
+
 		if ( is_array( $reviews ) && ! empty( $reviews ) ) {
 			if ( 'rating' == $this->settings->reviews_filter_by ) {
 				usort( $reviews, array( $this, 'sort_by_rating' ) );
@@ -173,7 +175,7 @@ class PPReviewsModule extends FLBuilderModule {
 
 			if ( 'google' === $source ) {
 				$review_url = explode( '/reviews', $review->author_url );
-				$review_url = $review_url[0] . '/place/' . $this->settings->google_place_id;
+				$review_url = $review_url[0] . '/place/' . $this->get_google_place_id();
 
 				if ( isset( $reviews['data']['location'] ) && ! empty( $reviews['data']['location'] ) ) {
 					$location = $reviews['data']['location'];
@@ -254,7 +256,7 @@ class PPReviewsModule extends FLBuilderModule {
 
 		if ( 'google' === $source ) {
 			$api_key = pp_get_google_api_key();
-			$place_id = $this->settings->google_place_id;
+			$place_id = $this->get_google_place_id();
 
 			if ( empty( $api_key ) ) {
 				return new WP_Error( 'missing_api_key', __( 'To display Google Reviews, you need to setup API key.', 'bb-powerpack' ) );
@@ -266,7 +268,7 @@ class PPReviewsModule extends FLBuilderModule {
 			$url = add_query_arg(
 				array(
 					'key'     => $api_key,
-					'placeid' => $this->settings->google_place_id,
+					'placeid' => $this->get_google_place_id(),
 					'language' => get_locale(),
 				),
 				'https://maps.googleapis.com/maps/api/place/details/json'
@@ -276,7 +278,7 @@ class PPReviewsModule extends FLBuilderModule {
 		}
 
 		if ( 'yelp' === $source ) {
-			$business_id = $this->settings->yelp_business_id;
+			$business_id = $this->get_yelp_business_id();
 
 			if ( empty( $business_id ) ) {
 				return new WP_Error( 'missing_business_id', __( 'To display Yelp Reviews, you need to provide valid Business ID.', 'bb-powerpack' ) );
@@ -322,7 +324,7 @@ class PPReviewsModule extends FLBuilderModule {
 			'error' => false,
 		);
 
-		$transient_name = 'pp_reviews_' . $this->settings->google_place_id;
+		$transient_name = 'pp_reviews_' . $this->get_google_place_id();
 
 		$response['data'] = get_transient( $transient_name );
 		
@@ -380,7 +382,7 @@ class PPReviewsModule extends FLBuilderModule {
 			'error' => false,
 		);
 
-		$transient_name = 'pp_reviews_' . $this->settings->yelp_business_id;
+		$transient_name = 'pp_reviews_' . $this->get_yelp_business_id();
 
 		$response['data'] = get_transient( $transient_name );
 
@@ -514,6 +516,14 @@ class PPReviewsModule extends FLBuilderModule {
 		}
 
 		return $text;
+	}
+
+	private function get_google_place_id() {
+		return do_shortcode( $this->settings->google_place_id );
+	}
+
+	private function get_yelp_business_id() {
+		return do_shortcode( $this->settings->yelp_business_id );
 	}
 
 	/**
@@ -796,26 +806,14 @@ BB_PowerPack::register_module(
 							'label'      => __( 'Slides Per View', 'bb-powerpack' ),
 							'default'    => 3,
 							'slide'      => true,
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '3',
-									'medium'     => '2',
-									'responsive' => '1',
-								),
-							),
+							'responsive' => true,
 						),
 						'slides_to_scroll'     => array(
 							'type'       => 'unit',
 							'label'      => __( 'Slides to Scroll', 'bb-powerpack' ),
 							'default'    => 1,
 							'slide'      => true,
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '1',
-									'medium'     => '1',
-									'responsive' => '1',
-								),
-							),
+							'responsive' => true,
 							'help'       => __( 'Set numbers of slides to move at a time.', 'bb-powerpack' ),
 						),
 						'spacing'              => array(
@@ -824,26 +822,14 @@ BB_PowerPack::register_module(
 							'default'    => 20,
 							'units'      => array( 'px' ),
 							'slide'      => true,
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '20',
-									'medium'     => '20',
-									'responsive' => '20',
-								),
-							),
+							'responsive' => true,
 						),
 						'carousel_height'      => array(
 							'type'       => 'unit',
 							'label'      => __( 'Height', 'bb-powerpack' ),
 							'units'      => array( 'px' ),
 							'slide'      => true,
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
+							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.pp-review',

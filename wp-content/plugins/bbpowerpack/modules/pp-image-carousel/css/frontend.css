@@ -138,7 +138,7 @@
     cursor: pointer;
 }
 
-.pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progress {
+.pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progressbar {
     width: 100%;
     height: 4px;
     left: 0;
@@ -147,7 +147,7 @@
     position: absolute;
 }
 
-.pp-image-carousel .swiper-pagination-progress .swiper-pagination-progressbar {
+.pp-image-carousel .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
     background: #000;
     position: absolute;
     left: 0;

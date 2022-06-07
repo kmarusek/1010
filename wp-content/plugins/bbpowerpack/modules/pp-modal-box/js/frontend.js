@@ -86,7 +86,7 @@
 			});
 			
 			// close modal box by clicking on the close button.
-            $(self.wrap).find('.pp-modal-close').on('keypress click', function(e) {
+            $(self.wrap).find('.pp-modal-close, .pp-modal-close-custom').on('keypress click', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 				if (e.which == 1 || e.which == 13 || e.which == 32 || e.which == undefined) {

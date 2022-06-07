@@ -67,7 +67,7 @@
 	}
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progress {
+.fl-node-<?php echo $id; ?> .pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progressbar {
 	<?php if ( isset( $settings->pagination_bg_color ) && ! empty( $settings->pagination_bg_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color ); ?>;
 	<?php } ?>
@@ -76,7 +76,7 @@
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet:hover,
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet:focus,
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet-active,
-.fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-progress .swiper-pagination-progressbar {
+.fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
 	<?php if ( isset( $settings->pagination_bg_hover ) && ! empty( $settings->pagination_bg_hover ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_hover ); ?>;
 	<?php } ?>

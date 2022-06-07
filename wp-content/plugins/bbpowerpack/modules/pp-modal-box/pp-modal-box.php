@@ -431,7 +431,7 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'options'               => array()
                     )
                 )
-            )
+			),
         )
     ),
     'settings'       => array( // Tab
@@ -453,17 +453,19 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
 						),
                         'toggle'            => array(
                             'auto'              => array(
-                                'sections'          => array('modal_load_auto')
+                                'sections'          => array('modal_load_auto'),
+								'fields'    => array( 'builder_label' ),
                             ),
                             'onclick'           => array(
                                 'sections'          => array('modal_load_onclick','modal_button_style'),
-                                'tabs'               => array('modal_button_style'),
+                                'tabs'              => array('modal_button_style'),
                             ),
                             'exit_intent'       => array(
-                                'sections'          => array('modal_exit_intent')
+                                'sections'  => array('modal_exit_intent'),
+								'fields'    => array( 'builder_label' ),
                             ),
-                            'other'             => array(
-                                'fields'             => array('modal_css_class')
+                            'other'      => array(
+                                'fields'    => array('modal_css_class', 'builder_label'),
                             )
                         ),
                         'hide'              => array(
@@ -492,7 +494,13 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'description'           => __('Please add a class with . prefix (.my-class) or ID with # prefix (#my-id) here. No spaces.', 'bb-powerpack'),
                         'default'               => '',
                         'help'                  => __('Add this CSS class/ID to the element you want to trigger the modal with.', 'bb-powerpack'),
-                    )
+                    ),
+					'builder_label'  => array(
+                        'type'        => 'text',
+                        'label'       => __('Label in Builder', 'bb-powerpack'),
+						'help'        => __( 'Providing label help you identify the Modal Box in the builder.', 'bb-powerpack' ),
+                        'connections' => array( 'string' ),
+                    ),
                 )
             ),
             'modal_load_auto'   => array(

@@ -349,7 +349,10 @@ class PPLoginFormModule extends FLBuilderModule {
 				//remove_all_filters( 'authenticate', 99 );
 
 				// Prevent other plugins from doing anything when users are logging in.
-				remove_all_actions( 'wp_login' );
+				$remove_actions_wp_login = apply_filters( 'pp_login_form_remove_actions_wp_login', true );
+				if ( $remove_actions_wp_login ) {
+					remove_all_actions( 'wp_login' );
+				}
 
 				// Perform the login.
 				$user = wp_signon( apply_filters( 'pp_login_form_credentials', $creds ), is_ssl() );

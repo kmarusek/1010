@@ -1,3 +1,15 @@
+== 2.23.3 ==
+Release date: May 31, 2022
+* Enhancement: Modal Box - Added a field under the trigger settings to provide label to identify the Modal Box in the builder
+* Enhancement: Table - Updated border fields
+* Enhancement: Reviews - Allow shortcode in Google Place ID and Yelp Business ID fields
+* Enhancement: Content Grid - Enabled responsive options for the column spacing field
+* Fix: Image - Show Custom Caption field only when URL is selected as Photo Source
+* Fix: Smart Headings - Long primary heading causes secondary heading to appear in new line
+* Fix: Image Carousel - Progress bar pagination was not working properly
+* Development: Reviews - Added filter hook pp_reviews_data
+* Development: Sliding Menus - Added filter hook pp_sliding_menus_nav_args
+
 == 2.23.2 ==
 Release date: May 11, 2022
 * Enhancement: Image - Added field connection for the Photo URL and Caption fields

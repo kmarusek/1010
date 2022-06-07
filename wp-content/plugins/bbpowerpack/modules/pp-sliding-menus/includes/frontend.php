@@ -3,7 +3,7 @@ $classes  = 'pp-sliding-menus';
 $classes .= ' pp-sliding-menu-effect-' . $settings->effect;
 $classes .= ' pp-sliding-menu-direction-' . $settings->direction;
 
-$args = array(
+$args = apply_filters( 'pp_sliding_menus_nav_args', array(
 	'echo'        => false,
 	'menu'        => $settings->menu,
 	'menu_class'  => 'pp-slide-menu__menu',
@@ -11,7 +11,7 @@ $args = array(
 	'fallback_cb' => '__return_empty_string',
 	'before'      => '<span class="pp-slide-menu-arrow"><i class="fa fa-angle-right"></i></span>',
 	'container'   => '',
-);
+), $settings );
 
 add_filter( 'nav_menu_link_attributes', array( $module, 'handle_link_classes' ), 10, 4 );
 add_filter( 'nav_menu_submenu_css_class', array( $module, 'handle_sub_menu_classes' ) );

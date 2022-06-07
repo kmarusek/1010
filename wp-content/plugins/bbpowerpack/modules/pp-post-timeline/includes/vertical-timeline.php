@@ -1,4 +1,4 @@
-<div class="pp-post-timeline-item clearfix">
+<div id="pp-timeline-<?php echo $id; ?>-<?php echo $count; ?>" class="pp-post-timeline-item clearfix">
 	<div class="pp-post-timeline-icon-wrapper">
 		<span class="pp-separator-arrow"></span>
 		<div class="pp-post-timeline-icon">

@@ -5,10 +5,12 @@ $column_desktop = isset( $columns['desktop'] ) && ! empty( $columns['desktop'] )
 $column_tablet  = isset( $columns['tablet'] ) && ! empty( $columns['tablet'] ) && intval( $columns['tablet'] ) > 0 ? intval( $columns['tablet'] ) : 2;
 $column_mobile  = isset( $columns['mobile'] ) && ! empty( $columns['mobile'] ) && intval( $columns['mobile'] ) > 0 ? intval( $columns['mobile'] ) : 1;
 $spacing		= isset( $settings->post_spacing ) && '' !== $settings->post_spacing ? $settings->post_spacing : 0;
+$spacing_tablet	= isset( $settings->post_spacing_medium ) && '' !== $settings->post_spacing_medium ? $settings->post_spacing_medium : $spacing;
+$spacing_mobile	= isset( $settings->post_spacing_responsive ) && '' !== $settings->post_spacing_responsive ? $settings->post_spacing_responsive : $spacing_tablet;
 $spacing_unit	= isset( $settings->post_spacing_unit ) ? $settings->post_spacing_unit : '%';
 $space_desktop	= ( $column_desktop - 1 ) * $spacing;
-$space_tablet 	= ( $column_tablet - 1 ) * $spacing;
-$space_mobile 	= ( $column_mobile - 1 ) * $spacing;
+$space_tablet 	= ( $column_tablet - 1 ) * $spacing_tablet;
+$space_mobile 	= ( $column_mobile - 1 ) * $spacing_mobile;
 $post_columns_desktop = ( 100 - $space_desktop ) / $column_desktop;
 $post_columns_tablet = ( 100 - $space_tablet ) / $column_tablet;
 $post_columns_mobile = ( 100 - $space_mobile ) / $column_mobile;
@@ -845,9 +847,20 @@ FLBuilderCSS::dimension_field_rule( array(
 	}
 	<?php } ?>
 
-	.fl-node-<?php echo $id; ?> .pp-content-grid-post {
+	.fl-node-<?php echo $id; ?> .pp-content-post {
+		<?php if ( 'grid' == $settings->layout ) { ?>
+		margin-bottom: <?php echo $spacing_tablet . $spacing_unit; ?>;
 		width: <?php echo $post_columns_tablet; ?>%;
 		width: calc((100% - <?php echo $space_tablet; ?><?php echo $spacing_unit; ?>) / <?php echo $column_tablet; ?>);
+		<?php } ?>
+		<?php if ( 'carousel' == $settings->layout ) { ?>
+		margin-left: <?php echo ($spacing_tablet / 2); ?><?php echo $spacing_unit; ?>;
+		margin-right: <?php echo ($spacing_tablet / 2); ?><?php echo $spacing_unit; ?>;
+		<?php } ?>
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-grid-space {
+		width: <?php echo $spacing_tablet . $spacing_unit; ?>;
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['desktop']; ?>n+1){
@@ -892,10 +905,22 @@ FLBuilderCSS::dimension_field_rule( array(
 	}
 	<?php } ?>
 
-	.fl-node-<?php echo $id; ?> .pp-content-grid-post {
+	.fl-node-<?php echo $id; ?> .pp-content-post {
+		<?php if ( 'grid' == $settings->layout ) { ?>
+		margin-bottom: <?php echo $spacing_mobile . $spacing_unit; ?>;
 		width: <?php echo $post_columns_mobile; ?>%;
 		width: calc((100% - <?php echo $space_mobile; ?><?php echo $spacing_unit; ?>) / <?php echo $column_mobile; ?>);
+		<?php } ?>
+		<?php if ( 'carousel' == $settings->layout ) { ?>
+		margin-left: <?php echo ($spacing_mobile / 2); ?><?php echo $spacing_unit; ?>;
+		margin-right: <?php echo ($spacing_mobile / 2); ?><?php echo $spacing_unit; ?>;
+		<?php } ?>
 	}
+
+	.fl-node-<?php echo $id; ?> .pp-grid-space {
+		width: <?php echo $spacing_mobile . $spacing_unit; ?>;
+	}
+
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post:nth-of-type(<?php echo $settings->post_grid_count['tablet']; ?>n+1) {
 	    clear: none;
 	}

@@ -43,6 +43,7 @@ if($query->have_posts()) :
 	<div class="pp-post-timeline-slider-target pp-post-timeline-content-wrapper post-timeline-slider-for-<?php echo $id; ?>">
 
 		<?php
+		$count = 0;
 		while($query->have_posts()) :
 
 		$query->the_post();
@@ -50,6 +51,8 @@ if($query->have_posts()) :
 		$terms_list = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
 
 		include $module->dir . 'includes/' . $settings->post_timeline_layout . '-timeline.php';
+
+		$count++;
 
 		endwhile; ?>
 	</div>

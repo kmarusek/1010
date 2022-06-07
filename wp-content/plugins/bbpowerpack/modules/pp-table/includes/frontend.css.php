@@ -63,6 +63,14 @@ FLBuilderCSS::typography_field_rule( array(
 	vertical-align: <?php echo $settings->header_vertical_alignment; ?>;
 }
 
+<?php // Header Border - Settings
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'header_border_group',
+		'selector' 		=> ".fl-node-$id .pp-table-content thead tr th, .fl-node-$id .pp-table-content.tablesaw thead th",
+	) );
+?>
+
 <?php if( $settings->is_sortable == 'yes' ) { ?>
 .fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable th.tablesaw-sortable-head button {
 	<?php if( $settings->header_padding_right >= 0 ) { ?>
@@ -71,52 +79,23 @@ FLBuilderCSS::typography_field_rule( array(
 }
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .pp-table-content tbody {
-	border-left: 1px solid <?php echo ( $settings->rows_border ) ? '#' . $settings->rows_border : 'transparent'; ?>;
-	border-right: 1px solid <?php echo ( $settings->rows_border ) ? '#' . $settings->rows_border : 'transparent'; ?>;
-	border-top: 1px solid <?php echo ( $settings->rows_border ) ? '#' . $settings->rows_border : 'transparent'; ?>;
-	<?php if( $settings->cells_border == 'horizontal' || $settings->cells_border == 'vertical' ) { ?>
-		border-left: 0;
-		border-right: 0;
-	<?php } ?>
-	<?php if( $settings->cells_border == 'vertical' ) { ?>
-		border-top: 0;
-	<?php } ?>
-}
-
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr {
 	background: <?php echo pp_get_color_value($settings->rows_background); ?>;
-	border-bottom: 1px solid <?php echo ( $settings->rows_border ) ? '#' . $settings->rows_border : 'transparent'; ?>;
-	<?php if( $settings->cells_border == 'vertical' ) { ?>
-		border-bottom: 0;
-	<?php } ?>
+	border-bottom: 0;
 }
 
-<?php if( $settings->cells_border == 'horizontal' ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-table-content tbody tr:last-child {
-		border-bottom: 0;
-	}
-<?php } ?>
-
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr td {
-    border-left: 1px solid <?php echo ( $settings->rows_border ) ? pp_get_color_value($settings->rows_border) : 'transparent'; ?>;
-	<?php if( $settings->cells_border == 'horizontal' ) { ?>
-		border-left: 0;
-	<?php } ?>
 	vertical-align: <?php echo $settings->rows_vertical_alignment; ?>;
+	color: <?php echo pp_get_color_value($settings->rows_font_color); ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-table-content tbody tr td:first-child {
-	border-left: 0;
-}
-
-/* .fl-node-<?php echo $id; ?> .pp-table-content thead tr:first-child th {
-	border: 1px solid <?php echo ( $settings->header_border ) ? pp_get_color_value($settings->header_border) : 'transparent'; ?>;
-} */
-
-.fl-node-<?php echo $id; ?> .pp-table-content tbody tr td {
-    color: <?php echo pp_get_color_value($settings->rows_font_color); ?>;
-}
+<?php // Cell Border - Settings
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'cell_border_group',
+		'selector' 		=> ".fl-node-$id .pp-table-content tbody tr td",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .tablesaw-sortable .tablesaw-sortable-head button {
 	<?php if ( isset( $settings->header_typography ) && is_array( $settings->header_typography ) ) { ?>

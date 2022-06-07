@@ -10,7 +10,7 @@
 				}
 				$timeline = $settings->timeline[$i];
 			?>
-			<div class="pp-timeline-item clearfix pp-timeline-item-<?php echo $i; ?>">
+			<div id="pp-timeline-<?php echo $id; ?>-<?php echo $i; ?>" class="pp-timeline-item clearfix pp-timeline-item-<?php echo $i; ?>">
 				<div class="pp-timeline-icon-wrapper">
 					<span class="pp-separator-arrow"></span>
 					<div class="pp-timeline-icon">

@@ -28,7 +28,12 @@ $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h2';
 <?php } else { ?>
 	<?php if ( pp_is_builder_active() ) { ?>
 	<div class="pp-helper" style="text-align: center;">
-		<h4><?php echo $module->name; ?></h4>
+		<h4>
+			<span><?php echo $module->name; ?></span>
+			<?php if ( isset( $settings->builder_label ) && ! empty( $settings->builder_label ) ) { ?>
+				- <span><?php echo $settings->builder_label; ?></span>
+			<?php } ?>
+		</h4>
 		<h5>modal-<?php echo $module->node; ?></h5>
 		<?php _e('Click here to edit the "modal-box" settings. This text is only for editing and will not appear after you publish the changes.', 'bb-powerpack'); ?>
 	</div>

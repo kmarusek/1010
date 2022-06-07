@@ -70,6 +70,54 @@ class PPTableModule extends FLBuilderModule {
 			),
 		), 'row_typography' );
 
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'header_border'	=> array(
+				'type'				=> 'color',
+			),
+		), 'header_border_group' );
+
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'rows_border'	=> array(
+				'type'				=> 'color',
+			),
+		), 'cell_border_group' );
+
+		if ( isset( $settings->cells_border ) ) {
+			if ( ! isset( $settings->cell_border_group ) ) {
+				$settings->cell_border_group = array(
+					'style' => '',
+					'width' => array(
+						'top' => 1,
+						'right' => 1,
+						'bottom' => 1,
+						'left' => 1,
+					),
+					'color' => ''
+				);
+			}
+
+			$settings->cell_border_group['style'] = 'solid';
+
+			if ( 'horizontal' == $settings->cells_border ) {
+				$settings->cell_border_group['width'] = array(
+					'top' => '1',
+					'right' => '0',
+					'bottom' => '1',
+					'left' => '0',
+				);
+			}
+			if ( 'vertical' == $settings->cells_border ) {
+				$settings->cell_border_group['width'] = array(
+					'top' => '0',
+					'right' => '1',
+					'bottom' => '0',
+					'left' => '1',
+				);
+			}
+
+			unset( $settings->cells_border );
+		}
+
 		if ( isset( $settings->sortable ) ) {
 			if ( 'data-tablesaw-sortable data-tablesaw-sortable-switch' === $settings->sortable ) {
 				$settings->is_sortable = 'yes';
@@ -271,19 +319,29 @@ BB_PowerPack::register_module('PPTableModule', array(
 							'property'	=> 'background'
 						)
                     ),
-                    'header_border'				=> array(
-                        'type'          => 'color',
-                        'default'       => 'ffffff',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'help'          => __('Change the table header border color', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'connections'	=> array('color'),
-						'preview'		=> array(
-							'type'			=> 'css',
-							'selector'		=> '.pp-table-content thead tr:first-child th',
-							'property'		=> 'border-right-color'
-						)
-                    ),
+					'header_border_group' => array(
+						'type'   => 'border',
+						'label'  => __( 'Border', 'bb-powerpack' ),
+						'default' => array(
+							'style' => 'solid',
+							'color' => 'rgba(0,0,0,0)',
+							'width' => array(
+								'top' => 1,
+								'right' => 1,
+								'bottom' => 1,
+								'left' => 1,
+							),
+						),
+						'disabled' => array(
+							'default' => array( 'radius', 'shadow' ),
+							'medium' => array( 'radius', 'shadow' ),
+							'responsive' => array( 'radius', 'shadow' ),
+						),
+						'preview' => array(
+							'type' => 'css',
+							'selector' => '.pp-table-content thead tr th'
+						),
+					),
 					'header_vertical_alignment'	=> array(
 						'type'		=> 'pp-switch',
 						'label'		=> __('Vertical Alignment', 'bb-powerpack'),
@@ -396,45 +454,29 @@ BB_PowerPack::register_module('PPTableModule', array(
 				'title'		=> __('Cell', 'bb-powerpack'),
 				'collapsed'	=> true,
 				'fields'	=> array(
-					'cells_border' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Border', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          	=> __('Default', 'bb-powerpack'),
-							'horizontal'        => __('Horizontal', 'bb-powerpack'),
-							'vertical'         	=> __('Vertical', 'bb-powerpack'),
+					'cell_border_group' => array(
+						'type'   => 'border',
+						'label'  => __( 'Border', 'bb-powerpack' ),
+						'default' => array(
+							'style' => 'solid',
+							'color' => 'rgba(0,0,0,0)',
+							'width' => array(
+								'top' => 1,
+								'right' => 1,
+								'bottom' => 1,
+								'left' => 1,
+							),
+						),
+						'disabled' => array(
+							'default' => array( 'radius', 'shadow' ),
+							'medium' => array( 'radius', 'shadow' ),
+							'responsive' => array( 'radius', 'shadow' ),
+						),
+						'preview' => array(
+							'type' => 'css',
+							'selector' => '.pp-table-content tbody tr td'
 						),
 					),
-					'rows_border'     => array(
-                        'type'          => 'color',
-                        'default'       => 'efefef',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'help'          => __('Change the table row border color', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'connections'	=> array('color'),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'rules'		=> array(
-								array(
-									'selector'	=> '.pp-table-content tbody',
-									'property'	=> 'border-top-color'
-								),
-								array(
-									'selector'	=> '.pp-table-content tbody tr',
-									'property'	=> 'border-bottom-color'
-								),
-								array(
-									'selector'	=> '.pp-table-content tbody, .pp-table-content tbody tr td',
-									'property'	=> 'border-left-color'
-								),
-								array(
-									'selector'	=> '.pp-table-content tbody',
-									'property'	=> 'border-right-color'
-								),
-							)
-						)
-                    ),
 				)
 			)
 		)

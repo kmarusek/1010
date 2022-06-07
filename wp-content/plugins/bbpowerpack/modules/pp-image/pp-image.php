@@ -619,7 +619,7 @@ BB_PowerPack::register_module('PPImageModule', array(
 								'fields'        => array('photo')
 							),
 							'url'           => array(
-								'fields'        => array('photo_url'),
+								'fields'        => array('photo_url', 'caption'),
 							)
 						)
 					),
@@ -691,6 +691,7 @@ BB_PowerPack::register_module('PPImageModule', array(
 						'type'          => 'text',
 						'label'         => __('Custom Caption', 'bb-powerpack'),
 						'connections'   => array( 'string' ),
+						'help' => __( 'Add caption here when you choose URL as Photo Source above.', 'bb-powerpack' ),
 					),
 					'show_caption'  => array(
 						'type'          => 'pp-switch',

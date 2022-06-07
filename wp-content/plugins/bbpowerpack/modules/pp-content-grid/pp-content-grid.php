@@ -715,6 +715,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'label'         => __('Column Spacing', 'bb-powerpack'),
 						'default'       => '2',
 						'units'			=> array('%', 'px'),
+						'responsive'	=> true,
 						'slider'		=> array(
 							'min'			=> '0',
 							'max'			=> '20',

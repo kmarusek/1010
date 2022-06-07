@@ -964,7 +964,7 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'connections'	=> array( 'color' ),
 						'preview'       => array(
 							'type'          => 'css',
-							'selector'        => '.pp-image-carousel .swiper-pagination-bullet, .pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progress',
+							'selector'        => '.pp-image-carousel .swiper-pagination-bullet, .pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progressbar',
 							'property'        => 'background-color',
 						),
 					),
@@ -977,7 +977,7 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'connections'	=> array( 'color' ),
 						'preview'       => array(
 							'type'          => 'css',
-							'selector'        => '.pp-image-carousel .swiper-pagination-bullet:hover, .pp-image-carousel .swiper-pagination-bullet-active, .pp-image-carousel .swiper-pagination-progress .swiper-pagination-progressbar',
+							'selector'        => '.pp-image-carousel .swiper-pagination-bullet:hover, .pp-image-carousel .swiper-pagination-bullet-active, .pp-image-carousel .swiper-pagination-progressbar .swiper-pagination-progressbar-fill',
 							'property'        => 'background',
 						),
 					),

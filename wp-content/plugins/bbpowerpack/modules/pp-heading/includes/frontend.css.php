@@ -12,6 +12,13 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading {
 	<?php } ?>
 }
 
+div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.title-text {
+	display: inline;
+	<?php if ( isset( $settings->heading_style ) && 'block' == $settings->heading_style ) { ?>
+		display: block;
+	<?php } ?>
+}
+
 <?php
 // Title - Border Width
 FLBuilderCSS::dimension_field_rule( array(
@@ -68,6 +75,9 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 		<?php if ( isset( $settings->title_typography['text_transform'] ) && ! empty( $settings->title_typography['text_transform'] ) ) { ?>
 		text-transform: <?php echo $settings->title_typography['text_transform']; ?>;
 		<?php } ?>
+	<?php } ?>
+	<?php if ( 'block' !== $settings->heading_style ) { ?>
+	display: <?php echo ( '' === $settings->heading_bg_color ) ? 'inline' : 'inline-block'; ?>;
 	<?php } ?>
 }
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title:hover span.pp-primary-title {
@@ -138,6 +148,9 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 		border-color: <?php echo pp_get_color_value( $settings->heading2_border_color ); ?>;
 	<?php } ?>
 	margin-left: <?php echo $settings->heading2_left_margin; ?>px;
+	<?php if ( 'block' !== $settings->heading_style ) { ?>
+	display: <?php echo ( '' === $settings->heading2_bg_color ) ? 'inline' : 'inline-block'; ?>;
+	<?php } ?>
 }
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title:hover span.pp-secondary-title {
 	<?php if ( isset( $settings->heading2_hover_color ) && ! empty( $settings->heading2_hover_color ) ) { ?>
@@ -166,12 +179,6 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title {
 	margin-bottom: <?php echo $settings->heading_bottom_margin; ?>px;
 }
 
-div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.title-text {
-	display: inline-block;
-	<?php if ( isset( $settings->heading_style ) && 'block' == $settings->heading_style ) { ?>
-		display: block;
-	<?php } ?>
-}
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .pp-heading-link {
 <?php if ( isset( $settings->heading_style ) && 'block' == $settings->heading_style ) { ?>
 	display: block;
