@@ -58,6 +58,7 @@ $form = array(
 			'checkbox'         => __( 'Checkbox', 'bb-theme-builder' ),
 			'radio'            => __( 'Radio', 'bb-theme-builder' ),
 			'button_group'     => __( 'Button Group', 'bb-theme-builder' ),
+			'link'             => __( 'Link', 'bb-theme-builder' ),
 			'page_link'        => __( 'Page Link', 'bb-theme-builder' ),
 			'google_map'       => __( 'Google Map', 'bb-theme-builder' ),
 			'date_picker'      => __( 'Date Picker', 'bb-theme-builder' ),
@@ -218,6 +219,7 @@ $form = array(
 			'file'      => __( 'File', 'bb-theme-builder' ),
 			'select'    => __( 'Select', 'bb-theme-builder' ),
 			'radio'     => __( 'Radio', 'bb-theme-builder' ),
+			'link'      => __( 'Link', 'bb-theme-builder' ),
 			'page_link' => __( 'Page Link', 'bb-theme-builder' ),
 		),
 		'toggle'  => array(

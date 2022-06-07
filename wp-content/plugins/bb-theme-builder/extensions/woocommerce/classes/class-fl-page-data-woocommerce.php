@@ -83,6 +83,28 @@ final class FLPageDataWooCommerce {
 	}
 
 	/**
+	 * @since TDB
+	 * @return string
+	 */
+	static public function get_product_description() {
+		global $post, $wp_the_query;
+
+		if ( empty( $post ) ) {
+			return '';
+		}
+
+		$prod_description  = '';
+		$show_place_holder = is_object( $wp_the_query->post ) && 'fl-theme-layout' === $wp_the_query->post->post_type && $post->ID === $wp_the_query->post->ID;
+
+		if ( $show_place_holder ) {
+			$prod_description = sprintf( '<div class="fl-builder-module-placeholder-message">%s</div>', __( 'Woocommerce Product Description', 'bb-theme-builder' ) );
+		} else {
+			$prod_description = FLPageDataPost::get_content();
+		}
+		return $prod_description;
+	}
+
+	/**
 	 * @since 1.0
 	 * @return string
 	 */
@@ -169,7 +191,13 @@ final class FLPageDataWooCommerce {
 	 * @return string
 	 */
 	static public function get_product_images() {
-		return self::get_template_html( 'woocommerce_show_product_images' );
+		$html = '';
+
+		if ( is_singular() ) {
+			$html = self::get_template_html( 'woocommerce_show_product_images' );
+		}
+
+		return $html;
 	}
 
 	/**
@@ -193,7 +221,21 @@ final class FLPageDataWooCommerce {
 	 * @return string
 	 */
 	static public function get_product_tabs() {
+		global $wp_the_query;
 		$is_content_building_enabled = FLThemeBuilderFrontendEdit::is_content_building_enabled();
+		$is_page_builder_enabled     = FLBuilderModel::is_builder_enabled();
+		$post_type                   = empty( $wp_the_query->query_vars['post_type'] ) ? '' : $wp_the_query->query_vars['post_type'];
+		$is_editing_themer_layout    = 'fl-theme-layout' === $post_type;
+
+		// Hide WooCommerce Addition Information Tab when viewing a Themer Singular Layout page.
+		if ( $is_page_builder_enabled && $is_editing_themer_layout ) {
+			add_filter( 'woocommerce_product_tabs', function( $tabs ) {
+				if ( ! empty( $tabs['additional_information'] ) ) {
+					$tabs['additional_information']['callback'] = '__return_empty_string';
+				}
+				return $tabs;
+			});
+		}
 
 		if ( $is_content_building_enabled ) {
 			add_filter( 'the_content', 'FLPageDataPost::get_content' );

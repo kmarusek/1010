@@ -9,7 +9,7 @@
 
 	do_action( 'fl_builder_post_grid_before_content', $settings, $module );
 
-	$content = apply_filters( 'fl_theme_builder_custom_post_grid_html', $settings->custom_post_layout->html );
+	$content = apply_filters( 'fl_theme_builder_custom_post_grid_html', $settings->custom_post_layout->html, $settings );
 
 	echo do_shortcode( FLThemeBuilderFieldConnections::parse_shortcodes( $content ) );
 

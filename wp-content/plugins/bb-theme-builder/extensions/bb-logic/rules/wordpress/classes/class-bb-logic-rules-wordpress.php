@@ -47,6 +47,7 @@ final class BB_Logic_Rules_WordPress {
 				'wordpress/user-registered'      => __CLASS__ . '::user_registered',
 				'wordpress/user'                 => __CLASS__ . '::user',
 				'wordpress/conditional-tag'      => __CLASS__ . '::conditional_tag',
+				'wordpress/shortcode'            => __CLASS__ . '::shortcode',
 			)
 		);
 	}
@@ -63,6 +64,17 @@ final class BB_Logic_Rules_WordPress {
 			return $post;
 		}
 		return false;
+	}
+
+	/**
+	 * @since 1.4
+	 */
+	static public function shortcode( $rule ) {
+		return BB_Logic_Rules::evaluate_rule( array(
+			'value'    => do_shortcode( $rule->key ),
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
+		) );
 	}
 
 	/**

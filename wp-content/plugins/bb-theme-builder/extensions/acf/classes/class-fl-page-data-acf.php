@@ -32,9 +32,12 @@ final class FLPageDataACF {
 	static public function string_field( $settings, $property ) {
 		$content = '';
 		$name    = trim( $settings->name );
-
 		if ( function_exists( 'acf_get_loop' ) && acf_get_loop( 'active' ) ) {
 			$object = get_sub_field_object( $name );
+			// get group field
+			if ( ! $object ) {
+				$object = self::group_sub_field_object( $name );
+			}
 		} else {
 			$object = get_field_object( $name, self::get_object_id( $property ) );
 		}
@@ -75,6 +78,13 @@ final class FLPageDataACF {
 						}
 						$content .= '</ul>';
 					}
+				}
+				break;
+			case 'link':
+				if ( 'string' == gettype( $object['value'] ) ) {
+					$content = $object['value'];
+				} elseif ( ! empty( $object['value'] ) && ( 'array' == gettype( $object['value'] ) ) ) {
+					$content = $object['value']['url'];
 				}
 				break;
 			case 'password':
@@ -269,6 +279,13 @@ final class FLPageDataACF {
 						}
 						$content .= '</ul>';
 					}
+				}
+				break;
+			case 'link':
+				if ( 'string' == gettype( $object['value'] ) ) {
+					$content = $object['value'];
+				} elseif ( ! empty( $object['value'] ) && ( 'array' == gettype( $object['value'] ) ) ) {
+					$content = $object['value']['url'];
 				}
 				break;
 			case 'image':
@@ -848,6 +865,40 @@ final class FLPageDataACF {
 			}
 		}
 		return $form;
+	}
+
+	/**
+	 * @since 1.4
+	 * @param string $sub_field
+	 * @return object
+	 */
+	public static function group_sub_field_object( $sub_field ) {
+		global $wpdb;
+		$group_field = false;
+		$object      = false;
+		$results     = $wpdb->get_results( "SELECT post_excerpt as 'field_key', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field'", ARRAY_A );
+
+		foreach ( $results as $k => $field ) {
+			$data = maybe_unserialize( $field['field_opts'] );
+			if ( 'group' == $data['type'] ) {
+				$field_key = $field['field_key'];
+				if ( stripos( $sub_field, $field_key ) !== false ) {
+					$group_field = $field_key;
+				}
+			}
+		}
+
+		if ( $group_field ) {
+			$name = str_replace( $group_field, '', $sub_field );
+			$name = substr( $name, 1 );
+			if ( have_rows( $group_field ) ) {
+				while ( have_rows( $group_field ) ) :
+					the_row();
+					$object = get_sub_field_object( $name );
+				endwhile;
+			}
+		}
+		return $object;
 	}
 }
 

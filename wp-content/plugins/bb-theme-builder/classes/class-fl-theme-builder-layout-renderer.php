@@ -367,9 +367,16 @@ final class FLThemeBuilderLayoutRenderer {
 			return false;
 		}
 
-		do_action( 'fl_theme_builder_before_render_header', $ids[0] );
+		$layout_id = FLBuilderModel::get_post_id();
+		if ( 'fl-theme-layout' == get_post_type() && count( $ids ) > 1 && in_array( $layout_id, $ids ) ) {
+			$id = $layout_id;
+		} else {
+			$id = $ids[0];
+		}
 
-		$settings = FLThemeBuilderLayoutData::get_settings( $ids[0] );
+		do_action( 'fl_theme_builder_before_render_header', $id );
+
+		$settings = FLThemeBuilderLayoutData::get_settings( $id );
 
 		$attrs = array(
 			'data-type'                => 'header',
@@ -380,6 +387,7 @@ final class FLThemeBuilderLayoutRenderer {
 			'data-overlay'             => $settings['overlay'],
 			'data-overlay-bg'          => $settings['overlay_bg'],
 			'data-shrink-image-height' => apply_filters( 'fl_theme_builder_shrink_image_height', '50px' ),
+			'role'                     => 'banner',
 		);
 
 		if ( self::is_schema_enabled() ) {
@@ -387,9 +395,9 @@ final class FLThemeBuilderLayoutRenderer {
 			$attrs['itemtype']  = 'http://schema.org/WPHeader';
 		}
 
-		FLBuilder::render_content_by_id( $ids[0], $tag, $attrs );
+		FLBuilder::render_content_by_id( $id, $tag, $attrs );
 
-		do_action( 'fl_theme_builder_after_render_header', $ids[0] );
+		do_action( 'fl_theme_builder_after_render_header', $id );
 
 		return true;
 	}
@@ -465,7 +473,14 @@ final class FLThemeBuilderLayoutRenderer {
 			return false;
 		}
 
-		do_action( 'fl_theme_builder_before_render_footer', $ids[0] );
+		$layout_id = FLBuilderModel::get_post_id();
+		if ( 'fl-theme-layout' == get_post_type() && count( $ids ) > 1 && in_array( $layout_id, $ids ) ) {
+			$id = $layout_id;
+		} else {
+			$id = $ids[0];
+		}
+
+		do_action( 'fl_theme_builder_before_render_footer', $id );
 
 		$attrs = array(
 			'data-type' => 'footer',
@@ -476,9 +491,9 @@ final class FLThemeBuilderLayoutRenderer {
 			$attrs['itemtype']  = 'http://schema.org/WPFooter';
 		}
 
-		FLBuilder::render_content_by_id( $ids[0], $tag, $attrs );
+		FLBuilder::render_content_by_id( $id, $tag, $attrs );
 
-		do_action( 'fl_theme_builder_after_render_footer', $ids[0] );
+		do_action( 'fl_theme_builder_after_render_footer', $id );
 
 		return true;
 	}

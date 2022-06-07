@@ -123,12 +123,14 @@ FLPageData::add_post_property_settings_fields( 'woocommerce_product_sku', array(
 /**
  * Product Images
  */
-FLPageData::add_post_property( 'woocommerce_product_images', array(
-	'label'  => __( 'Product Images', 'bb-theme-builder' ),
-	'group'  => 'woocommerce',
-	'type'   => 'html',
-	'getter' => 'FLPageDataWooCommerce::get_product_images',
-) );
+if ( FLThemeBuilderLayoutData::current_post_is( array( 'singular' ) ) ) :
+	FLPageData::add_post_property( 'woocommerce_product_images', array(
+		'label'  => __( 'Product Images', 'bb-theme-builder' ),
+		'group'  => 'woocommerce',
+		'type'   => 'html',
+		'getter' => 'FLPageDataWooCommerce::get_product_images',
+	) );
+endif;
 
 /**
  * Product Sale Flash

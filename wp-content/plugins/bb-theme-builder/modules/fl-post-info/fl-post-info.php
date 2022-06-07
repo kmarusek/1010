@@ -153,13 +153,27 @@ FLBuilder::register_module( 'FLPostInfoModule', array(
 			'author'        => array(
 				'title'  => __( 'Author', 'bb-theme-builder' ),
 				'fields' => array(
-					'show_author' => array(
+					'show_author'      => array(
 						'type'    => 'select',
 						'label'   => __( 'Author', 'bb-theme-builder' ),
 						'default' => '1',
 						'options' => array(
 							'1' => __( 'Show', 'bb-theme-builder' ),
 							'0' => __( 'Hide', 'bb-theme-builder' ),
+						),
+						'toggle'  => array(
+							'1' => array(
+								'fields' => array( 'show_author_link' ),
+							),
+						),
+					),
+					'show_author_link' => array(
+						'type'    => 'select',
+						'label'   => __( 'Show author link', 'bb-theme-builder' ),
+						'default' => 'yes',
+						'options' => array(
+							'yes' => __( 'Yes', 'bb-theme-builder' ),
+							'no'  => __( 'No', 'bb-theme-builder' ),
 						),
 					),
 				),

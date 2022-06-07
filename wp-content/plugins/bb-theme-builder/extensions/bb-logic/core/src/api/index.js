@@ -4,6 +4,7 @@ import { dateForm } from './form-presets/date'
 import { keyValueForm } from './form-presets/key-value'
 import { numberForm } from './form-presets/number'
 import { stringForm } from './form-presets/string'
+import { shortcodeForm } from './form-presets/shortcode'
 
 /**
  * Rule type categories.
@@ -88,6 +89,7 @@ const formPresets = {
 	'key-value': keyValueForm,
 	'number': numberForm,
 	'string': stringForm,
+	'shortcode': shortcodeForm,
 }
 
 /**

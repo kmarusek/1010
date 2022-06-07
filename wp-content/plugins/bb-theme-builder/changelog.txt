@@ -1,3 +1,26 @@
+<h4>1.4.2 - 06/2/2022</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Accessibility: Add <code>role="banner"</code> to the header tag</li>
+	<li>Add shortcode support to conditional logic</li>
+	<li>Add missing translations</li>
+	<li>Post Info Module: Add option to control display of  the author link</li>
+	<li>ACF: Add link field type support</li>
+	<li>WooCommerce: Rename WooCommerce style sectio key so there is not a duplicate</li>
+	<li>Add <code>$settings</code> as filter argument to <code>fl_theme_builder_custom_post_grid_html</code></li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>TEC: Fix Event Map module custom height not working</li>
+	<li>WooCommerce: Fix display issues with the Product Description module</li>
+	<li>WooCommerce: Fix error when trying to edit a Singular layout when previewing a variable product</li>
+	<li>WooCommerce: Fix pixelated images in Product Images Module</li>
+	<li>Menu Module: Fix gap on scroll when using a mega menu</li>
+	<li>WooCommerce: Remove Product Gallery field connection from showing up when editing an Archive layout</li>
+	<li>Fix error when trying to apply a template to a Themer layout that is applied to the entire site</li>
+</ul>
+
 <h4>1.4.1.3 - 05/19/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

@@ -56,3 +56,4 @@ addRuleTypeCategory( 'conditional-tag', {
 } )
 
 import './conditional-tag.js'
+import './shortcode'

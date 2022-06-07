@@ -198,7 +198,10 @@ final class BB_Logic_I18n {
 			'Search Results'              => __( 'Search Results', 'bb-theme-builder' ),
 			'WordPress Conditionals'      => __( 'WordPress Conditionals', 'bb-theme-builder' ),
 			'Additional rules to determine if this layout should be displayed.' => __( 'Additional rules to determine if this layout should be displayed.', 'bb-theme-builder' ),
-
+			'Open'                        => __( 'Open', 'bb-theme-builder' ),
+			'Closed'                      => __( 'Closed', 'bb-theme-builder' ),
+			'Shortcode Result'            => __( 'Shortcode Result', 'bb-theme-builder' ),
+			'[shortcode]'                 => __( '[shortcode]', 'bb-theme-builder' ),
 		);
 	}
 }

@@ -360,7 +360,7 @@ final class FLThemeBuilderWooCommerceArchive {
 			),
 		);
 
-		$form['style']['sections']['woo'] = array(
+		$form['style']['sections']['woo_style'] = array(
 			'title'  => __( 'WooCommerce', 'bb-theme-builder' ),
 			'fields' => array(
 				'woo_sale_flash_bg'    => array(

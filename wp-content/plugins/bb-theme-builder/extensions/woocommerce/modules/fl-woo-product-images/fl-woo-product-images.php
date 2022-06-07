@@ -22,6 +22,19 @@ class FLWooProductImagesModule extends FLBuilderModule {
 			'enabled'         => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 		));
 	}
+
+	/**
+	 * @since 1.4.2
+	 * @return string
+	 */
+	public function get_thumbnail_size() {
+		if ( ! empty( $this->settings->thumb_size ) ) {
+			return $this->settings->thumb_size;
+		}
+
+		$gallery_thumbnail = wc_get_image_size( 'gallery_thumbnail' );
+		return array( $gallery_thumbnail['width'], $gallery_thumbnail['height'] );
+	}
 }
 
 FLBuilder::register_module( 'FLWooProductImagesModule', array(
@@ -39,6 +52,11 @@ FLBuilder::register_module( 'FLWooProductImagesModule', array(
 							'1' => __( 'Show', 'bb-theme-builder' ),
 							'0' => __( 'Hide', 'bb-theme-builder' ),
 						),
+					),
+					'thumb_size' => array(
+						'type'    => 'photo-sizes',
+						'label'   => __( 'Thumbnail Size', 'bb-theme-builder' ),
+						'default' => 'woocommerce_gallery_thumbnail',
 					),
 				),
 			),

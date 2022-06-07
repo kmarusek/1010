@@ -3,7 +3,7 @@
 $data = array(
 	'date'          => '[wpbb post:date format="' . $settings->date_format . '"]',
 	'modified_date' => '[wpbb post:modified_date format="' . $settings->modified_date_format . '"]',
-	'author'        => '[wpbb post:author_name link="yes"]',
+	'author'        => '[wpbb post:author_name link="' . $settings->show_author_link . '"]',
 	'comments'      => '[wpbb post:comments_number link="1" none_text="' . $settings->none_text . '" one_text="' . $settings->one_text . '" more_text="' . $settings->more_text . '"]',
 	'terms'         => '[wpbb post:terms_list taxonomy="' . $settings->terms_taxonomy . '" separator="' . $settings->terms_separator . '" display="' . $settings->terms_display . '"]',
 );
