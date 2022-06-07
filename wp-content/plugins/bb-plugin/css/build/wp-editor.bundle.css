@@ -1,5 +1,7 @@
 .wp-block[data-type="fl-builder/layout"] .components-placeholder__fieldset,
+.wp-block[data-type="fl-builder/layout"] .components-placeholder__instructions,
 .wp-block[data-type="fl-builder/layout"] .components-placeholder.components-placeholder {
+  text-align: center;
   justify-content: center;
   align-items: center; }
 
