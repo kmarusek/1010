@@ -39,7 +39,7 @@ function fvm_start_buffer() {
 	}
 }
 
-# process html from fvm_end_buffer
+# process html
 function fvm_process_page($html) {
 	
 	# get globals
@@ -1005,7 +1005,7 @@ function fvm_process_page($html) {
 		$element->outertext = ''; 
 	}
 	
-	# preload headers, by importance
+	# preload headers, by fetchpriority attribute
 	if(is_array($htmlpreloads)) {
 		
 		# deduplicate
