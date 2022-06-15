@@ -1,4 +1,6 @@
 <?php
+// This is a vendored copy of https://github.com/wikimedia/less.php
+
 /**
  * This file provides the part of lessphp API (https://github.com/leafo/lessphp)
  * to be a drop-in replacement for following products:
