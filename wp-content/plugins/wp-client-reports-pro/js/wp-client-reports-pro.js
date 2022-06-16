@@ -3,6 +3,91 @@
 
 	$( document ).ready(function() {
 
+        $('.wp-client-reports-pro-note-select-icon a').click(function(e) {
+            e.preventDefault();
+            $('.wp-client-reports-pro-note-select-icon a').each(function( index ) {
+                $(this).removeClass('selected');
+            });
+            $(this).addClass('selected');
+            var iconType = $(this).data('icon');
+            console.log(iconType);
+            $("input[name='note_icon_type']").val(iconType);
+        });
+
+        var js_date_format = getDateFormat();
+        var date = moment().format(js_date_format);
+
+        $('#note-date').val(date);
+
+        $('#note-date').datepicker();
+
+        $("#wp-client-reports-pro-add-new-note").click(function(e) {
+            var js_date_format = getDateFormat();
+            var date = moment().format(js_date_format);
+            $('#note-date').val(date);
+            $('#note-text').val('');
+            $("input[name='note_id']").val('');
+            $('.wp-client-reports-pro-note-select-icon a').removeClass('selected');
+            $(".wp-client-reports-pro-note-select-icon a[data-icon='info']").addClass('selected');
+            $("input[name='note_icon_type']").val('info');
+            $("input[name='note_action']").val('addedit');
+            $("#wp-client-reports-pro-note-status").hide();
+            $("#wp-client-reports-pro-add-note").show();
+        });
+
+        $("#wp-client-reports-pro-note-delete").click(function(e) {
+            e.preventDefault();
+            $("input[name='note_action']").val('delete');
+            $("#wp-client-reports-pro-add-note").submit();
+        });
+
+        $( "#wp-client-reports-pro-notes-list" ).on( "click", "a.edit-note", function(e) {
+            e.preventDefault();
+            var note_id = $(this).data('id');
+            var note_date = $(this).data('date');
+            var note_icon = $(this).data('icon');
+            var note_text = $(this).siblings('.wp-client-reports-note-text-contents').html();
+            $("input[name='note_id']").val(note_id);
+            $('#note-date').val(note_date);
+            $('#note-text').val(note_text);
+            $('.wp-client-reports-pro-note-select-icon a').removeClass('selected');
+            $(".wp-client-reports-pro-note-select-icon a[data-icon='" + note_icon + "']").addClass('selected');
+            $("input[name='note_icon_type']").val(note_icon);
+            $("input[name='note_action']").val('addedit');
+            $("#wp-client-reports-pro-note-status").hide();
+            $("#wp-client-reports-pro-add-note").show();
+            tb_show("", "#TB_inline?width=600&height=525&inlineId=wp-client-reports-pro-add-note-modal");
+        });
+
+
+        $("#wp-client-reports-pro-add-note").submit(function(e) {
+            e.preventDefault();
+            $("#save-note-spinner").show();
+            $('#wp-client-reports-pro-add-note .button-primary').prop('disabled', true);
+            var dataString = $("#wp-client-reports-pro-add-note").serialize();
+            $.ajax({
+                type: "POST",
+                url: ajaxurl,
+                data: dataString,
+                dataType: 'json',
+                success: function(data, err) {
+                    if (data.status == 'success') {
+                        $("#wp-client-reports-pro-add-note").hide();
+                        $("#save-note-spinner").hide();
+                        $("#wp-client-reports-pro-note-status").addClass('wp-client-reports-success').removeClass('wp-client-reports-error').show().find('p').text(data.message);
+                        $('#wp-client-reports-pro-add-note .button-primary').prop('disabled', false);
+                        var start_date_utc = moment($(".from_value").val()).utc().format("YYYY-MM-DD");
+                        var end_date_utc = moment($(".to_value").val()).utc().format("YYYY-MM-DD");
+                        $(document).trigger('wp_client_reports_pro_js_get_notes_data', [start_date_utc, end_date_utc]);
+                    } else {
+                        $("#wp-client-reports-pro-add-note").hide();
+                        $("#save-note-spinner").hide();
+                        $("#wp-client-reports-pro-note-status").addClass('wp-client-reports-error').removeClass('wp-client-reports-success').show().find('p').text(data.message);
+                        $('#wp-client-reports-pro-add-note .button-primary').prop('disabled', false);
+                    }
+                }
+            });
+        });
         
 
     });
@@ -140,7 +225,17 @@
                 success: function(data, err) {
                     $("#wp-client-reports-pro-uptime-robot-uptime").text(data.uptime + '%');
                     $("#wp-client-reports-pro-uptime-robot-events").text(data.down_events_count);
-                    $("#wp-client-reports-pro-uptime-robot-daysup").text(data.daysup);
+                    if (data.downtime > 1440) {
+                        var days = (data.downtime / 1440).toFixed(1);
+                        $("#wp-client-reports-pro-uptime-robot-downtime").text(days);
+                        $("#wp-client-reports-pro-uptime-robot-downtime").next("h3").text(wp_client_reports_pro_data.downtime_days_label);
+                    } else if (data.downtime > 60) {
+                        var hours = (data.downtime / 60).toFixed(1);
+                        $("#wp-client-reports-pro-uptime-robot-downtime").text(hours);
+                        $("#wp-client-reports-pro-uptime-robot-downtime").next("h3").text(wp_client_reports_pro_data.downtime_hours_label);
+                    } else {
+                        $("#wp-client-reports-pro-uptime-robot-downtime").text(data.downtime);
+                    }
                     $("#wp-client-reports-pro-uptime-robot-events-list").html("");
                     $.each(data.down_events, function( index, down_event ) {
                         var newDownEvent = '<li><strong class="wp-client-reports-name">' + down_event.type + '</strong><span class="wp-client-reports-from-to">' + down_event.downtime_pretty + '</span><span class="wp-client-reports-date">' + down_event.date + '</span></li>';
@@ -184,6 +279,44 @@
             });
         }
     });
+
+    $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
+        get_notes_data(event, start_date_utc, end_date_utc);
+    });
+
+    $(document).on('wp_client_reports_pro_js_get_notes_data', function(event, start_date_utc, end_date_utc){
+        get_notes_data(event, start_date_utc, end_date_utc);
+    });
+
+    function get_notes_data(event, start_date_utc, end_date_utc) {
+        if ($('#wp-client-reports-pro-notes').length) {
+            $('#wp-client-reports-pro-notes').addClass('loading');
+            var dataString = 'action=wp_client_reports_pro_notes_data&start=' + start_date_utc + '&end=' + end_date_utc;
+            var js_date_format = getDateFormat();
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                data: dataString,
+                dataType: 'json',
+                success: function(data, err) {
+                    $("#wp-client-reports-pro-notes-list").html("");
+                    $.each(data, function( index, note ) {
+                        var editLink = '';
+                        if (wp_client_reports_pro_data.user_is_admin == "1") {
+                            editLink = " <a href='#' class='edit-note' data-id='" + note.id + "' data-date='" + note.date + "' data-icon='" + note.icon + "'>Edit</a>";
+                        }
+                        var newNote = '<li><span class="wp-client-reports-icon"><img src="' + note.icon_url + '" width="20" height="20"></span><span class="wp-client-reports-note-text"><span class="wp-client-reports-note-text-contents">' + note.note + '</span>' + editLink + '</span><span class="wp-client-reports-note-date">' + note.date + '</span></li>';
+                        $("#wp-client-reports-pro-notes-list").append(newNote);
+        
+                    });
+                    if (data.length === 0) {
+                        $("#wp-client-reports-pro-notes-list").append('<li class="wp-client-reports-empty">' + wp_client_reports_pro_data.nonotes + '</li>');
+                    }
+                    $('#wp-client-reports-pro-notes').removeClass('loading');
+                }
+            });
+        }
+    }
 
     $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
         if ($('#wp-client-reports-pro-mailchimp').length) {

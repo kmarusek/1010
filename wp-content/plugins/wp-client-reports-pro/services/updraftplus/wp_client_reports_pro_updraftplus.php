@@ -99,7 +99,16 @@ function wp_client_reports_get_updraftplus_data($start_date, $end_date) {
     }
 
     if ($data->data > 0) {
-        $data->data = formatUpdraftPlusBytes($data->data, 0);
+        //$data->data = formatUpdraftPlusBytes($data->data, 0);
+        if ($data->data > 1073741824) {
+			$data->data = round($data->data / 1073741824).' GB';
+		} elseif ($data->data > 1048576) {
+			$data->data = round($data->data / 1048576).' MB';
+		} elseif ($data->data > 1024) {
+			$data->data = round($data->data / 1024).' KB';
+		} else {
+			$data->data = round($data->data).' B';
+		}
     }
 
     $data = apply_filters( 'wp_client_reports_pro_updraftplus_data', $data, $start_date, $end_date );

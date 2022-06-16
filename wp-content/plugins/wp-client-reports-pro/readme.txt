@@ -2,9 +2,9 @@
 Contributors: thejester12
 Donate link: https://switchwp.com/wp-client-reports/
 Tags:  reports, client reports, analytics, maintenance, updates, plugin updates, theme updates
-Requires at least: 5.0.0
-Tested up to: 5.3.2
-Stable tag: 1.0.8
+Requires at least: 5.3.0
+Tested up to: 5.8
+Stable tag: 1.0.11
 Requires PHP: 5.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,6 +30,20 @@ Send an HTML email with update statistics whenever you complete updates to show 
 
 
 == Changelog ==
+
+= 1.0.11 =
+* Fixed syntax issue with a stray comma
+
+= 1.0.10 =
+* Add Site Maintenance Notes feature: Add dated notes with simple icons to keep a record of work done or actions taken and include them in reports
+* Add support for Google Analytics V4 Properties
+* Fix a formatting error in Stripe
+* Change how UpdraftPlus backup sizes are calculated
+
+= 1.0.9 =
+* Fix issues related to Automatic Sending of Site Reports
+* Better error messages for when a Google Analytics account doesn't have any properties
+* Replace Uptime Robot stat "Days Without Issue" in favor of "Downtime Minutes" because it makes more sense given customizable time periods
 
 = 1.0.8 =
 * New Service: GiveWP

@@ -1,3 +1,70 @@
-.active-license {
-    
+#save-note-spinner {
+    width:20px;
+    height:20px;
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.wp-client-reports-label {
+    display: block;
+    margin-bottom:4px;
+    font-weight: bold;
+}
+.wp-client-reports-field-group {
+    display: block;
+    margin-bottom:15px;
+}
+
+#wp-client-reports-pro-notes-list li {
+    align-items:flex-start;
+}
+#wp-client-reports-pro-notes-list .edit-note {
+    color:#999;
+}
+#wp-client-reports-pro-notes-list .edit-note:hover,
+#wp-client-reports-pro-notes-list .edit-note:focus {
+    color:#2271b1;
+}
+.wp-client-reports-list .wp-client-reports-icon {
+    display: block;
+    width: 30px;
+    text-align: center;
+}
+.wp-client-reports-list .wp-client-reports-icon img {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+.wp-client-reports-list .wp-client-reports-note-text {
+    display: block;
+    width: 80%;
+    text-align: left;
+    flex: 1;
+}
+.wp-client-reports-list .wp-client-reports-note-date {
+    display: block;
+    width: 20%;
+    text-align: right;
+}
+
+.wp-client-reports-pro-note-select-icon {
+    display:flex;
+}
+.wp-client-reports-pro-note-select-icon a {
+    display:block;
+    padding:4px;
+    border:solid transparent 2px;
+    border-radius: 4px;
+    margin-right:2px;
+}
+.wp-client-reports-pro-note-select-icon a:hover {
+    border:solid #eee 2px;
+}
+.wp-client-reports-pro-note-select-icon a img {
+    display:block;
+}
+
+.wp-client-reports-pro-note-select-icon a.selected {
+    border:solid #2271b1 2px;
 }

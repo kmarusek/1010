@@ -3,7 +3,7 @@
 Plugin Name: WP Client Reports Pro
 Plugin URI: https://switchwp.com/wp-client-reports/
 Description: Send beautiful client maintenance reports with integrations from many popular plugins and services
-Version: 1.0.8
+Version: 1.0.11
 Author: SwitchWP
 Author URI: https://switchwp.com/
 Text Domain: wp-client-reports-pro
@@ -14,11 +14,13 @@ if( !defined( 'ABSPATH' ) )
 	exit;
 
 
-define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.8' );
+define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.11' );
 define( 'WP_CLIENT_REPORTS_PRO_STORE_URL', 'https://switchwp.com' );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_ID', 39 );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_NAME', 'WP Client Reports Pro' );
 
+$pro_plugin_url = plugin_dir_url(__FILE__);
+define('WP_CLIENT_REPORTS_PRO_PLUGIN_URL',$pro_plugin_url);
 
 /**
  * Add notice to admin if base plugin is not installed
@@ -36,15 +38,29 @@ function wp_client_reports_pro_no_base_plugin_error() {
 /**
  * Add scripts and styles into the admin as needed
  */
+add_action( 'admin_notices', 'wp_client_reports_pro_settings_errors' );
+function wp_client_reports_pro_settings_errors() {
+    settings_errors( 'wp-client-reports-pro-errors' );
+}
+
+
+/**
+ * Add scripts and styles into the admin as needed
+ */
 function wp_client_reports_scripts_pro() {
 
     $screen = get_current_screen();
     if($screen && $screen->id == 'dashboard_page_wp_client_reports') {
+        wp_enqueue_style( 'wp-client-reports-pro-css', plugin_dir_url( __FILE__ ) . '/css/wp-client-reports-pro.css', array(), '1.0' );
         wp_register_script( 'wp-client-reports-pro-js', plugin_dir_url( __FILE__ ) . 'js/wp-client-reports-pro.js', array('jquery','jquery-ui-datepicker'), WP_CLIENT_REPORTS_PRO_VERSION, true );
         $date_format = get_option('date_format');
         $js_data = array(
             'moment_date_format' => wp_client_reports_convert_date_format($date_format),
             'nodowntimeevents' => __('No Downtime Events','wp-client-reports-pro'),
+            'nonotes' => __('No site maintenance notes during this period','wp-client-reports-pro'),
+            'downtime_days_label' => __( 'Downtime Days', 'wp-client-reports-pro' ),
+            'downtime_hours_label' => __( 'Downtime Hours', 'wp-client-reports-pro' ),
+            'user_is_admin' => current_user_can('administrator'),
         );
         wp_localize_script( 'wp-client-reports-pro-js', 'wp_client_reports_pro_data', $js_data );
         wp_enqueue_script( 'wp-client-reports-pro-js' );
@@ -68,12 +84,26 @@ add_action( 'admin_print_scripts', 'wp_client_reports_scripts_pro', 11 );
 
 
 /**
+ * On plugin deactivation remove the scheduled events
+ */
+register_deactivation_hook( __FILE__, 'wp_client_reports_pro_auto_send_schedule_clear' );
+function wp_client_reports_pro_auto_send_schedule_clear() {
+     wp_clear_scheduled_hook( 'wp_client_reports_pro_auto_send' );
+}
+
+
+/**
  * Load additional files in admin if options are enabled
  */
 add_action( 'init', 'wp_client_reports_pro_admin_init' );
 function wp_client_reports_pro_admin_init() {
 
     if (is_admin() || wp_doing_cron()) {
+
+        $notes_enabled = get_option('wp_client_reports_pro_enable_notes');
+        if ($notes_enabled == 'on') {
+            require_once plugin_dir_path( __FILE__ ) . 'services/notes/wp_client_reports_pro_notes.php';
+        }
 
         $google_analytics_enabled = get_option('wp_client_reports_pro_enable_ga');
         if ($google_analytics_enabled == 'on') {
@@ -563,6 +593,25 @@ function wp_client_reports_pro_options_init(  ) {
 		'wp_client_reports_pro_color_render',
 		'wp_client_reports_options_page',
 		'wp_client_reports_email_section'
+    );
+
+    // Notes
+
+    register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_enable_notes' );
+
+    add_settings_section(
+		'wp_client_reports_pro_notes_section',
+		__( 'Site Maintenance Notes', 'wp-client-reports-pro' ),
+		'wp_client_reports_settings_section_callback',
+		'wp_client_reports_options_page'
+    );
+    
+    add_settings_field(
+		'wp_client_reports_pro_enable_ga',
+		__( 'Enable Site Maintenance Notes', 'wp-client-reports-pro' ),
+		'wp_client_reports_pro_enable_notes_render',
+		'wp_client_reports_options_page',
+		'wp_client_reports_pro_notes_section'
     );
 
     // Google Analytics
@@ -1091,7 +1140,7 @@ function wp_client_reports_pro_auto_send_period_render() {
  */
 function wp_client_reports_pro_auto_send_period_save( $new ) {
 	$old = get_option( 'wp_client_reports_pro_auto_send_period' );
-	if( $old && $old != $new ) {
+    if( $old !== $new ) {
 		wp_client_reports_pro_schedule_auto_send();
 	}
 	return $new;
@@ -1102,7 +1151,7 @@ function wp_client_reports_pro_auto_send_period_save( $new ) {
  */
 function wp_client_reports_pro_auto_send_day_save( $new ) {
 	$old = get_option( 'wp_client_reports_pro_auto_send_day' );
-	if( $old && $old != $new ) {
+	if( $old !== $new ) {
 		wp_client_reports_pro_schedule_auto_send();
 	}
 	return $new;
@@ -1113,7 +1162,7 @@ function wp_client_reports_pro_auto_send_day_save( $new ) {
  */
 function wp_client_reports_pro_auto_send_time_save( $new ) {
 	$old = get_option( 'wp_client_reports_pro_auto_send_time' );
-	if( $old && $old != $new ) {
+	if( $old !== $new ) {
 		wp_client_reports_pro_schedule_auto_send();
 	}
 	return $new;
@@ -1121,67 +1170,72 @@ function wp_client_reports_pro_auto_send_time_save( $new ) {
 
 
 function wp_client_reports_pro_schedule_auto_send() {
-    if( isset( $_POST['wp_client_reports_pro_auto_send_period'] ) ) {
-        $send_period = sanitize_text_field($_POST['wp_client_reports_pro_auto_send_period']);
-    } else {
-        $send_period = get_option( 'wp_client_reports_pro_auto_send_period', 'never' );
-    }
-    if( isset( $_POST['wp_client_reports_pro_auto_send_day'] ) ) {
-        $send_day = sanitize_text_field($_POST['wp_client_reports_pro_auto_send_day']);
-    } else {
-        $send_day = get_option( 'wp_client_reports_pro_auto_send_day', null );
-    }
-    if( isset( $_POST['wp_client_reports_pro_auto_send_time'] ) ) {
-        $send_time = sanitize_text_field($_POST['wp_client_reports_pro_auto_send_time']);
-    } else {
-        $send_time = get_option( 'wp_client_reports_pro_auto_send_time', null );
-    }
 
-    if ($send_period == 'never') {
+    if (!isset($_POST['wp_client_reports_pro_auto_send_ran_once'])) {
 
-        wp_clear_scheduled_hook( 'wp_client_reports_pro_auto_send' );
+        $_POST['wp_client_reports_pro_auto_send_ran_once'] = true;
 
-    } else if (($send_period == 'weekly' || $send_period == 'monthly') && $send_day !== null && $send_time !== null) {
-        
-        $timezone = wp_timezone();
-        $now = new DateTime("now", $timezone);
-        $next_send_date_object = null;
-
-        //Only future dates for wp_schedule_event!!
-        if ($send_period == 'weekly') {
-            $next_send_date_object = new DateTime($send_day, $timezone);
-            $next_send_date_object->setTime(intval($send_time), 0, 0);
-            if ($next_send_date_object->format('U') < $now->format('U')) {
-                $next_send_date_object = new DateTime('next ' . $send_day, $timezone);
-                $next_send_date_object->setTime(intval($send_time), 0, 0);
-            }
-        } else if ($send_period == 'monthly') {
-            if ($send_day == 'last') {
-                $send_day = $now->format('t');
-            }
-            $next_send_date = $now->format('Y-m') . "-" . $send_day;
-            $next_send_date_object = new DateTime($next_send_date, $timezone);
-            $next_send_date_object->setTime(intval($send_time), 0, 0);
-            if ($next_send_date_object->format('U') < $now->format('U')) {
-                $month = $now->format('m') + 1;
-                $year = $now->format('Y');
-                if ($month == 13) {
-                    $month = 1;
-                    $year = $year + 1;
-                    if (get_option( 'wp_client_reports_pro_auto_send_day', null ) == 'last') {
-                        $send_day = 31;
-                    }
-                }
-                $next_send_date_object = new DateTime($year . "-" . $month . "-" . $send_day, $timezone);
-                $next_send_date_object->setTime(intval($send_time), 0, 0);
-            }
+        if( isset( $_POST['wp_client_reports_pro_auto_send_period'] ) ) {
+            $send_period = sanitize_text_field($_POST['wp_client_reports_pro_auto_send_period']);
+        } else {
+            $send_period = get_option( 'wp_client_reports_pro_auto_send_period', 'never' );
         }
-        
-        $next_send_date_object->setTimezone(new DateTimeZone('UTC'));
-        $next_send_date_timestamp = $next_send_date_object->format('U');
+        if( isset( $_POST['wp_client_reports_pro_auto_send_day'] ) ) {
+            $send_day = sanitize_text_field($_POST['wp_client_reports_pro_auto_send_day']);
+        } else {
+            $send_day = get_option( 'wp_client_reports_pro_auto_send_day', null );
+        }
+        if( isset( $_POST['wp_client_reports_pro_auto_send_time'] ) ) {
+            $send_time = sanitize_text_field($_POST['wp_client_reports_pro_auto_send_time']);
+        } else {
+            $send_time = get_option( 'wp_client_reports_pro_auto_send_time', null );
+        }
 
-        wp_clear_scheduled_hook( 'wp_client_reports_pro_auto_send' );
-        wp_schedule_event( $next_send_date_timestamp, $send_period, 'wp_client_reports_pro_auto_send' );
+        if ($send_period == 'never') {
+
+            wp_unschedule_hook( 'wp_client_reports_pro_auto_send' );
+
+        } else if (($send_period == 'weekly' || $send_period == 'monthly') && $send_day !== null && $send_time !== null) {
+            
+            $timezone = wp_timezone();
+            $now = new DateTime("now", $timezone);
+            $next_send_date_object = null;
+
+            //Only future dates for wp_schedule_event!!
+            if ($send_period == 'weekly') {
+
+                $next_send_date_object = new DateTime($send_day, $timezone);
+                $next_send_date_object->setTime(intval($send_time), 0, 0);
+                if ($next_send_date_object->format('U') < $now->format('U')) {
+                    $next_send_date_object = new DateTime('next ' . $send_day, $timezone);
+                    $next_send_date_object->setTime(intval($send_time), 0, 0);
+                }
+
+            } else if ($send_period == 'monthly') {
+
+                $next_send_date_object = new DateTime('now', $timezone);
+
+                //Only time is important because it will run every day
+                $next_send_date_object->setTime(intval($send_time), 0, 0);
+
+                if ($next_send_date_object->format('U') < $now->format('U')) {
+                    $next_send_date_object->modify('+1 day');
+                }
+
+            }
+            
+            $next_send_date_object->setTimezone(new DateTimeZone('UTC'));
+            $next_send_date_timestamp = $next_send_date_object->format('U');
+
+            $schedule_period = $send_period;
+            if ($send_period == 'monthly') {
+                $schedule_period = 'daily';
+            }
+
+            wp_unschedule_hook( 'wp_client_reports_pro_auto_send' );
+            wp_schedule_event( $next_send_date_timestamp, $schedule_period, 'wp_client_reports_pro_auto_send' );
+
+        }
 
     }
 }
@@ -1192,13 +1246,18 @@ function wp_client_reports_pro_schedule_auto_send() {
  */
 add_action( 'wp_client_reports_pro_auto_send', 'wp_client_reports_pro_auto_send' );
 function wp_client_reports_pro_auto_send() {
+
     wp_client_reports_check_for_updates();
 
+    $send_today = false;
     $timezone = wp_timezone();
 
-    $send_timestamp = wp_next_scheduled( 'wp_client_reports_pro_auto_send' );
-    $send_time_object = new DateTime('@' . $send_timestamp);
-    $send_time_object->setTimezone($timezone);
+    $now = new DateTime('now', $timezone);
+
+    //NOT USED ANY MORE
+    //$send_timestamp = wp_next_scheduled( 'wp_client_reports_pro_auto_send' );
+    // $send_time_object = new DateTime('@' . $send_timestamp);
+    // $send_time_object->setTimezone($timezone);
 
     $send_period = get_option( 'wp_client_reports_pro_auto_send_period', 'never' );
     $send_day = get_option( 'wp_client_reports_pro_auto_send_day', null );
@@ -1206,35 +1265,45 @@ function wp_client_reports_pro_auto_send() {
     $send_time = get_option( 'wp_client_reports_pro_auto_send_time', null );
     $send_type = get_option( 'wp_client_reports_pro_auto_send_type', null );
 
-    if ($send_period !== 'never') {
+    $end_date_object = null;
+    $start_date_object = null;
 
-        if ($send_period == 'weekly') {
-            $end_date_object = new DateTime($send_day, $timezone);
-            if ($send_time_object->format('l') !== $end_date_object->format('l')) {
-                $end_date_object = new DateTime('last ' . $send_day, $timezone);
-            }
-            
-            if ($send_type == 'enddaybefore') {
-                $end_date_object->modify('-1 day');
-            }
+    if ($send_period == 'weekly') {
 
-            $start_date_object = clone $end_date_object;
-            $start_date_object->modify('-7 days');
+        $send_today = true;
+
+        $end_date_object = new DateTime('now', $timezone);
+
+        // if ($send_time_object->format('l') !== $end_date_object->format('l')) {
+        //     $end_date_object = new DateTime('last ' . $send_day, $timezone);
+        // }
+        
+        if ($send_type == 'enddaybefore') {
+            $end_date_object->modify('-1 day');
         }
 
-        if ($send_period == 'monthly') {
+        $start_date_object = clone $end_date_object;
+        $start_date_object->modify('-7 days');
 
-            if ($send_day == 'last') {
-                $send_day = $send_time_object->format('t');
-            }
-            $end_date_object = new DateTime($send_time_object->format('Y') . "-" . $send_time_object->format('m') . "-" . $send_day, $timezone);
+    } else if ($send_period == 'monthly') {
+
+        if ($send_day == 'last') {
+            $send_day = $now->format('t');
+        }
+
+        //Decide if today is the right day to send the report
+        if ($now->format('j') == $send_day) {
+
+            $send_today = true;
+
+            $end_date_object = new DateTime('now', $timezone);
 
             if ($send_type == 'enddaybefore') {
                 $end_date_object->modify('-1 day');
             }
 
-            $month = $send_time_object->format('m');
-            $year = $send_time_object->format('Y');
+            $month = $now->format('m');
+            $year = $now->format('Y');
 
             if ($send_day_orig_value == 'last') {
                 $start_send_date = 1;
@@ -1248,12 +1317,15 @@ function wp_client_reports_pro_auto_send() {
             }
 
             $start_date_object = new DateTime($year . "-" . $month . "-" . $start_send_date, $timezone);
-            
+
         }
-
-        wp_client_reports_send_email_report($start_date_object->format('Y-m-d'), $end_date_object->format('Y-m-d'));
-
+        
     }
+
+    if ($send_today && $end_date_object !== null && $start_date_object !== null) {
+        wp_client_reports_send_email_report($start_date_object->format('Y-m-d'), $end_date_object->format('Y-m-d'));
+    }
+
 }
 
 
@@ -1325,6 +1397,23 @@ function wp_client_reports_pro_get_image() {
     } else {
         wp_send_json_error();
     }
+}
+
+
+/**
+ * Enable Notes Toggle Switch
+ */
+function wp_client_reports_pro_enable_notes_render(  ) {
+	$option = get_option( 'wp_client_reports_pro_enable_notes' );
+	?>
+    <label class="wp-client-reports-switch">
+        <input type="checkbox" name="wp_client_reports_pro_enable_notes" <?php if ($option == 'on') { echo "checked"; } ?>>
+        <span class="wp-client-reports-slider"></span>
+    </label>
+    <div class="wp-client-reports-instructions">
+        <div><a href="https://switchwp.com/plugins/wp-client-reports/site-maintenance-notes/?utm_source=wordpress&utm_medium=plugin_settings&utm_campaign=wpclientreports" target="_blank"><?php _e( 'Learn More', 'wp-client-reports-pro' ); ?></a></div>
+    </div>
+	<?php
 }
 
 

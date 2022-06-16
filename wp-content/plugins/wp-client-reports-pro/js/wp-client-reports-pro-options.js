@@ -7,7 +7,25 @@
 
         $('#wp-client-reports-pro-ga-remove-config').click(function(e) {
             e.preventDefault();
-            var dataString = 'action=wp_client_reports_pro_ga_remove_config';
+            if (confirm("Are you sure you want to remove the google analytics key file?") == true) {
+                var dataString = 'action=wp_client_reports_pro_ga_remove_config';
+                $.ajax({
+                    type: "POST",
+                    url: ajaxurl,
+                    data: dataString,
+                    dataType: 'json',
+                    success: function(data, err) {
+                        if (data.status == 'success') {
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#wp-client-reports-pro-ga-reset-list').click(function(e) {
+            e.preventDefault();
+            var dataString = 'action=wp_client_reports_pro_ga_reset_list';
             $.ajax({
                 type: "POST",
                 url: ajaxurl,

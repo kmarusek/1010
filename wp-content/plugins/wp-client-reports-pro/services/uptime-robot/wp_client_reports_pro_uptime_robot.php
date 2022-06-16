@@ -115,7 +115,8 @@ function wp_client_reports_pro_get_uptime_robot_data($start_date, $end_date) {
         $uptime_robot_data->uptime = 100;
         $uptime_robot_data->down_events_count = 0;
         $uptime_robot_data->down_events = 0;
-        $uptime_robot_data->daysup = 0;
+        $uptime_robot_data->downtime = 0;
+        //$uptime_robot_data->daysup = 0;
 
         $option = get_option( 'wp_client_reports_pro_uptime_robot_key' );
 
@@ -147,12 +148,17 @@ function wp_client_reports_pro_get_uptime_robot_data($start_date, $end_date) {
             $uptime_robot_api_data = json_decode($response['body']);
 
             $down_events_count = 0;
+            $downtime_seconds = 0;
             $down_events = [];
             if ($uptime_robot_api_data && isset($uptime_robot_api_data->monitors[0]->logs)) {
                 foreach($uptime_robot_api_data->monitors[0]->logs as $log_entry) {
                     if ($log_entry->type == '1') {
                         $down_events_count++;
 
+                        if (isset($log_entry->duration) && $log_entry->duration > 0) {
+                            $downtime_seconds = $downtime_seconds + $log_entry->duration;
+                        }
+                        
                         $down_event = new stdClass;
                         $down_event->type = $log_entry->reason->detail;
                         $down_event->date = date($date_format, $log_entry->datetime);
@@ -180,47 +186,48 @@ function wp_client_reports_pro_get_uptime_robot_data($start_date, $end_date) {
                 $uptime_robot_data->uptime = round($uptime_robot_api_data->monitors[0]->custom_uptime_ranges,2);
             }
 
-            $days_since_last_up_event = "-";
-            if (isset($uptime_robot_api_data->monitors[0]->logs[0]->datetime)) {
-                $last_up_event = $uptime_robot_api_data->monitors[0]->logs[0]->datetime;
-                $now = time();
-                $datediff = $now - $last_up_event;
-                $days_since_last_up_event = round($datediff / (60 * 60 * 24));
-            } else {
-                $longer_args = array(
-                    'api_key' => $option,
-                    'format' => 'json',
-                    'logs' => '1',
-                    'limit' => '1',
-                    'logs_limit' => '1',
-                );
+            // $days_since_last_up_event = "-";
+            // if (isset($uptime_robot_api_data->monitors[0]->logs[0]->datetime)) {
+            //     $last_up_event = $uptime_robot_api_data->monitors[0]->logs[0]->datetime;
+            //     $now = time();
+            //     $datediff = $now - $last_up_event;
+            //     $days_since_last_up_event = round($datediff / (60 * 60 * 24));
+            // } else {
+            //     $longer_args = array(
+            //         'api_key' => $option,
+            //         'format' => 'json',
+            //         'logs' => '1',
+            //         'limit' => '1',
+            //         'logs_limit' => '1',
+            //     );
                 
-                $longer_response = wp_remote_post( 'https://api.uptimerobot.com/v2/getMonitors', array(
-                    'method' => 'POST',
-                    'timeout' => 45,
-                    'redirection' => 5,
-                    'httpversion' => '1.0',
-                    'blocking' => true,
-                    'headers' => array(),
-                    'body' => $longer_args,
-                    'cookies' => array()
-                    )
-                );
+            //     $longer_response = wp_remote_post( 'https://api.uptimerobot.com/v2/getMonitors', array(
+            //         'method' => 'POST',
+            //         'timeout' => 45,
+            //         'redirection' => 5,
+            //         'httpversion' => '1.0',
+            //         'blocking' => true,
+            //         'headers' => array(),
+            //         'body' => $longer_args,
+            //         'cookies' => array()
+            //         )
+            //     );
 
-                if ( !is_wp_error( $longer_response ) ) {
-                    $uptime_robot_longer_api_data = json_decode($longer_response['body']);
-                    if (isset($uptime_robot_longer_api_data->monitors[0]->logs[0]->datetime)) {
-                        $last_up_event = $uptime_robot_longer_api_data->monitors[0]->logs[0]->datetime;
-                        $now = time();
-                        $datediff = $now - $last_up_event;
-                        $days_since_last_up_event = round($datediff / (60 * 60 * 24));
-                    }
-                }
-            }
+            //     if ( !is_wp_error( $longer_response ) ) {
+            //         $uptime_robot_longer_api_data = json_decode($longer_response['body']);
+            //         if (isset($uptime_robot_longer_api_data->monitors[0]->logs[0]->datetime)) {
+            //             $last_up_event = $uptime_robot_longer_api_data->monitors[0]->logs[0]->datetime;
+            //             $now = time();
+            //             $datediff = $now - $last_up_event;
+            //             $days_since_last_up_event = round($datediff / (60 * 60 * 24));
+            //         }
+            //     }
+            // }
 
             $uptime_robot_data->down_events_count = $down_events_count;
             $uptime_robot_data->down_events = $down_events;
-            $uptime_robot_data->daysup = $days_since_last_up_event;
+            $uptime_robot_data->downtime = round($downtime_seconds / 60);
+            //$uptime_robot_data->daysup = $days_since_last_up_event;
 
         }
 
@@ -258,8 +265,8 @@ function wp_client_reports_pro_stats_page_uptime_robot() {
                                     'wp-client-reports-pro-uptime-robot-events'
                                 );
                                 wp_client_reports_render_big_number(
-                                    __('Days Without Issue', 'wp-client-reports-pro' ), 
-                                    'wp-client-reports-pro-uptime-robot-daysup'
+                                    __('Downtime Minutes', 'wp-client-reports-pro' ), 
+                                    'wp-client-reports-pro-uptime-robot-downtime'
                                 );
                             ?>
                         </div><!-- .wp-client-reports-big-numbers -->
@@ -294,9 +301,19 @@ function wp_client_reports_pro_stats_email_uptime_robot($start_date, $end_date) 
         __( 'Events', 'wp-client-reports-pro' )
     );
 
+    $downtime = $uptime_robot_data->downtime;
+    $downtime_label = __( 'Downtime Minutes', 'wp-client-reports-pro' );
+    if ($uptime_robot_data->downtime > 1440) {
+        $downtime = round($uptime_robot_data->downtime / 1440, 1);
+        $downtime_label = __( 'Downtime Days', 'wp-client-reports-pro' );
+    } else if ($uptime_robot_data->downtime > 60) {
+        $downtime = round($uptime_robot_data->downtime / 60, 1);
+        $downtime_label = __( 'Downtime Hours', 'wp-client-reports-pro' );
+    }
+
     wp_client_reports_render_email_row(
-        $uptime_robot_data->daysup, 
-        __( 'Days Without Issue', 'wp-client-reports-pro' ),
+        $downtime, 
+        $downtime_label,
         null,
         null
     );

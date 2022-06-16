@@ -277,8 +277,7 @@ function wp_client_reports_pro_stats_email_stripe($start_date, $end_date) {
         $stripe_data->customers, 
         sprintf( __( 'New %s Customers', 'wp-client-reports-pro' ), '<br>' ),
         $stripe_data->refunds, 
-        sprintf( __( 'Refunds %s Given', 'wp-client-reports-pro' ), '<br>' ),
-        
+        sprintf( __( 'Refunds %s Given', 'wp-client-reports-pro' ), '<br>' )
     );
 
 }
