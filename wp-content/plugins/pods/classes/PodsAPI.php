@@ -1848,6 +1848,7 @@ class PodsAPI {
 
 		$options_ignore = array(
 			'_locale',
+			'adhoc',
 			'attributes',
 			'dependency',
 			'depends-on',
@@ -3307,6 +3308,7 @@ class PodsAPI {
 
 		$options_ignore = [
 			'_locale',
+			'adhoc',
 			'attributes',
 			'dependency',
 			'depends-on',
@@ -3782,7 +3784,11 @@ class PodsAPI {
 
 				// If the old field doesn't exist, continue to add a new field
 				if ( 'add' === $definition_mode ) {
-					pods_query( "ALTER TABLE `@wp_pods_{$params->pod}` ADD COLUMN {$definition}", __( 'Cannot create new field', 'pods' ) );
+					$test = pods_query( "ALTER TABLE `@wp_pods_{$params->pod}` ADD COLUMN {$definition}", false );
+
+					if ( false === $test ) {
+						pods_query( "ALTER TABLE `@wp_pods_{$params->pod}` MODIFY {$definition}", __( 'Cannot create or update new field', 'pods' ) );
+					}
 				}
 
 				/**
@@ -4181,6 +4187,7 @@ class PodsAPI {
 		$options = get_object_vars( $params );
 
 		$options_ignore = [
+			'adhoc',
 			'method',
 			'table_info',
 			'attributes',
@@ -5323,8 +5330,6 @@ class PodsAPI {
 			pods_no_conflict_on( $pod['type'] );
 		}
 
-		$static_cache = pods_container( Static_Cache::class );
-
 		// Save relationship / file data
 		if ( ! empty( $rel_fields ) ) {
 			foreach ( $rel_fields as $type => $data ) {
@@ -5492,7 +5497,7 @@ class PodsAPI {
 						$values    = array_slice( $values, 0, $related_limit );
 					}
 
-					$related_data = $static_cache->get( $fields[ $field ]['name'] . '/' . $fields[ $field ]['id'], 'PodsField_Pick/related_data' ) ?: [];
+					$related_data = pods_static_cache_get( $fields[ $field ]['name'] . '/' . $fields[ $field ]['id'], 'PodsField_Pick/related_data' ) ?: [];
 
 					// Get current values
 					if ( 'pick' === $type && isset( $related_data[ 'current_ids_' . $params->id ] ) ) {
@@ -5529,14 +5534,14 @@ class PodsAPI {
 				// Unset data no longer needed
 				if ( 'pick' === $type ) {
 					foreach ( $data as $field => $values ) {
-						$related_data = $static_cache->get( $fields[ $field ]['name'] . '/' . $fields[ $field ]['id'], 'PodsField_Pick/related_data' ) ?: [];
+						$related_data = pods_static_cache_get( $fields[ $field ]['name'] . '/' . $fields[ $field ]['id'], 'PodsField_Pick/related_data' ) ?: [];
 
 						if ( ! empty( $related_data ) ) {
 							if ( ! empty( $related_data['related_field'] ) ) {
-								$static_cache->delete( $related_data['related_field']['name'] . '/' . $related_data['related_field']['id'], 'PodsField_Pick/related_data' );
+								pods_static_cache_clear( $related_data['related_field']['name'] . '/' . $related_data['related_field']['id'], 'PodsField_Pick/related_data' );
 							}
 
-							$static_cache->delete( $fields[ $field ]['name'] . '/' . $fields[ $field ]['id'], 'PodsField_Pick/related_data' );
+							pods_static_cache_clear( $fields[ $field ]['name'] . '/' . $fields[ $field ]['id'], 'PodsField_Pick/related_data' );
 						}
 					}
 				}
@@ -5644,11 +5649,16 @@ class PodsAPI {
 	 * @return array List of changed fields (if $mode = 'get')
 	 */
 	public static function handle_changed_fields( $pod, $id, $mode = 'set' ) {
-		$static_cache = pods_container( Static_Cache::class );
+		$watch_changed_fields = (int) pods_get_setting( 'watch_changed_fields' );
 
-		$changed_pods_cache   = $static_cache->get( 'changed_pods_cache', __CLASS__ ) ?: [];
-		$old_fields_cache     = $static_cache->get( 'old_fields_cache', __CLASS__ ) ?: [];
-		$changed_fields_cache = $static_cache->get( 'changed_fields_cache', __CLASS__ ) ?: [];
+		// Only continue if changed fields are watched.
+		if ( 0 === $watch_changed_fields ) {
+			return [];
+		}
+
+		$changed_pods_cache   = pods_static_cache_get( 'changed_pods_cache', __CLASS__ ) ?: [];
+		$old_fields_cache     = pods_static_cache_get( 'old_fields_cache', __CLASS__ ) ?: [];
+		$changed_fields_cache = pods_static_cache_get( 'changed_fields_cache', __CLASS__ ) ?: [];
 
 		$cache_key = $pod . '|' . $id;
 
@@ -5662,17 +5672,23 @@ class PodsAPI {
 			}
 
 			if ( empty( $old_fields_cache[ $cache_key ] ) || 'reset' === $mode ) {
-				$old_fields_cache[ $cache_key ] = array();
+				$old_fields_cache[ $cache_key ] = [];
 
 				if ( ! empty( $id ) ) {
 					if ( ! isset( $changed_pods_cache[ $pod ] ) ) {
-						$changed_pods_cache[ $pod ] = pods( $pod );
+						$pod_object = pods( $pod );
+
+						if ( ! $pod_object || ! $pod_object->is_defined() ) {
+							return [];
+						}
+
+						$changed_pods_cache[ $pod ] = $pod_object;
 					}
 
-					if ( $changed_pods_cache[ $pod ] && $changed_pods_cache[ $pod ]->valid() ) {
-						$changed_pods_cache[ $pod ]->fetch( $id );
-
-						$old_fields_cache[ $cache_key ] = $changed_pods_cache[ $pod ]->export( $export_params );
+					if ( $changed_pods_cache[ $pod ] ) {
+						if ( $changed_pods_cache[ $pod ]->fetch( $id ) ) {
+							$old_fields_cache[ $cache_key ] = $changed_pods_cache[ $pod ]->export( $export_params );
+						}
 					}
 				}
 			}
@@ -5690,7 +5706,11 @@ class PodsAPI {
 
 				if ( ! empty( $changed_pods_cache[ $pod ] ) ) {
 					if ( $id != $changed_pods_cache[ $pod ]->id() ) {
-						$changed_pods_cache[ $pod ]->fetch( $id );
+						$found = $changed_pods_cache[ $pod ]->fetch( $id );
+
+						if ( ! $found ) {
+							return [];
+						}
 					}
 
 					$new_fields = $changed_pods_cache[ $pod ]->export( $export_params );
@@ -5706,9 +5726,9 @@ class PodsAPI {
 			}
 		}
 
-		$static_cache->set( 'changed_pods_cache', $changed_pods_cache, __CLASS__ );
-		$static_cache->set( 'old_fields_cache', $old_fields_cache, __CLASS__ );
-		$static_cache->set( 'changed_fields_cache', $changed_fields_cache, __CLASS__ );
+		pods_static_cache_set( 'changed_pods_cache', $changed_pods_cache, __CLASS__ );
+		pods_static_cache_set( 'old_fields_cache', $old_fields_cache, __CLASS__ );
+		pods_static_cache_set( 'changed_fields_cache', $changed_fields_cache, __CLASS__ );
 
 		return $changed_fields;
 
@@ -5740,9 +5760,7 @@ class PodsAPI {
 	 * @return array List of ID(s) that were setup for saving.
 	 */
 	public function save_relationships( $id, $related_ids, $pod, $field ) {
-		$static_cache = pods_container( Static_Cache::class );
-
-		$related_data = $static_cache->get( $field['name'] . '/' . $field['id'], 'PodsField_Pick/related_data' ) ?: [];
+		$related_data = pods_static_cache_get( $field['name'] . '/' . $field['id'], 'PodsField_Pick/related_data' ) ?: [];
 
 		// Get current values
 		if ( 'pick' === $field['type'] && isset( $related_data[ 'current_ids_' . $id ] ) ) {
@@ -5751,12 +5769,10 @@ class PodsAPI {
 			$current_ids = $this->lookup_related_items( $field['id'], $pod['id'], $id, $field, $pod );
 		}
 
-		$static_cache = pods_container( Static_Cache::class );
-
 		$cache_key = $pod['id'] . '|' . $field['id'];
 
 		// Delete relationship from cache.
-		$static_cache->delete( $cache_key, __CLASS__ . '/related_item_cache' );
+		pods_static_cache_clear( $cache_key, __CLASS__ . '/related_item_cache' );
 
 		if ( ! is_array( $related_ids ) ) {
 			$related_ids = implode( ',', $related_ids );
@@ -7586,12 +7602,10 @@ class PodsAPI {
 			}
 		}
 
-		$static_cache = pods_container( Static_Cache::class );
-
 		$cache_key = $related_pod['id'] . '|' . $related_field['id'];
 
 		// Delete relationship from cache.
-		$static_cache->delete( $cache_key, __CLASS__ . '/related_item_cache' );
+		pods_static_cache_clear( $cache_key, __CLASS__ . '/related_item_cache' );
 
 		// @codingStandardsIgnoreLine
 		$key = array_search( $id, $related_ids );
@@ -9052,13 +9066,11 @@ class PodsAPI {
 
 		$idstring = implode( ',', $params->ids );
 
-		$static_cache = pods_container( Static_Cache::class );
-
 		$cache_key = $params->pod_id . '|' . $params->field_id;
 
 		// Check cache first, no point in running the same query multiple times
 		if ( $params->pod_id && $params->field_id ) {
-			$cache_value = $static_cache->get( $cache_key, __CLASS__ . '/related_item_cache' ) ?: [];
+			$cache_value = pods_static_cache_get( $cache_key, __CLASS__ . '/related_item_cache' ) ?: [];
 
 			if ( isset( $cache_value[ $idstring ] ) && is_array( $cache_value[ $idstring ] ) ) {
 				return $cache_value[ $idstring ];
@@ -9267,11 +9279,11 @@ class PodsAPI {
 
 		if ( 0 != $params->pod_id && 0 != $params->field_id && ! empty( $related_ids ) ) {
 			// Only cache if $params->pod_id and $params->field_id were passed
-			$cache_value = $static_cache->get( $cache_key, __CLASS__ . '/related_item_cache' ) ?: [];
+			$cache_value = pods_static_cache_get( $cache_key, __CLASS__ . '/related_item_cache' ) ?: [];
 
 			$cache_value[ $idstring ] = $related_ids;
 
-			$static_cache->set( $cache_key, $cache_value, __CLASS__ . '/related_item_cache' );
+			pods_static_cache_set( $cache_key, $cache_value, __CLASS__ . '/related_item_cache' );
 		}
 
 		return $related_ids;
@@ -9676,9 +9688,7 @@ class PodsAPI {
 
 		$_info = false;
 
-		$static_cache = pods_container( Static_Cache::class );
-
-		$table_info_cache = $static_cache->get( $cache_key, __CLASS__ . '/table_info_cache' ) ?: [];
+		$table_info_cache = pods_static_cache_get( $cache_key, __CLASS__ . '/table_info_cache' ) ?: [];
 
 		if ( $table_info_cache ) {
 			// Prefer info from the object internal cache
@@ -10106,7 +10116,7 @@ class PodsAPI {
 		$info['type']        = $object_type;
 		$info['object_name'] = $object;
 
-		$static_cache->set( $cache_key, $info, __CLASS__ . '/table_info_cache' );
+		pods_static_cache_set( $cache_key, $info, __CLASS__ . '/table_info_cache' );
 
 		if ( pods_api_cache() ) {
 			if ( ! did_action( 'init' ) || doing_action( 'init' ) ) {
@@ -10494,6 +10504,9 @@ class PodsAPI {
 		pods_transient_clear( 'pods_pfat_auto_pods' );
 		pods_transient_clear( 'pods_pfat_archive_test' );
 
+		pods_transient_clear( 'pods_blocks' );
+		pods_transient_clear( 'pods_blocks_js' );
+
 		if ( is_array( $pod ) || $pod instanceof Pod ) {
 			pods_transient_clear( 'pods_pod_' . $pod['name'] );
 			pods_cache_clear( $pod['name'], 'pods-class' );
@@ -10506,17 +10519,15 @@ class PodsAPI {
 			pods_transient_clear( 'pods_wp_cpt_ct' );
 		}
 
-		$static_cache = pods_container( Static_Cache::class );
-
-		$static_cache->flush( __CLASS__ );
-		$static_cache->flush( __CLASS__ . '/table_info_cache' );
-		$static_cache->flush( __CLASS__ . '/related_item_cache' );
-		$static_cache->flush( PodsInit::class . '/existing_content_types' );
-		$static_cache->flush( PodsView::class );
-		$static_cache->flush( PodsField_Pick::class . '/related_data' );
-		$static_cache->flush( PodsField_Pick::class . '/field_data' );
-		$static_cache->flush( 'pods_svg_icon/base64' );
-		$static_cache->flush( 'pods_svg_icon/svg' );
+		pods_static_cache_clear( true, __CLASS__ );
+		pods_static_cache_clear( true, __CLASS__ . '/table_info_cache' );
+		pods_static_cache_clear( true, __CLASS__ . '/related_item_cache' );
+		pods_static_cache_clear( true, PodsInit::class . '/existing_content_types' );
+		pods_static_cache_clear( true, PodsView::class );
+		pods_static_cache_clear( true, PodsField_Pick::class . '/related_data' );
+		pods_static_cache_clear( true, PodsField_Pick::class . '/field_data' );
+		pods_static_cache_clear( true, 'pods_svg_icon/base64' );
+		pods_static_cache_clear( true, 'pods_svg_icon/svg' );
 
 		pods_init()->refresh_existing_content_types_cache( true );
 
@@ -10549,6 +10560,7 @@ class PodsAPI {
 	 * @since 2.0.0
 	 */
 	public function process_form( $params, $obj = null, $fields = null, $thank_you = null ) {
+		$old_display_errors = $this->display_errors;
 
 		$this->display_errors = false;
 
@@ -10628,6 +10640,8 @@ class PodsAPI {
 				pods_redirect( $thank_you, 302, false );
 			}
 		}
+
+		$this->display_errors = $old_display_errors;
 
 		return $id;
 	}
@@ -10920,6 +10934,7 @@ class PodsAPI {
 					'name'        => $type,
 					'label'       => __( 'User', 'pods' ),
 					'storage'     => 'meta',
+					'adhoc'       => true,
 				];
 			} elseif ( 'comment' === $params['name'] ) {
 				// Detect comment.
@@ -10931,6 +10946,7 @@ class PodsAPI {
 					'name'        => $type,
 					'label'       => __( 'Comment', 'pods' ),
 					'storage'     => 'meta',
+					'adhoc'       => true,
 				];
 			} elseif ( 'media' === $params['name'] || 'attachment' === $params['name'] ) {
 				// Detect media.
@@ -10942,6 +10958,7 @@ class PodsAPI {
 					'name'        => $type,
 					'label'       => __( 'Media', 'pods' ),
 					'storage'     => 'meta',
+					'adhoc'       => true,
 				];
 			}
 
@@ -10959,6 +10976,7 @@ class PodsAPI {
 						'label'       => $post_type->label,
 						'description' => $post_type->description,
 						'storage'     => 'meta',
+						'adhoc'       => true,
 					];
 				}
 			}
@@ -10977,6 +10995,7 @@ class PodsAPI {
 						'label'       => $taxonomy->label,
 						'description' => $taxonomy->description,
 						'storage'     => 'meta',
+						'adhoc'       => true,
 					];
 				}
 			}
