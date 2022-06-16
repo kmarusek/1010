@@ -3,8 +3,8 @@ Plugin URI: https://wpexperts.io/
 Contributors: wpexpertsio
 Tags: postman smtp, postman, smtp, email, mail, mailer, email log, oauth2, gmail, google apps, hotmail, yahoo, mandrill api, sendgrid api, elastic email, office365, mailgun
 Requires at least: 3.9
-Tested up to: 5.9.3
-Stable tag: 2.0.27
+Tested up to: 6.0
+Stable tag: 2.1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -223,7 +223,7 @@ You've [forgotten to choose an email address in the consent screen](https://word
 
 == SMTP Error Messages ==
 
-= Communication Error [334] – make sure the Envelope From Email is the same account used to create the Client ID. =
+= Communication Error [334] â€“ make sure the Envelope From Email is the same account used to create the Client ID. =
 
 * This is almost always caused by being logged in to Google/Microsoft/Yahoo with a different user than the one Post is configured to send mail with. Logout and try again with the correct user
 * Login to [Webmail](http://www.gmail.com) and see if there is an "Unusual Activity" warning waiting for your attention
@@ -281,6 +281,19 @@ To avoid being flagged as spam, you need to prove your email isn't forged. On a 
 
 == Changelog ==
 
+= 2.1.1.1 - 2022-06-15 =
+**FIX**
+* Sendinblue email header
+
+= 2.1.1 - 2022-06-09 =
+**FIX**
+* PHP Version Compatibility.
+
+= 2.1 - 2022-06-09 =
+* **NEW**
+* All New UI
+* Sendinblue API Integration
+
 = 2.0.27 - 2022-05-19 =
 Add notice about Google Less Secure App.
 
@@ -295,7 +308,7 @@ Add notice about Google Less Secure App.
 = 2.0.25 - 2022-04-06 =
 * **Bug Fixes**
 * WP 5.9 Compatibility Ballon UI issue.
-* Uncaught Error: Class ‘PostmanAdminController’ not found.
+* Uncaught Error: Class â€˜PostmanAdminControllerâ€™ not found.
 * Ajax error appearing due to Google API depreciated function.
 
 * **Improvements**
@@ -316,7 +329,7 @@ Add notice about Google Less Secure App.
 
 = 2.0.21 - 2021-02-11
 * Fixed: Security issue - nonce validation.
-* Fixed: Class ‘PostmanViewController’ not found
+* Fixed: Class â€˜PostmanViewControllerâ€™ not found
 * New: New wp-config.php constant to disable the email logger = `POST_SMTP_CORE_MAIL_LOG`.
 
 = 2.0.20 - 2021-01-19
