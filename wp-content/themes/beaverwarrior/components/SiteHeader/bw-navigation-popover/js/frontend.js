@@ -1,1 +1,92 @@
-"use strict";jQuery(function(a){BWNavigationPopover=function(a){this.element=a.element,this.popoverHeadersEnabled=a.popoverHeadersEnabled,this.popoverPointerEnabled=a.popoverPointerEnabled,this.popoverCustomContent=a.popoverCustomContent,this.init()},BWNavigationPopover.prototype={elements:{menuItemsHasChildren:".menu-item-has-children",menuItemsPrimary:".mega-menu-container > li.menu-item"},classes:{},timing:{},init:function(){this._initPopovers(),this._bindHidePopoversOnHover(),this.element.data("BWNavigationPopoverObject",this)},_initPopovers:function(){var b=this;this.element.find(this.elements.menuItemsHasChildren).each(function(){a(this).uniqueId();var c=a(this).attr("id");a(this).popover({trigger:"hover",html:!0,content:b._getDropDownContent(this),placement:"bottom",container:"#"+c,template:b._getDropDownTemplate(),delay:{show:0,hide:250}})})},_bindHidePopoversOnHover:function(){var b=this;this.element.find(this.elements.menuItemsPrimary).mouseenter(function(){b._hideSiblingPopovers(a(this))})},_demoShowFirstPopover:function(){this.element.find(this.elements.menuItemsHasChildren).eq(0).each(function(){a(this).popover("show")})},_demoHideFirstPopover:function(){this.element.find(this.elements.menuItemsHasChildren).eq(0).each(function(){a(this).popover("hide")})},_hideSiblingPopovers:function(b){this.element.find(this.elements.menuItemsHasChildren).not(b).each(function(){a(this).popover("hide")})},_getDropDownContent:function(b){var c=a(b).data("mega-menu-section-title"),d=a(b).find(".mega-menu-contents").html();return this.popoverHeadersEnabled?'<p class="section-title">'+c+"</p>"+d:d},_getDropDownTemplate:function(){var a=this.popoverPointerEnabled?'<div class="triangle-container"><div class="triangle"></div></div>':"";return'<div class="popover '+(this.popoverPointerEnabled?"has-tooltip":"")+'" role="tooltip">'+a+'<h3 class="popover-title"></h3><div class="popover-content"></div>'+this.popoverCustomContent+"</div>"}}});
+"use strict";
+
+jQuery(function ($) {
+  /**
+   * Main class for our BWNavigationPopover
+   */
+  BWNavigationPopover = function BWNavigationPopover(settings) {
+    // The element we're working with
+    this.element = settings.element;
+    this.popoverHeadersEnabled = settings.popoverHeadersEnabled;
+    this.popoverPointerEnabled = settings.popoverPointerEnabled;
+    this.popoverCustomContent = settings.popoverCustomContent; // Init the navigation 
+
+    this.init();
+  };
+
+  BWNavigationPopover.prototype = {
+    elements: {
+      menuItemsHasChildren: '.menu-item-has-children',
+      menuItemsPrimary: '.mega-menu-container > li.menu-item'
+    },
+    classes: {},
+    timing: {},
+    init: function init() {
+      this._initPopovers();
+
+      this._bindHidePopoversOnHover();
+
+      this.element.data('BWNavigationPopoverObject', this);
+    },
+    _initPopovers: function _initPopovers() {
+      // Declare self outside of block
+      var self = this;
+      this.element.find(this.elements.menuItemsHasChildren).each(function () {
+        $(this).uniqueId(); // Get the unique ID
+
+        var unique_id = $(this).attr('id');
+        $(this).popover({
+          trigger: 'hover',
+          html: true,
+          content: self._getDropDownContent(this),
+          placement: 'bottom',
+          container: '#' + unique_id,
+          template: self._getDropDownTemplate(),
+          delay: {
+            show: 0,
+            hide: 250
+          }
+        });
+      });
+    },
+    _bindHidePopoversOnHover: function _bindHidePopoversOnHover() {
+      // Declare self outside of block
+      var self = this;
+      this.element.find(this.elements.menuItemsPrimary).mouseenter(function () {
+        self._hideSiblingPopovers($(this));
+      });
+    },
+    _demoShowFirstPopover: function _demoShowFirstPopover() {
+      this.element.find(this.elements.menuItemsHasChildren).eq(0).each(function () {
+        $(this).popover('show');
+      });
+    },
+    _demoHideFirstPopover: function _demoHideFirstPopover() {
+      this.element.find(this.elements.menuItemsHasChildren).eq(0).each(function () {
+        $(this).popover('hide');
+      });
+    },
+    _hideSiblingPopovers: function _hideSiblingPopovers(current_element) {
+      this.element.find(this.elements.menuItemsHasChildren).not(current_element).each(function () {
+        $(this).popover('hide');
+      });
+    },
+    _getDropDownContent: function _getDropDownContent(element) {
+      var section_title = $(element).data('mega-menu-section-title'),
+          drop_down_menu = $(element).find('.mega-menu-contents').html();
+
+      if (this.popoverHeadersEnabled) {
+        return '<p class="section-title">' + section_title + '</p>' + drop_down_menu;
+      } else {
+        return drop_down_menu;
+      }
+    },
+    _getDropDownTemplate: function _getDropDownTemplate() {
+      // Our tooltip
+      var tooltip_string = this.popoverPointerEnabled ? "<div class=\"triangle-container\"><div class=\"triangle\"></div></div>" : '',
+          has_tooltip_class = this.popoverPointerEnabled ? 'has-tooltip' : '';
+      return "<div class=\"popover " + has_tooltip_class + "\" role=\"tooltip\">" + tooltip_string + "<h3 class=\"popover-title\"></h3><div class=\"popover-content\"></div>" + this.popoverCustomContent + "</div>";
+    }
+  };
+});
+//# sourceMappingURL=frontend.js.map

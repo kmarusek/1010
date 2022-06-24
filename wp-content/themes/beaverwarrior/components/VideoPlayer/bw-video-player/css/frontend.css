@@ -1,1 +1,157 @@
-.fl-module-bw-video-player .video-inline-container{position:relative}.fl-module-bw-video-player .video-inline-container.video-active .video-placeholder-container{z-index:1;opacity:0}.fl-module-bw-video-player .video-inline-container.video-active .video-container{z-index:2;opacity:1}.fl-module-bw-video-player .video-inline-container .video-container{position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;transition:opacity 350ms;opacity:0}.fl-module-bw-video-player .video-inline-container .video-container video{width:100%;height:100%}.fl-module-bw-video-player .video-inline-container .video-container .plyr__control.plyr__control--overlaid{display:none}.fl-module-bw-video-player .video-inline-container .video-placeholder-container{position:relative;z-index:2;transition:opacity 350ms;opacity:1}.fl-module-bw-video-player .video-placeholder-container{position:relative}.fl-module-bw-video-player .video-placeholder-container .video-play-icon-container{position:absolute;z-index:9;top:0;left:0;width:100%;height:100%;display:-webkit-box;display:flex;flex-direction:row;box-sizing:border-box;-webkit-box-flex:0;-moz-box-flex:0;-ms-box-flex:0 1 auto;-ms-flex:0 1 auto;flex:0 1 auto;-ms-flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;align-items:center;justify-content:center}.featherlight.bw-video-player-modal .featherlight-content .plyr__control.plyr__control--overlaid,.fl-module-bw-video-player .video-content{display:none}.fl-module-bw-video-player .video-placeholder-container .video-play-icon-container .video-play-button{margin:0;padding:0;border:none;background:0 0}.fl-module-bw-video-player .video-placeholder-container .video-play-icon-container .video-play-button .video-play-icon{cursor:pointer;transition:color 200ms}.fl-module-bw-video-player .video-source-youtube{position:relative;width:100%;padding-bottom:56.25%}.fl-module-bw-video-player .video-source-youtube iframe{position:absolute;top:0;left:0;width:100%;height:100%}.featherlight.bw-video-player-modal{transition:opacity 400ms;opacity:0}.featherlight.bw-video-player-modal.featherlight-visible{opacity:1}.featherlight.bw-video-player-modal .video-source-container{position:relative;width:100%;padding-bottom:56.25%}.featherlight.bw-video-player-modal .video-source-container iframe{position:absolute;top:0;left:0;width:100%;height:100%}.featherlight.bw-video-player-modal .featherlight-content{overflow:visible;width:90%;background:0 0}.featherlight.bw-video-player-modal .featherlight-content .featherlight-close-icon{top:-10px;right:-10px;background:0 0}body.bw-video-modal-open{background-color:#000}body.bw-video-modal-open .fl-page .fl-page-content,body.bw-video-modal-open .fl-page header{transition:blur 350ms}body.bw-video-modal-open #wpadminbar{filter:blur(2px)}.youtube_video_16_9{position:relative;width:100%;padding-bottom:56.25%}.youtube_video_16_9 iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+.fl-module-bw-video-player .video-inline-container {
+  position: relative;
+}
+.fl-module-bw-video-player .video-inline-container.video-active .video-placeholder-container {
+  z-index: 1;
+  opacity: 0;
+}
+.fl-module-bw-video-player .video-inline-container.video-active .video-container {
+  z-index: 2;
+  opacity: 1;
+}
+.fl-module-bw-video-player .video-inline-container .video-container {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: opacity 350ms;
+  transition: opacity 350ms;
+  opacity: 0;
+}
+.fl-module-bw-video-player .video-inline-container .video-container video {
+  width: 100%;
+  height: 100%;
+}
+.fl-module-bw-video-player .video-inline-container .video-container .plyr__control.plyr__control--overlaid {
+  display: none;
+}
+.fl-module-bw-video-player .video-inline-container .video-placeholder-container {
+  position: relative;
+  z-index: 2;
+  -webkit-transition: opacity 350ms;
+  transition: opacity 350ms;
+  opacity: 1;
+}
+.fl-module-bw-video-player .video-placeholder-container {
+  position: relative;
+}
+.fl-module-bw-video-player .video-placeholder-container .video-play-icon-container {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-flex: 0;
+  -ms-box-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  -ms-flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.fl-module-bw-video-player .video-placeholder-container .video-play-icon-container .video-play-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.fl-module-bw-video-player .video-placeholder-container .video-play-icon-container .video-play-button .video-play-icon {
+  cursor: pointer;
+  -webkit-transition: color 200ms;
+  transition: color 200ms;
+}
+.fl-module-bw-video-player .video-content {
+  display: none;
+}
+.fl-module-bw-video-player .video-source-youtube {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+.fl-module-bw-video-player .video-source-youtube iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.featherlight.bw-video-player-modal {
+  -webkit-transition: opacity 400ms;
+  transition: opacity 400ms;
+  opacity: 0;
+}
+.featherlight.bw-video-player-modal.featherlight-visible {
+  opacity: 1;
+}
+.featherlight.bw-video-player-modal .video-source-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+.featherlight.bw-video-player-modal .video-source-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.featherlight.bw-video-player-modal .featherlight-content {
+  overflow: visible;
+  width: 90%;
+  background: none;
+}
+.featherlight.bw-video-player-modal .featherlight-content .featherlight-close-icon {
+  top: -10px;
+  right: -10px;
+  background: none;
+}
+.featherlight.bw-video-player-modal .featherlight-content .plyr__control.plyr__control--overlaid {
+  display: none;
+}
+body.bw-video-modal-open {
+  background-color: black;
+}
+body.bw-video-modal-open .fl-page header,
+body.bw-video-modal-open .fl-page .fl-page-content {
+  -webkit-transition: blur 350ms;
+  transition: blur 350ms;
+}
+body.bw-video-modal-open #wpadminbar {
+  -webkit-filter: blur(2px);
+          filter: blur(2px);
+}
+/**
+ * Mixin for styling the YouTube videos of 16:9 aspect ratio. More can be added
+ * over time after the module supports additional aspect ratios;
+ */
+.youtube_video_16_9 {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+.youtube_video_16_9 iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=frontend.css.map */

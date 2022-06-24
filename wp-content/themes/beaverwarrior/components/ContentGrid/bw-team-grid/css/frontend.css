@@ -1,1 +1,181 @@
-.fl-module-bw-team-grid .team_members_wrapper .row{display:flex;flex-wrap:wrap}.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link{text-decoration:none;transition:all .5s ease-out;outline:0!important}.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container{margin-bottom:60px}.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container .team_member_position{position:relative;transition:all .5s ease-out;margin-top:25px}.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container .team_member_name{position:relative;transition:all .5s ease-out;margin-top:10px}.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container .team_member_name:before{content:"";position:absolute;z-index:0;left:0;right:100%;bottom:-6px;height:2px;-webkit-transition-property:right;transition-property:right;-webkit-transition-duration:.3s;transition-duration:.3s;-webkit-transition-timing-function:ease-out;transition-timing-function:ease-out}.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link:hover .team_member_text_container .team_member_name:before{right:100%}.fl-module-bw-team-grid .modal{background-color:rgba(0,0,0,.5)}.fl-module-bw-team-grid .modal .modal-dialog{width:100%!important;max-width:1200px!important}.fl-module-bw-team-grid .modal .modal-dialog .modal-content{margin-left:0;margin-right:0;max-width:90vw;max-height:600px;left:50%;transform:translateX(-50%);padding:35px 50px 3px;width:1040px}@media only screen and (max-width:992px){.fl-module-bw-team-grid .modal .modal-dialog .modal-content{overflow:scroll;padding:35px 20px 3px}}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header{border-bottom:none!important;position:absolute;top:0;right:0}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header .close{width:25px;height:25px;font-size:30px;line-height:0;opacity:1}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header .close .closeSymbol{font-size:46px!important;font-weight:100}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header .close:hover{background-color:transparent;border:none}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body{padding:15px!important;max-height:90vh;overflow:auto}@media only screen and (max-width:992px){.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body{overflow:unset}}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body li,.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body p{font-size:16px}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol .team_member_modal_titles .modal-position{margin-top:25px}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol .team_member_modal_titles .modal-title{margin-top:10px;padding-bottom:20px}@media screen and (max-width:992px){.fl-module-bw-team-grid .team_members_wrapper .row .team_member .team_member_wrapper{display:flex;justify-content:center}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol{display:table;margin-left:auto;margin-right:auto}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol .team_member_modal_image img{max-height:300px}}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .txtCol{max-height:500px;overflow-x:hidden}@media screen and (max-width:992px){.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .txtCol{width:100%!important;overflow:unset;max-height:unset;padding-bottom:32px}}.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-footer{border-top:none!important}.fl-module-bw-team-grid .modal .modal-dialog-centered{margin-top:0!important;margin-bottom:0!important;height:100vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center}.fl-module-bw-team-grid .modal-open{overflow:hidden;overflow-y:hidden!important}.fl-module-bw-team-grid .fade .modal-dialog-centered{transform:scale(0)!important}.fl-module-bw-team-grid .in .modal-dialog-centered{transform:scale(1)!important}.modal-backdrop{display:none!important}
+.fl-module-bw-team-grid .team_members_wrapper .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link {
+  text-decoration: none;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  outline: none !important;
+}
+.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container {
+  margin-bottom: 60px;
+}
+.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container .team_member_position {
+  position: relative;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  margin-top: 25px;
+}
+.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container .team_member_name {
+  position: relative;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  margin-top: 10px;
+}
+.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link .team_member_text_container .team_member_name:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 100%;
+  bottom: -6px;
+  height: 2px;
+  -webkit-transition-property: right;
+  transition-property: right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.fl-module-bw-team-grid .team_members_wrapper .row .team_member .triptych_panel_link:hover .team_member_text_container .team_member_name:before {
+  right: 100%;
+}
+@media screen and (max-width: 992px) {
+  .fl-module-bw-team-grid .team_members_wrapper .row .team_member .team_member_wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+.fl-module-bw-team-grid .modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.fl-module-bw-team-grid .modal .modal-dialog {
+  width: 100% !important;
+  max-width: 1200px !important;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 90vw;
+  max-height: 600px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  padding: 35px 50px 3px;
+  width: 1040px;
+}
+@media only screen and (max-width: 992px) {
+  .fl-module-bw-team-grid .modal .modal-dialog .modal-content {
+    overflow: scroll;
+    padding: 35px 20px 3px;
+  }
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header {
+  border-bottom: none !important;
+  position: absolute;
+  top: 0px;
+  right: 0;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header .close {
+  width: 25px;
+  height: 25px;
+  font-size: 30px;
+  line-height: 0;
+  opacity: 1;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header .close .closeSymbol {
+  font-size: 46px !important;
+  font-weight: 100;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-header .close:hover {
+  background-color: transparent;
+  border: none;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body {
+  padding: 15px !important;
+  max-height: 90vh;
+  overflow: auto;
+}
+@media only screen and (max-width: 992px) {
+  .fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body {
+    overflow: unset;
+  }
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body p {
+  font-size: 16px;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body li {
+  font-size: 16px;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol .team_member_modal_titles .modal-position {
+  margin-top: 25px;
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol .team_member_modal_titles .modal-title {
+  margin-top: 10px;
+  padding-bottom: 20px;
+}
+@media screen and (max-width: 992px) {
+  .fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .imgCol .team_member_modal_image img {
+    max-height: 300px;
+  }
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .txtCol {
+  max-height: 500px;
+  overflow-x: hidden;
+}
+@media screen and (max-width: 992px) {
+  .fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-body .txtCol {
+    width: 100% !important;
+    overflow: unset;
+    max-height: unset;
+    padding-bottom: 32px;
+  }
+}
+.fl-module-bw-team-grid .modal .modal-dialog .modal-content .modal-footer {
+  border-top: none !important;
+}
+.fl-module-bw-team-grid .modal .modal-dialog-centered {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.fl-module-bw-team-grid .modal-open {
+  overflow: hidden;
+  overflow-y: hidden !important;
+}
+.fl-module-bw-team-grid .fade .modal-dialog-centered {
+  -webkit-transform: scale(0) !important;
+          transform: scale(0) !important;
+}
+.fl-module-bw-team-grid .in .modal-dialog-centered {
+  -webkit-transform: scale(1) !important;
+          transform: scale(1) !important;
+}
+.modal-backdrop {
+  display: none !important;
+}
+
+/*# sourceMappingURL=frontend.css.map */
