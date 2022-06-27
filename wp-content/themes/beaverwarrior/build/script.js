@@ -6550,4 +6550,4 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
-//# sourceMappingURL=debug/script.js.map
+//# sourceMappingURL=script.js.map
