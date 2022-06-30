@@ -5312,7 +5312,7 @@ if (!Array.prototype.indexOf) {
 
     return module;
 }));
-;/*jslint continue: true, es5: true*/
+;/*jslint continue: true*/
 /*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
 (function (root, factory) {
     "use strict";
