@@ -17,7 +17,7 @@
   "author": "HUEMOR Designs <dev@huemor.rocks>",
   "license": "Proprietary",
   "dependencies": {
-    "@huemor-designs/nanoassembler": "^1.2.0-alpha2",
+    "@huemor-designs/nanoassembler": "^1.2.0",
     "gulp": "^4.0.2"
   }
 }
