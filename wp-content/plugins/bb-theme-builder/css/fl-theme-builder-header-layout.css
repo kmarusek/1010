@@ -18,14 +18,34 @@
 	height: 100vh;
 	width: 100vw;
 }
-.fl-builder-content[data-type="header"].fl-theme-builder-header-sticky .fl-menu-mobile-flyout {
+.fl-builder-content[data-type="header"]:not([data-overlay="1"]).fl-theme-builder-header-sticky .fl-menu-mobile-flyout {
 	top: 0px;
+}
+.fl-theme-builder-flyout-menu-active body {
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+}
+.fl-theme-builder-has-flyout-menu, .fl-theme-builder-has-flyout-menu body {
+	overflow-x: hidden;
+}
+.fl-theme-builder-flyout-menu-push-right {
+	right: 0px;
+	transition: right 0.2s ease-in-out;
+}
+.fl-theme-builder-flyout-menu-push-left {
+	left: 0px;
+	transition: left 0.2s ease-in-out;
+}
+.fl-theme-builder-flyout-menu-active .fl-theme-builder-flyout-menu-push-right {
+	position: relative;
+	right: 250px;
+}
+.fl-theme-builder-flyout-menu-active .fl-theme-builder-flyout-menu-push-left {
+	position: relative;
+	left: 250px;
 }
 .fl-theme-builder-flyout-menu-active .fl-builder-content[data-type="header"] .fl-menu-disable-transition {
 	transition: none;
-}
-.fl-theme-builder-flyout-menu-active .fl-builder-content[data-type="header"].fl-theme-builder-header-full-width.fl-theme-builder-header-sticky:not(.fl-theme-builder-flyout-menu-overlay) {
-	width: calc(100% - 250px);
 }
 
 /* Shrink */

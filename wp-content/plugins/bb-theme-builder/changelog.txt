@@ -1,3 +1,13 @@
+<h4>1.4.2.1 - 6/30/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix issue with Mega Menu where sometimes the sub-menu items were not accessible</li>
+	<li>Fix flyout menu being inaccessible when scrolled</li>
+	<li>Fix flyout menu top position when overlay is enabled</li>
+	<li>Fix flyout menu when using a Sticky Header and Post Module set to scroll pagination</li>
+	<li>Fix flyout menu items disappearing if you open menu after scrolling</li>
+</ul>
+
 <h4>1.4.2 - 06/2/2022</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
