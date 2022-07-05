@@ -151,7 +151,8 @@ class PPTableModule extends FLBuilderModule {
 				),
 				'toggle'		=> array(
 					'manual'		=> array(
-						'tabs'			=> array('header', 'row')
+						'tabs'			=> array('header', 'row'),
+						'fields'        => array('header_icon_size', 'header_icon_spacing'),
 					),
 					'csv_import'	=> array(
 						'fields'		=> array('csv_import', 'first_row_header')
@@ -269,8 +270,28 @@ BB_PowerPack::register_module('PPTableModule', array(
 	'header'		=> array(
         'title'         => __('Table Headers', 'bb-powerpack'),
         'sections'      => array(
+			'header_icon'   => array(
+				'title'  => __( 'Icon', 'bb-powerpack' ),
+				'fields' => array(
+					'header_icon' => array(
+						'type'        => 'icon',
+						'label'       => __( 'Icon', 'bb-pwerpack' ),
+						'show_remove' => true
+					),
+					'header_icon_pos' => array(
+						'type'    => 'pp-switch',
+						'label'   => __( 'Icon Position', 'bb-powerpack' ),
+						'default' => 'left',
+						'options' => array(
+							'left'  => __( 'Left', 'bb-powerpack' ),
+							'top'   => __( 'Top', 'bb-powerpack' ),
+							'right' => __( 'Right', 'bb-powerpack' ),
+						),
+					),
+				)
+			),
             'headers'       => array(
-                'title'         => __('Column Headers', 'bb-powerpack'),
+                'title'         => __('Header Items', 'bb-powerpack'),
                 'fields'        => array( // Section Fields
                     'header'     => array(
                         'type'          => 'text',
@@ -317,6 +338,20 @@ BB_PowerPack::register_module('PPTableModule', array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content thead',
 							'property'	=> 'background'
+						)
+                    ),
+					'header_font_color'     => array(
+                        'type'          => 'color',
+                        'default'       => 'ffffff',
+						'label'         => __('Text Color', 'bb-powerpack'),
+						'connections'	=> array('color'),
+                        'help'          => __('Change the table header font color', 'bb-powerpack'),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-table-content thead tr th,
+											.pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
+											.pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head',
+							'property'	=> 'color',
 						)
                     ),
 					'header_border_group' => array(
@@ -373,6 +408,22 @@ BB_PowerPack::register_module('PPTableModule', array(
                         ),
                         'responsive'		=> true,
 					),
+					'header_icon_size' => array(
+						'type'       => 'unit',
+						'label'      => __( 'Icon Size', 'bb-powerpack' ),
+						'default'    => '',
+						'slider'     => true,
+						'responsive' => true,
+						'units'      => array( 'px' ),
+					),
+					'header_icon_spacing' => array(
+						'type'       => 'unit',
+						'label'      => __( 'Icon Spacing', 'bb-powerpack' ),
+						'default'    => 10,
+						'slider'     => true,
+						'responsive' => true,
+						'units'      => array( 'px' ),
+					),
 				)
 			),
 			'row_style'	=> array(
@@ -383,7 +434,7 @@ BB_PowerPack::register_module('PPTableModule', array(
                         'type'          => 'color',
                         'default'          => 'ffffff',
                         'label'         => __('Background Color', 'bb-powerpack'),
-                        'help'          => __('Change the table row background color', 'bb-powerpack'),
+                        'help'          => __('Change row background color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
@@ -393,11 +444,24 @@ BB_PowerPack::register_module('PPTableModule', array(
 							'property'	=> 'background'
 						)
                     ),
+					'rows_font_color'     => array(
+                        'type'          => 'color',
+                        'default'       => '',
+                        'label'         => __('Text Color', 'bb-powerpack'),
+                        'help'          => __('Change row text color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-table-content tbody tr td',
+							'property'	=> 'color'
+						)
+                    ),
                     'rows_even_background'     => array(
                         'type'          => 'color',
                         'default'          => 'ffffff',
                         'label'         => __('Even Rows Background Color', 'bb-powerpack'),
-                        'help'          => __('Change the tables even rows background color', 'bb-powerpack'),
+                        'help'          => __('Change even rows background color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
@@ -407,11 +471,24 @@ BB_PowerPack::register_module('PPTableModule', array(
 							'property'	=> 'background'
 						)
                     ),
+					'rows_font_even'     => array(
+                        'type'          => 'color',
+                        'default'       => '',
+                        'label'         => __('Even Rows Text Color', 'bb-powerpack'),
+                        'help'          => __('Change even rows text color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-table-content .even td',
+							'property'	=> 'color'
+						)
+					),
                     'rows_odd_background'     => array(
                         'type'          => 'color',
                         'default'          => 'ffffff',
                         'label'         => __('Odd Rows Background Color', 'bb-powerpack'),
-                        'help'          => __('Change the tables odd rows background color', 'bb-powerpack'),
+                        'help'          => __('Change odd rows background color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
 						'preview'	=> array(
@@ -420,14 +497,27 @@ BB_PowerPack::register_module('PPTableModule', array(
 							'property'	=> 'background'
 						)
                     ),
+					'rows_font_odd'     => array(
+                        'type'          => 'color',
+                        'default'       => '',
+						'label'         => __('Odd Rows Text Color', 'bb-powerpack'),
+						'connections'	=> array('color'),
+                        'help'          => __('Change odd rows text color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-table-content .odd td',
+							'property'	=> 'color'
+						)
+                    ),
 					'rows_vertical_alignment' => array(
 						'type'		=> 'pp-switch',
 						'label'		=> __('Vertical Alignment', 'bb-powerpack'),
 						'default'	=> 'middle',
 						'options'       => array(
 							'top'          => __('Top', 'bb-powerpack'),
-							'middle'         => __('Center', 'bb-powerpack'),
-							'bottom'         => __('Bottom', 'bb-powerpack'),
+							'middle'       => __('Center', 'bb-powerpack'),
+							'bottom'       => __('Bottom', 'bb-powerpack'),
 						),
 						'preview'	=> array(
 							'type'		=> 'css',
@@ -491,27 +581,7 @@ BB_PowerPack::register_module('PPTableModule', array(
 						'type'        	   => 'typography',
 						'label'       	   => __( 'Typography', 'bb-powerpack' ),
 						'responsive'  	   => true,
-						'preview'          => array(
-							'type'         		=> 'css',
-							'selector' 		    => '.pp-table-content thead tr th,
-													.pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
-													.pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head',
-						),
 					),
-                    'header_font_color'     => array(
-                        'type'          => 'color',
-                        'default'       => 'ffffff',
-						'label'         => __('Text Color', 'bb-powerpack'),
-						'connections'	=> array('color'),
-                        'help'          => __('Change the table header font color', 'bb-powerpack'),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content thead tr th,
-											.pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
-											.pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head',
-							'property'	=> 'color',
-						)
-                    ),
 				)
 			),
 			'rows_typography'	=> array(
@@ -527,45 +597,6 @@ BB_PowerPack::register_module('PPTableModule', array(
 							'selector' 		    => '.pp-table-content tbody tr td'
 						),
 					),
-                    'rows_font_color'     => array(
-                        'type'          => 'color',
-                        'default'       => '',
-                        'label'         => __('Text Color', 'bb-powerpack'),
-                        'help'          => __('Change the table row text color', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'connections'	=> array('color'),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content tbody tr td',
-							'property'	=> 'color'
-						)
-                    ),
-                    'rows_font_even'     => array(
-                        'type'          => 'color',
-                        'default'       => '',
-                        'label'         => __('Even Rows Text Color', 'bb-powerpack'),
-                        'help'          => __('Change the tables even rows text color', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'connections'	=> array('color'),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content .even td',
-							'property'	=> 'color'
-						)
-					),
-                    'rows_font_odd'     => array(
-                        'type'          => 'color',
-                        'default'       => '',
-						'label'         => __('Odd Rows Text Color', 'bb-powerpack'),
-						'connections'	=> array('color'),
-                        'help'          => __('Change the tables odd rows text color', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content .odd td',
-							'property'	=> 'color'
-						)
-                    ),
 				)
 			)
 

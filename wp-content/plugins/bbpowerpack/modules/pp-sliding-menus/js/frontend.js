@@ -5,6 +5,7 @@
 		this.nodeClass = '.fl-node-' + settings.id;
 		this.linknav = settings.linknav == 'yes' ? true : false;
 		this.target = this.nodeClass + ' .pp-slide-menu__menu';
+		this.backIcon = settings.backicon;
 		this.backText = settings.backtext;
 
 		var index = 0;
@@ -29,7 +30,7 @@
 				submenu = link.next('.pp-slide-menu-sub-menu'),
 				arrow = link.prev('.pp-slide-menu-arrow'),
 				trigger = ( this.linknav ) ? link.add( arrow ) : arrow,
-				back = $('<li class="menu-item pp-slide-menu-item pp-slide-menu-back"><span class="pp-slide-menu-arrow"><i class="fa fa-angle-left"></i></span><a href="#" class="pp-slide-menu-item-link pp-menu-sub-item-back">' + this.backText + '</a></li>');
+				back = $('<li class="menu-item pp-slide-menu-item pp-slide-menu-back"><span class="pp-slide-menu-arrow">' + this.backIcon + '</span><a href="#" class="pp-slide-menu-item-link pp-menu-sub-item-back">' + this.backText + '</a></li>');
 
 			trigger.on( 'click', function(e) {
 				e.preventDefault();

@@ -63,6 +63,67 @@ FLBuilderCSS::typography_field_rule( array(
 	vertical-align: <?php echo $settings->header_vertical_alignment; ?>;
 }
 
+<?php if ( isset( $settings->header_icon ) && ! empty( $settings->header_icon ) ) { ?>
+.fl-node-<?php echo $id; ?> .pp-table-content .pp-table-header-inner {
+	display: flex;
+	<?php if ( 'top' === $settings->header_icon_pos ) { ?>
+	flex-direction: column;
+	<?php } ?>
+	<?php if ( 'right' === $settings->header_icon_pos ) { ?>
+	flex-direction: row-reverse;
+	<?php } ?>
+	<?php if ( is_array( $settings->header_typography ) && isset( $settings->header_typography['text_align'] ) ) { ?>
+		<?php if ( 'center' === $settings->header_typography['text_align'] ) { ?>
+			justify-content: center;
+		<?php } ?>
+		<?php if ( 'left' === $settings->header_typography['text_align'] ) { ?>
+			justify-content: flex-start;
+		<?php } ?>
+		<?php if ( 'right' === $settings->header_typography['text_align'] ) { ?>
+			justify-content: flex-end;
+		<?php } ?>
+	<?php } ?>
+}
+<?php } ?>
+
+<?php
+// Header Icon.
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'header_icon_size',
+	'selector'     => ".fl-node-$id .pp-table-content .pp-table-header-icon",
+	'prop'         => 'font-size',
+	'unit'         => 'px',
+) );
+
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'header_icon_spacing',
+	'selector'     => ".fl-node-$id .pp-table-content .pp-table-header-icon",
+	'prop'         => 'margin-right',
+	'unit'         => 'px',
+	'enabled'      => 'left' === $settings->header_icon_pos
+) );
+
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'header_icon_spacing',
+	'selector'     => ".fl-node-$id .pp-table-content .pp-table-header-icon",
+	'prop'         => 'margin-bottom',
+	'unit'         => 'px',
+	'enabled'      => 'top' === $settings->header_icon_pos
+) );
+
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'header_icon_spacing',
+	'selector'     => ".fl-node-$id .pp-table-content .pp-table-header-icon",
+	'prop'         => 'margin-left',
+	'unit'         => 'px',
+	'enabled'      => 'right' === $settings->header_icon_pos
+) );
+?>
+
 <?php // Header Border - Settings
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $settings,
@@ -119,6 +180,37 @@ FLBuilderCSS::typography_field_rule( array(
     <?php if( $settings->rows_font_even ) { ?>color: <?php echo pp_get_color_value($settings->rows_font_even); ?>;<?php } ?>
 }
 
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-table-content .pp-table-header-inner {
+	<?php if ( is_array( $settings->header_typography_medium ) && isset( $settings->header_typography_medium['text_align'] ) ) { ?>
+		<?php if ( 'center' === $settings->header_typography_medium['text_align'] ) { ?>
+			justify-content: center;
+		<?php } ?>
+		<?php if ( 'left' === $settings->header_typography_medium['text_align'] ) { ?>
+			justify-content: flex-start;
+		<?php } ?>
+		<?php if ( 'right' === $settings->header_typography_medium['text_align'] ) { ?>
+			justify-content: flex-end;
+		<?php } ?>
+	<?php } ?>
+	}
+}
+
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-table-content .pp-table-header-inner {
+	<?php if ( is_array( $settings->header_typography_responsive ) && isset( $settings->header_typography_responsive['text_align'] ) ) { ?>
+		<?php if ( 'center' === $settings->header_typography_responsive['text_align'] ) { ?>
+			justify-content: center;
+		<?php } ?>
+		<?php if ( 'left' === $settings->header_typography_responsive['text_align'] ) { ?>
+			justify-content: flex-start;
+		<?php } ?>
+		<?php if ( 'right' === $settings->header_typography_responsive['text_align'] ) { ?>
+			justify-content: flex-end;
+		<?php } ?>
+	<?php } ?>
+	}
+}
 
 @media only screen and (max-width: 639px) {
 	.fl-node-<?php echo $id; ?> .pp-table-content-cell-label {

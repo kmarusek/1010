@@ -29,7 +29,28 @@ class PPRestaurantMenuModule extends FLBuilderModule {
         ));
 	}
 
+	public function enqueue_scripts() {
+		if ( FLBuilderModel::is_builder_active() || ( isset( $this->settings ) && isset( $this->settings->item_lightbox ) && 'yes' === $this->settings->item_lightbox ) ) {
+			$this->add_js( 'jquery-magnificpopup' );
+			$this->add_css( 'jquery-magnificpopup' );
+		}
+	}
+
 	public function filter_settings( $settings, $helper ) {
+		// Handle old column fields.
+		if ( isset( $settings->large_device_columns ) ) {
+			$settings->columns = $settings->large_device_columns;
+			unset( $settings->large_device_columns );
+		}
+		if ( isset( $settings->medium_device_columns ) ) {
+			$settings->columns_medium = $settings->medium_device_columns;
+			unset( $settings->medium_device_columns );
+		}
+		if ( isset( $settings->small_device_columns ) ) {
+			$settings->columns_responsive = $settings->small_device_columns;
+			unset( $settings->small_device_columns );
+		}
+
 		// Handle old Heading border and radius fields.
 		$settings = PP_Module_Fields::handle_border_field( $settings, array(
 			'heading_border'	=> array(
@@ -239,45 +260,33 @@ BB_PowerPack::register_module('PPRestaurantMenuModule', array(
 					),
 				)
 			),
-			'general'       => array( // Section
-				'title'         => __( 'Responsive Columns', 'bb-powerpack' ),
+			'responsive'       => array( // Section
+				'title'         => __( 'Columns', 'bb-powerpack' ),
 				'collapsed'		=> true,
 				'fields'        => array(
-					'large_device_columns'     => array(
-						'type'          => 'select',
-						'label'         => __( 'Large Device', 'bb-powerpack' ),
-						'default'       => '2',
-						'size'          => '2',
-						'options'       => array(
-							'1'             => 1,
-							'2'             => 2,
-							'3'             => 3
-						)
+					'columns' => array(
+						'type'  => 'unit',
+						'label' => __( 'Columns', 'bb-powerpack' ),
+						'default' => array(
+							'default'    => 2,
+							'medium'     => 2,
+							'responsive' => 1
+						),
+						'responsive' => true
 					),
-					'medium_device_columns'     => array(
-						'type'          => 'select',
-						'label'         => __( 'Medium Device', 'bb-powerpack' ),
-						'default'       => '2',
-						'size'          => '2',
-						'options'       => array(
-							'1'             => 1,
-							'2'             => 2,
-							'3'             => 3
-						)
-					),
-					'small_device_columns'     => array(
-						'type'          => 'select',
-						'label'         => __( 'Small Device', 'bb-powerpack' ),
-						'default'       => '1',
-						'size'          => '2',
-						'options'       => array(
-							'1'             => 1,
-							'2'             => 2,
-							'3'             => 3
-						)
-					)
 				)
-			)
+			),
+			'lightbox' => array(
+				'title'  => __( 'Lightbox', 'bb-powerpack' ),
+				'collapsed' => true,
+				'fields' => array(
+					'item_lightbox' => array(
+						'type'  => 'pp-switch',
+						'label' => __( 'Enable Lightbox for Images', 'bb-powerpack' ),
+						'default' => 'no'
+					),
+				),
+			),
 		)
 	),
 	'restaurant_menu_item'		=> array(
@@ -527,6 +536,21 @@ BB_PowerPack::register_module('PPRestaurantMenuModule', array(
 			'menu_heading'  				=> array(
 				'title'         => __( 'Heading', 'bb-powerpack' ),
 				'fields'        => array(
+					'menu_heading_tag' => array(
+						'type'    => 'select',
+						'label'   => __( 'HTML Tag', 'bb-powerpack' ),
+						'default' => 'h3',
+						'options' => array(
+							'h1' => 'H1',
+							'h2' => 'H2',
+							'h3' => 'H3',
+							'h4' => 'H4',
+							'h5' => 'H5',
+							'h6' => 'H6',
+							'div' => 'div',
+							'p'  => 'p',
+						),
+					),
 					'menu_heading_typography'	=> array(
 						'type'        	   => 'typography',
 						'label'       	   => __( 'Typography', 'bb-powerpack' ),
@@ -546,9 +570,24 @@ BB_PowerPack::register_module('PPRestaurantMenuModule', array(
 				)
 			),
 			'menu_item_style'  				=> array(
-				'title'         => __('Items Title', 'bb-powerpack'),
+				'title'         => __('Item Title', 'bb-powerpack'),
 				'collapsed'		=> true,
 				'fields'        => array(
+					'items_title_tag' => array(
+						'type'    => 'select',
+						'label'   => __( 'HTML Tag', 'bb-powerpack' ),
+						'default' => 'h2',
+						'options' => array(
+							'h1' => 'H1',
+							'h2' => 'H2',
+							'h3' => 'H3',
+							'h4' => 'H4',
+							'h5' => 'H5',
+							'h6' => 'H6',
+							'div' => 'div',
+							'p'  => 'p',
+						),
+					),
 					'items_title_typography'	=> array(
 						'type'        	   => 'typography',
 						'label'       	   => __( 'Typography', 'bb-powerpack' ),
@@ -573,7 +612,7 @@ BB_PowerPack::register_module('PPRestaurantMenuModule', array(
 				)
 			),
 			'menu_description_item_style'	=> array(
-				'title'         => __('Items Description', 'bb-powerpack'),
+				'title'         => __('Item Description', 'bb-powerpack'),
 				'collapsed'		=> true,
 				'fields'        => array(
 					'items_description_typography'	=> array(
@@ -600,7 +639,7 @@ BB_PowerPack::register_module('PPRestaurantMenuModule', array(
 				)
 			),
 			'menu_item_price_style'  		=> array(
-				'title'         => __('Items Price', 'bb-powerpack'),
+				'title'         => __('Item Price', 'bb-powerpack'),
 				'collapsed'		=> true,
 				'fields'        => array(
 					'items_price_typography'	=> array(
@@ -680,7 +719,7 @@ FLBuilder::register_settings_form('restaurant_menu_form', array(
                        'menu_items_price'			=> array(
                            'type'          => 'text',
                            'label'         => __('Price', 'bb-powerpack'),
-                           'size'          =>'8',
+                           'size'          => '8',
 						   'default'       => '9.99',
 						   'connections'	=> array('string')
                        ),

@@ -142,27 +142,24 @@ FLBuilderCSS::typography_field_rule(
 	<?php if ( $settings->display_labels ) { ?>
 	display: <?php echo $settings->display_labels; ?>;
 	<?php } ?>
-	<?php if ( 'Default' !== $settings->label_font_family['family'] ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
-	<?php } ?>
 }
+
+<?php
+// Form label Typography
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'label_typography',
+		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gfield .gfield_label",
+	)
+);
+?>
+
 .fl-builder-content .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield_required {
 	<?php if ( isset( $settings->form_required_text_color ) && ! empty( $settings->form_required_text_color ) ) { ?>
 	color: <?php echo pp_get_color_value( $settings->form_required_text_color ); ?>;
 	<?php } ?>
 }
-
-<?php
-FLBuilderCSS::responsive_rule(
-	array(
-		'settings'     => $settings,
-		'setting_name' => 'label_font_size',
-		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gfield .gfield_label",
-		'prop'         => 'font-size',
-		'unit'		   => 'px',
-	)
-);
-?>
 
 .fl-builder-content .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield .ginput_complex.ginput_container label {
 	<?php if ( 'none' === $settings->display_labels ) { ?>
@@ -172,18 +169,26 @@ FLBuilderCSS::responsive_rule(
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .ginput_container label,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper table.gfield_list thead th,
+.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper span.ginput_product_price,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper span.ginput_product_price_label,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper span.ginput_quantity_label,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield_html {
 	<?php if ( $settings->form_label_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->form_label_color ); ?> !important;
 	<?php } ?>
-	<?php if ( 'Default' !== $settings->label_font_family['family'] ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
-	<?php } ?>
+	<?php if ( is_array( $settings->label_typography ) && isset( $settings->label_typography['font_family'] ) ) {
+		$label_font = array(
+			'family' => $settings->label_typography['font_family'],
+			'weight' => $settings->label_typography['font_weight']
+		);
+		if ( 'Default' !== $label_font['family'] ) {
+			FLBuilderFonts::font_css( $label_font );
+		}
+	} ?>
 }
 
 <?php
+// Radio and Checkbox font size.
 FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
@@ -199,34 +204,24 @@ FLBuilderCSS::responsive_rule(
 	<?php if ( $settings->product_price_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->product_price_color ); ?> !important;
 	<?php } ?>
-	<?php if ( 'Default' !== $settings->label_font_family['family'] ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
-	<?php } ?>
 }
+
+<?php
+// Form input description Typography
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'input_desc_typography',
+		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gfield .gfield_description",
+	)
+);
+?>
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield .gfield_description {
 	<?php if ( $settings->input_desc_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->input_desc_color ); ?>;
 	<?php } ?>
-	<?php if ( $settings->input_desc_line_height ) { ?>
-	line-height: <?php echo $settings->input_desc_line_height; ?>;
-	<?php } ?>
-	<?php if ( 'Default' !== $settings->label_font_family['family'] ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
-	<?php } ?>
 }
-
-<?php
-FLBuilderCSS::responsive_rule(
-	array(
-		'settings'     => $settings,
-		'setting_name' => 'input_desc_font_size',
-		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gfield .gfield_description",
-		'prop'         => 'font-size',
-		'unit'		   => 'px',
-	)
-);
-?>
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gsection {
 	<?php if ( $settings->section_border_width >= 0 ) { ?>
@@ -246,48 +241,42 @@ FLBuilderCSS::responsive_rule(
 	<?php } ?>
 }
 
+<?php
+// Form input Typography.
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'input_typography',
+		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gfield input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
+						.fl-node-$id .pp-gf-content .gform_wrapper .gfield select,
+						.fl-node-$id .pp-gf-content .gform_wrapper .gfield textarea",
+	)
+);
+?>
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield select,
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield textarea {
 	<?php if ( $settings->input_field_text_color ) { ?>
-		color: <?php echo pp_get_color_value( $settings->input_field_text_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->input_field_text_color ); ?>;
 	<?php } ?>
 	background-color: <?php echo $settings->input_field_bg_color ? pp_get_color_value( $settings->input_field_bg_color ) : ''; ?>;
-	border-width: 0;
-	border-color: <?php echo $settings->input_field_border_color ? pp_get_color_value( $settings->input_field_border_color ) : ''; ?>;
-	<?php if ( $settings->input_field_border_radius >= 0 ) { ?>
-		-webkit-border-radius: <?php echo $settings->input_field_border_radius; ?>px;
-		-moz-border-radius: <?php echo $settings->input_field_border_radius; ?>px;
-		-ms-border-radius: <?php echo $settings->input_field_border_radius; ?>px;
-		-o-border-radius: <?php echo $settings->input_field_border_radius; ?>px;
-		border-radius: <?php echo $settings->input_field_border_radius; ?>px;
-	<?php } ?>
-	<?php if ( $settings->input_field_border_width >= 0 ) { ?>
-		<?php echo $settings->input_field_border_position; ?>-width: <?php echo $settings->input_field_border_width; ?>px;
-		border-style: solid;
-	<?php } ?>
 	<?php echo ( 'true' === $settings->input_field_width ) ? 'width: 100% !important;' : ''; ?>
-	<?php if ( 'none' === $settings->input_field_box_shadow ) { ?>
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
-		-ms-box-shadow: none;
-		-o-box-shadow: none;
-		box-shadow: none;
-	<?php } ?>
-	<?php if ( $settings->input_field_text_alignment ) { ?>
-	text-align: <?php echo $settings->input_field_text_alignment; ?>;
-	<?php } ?>
-	<?php if ( 'Default' !== $settings->input_font_family['family'] ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->input_font_family ); ?>
-	<?php } ?>
-	<?php if ( $settings->input_font_size ) { ?>
-	font-size: <?php echo $settings->input_font_size; ?>px;
-	<?php } ?>
 	outline: none;
 }
 
 <?php
+// Input Border
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'input_field_border_group',
+		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper .gfield input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
+							.fl-node-$id .pp-gf-content .gform_wrapper .gfield select,
+							.fl-node-$id .pp-gf-content .gform_wrapper .gfield textarea",
+	)
+);
+
 FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,

@@ -326,6 +326,19 @@ BB_PowerPack::register_module('PPVideoGalleryModule', array(
 							),
 						),
 					),
+					'aspect_ratio_lightbox'	=> array(
+						'type'			=> 'select',
+						'label'			=> __( 'Aspect Ratio in Lightbox', 'bb-powerpack' ),
+						'default' 		=> 'default',
+						'options' 		=> array(
+							'default'       => __( 'Same as above', 'bb-powerpack' ),
+							'169' 			=> '16:9',
+							'219' 			=> '21:9',
+							'43' 			=> '4:3',
+							'32' 			=> '3:2',
+							'11' 			=> '1:1',
+						),
+					),
 				),
 			),
 			'filters'	=> array(

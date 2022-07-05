@@ -473,14 +473,7 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
     color: transparent;
 	opacity: 0;
     <?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=text]::-moz-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: <?php echo pp_get_color_value($settings->input_placeholder_color); ?>;
-	<?php } else { ?>
-    color: transparent;
-	opacity: 0;
-    <?php } ?>
+	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=text]:-ms-input-placeholder {
     <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
@@ -489,7 +482,18 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
     color: transparent;
 	opacity: 0;
     <?php } ?>
+	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
 }
+.fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=text]::placeholder {
+    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
+    color: <?php echo pp_get_color_value($settings->input_placeholder_color); ?>;
+	<?php } else { ?>
+    color: transparent;
+	opacity: 0;
+    <?php } ?>
+	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
+}
+
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=email]::-webkit-input-placeholder {
     <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
     color: #<?php echo $settings->input_placeholder_color; ?>;
@@ -500,20 +504,13 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
 	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=email]:-moz-placeholder {
-    <?php if( $settings->input_placeholder_color ) { ?>
-    color: <?php echo pp_get_color_value($settings->input_placeholder_color); ?>;
-	<?php } else { ?>
-    color: transparent;
-	opacity: 0;
-    <?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=email]::-moz-placeholder {
     <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
     color: <?php echo pp_get_color_value($settings->input_placeholder_color); ?>;
 	<?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
+	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=email]:-ms-input-placeholder {
     <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
@@ -522,7 +519,18 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
     color: transparent;
 	opacity: 0;
     <?php } ?>
+	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
 }
+.fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=email]::placeholder {
+    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
+    color: <?php echo pp_get_color_value($settings->input_placeholder_color); ?>;
+	<?php } else { ?>
+    color: transparent;
+	opacity: 0;
+    <?php } ?>
+	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
+}
+
 .fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-name],
 .fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-email] {
 	<?php

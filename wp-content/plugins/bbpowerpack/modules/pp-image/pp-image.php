@@ -17,6 +17,12 @@ class PPImageModule extends FLBuilderModule {
 	protected $_editor = null;
 
 	/**
+	 * @property $_photo_type
+	 * @protected
+	 */
+	protected $_photo_type = 'main';
+
+	/**
 	 * @method __construct
 	 */
 	public function __construct() {
@@ -131,12 +137,22 @@ class PPImageModule extends FLBuilderModule {
 		if ( ! isset( $settings->photo_src ) ) {
 			$settings->photo_src = '';
 		}
+		if ( ! isset( $settings->rollover_photo_src ) ) {
+			$settings->rollover_photo_src = '';
+		}
 
 		// Cache the attachment data.
-		$settings->data = FLBuilderPhoto::get_attachment_data( $settings->photo );
+		$settings->data = new stdClass;
+		$settings->data->main = FLBuilderPhoto::get_attachment_data( $settings->photo );
 
 		// Save a crop if necessary.
 		$this->crop();
+
+		if ( ! empty( $settings->rollover_photo ) ) {
+			$settings->data->rollover = FLBuilderPhoto::get_attachment_data( $settings->rollover_photo );
+			$this->set_photo_type( 'rollover' );
+			$this->crop();
+		}
 
 		return $settings;
 	}
@@ -150,6 +166,14 @@ class PPImageModule extends FLBuilderModule {
 		if ( fl_builder_filesystem()->file_exists( $cropped_path['path'] ) ) {
 			fl_builder_filesystem()->unlink( $cropped_path['path'] );
 		}
+	}
+
+	public function set_photo_type( $type ) {
+		$this->_photo_type = $type;
+	}
+
+	public function get_photo_type() {
+		return $this->_photo_type;
 	}
 
 	/**
@@ -228,25 +252,34 @@ class PPImageModule extends FLBuilderModule {
 	 * @method get_data
 	 */
 	public function get_data() {
-		if ( ! $this->data ) {
+		$type = $this->get_photo_type();
 
+		if ( ! $this->data || ( ! isset( $this->data->rollover ) && ! empty( $this->settings->rollover_photo ) ) ) {
+			$this->data = ! isset( $this->data->main ) ? new stdClass() : $this->data;
 			// Photo source is set to "url".
 			if ( 'url' == $this->settings->photo_source ) {
-				$this->data                = new stdClass();
-				$this->data->alt           = $this->settings->caption;
-				$this->data->caption       = $this->settings->caption;
-				$this->data->link          = $this->settings->photo_url;
-				$this->data->url           = $this->settings->photo_url;
+				$this->data->main          = new stdClass();
+				$this->data->main->alt     = $this->settings->caption;
+				$this->data->main->caption = $this->settings->caption;
+				$this->data->main->link    = $this->settings->photo_url;
+				$this->data->main->url     = $this->settings->photo_url;
 				$this->settings->photo_src = $this->settings->photo_url;
-				$this->data->title         = ( '' !== $this->settings->url_title ) ? $this->settings->url_title : basename( $this->settings->photo_url );
-			} elseif ( is_object( $this->settings->photo ) ) {
-				$this->data = $this->settings->photo;
+				$this->data->main->title   = ( '' !== $this->settings->url_title ) ? $this->settings->url_title : basename( $this->settings->photo_url );
+			} elseif ( 'main' === $type && is_object( $this->settings->photo ) ) {
+				$this->data->main = $this->settings->photo;
+			} elseif ( 'rollover' === $type && is_object( $this->settings->rollover_photo ) ) {
+				$this->data->rollover = $this->settings->rollover_photo;
 			} else {
-				$this->data = FLBuilderPhoto::get_attachment_data( $this->settings->photo );
+				if ( 'main' === $type ) {
+					$this->data->main = FLBuilderPhoto::get_attachment_data( $this->settings->photo );
+				}
+				if ( 'rollover' === $type ) {
+					$this->data->rollover = FLBuilderPhoto::get_attachment_data( $this->settings->rollover_photo );
+				}
 			}
 
 			// Data object is empty, use the settings cache.
-			if ( ! $this->data && isset( $this->settings->data ) ) {
+			if ( empty( $this->data ) && isset( $this->settings->data ) ) {
 				$this->data = $this->settings->data;
 			}
 		}
@@ -263,24 +296,47 @@ class PPImageModule extends FLBuilderModule {
 	 */
 	public function get_classes() {
 		$classes = array( 'pp-photo-img' );
+		$type    = $this->get_photo_type();
 
-		if ( 'library' == $this->settings->photo_source && ! empty( $this->settings->photo ) ) {
+		if ( 'library' == $this->settings->photo_source ) {
 
 			$data = self::get_data();
 
 			if ( is_object( $data ) ) {
 
-				if ( isset( $data->id ) ) {
-					$classes[] = 'wp-image-' . $data->id;
+				if ( 'main' === $type && ! empty( $this->settings->photo ) ) {
+
+					if ( isset( $data->main->id ) ) {
+						$classes[] = 'wp-image-' . $data->main->id;
+					}
+
+					if ( isset( $data->main->sizes ) ) {
+
+						foreach ( $data->main->sizes as $key => $size ) {
+
+							if ( $size->url == $this->settings->photo_src ) {
+								$classes[] = 'size-' . $key;
+								break;
+							}
+						}
+					}
 				}
 
-				if ( isset( $data->sizes ) ) {
+				if ( 'rollover' === $type && isset( $this->settings->rollover_photo ) && ! empty( $this->settings->rollover_photo ) ) {
+					$classes[] = 'pp-rollover-img';
 
-					foreach ( $data->sizes as $key => $size ) {
+					if ( isset( $data->rollover->id ) ) {
+						$classes[] = 'wp-image-' . $data->rollover->id;
+					}
 
-						if ( $size->url == $this->settings->photo_src ) {
-							$classes[] = 'size-' . $key;
-							break;
+					if ( isset( $data->rollover->sizes ) ) {
+
+						foreach ( $data->rollover->sizes as $key => $size ) {
+
+							if ( $size->url == $this->settings->rollover_photo_src ) {
+								$classes[] = 'size-' . $key;
+								break;
+							}
 						}
 					}
 				}
@@ -335,16 +391,17 @@ class PPImageModule extends FLBuilderModule {
 	 * @method get_link
 	 */
 	public function get_link() {
+		$type  = $this->get_photo_type();
 		$photo = $this->get_data();
 
 		if ( 'url' == $this->settings->link_type ) {
 			$link = $this->settings->link;
-		} elseif ( isset( $photo ) && 'lightbox' == $this->settings->link_type ) {
-			$link = $photo->url;
-		} elseif ( isset( $photo ) && 'file' == $this->settings->link_type ) {
-			$link = $photo->url;
-		} elseif ( isset( $photo ) && 'page' == $this->settings->link_type ) {
-			$link = $photo->link;
+		} elseif ( isset( $photo->{$type} ) && 'lightbox' == $this->settings->link_type ) {
+			$link = $photo->{$type}->url;
+		} elseif ( isset( $photo->{$type} ) && 'file' == $this->settings->link_type ) {
+			$link = $photo->{$type}->url;
+		} elseif ( isset( $photo->{$type} ) && 'page' == $this->settings->link_type ) {
+			$link = $photo->{$type}->link;
 		} else {
 			$link = '';
 		}
@@ -356,16 +413,17 @@ class PPImageModule extends FLBuilderModule {
 	 * @method get_alt
 	 */
 	public function get_alt() {
+		$type  = $this->get_photo_type();
 		$photo = $this->get_data();
 
-		if ( ! empty( $photo->alt ) ) {
-			return htmlspecialchars( $photo->alt );
-		} elseif ( ! empty( $photo->description ) ) {
-			return htmlspecialchars( $photo->description );
-		} elseif ( ! empty( $photo->caption ) ) {
-			return htmlspecialchars( $photo->caption );
-		} elseif ( ! empty( $photo->title ) ) {
-			return htmlspecialchars( $photo->title );
+		if ( ! empty( $photo->{$type}->alt ) ) {
+			return htmlspecialchars( $photo->{$type}->alt );
+		} elseif ( ! empty( $photo->{$type}->description ) ) {
+			return htmlspecialchars( $photo->{$type}->description );
+		} elseif ( ! empty( $photo->{$type}->caption ) ) {
+			return htmlspecialchars( $photo->{$type}->caption );
+		} elseif ( ! empty( $photo->{$type}->title ) ) {
+			return htmlspecialchars( $photo->{$type}->title );
 		}
 	}
 
@@ -373,14 +431,15 @@ class PPImageModule extends FLBuilderModule {
 	 * @method get_caption
 	 */
 	public function get_caption() {
+		$type    = $this->get_photo_type();
 		$photo   = $this->get_data();
 		$caption = '';
 
-		if ( $photo && ! empty( $this->settings->show_caption ) && ! empty( $photo->caption ) ) {
-			if ( isset( $photo->id ) ) {
-				$caption = wp_kses_post( wp_get_attachment_caption( $photo->id ) );
+		if ( $photo && ! empty( $this->settings->show_caption ) && ! empty( $photo->{$type}->caption ) ) {
+			if ( isset( $photo->{$type}->id ) ) {
+				$caption = wp_kses_post( wp_get_attachment_caption( $photo->{$type}->id ) );
 			} else {
-				$caption = esc_html( $photo->caption );
+				$caption = esc_html( $photo->{$type}->caption );
 			}
 		}
 
@@ -391,6 +450,7 @@ class PPImageModule extends FLBuilderModule {
 	 * @method get_attributes
 	 */
 	public function get_attributes() {
+		$type  = $this->get_photo_type();
 		$photo = $this->get_data();
 		$attrs = '';
 
@@ -400,10 +460,11 @@ class PPImageModule extends FLBuilderModule {
 			}
 		}
 
-		if ( is_object( $photo ) && isset( $photo->sizes ) ) {
+		if ( is_object( $photo ) && isset( $photo->{$type}->sizes ) ) {
 			$current_size = array();
-			foreach ( $photo->sizes as $size ) {
-				if ( $size->url == $this->settings->photo_src && isset( $size->width ) && isset( $size->height ) ) {
+			foreach ( $photo->{$type}->sizes as $size ) {
+				$src = 'main' === $type ? $this->settings->photo_src : $this->settings->rollover_photo_src;
+				if ( $size->url == $src && isset( $size->width ) && isset( $size->height ) ) {
 					$attrs .= 'height="' . $size->height . '" width="' . $size->width . '" ';
 					$current_size[] = $size->width;
 					$current_size[] = $size->height;
@@ -415,8 +476,8 @@ class PPImageModule extends FLBuilderModule {
 			}
 
 			if ( '' === $this->settings->crop ) {
-				$srcset = wp_get_attachment_image_srcset( $photo->id, $current_size );
-				$sizes = wp_get_attachment_image_sizes( $photo->id, $current_size );
+				$srcset = wp_get_attachment_image_srcset( $photo->{$type}->id, $current_size );
+				$sizes = wp_get_attachment_image_sizes( $photo->{$type}->id, $current_size );
 
 				if ( $srcset && ( $sizes || ! empty( $attr['sizes'] ) ) ) {
                     $attrs .= 'srcset="' . $srcset . '" ';
@@ -425,8 +486,8 @@ class PPImageModule extends FLBuilderModule {
 			}
 		}
 
-		if ( ! empty( $photo->title ) ) {
-			$attrs .= 'title="' . htmlspecialchars( $photo->title ) . '" ';
+		if ( ! empty( $photo->{$type}->title ) ) {
+			$attrs .= 'title="' . htmlspecialchars( $photo->{$type}->title ) . '" ';
 		}
 
 		if ( FLBuilderModel::is_builder_active() ) {
@@ -446,9 +507,13 @@ class PPImageModule extends FLBuilderModule {
 	 * @protected
 	 */
 	protected function _has_source() {
+		$type = $this->get_photo_type();
+
 		if ( 'url' == $this->settings->photo_source && ! empty( $this->settings->photo_url ) ) {
 			return true;
-		} elseif ( 'library' == $this->settings->photo_source && ! empty( $this->settings->photo_src ) ) {
+		} elseif ( 'library' == $this->settings->photo_source && 'main' === $type && ! empty( $this->settings->photo_src ) ) {
+			return true;
+		} elseif ( 'library' == $this->settings->photo_source && 'rollover' === $type && ! empty( $this->settings->rollover_photo_src ) ) {
 			return true;
 		}
 
@@ -460,7 +525,9 @@ class PPImageModule extends FLBuilderModule {
 	 * @protected
 	 */
 	protected function _get_editor() {
-		if ( $this->_has_source() && null === $this->_editor ) {
+		$type = $this->get_photo_type();
+
+		if ( $this->_has_source() && ( null === $this->_editor || $type !== $this->_editor->_photo_type ) ) {
 
 			$url_path  = $this->_get_uncropped_url();
 			$file_path = $this->_get_file_path( $url_path );
@@ -492,6 +559,9 @@ class PPImageModule extends FLBuilderModule {
 				}
 			}
 		}
+
+		$this->_editor->_photo_type = $type;
+
 		return $this->_editor;
 	}
 
@@ -546,10 +616,14 @@ class PPImageModule extends FLBuilderModule {
 	 * @protected
 	 */
 	protected function _get_uncropped_url() {
+		$type = $this->get_photo_type();
+
 		if ( 'url' == $this->settings->photo_source ) {
 			$url = $this->settings->photo_url;
-		} elseif ( ! empty( $this->settings->photo_src ) ) {
+		} elseif ( 'main' === $type && ! empty( $this->settings->photo_src ) ) {
 			$url = $this->settings->photo_src;
+		} elseif ( 'rollover' === $type && ! empty( $this->settings->rollover_photo_src ) ) {
+			$url = $this->settings->rollover_photo_src;
 		} else {
 			$url = apply_filters( 'pp_image_noimage', FL_BUILDER_URL . 'img/pixel.png' );
 		}
@@ -562,8 +636,13 @@ class PPImageModule extends FLBuilderModule {
 	 * @protected
 	 */
 	protected function _get_cropped_demo_url() {
+		$type = $this->get_photo_type();
 		$info = $this->_get_cropped_path();
 		$src  = $this->settings->photo_src;
+
+		if ( 'rollover' === $type ) {
+			$src = $this->settings->rollover_photo_src;
+		}
 
 		// Pull from a demo subsite.
 		if ( stristr( $src, '/uploads/sites/' ) ) {
@@ -608,7 +687,7 @@ BB_PowerPack::register_module('PPImageModule', array(
 				'fields'        => array( // Section Fields
 					'photo_source'  => array(
 						'type'          => 'pp-switch',
-						'label'         => __('Photo Source', 'bb-powerpack'),
+						'label'         => __('Image Source', 'bb-powerpack'),
 						'default'       => 'library',
 						'options'       => array(
 							'library'       => __('Media Library', 'bb-powerpack'),
@@ -616,7 +695,7 @@ BB_PowerPack::register_module('PPImageModule', array(
 						),
 						'toggle'        => array(
 							'library'       => array(
-								'fields'        => array('photo')
+								'fields'        => array('photo', 'rollover_photo')
 							),
 							'url'           => array(
 								'fields'        => array('photo_url', 'caption'),
@@ -625,12 +704,19 @@ BB_PowerPack::register_module('PPImageModule', array(
 					),
 					'photo'         => array(
 						'type'          => 'photo',
-						'label'         => __('Photo', 'bb-powerpack'),
+						'label'         => __('Image', 'bb-powerpack'),
+						'show_remove'   => true,
+						'connections'   => array( 'photo' ),
+					),
+					'rollover_photo'         => array(
+						'type'          => 'photo',
+						'label'         => __('Rollover Image', 'bb-powerpack'),
+						'show_remove'   => true,
 						'connections'   => array( 'photo' ),
 					),
 					'photo_url'     => array(
 						'type'          => 'text',
-						'label'         => __('Photo URL', 'bb-powerpack'),
+						'label'         => __('Image URL', 'bb-powerpack'),
 						'placeholder'   => __( 'http://www.example.com/my-photo.jpg', 'bb-powerpack' ),
 						'connections'   => array( 'url' ),
 					),
@@ -696,6 +782,7 @@ BB_PowerPack::register_module('PPImageModule', array(
 					'show_caption'  => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Show Caption', 'bb-powerpack'),
+						'description'   => __( 'Please note that "On Hover" and "Overlay" will NOT work when Rollover Image is provided.', 'bb-powerpack' ),
 						'default'       => 'never',
 						'options'       => array(
 							'never'         => __('Never', 'bb-powerpack'),

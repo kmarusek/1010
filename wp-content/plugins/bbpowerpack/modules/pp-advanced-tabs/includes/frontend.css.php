@@ -74,7 +74,7 @@ FLBuilderCSS::typography_field_rule( array(
 // Content Padding.
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
-	'setting_name'	=> 'label_padding',
+	'setting_name'	=> 'content_padding',
 	'selector'		=> ".fl-node-$id .pp-tabs-panels .pp-tabs-panel-content",
 	'unit'			=> 'px',
 	'props'			=> array(

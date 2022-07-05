@@ -46,6 +46,11 @@ if ( ! isset( $_GET['key'] ) || empty( $_GET['key'] ) ) {
 if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 	$is_reset_password = false;
 }
+
+$args = apply_filters( 'pp_login_form_args', array(
+	'redirect_url'        => $redirect_url,
+	'logout_redirect_url' => $logout_redirect_url,
+), $settings );
 ?>
 <div class="pp-login-form-wrap">
 	<?php if ( $is_logged_in && ! $is_builder_active && ! $reauth ) {
@@ -53,8 +58,8 @@ if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 			<div class="pp-login-message">
 				<?php
 				// translators: Here %1$s is for current user's display name and %2$s is for logout URL.
-				$msg = sprintf( __( 'You are Logged in as %1$s (<a href="%2$s">Logout</a>)', 'bb-powerpack' ), $current_user->display_name, wp_logout_url( $logout_redirect_url ) );
-				echo apply_filters( 'pp_login_form_logged_in_message', $msg, $current_user->display_name, wp_logout_url( $logout_redirect_url ) );
+				$msg = sprintf( __( 'You are Logged in as %1$s (<a href="%2$s">Logout</a>)', 'bb-powerpack' ), $current_user->display_name, wp_logout_url( $args['logout_redirect_url'] ) );
+				echo apply_filters( 'pp_login_form_logged_in_message', $msg, $current_user->display_name, wp_logout_url( $args['logout_redirect_url'] ) );
 				?>
 			</div>
 		<?php }
@@ -67,7 +72,7 @@ if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 			<?php } ?>
 		<form class="pp-login-form" id="pp-form-<?php echo $id; ?>" method="post" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>">
 			<?php wp_nonce_field( 'login_nonce', 'pp-lf-login-nonce' ); ?>
-			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_url ); ?>">
+			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $args['redirect_url'] ); ?>">
 			<?php if ( $reauth ) { ?>
 				<input type="hidden" name="reauth" value="1" />
 			<?php } ?>

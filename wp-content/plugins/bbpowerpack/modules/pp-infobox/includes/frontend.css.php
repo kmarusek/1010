@@ -1,3 +1,6 @@
+<?php
+$has_button = $settings->pp_infobox_link_type == 'button' || $settings->pp_infobox_link_type == 'button+title';
+?>
 <?php if ( '' === $settings->responsive_display && isset( $settings->inherit_eql_heights ) && 'yes' === $settings->inherit_eql_heights ) { ?>
 .fl-col-group-equal-height .fl-node-<?php echo $id; ?>,
 .fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content,
@@ -52,6 +55,9 @@ FLBuilderCSS::typography_field_rule( array(
 	margin-top: <?php echo $settings->title_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
 }
+.fl-node-<?php echo $id; ?> .pp-infobox-title-wrapper .pp-infobox-title a {
+	<?php if( $settings->title_color ) { ?>color: #<?php echo $settings->title_color; ?>;<?php } ?>
+}
 <?php
 // Typography - Title
 FLBuilderCSS::typography_field_rule( array(
@@ -78,6 +84,11 @@ FLBuilderCSS::typography_field_rule( array(
 		color: #<?php echo $settings->title_color_h; ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title a {
+	<?php if ( !empty( $settings->title_color_h ) ) { ?>
+		color: #<?php echo $settings->title_color_h; ?>;
+	<?php } ?>
+}
 .fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-description {
 	<?php if ( !empty( $settings->text_color_h ) ) { ?>
 		color: #<?php echo $settings->text_color_h; ?>;
@@ -90,23 +101,44 @@ FLBuilderCSS::border_field_rule( array(
 	'setting_name' 	=> 'icon_border',
 	'selector' 		=> ".fl-node-$id .pp-infobox-icon, .fl-node-$id .pp-infobox-image img",
 ) );
+
+// Icon - Size
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'icon_font_size',
+	'selector'     => ".fl-node-$id .pp-infobox-icon-inner span.pp-icon, .fl-node-$id .pp-infobox-icon-inner span:before",
+	'prop'         => 'font-size',
+	'unit'         => 'px',
+	'enabled'      => 'icon' === $settings->icon_type,
+) );
+
+// Icon Box - Width
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'icon_width',
+	'selector'     => ".fl-node-$id .pp-infobox-icon-inner",
+	'prop'         => 'width',
+	'unit'         => 'px',
+	'enabled'      => 'icon' === $settings->icon_type,
+) );
+
+// Icon Box - Height
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'icon_width',
+	'selector'     => ".fl-node-$id .pp-infobox-icon-inner",
+	'prop'         => 'height',
+	'unit'         => 'px',
+	'enabled'      => 'icon' === $settings->icon_type,
+) );
 ?>
 <?php if( $settings->icon_type == 'icon' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-icon {
 		<?php if( $settings->icon_box_size ) { ?>padding: <?php echo $settings->icon_box_size; ?>px;<?php } ?>
 		<?php if( $settings->icon_background ) { ?>background: <?php echo pp_get_color_value( $settings->icon_background ); ?>;<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-infobox-icon-inner  {
-		<?php if( $settings->icon_width ) { ?>height: <?php echo $settings->icon_width; ?>px;<?php } ?>
-		<?php if( $settings->icon_width ) { ?>width: <?php echo $settings->icon_width; ?>px;<?php } ?>
-	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span.pp-icon {
 		<?php if( $settings->icon_color ) { ?>color: #<?php echo $settings->icon_color; ?>;<?php } ?>
-		<?php if( $settings->icon_font_size ) { ?>font-size: <?php echo $settings->icon_font_size; ?>px;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span.pp-icon,
-	.fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span:before {
-		<?php if( $settings->icon_font_size ) { ?>font-size: <?php echo $settings->icon_font_size; ?>px;<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon {
 		<?php if( ! empty( $settings->icon_border_color_hover ) ) { ?>border-color: #<?php echo $settings->icon_border_color_hover; ?>;<?php } ?>
@@ -131,10 +163,19 @@ FLBuilderCSS::border_field_rule( array(
 	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-infobox-image img {
 		height: auto;
 		<?php if( $settings->icon_box_size ) { ?>padding: <?php echo $settings->icon_box_size; ?>px;<?php } ?>
-		<?php if( $settings->image_width_type == 'custom' && $settings->image_width ) { ?>width: <?php echo $settings->image_width; ?>px;<?php } ?>
 		<?php if( $settings->image_width_type == 'default' ) { ?>width: auto;<?php } ?>
 		max-width: 100%;
 	}
+	<?php
+	FLBuilderCSS::responsive_rule( array(
+		'settings'     => $settings,
+		'setting_name' => 'image_width',
+		'selector'     => ".fl-builder-content .fl-node-$id .pp-infobox-image img",
+		'prop'         => 'width',
+		'unit'         => 'px',
+		'enabled'      => 'custom' === $settings->image_width_type
+	) );
+	?>
 	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-image img {
 		<?php if( ! empty( $settings->icon_border_color_hover ) ) { ?>
 			border-color: #<?php echo $settings->icon_border_color_hover; ?>;
@@ -156,18 +197,24 @@ FLBuilderCSS::border_field_rule( array(
 	<?php if( $settings->box_background ) { ?>
 		background: <?php echo pp_get_color_value( $settings->box_background ); ?>;
 	<?php } ?>
-	<?php if( $settings->padding_top >= 0 && '' != $settings->padding_top ) { ?>
-		padding-top: <?php echo $settings->padding_top; ?>px;
-		padding-bottom: <?php echo $settings->padding_top; ?>px;
-	<?php } ?>
-	<?php if( $settings->padding_left >= 0 && '' != $settings->padding_left ) { ?>
-		padding-left: <?php echo $settings->padding_left; ?>px;
-		padding-right: <?php echo $settings->padding_left; ?>px;
-	<?php } ?>
 	<?php if ( $settings->alignment ) { ?>text-align: <?php echo $settings->alignment; ?>;<?php } ?>
 }
 
 <?php
+// Box - Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'padding',
+	'selector' 		=> ".fl-node-$id .pp-infobox",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'padding_top',
+		'padding-right' 	=> 'padding_right',
+		'padding-bottom' 	=> 'padding_bottom',
+		'padding-left' 		=> 'padding_left',
+	),
+) );
+
 // Box - Border
 FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
@@ -190,13 +237,13 @@ FLBuilderCSS::typography_field_rule( array(
 	'selector' 		=> ".fl-node-$id .pp-more-link",
 ) );
 ?>
-<?php if( $settings->pp_infobox_link_type == 'read_more' || $settings->pp_infobox_link_type == 'button' ) { ?>
+<?php if( $settings->pp_infobox_link_type == 'read_more' || $has_button ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox .pp-more-link {
 		<?php if( $settings->pp_infobox_read_more_color ) { ?>color: #<?php echo $settings->pp_infobox_read_more_color; ?>;<?php } ?>
-		<?php if( $settings->pp_infobox_link_type == 'button' && $settings->button_bg_color != '' ) { ?>
+		<?php if( $has_button && $settings->button_bg_color != '' ) { ?>
 			background-color: <?php echo pp_get_color_value( $settings->button_bg_color) ; ?>;
 		<?php } ?>
-		<?php if( $settings->pp_infobox_link_type == 'button' ) { ?>
+		<?php if( $has_button ) { ?>
 			text-decoration: none;
 			text-align: center;
 			margin: 0 auto;
@@ -214,7 +261,7 @@ FLBuilderCSS::typography_field_rule( array(
 			'selector'		=> ".fl-node-$id .pp-infobox .pp-more-link",
 			'prop'			=> 'width',
 			'unit'			=> 'px',
-			'enabled'		=> ( 'button' == $settings->pp_infobox_link_type && 'custom' == $settings->button_width )
+			'enabled'		=> ( $has_button && 'custom' == $settings->button_width )
 		) );
 
 		// Button - Padding
@@ -229,7 +276,7 @@ FLBuilderCSS::typography_field_rule( array(
 				'padding-bottom' 	=> 'button_padding_bottom',
 				'padding-left' 		=> 'button_padding_left',
 			),
-			'enabled'		=> 'button' == $settings->pp_infobox_link_type
+			'enabled'		=> $has_button
 		) );
 
 		// Link - Margin
@@ -244,7 +291,7 @@ FLBuilderCSS::typography_field_rule( array(
 				'margin-bottom' 	=> 'read_more_margin_bottom',
 				'margin-left' 		=> 'read_more_margin_left',
 			),
-			'enabled'		=> 'button' == $settings->pp_infobox_link_type
+			'enabled'		=> $has_button
 		) );
 
 		// Button - Border
@@ -252,7 +299,7 @@ FLBuilderCSS::typography_field_rule( array(
 			'settings' 		=> $settings,
 			'setting_name' 	=> 'button_border_setting',
 			'selector' 		=> ".fl-node-$id .pp-infobox .pp-more-link",
-			'enabled'		=> 'button' == $settings->pp_infobox_link_type
+			'enabled'		=> $has_button
 		) );
 	?>
 
@@ -260,7 +307,7 @@ FLBuilderCSS::typography_field_rule( array(
 		<?php if( $settings->pp_infobox_read_more_color_hover ) { ?>
 			color: #<?php echo $settings->pp_infobox_read_more_color_hover; ?>;
 		<?php } ?>
-		<?php if( $settings->pp_infobox_link_type == 'button' && $settings->button_bg_hover_color != '' ) { ?>
+		<?php if( $has_button && $settings->button_bg_hover_color != '' ) { ?>
 			background-color: <?php echo pp_get_color_value( $settings->button_bg_hover_color ); ?>;
 		<?php } ?>
 	}
@@ -274,7 +321,7 @@ FLBuilderCSS::typography_field_rule( array(
 			'settings' 		=> $settings,
 			'setting_name' 	=> 'button_border_setting',
 			'selector' 		=> ".fl-node-$id .pp-infobox .pp-more-link:hover",
-			'enabled'		=> 'button' == $settings->pp_infobox_link_type
+			'enabled'		=> $has_button
 		) );
 	?>
 	.fl-node-<?php echo $id; ?> .pp-infobox .pp-more-link .pp-button-icon {
@@ -300,37 +347,56 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php if( $settings->animation_duration ) { ?>animation-duration: <?php echo $settings->animation_duration; ?>ms;<?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3-wrapper,
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4-wrapper {
-	<?php if ( isset( $settings->icon_position ) ) { ?>
-		<?php if ( 'top' == $settings->icon_position ) { ?>
-		align-items: flex-start;
-		<?php } ?>
-		<?php if ( 'center' == $settings->icon_position ) { ?>
-		align-items: center;
-		<?php } ?>
-		<?php if ( 'bottom' == $settings->icon_position ) { ?>
-		align-items: flex-end;
-		<?php } ?>
-	<?php } ?>
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+	display: flex;
 }
 
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
-	margin-right: <?php echo $settings->space_bt_icon_text; ?>px;
+@media only screen and (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4-wrapper {
+		<?php if ( isset( $settings->icon_position ) ) { ?>
+			<?php if ( 'top' == $settings->icon_position ) { ?>
+			align-items: flex-start;
+			<?php } ?>
+			<?php if ( 'center' == $settings->icon_position ) { ?>
+			align-items: center;
+			<?php } ?>
+			<?php if ( 'bottom' == $settings->icon_position ) { ?>
+			align-items: flex-end;
+			<?php } ?>
+		<?php } ?>
+	}
 }
 
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
-	margin-left: <?php echo $settings->space_bt_icon_text; ?>px;
-}
+<?php
+// Space between icon and text - Layout 3
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'space_bt_icon_text',
+	'selector'		=> ".fl-node-$id .pp-infobox-wrap .layout-3 .pp-icon-wrapper",
+	'prop'			=> 'margin-right',
+	'unit'			=> 'px',
+) );
+
+// Space between icon and text - Layout 4
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'space_bt_icon_text',
+	'selector'		=> ".fl-node-$id .pp-infobox-wrap .layout-4 .pp-icon-wrapper",
+	'prop'			=> 'margin-left',
+	'unit'			=> 'px',
+) );
+?>
 
 <?php if ( 'left' == $settings->alignment ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
 		float: left;
 	}
-	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
+	/*.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
 		flex: 0 1 auto;
-	}
+	}*/
 <?php } ?>
 
 <?php if ( 'center' == $settings->alignment ) { ?>
@@ -357,21 +423,25 @@ FLBuilderCSS::typography_field_rule( array(
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description {
 		float: right;
 	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+		justify-content: flex-end;
+	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description {
 		clear: both;
 	}
-	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper {
+	/*.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper {
 		flex: 0 1 auto;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
 		flex: 1;
 		text-align: right;
-	}
+	}*/
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
 		flex: 1;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
-		flex: 0 1 auto;
+		/*flex: 0 1 auto;*/
 		text-align: right;
 	}
 <?php } ?>
@@ -389,6 +459,18 @@ FLBuilderCSS::typography_field_rule( array(
 		<?php if ( isset( $settings->alignment_responsive ) && 'default' != $settings->alignment_responsive ) { ?>
 		text-align: <?php echo $settings->alignment_responsive; ?>;
 		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3-wrapper {
+		flex-direction: column;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
+		margin-right: 0 !important;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4-wrapper {
+		flex-direction: column-reverse;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
+		margin-left: 0 !important;
 	}
 	<?php if ( isset( $settings->alignment_responsive ) && 'default' != $settings->alignment_responsive ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .layout-3-wrapper,

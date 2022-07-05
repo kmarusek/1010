@@ -21,6 +21,7 @@
 		this.markerImage       = settings.markerImage;
 		this.markerImageWidth   = settings.markerImageWidth;
 		this.markerImageHeight  = settings.markerImageHeight;
+		this.markerLinks       = settings.markerLinks;
 		this.infoWindowText    = settings.infoWindowText;
 		this.enableInfo        = settings.enableInfo;
 		this.zoomType          = settings.zoomType;
@@ -113,6 +114,7 @@
 					icon_url 	= this.markerImage[i];
 					icon_width 	= this.markerImageWidth[i];
 					icon_height = this.markerImageHeight[i];
+					link        = this.markerLinks[i];
 
 				if ( lat != '' && lng != '' ) {
 
@@ -140,9 +142,16 @@
 						title: 		title,
 						icon: 		icon,
 						animation: 	this.markerAnimation,
+						url:        link
 					});
 
 					this.mapObjects.markers.push( marker );
+
+					if ( 'yes' != this.enableInfo[i] && '' !== link[0] ) {
+						google.maps.event.addListener( marker, 'click', function() {
+							window.open( this.url[0], this.url[1] );
+						});
+					}
 
 					this._initInfoWindow( marker, i );
 				}

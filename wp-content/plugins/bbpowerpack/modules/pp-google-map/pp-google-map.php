@@ -336,6 +336,8 @@ class PPGoogleMapModule extends FLBuilderModule {
 			$item->marker_img       = isset( $settings->post_marker_img_src ) && ! empty( $settings->post_marker_img_src ) ? $settings->post_marker_img_src : '';
 			$item->enable_info      = ! empty( $settings->post_enable_info ) ? $settings->post_enable_info : 'no';
 			$item->info_window_text = ! empty( $settings->post_info_window_text ) ? do_shortcode( $settings->post_info_window_text ) : get_the_title( $post->ID );
+			$item->marker_link      = get_permalink( $post );
+			$item->marker_link_target = '_blank';
 
 			$data[] = $item;
 		}
@@ -832,7 +834,8 @@ FLBuilder::register_settings_form(
 				),
 			),
 			'info_window'  => array(
-				'title'    => __( 'Marker Tooltip', 'bb-powerpack' ),
+				'title'    => __( 'Marker Info & Link', 'bb-powerpack' ),
+				'description' => __( 'Link field will be shown when Info Window is disabled.', 'bb-powerpack' ),
 				'sections' => array(
 					'title' => array(
 						'title'  => '',
@@ -849,6 +852,9 @@ FLBuilder::register_settings_form(
 									'yes' => array(
 										'fields' => array( 'info_window_text' ),
 									),
+									'no' => array(
+										'fields' => array( 'marker_link' ),
+									),
 								),
 							),
 							'info_window_text' => array(
@@ -857,6 +863,16 @@ FLBuilder::register_settings_form(
 								'default'       => __( 'IdeaBox Creations', 'bb-powerpack' ),
 								'media_buttons' => false,
 								'connections'   => array( 'string', 'html' ),
+							),
+							'marker_link' => array(
+								'type'  => 'link',
+								'label' => __( 'Marker Link', 'bb-powerpack' ),
+								'show_nofollow' => false,
+								'show_target' => true,
+								'connections' => array( 'url' ),
+								'preview' => array(
+									'type' => 'none'
+								),
 							),
 						),
 					),

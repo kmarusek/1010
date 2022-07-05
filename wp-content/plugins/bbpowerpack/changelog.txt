@@ -1,3 +1,47 @@
+== 2.24.1 ==
+Release date: June 23, 2022
+* Fix: Smart Headings - Empty links were appearing after the recent update
+* Fix: Info Box - Responsive layout issue when global responsive breakpoint is above 767px
+* Fix: Info Box - Button styles were not working when Link Type is set to Button + Title
+* Fix: Image - Responsive width was getting overridden when used in shrinkable header
+
+== 2.24.0 ==
+Release date: June 22, 2022
+* Enhancement: Image - Added rollover image option
+* Enhancement: Image Carousel - Added Lazy Load option
+* Enhancement: Info Box - Enabled responsive controls for various fields
+* Enhancement: Info Box - Changed box padding from single control to dimension control
+* Enhancement: Info Box - Added div as HTML tag option for Title Prefix and Title
+* Enhancement: Google Map - Added an option to provide a link for the marker when Info Window is disabled
+* Enhancement: Table - Added an option to provide an icon for the table header in the manual source
+* Enhancement: Table - Converted URL from ACF repeater field to anchor link
+* Enhancement: Table - Moved text color fields from the Typography tab to the Style tab
+* Enhancement: Smart Headings - Added two new separator positions; Left of Heading and Right of Heading
+* Enhancement: Smart Headings - Added an option to hide separator on medium or responsive devices
+* Enhancement: Video - Added an option to change the aspect ratio of the video in lightbox
+* Enhancement: Video Gallery - Added an option to change the aspect ratio of the video in lightbox
+* Enhancement: Restaurant/Services Menu - Refactor column fields, equal height will be applied automatically
+* Enhancement: Restaurant/Services Menu - Added an option to enable lightbox for menu items image
+* Enhancement: Restaurant/Services Menu - Added HTML tag options for the menu heading and item titles
+* Enhancement: Gravity Forms - Updated typography options for label and input
+* Enhancement: Gravity Forms - Updated input border options
+* Enhancement: Gravity Forms - Moved label text color fields from the Typography tab to the Inputs tab
+* Enhancement: Gravity Forms - Removed default input and label colors, default input padding and margin values
+* Enhancement: Smart Button - Enabled responsive controls for Icon Spacing field
+* Enhancement: Advanced Tab - Enabled responsive controls for Content Padding field
+* Enhancement: Modal Box - Removed the field "Label in Builder" and used the Label field from the Advanced tab
+* Enhancement: Login/Register - Redirect default WP's password reset link to PowerPack's password reset form when a custom login page is set
+* Fix: Image Carousel - Image link with # causing the page to scroll to top
+* Fix: Smart Button - Hover transition set to None was not working
+* Fix: Gravity Forms - Textarea field height set in the Gravity Form backend was not working
+* Fix: Info Box - Link and some fields were not appearing in the module settings when choosing Link Type as Button + Title
+* Fix: Info Box - Icon alignment for the left and right layout was not working properly
+* Fix: Filterable Gallery - PHP error when Horizontal Spacing field is left empty
+* Fix: Animated Headlines - JS error when module is set to display Never in the Advanced tab
+* Fix: Hover Cards - PHP warning in some cases
+* Fix: Restaurant/Services Menu - Minor CSS issues
+* Development: Sliding Menus - Added filter hooks pp_sliding_menus_arrow_left and pp_sliding_menus_arrow_right
+
 == 2.23.3 ==
 Release date: May 31, 2022
 * Enhancement: Modal Box - Added a field under the trigger settings to provide label to identify the Modal Box in the builder

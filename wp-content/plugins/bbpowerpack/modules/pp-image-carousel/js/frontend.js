@@ -268,6 +268,14 @@
 				}
 			};
 
+			if ( ! this.settings.isBuilderActive ) {
+				options.preloadImages = false;
+				options.lazy = {
+					enabled: true,
+					checkInView: true
+				}
+			}
+
 			if ( this._isSlideshow() ) {
 				options.loopedSlides = this._getSlidesCount();
 
@@ -334,6 +342,14 @@
                 slidesPerView: this._getThumbsSlidesPerViewMobile(),
                 spaceBetween: this._getSpaceBetweenMobile()
             };
+
+			if ( ! this.settings.isBuilderActive ) {
+				thumbsSliderOptions.preloadImages = false;
+				thumbsSliderOptions.lazy = {
+					enabled: true,
+					checkInView: true
+				}
+			}
 
             return {
                 main: options,

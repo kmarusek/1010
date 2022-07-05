@@ -667,7 +667,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'label'         => __('Posts Per Page', 'bb-powerpack'),
 						'default'       => '10',
 						'size'          => '4',
-						'help'			=> __('Number of posts to be displayed at once. Should be less than or equal to total post count.', 'bb-powerpack')
+						'help'			=> __('Number of posts to be displayed at once. Should be less than or equal to total post count. Enter -1 for all posts.', 'bb-powerpack')
 					),
 					'exclude_current_post'	=> array(
 						'type'					=> 'pp-switch',

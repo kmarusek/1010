@@ -9,7 +9,7 @@ $args = apply_filters( 'pp_sliding_menus_nav_args', array(
 	'menu_class'  => 'pp-slide-menu__menu',
 	'menu_id'     => 'menu-' . $module->get_nav_menu_index() . '-' . $id,
 	'fallback_cb' => '__return_empty_string',
-	'before'      => '<span class="pp-slide-menu-arrow"><i class="fa fa-angle-right"></i></span>',
+	'before'      => sprintf( '<span class="pp-slide-menu-arrow">%s</span>', apply_filters( 'pp_sliding_menus_arrow_right', pp_next_icon_svg( '', false ) ) ),
 	'container'   => '',
 ), $settings );
 

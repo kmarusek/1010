@@ -70,6 +70,10 @@
 			$marker_data['markerImageHeight'][] = isset( $data->marker_height ) && ! empty( $data->marker_height ) ? $data->marker_height : '';
 			$marker_data['infoWindowText'][] = do_shortcode( trim( preg_replace( '/\s+/', ' ', do_shortcode( $data->info_window_text ) ) ) );
 			$marker_data['enableInfo'][] = $data->enable_info;
+
+			if ( isset( $data->marker_link ) ) {
+				$marker_data['markerLinks'][] = array( $data->marker_link, $data->marker_link_target );
+			}
 		}
 	}
 

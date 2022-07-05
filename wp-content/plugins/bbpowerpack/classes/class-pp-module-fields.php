@@ -869,7 +869,14 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 					case 'font_size':
 					case 'letter_spacing':
 					case 'line_height':
-						$unit = ( 'line_height' == $type ) ? '' : 'px';
+						$unit = 'px';
+						if ( 'line_height' == $type ) {
+							if ( isset( $field['unit'] ) ) {
+								$unit = $field['unit'];
+							} else {
+								$unit = '';
+							}
+						}
 						if ( ! is_array( $value ) ) {
 							$typography[ $type ] = array(
 								'length'	=> $value,
@@ -1015,6 +1022,9 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 							$border['width']['right'] = isset( $value['right'] ) ? $value['right'] : '';
 							$border['width']['bottom'] = isset( $value['bottom'] ) ? $value['bottom'] : '';
 							$border['width']['left'] = isset( $value['left'] ) ? $value['left'] : '';
+						}
+						if ( isset( $field['style'] ) ) {
+							$border['style'] = $field['style'];
 						}
 						break;
 

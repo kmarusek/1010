@@ -158,6 +158,13 @@ class PPModalBoxModule extends FLBuilderModule {
 			unset( $settings->overlay_opacity );
 		}
 
+		if ( isset( $settings->builder_label ) && ! empty( $settings->builder_label ) ) {
+			if ( isset( $settings->node_label ) && empty( $settings->node_label ) ) {
+				$settings->node_label = $settings->builder_label;
+				unset( $settings->builder_label );
+			}
+		}
+
 		return $settings;
 	}
 
@@ -454,7 +461,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'toggle'            => array(
                             'auto'              => array(
                                 'sections'          => array('modal_load_auto'),
-								'fields'    => array( 'builder_label' ),
                             ),
                             'onclick'           => array(
                                 'sections'          => array('modal_load_onclick','modal_button_style'),
@@ -462,10 +468,9 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                             ),
                             'exit_intent'       => array(
                                 'sections'  => array('modal_exit_intent'),
-								'fields'    => array( 'builder_label' ),
                             ),
                             'other'      => array(
-                                'fields'    => array('modal_css_class', 'builder_label'),
+                                'fields'    => array('modal_css_class'),
                             )
                         ),
                         'hide'              => array(
@@ -494,12 +499,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'description'           => __('Please add a class with . prefix (.my-class) or ID with # prefix (#my-id) here. No spaces.', 'bb-powerpack'),
                         'default'               => '',
                         'help'                  => __('Add this CSS class/ID to the element you want to trigger the modal with.', 'bb-powerpack'),
-                    ),
-					'builder_label'  => array(
-                        'type'        => 'text',
-                        'label'       => __('Label in Builder', 'bb-powerpack'),
-						'help'        => __( 'Providing label help you identify the Modal Box in the builder.', 'bb-powerpack' ),
-                        'connections' => array( 'string' ),
                     ),
                 )
             ),

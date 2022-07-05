@@ -30,7 +30,6 @@
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
     -ms-flex-align: center;
-    align-items: center;
 	border-bottom: 1px solid;
 }
 
@@ -68,6 +67,11 @@
 .pp-sliding-menus .pp-slide-menu-arrow {
     padding: 10px 24px;
     cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+}
+.pp-sliding-menus .pp-slide-menu-arrow svg {
+	width: 8px;
 }
 
 .pp-sliding-menus .pp-slide-menu-item:not(.pp-slide-menu-item-has-children):not(.pp-slide-menu-back) .pp-slide-menu-arrow {

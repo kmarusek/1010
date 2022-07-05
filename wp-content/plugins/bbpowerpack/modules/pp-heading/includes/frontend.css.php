@@ -7,6 +7,10 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content {
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading {
+	<?php if ( in_array( $settings->heading_separator, array( 'icon_only', 'line_only', 'line_with_icon' ) ) && in_array( $settings->heading_separator_postion, array( 'left', 'right' ) ) ) { ?>
+		display: inline-flex;
+		align-items: center;
+	<?php } ?>
 	<?php if ( '' == $settings->heading_title && ! FLBuilderModel::is_builder_active() ) { ?>
 	display: none;
 	<?php } ?>
@@ -179,33 +183,50 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title {
 	margin-bottom: <?php echo $settings->heading_bottom_margin; ?>px;
 }
 
+div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title.text-inline-block span.pp-primary-title,
+div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title.text-inline-block span.pp-secondary-title {
+	display: inline-block;
+}
+
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .pp-heading-link {
 <?php if ( isset( $settings->heading_style ) && 'block' == $settings->heading_style ) { ?>
 	display: block;
 <?php } ?>
 }
 
-<?php if ( 'no' == $settings->dual_heading ) { ?>
-div.fl-node-<?php echo $id; ?> div.pp-heading-content .pp-heading.pp-separator-inline .heading-title span {
-	<?php if ( $settings->font_title_line_space ) { ?>
-	padding-right: <?php echo $settings->font_title_line_space; ?>px;
-	<?php } ?>
-	<?php if ( $settings->font_title_line_space ) { ?>
-	padding-left: <?php echo $settings->font_title_line_space; ?>px;
-	<?php } ?>
+<?php
+if ( 'no' == $settings->dual_heading ) {
+	FLBuilderCSS::responsive_rule( array(
+		'settings' => $settings,
+		'setting_name' => 'font_title_line_space',
+		'selector' => "div.fl-node-$id div.pp-heading-content .pp-heading.pp-separator-inline .heading-title span",
+		'prop' => 'padding-left',
+		'unit' => 'px'
+	) );
+	FLBuilderCSS::responsive_rule( array(
+		'settings' => $settings,
+		'setting_name' => 'font_title_line_space',
+		'selector' => "div.fl-node-$id div.pp-heading-content .pp-heading.pp-separator-inline .heading-title span",
+		'prop' => 'padding-right',
+		'unit' => 'px'
+	) );
+} else {
+	FLBuilderCSS::responsive_rule( array(
+		'settings' => $settings,
+		'setting_name' => 'font_title_line_space',
+		'selector' => "div.fl-node-$id div.pp-heading-content .pp-heading.pp-separator-inline .heading-title span.pp-primary-title",
+		'prop' => 'padding-left',
+		'unit' => 'px'
+	) );
+	FLBuilderCSS::responsive_rule( array(
+		'settings' => $settings,
+		'setting_name' => 'font_title_line_space',
+		'selector' => "div.fl-node-$id div.pp-heading-content .pp-heading.pp-separator-inline .heading-title span.pp-secondary-title",
+		'prop' => 'padding-right',
+		'unit' => 'px'
+	) );
 }
-<?php } else { ?>
-div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span.pp-primary-title {
-	<?php if ( $settings->font_title_line_space ) { ?>
-	padding-left: <?php echo $settings->font_title_line_space; ?>px;
-	<?php } ?>
-}
-div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span.pp-secondary-title {
-	<?php if ( $settings->font_title_line_space ) { ?>
-	padding-right: <?php echo $settings->font_title_line_space; ?>px;
-	<?php } ?>
-}
-<?php } ?>
+?>
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title <?php if ( 'no' == $settings->dual_heading ) { ?>span<?php } else { ?>span.pp-primary-title<?php } ?>:before {
 	<?php if ( $settings->line_width >= 0 ) { ?>
@@ -268,15 +289,26 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator .pp-hea
 	<?php } ?>
 }
 
+div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_with_icon {
+	<?php if ( in_array( $settings->heading_separator, array( 'icon_only', 'line_with_icon' ) ) && in_array( $settings->heading_separator_postion, array( 'left', 'right' ) ) ) { ?>
+		overflow: visible;
+	<?php } ?>
+}
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_with_icon:before {
 	<?php if ( $settings->font_icon_line_space >= 0 ) { ?>
 	margin-right: <?php echo $settings->font_icon_line_space; ?>px;
+	<?php } ?>
+	<?php if ( 'line_with_icon' === $settings->heading_separator && 'right' === $settings->heading_separator_postion ) { ?>
+		display: none;
 	<?php } ?>
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_with_icon:after {
 	<?php if ( $settings->font_icon_line_space >= 0 ) { ?>
 	margin-left: <?php echo $settings->font_icon_line_space; ?>px;
+	<?php } ?>
+	<?php if ( 'line_with_icon' === $settings->heading_separator && 'left' === $settings->heading_separator_postion ) { ?>
+		display: none;
 	<?php } ?>
 }
 
@@ -337,11 +369,23 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator {
 	<?php if ( $settings->font_icon_color ) { ?>
 	color: #<?php echo $settings->font_icon_color; ?>;
 	<?php } ?>
-	margin-top: <?php echo $settings->separator_heading_top_margin; ?>px;
-	margin-bottom: <?php echo $settings->separator_heading_bottom_margin; ?>px;
 }
 
 <?php
+// Separator margin.
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'separator_margin',
+	'selector' 		=> "div.fl-node-$id .pp-heading-content .pp-heading-separator",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'margin-top' 	=> 'separator_margin_top',
+		'margin-right' 	=> 'separator_margin_right',
+		'margin-bottom' => 'separator_margin_bottom',
+		'margin-left' 	=> 'separator_margin_left',
+	),
+) );
+
 // Icon padding.
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
@@ -426,6 +470,20 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_wi
 	<?php } ?>
 }
 
+<?php if ( isset( $settings->hide_separator ) && 'medium' === $settings->hide_separator ) { ?>
+@media (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator,
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span:before,
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span:after {
+		content: none !important;
+		display: none !important;
+	}
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span {
+		padding: 0 !important;
+	}
+}
+<?php } ?>
+
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator .pp-heading-separator-align,
 	div.fl-node-<?php echo $id; ?> .pp-heading-content {
@@ -447,6 +505,17 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_wi
 			<?php } ?>
 		<?php } ?>
 	}
+	<?php if ( isset( $settings->hide_separator ) && 'medium-responsive' === $settings->hide_separator ) { ?>
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator,
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span:before,
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span:after {
+		content: none !important;
+		display: none !important;
+	}
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span {
+		padding: 0 !important;
+	}
+	<?php } ?>
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
@@ -470,4 +539,15 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_wi
 			<?php } ?>
 		<?php } ?>
 	}
+	<?php if ( isset( $settings->hide_separator ) && 'responsive' === $settings->hide_separator ) { ?>
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator,
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span:before,
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span:after {
+		content: none !important;
+		display: none !important;
+	}
+	div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title span {
+		padding: 0 !important;
+	}
+	<?php } ?>
 }

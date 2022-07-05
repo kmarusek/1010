@@ -232,7 +232,119 @@ class PPHeadingModule extends FLBuilderModule {
 			unset( $settings->heading_mobile_alignment );
 		}
 
+		// Separator margin.
+		if ( isset( $settings->separator_heading_top_margin ) ) {
+			$settings->separator_margin_top = $settings->separator_heading_top_margin;
+			unset( $settings->separator_heading_top_margin );
+		}
+		if ( isset( $settings->separator_heading_bottom_margin ) ) {
+			$settings->separator_margin_bottom = $settings->separator_heading_bottom_margin;
+			unset( $settings->separator_heading_bottom_margin );
+		}
+
 		return $settings;
+	}
+
+	public function is_html_in_text() {
+		$title_1 = $this->settings->heading_title;
+		$title_2 = 'yes' == $this->settings->dual_heading && ! empty( $this->settings->heading_title2 ) ? $this->settings->heading_title2 : '';
+
+		if ( preg_match("/<[^<]+>/", $title_1 ) ) {
+			return true;
+		}
+		if ( preg_match("/<[^<]+>/", $title_2 ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function render_separator() {
+		$settings  = $this->settings;
+		$separator = $settings->heading_separator;
+
+		if ( 'no_spacer' === $settings->heading_separator || 'inline' === $settings->heading_separator ) {
+			return;
+		}
+		?>
+
+		<div class="pp-heading-separator <?php echo $settings->heading_separator; ?> pp-<?php echo $settings->heading_alignment; ?>">
+		<?php
+		if ( 'line_only' === $separator ) {
+			$this->render_separator_line_only();
+		}
+		if ( 'line_with_icon' === $separator ) {
+			$this->render_separator_line_with_icon();
+		}
+		if ( 'icon_only' === $separator ) {
+			$this->render_separator_icon_only();
+		}
+		?>
+		</div>
+		<?php
+	}
+
+	public function render_separator_line_only() {
+		?>
+		<span class="pp-separator-line"></span>
+		<?php
+	}
+
+	public function render_separator_line_with_icon() {
+		?>
+		<div class="pp-heading-separator-wrapper">
+			<div class="pp-heading-separator-align">
+				<div class="pp-heading-separator-icon">
+					<?php $this->render_separator_icon(); ?>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	public function render_separator_icon_only() {
+		?>
+		<div class="pp-heading-separator-wrapper">
+			<div class="pp-heading-separator-align">
+				<div class="pp-heading-separator-icon">
+					<?php $this->render_separator_icon(); ?>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	public function render_separator_icon() {
+		$settings = $this->settings;
+
+		if ( 'font_icon_select' == $settings->heading_icon_select && ! empty( $settings->heading_font_icon_select ) ) {
+			$this->render_separator_custom_icon();
+		}
+
+		if ( 'custom_icon_select' == $settings->heading_icon_select && ! empty( $settings->heading_custom_icon_select ) ) {
+			$this->render_separator_custom_image();
+		}
+	}
+
+	public function render_separator_custom_icon() {
+		$settings = $this->settings;
+
+		?>
+		<i class="<?php echo $settings->heading_font_icon_select; ?> pp-separator-font-icon"></i>
+		<?php
+	}
+
+	public function render_separator_custom_image() {
+		$settings = $this->settings;
+		$alt      = $settings->heading_title;
+
+		if ( isset( $settings->dual_heading ) && 'yes' == $settings->dual_heading && ! empty( $settings->heading_title2 ) ) { 
+			$alt .= ' ' . $settings->heading_title2;
+		}
+
+		?>
+		<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" alt="<?php echo $alt; ?>" />
+		<?php
 	}
 }
 
@@ -270,10 +382,6 @@ BB_PowerPack::register_module(
 							'class'         => '',
 							'default'       => __('Title', 'bb-powerpack'),
 							'connections'   => array( 'string', 'html', 'url' ),
-							'preview'       => array(
-								'type'      => 'text',
-								'selector'  => '.pp-heading-content .pp-heading .heading-title span.pp-primary-title',
-							)
 						),
 						'dual_heading'  => array(
 							'type'          => 'pp-switch',
@@ -297,10 +405,6 @@ BB_PowerPack::register_module(
 							'class'         => '',
 							'default'       => __('Secondary Title', 'bb-powerpack'),
 							'connections'   => array( 'string', 'html', 'url' ),
-							'preview'       => array(
-								'type'      => 'text',
-								'selector'  => '.pp-heading-content .pp-heading .heading-title span.pp-secondary-title',
-							)
 						),
 						'heading_style'     => array(
 							'type'              => 'pp-switch',
@@ -310,18 +414,13 @@ BB_PowerPack::register_module(
 								'inline-block'      => __('Inline', 'bb-powerpack'),
 								'block'             => __('Stacked', 'bb-powerpack')
 							),
-							'preview'           => array(
-								'type'              => 'css',
-								'selector'          => '.pp-heading-content .pp-heading .heading-title span.title-text',
-								'property'          => 'display'
-							)
 						),
 						'heading_alignment'     => array(
-						'type'                   => 'align',
-						'label'                  => __('Alignment', 'bb-powerpack'),
-						'default'                => 'center',
-						'responsive'				=> true
-					),
+							'type'       => 'align',
+							'label'      => __('Alignment', 'bb-powerpack'),
+							'default'    => 'center',
+							'responsive' => true
+						),
 					)
 				),
 				'heading_link'	=> array(
@@ -421,8 +520,10 @@ BB_PowerPack::register_module(
 								'between' => __( 'Between Dual Heading', 'bb-powerpack' ),
 								'middle'  => __( 'Below Heading', 'bb-powerpack' ),
 								'bottom'  => __( 'Below Description', 'bb-powerpack' ),
+								'left'    => __( 'Left of Heading', 'bb-powerpack' ),
+								'right'   => __( 'Right of Heading', 'bb-powerpack' ),
 							),
-							'help'    => __( '"Between Dual Heading" option only works, when Dual Heading Enabled and styled as "Stacked".', 'bb-powerpack' ),
+							'help'    => __( '"Between Dual Heading" option only works when Dual Heading is enabled and styled as "Stacked".', 'bb-powerpack' ),
 						),
 						'heading_line_style'     => array(
 							'type'      => 'pp-switch',
@@ -440,22 +541,44 @@ BB_PowerPack::register_module(
 							'label'         => __('Space between Line & Title', 'bb-powerpack'),
 							'units'   		=> array('px'),
 							'slider'		=> true,
+							'responsive'	=> true,
 							'default'       => '20',
 							'preview'       => array(
 								'type'      => 'css',
 								'rules'           => array(
 									array(
-										'selector'        => '.pp-heading-content .pp-heading.pp-separator-inline .heading-title span',
+										'selector'        => '.pp-heading-content .pp-heading.pp-separator-inline:not(.pp-dual-heading) .heading-title span',
 										'property'        => 'padding-left',
 										'unit'            => 'px',
 									),
 									array(
-										'selector'        => '.pp-heading-content .pp-heading.pp-separator-inline .heading-title span',
+										'selector'        => '.pp-heading-content .pp-heading.pp-separator-inline:not(.pp-dual-heading) .heading-title span',
+										'property'        => 'padding-right',
+										'unit'            => 'px',
+									),
+									array(
+										'selector'        => '.pp-heading-content .pp-heading.pp-separator-inline.pp-dual-heading .heading-title span.pp-primary-title',
+										'property'        => 'padding-left',
+										'unit'            => 'px',
+									),
+									array(
+										'selector'        => '.pp-heading-content .pp-heading.pp-separator-inline.pp-dual-heading .heading-title span.pp-secondary-title',
 										'property'        => 'padding-right',
 										'unit'            => 'px',
 									),
 								),
 							)
+						),
+						'hide_separator' => array(
+							'type'    => 'select',
+							'label'   => __( 'Hide Separator on', 'bb-powerpack' ),
+							'default' => 'none',
+							'options' => array(
+								'none'   => __( 'None', 'bb-powerpack' ),
+								'medium'  => __( 'Medium Devices Only', 'bb-powerpack' ),
+								'medium-responsive'  => __( 'Medium and Small Devices', 'bb-powerpack' ),
+								'responsive'  	=> __( 'Small Devices Only', 'bb-powerpack' ),
+							),
 						),
 					)
 				),
@@ -786,17 +909,17 @@ BB_PowerPack::register_module(
 							'preview'       => array(
 								'type'      => 'css',
 								'rules'           => array(
-								array(
-									'selector'        => '.pp-heading-content .pp-heading-separator .pp-heading-separator-icon',
-									'property'        => 'padding',
-									'unit'            => 'px'
+									array(
+										'selector'        => '.pp-heading-content .pp-heading-separator .pp-heading-separator-icon',
+										'property'        => 'padding',
+										'unit'            => 'px'
+									),
+									array(
+										'selector'        => '.pp-heading-content .pp-heading-separator.icon_only span',
+										'property'        => 'padding',
+										'unit'            => 'px'
+									),
 								),
-								array(
-									'selector'        => '.pp-heading-content .pp-heading-separator.icon_only span',
-									'property'        => 'padding',
-									'unit'            => 'px'
-								),
-							),
 							)
 						),
 					)
@@ -804,32 +927,45 @@ BB_PowerPack::register_module(
 				'heading_separator_style_section'    => array( // Section
 					'title'             => __('Margin', 'bb-powerpack'), // Section Title
 					'fields'            => array( // Section Fields
-						'separator_heading_top_margin'   => array(
-							'type'          => 'unit',
-							'label'         => __('Margin Top', 'bb-powerpack'),
-							'units'   		=> array('px'),
-							'slider'		=> true,
-							'default'       => '10',
+						'separator_margin' => array(
+							'type'  => 'dimension',
+							'label' => __( 'Margin', 'bb-powerpack' ),
+							'units' => array('px'),
+							'slider'	 => true,
+							'responsive' => true,
 							'preview'       => array(
 								'type'      => 'css',
 								'selector'  => '.pp-heading-content .pp-heading-separator',
-								'property'  => 'margin-top',
+								'property'  => 'margin',
 								'unit'      => 'px'
 							)
 						),
-						'separator_heading_bottom_margin' => array(
-							'type'          => 'unit',
-							'label'         => __('Margin Bottom', 'bb-powerpack'),
-							'units'   		=> array('px'),
-							'slider'		=> true,
-							'default'       => '10',
-							'preview'       => array(
-								'type'      => 'css',
-								'selector'  => '.pp-heading-content .pp-heading-separator',
-								'property'  => 'margin-bottom',
-								'unit'      => 'px'
-							)
-						),
+						// 'separator_heading_top_margin'   => array(
+						// 	'type'          => 'unit',
+						// 	'label'         => __('Margin Top', 'bb-powerpack'),
+						// 	'units'   		=> array('px'),
+						// 	'slider'		=> true,
+						// 	'default'       => '10',
+						// 	'preview'       => array(
+						// 		'type'      => 'css',
+						// 		'selector'  => '.pp-heading-content .pp-heading-separator',
+						// 		'property'  => 'margin-top',
+						// 		'unit'      => 'px'
+						// 	)
+						// ),
+						// 'separator_heading_bottom_margin' => array(
+						// 	'type'          => 'unit',
+						// 	'label'         => __('Margin Bottom', 'bb-powerpack'),
+						// 	'units'   		=> array('px'),
+						// 	'slider'		=> true,
+						// 	'default'       => '10',
+						// 	'preview'       => array(
+						// 		'type'      => 'css',
+						// 		'selector'  => '.pp-heading-content .pp-heading-separator',
+						// 		'property'  => 'margin-bottom',
+						// 		'unit'      => 'px'
+						// 	)
+						// ),
 					)
 				),
 			)

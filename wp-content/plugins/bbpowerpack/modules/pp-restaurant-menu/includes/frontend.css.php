@@ -1,15 +1,8 @@
 <?php
-    $number_show = $settings->large_device_columns;
-    $width = '100';
-    if( $number_show == 5 ) {
-     	$width = '18.4';
-    } elseif( $number_show == 4 ) {
-     	$width = '23.5';
-    } elseif( $number_show == 3 ) {
-     	$width = '32';
-    } elseif( $number_show == 2 ) {
-     	$width = '48';
-	}
+	$columns            = isset( $settings->columns ) && ! empty( $settings->columns ) ? $settings->columns : 2;
+	$columns_medium     = isset( $settings->columns_medium ) && ! empty( $settings->columns_medium ) ? $settings->columns_medium : $columns;
+	$columns_responsive = isset( $settings->columns_responsive ) && ! empty( $settings->columns_responsive ) ? $settings->columns_responsive : $columns_medium;
+
 // Heading Border - Settings
 FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
@@ -61,7 +54,7 @@ FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'items_title_typography',
 	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-item-title,
-						.fl-node-$id .pp-restaurant-menu-item-wrap-in h2",
+						.fl-node-$id .pp-restaurant-menu-item-wrap-in .pp-restaurant-menu-item-header",
 ) );
 // Form Items description Typography
 FLBuilderCSS::typography_field_rule( array(
@@ -77,9 +70,13 @@ FLBuilderCSS::typography_field_rule( array(
 ) );
 ?>
 
+.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in {
+	display: grid;
+	grid-template-columns: repeat(<?php echo $columns; ?>, calc(100% / <?php echo $columns; ?>));
+}
+
 .fl-node-<?php echo $id; ?> .pp-menu-item {
     margin-left: 2%;
-    width: <?php echo $width; ?>%;
 	float: left;
     <?php if ( $settings->card_bg_type == 'color' ) { ?>
         background-color: <?php echo pp_get_color_value($settings->card_bg); ?>;
@@ -99,7 +96,7 @@ FLBuilderCSS::typography_field_rule( array(
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(<?php echo (int) $number_show; ?>n+1) {
+.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(<?php echo (int) $columns; ?>n+1) {
 	margin-left: 0% !important;
 	clear: left;
 }
@@ -121,19 +118,19 @@ FLBuilderCSS::typography_field_rule( array(
  <?php
 	 if ( ( is_array( $settings->card_border_group ) && 'none' != $settings->card_border_group['style'] ) ) {
 	 	?>
-		 	.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in .pp-restaurant-menu-item-inline h2{
+		 	.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-header {
 				padding-top: 0px !important;
 			}
-			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-price{
+			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-price {
 				padding: 0px;
 			}
-			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item .pp-restaurant-menu-item-left{
+			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item .pp-restaurant-menu-item-left {
 				padding-left: 0px;
 			}
-			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item .pp-restaurant-menu-item-right{
+			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item .pp-restaurant-menu-item-right {
 				padding-right: 0px;
 			}
-			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline-right-content{
+			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline-right-content {
  				padding-left: 0px;
  			}
 
@@ -173,7 +170,8 @@ FLBuilderCSS::typography_field_rule( array(
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in h2 {
+.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in .pp-restaurant-menu-item-header {
+	margin-top: 0;
     <?php if ( $settings->show_description == 'no' ) { ?>
         margin-bottom: 0 !important;
     <?php } ?>
@@ -210,16 +208,6 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
  <?php
-	 if ( $settings->large_device_columns == '2' ) {
-	 	?>
-			.fl-node-<?php echo $id; ?> .pp-menu-item {
-					margin-left: 4% !important;
-			}
-		<?php
-	 }
- ?>
-
- <?php
 	 if ( is_array( $settings->card_border_group ) && $settings->card_border_group['width']['bottom'] > '0' && $settings->card_border_group['width']['top'] == 0 && $settings->card_border_group['width']['right'] == 0 && $settings->card_border_group['width']['left'] == 0 ) {
 	 	?>
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item .pp-restaurant-menu-item-left {
@@ -250,7 +238,7 @@ foreach ( $settings->menu_items as $key => $menu_item ) {
 				<?php } ?>
  				padding-bottom: 20px;
  			}
-			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline-<?php echo $key; ?> .pp-restaurant-menu-item-wrap-in pp-restaurant-menu-item-inline h2 {
+			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline-<?php echo $key; ?> .pp-restaurant-menu-item-wrap-in .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-header {
 				padding-top: 0px !important;
 			}
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline-<?php echo $key; ?> .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-images {
@@ -302,48 +290,34 @@ foreach ( $settings->menu_items as $key => $menu_item ) {
     }
 <?php } ?>
 
-@media (max-width: <?php echo $global_settings->medium_breakpoint; ?>px){
-	<?php
-		$number_column_medium_device = $settings->medium_device_columns;
-		$width_medium = '100';
-		if( $number_column_medium_device == 5 ) {
-			$width_medium = '18.4';
-		}elseif( $number_column_medium_device == 4 ) {
-			$width_medium = '23.5';
-		}elseif( $number_column_medium_device == 3 ) {
-			$width_medium = '32';
-		}elseif( $number_column_medium_device == 2 ) {
-			$width_medium = '48';
-		}
+.mfp-<?php echo $id; ?> img.mfp-img {
+	padding: 40px 0 40px;
+}
 
-	?>
+@media (max-width: <?php echo $global_settings->medium_breakpoint; ?>px){
+	.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in {
+		grid-template-columns: repeat(<?php echo $columns_medium; ?>, calc(100% / <?php echo $columns_medium; ?>));
+	}
+
 	.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(n+1) {
-		width: <?php echo $width_medium; ?>%;
 		margin-left: 2% !important;
 		clear: none !important;
 	}
-	.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(<?php echo (int) $number_column_medium_device; ?>n+1) {
+	.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(<?php echo (int) $columns_medium; ?>n+1) {
 		margin-left: 0% !important;
 		clear: left !important;
 	}
 }
 @media (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px){
-	<?php
-		$number_column_small_device = $settings->small_device_columns;
-		$width_small = '100';
-		if( $number_column_small_device == 3 ) {
-			$width_small = '32';
-		}elseif( $number_column_small_device == 2 ) {
-			$width_small = '48';
-		}
+	.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in {
+		grid-template-columns: repeat(<?php echo $columns_responsive; ?>, calc(100% / <?php echo $columns_responsive; ?>));
+	}
 
-	?>
 	.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(n+1) {
-		width: <?php echo $width_small; ?>%;
 		margin-left: 2% !important;
 		clear: none !important;
 	}
-	.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(<?php echo (int) $number_column_small_device; ?>n+1) {
+	.fl-node-<?php echo $id; ?> .pp-menu-item:nth-child(<?php echo (int) $columns_responsive; ?>n+1) {
 		margin-left: 0% !important;
 		clear: left !important;
 	}

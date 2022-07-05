@@ -99,6 +99,14 @@ class PPInfoBoxModule extends FLBuilderModule {
 			)
 		), 'box_border' );
 
+		// Handle old box padding fields.
+		if ( isset( $settings->padding_top ) && ! isset( $settings->padding_bottom ) ) {
+			$settings->padding_bottom = $settings->padding_top;
+		}
+		if ( isset( $settings->padding_left ) && ! isset( $settings->padding_right ) ) {
+			$settings->padding_right = $settings->padding_left;
+		}
+
 		// Handle box old alignment_responsive field.
 		$settings = PP_Module_Fields::handle_alignment_field( $settings, 'alignment', 'alignment_responsive' );
 
@@ -177,16 +185,19 @@ class PPInfoBoxModule extends FLBuilderModule {
 		$settings    = $this->settings;
 		$link_type   = $settings->pp_infobox_link_type;
 		$valid_types = array( 'title', 'button+title' );
+		$nofollow	 = ( isset( $settings->link_nofollow ) && 'yes' == $settings->link_nofollow ) ? ' rel="nofollow"' : '';
+		$text        = in_array( $link_type, $valid_types ) ? sprintf(
+			'<a class="pp-title-link" href="%s" target="%s"%s>%s</a>',
+			$settings->link,
+			$settings->link_target,
+			$nofollow,
+			$settings->title
+		) : $settings->title;
+		$title = sprintf( '<%1$s class="pp-infobox-title">%2$s</%1$s>', $settings->title_tag, $text );
+		?>
 
-		if ( in_array( $link_type, $valid_types ) ) { ?>
-			<a class="pp-more-link pp-title-link" href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>">
-		<?php } ?>
-		<div class="pp-infobox-title-wrapper">
-			<<?php echo $settings->title_tag; ?> class="pp-infobox-title"><?php echo $settings->title; ?></<?php echo $settings->title_tag; ?>>
-		</div>
-		<?php if ( in_array( $link_type, $valid_types ) ) { ?>
-			</a>
-		<?php }
+		<div class="pp-infobox-title-wrapper"><?php echo $title; ?></div>
+		<?php
 	}
 
 	public function render_title_prefix() {
@@ -333,7 +344,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 				'title'     => __('Icon', 'bb-powerpack'),
 				'fields'    => array(
 					'icon_type'      => array(
-						'type'      => 'select',
+						'type'      => 'pp-switch',
 						'label'     => __('Icon Type', 'bb-powerpack'),
 						'default'   => 'icon',
 						'options'   => array(
@@ -367,6 +378,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'units'           		=> array('px'),
 						'default'               => 10,
 						'slider'				=> true,
+						'responsive'			=> true,
 						'preview'               => array(
 							'type'                  => 'css',
 							'rules'                 => array(
@@ -516,6 +528,10 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 								'sections'      => array('link_style', 'button_typography')
 							),
 							'button'     => array(
+								'fields'        => array('pp_infobox_read_more_text', 'button_icon', 'button_icon_aligment', 'button_icon_spacing', 'link', 'link_css_class', 'button_bg_color', 'button_bg_hover_color', 'button_padding', 'button_radius', 'button_width', 'field_separator_1', 'field_separator_3', 'button_icon_color', 'button_icon_color_hover', 'button_icon_size'),
+								'sections'      => array('link_style', 'button_border', 'button_typography')
+							),
+							'button+title'     => array(
 								'fields'        => array('pp_infobox_read_more_text', 'button_icon', 'button_icon_aligment', 'button_icon_spacing', 'link', 'link_css_class', 'button_bg_color', 'button_bg_hover_color', 'button_padding', 'button_radius', 'button_width', 'field_separator_1', 'field_separator_3', 'button_icon_color', 'button_icon_color_hover', 'button_icon_size'),
 								'sections'      => array('link_style', 'button_border', 'button_typography')
 							),
@@ -769,68 +785,37 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 							'property'          => 'background'
 						),
 					),
-					'box_background_hover'    => array(
-						'type'      => 'color',
-						'label'     => __('Background Hover Color', 'bb-powerpack'),
-						'default'   => '',
-						'show_reset'    => true,
-						'show_alpha'    => true,
-						'connections'	=> array('color'),
-						'preview'   => array(
-							'type'  => 'css',
-							'selector'  => '.pp-infobox:hover',
-							'property'  => 'background'
+					'box_background_hover' => array(
+						'type'        => 'color',
+						'label'       => __('Background Hover Color', 'bb-powerpack'),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'connections' => array('color'),
+						'preview'     => array(
+							'type'     => 'css',
+							'selector' => '.pp-infobox:hover',
+							'property' => 'background'
 						),
 					),
-					'padding_top'   => array(
-						'type'      	=> 'unit',
-						'label'     	=> __('Top/Bottom Padding', 'bb-powerpack'),
-						'default'       => '20',
-						'units'   		=> array('px'),
-						'slider'		=> true,
-						'preview'       => array(
-							'type'          => 'css',
-							'rules'     	=> array(
-								array(
-									'selector'      => '.pp-infobox',
-									'property'      => 'padding-top',
-									'unit'          => 'px'
-								),
-								array(
-									'selector'      => '.pp-infobox',
-									'property'      => 'padding-bottom',
-									'unit'          => 'px'
-								),
-							),
-						)
+					'alignment' => array(
+						'type'       => 'align',
+						'label'      => __('Content Alignment', 'bb-powerpack'),
+						'default'    => 'center',
+						'responsive' => true
 					),
-					'padding_left'   => array(
-						'type'      	=> 'unit',
-						'label'     	=> __('Left/Right Padding', 'bb-powerpack'),
-						'default'       => '20',
-						'units'   		=> array('px'),
-						'slider'		=> true,
-						'preview'       => array(
-							'type'          => 'css',
-							'rules'     	=> array(
-								array(
-									'selector'      => '.pp-infobox',
-									'property'      => 'padding-left',
-									'unit'          => 'px'
-								),
-								array(
-									'selector'      => '.pp-infobox',
-									'property'      => 'padding-right',
-									'unit'          => 'px'
-								),
-							),
-						)
-					),
-					'alignment' 	=> array(
-						'type'      	=> 'align',
-						'label'     	=> __('Content Alignment', 'bb-powerpack'),
-						'default'   	=> 'center',
-						'responsive'	=> true
+					'padding'    => array(
+						'type'       => 'dimension',
+						'label'      => __( 'Padding', 'bb-powerpack' ),
+						'default'    => 20,
+						'units'      => array( 'px' ),
+						'slider'     => true,
+						'responsive' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '.pp-infobox',
+							'property' => 'padding'
+						),
 					),
 					'box_border'	=> array(
 						'type'          => 'border',
@@ -1021,6 +1006,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'default'       => '16',
 						'units'   		=> array('px'),
 						'slider'		=> true,
+						'responsive'    => true,
 						'preview'       => array(
 							'type'          => 'css',
 							'rules'         => array(
@@ -1043,6 +1029,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'default'       => '0',
 						'units'   		=> array('px'),
 						'slider'		=> true,
+						'responsive'	=> true,
 						'preview'       => array(
 							'type'          => 'css',
 							'rules'           => array(
@@ -1079,31 +1066,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'default'     	=> '100',
 						'units'   		=> array('px'),
 						'slider'		=> true,
-						'preview'       => array(
-							'type'          => 'css',
-							'rules'           => array(
-								array(
-									'selector'      => '.pp-infobox-image',
-									'property'     => 'width',
-									'unit'          => 'px'
-								),
-								array(
-									'selector'      => '.pp-infobox-image',
-									'property'     => 'height',
-									'unit'          => 'px'
-								),
-								array(
-									'selector'      => '.pp-infobox-image img',
-									'property'     => 'width',
-									'unit'          => 'px'
-								),
-								array(
-									'selector'      => '.pp-infobox-image img',
-									'property'     => 'height',
-									'unit'          => 'px'
-								),
-							),
-						)
+						'responsive'	=> true,
 					),
 				),
 			),
@@ -1191,6 +1154,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'label'         	=> __('Inside Spacing', 'bb-powerpack'),
 						'units'   			=> array('px'),
 						'slider'			=> true,
+						'responsive'		=> true,
 						'help'      		=> __('Space between icon and the border', 'bb-powerpack'),
 						'preview'       	=> array(
 							'type'          	=> 'css',
@@ -1230,6 +1194,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 							'h4'        => 'H4',
 							'h5'        => 'H5',
 							'h6'        => 'H6',
+							'div'       => 'div',
 							'p'         => 'p',
 							'span'      => 'span'
 						)
@@ -1260,6 +1225,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 							'h4'        => 'H4',
 							'h5'        => 'H5',
 							'h6'        => 'H6',
+							'div'       => 'div',
 							'p'         => 'p'
 						)
 					),

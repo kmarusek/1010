@@ -211,8 +211,19 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'arrow_size',
-		'selector'     => ".fl-node-$id .pp-sliding-menus .pp-slide-menu-arrow i",
-		'prop'         => 'font-size',
+		'selector'     => ".fl-node-$id .pp-sliding-menus .pp-slide-menu-arrow svg",
+		'prop'         => 'width',
+		'unit'         => 'px',
+	)
+);
+
+// Slide Menu - Arrows Size
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'arrow_size',
+		'selector'     => ".fl-node-$id .pp-sliding-menus .pp-slide-menu-arrow svg",
+		'prop'         => 'height',
 		'unit'         => 'px',
 	)
 );

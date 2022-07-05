@@ -1,6 +1,9 @@
 (function($) {
 
 	PPAnimatedHeadlines = function( settings ) {
+		if ( $( '.fl-node-' + settings.id ).length === 0 ) {
+			return;
+		}
 
 		this.settings           = settings;
 		this.nodeClass          = '.fl-node-' + settings.id;

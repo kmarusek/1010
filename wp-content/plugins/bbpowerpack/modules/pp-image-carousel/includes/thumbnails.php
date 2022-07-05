@@ -10,7 +10,13 @@
 				}
 			?>
 			<div class="swiper-slide">
-				<div class="pp-image-carousel-thumb" style="background-image:url(<?php echo $photo_thumb_link; ?>)"></div>
+				<?php if ( ! $lazy_load ) { ?>
+					<div class="pp-image-carousel-thumb" style="background-image:url(<?php echo $photo_thumb_link; ?>)"></div>
+				<?php } else { ?>
+					<div class="pp-image-carousel-thumb swiper-lazy" data-background="<?php echo $photo_thumb_link; ?>">
+						<div class="swiper-lazy-preloader"></div>
+					</div>
+				<?php } ?>
 			</div>
 		<?php endforeach; ?>
 	</div>

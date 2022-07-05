@@ -3,7 +3,7 @@
 	PPVideoGallery = function( settings ) {
 		this.id				= settings.id;
 		this.layout 		= settings.layout;
-		this.aspectRatio 	= settings.aspectRatio;
+		this.aspectRatio 	= settings.aspectRatioLightbox;
 		this.filters		= settings.filters;
 		this.carousel		= settings.carousel;
 		this.isBuilderActive = settings.isBuilderActive;
@@ -173,8 +173,10 @@
 					});
 				},
 				afterClose		: function() {
-					$item.find('.pp-video-play-icon').attr( 'tabindex', '0' );
-					$item.find('.pp-video-play-icon')[0].focus();
+					if ( $item.find('.pp-video-play-icon').length > 0 ) {
+						$item.find('.pp-video-play-icon').attr( 'tabindex', '0' );
+						$item.find('.pp-video-play-icon')[0].focus();
+					}
 				},
 				iframe: {
 					preload: false

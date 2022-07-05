@@ -581,6 +581,7 @@ BB_PowerPack::register_module('PPAdvancedTabsModule', array(
 						'default'			=> 30,
 						'units'				=> array('px'),
 						'slider'			=> true,
+						'responsive'        => true,
 						'preview'           => array(
 							'selector'			=> '.pp-tabs-panels .pp-tabs-panel-content',
 							'property'			=> 'padding',

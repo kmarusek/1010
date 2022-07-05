@@ -30,6 +30,9 @@ final class PPModuleExtend {
 			add_filter( 'fl_builder_render_css',               	__CLASS__ . '::post_grid_css', 10, 2 );
 			add_filter( 'pp_cg_module_layout_path', 			__CLASS__ . '::post_grid_layout_path', 10, 3 );
 			add_filter( 'pp_post_custom_layout_html', 			__CLASS__ . '::post_custom_html_parse_shortcodes', 1 );
+
+			add_action( 'pp_post_custom_layout_before_content', __CLASS__ . '::post_custom_layout_before_content' );
+			add_action( 'pp_post_custom_layout_after_content',  __CLASS__ . '::post_custom_layout_after_content' );
 		}
 		add_action( 'wp_head', __CLASS__ . '::render_faq_schema' );
 		add_action( 'wp_footer', __CLASS__ . '::force_render_faq_schema' );
@@ -387,7 +390,7 @@ final class PPModuleExtend {
 
 	static public function post_grid_layout_path( $path, $layout, $settings ) {
 		if ( 'custom' == $settings->post_grid_style_select ) {
-			return BB_POWERPACK_DIR . 'includes/post-module-layout.php';
+			$path = BB_POWERPACK_DIR . 'includes/post-module-layout.php';
 		}
 
 		return $path;
@@ -401,6 +404,21 @@ final class PPModuleExtend {
 				'wpbb-acf-repeater',
 			)
 		);
+	}
+
+	static public function post_custom_layout_before_content() {
+		add_filter( 'wp_get_attachment_image_attributes', __CLASS__ . '::set_post_image_class', 10, 3 );
+	}
+
+	static public function post_custom_layout_after_content() {
+		remove_filter( 'wp_get_attachment_image_attributes', __CLASS__ . '::set_post_image_class', 10, 3 );
+	}
+
+	static public function set_post_image_class( $attrs, $attachment, $size ) {
+		$class = $attrs['class'];
+		$attrs['class'] = $class . ' pp-post-img';
+
+		return $attrs;
 	}
 }
 

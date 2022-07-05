@@ -76,6 +76,59 @@ class PPGravityFormModule extends FLBuilderModule {
 			'form_border_group'
 		);
 
+		if ( isset( $settings->input_field_border_width ) && isset( $settings->input_field_border_position ) ) {
+			$border_width = $settings->input_field_border_width;
+			$border_pos = explode( '-', $settings->input_field_border_position );
+
+			if ( ! isset( $border_pos[1] ) ) {
+				$settings->input_field_border_width_array = array(
+					'top'    => $border_width,
+					'left'   => $border_width,
+					'bottom' => $border_width,
+					'right'  => $border_width,
+				);
+			} else {
+				$settings->input_field_border_width_array = array();
+				$settings->input_field_border_width_array[ $border_pos[1] ] = $border_width;
+			}
+
+			unset( $settings->input_field_border_width );
+			unset( $settings->input_field_border_position );
+		}
+
+		// Handle old Input border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field(
+			$settings,
+			array(
+				'input_field_border_width_array'  => array(
+					'type' => 'width',
+					'style' => 'solid',
+				),
+				'input_field_border_color'  => array(
+					'type' => 'color',
+				),
+				'input_field_border_radius' => array(
+					'type' => 'radius',
+				),
+			),
+			'input_field_border_group'
+		);
+
+		if ( isset( $settings->input_field_box_shadow ) ) {
+			if ( 'none' === $settings->input_field_box_shadow ) {
+				if ( ! isset( $settings->input_field_border_group['shadow'] ) || ! is_array( $settings->input_field_border_group['shadow'] ) ) {
+					$settings->input_field_border_group['shadow'] = array();
+				}
+				$settings->input_field_border_group['shadow']['color'] = '';
+				$settings->input_field_border_group['shadow']['horizontal'] = 0;
+				$settings->input_field_border_group['shadow']['vertical'] = 0;
+				$settings->input_field_border_group['shadow']['blur'] = 0;
+				$settings->input_field_border_group['shadow']['spread'] = 0;
+			}
+
+			unset( $settings->input_field_box_shadow );
+		}
+
 		// Handle old Button border and radius fields.
 		$settings = PP_Module_Fields::handle_border_field(
 			$settings,
@@ -142,6 +195,59 @@ class PPGravityFormModule extends FLBuilderModule {
 				),
 			),
 			'section_typography'
+		);
+
+		if ( isset( $settings->label_font_family ) ) {
+			$settings->label_font_family_old = $settings->label_font_family;
+		}
+
+		// Handle Label old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field(
+			$settings,
+			array(
+				'label_font_family' => array(
+					'type' => 'font',
+				),
+				'label_font_size'   => array(
+					'type' => 'font_size',
+				),
+			),
+			'label_typography'
+		);
+
+		// Handle Input description old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field(
+			$settings,
+			array(
+				'label_font_family_old' => array(
+					'type' => 'font',
+				),
+				'input_desc_font_size' => array(
+					'type' => 'font_size',
+				),
+				'input_desc_line_height'   => array(
+					'type' => 'line_height',
+					'unit' => isset( $settings->input_desc_line_height_unit ) ? $settings->input_desc_line_height_unit : '',
+				),
+			),
+			'input_desc_typography'
+		);
+
+		// Handle Input old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field(
+			$settings,
+			array(
+				'input_font_family' => array(
+					'type' => 'font',
+				),
+				'input_font_size' => array(
+					'type' => 'font_size',
+				),
+				'input_field_text_alignment' => array(
+					'type' => 'text_align'
+				),
+			),
+			'input_typography'
 		);
 
 		// Handle Button old typography fields.
@@ -506,95 +612,8 @@ BB_PowerPack::register_module(
 		'input_style'     => array(
 			'title'    => __( 'Inputs', 'bb-powerpack' ),
 			'sections' => array(
-				'input_background'  => array(
-					'title'  => __( 'Colors', 'bb-powerpack' ),
-					'fields' => array(
-						'input_field_text_color' => array(
-							'type'        => 'color',
-							'label'       => __( 'Text Color', 'bb-powerpack' ),
-							'default'     => '333333',
-							'connections' => array( 'color' ),
-							'show_reset'	=> true,
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-								'property' => 'color',
-							),
-						),
-						'input_field_bg_color'   => array(
-							'type'        => 'color',
-							'label'       => __( 'Background Color', 'bb-powerpack' ),
-							'default'     => 'ffffff',
-							'show_reset'  => true,
-							'show_alpha'  => true,
-							'connections' => array( 'color' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-								'property' => 'background-color',
-							),
-						),
-						'input_desc_color'       => array(
-							'type'        => 'color',
-							'label'       => __( 'Description Color', 'bb-powerpack' ),
-							'default'     => '000000',
-							'connections' => array( 'color' ),
-							'show_reset'	=> true,
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.gform_wrapper .gfield .gfield_description',
-								'property' => 'color',
-							),
-						),
-					),
-				),
-				'input_border'      => array(
-					'title'     => __( 'Border', 'bb-powerpack' ),
-					'collapsed' => true,
-					'fields'    => array(
-						'input_field_border_color'    => array(
-							'type'        => 'color',
-							'label'       => __( 'Border Color', 'bb-powerpack' ),
-							'default'     => 'eeeeee',
-							'show_reset'  => true,
-							'connections' => array( 'color' ),
-						),
-						'input_field_border_width'    => array(
-							'type'    => 'unit',
-							'label'   => __( 'Border Width', 'bb-powerpack' ),
-							'default' => '1',
-							'slider'  => true,
-							'units'   => array( 'px' ),
-						),
-						'input_field_border_position' => array(
-							'type'    => 'select',
-							'label'   => __( 'Border Position', 'bb-powerpack' ),
-							'default' => 'border',
-							'options' => array(
-								'border'        => __( 'Default', 'bb-powerpack' ),
-								'border-top'    => __( 'Top', 'bb-powerpack' ),
-								'border-bottom' => __( 'Bottom', 'bb-powerpack' ),
-								'border-left'   => __( 'Left', 'bb-powerpack' ),
-								'border-right'  => __( 'Right', 'bb-powerpack' ),
-							),
-						),
-						'input_field_focus_color'     => array(
-							'type'        => 'color',
-							'label'       => __( 'Focus Border Color', 'bb-powerpack' ),
-							'default'     => '719ece',
-							'show_reset'  => true,
-							'connections' => array( 'color' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]):focus, .gform_wrapper .gfield select:focus, .gform_wrapper .gfield textarea:focus',
-								'property' => 'border-color',
-							),
-						),
-					),
-				),
 				'input_general'     => array( // Section
-					'title'     => __( 'General', 'bb-powerpack' ), // Section Title
-					'collapsed' => true,
+					'title'     => '', // Section Title
 					'fields'    => array( // Section Fields
 						'input_field_width'          => array(
 							'type'    => 'pp-switch',
@@ -632,39 +651,12 @@ BB_PowerPack::register_module(
 								'unit'     => 'px',
 							),
 						),
-						'input_field_text_alignment' => array(
-							'type'    => 'align',
-							'label'   => __( 'Text Alignment', 'bb-powerpack' ),
-							'default' => 'left',
-						),
-						'input_field_border_radius'  => array(
-							'type'    => 'unit',
-							'label'   => __( 'Round Corners', 'bb-powerpack' ),
-							'default' => '2',
-							'slider'  => true,
-							'units'   => array( 'px' ),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-								'property' => 'border-radius',
-								'unit'     => 'px',
-							),
-						),
-						'input_field_box_shadow'     => array(
-							'type'    => 'pp-switch',
-							'label'   => __( 'Box Shadow', 'bb-powerpack' ),
-							'default' => 'inherit',
-							'options' => array(
-								'inherit' => __( 'Show', 'bb-powerpack' ),
-								'none'    => __( 'Hide', 'bb-powerpack' ),
-							),
-						),
 						'input_field_padding'        => array(
 							'type'       => 'unit',
 							'label'      => __( 'Padding', 'bb-powerpack' ),
 							'slider'     => true,
 							'units'      => array( 'px' ),
-							'default'    => '12',
+							'default'    => '',
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
@@ -678,12 +670,106 @@ BB_PowerPack::register_module(
 							'label'   => __( 'Margin Bottom', 'bb-powerpack' ),
 							'slider'  => true,
 							'units'   => array( 'px' ),
-							'default' => '10',
+							'default' => '',
 							'preview' => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
 								'property' => 'margin-bottom',
 								'unit'     => 'px',
+							),
+						),
+					),
+				),
+				'input_background'  => array(
+					'title'  => __( 'Colors', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields' => array(
+						'input_field_text_color' => array(
+							'type'        => 'color',
+							'label'       => __( 'Text Color', 'bb-powerpack' ),
+							'default'     => '',
+							'connections' => array( 'color' ),
+							'show_reset'	=> true,
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
+								'property' => 'color',
+							),
+						),
+						'input_field_bg_color'   => array(
+							'type'        => 'color',
+							'label'       => __( 'Background Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_reset'  => true,
+							'show_alpha'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
+								'property' => 'background-color',
+							),
+						),
+						'form_label_color'         => array(
+							'type'        => 'color',
+							'label'       => __( 'Label Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.pp-gf-content .gform_wrapper .gfield .gfield_label, .pp-gf-content .gform_wrapper table.gfield_list thead th, .pp-gf-content .gform_wrapper span.ginput_product_price_label, .pp-gf-content .gform_wrapper span.ginput_quantity_label, .pp-gf-content .gform_wrapper .gfield_html',
+								'property' => 'color',
+							),
+						),
+						'form_required_text_color'         => array(
+							'type'        => 'color',
+							'label'       => __( 'Label "Required" Text Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.pp-gf-content .gform_wrapper .gfield_required',
+								'property' => 'color',
+							),
+						),
+						'input_desc_color'       => array(
+							'type'        => 'color',
+							'label'       => __( 'Input Description Color', 'bb-powerpack' ),
+							'default'     => '',
+							'connections' => array( 'color' ),
+							'show_reset'	=> true,
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.pp-gf-content .gform_wrapper .gfield .gfield_description',
+								'property' => 'color',
+							),
+						),
+					),
+				),
+				'input_border'      => array(
+					'title'     => __( 'Border & Shadow', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
+						'input_field_border_group' => array(
+							'type'       => 'border',
+							'label'      => __( 'Border', 'bb-powerpack' ),
+							'responsive' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
+							),
+						),
+						'input_field_focus_color'     => array(
+							'type'        => 'color',
+							'label'       => __( 'Focus Border Color', 'bb-powerpack' ),
+							'default'     => '719ece',
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]):focus, .gform_wrapper .gfield select:focus, .gform_wrapper .gfield textarea:focus',
+								'property' => 'border-color',
 							),
 						),
 					),
@@ -1352,30 +1438,13 @@ BB_PowerPack::register_module(
 					'title'     => __( 'Label', 'bb-powerpack' ), // Section Title
 					'collapsed' => true,
 					'fields'    => array( // Section Fields
-						'label_font_family'        => array(
-							'type'    => 'font',
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 300,
-							),
-							'label'   => __( 'Font', 'bb-powerpack' ),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.gform_wrapper .gfield .gfield_label, .gform_wrapper .gfield .gfield_description',
-							),
-						),
-						'label_font_size'          => array(
-							'type'    => 'unit',
-							'label'   => __( 'Label Font Size', 'bb-powerpack' ),
-							'units'   => array( 'px' ),
-							'slider'  => true,
-							'responsive'  => true,
-							'default' => '',
-							'preview' => array(
+						'label_typography' => array(
+							'type'       => 'typography',
+							'label'      => __( 'Label Typography', 'bb-powerpack' ),
+							'responsive' => true,
+							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield .gfield_label',
-								'property' => 'font-size',
-								'unit'     => 'px',
 							),
 						),
 						'radio_checkbox_font_size' => array(
@@ -1392,65 +1461,13 @@ BB_PowerPack::register_module(
 								'unit'     => 'px',
 							),
 						),
-						'form_label_color'         => array(
-							'type'        => 'color',
-							'label'       => __( 'Color', 'bb-powerpack' ),
-							'default'     => '',
-							'show_reset'  => true,
-							'connections' => array( 'color' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.gform_wrapper .gfield .gfield_label, .gform_wrapper table.gfield_list thead th, .gform_wrapper span.ginput_product_price_label, .gform_wrapper span.ginput_quantity_label, .gform_wrapper .gfield_html',
-								'property' => 'color',
-							),
-						),
-						'form_required_text_color'         => array(
-							'type'        => 'color',
-							'label'       => __( '"Required" Text Color', 'bb-powerpack' ),
-							'default'     => '',
-							'show_reset'  => true,
-							'connections' => array( 'color' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.pp-gf-content .gform_wrapper .gfield_required',
-								'property' => 'color',
-							),
-						),
-						'input_desc_font_size'     => array(
-							'type'    => 'unit',
-							'label'   => __( 'Description Font Size', 'bb-powerpack' ),
-							'units'   => array( 'px' ),
-							'slider'  => true,
-							'responsive'  => true,
-							'default' => '',
-							'preview' => array(
+						'input_desc_typography' => array(
+							'type'       => 'typography',
+							'label'      => __( 'Input Description Typography', 'bb-powerpack' ),
+							'responsive' => true,
+							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield .gfield_description',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-						),
-						'input_desc_line_height'   => array(
-							'type'    => 'unit',
-							'label'   => __( 'Description Line Height', 'bb-powerpack' ),
-							'slider'  => array(
-								'em' => array(
-									'min'  => 0,
-									'max'  => 5,
-									'step' => 0.1,
-								),
-								'px' => array(
-									'min'  => 0,
-									'max'  => 50,
-									'step' => 1,
-								),
-							),
-							'units'   => array( 'em', 'px' ),
-							'default' => '',
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.gform_wrapper .gfield .gfield_description',
-								'property' => 'line-height',
 							),
 						),
 					),
@@ -1459,29 +1476,13 @@ BB_PowerPack::register_module(
 					'title'     => __( 'Input', 'bb-powerpack' ), // Section Title
 					'collapsed' => true,
 					'fields'    => array( // Section Fields
-						'input_font_family' => array(
-							'type'    => 'font',
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 300,
-							),
-							'label'   => __( 'Font', 'bb-powerpack' ),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.gform_wrapper .gfield input, .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-							),
-						),
-						'input_font_size'   => array(
-							'type'    => 'unit',
-							'label'   => __( 'Font Size', 'bb-powerpack' ),
-							'units'   => array( 'px' ),
-							'slider'  => true,
-							'default' => '',
-							'preview' => array(
+						'input_typography' => array(
+							'type'       => 'typography',
+							'label'      => __( 'Input Typography', 'bb-powerpack' ),
+							'responsive' => true,
+							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-								'property' => 'font-size',
-								'unit'     => 'px',
 							),
 						),
 					),

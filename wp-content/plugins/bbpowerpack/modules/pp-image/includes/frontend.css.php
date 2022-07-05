@@ -43,7 +43,7 @@
 FLBuilderCSS::responsive_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'photo_size',
-	'selector'		=> ".fl-node-$id .pp-photo-container .pp-photo-content .pp-photo-content-inner img",
+	'selector'		=> "div.fl-node-$id .pp-photo-container .pp-photo-content .pp-photo-content-inner img",
 	'prop'			=> 'width',
 	'unit'			=> 'px',
 ) );

@@ -1,6 +1,7 @@
 <?php
 $photos = $module->get_photos();
 $aria_label = isset( $settings->sr_text ) && ! empty( $settings->sr_text ) ? $settings->sr_text : __( 'Slider', 'bb-powerpack' );
+$lazy_load = isset( $settings->lazy_load ) && 'yes' === $settings->lazy_load && ! FLBuilderModel::is_builder_active();
 $captions = array();
 $count = 1;
 ?>
@@ -19,7 +20,7 @@ $count = 1;
 				?>
 				<div class="pp-image-carousel-item<?php echo ( ( $settings->click_action != 'none' ) && !empty( $photo->link ) ) ? ' pp-image-carousel-link' : ''; ?> swiper-slide" role="group" aria-label="<?php echo $caption; ?>">
 					<?php if( $settings->click_action != 'none' ) : ?>
-							<?php $click_action_link = '#';
+							<?php $click_action_link = 'javascript:void(0)';
 								$click_action_target = $settings->custom_link_target;
 								$click_action_rel = ( '_blank' === $click_action_target ) ? ' rel="nofollow noopener"' : '';
 
@@ -38,12 +39,24 @@ $count = 1;
 					<?php endif; ?>
 
 					<?php if ( ! isset( $settings->use_image_as ) || 'background' === $settings->use_image_as ) { ?>
-					<div class="pp-carousel-image-container" style="background-image:url(<?php echo esc_url( $photo->src ); ?>)"></div>
+						<?php if ( ! $lazy_load ) { ?>
+							<div class="pp-carousel-image-container" style="background-image:url(<?php echo esc_url( $photo->src ); ?>)"></div>
+						<?php } else { ?>
+							<div class="pp-carousel-image-container" data-background="<?php echo esc_url( $photo->src ); ?>" class="swiper-lazy">
+								<div class="swiper-lazy-preloader"></div>
+							</div>
+						<?php } ?>
 					<?php } ?>
+
 					<?php if ( isset( $settings->use_image_as ) && 'img' === $settings->use_image_as ) { ?>
 					<div class="pp-carousel-image-container">
 						<figure class="swiper-slide-inner">
-							<img class="swiper-slide-image" src="<?php echo esc_url( $photo->src ); ?>" alt="<?php echo esc_attr( $photo->alt ); ?>" />
+							<?php if ( ! $lazy_load ) { ?>
+								<img class="swiper-slide-image" src="<?php echo esc_url( $photo->src ); ?>" alt="<?php echo esc_attr( $photo->alt ); ?>" />
+							<?php } else { ?>
+								<img class="swiper-slide-image swiper-lazy" data-src="<?php echo esc_url( $photo->src ); ?>" alt="<?php echo esc_attr( $photo->alt ); ?>" />
+								<div class="swiper-lazy-preloader"></div>
+							<?php } ?>
 						</figure>
 					</div>
 					<?php } ?>

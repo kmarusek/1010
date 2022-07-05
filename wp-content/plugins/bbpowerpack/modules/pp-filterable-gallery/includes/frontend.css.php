@@ -282,8 +282,10 @@ FLBuilderCSS::border_field_rule( array(
 	<?php if ( isset( $settings->filter_text_color ) && ! empty( $settings->filter_text_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->filter_text_color ); ?>;
 	<?php } ?>
-	margin-right: <?php echo $settings->filter_margin; ?>px;
-	margin-bottom: <?php echo ($settings->filter_margin / 2); ?>px;
+	<?php if ( '' !== $settings->filter_margin ) { ?>
+		margin-right: <?php echo $settings->filter_margin; ?>px;
+		margin-bottom: <?php echo ($settings->filter_margin / 2); ?>px;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-gallery-filters li:hover,

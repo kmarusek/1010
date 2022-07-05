@@ -3,8 +3,8 @@
 	PPVideo = function( settings ) {
 		this.id			= settings.id;
 		this.type		= settings.type;
-		this.aspectRatio = settings.aspectRatio;
 		this.lightbox 	= settings.lightbox;
+		this.aspectRatio = settings.aspectRatioLightbox;
 		this.overlay	= settings.overlay;
 		this.node		= $('.fl-node-' + this.id);
 
@@ -77,8 +77,8 @@
 			var options = {
 				modal			: false,
 				enableEscapeButton: true,
-				type: 'inline',
-				baseClass		: 'fancybox-' + id,
+				type            : 'inline',
+				baseClass		: 'fancybox-' + id + ' pp-video-lightbox',
 				buttons			: [
 					'close'
 				],

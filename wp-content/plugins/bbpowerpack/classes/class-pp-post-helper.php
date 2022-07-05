@@ -231,20 +231,25 @@ class BB_PowerPack_Post_Helper {
 		$total = 0;
 		$page = 0;
 		$paged = FLBuilderLoop::get_paged();
-		$total_posts_count = $settings->total_posts_count;
+		$per_page = absint( $settings->posts_per_page );
+		$total_posts_count = absint( $settings->total_posts_count );
 		$posts_aval = $query->found_posts;
 		$permalink_structure = get_option( 'permalink_structure' );
 		$base = html_entity_decode( get_pagenum_link() );
 
-		if ( 'custom' == $settings->total_post && $total_posts_count != $posts_aval ) {
+		if ( ! $per_page ) {
+			$per_page = get_option( 'posts_per_page' );
+		}
+
+		if ( 'custom' == $settings->total_post && $total_posts_count && $total_posts_count != $posts_aval ) {
 
 			if ( $total_posts_count > $posts_aval ) {
-				$page = $posts_aval / $settings->posts_per_page;
-				$total = $posts_aval % $settings->posts_per_page;
+				$page = $posts_aval / $per_page;
+				$total = $posts_aval % $per_page;
 			}
 			if ( $total_posts_count < $posts_aval ) {
-				$page = $total_posts_count / $settings->posts_per_page;
-				$total = $total_posts_count % $settings->posts_per_page;
+				$page = $total_posts_count / $per_page;
+				$total = $total_posts_count % $per_page;
 			}
 
 			if ( $total > 0 ) {

@@ -86,10 +86,27 @@
          *
          * @method init
          */
-        init: function()
-        {
+        init: function() {
+			// var form = $('.fl-builder-settings'),
+			//     separator = form.find( 'select[name="heading_separator"]' ),
+			// 	self = this;
 
+			// self._separatorChange( form, separator );
+
+			// separator.on( 'change', function() {
+			// 	self._separatorChange( form, $(this) );
+			// } );
         },
+
+		_separatorChange: function( $form, $field ) {
+			if ( 'icon_only' !== $field.val() && 'line_with_icon' !== $field.val() && 'line_only' !== $field.val() ) {
+				$form.find( 'select[name="heading_separator_postion"] option[value="left"]' ).hide();
+				$form.find( 'select[name="heading_separator_postion"] option[value="right"]' ).hide();
+			} else {
+				$form.find( 'select[name="heading_separator_postion"] option[value="left"]' ).show();
+				$form.find( 'select[name="heading_separator_postion"] option[value="right"]' ).show();
+			}
+		}
 
     });
 

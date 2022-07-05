@@ -8,9 +8,14 @@
 			$tabindex = $settings->card_custom_tabindex;
 		}
 	}
+
+	$heading_tag    = isset( $settings->menu_heading_tag ) ? $settings->menu_heading_tag : 'h3';
+	$item_title_tag = isset( $settings->items_title_tag ) ? $settings->items_title_tag : 'h2';
 ?>
 <div class="fl-node-<?php echo $id; ?> pp-restaurant-menu-item-wrap">
-	<h3 class="pp-restaurant-menu-heading"><?php echo $settings->menu_heading; ?></h3>
+	<?php if ( ! empty( $settings->menu_heading ) ) {
+		echo sprintf( '<%1$s class="pp-restaurant-menu-heading">%2$s</%1$s>', $heading_tag, $settings->menu_heading );
+	} ?>
 	<div class="pp-restaurant-menu-item-wrap-in">
 		<?php
 		foreach ( $settings->menu_items as $key => $menu_item ) {
@@ -24,23 +29,26 @@
 			if ( $settings->restaurant_menu_layout == 'stacked' ) {
 			 	?>
 			 	<div class="pp-restaurant-menu-item pp-restaurant-menu-item-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>"<?php echo $attr; ?>>
-				 	<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) { ?>
-					 	<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-images">
-							<?php
-							$image = $menu_item->menu_item_images_src;
-							?>
-			   	 			<img src="<?php echo $image;?>" alt="<?php echo pp_get_image_alt($menu_item->menu_item_images, $item_title); ?>" />
+				 	<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) {
+						$image = $menu_item->menu_item_images_src;
+						$image_full = wp_get_attachment_image_src( $menu_item->menu_item_images, 'full' );
+						$image_full = is_array( $image_full ) ? $image_full[0] : $image;
+						$href = ( '' != $menu_item->menu_items_link ) ? $menu_item->menu_items_link : 'javascript:void(0)';
+						$href = isset( $settings->item_lightbox ) && 'yes' === $settings->item_lightbox ? $image_full : $href;
+						?>
+						<a href="<?php echo $href; ?>" target="<?php echo $menu_item->menu_items_link_target; ?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; } ?> class="pp-restaurant-menu-item-images">
+			   	 			<img src="<?php echo $image; ?>" alt="<?php echo pp_get_image_alt($menu_item->menu_item_images, $item_title); ?>" />
 						</a>
 					<?php } ?>
 					<div class="pp-restaurant-menu-item-left">
 						<?php if ( '' != $item_title ) { ?>
-							<h2 class="pp-restaurant-menu-item-header">
+							<<?php echo $item_title_tag; ?> class="pp-restaurant-menu-item-header">
 								<?php if ( '' != trim( $menu_item->menu_items_link ) ) { ?>
-									<a href="<?php echo $menu_item->menu_items_link;?>" target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></a>
+									<a href="<?php echo $menu_item->menu_items_link;?>" target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; } ?> class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></a>
 								<?php } else { ?>
 									<span class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></span>
 								<?php } ?>
-							</h2>
+							</<?php echo $item_title_tag; ?>>
 						<?php } ?>
 						<?php if ( $settings->show_description == 'yes' ) { ?>
 							<div class="pp-restaurant-menu-item-description">
@@ -50,13 +58,13 @@
 					</div>
 					<div class="pp-restaurant-menu-item-right">
 						<?php if ( '' != trim( $menu_item->menu_items_price ) && $settings->show_price == 'yes' ) { ?>
-							<div class="pp-restaurant-menu-item-price">
+							<div class="pp-restaurant-menu-item-price pp-menu-item-currency-<?php echo $settings->currency_symbol_pos; ?>">
 								<?php if ( ! isset( $settings->currency_symbol_pos ) || 'left' === $settings->currency_symbol_pos ) { ?>
-									<span><?php echo $settings->currency_symbol; ?></span>&nbsp;
+									<span class="pp-menu-item-currency"><?php echo $settings->currency_symbol; ?></span>
 								<?php } ?>
 								<?php echo $menu_item->menu_items_price; ?>
 								<?php if ( isset( $settings->currency_symbol_pos ) && 'right' === $settings->currency_symbol_pos ) { ?>
-									&nbsp;<span><?php echo $settings->currency_symbol; ?></span> 
+									<span class="pp-menu-item-currency"><?php echo $settings->currency_symbol; ?></span> 
 								<?php } ?>
 								<?php if ( '' != trim( $menu_item->menu_items_unit ) ) { ?>
 									<span class="pp-menu-item-unit"> <?php echo trim( $menu_item->menu_items_unit ); ?></span>
@@ -69,23 +77,26 @@
 			 	} else {
 			 	?>
 			 		<div class="pp-restaurant-menu-item-inline pp-restaurant-menu-item-inline-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>"<?php echo $attr; ?>>
-				 		<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) { ?>
-				 			<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-images">
-							<?php
+				 		<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) {
 							$image = $menu_item->menu_item_images_src;
+							$image_full = wp_get_attachment_image_src( $menu_item->menu_item_images, 'full' );
+							$image_full = is_array( $image_full ) ? $image_full[0] : $image;
+							$href = ( '' != $menu_item->menu_items_link ) ? $menu_item->menu_items_link : 'javascript:void(0)';
+							$href = isset( $settings->item_lightbox ) && 'yes' === $settings->item_lightbox ? $image_full : $href;
 							?>
-			   	 			<img src="<?php echo $image;?>" alt="<?php echo pp_get_image_alt($menu_item->menu_item_images, $item_title); ?>" />
+				 			<a href="<?php echo $href; ?>" target="<?php echo $menu_item->menu_items_link_target; ?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; } ?> class="pp-restaurant-menu-item-images">
+				   	 			<img src="<?php echo $image;?>" alt="<?php echo pp_get_image_alt($menu_item->menu_item_images, $item_title); ?>" />
 			   	 			</a>
 			   	 		<?php } ?>
 			   	 		<div class="pp-restaurant-menu-item-inline-right-content pp-menu-item-content">
 			   	 			<?php if ( '' != $item_title ) { ?>
-					   	 		<h2 class="pp-restaurant-menu-item-header">
+					   	 		<<?php echo $item_title_tag; ?> class="pp-restaurant-menu-item-header">
 									<?php if ( '' != trim($menu_item->menu_items_link) ) { ?>
-										<a target="<?php echo $menu_item->menu_items_link_target;?>" href="<?php echo $menu_item->menu_items_link;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></a>
+										<a target="<?php echo $menu_item->menu_items_link_target;?>" href="<?php echo $menu_item->menu_items_link;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; } ?> class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></a>
 									<?php } else { ?>
 										<span class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></span>
 									<?php } ?>
-								</h2>
+								</<?php echo $item_title_tag; ?>>
 							<?php } ?>
 							<?php if ( $settings->show_description == 'yes' ) { ?>
 								<div class="pp-restaurant-menu-item-description">
@@ -94,16 +105,16 @@
 							<?php } ?>
 						</div>
 						<?php if ( '' != trim( $menu_item->menu_items_price ) && $settings->show_price == 'yes' ) { ?>
-							<div class="pp-restaurant-menu-item-price">
+							<div class="pp-restaurant-menu-item-price pp-menu-item-currency-<?php echo $settings->currency_symbol_pos; ?>">
 								<?php if ( ! isset( $settings->currency_symbol_pos ) || 'left' === $settings->currency_symbol_pos ) { ?>
-									<span><?php echo $settings->currency_symbol; ?></span>&nbsp;
+									<span class="pp-menu-item-currency"><?php echo $settings->currency_symbol; ?></span>
 								<?php } ?>
 								<?php echo $menu_item->menu_items_price; ?>
 								<?php if ( isset( $settings->currency_symbol_pos ) && 'right' === $settings->currency_symbol_pos ) { ?>
-									&nbsp;<span><?php echo $settings->currency_symbol; ?></span> 
+									<span class="pp-menu-item-currency"><?php echo $settings->currency_symbol; ?></span> 
 								<?php } ?>
 								<?php if ( '' != trim( $menu_item->menu_items_unit ) ) { ?>
-									<span class="pp-menu-item-unit">&nbsp;<?php echo trim( $menu_item->menu_items_unit ); ?></span>
+									<span class="pp-menu-item-unit"> <?php echo trim( $menu_item->menu_items_unit ); ?></span>
 								<?php } ?>
 							</div>
 						<?php } ?>

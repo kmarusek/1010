@@ -63,6 +63,7 @@ if ( 'csv_import' == $source ) {
 	$sub_fields = $field['sub_fields'];
 	$repeater_rows = $field['value'];
 	$image_fields = array();
+	$url_fields = array();
 
 	// Check if the field is empty.
 	if ( ( empty( $sub_fields ) || empty( $repeater_rows ) ) && isset( $_GET['fl_builder'] ) ) {
@@ -71,13 +72,20 @@ if ( 'csv_import' == $source ) {
 	}
 
 	foreach ( $sub_fields as $sub_field ) {
+		$field_name = $sub_field['name'];
+
 		if ( ( 'image' === $sub_field['type'] || 'file' === $sub_field['type'] ) && isset( $sub_field['return_format'] ) ) {
-			$field_name = $sub_field['name'];
 			$image_fields[ $field_name ] = array(
 				'type' => $sub_field['type'],
 				'return_format' => $sub_field['return_format']
 			);
 		}
+		if ( 'url' === $sub_field['type'] ) {
+			$url_fields[ $field_name ] = array(
+				'type' => $sub_field['type'],
+			);
+		}
+
 		$tableheaders[] = $sub_field['label'];
 	}
 
@@ -91,8 +99,10 @@ if ( 'csv_import' == $source ) {
 				if ( 'image' === $image_fields[ $key ]['type'] ) {
 					$row_cell[ $key ] = '<img src="' . $url . '" alt="' . basename( $url ) . '" />';
 				} else {
-					$row_cell[ $key ] = $url;
+					$row_cell[ $key ] = sprintf( '<a href="%s" target="_blank" rel="nofollow noopener">%s</a>', $url, $url );
 				}
+			} elseif ( isset( $url_fields[ $key ] ) ) {
+				$row_cell[ $key ] = sprintf( '<a href="%s" target="_blank" rel="nofollow noopener">%s</a>', $value, $value );
 			}
 		}
 
@@ -121,7 +131,14 @@ do_action( 'pp_before_table_module', $settings );
 			$i = 1;
 			foreach ( $tableheaders as $tableheader ) {
 				echo '<th id="pp-table-col-' . $i++ . '" class="pp-table-col" scope="col" data-tablesaw-sortable-col>';
-					echo trim( $tableheader );
+					?>
+					<span class="pp-table-header-inner">
+						<?php if ( 'manual' === $source && isset( $settings->header_icon ) && ! empty( $settings->header_icon ) ) { ?>
+							<i class="pp-table-header-icon <?php echo $settings->header_icon; ?>"></i>
+						<?php } ?>
+						<?php echo sprintf( '<span class="pp-table-header-text">%s</span>', trim( $tableheader ) ); ?>
+					</span>
+					<?php
 				echo '</th>';
 			}
 			$i = 0;

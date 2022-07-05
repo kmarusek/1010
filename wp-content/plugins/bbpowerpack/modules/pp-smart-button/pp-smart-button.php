@@ -424,6 +424,7 @@ BB_PowerPack::register_module('PPSmartButtonModule', array(
 						'default'		=> '',
 						'units'			=> array('px'),
 						'slider'		=> true,
+						'responsive'	=> true,
 					),
 				)
 			),

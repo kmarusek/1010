@@ -594,6 +594,14 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 							'type'		=> 'none',
 						),
 					),
+					'lazy_load' => array(
+						'type'      => 'pp-switch',
+						'label'		=> __( 'Lazy Load', 'bb-powerpack' ),
+						'default'	=> 'no',
+						'preview'	=> array(
+							'type'		=> 'none',
+						),
+					),
 				),
 			),
 			'navigation'   => array( // Section

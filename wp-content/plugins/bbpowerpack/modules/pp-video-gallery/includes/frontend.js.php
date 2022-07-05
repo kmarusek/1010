@@ -23,6 +23,7 @@ var gallery_<?php echo $id; ?> = '';
 		id: '<?php echo $id; ?>',
 		layout: '<?php echo $module->get_layout(); ?>',
 		aspectRatio: '<?php echo $settings->aspect_ratio; ?>',
+		aspectRatioLightbox: '<?php echo isset( $settings->aspect_ratio_lightbox ) && 'default' !== $settings->aspect_ratio_lightbox ? $settings->aspect_ratio_lightbox : $settings->aspect_ratio; ?>',
 		filters: <?php echo $module->filters_enabled() ? 'true' : 'false'; ?>,
 		carousel: false,
 		isBuilderActive: <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,

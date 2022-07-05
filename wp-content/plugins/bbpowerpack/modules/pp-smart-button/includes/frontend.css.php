@@ -1,12 +1,10 @@
 <?php
-
 // Old Background Gradient Setting
 if ( isset( $settings->three_d ) && $settings->three_d ) {
 	$settings->style = 'gradient';
 }
 
 $has_sub_text = isset( $settings->sub_text ) && ! empty( $settings->sub_text );
-
 ?>
 
 <?php
@@ -80,13 +78,20 @@ if ( empty( $settings->bg_color_primary ) && 'gradient' === $settings->style ) {
 	?>
 <?php } ?>
 
+<?php
+// Button Custom Width
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'custom_width',
+	'selector'		=> ".fl-node-$id .pp-button-wrap a.pp-button, .fl-node-$id .pp-button-wrap a.pp-button:visited",
+	'prop'			=> 'width',
+	'unit'          => $settings->custom_width_unit,
+	'enabled'       => 'custom' === $settings->width
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
 .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
 	text-decoration: none;
-
-	<?php if ( 'custom' == $settings->width ) { ?>
-		width: <?php echo $settings->custom_width; ?><?php echo isset( $settings->custom_width_unit ) ? $settings->custom_width_unit : 'px'; ?>;
-	<?php } ?>
 
 	<?php if ( 'full' == $settings->width ) { ?>
 		width: 100%;
@@ -161,18 +166,36 @@ FLBuilderCSS::border_field_rule( array(
 	'setting_name' 	=> 'border',
 	'selector' 		=> ".fl-node-$id .pp-button-wrap a.pp-button:hover, .fl-node-$id .pp-button-wrap a.pp-button:focus",
 ) );
-?>
 
-.fl-node-<?php echo $id; ?> .pp-button .pp-button-icon {
-	font-size: <?php echo ( $settings->icon_size >= 0 ) ? $settings->icon_size . 'px' : '16px'; ?>;
-	<?php if ( isset( $settings->icon_spacing ) && $settings->icon_spacing !== '' ) { ?>
-		<?php if ( 'before' === $settings->icon_position ) { ?>
-			margin-right: <?php echo $settings->icon_spacing; ?>px;
-		<?php } else { ?>
-			margin-left: <?php echo $settings->icon_spacing; ?>px;
-		<?php } ?>
-	<?php } ?>
-}
+// Icon Spacing - Before
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'icon_spacing',
+	'selector'		=> ".fl-node-$id .pp-button .pp-button-icon",
+	'prop'			=> 'margin-right',
+	'unit'          => 'px',
+	'enabled'       => 'before' === $settings->icon_position
+) );
+
+// Icon Spacing - After
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'icon_spacing',
+	'selector'		=> ".fl-node-$id .pp-button .pp-button-icon",
+	'prop'			=> 'margin-left',
+	'unit'          => 'px',
+	'enabled'       => 'after' === $settings->icon_position
+) );
+
+// Icon Size
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'icon_size',
+	'selector'		=> ".fl-node-$id .pp-button .pp-button-icon",
+	'prop'			=> 'font-size',
+	'unit'          => 'px',
+) );
+?>
 
 <?php if ( isset( $settings->text_color ) && ! empty( $settings->text_color ) ) : ?>
 .fl-node-<?php echo $id; ?> a.pp-button {
@@ -201,6 +224,18 @@ FLBuilderCSS::border_field_rule( array(
 $btn_effect = $settings->button_effect;
 if( $settings->style == 'flat' ) {
 	switch( $btn_effect ) {
+		case 'none': ?>
+			.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
+			.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
+				-webkit-transition: none;
+				-moz-transition: none;
+				-o-transition: none;
+				-ms-transition: none;
+				transition: none;
+			}
+			<?php
+			break;
+
 	    case 'fade': ?>
 	    .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
 		.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
@@ -793,41 +828,3 @@ if( $settings->style == 'flat' ) {
 	}
 }
 ?>
-
-@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
-	<?php if ( isset( $settings->align_medium ) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-button-wrap {
-		text-align: <?php echo $settings->align_medium; ?>;
-	}
-	<?php } ?>
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
-		<?php if ( 'custom' == $settings->width ) : ?>
-		width: <?php echo $settings->custom_width_medium; ?><?php echo isset( $settings->custom_width_medium_unit ) ? $settings->custom_width_medium_unit : 'px'; ?>;
-		<?php endif; ?>
-	}
-	<?php if ( isset( $settings->icon_size_medium ) && ! empty( $settings->icon_size_medium ) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-button .pp-button-icon {
-		font-size: <?php echo $settings->icon_size_medium; ?>px;
-	}
-	<?php } ?>
-}
-
-@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	<?php if ( isset( $settings->align_responsive ) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-button-wrap {
-		text-align: <?php echo $settings->align_responsive; ?>;
-	}
-	<?php } ?>
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
-		<?php if ( 'custom' == $settings->width ) : ?>
-		width: <?php echo $settings->custom_width_responsive; ?><?php echo isset( $settings->custom_width_responsive_unit ) ? $settings->custom_width_responsive_unit : 'px'; ?>;
-		<?php endif; ?>
-	}
-	<?php if ( isset( $settings->icon_size_responsive ) && ! empty( $settings->icon_size_responsive ) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-button .pp-button-icon {
-		font-size: <?php echo $settings->icon_size_responsive; ?>px;
-	}
-	<?php } ?>
-}

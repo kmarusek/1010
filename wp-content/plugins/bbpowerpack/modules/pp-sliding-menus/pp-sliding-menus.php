@@ -484,7 +484,7 @@ BB_PowerPack::register_module(
 						'arrow_size'                   => array(
 							'type'       => 'unit',
 							'label'      => __( 'Size', 'bb-powerpack' ),
-							'default'    => '14',
+							'default'    => '24',
 							'units'      => array( 'px' ),
 							'slider'     => array(
 								'min' => 0,
@@ -493,9 +493,18 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-sliding-menus .pp-slide-menu-arrow i',
-								'property' => 'font-size',
-								'unit'     => 'px',
+								'rules'    => array(
+									array(
+										'selector' => '.pp-sliding-menus .pp-slide-menu-arrow svg',
+										'property' => 'width',
+										'unit'     => 'px',
+									),
+									array(
+										'selector' => '.pp-sliding-menus .pp-slide-menu-arrow svg',
+										'property' => 'height',
+										'unit'     => 'px',
+									)
+								)
 							),
 						),
 						'arrow_left_padding'           => array(

@@ -164,6 +164,24 @@ final class BB_PowerPack_Login_Register {
 				if ( 'lostpassword' === $action || 'retrievepassword' === $action ) {
 					$redirect_to = add_query_arg( 'action', 'lost_pass', $redirect_to );
 				}
+				if ( 'rp' === $action || 'resetpass' === $action ) {
+					$query_args = array(
+						'action' => 'reset_pass',
+					);
+
+					if ( isset( $_GET['key'] ) ) {
+						$query_args['key'] = wp_unslash( $_GET['key'] );
+					}
+					if ( isset( $_GET['login'] ) ) {
+						$user_name = wp_unslash( $_GET['login'] );
+						$user = get_user_by( 'login', $user_name );
+						if ( $user && ! is_wp_error( $user ) ) {
+							$query_args['id'] = $user->ID;
+						}
+					}
+
+					$redirect_to = add_query_arg( $query_args, $redirect_to );
+				}
 				if ( ! empty( $page_id ) && ! empty( $redirect_to ) ) {
 					wp_redirect( $redirect_to );
 					exit;

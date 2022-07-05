@@ -1,16 +1,18 @@
-/**
- * This file should contain frontend JavaScript that 
- * will be applied to individual module instances.
- *
- * You have access to three variables in this file: 
- * 
- * $module An instance of your module class.
- * $id The module's ID.
- * $settings The module's settings.
- *
- * Example: 
- */
-(function($){
-
-
+;(function($) {
+	<?php if ( isset( $settings->item_lightbox ) && 'yes' === $settings->item_lightbox ) { ?>
+	if ( $.fn.magnificPopup ) {
+		$('.fl-node-<?php echo $id; ?> a.pp-restaurant-menu-item-images').magnificPopup({
+			type: 'image',
+			closeOnContentClick: true,
+			closeBtnInside: false,
+			mainClass: 'mfp-<?php echo $id; ?>',
+			image: {
+				titleSrc: function(item) {
+					var caption = item.el.parent().find('.pp-restaurant-menu-item-title').text() || '';
+					return caption;
+				}
+			}
+		});
+	}
+	<?php } ?>
 })(jQuery);

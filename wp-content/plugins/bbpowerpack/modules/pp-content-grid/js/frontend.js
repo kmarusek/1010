@@ -335,8 +335,13 @@
 			}
 			if ( this.settings.carousel.lazyLoad ) {
 				$( this.postClass ).each(function() {
-					var src = $( this ).find( '.pp-post-image img' ).addClass( 'owl-lazy' ).attr( 'src' );
-					$( this ).find( '.pp-post-image img' ).removeAttr( 'src' ).attr( 'data-src', src );
+					if ( $( this ).find( '.pp-content-grid-post-image img' ).length > 0 ) {
+						var src = $( this ).find( '.pp-content-grid-post-image img' ).addClass( 'owl-lazy' ).attr( 'src' );
+						$( this ).find( '.pp-content-grid-post-image img' ).removeAttr( 'src' ).attr( 'data-src', src );
+					} else {
+						var src = $( this ).find( '.pp-post-image img' ).addClass( 'owl-lazy' ).attr( 'src' );
+						$( this ).find( '.pp-post-image img' ).removeAttr( 'src' ).attr( 'data-src', src );
+					}
 				});
 			}
 

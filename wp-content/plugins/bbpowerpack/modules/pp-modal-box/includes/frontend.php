@@ -30,8 +30,8 @@ $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h2';
 	<div class="pp-helper" style="text-align: center;">
 		<h4>
 			<span><?php echo $module->name; ?></span>
-			<?php if ( isset( $settings->builder_label ) && ! empty( $settings->builder_label ) ) { ?>
-				- <span><?php echo $settings->builder_label; ?></span>
+			<?php if ( isset( $settings->node_label ) && ! empty( $settings->node_label ) ) { ?>
+				- <span><?php echo $settings->node_label; ?></span>
 			<?php } ?>
 		</h4>
 		<h5>modal-<?php echo $module->node; ?></h5>
