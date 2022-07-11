@@ -138,8 +138,14 @@ function get_template_layout($layout, $slug = null, $name = null, $args = array(
 }
 
 function skeletonwarrior_enqueue_scripts() {
+    // Get the currently selected framework.
+    // This originally just assumed "Full Bootstrap 3" ('bootstrap') was
+    // selected, but now we have to actually check since later versions of
+    // BB Theme actually *change* the framework if we're in the editor.
+    $framework = apply_filters( 'fl_theme_framework_enqueue', FLLayout::get_framework() );
+
     //wp_register_style('space-station-main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
-    wp_register_style('space-station-main', BWCustomizerLess::css_url(), array("bootstrap"), null, "all");
+    wp_register_style('space-station-main', BWCustomizerLess::css_url(), array($framework), null, "all");
     define( 'SCRIPTS_PATH_RELATIVE_TO_THEME', '/build/script.js' );
     // Default file version number
     $file_version = null;
