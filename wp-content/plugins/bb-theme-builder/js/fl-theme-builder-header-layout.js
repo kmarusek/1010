@@ -72,9 +72,10 @@
 		 */
 		init: function()
 		{
-			var editing    = $( 'html.fl-builder-edit' ).length,
-				header     = $( '.fl-builder-content[data-type=header]' ),
-				breakpoint = null;
+			var editing          = $( 'html.fl-builder-edit' ).length,
+				header           = $( '.fl-builder-content[data-type=header]' ),
+				menuModule       = header.find( '.fl-module-menu' ),
+				breakpoint       = null;
 
 			if ( ! editing && header.length ) {
 
@@ -105,85 +106,8 @@
 
 					}
 
-					this.win.on( 'resize', $.throttle( 500, $.proxy( this._initMegaMenu, this ) ) );					
-					this._initMegaMenu();
-
 				}, this ) );
 			}
-		},
-
-		/**
-		 * Initializes Mega Menu from the  BB Menu Module that's added to the Header Layout.
-		 *
-		 * @since 1.4.2
-		 * @access private
-		 * @method _initMegaMenu
-		 */
-		_initMegaMenu: function () {
-			var header   = this.header,
-				menuItem = header.find('.fl-module-menu ul li.menu-item');
-
-			menuItem.on('mouseenter', function( e ) {
-				var item               = $( e.currentTarget ),
-					menuContainer      = item.closest('.fl-menu'),
-					isFlyoutMenuActive = item.closest('.fl-menu-mobile-flyout').length,
-					toggleButtonActive = item.closest('.fl-module-menu').find('.fl-menu-mobile-toggle').is(':visible');
-
-				if ( isFlyoutMenuActive || toggleButtonActive ) {
-					return;
-				}
-
-				if ( item.is('.mega-menu') ) {
-					var subMenu          = item.find('.sub-menu').first(),
-						subMenuTopMargin = 0;
-					
-					if ( subMenu.length ) {
-						subMenuTopMargin = $(header).offset().top + $(header).outerHeight() - item.offset().top - item.outerHeight();
-						
-						$(item).addClass('fl-theme-builder-mega-menu-open');
-						$(item).stop();
-						$(subMenu).addClass('active');
-						$(subMenu).css({
-							'display': 'flex',
-							'visibility': 'visible',
-							'opacity': '1',
-							'margin-top': subMenuTopMargin,
-						});
-					}
-				} else {
-					var megaMenuOpen = $(menuContainer).find('.fl-theme-builder-mega-menu-open');
-					
-					if ( megaMenuOpen.length ) {
-						var subMenu = $(megaMenuOpen).find('.sub-menu').first();
-
-						$(megaMenuOpen).removeClass('fl-theme-builder-mega-menu-open');
-						$(subMenu).removeClass('active');
-						$(subMenu).hide();
-					}
-				}
-			});
-
-			menuItem.on('mouseleave', function( e ) {
-				var item               = $( e.currentTarget ),
-					menuContainer      = item.closest('.fl-menu'),
-					isFlyoutMenuActive = item.closest('.fl-menu-mobile-flyout').length,
-					toggleButtonActive = item.closest('.fl-module-menu').find('.fl-menu-mobile-toggle').is(':visible');
-
-				if ( isFlyoutMenuActive || toggleButtonActive ) {
-					return;
-				}
-
-				if ( ! item.is('.mega-menu') ) {
-					return;
-				}
-
-				var subMenu = item.find('.sub-menu').first();
-				if ( subMenu.length && e.offsetY < 0 ) {						
-					$(item).removeClass('fl-theme-builder-mega-menu-open');
-					$(subMenu).removeClass('active');
-					$(subMenu).hide();
-				}
-			});
 		},
 
 		/**
@@ -485,28 +409,6 @@
 		},
 
 		/**
-		 * Adjust mega menu top margin. This method is called to remove the gap 
-		 * from the mega menu if sticky + shrink header is scrolled.
-		 *
-		 * @since TBD
-		 * @access private
-		 * @method _adjustMegaMenuPosition
-		 * 
-		 */
-		_adjustMegaMenuPosition: function () {
-			var header          = this.header,
-			    megaMenu        = header.find( '.fl-module-menu .mega-menu' ),
-			    activeMenuPanel = megaMenu.find( 'ul.sub-menu.active' );
-			
-			if ( activeMenuPanel.length ) {
-				setTimeout(function () {
-					var subMenuTopMargin = $( header ).offset().top + $( header ).outerHeight() - $( megaMenu ).offset().top - $( megaMenu ).outerHeight();
-					$( activeMenuPanel ).css( 'margin-top', subMenuTopMargin );	
-				}, 500);
-			}
-		},
-
-		/**
 		 * Adjust sticky header width if BB Theme Boxed Layout is used.
 		 *
 		 * @since 1.4
@@ -679,12 +581,10 @@
 							module.addClass( 'fl-theme-builder-header-shrink-module-top' );
 						}
 					} );
-					this._adjustMegaMenuPosition();
 				}
 			} else if (hasClass) {
 				this.header.find( 'img' ).css( 'max-height', '' );
 				this._removeShrink();
-				this._adjustMegaMenuPosition();
 			}
 
 			// Fixes Shrink header issue with BB Theme when window is scrolled then resized and back.

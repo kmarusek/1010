@@ -1,3 +1,9 @@
+<h4>1.4.2.2 - 07/28/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix Mega Menu position issues and it not closing properly when hovering</li>
+</ul>
+
 <h4>1.4.2.1 - 6/30/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
