@@ -48,7 +48,7 @@ if ( ! class_exists( 'FLBuilderLoader' ) ) {
 		 * @return void
 		 */
 		static private function define_constants() {
-			define( 'FL_BUILDER_VERSION', '2.5.4.3' );
+			define( 'FL_BUILDER_VERSION', '2.5.5.2' );
 			define( 'FL_BUILDER_FILE', trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'fl-builder.php' );
 			define( 'FL_BUILDER_DIR', plugin_dir_path( FL_BUILDER_FILE ) );
 			define( 'FL_BUILDER_URL', esc_url( plugins_url( '/', FL_BUILDER_FILE ) ) );
@@ -130,6 +130,9 @@ if ( ! class_exists( 'FLBuilderLoader' ) ) {
 			if ( file_exists( FL_BUILDER_DIR . 'includes/updater/updater.php' ) ) {
 				require_once FL_BUILDER_DIR . 'includes/updater/updater.php';
 			}
+
+			/* notices */
+			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-admin-notices.php';
 		}
 
 		/**

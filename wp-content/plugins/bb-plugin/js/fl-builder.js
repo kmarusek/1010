@@ -4450,6 +4450,9 @@
 			actions.deleteNode( id );
 
 			e.stopPropagation();
+
+			// Trigger the col-deleted hook.
+			FLBuilder.triggerHook( 'col-deleted' );
 		},
 
 		/**
@@ -9032,7 +9035,30 @@
 
 			if ( value.indexOf( 'family' ) > -1 ) {
 
-				value = FLBuilder._jsonParse( value );
+				var value = FLBuilder._jsonParse( value );
+				var valid = false;
+
+				fonts = FLBuilderFontFamilies;
+
+				Object.keys(fonts.system).forEach(function(name){
+					if ( name === value.family ) {
+						valid = true
+					}
+				});
+
+				Object.keys(fonts.google).forEach(function(name){
+					if ( name === value.family ) {
+						valid = true
+					}
+				});
+
+				if ( ! valid && 'Default' !== value.family ) {
+					value = {
+						'family' : 'Default',
+						'weight' : '400'
+					};
+				}
+
 				font.val( value.family );
 				font.trigger( 'change' );
 
@@ -9065,7 +9091,7 @@
 					.filter(function (i, o) { return o.value === font; })
 					.length > 0;
 
-				if ( false === exists ) {
+				if ( false === exists && 'Default' !== font ) {
 						currentFont.closest( '.fl-font-field' ).find( '.recent-fonts' ).append( $('<option>', {
 							value: font,
 							text: font

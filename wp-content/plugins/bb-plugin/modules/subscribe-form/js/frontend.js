@@ -90,7 +90,8 @@
 				reCaptchaValue = recaptcha.data( 'fl-grecaptcha-response' ),
 				re             = /\S+@\S+\.\S+/,
 				valid          = true,
-				ajaxData       = null;
+				ajaxData       = null,
+				nonce          = currentForm.find('#fl-subscribe-form-nonce').val();
 
 			e.preventDefault();
 
@@ -162,7 +163,8 @@
 					post_id          : postId,
 					template_id      : templateId,
 					template_node_id : templateNodeId,
-					node_id          : nodeId
+					node_id          : nodeId,
+					nonce            : nonce
 				};
 
 				if ( reCaptchaValue ) {

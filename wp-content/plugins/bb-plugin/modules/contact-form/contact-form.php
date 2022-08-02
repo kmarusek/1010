@@ -180,7 +180,7 @@ class FLContactFormModule extends FLBuilderModule {
 			'message' => __( 'Message failed. Please try again.', 'fl-builder' ),
 		);
 
-		if ( $node_id ) {
+		if ( $node_id && check_admin_referer( 'fl-contact-form-nonce', 'nonce' ) ) {
 
 			// Get the module settings.
 			if ( $template_id ) {

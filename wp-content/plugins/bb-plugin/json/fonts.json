@@ -84,6 +84,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Albert Sans": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Aldrich": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -245,11 +250,6 @@
   }
 }, {
   "Andika": {
-    "variants": ["regular"],
-    "fallback": "sans-serif"
-  }
-}, {
-  "Andika New Basic": {
     "variants": ["regular", "italic", "700", "700italic"],
     "fallback": "sans-serif"
   }
@@ -392,6 +392,11 @@
   "Aref Ruqaa": {
     "variants": ["regular", "700"],
     "fallback": "serif"
+  }
+}, {
+  "Arima": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700"],
+    "fallback": "sans-serif"
   }
 }, {
   "Arima Madurai": {
@@ -894,6 +899,16 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Blaka": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Blaka Hollow": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Blinker": {
     "variants": ["100", "200", "300", "regular", "600", "700", "800", "900"],
     "fallback": "sans-serif"
@@ -1179,6 +1194,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Charis SIL": {
+    "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "serif"
+  }
+}, {
   "Charm": {
     "variants": ["regular", "700"],
     "fallback": "cursive"
@@ -1370,7 +1390,7 @@
   }
 }, {
   "Cormorant": {
-    "variants": ["300", "300italic", "regular", "italic", "500", "500italic", "600", "600italic", "700", "700italic"],
+    "variants": ["300", "regular", "500", "600", "700", "300italic", "italic", "500italic", "600italic", "700italic"],
     "fallback": "serif"
   }
 }, {
@@ -1441,6 +1461,11 @@
 }, {
   "Crimson Pro": {
     "variants": ["200", "300", "regular", "500", "600", "700", "800", "900", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Crimson Text": {
+    "variants": ["regular", "italic", "600", "600italic", "700", "700italic"],
     "fallback": "serif"
   }
 }, {
@@ -1679,6 +1704,31 @@
     "fallback": "serif"
   }
 }, {
+  "Edu NSW ACT Foundation": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "cursive"
+  }
+}, {
+  "Edu QLD Beginner": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "cursive"
+  }
+}, {
+  "Edu SA Beginner": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "cursive"
+  }
+}, {
+  "Edu TAS Beginner": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "cursive"
+  }
+}, {
+  "Edu VIC WA NT Beginner": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "cursive"
+  }
+}, {
   "El Messiri": {
     "variants": ["regular", "500", "600", "700"],
     "fallback": "sans-serif"
@@ -1894,6 +1944,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Finlandica": {
+    "variants": ["regular", "500", "600", "700", "italic", "500italic", "600italic", "700italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Fira Code": {
     "variants": ["300", "regular", "500", "600", "700"],
     "fallback": "monospace"
@@ -2089,6 +2144,11 @@
     "fallback": "cursive"
   }
 }, {
+  "Gantari": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Gayathri": {
     "variants": ["100", "regular", "700"],
     "fallback": "sans-serif"
@@ -2109,12 +2169,17 @@
     "fallback": "sans-serif"
   }
 }, {
-  "Gentium Basic": {
+  "Gentium Book Basic": {
     "variants": ["regular", "italic", "700", "700italic"],
     "fallback": "serif"
   }
 }, {
-  "Gentium Book Basic": {
+  "Gentium Book Plus": {
+    "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Gentium Plus": {
     "variants": ["regular", "italic", "700", "700italic"],
     "fallback": "serif"
   }
@@ -2307,6 +2372,11 @@
   "Gugi": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Gulzar": {
+    "variants": ["regular"],
+    "fallback": "serif"
   }
 }, {
   "Gupter": {
@@ -2699,6 +2769,11 @@
     "fallback": "cursive"
   }
 }, {
+  "Joan": {
+    "variants": ["regular"],
+    "fallback": "serif"
+  }
+}, {
   "Jockey One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -2829,6 +2904,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Kantumruy Pro": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Karantina": {
     "variants": ["300", "regular", "700"],
     "fallback": "sans-serif"
@@ -2864,7 +2944,7 @@
     "fallback": "sans-serif"
   }
 }, {
-  "Kdam Thmor": {
+  "Kdam Thmor Pro": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -3626,6 +3706,11 @@
 }, {
   "Mina": {
     "variants": ["regular", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Mingzat": {
+    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
@@ -4949,6 +5034,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Nuosu SIL": {
+    "variants": ["regular"],
+    "fallback": "serif"
+  }
+}, {
   "Odibee Sans": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -5036,11 +5126,6 @@
 }, {
   "Oswald": {
     "variants": ["200", "300", "regular", "500", "600", "700"],
-    "fallback": "sans-serif"
-  }
-}, {
-  "Otomanopee One": {
-    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
@@ -5141,11 +5226,6 @@
 }, {
   "Palanquin Dark": {
     "variants": ["regular", "500", "600", "700"],
-    "fallback": "sans-serif"
-  }
-}, {
-  "Palette Mosaic": {
-    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
@@ -5485,7 +5565,7 @@
   }
 }, {
   "Radio Canada": {
-    "variants": ["300", "regular", "500", "600", "700"],
+    "variants": ["300", "regular", "500", "600", "700", "300italic", "italic", "500italic", "600italic", "700italic"],
     "fallback": "sans-serif"
   }
 }, {
@@ -5697,11 +5777,6 @@
   "Rochester": {
     "variants": ["regular"],
     "fallback": "cursive"
-  }
-}, {
-  "Rock 3D": {
-    "variants": ["regular"],
-    "fallback": "sans-serif"
   }
 }, {
   "Rock Salt": {
@@ -6069,11 +6144,6 @@
     "fallback": "serif"
   }
 }, {
-  "Shizuru": {
-    "variants": ["regular"],
-    "fallback": "sans-serif"
-  }
-}, {
   "Shojumaru": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -6289,9 +6359,19 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Splash": {
+    "variants": ["regular"],
+    "fallback": "cursive"
+  }
+}, {
   "Spline Sans": {
     "variants": ["300", "regular", "500", "600", "700"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Spline Sans Mono": {
+    "variants": ["300", "regular", "500", "600", "700", "300italic", "italic", "500italic", "600italic", "700italic"],
+    "fallback": "monospace"
   }
 }, {
   "Squada One": {
@@ -6459,6 +6539,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Tai Heritage Pro": {
+    "variants": ["regular", "700"],
+    "fallback": "serif"
+  }
+}, {
   "Tajawal": {
     "variants": ["200", "300", "regular", "500", "700", "800", "900"],
     "fallback": "sans-serif"
@@ -6551,6 +6636,46 @@
 }, {
   "Tinos": {
     "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Bangla": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Devanagari Hindi": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Devanagari Marathi": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Devanagari Sanskrit": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Gurmukhi": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Kannada": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Tamil": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Tiro Telugu": {
+    "variants": ["regular", "italic"],
     "fallback": "serif"
   }
 }, {
@@ -6917,16 +7042,6 @@
   "Yuji Boku": {
     "variants": ["regular"],
     "fallback": "serif"
-  }
-}, {
-  "Yuji Hentaigana Akari": {
-    "variants": ["regular"],
-    "fallback": "cursive"
-  }
-}, {
-  "Yuji Hentaigana Akebono": {
-    "variants": ["regular"],
-    "fallback": "cursive"
   }
 }, {
   "Yuji Mai": {

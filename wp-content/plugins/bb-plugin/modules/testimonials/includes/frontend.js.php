@@ -4,8 +4,8 @@
 	$('.fl-node-<?php echo $id; ?> .fl-slider-next').empty();
 	$('.fl-node-<?php echo $id; ?> .fl-slider-prev').empty();
 
-	// Create the slider.
-	$('.fl-node-<?php echo $id; ?> .fl-testimonials').bxSlider({
+	// Create the slider and assign an instance to a variable.
+	var testimonials = $('.fl-node-<?php echo $id; ?> .fl-testimonials').bxSlider({
 		autoStart : <?php echo $settings->auto_play; ?>,
 		auto : true,
 		adaptiveHeight: true,
@@ -47,5 +47,17 @@
 			$('.fl-node-<?php echo $id; ?> .fl-slider-prev').attr( 'aria-pressed', 'true' );
 		}
 	});
+
+	// Fix slider width not right when column is resized/deleted or when in responsive editing mode. 
+	if ( 'undefined' !== typeof( FLBuilder ) ) {
+		var reloadTestimonials = function() {
+			setTimeout( function(){
+				testimonials.reloadSlider();
+			}, 50 );
+		}
+		FLBuilder.addHook( 'responsive-editing-switched', reloadTestimonials );
+		FLBuilder.addHook( 'col-resize-drag', reloadTestimonials );
+		FLBuilder.addHook( 'col-deleted', reloadTestimonials );
+	}
 
 })(jQuery);

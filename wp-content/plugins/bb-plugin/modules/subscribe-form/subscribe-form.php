@@ -161,7 +161,7 @@ class FLSubscribeFormModule extends FLBuilderModule {
 			'url'     => false,
 		);
 
-		if ( $email && $node_id ) {
+		if ( $email && $node_id && check_admin_referer( 'fl-subscribe-form-nonce', 'nonce' ) ) {
 
 			// Get the module settings.
 			if ( $template_id ) {

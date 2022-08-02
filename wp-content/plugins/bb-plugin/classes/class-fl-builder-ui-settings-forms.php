@@ -695,6 +695,10 @@ class FLBuilderUISettingsForms {
 			$tabs = FLBuilderModel::$modules[ $form ]->form;
 		}
 
+		if ( empty( $tabs ) ) {
+			return $response;
+		}
+
 		// Get the form fields.
 		$fields = FLBuilderModel::get_settings_form_fields( $tabs );
 

@@ -213,7 +213,7 @@ final class FLBuilderServices {
 			if ( isset( $data['file'] ) && file_exists( $data['file'] ) ) {
 				require_once $data['file'];
 			} else {
-				require_once FL_BUILDER_DIR . 'classes/class-fl-builder-service-' . $service . '.php';
+				require_once FL_BUILDER_DIR . 'classes/class-fl-builder-service-' . basename( $service ) . '.php';
 			}
 		}
 

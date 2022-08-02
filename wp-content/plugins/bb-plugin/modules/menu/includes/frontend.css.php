@@ -50,21 +50,9 @@ if ( 'horizontal' === $settings->menu_layout ) {
 		'settings'     => $settings,
 		'setting_name' => 'menu_align',
 		'selector'     => ".fl-node-$id .fl-menu .menu",
-		'prop'         => 'float',
-		'ignore'       => array( 'center' ),
+		'prop'         => 'justify-content',
 	) );
 
-	FLBuilderCSS::responsive_rule( array(
-		'settings'     => $settings,
-		'setting_name' => 'menu_align',
-		'selector'     => ".fl-node-$id .fl-menu .menu",
-		'props'        => array(
-			'float'          => 'none',
-			'display'        => 'inline-block',
-			'vertical-align' => 'top',
-		),
-		'ignore'       => array( 'left', 'right' ),
-	) );
 }
 
 

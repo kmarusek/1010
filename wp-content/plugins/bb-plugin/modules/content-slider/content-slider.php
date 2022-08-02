@@ -64,12 +64,6 @@ class FLContentSliderModule extends FLBuilderModule {
 			) );
 
 		}
-
-		// shuffle the slide as earliest
-		if ( isset( $settings->shuffle ) && '1' === $settings->shuffle && ! FLBuilderModel::is_builder_active() ) {
-			shuffle( $settings->slides );
-		}
-
 		return $settings;
 	}
 
@@ -85,7 +79,7 @@ class FLContentSliderModule extends FLBuilderModule {
 		}
 
 		// Background link
-		if ( ! empty( $slide->link ) && ( 'photo' == $slide->bg_layout || 'color' == $slide->bg_layout ) ) {
+		if ( ! empty( $slide->link ) && ( 'photo' == $slide->bg_layout || 'color' == $slide->bg_layout ) && 'none' == $slide->cta_type ) {
 			echo '<a class="fl-slide-bg-link" href="' . esc_attr( $slide->link ) . '" target="' . $slide->link_target . '" aria-label="' . esc_attr( $slide->title ) . '"></a>';
 		}
 	}

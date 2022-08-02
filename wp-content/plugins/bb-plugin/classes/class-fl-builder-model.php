@@ -417,10 +417,10 @@ final class FLBuilderModel {
 
 			if ( ! empty( self::$post_id ) ) {
 				// Get a post ID from the internal $post_id array if not empty.
-				return self::$post_id[0];
+				return (int) self::$post_id[0];
 			} elseif ( isset( $post_data['post_id'] ) ) {
 				// Get a post ID from an AJAX request.
-				return $post_data['post_id'];
+				return (int) $post_data['post_id'];
 			}
 		}
 
@@ -430,10 +430,10 @@ final class FLBuilderModel {
 
 		if ( in_the_loop() && is_main_query() && isset( $wp_the_query->post ) && $wp_the_query->post instanceof WP_Post ) {
 			// Get a post ID from the main query.
-			return $wp_the_query->post->ID;
+			return (int) $wp_the_query->post->ID;
 		} elseif ( $post instanceof WP_Post ) {
 			// Get a post ID in a query outside of the main loop.
-			return $post->ID;
+			return (int) $post->ID;
 		}
 
 		// No post ID found.
@@ -644,7 +644,10 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function disable() {
-		update_post_meta( self::get_post_id(), '_fl_builder_enabled', false );
+		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'fl-enable-editor' ) ) {
+			update_post_meta( self::get_post_id(), '_fl_builder_enabled', false );
+		}
+		exit;
 	}
 
 	/**
@@ -4047,7 +4050,14 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function save_settings( $node_id = null, $settings = null ) {
-		$node             = self::get_node( $node_id );
+		$node = self::get_node( $node_id );
+		if ( ! current_user_can( 'unfiltered_html' ) && true !== self::verify_settings( $settings ) ) {
+			return array(
+				'node_id'  => $node->node,
+				'settings' => $node->settings,
+				'layout'   => FLBuilderAJAXLayout::render(),
+			);
+		}
 		$new_settings     = (object) array_merge( (array) $node->settings, (array) $settings );
 		$template_post_id = self::is_node_global( $node );
 

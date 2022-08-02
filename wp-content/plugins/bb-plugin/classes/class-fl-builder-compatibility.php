@@ -56,6 +56,7 @@ final class FLBuilderCompatibility {
 		add_action( 'rest_api_init', array( __CLASS__, 'fix_rest_content' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_signify_theme_media' ), 11 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'hide_tribe_child_recurring_events' ) );
+		add_action( 'wp_print_scripts', array( __CLASS__, 'convert_box_bb' ), 20 );
 
 		// Filters
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'bp_pages_support' ), 11, 2 );
@@ -1294,6 +1295,15 @@ final class FLBuilderCompatibility {
 			return false;
 		}
 		return $enabled;
+	}
+
+	/**
+	 * @since 2.5.5
+	 */
+	public static function convert_box_bb() {
+		if ( class_exists( 'FLBuilderModel' ) && ( FLBuilderModel::is_builder_active() ) ) {
+			remove_action( 'wp_head', 'convbox_head_script' );
+		}
 	}
 }
 FLBuilderCompatibility::init();

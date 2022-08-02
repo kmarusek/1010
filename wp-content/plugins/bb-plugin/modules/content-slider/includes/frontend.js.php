@@ -1,5 +1,19 @@
 (function($) {
 
+	<?php if ( isset( $settings->shuffle ) && '1' === $settings->shuffle && ! FLBuilderModel::is_builder_active() ) : ?>
+		$.fn.randomize = function(childElem) {
+			return this.each(function() {
+				var $this = $(this);
+				var elems = $this.children(childElem);
+				elems.sort(() => Math.random() - 0.5)
+				$this.detach(childElem)
+				for(var i=0; i < elems.length; i++)
+				$this.append(elems[i])
+			});
+		}
+		$('.fl-node-<?php echo $id; ?> .fl-content-slider-wrapper').randomize('.fl-slide');
+	<?php endif; ?>
+
 	$(function() {
 		var sliderIndex = 'undefined' === typeof FLBuilder ? false : FLBuilder.getSandbox('sliderIndex'),
 			autoPlay    = <?php echo $settings->auto_play; ?>,

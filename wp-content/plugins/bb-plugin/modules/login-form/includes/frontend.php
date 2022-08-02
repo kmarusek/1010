@@ -21,7 +21,7 @@
 		<?php if ( isset( $settings->remember ) && 'yes' === $settings->remember ) : ?>
 		<div class="fl-input-field fl-remember-checkbox">
 			<label for="fl-login-checkbox-<?php echo $id; ?>">
-				<input type="checkbox" name="fl-login-form-remember" value="1" /><span class="fl-remember-checkbox-text"><?php _e( 'Remember me', 'fl-builder' ); ?></span>
+				<input id="fl-login-checkbox-<?php echo $id; ?>" type="checkbox" name="fl-login-form-remember" value="1" aria-label="rememberme" /><span class="fl-remember-checkbox-text"><?php _e( 'Remember me', 'fl-builder' ); ?></span>
 			</label>
 		</div>
 		<?php endif; ?>

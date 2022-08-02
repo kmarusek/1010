@@ -322,7 +322,7 @@ body .fl-dimension-field-units > *:last-child > input {
 	margin-left: 0!important;
 	margin-right: 2px!important;
 }
-
+.fl-builder--revision-actions select,
 .fl-builder-settings-fields select {
 	background: url(../img/svg/select-arrow-down-alt2.svg) center left 10px no-repeat #fff!important;
 	padding-left: 30px!important;
@@ -442,10 +442,6 @@ body .fl-dimension-field-units > *:last-child > input {
 .fl-revision-list-item-text {
 	padding-right: 15px;
 	padding-left:0;
-}
-.fl-builder--revision-actions * {
-	margin-right:0;
-	margin-left: 5px;
 }
 .fl-block-col-resize-w {
 	left:auto;

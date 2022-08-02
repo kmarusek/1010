@@ -1,6 +1,7 @@
 <div class="fl-builder-admin">
 	<?php if ( FLBuilderUserAccess::current_user_can( 'builder_access' ) ) : ?>
 	<div class="fl-builder-admin-tabs">
+		<?php wp_nonce_field( 'fl-enable-editor', '_fl_enable_editor' ); ?>
 		<a href="javascript:void(0);" onclick="return false;" class="fl-enable-editor<?php echo ( ! $enabled ) ? ' fl-active' : ''; ?>"><?php _e( 'Text Editor', 'fl-builder' ); ?></a>
 		<a href="javascript:void(0);" onclick="return false;" class="fl-enable-builder<?php echo ( $enabled ) ? ' fl-active' : ''; ?>"><?php echo FLBuilderModel::get_branding(); ?></a>
 	</div>

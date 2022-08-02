@@ -113,6 +113,13 @@ final class FLBuilderFonts {
 		$google_fonts = apply_filters( 'fl_builder_font_families_google', FLBuilderFontFamilies::google() );
 		$recent_fonts = get_option( 'fl_builder_recent_fonts', array() );
 
+		// Check if font is valid
+		foreach ( $recent_fonts as $name => $variants ) {
+			if ( ! array_key_exists( $name, $google_fonts ) && ! array_key_exists( $name, $system_fonts ) ) {
+				unset( $recent_fonts[ $name ] );
+			}
+		}
+
 		echo '<option value="Default" ' . selected( 'Default', $font, false ) . '>' . __( 'Default', 'fl-builder' ) . '</option>';
 
 		if ( is_array( $recent_fonts ) && ! empty( $recent_fonts ) ) {

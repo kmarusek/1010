@@ -329,6 +329,7 @@ button.fl-builder-button:focus {
 	background: #E4E7EA;
 	border:2px solid #00A0D0 !important;
 }
+button.fl-builder-button-primary,
 .fl-builder-button-primary,
 body.fl-builder--layout-has-drafted-changes .fl-builder-done-button {
 	background: #00A0D2;
@@ -3478,7 +3479,7 @@ form.fl-builder-settings {
 
 /* Slim - Gradient */
 .fl-lightbox-width-slim .fl-gradient-picker-color-row {
-	width: 50%;
+	flex-basis: calc(50% - 15px / 2);
 }
 .fl-lightbox-width-slim .fl-color-picker.fl-gradient-picker-color {
 	width: 100%;
@@ -3905,6 +3906,7 @@ body .fl-lightbox-has-tab-overflow .fl-builder-settings-tabs-more {
 .fl-builder-settings-fields input[type=tel],
 .fl-builder-settings-fields input[type=url],
 .fl-builder-settings-fields input[type=date],
+.fl-builder--revision-actions select,
 .fl-builder-settings-fields select {
 	background: #fff !important;
 	border-color: transparent !important;
@@ -3981,6 +3983,7 @@ body .fl-lightbox-has-tab-overflow .fl-builder-settings-tabs-more {
 	margin-bottom:3px;
 	font-size:12px;
 }
+.fl-builder--revision-actions select,
 .fl-builder-settings-fields select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -3991,6 +3994,16 @@ body .fl-lightbox-has-tab-overflow .fl-builder-settings-tabs-more {
 	padding: 2px 10px;
 	padding-right:30px !important;
 	background: white url("../img/svg/select-arrow-down-alt2.svg") no-repeat center right 10px !important;
+}
+.fl-builder--revision-actions select {
+	background-color: #e6eaed !important;
+	cursor: pointer;
+}
+.fl-builder--revision-actions select,
+.fl-builder--revision-actions button.fl-builder-button,
+.fl-builder--revision-actions button.fl-builder-button:hover {
+	margin-bottom: 0;
+	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 12%);
 }
 .fl-builder-settings-fields select[multiple] {
 	height: 60px;
@@ -4265,38 +4278,24 @@ i.fl-field-responsive-toggle:hover {
 /* Gradient Picker */
 .fl-gradient-picker-type {
 	display: flex;
+	gap: 8px;
 	margin-bottom: 15px;
 }
 .fl-gradient-picker-type input {
 	margin: 0 !important;
 }
 .fl-gradient-picker-type select {
-	margin-bottom: 0 !important;
-}
-.fl-gradient-picker-type-select {
-	margin-right: 10px !important;
+	margin-bottom: 0;
 }
 .fl-gradient-picker-colors {
 	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
 }
 .fl-gradient-picker-color-row {
+	flex: 0 0 auto;
 	display: flex;
-	margin-right: 15px;
-}
-.fl-gradient-picker-color-row:last-child {
-	margin-right: 0;
-}
-.fl-color-picker.fl-gradient-picker-color {
-    margin-right: 0;
-}
-.fl-color-picker.fl-gradient-picker-color .fl-color-picker-color {
-	border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
-.fl-gradient-picker .fl-gradient-picker-stop input {
-	border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-	margin: 0 !important;
+	gap: 8px;
 }
 
 /* Dimension Field */
@@ -5133,6 +5132,20 @@ span.select2-container.select2-container--open {
     text-align: center;
     opacity: 0.5;
 }
+/* fix for TwentyTwentyOne */
+.fl-link-field-options-wrap input[type=checkbox] {
+	-webkit-appearance: checkbox;
+	width: auto;
+	height: auto;
+	border: none;
+}
+
+.fl-link-field-options-wrap input[type=checkbox]:focus {
+	outline: none;
+}
+.fl-link-field-options-wrap input[type=checkbox]:after {
+	border: none;
+}
 .fl-link-field-search {
 	display: none;
 	border: 2px solid #e6eaed;
@@ -5959,6 +5972,7 @@ body > .fl-builder-tour-dimmed {
 .fl-builder--revision-actions {
 	display:none;
 	position: fixed;
+	gap: 4px;
 	top: 4px;
     left: 4px;
     z-index: 100008;
@@ -5966,12 +5980,6 @@ body > .fl-builder-tour-dimmed {
     justify-content: center;
 	background:white;
 	border-radius: 4px;
-}
-.fl-builder--revision-actions * {
-    margin-right: 5px;
-}
-.fl-builder--revision-actions *:last-child {
-    margin: 0;
 }
 
 /* No revisions message */

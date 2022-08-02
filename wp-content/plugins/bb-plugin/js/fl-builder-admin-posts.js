@@ -47,8 +47,11 @@
 				$('.fl-builder-admin-tabs a').removeClass('fl-active');
 				$(this).addClass('fl-active');
 
+				_wpnonce = $('.fl-builder-admin-tabs').find('#_fl_enable_editor').val();
+
 				FLBuilderAdminPosts.ajax({
 					action: 'fl_builder_disable',
+					_wpnonce: _wpnonce
 				}, FLBuilderAdminPosts._enableEditorComplete);
 			}
 		},

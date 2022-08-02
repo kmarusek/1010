@@ -16,6 +16,11 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-builder-panel.fl-builder-ui-pinned .fl-builder--panel-header {
     border-top-color: #1d2227;
 }
+.fl-builder-ui-skin--dark .fl-builder--revision-actions select {
+    color: #c6cdd6 !important;
+    background-color: #2c333a !important;
+    background-image: url( "../img/svg/select-arrow-down-alt2-light.svg" ) !important;
+}
 /* Panel arrows */
 .fl-builder-ui-skin--dark .fl-builder--main-menu-panel:before {
     border-bottom-color:#1d1d1d;

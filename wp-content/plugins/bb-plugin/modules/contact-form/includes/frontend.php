@@ -19,6 +19,7 @@ $contact_form_fields = apply_filters( 'fl_builder_contact_form_fields', array(
 
 ?>
 <form class="fl-contact-form" <?php if ( isset( $module->template_id ) ) { echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"';} ?>><?php // @codingStandardsIgnoreLine ?>
+	<?php wp_nonce_field( 'fl-contact-form-nonce', 'fl-contact-form-nonce' ); ?>
 	<input type="hidden" name="fl-layout-id" value="<?php echo $post->ID; ?>" />
 	<?php if ( 'show' == $settings->name_toggle ) : ?>
 	<div class="fl-input-group fl-name">
