@@ -35,7 +35,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_border',
-		'selector'     => ".fl-node-$id .pp-author-box-button .pp-author-archive-btn",
+		'selector'     => ".fl-node-$id .pp-authorbox-button .pp-author-archive-btn",
 	)
 );
 FLBuilderCSS::typography_field_rule(
@@ -56,7 +56,7 @@ FLBuilderCSS::typography_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_typography',
-		'selector'     => ".fl-node-$id .pp-author-box-button",
+		'selector'     => ".fl-node-$id .pp-authorbox-button",
 	)
 );
 FLBuilderCSS::responsive_rule(
@@ -92,7 +92,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_padding',
-		'selector'     => ".fl-node-$id .pp-author-box-button .pp-author-archive-btn",
+		'selector'     => ".fl-node-$id .pp-authorbox-button .pp-author-archive-btn",
 		'unit'         => 'px',
 		'props'        => array(
 			'padding-top'    => 'button_padding_top',
@@ -108,7 +108,7 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_padding',
-		'selector'     => ".fl-node-$id .pp-author-box-button .pp-author-archive-btn",
+		'selector'     => ".fl-node-$id .pp-authorbox-button .pp-author-archive-btn",
 		'prop'         => 'padding',
 		'unit'         => 'px',
 	)
@@ -118,7 +118,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_margin',
-		'selector'     => ".fl-node-$id .pp-author-box-button .pp-author-archive-btn",
+		'selector'     => ".fl-node-$id .pp-authorbox-button .pp-author-archive-btn",
 		'unit'         => 'px',
 		'props'        => array(
 			'margin-top'    => 'button_margin_top',
@@ -133,7 +133,7 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'button_margin',
-		'selector'     => ".fl-node-$id .pp-author-box-button .pp-author-archive-btn",
+		'selector'     => ".fl-node-$id .pp-authorbox-button .pp-author-archive-btn",
 		'prop'         => 'margin',
 		'unit'         => 'px',
 	)
@@ -251,7 +251,6 @@ FLBuilderCSS::responsive_rule(
 		'unit'         => 'px',
 	)
 );
-
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-authorbox-wrapper {
@@ -268,11 +267,11 @@ FLBuilderCSS::responsive_rule(
 	?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-author-box-button .pp-author-archive-btn {
+.fl-node-<?php echo $id; ?> .pp-authorbox-button .pp-author-archive-btn {
 	background-color: <?php echo pp_get_color_value( $settings->button_bg_color ); ?> ;
 	color: <?php echo pp_get_color_value( $settings->button_text_color ); ?> ;
 }
-.fl-node-<?php echo $id; ?> .pp-author-box-button .pp-author-archive-btn:hover {
+.fl-node-<?php echo $id; ?> .pp-authorbox-button .pp-author-archive-btn:hover {
 	background-color: <?php echo pp_get_color_value( $settings->button_hover_bg_color ); ?> ;
 	color: <?php echo pp_get_color_value( $settings->button_hover_text_color ); ?> ;
 	border-color: <?php echo pp_get_color_value( $settings->button_hover_border_color ); ?> ;
@@ -295,6 +294,58 @@ FLBuilderCSS::responsive_rule(
 	background-color: <?php echo pp_get_color_value( $settings->authorbox_bg_color ); ?> ;
 	<?php } ?>
 }
+
+<?php
+// Social Icons - Size.
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'social_icons_size',
+		'selector'     => ".fl-node-$id .pp-author-social-link a",
+		'prop'         => 'font-size',
+		'unit'         => 'px',
+		'enabled'      => isset( $settings->social_icons ) && 'yes' === $settings->social_icons,
+	)
+);
+
+// Social Icons - Horizontal spacing.
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'social_icons_spacing_right',
+		'selector'     => ".fl-node-$id .pp-author-social-link",
+		'prop'         => 'margin-right',
+		'unit'         => 'px',
+		'enabled'      => isset( $settings->social_icons ) && 'yes' === $settings->social_icons,
+	)
+);
+
+// Social Icons - Vertical spacing.
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'social_icons_spacing_top',
+		'selector'     => ".fl-node-$id .pp-author-social-link",
+		'prop'         => 'margin-top',
+		'unit'         => 'px',
+		'enabled'      => isset( $settings->social_icons ) && 'yes' === $settings->social_icons,
+	)
+);
+?>
+
+<?php if ( isset( $settings->social_icons ) && 'yes' === $settings->social_icons ) { ?>
+	<?php if ( ! empty( $settings->social_icons_color ) ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-author-social-link a {
+		color: #<?php echo $settings->social_icons_color; ?>;
+	}
+	<?php } ?>
+
+	<?php if ( ! empty( $settings->social_icons_hover_color ) ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-author-social-link a:hover {
+		color: #<?php echo $settings->social_icons_hover_color; ?>;
+	}
+	<?php } ?>
+<?php } ?>
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 

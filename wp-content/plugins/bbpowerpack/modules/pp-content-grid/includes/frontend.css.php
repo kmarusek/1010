@@ -305,8 +305,11 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-more-link-button,
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-more-link-button:visited,
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-add-to-cart a,
-.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form .tribe-button {
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-add-to-cart a:visited,
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form .tribe-button,
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form .tribe-button:visited {
 	<?php if((isset( $settings->more_link_type ) && $settings->more_link_type == 'button') || (isset($settings->product_button) && $settings->product_button == 'yes') ) { ?>
 		
 		<?php if ( isset( $settings->button_bg_color ) && ! empty( $settings->button_bg_color ) ) { ?>

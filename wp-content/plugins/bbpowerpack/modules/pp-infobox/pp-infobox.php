@@ -34,6 +34,12 @@ class PPInfoBoxModule extends FLBuilderModule {
 			$enqueue = true;
 		}
 
+		if ( isset( $settings->pp_infobox_link_type ) && in_array( $settings->pp_infobox_link_type, array( 'button', 'button+title' ) )  ) {
+			if ( ! empty( $settings->button_icon ) ) {
+				$enqueue = true;
+			}
+		}
+
 		if ( $enqueue && is_callable( 'parent::enqueue_icon_styles' ) ) {
 			parent::enqueue_icon_styles();
 		}
@@ -100,10 +106,10 @@ class PPInfoBoxModule extends FLBuilderModule {
 		), 'box_border' );
 
 		// Handle old box padding fields.
-		if ( isset( $settings->padding_top ) && ! isset( $settings->padding_bottom ) ) {
+		if ( isset( $settings->padding_top ) && ( ! isset( $settings->padding_bottom ) || '' === $settings->padding_bottom ) ) {
 			$settings->padding_bottom = $settings->padding_top;
 		}
-		if ( isset( $settings->padding_left ) && ! isset( $settings->padding_right ) ) {
+		if ( isset( $settings->padding_left ) && ( ! isset( $settings->padding_right ) || '' === $settings->padding_right ) ) {
 			$settings->padding_right = $settings->padding_left;
 		}
 
@@ -807,7 +813,6 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 					'padding'    => array(
 						'type'       => 'dimension',
 						'label'      => __( 'Padding', 'bb-powerpack' ),
-						'default'    => 20,
 						'units'      => array( 'px' ),
 						'slider'     => true,
 						'responsive' => true,

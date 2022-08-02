@@ -70,25 +70,25 @@ if ( 'yes' === $settings->enable_tour && 'yes' === $settings->non_active_marker 
 								<span class="pp-tour">
 									<ul>
 										<li>
-											<a class="pp-prev" data-tooltipid="<?php echo ( $i + 1 ); ?>">
+											<a class="pp-prev" data-tooltipid="<?php echo ( $i + 1 ); ?>" href="javascript:void(0)">
 											<?php if ( 'icon' === $settings->navigation_type ) { ?>
 												<i class='<?php echo isset( $settings->pre_icon ) ? $settings->pre_icon : 'fas fa-angle-double-left'; ?>'></i>
 											<?php } elseif ( 'text' === $settings->navigation_type ) { ?>
-												<?php echo isset( $settings->pre_text ) ? $settings->pre_text : 'Previous'; ?>
+												<?php echo isset( $settings->pre_text ) ? $settings->pre_text : __( 'Previous', 'bb-powerpack' ); ?>
 											<?php } else { ?>
 												<i class='<?php echo isset( $settings->pre_icon ) ? $settings->pre_icon : 'fas fa-angle-double-left'; ?>'></i>
-												<?php echo isset( $settings->pre_text ) ? $settings->pre_text : 'Previous'; ?>
+												<?php echo isset( $settings->pre_text ) ? $settings->pre_text : __( 'Previous', 'bb-powerpack' ); ?>
 											<?php } ?>
 											</a>
 										</li>
 										<li>
-											<a class="pp-next" data-tooltipid="<?php echo ( $i + 1 ); ?>">
+											<a class="pp-next" data-tooltipid="<?php echo ( $i + 1 ); ?>" href="javascript:void(0)">
 											<?php if ( 'icon' === $settings->navigation_type ) { ?>
 												<i class='<?php echo isset( $settings->next_icon ) ? $settings->next_icon : 'fas fa-angle-double-right'; ?>'></i>
 											<?php } elseif ( 'text' === $settings->navigation_type ) { ?>
-												<?php echo isset( $settings->next_text ) ? $settings->next_text : 'Next'; ?>
+												<?php echo isset( $settings->next_text ) ? $settings->next_text : __( 'Next', 'bb-powerpack' ); ?>
 											<?php } else { ?>
-												<?php echo isset( $settings->next_text ) ? $settings->next_text : 'Next'; ?>
+												<?php echo isset( $settings->next_text ) ? $settings->next_text : __( 'Next', 'bb-powerpack' ); ?>
 												<i class='<?php echo isset( $settings->next_icon ) ? $settings->next_icon : 'fas fa-angle-double-right'; ?>'></i>
 											<?php } ?>
 											</a>
@@ -100,8 +100,8 @@ if ( 'yes' === $settings->enable_tour && 'yes' === $settings->non_active_marker 
 										<li>
 											<?php if ( 'yes' === $settings->repeat_tour ) { ?>
 												<span class="pp-hotspot-end">
-													<a class="pp-tour-end">
-														<?php echo isset( $settings->end_text ) ? $settings->end_text : 'End Tour'; ?>
+													<a class="pp-tour-end" href="javascript:void(0)">
+														<?php echo isset( $settings->end_text ) ? $settings->end_text : __( 'End Tour', 'bb-powerpack' ); ?>
 													</a>
 												</span>
 											<?php } ?>

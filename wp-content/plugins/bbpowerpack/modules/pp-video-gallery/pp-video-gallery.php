@@ -281,7 +281,7 @@ BB_PowerPack::register_module('PPVideoGalleryModule', array(
 					),
 					'aspect_ratio'	=> array(
 						'type'			=> 'select',
-						'label'			=> __( 'Aspect Ratio', 'bb-powerpack' ),
+						'label'			=> __( 'Video Aspect Ratio', 'bb-powerpack' ),
 						'default' 		=> '169',
 						'options' 		=> array(
 							'169' 			=> '16:9',
@@ -328,7 +328,7 @@ BB_PowerPack::register_module('PPVideoGalleryModule', array(
 					),
 					'aspect_ratio_lightbox'	=> array(
 						'type'			=> 'select',
-						'label'			=> __( 'Aspect Ratio in Lightbox', 'bb-powerpack' ),
+						'label'			=> __( 'Video Aspect Ratio in Lightbox', 'bb-powerpack' ),
 						'default' 		=> 'default',
 						'options' 		=> array(
 							'default'       => __( 'Same as above', 'bb-powerpack' ),

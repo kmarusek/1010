@@ -280,7 +280,7 @@ function pp_column_separators_css( $css, $nodes, $global_settings ) {
                 background-image: linear-gradient(135deg, #<?php echo $column->settings->separator_color; ?> 25%, transparent 25%), linear-gradient(225deg, #<?php echo $column->settings->separator_color; ?> 25%, transparent 25%);
                 background-position: 50%;
             }
-            @media only screen and (max-width: 768px) {
+            @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
                 .fl-node-<?php echo $column->node; ?> .pp-col-separator {
                     <?php if ( 'no' == $column->settings->separator_tablet ) { ?>
                         display: none;
@@ -292,11 +292,13 @@ function pp_column_separators_css( $css, $nodes, $global_settings ) {
                     }
                 <?php } ?>
             }
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
                 .fl-node-<?php echo $column->node; ?> .pp-col-separator {
                     <?php if ( 'no' == $column->settings->separator_mobile ) { ?>
                         display: none;
-                    <?php } ?>
+                    <?php } else { ?>
+						display: block;
+					<?php } ?>
                 }
                 <?php if ( 'yes' == $column->settings->separator_mobile && $column->settings->separator_height_mobile > 0 ) { ?>
                     .fl-node-<?php echo $column->node; ?> .pp-col-separator svg {

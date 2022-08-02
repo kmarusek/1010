@@ -724,7 +724,7 @@ BB_PowerPack::register_module(
 								'1'             => __( 'Yes', 'bb-powerpack' ),
 								'0'             => __( 'No', 'bb-powerpack' )
 							),
-							'help'          => __( 'Choosing yes will keep only one item open at a time. Choosing no will allow multiple items to be open at the same time.', 'bb-powerpack' ),
+							'help'          => __( 'Enabling this option will keep only one item open at a time. Or it will allow multiple items to be open at the same time.', 'bb-powerpack' ),
 							'preview'       => array(
 								'type'          => 'none'
 							)

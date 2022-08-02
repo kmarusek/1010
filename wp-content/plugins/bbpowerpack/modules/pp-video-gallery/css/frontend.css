@@ -34,6 +34,7 @@
 	display: flex;
 	flex: 1 1 auto;
 	justify-content: flex-start;
+	flex-wrap: wrap;
 	margin-bottom: 20px;
 }
 .pp-video-gallery .pp-video-gallery-filter {

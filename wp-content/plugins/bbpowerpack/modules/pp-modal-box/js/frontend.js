@@ -320,7 +320,7 @@
                     }
 				   
 					// Adjust iframe height.
-                    if ( 'url' === self.type ) {
+                    if ( 'url' === self.type && self.element.find( '.pp-modal-video-embed' ).length === 0 ) {
                         self.element.find('.pp-modal-iframe').css('height', self.element.find('.pp-modal-content-inner').outerHeight() + 'px');
                     }
                     if ( 'video' === self.type ) {

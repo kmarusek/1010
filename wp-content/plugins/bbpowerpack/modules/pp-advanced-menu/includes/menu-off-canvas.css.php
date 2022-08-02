@@ -263,14 +263,16 @@ FLBuilderCSS::dimension_field_rule( array(
 	}
 <?php } ?>
 
-<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
-	@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
-<?php } ?>
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu.pp-menu-default {
-			display: none;
+<?php if ( 'expanded' !== $settings->mobile_toggle && 'off-canvas' === $settings->mobile_menu_type ) { ?>
+	<?php if ( 'always' !== $module->get_media_breakpoint() ) { ?>
+		@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
+	<?php } ?>
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu.pp-menu-default {
+				display: none;
+			}
+	<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
 		}
-<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
-	}
+	<?php } ?>
 <?php } ?>
 
 @media ( max-width: 1024px ) {

@@ -140,13 +140,15 @@ $img_url = apply_filters( 'pp_author_box_image_url', $img_url, $settings );
 
 				if ( 'show' == $settings->archive_btn ) {
 					?>
-					<div class="pp-author-box-button">
+					<div class="pp-authorbox-button">
 						<a class="pp-author-archive-btn" href="<?php echo $archive_url; ?>" target="<?php echo $archive_url_target; ?>" <?php echo $archive_nofollow; ?>>
 							<span><?php echo $settings->button_text; ?></span>
 						</a>
 					</div>
 					<?php
 				}
+
+				$module->render_social_icons();
 				?>
 			</div>
 		</div>

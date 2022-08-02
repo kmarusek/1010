@@ -176,14 +176,16 @@ FLBuilderCSS::dimension_field_rule( array(
 		<?php } ?>
 <?php } ?>
 
-<?php if ( $module->get_media_breakpoint() ) { ?>
+<?php if ( 'expanded' !== $settings->mobile_toggle && 'full-screen' === $settings->mobile_menu_type ) { ?>
+	<?php if ( 'always' !== $module->get_media_breakpoint() ) { ?>
 		@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
 	<?php } ?>
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu.pp-menu-default {
-			display: none;
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu.pp-menu-default {
+				display: none;
+			}
+	<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
 		}
-	<?php if ( $module->get_media_breakpoint() ) { ?>
-		}
+	<?php } ?>
 <?php } ?>
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {

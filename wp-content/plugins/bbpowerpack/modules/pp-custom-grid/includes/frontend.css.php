@@ -15,20 +15,23 @@
 }
 <?php endif; ?>
 <?php if ( $settings->match_height ) : ?>
-.fl-node-<?php echo $id; ?> .pp-custom-grid {
-	margin-left: -<?php echo $settings->post_spacing / 2; ?>px;
-	margin-right: -<?php echo $settings->post_spacing / 2; ?>px;
-}
-.fl-node-<?php echo $id; ?> .pp-custom-grid-column {
-	padding-bottom: <?php echo $settings->post_spacing; ?>px;
-	padding-left: <?php echo $settings->post_spacing / 2; ?>px;
-	padding-right: <?php echo $settings->post_spacing / 2; ?>px;
-	width: <?php echo 100 / $settings->post_columns; ?>%;
-}
+	<?php if ( '' !== $settings->post_spacing ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-custom-grid {
+		margin-left: -<?php echo $settings->post_spacing / 2; ?>px;
+		margin-right: -<?php echo $settings->post_spacing / 2; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-custom-grid-column {
+		padding-bottom: <?php echo $settings->post_spacing; ?>px;
+		padding-left: <?php echo $settings->post_spacing / 2; ?>px;
+		padding-right: <?php echo $settings->post_spacing / 2; ?>px;
+		width: <?php echo 100 / $settings->post_columns; ?>%;
+	}
+	<?php } ?>
 .fl-node-<?php echo $id; ?> .pp-custom-grid-column:nth-child(<?php echo $settings->post_columns; ?>n + 1) {
 	clear: both;
 }
 @media screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	<?php if ( '' !== $settings->post_columns_medium ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-custom-grid-column {
 		width: <?php echo 100 / $settings->post_columns_medium; ?>%;
 	}
@@ -38,8 +41,10 @@
 	.fl-node-<?php echo $id; ?> .pp-custom-grid-column:nth-child(<?php echo $settings->post_columns_medium; ?>n + 1) {
 		clear: both;
 	}
+	<?php } ?>
 }
 @media screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	<?php if ( '' !== $settings->post_columns_responsive ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-custom-grid-column {
 		width: <?php echo 100 / $settings->post_columns_responsive; ?>%;
 	}
@@ -49,6 +54,7 @@
 	.fl-node-<?php echo $id; ?> .pp-custom-grid-column:nth-child(<?php echo $settings->post_columns_responsive; ?>n + 1) {
 		clear: both;
 	}
+	<?php } ?>
 }
 <?php endif; ?>
 

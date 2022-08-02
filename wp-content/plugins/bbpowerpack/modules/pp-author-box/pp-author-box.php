@@ -27,6 +27,12 @@ class PPAuthorBoxModule extends FLBuilderModule {
 		);
 	}
 
+	public function enqueue_scripts() {
+		if ( isset( $settings->social_icons ) && 'yes' === $settings->social_icons && 'yes' === get_option( 'bb_powerpack_user_social_profile_urls' ) ) {
+			$this->add_css( 'font-awesome-5' );
+		}
+	}
+
 	public function render_link_tag( $link, $target = '_self', $tag_type = 'opening' ) {
 		if ( 'opening' === $tag_type ) {
 			if ( ! empty( $link ) ) {
@@ -50,6 +56,72 @@ class PPAuthorBoxModule extends FLBuilderModule {
 				<?php
 			}
 		}
+	}
+
+	public function render_social_icons() {
+		$settings   = $this->settings;
+		$author_id  = 0;
+
+		if ( ! in_array( $settings->source, array( 'current_author', 'other_author' ) ) ) {
+			return;
+		}
+
+		if ( ! isset( $settings->social_icons ) || 'yes' !== $settings->social_icons || 'yes' !== get_option( 'bb_powerpack_user_social_profile_urls' ) ) {
+			return;
+		}
+
+		if ( 'current_author' === $settings->source ) {
+			$author_id = get_the_author_meta( 'ID' );
+		}
+		if ( 'other_author' === $settings->source ) {
+			$author_username = $settings->other_author_name;
+			if ( empty( $author_username ) ) {
+				return;
+			}
+
+			$author    = get_user_by( 'login', $author_username );
+			$author_id = $author->ID;
+		}
+		if ( ! $author_id ) {
+			return;
+		}
+
+		$social_urls = get_user_meta( $author_id, 'bb_powerpack_user_social_profile', true );
+
+		/**
+		 * Allow filtering the value.
+		 * Example: array( 'facebook' => 'https://facebook.com/<user_account>', 'twitter' => 'https://twitter.com/<handle>' )
+		 */
+		$social_urls = apply_filters( 'pp_author_box_social_profile_urls', $social_urls, $settings );
+
+		if ( ! is_array( $social_urls ) || empty( $social_urls ) ) {
+			return;
+		}
+
+		$icon_prefix   = 'fa';
+		$enabled_icons = FLBuilderModel::get_enabled_icons();
+
+		if ( in_array( 'font-awesome-5-brands', $enabled_icons ) ) {
+			$icon_prefix = 'fab';
+		}
+		?>
+		<div class="pp-authorbox-social-wrap">
+			<ul class="pp-author-social-links">
+				<?php foreach ( $social_urls as $platform => $url ) {
+					if ( empty( trim( $url ) ) ) {
+						continue;
+					}
+					?>
+					<li class="pp-author-social-link social-platform-<?php echo $platform; ?>">
+						<a href="<?php echo $url; ?>" target="_blank" ref="noopener nofollow">
+							<i class="<?php echo $icon_prefix; ?> fa-<?php echo $platform; ?>"></i>
+							<span class="sr-only"><?php echo sprintf( esc_html__( 'Visit author\'s %s profile', 'bb-powerpack' ), str_replace( '-', ' ', $platform ) ); ?></span>
+						</a>
+					</li>
+				<?php } ?>
+			</ul>
+		</div>
+		<?php
 	}
 }
 
@@ -133,6 +205,7 @@ BB_PowerPack::register_module(
 				),
 				'link_to'     => array(
 					'title'  => __( 'Link', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'link_to'  => array(
 							'type'    => 'select',
@@ -167,6 +240,7 @@ BB_PowerPack::register_module(
 				),
 				'settings'    => array(
 					'title'  => __( 'Appearance', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'layout'          => array(
 							'type'    => 'pp-switch',
@@ -253,6 +327,7 @@ BB_PowerPack::register_module(
 				),
 				'archive'     => array(
 					'title'  => __( 'Archive Button', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'button_text' => array(
 							'type'    => 'text',
@@ -268,6 +343,23 @@ BB_PowerPack::register_module(
 							'show_target'   => true,
 							'show_nofollow' => true,
 							'connections'	=> array( 'url' ),
+						),
+					),
+				),
+				'social_icons' => array(
+					'title' => __( 'Social Icons', 'bb-powerpack' ),
+					'description' => sprintf( __( 'Please make sure you have enabled the social profile URLs under the <a href="%s" target="_blank">Extensions settings</a>. Once enabled please add social media URLs under the author/user profile.', 'bb-powerpack' ), BB_PowerPack_Admin_Settings::get_form_action( '&tab=extensions' ) ),
+					'collapsed' => true,
+					'fields'    => array(
+						'social_icons' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Display Social Icons', 'bb-powerpack' ),
+							'default' => 'no',
+							'toggle'  => array(
+								'yes'   => array(
+									'sections' => array( 'social_icons_style' ),
+								),
+							),
 						),
 					),
 				),
@@ -318,6 +410,7 @@ BB_PowerPack::register_module(
 				),
 				'img_style'         => array( // Section
 					'title'  => __( 'Profile Picture', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'img_position' => array(
 							'type'    => 'select',
@@ -382,6 +475,7 @@ BB_PowerPack::register_module(
 				),
 				'text_style'        => array( // Section
 					'title'  => __( 'Text', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'name_text_color' => array(
 							'type'       => 'color',
@@ -440,6 +534,7 @@ BB_PowerPack::register_module(
 				),
 				'button_style' => array( // Section
 					'title'  => __( 'Button', 'bb-powerpack' ), // Section Title
+					'collapsed' => true,
 					'fields' => array( // Section Fields
 						'button_border'             => array(
 							'type'       => 'border',
@@ -447,7 +542,7 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn',
 							),
 						),
 						'button_text_color'         => array(
@@ -459,7 +554,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn',
 								'property' => 'color',
 							),
 						),
@@ -472,7 +567,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn',
 								'property' => 'background-color',
 							),
 						),
@@ -485,7 +580,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn:hover',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn:hover',
 								'property' => 'color',
 							),
 						),
@@ -498,7 +593,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn:hover',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn:hover',
 								'property' => 'background-color',
 							),
 						),
@@ -511,7 +606,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn:hover',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn:hover',
 								'property' => 'border-color',
 							),
 						),
@@ -521,21 +616,20 @@ BB_PowerPack::register_module(
 							'units' 	=> array( 'px' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn',
 								'property' => 'padding',
 								'unit'     => 'px',
 							),
 							'responsive'  => true,
 							'slider'      => true,
 						),
-
 						'button_margin'   => array(
 							'type'        => 'dimension',
 							'label'       => __( 'Margin', 'bb-powerpack' ),
 							'units' 	=> array( 'px' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn',
 								'property' => 'margin',
 								'unit'     => 'px',
 							),
@@ -551,7 +645,80 @@ BB_PowerPack::register_module(
 						// ),
 					),
 				),
-
+				'social_icons_style' => array(
+					'title' => __( 'Social Icons', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields' => array(
+						'social_icons_color' => array(
+							'type'       => 'color',
+							'label'      => __( 'Color', 'bb-powerpack' ),
+							'default'    => '',
+							'show_reset' => true,
+							'show_alpha' => false,
+							'connections' => array( 'color' ),
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-author-social-link a',
+								'property' => 'color',
+							),
+						),
+						'social_icons_hover_color' => array(
+							'type'       => 'color',
+							'label'      => __( 'Hover Color', 'bb-powerpack' ),
+							'default'    => '',
+							'show_reset' => true,
+							'show_alpha' => false,
+							'connections' => array( 'color' ),
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-author-social-link a:hover',
+								'property' => 'color',
+							),
+						),
+						'social_icons_size' => array(
+							'type'       => 'unit',
+							'label'      => __( 'Size', 'bb-powerpack' ),
+							'default'    => '',
+							'units'      => array( 'px' ),
+							'responsive' => true,
+							'slider'     => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-author-social-link a',
+								'property' => 'font-size',
+								'unit'     => 'px',
+							),
+						),
+						'social_icons_spacing_right' => array(
+							'type'       => 'unit',
+							'label'      => __( 'Horizontal Spacing', 'bb-powerpack' ),
+							'default'    => '',
+							'units'      => array( 'px' ),
+							'responsive' => true,
+							'slider'     => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-author-social-link',
+								'property' => 'margin-right',
+								'unit'     => 'px',
+							),
+						),
+						'social_icons_spacing_top' => array(
+							'type'       => 'unit',
+							'label'      => __( 'Vertical Spacing', 'bb-powerpack' ),
+							'default'    => '',
+							'units'      => array( 'px' ),
+							'responsive' => true,
+							'slider'     => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-author-social-link',
+								'property' => 'margin-top',
+								'unit'     => 'px',
+							),
+						),
+					),
+				),
 			),
 		),
 		'authorbox_typography' => array( // Tab
@@ -613,7 +780,7 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-author-box-button .pp-author-archive-btn',
+								'selector' => '.pp-authorbox-button .pp-author-archive-btn',
 							),
 						),
 					),

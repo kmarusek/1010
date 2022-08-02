@@ -527,8 +527,7 @@ class PPImageModule extends FLBuilderModule {
 	protected function _get_editor() {
 		$type = $this->get_photo_type();
 
-		if ( $this->_has_source() && ( null === $this->_editor || $type !== $this->_editor->_photo_type ) ) {
-
+		if ( $this->_has_source() && ( null === $this->_editor || ( is_object( $this->_editor ) && isset( $this->_editor->_photo_type ) && $type !== $this->_editor->_photo_type ) ) ) {
 			$url_path  = $this->_get_uncropped_url();
 			$file_path = $this->_get_file_path( $url_path );
 
@@ -560,7 +559,9 @@ class PPImageModule extends FLBuilderModule {
 			}
 		}
 
-		$this->_editor->_photo_type = $type;
+		if ( ! is_wp_error( $this->_editor ) && ! empty( $this->_editor ) ) {
+			$this->_editor->_photo_type = $type;
+		}
 
 		return $this->_editor;
 	}

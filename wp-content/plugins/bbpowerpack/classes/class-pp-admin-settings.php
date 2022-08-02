@@ -70,6 +70,10 @@ final class BB_PowerPack_Admin_Settings {
 		add_action( 'admin_notices', 			__CLASS__ . '::render_latest_update_notice' );
 		add_action( 'network_admin_notices', 	__CLASS__ . '::render_latest_update_notice' );
 		add_action( 'admin_init',				__CLASS__ . '::refresh_instagram_token' );
+		add_action( 'show_user_profile',        __CLASS__ . '::add_user_profile_fields' );
+		add_action( 'edit_user_profile',        __CLASS__ . '::add_user_profile_fields' );
+		add_action( 'personal_options_update',  __CLASS__ . '::save_user_profile_fields' );
+		add_action( 'edit_user_profile_update', __CLASS__ . '::save_user_profile_fields' );
 	}
 
 	/**
@@ -932,6 +936,12 @@ final class BB_PowerPack_Admin_Settings {
 			} else {
 				self::update_option( 'bb_powerpack_disable_wp_lazyload', 'no' );
 			}
+
+			if ( isset( $_POST['bb_powerpack_user_social_profile_urls'] ) && ! empty( $_POST['bb_powerpack_user_social_profile_urls'] ) ) {
+				self::update_option( 'bb_powerpack_user_social_profile_urls', 'yes' );
+			} else {
+				self::update_option( 'bb_powerpack_user_social_profile_urls', 'no' );
+			}
 		}
 	}
 
@@ -1098,6 +1108,69 @@ final class BB_PowerPack_Admin_Settings {
 		}
 
 		set_transient( $transient_key, 'updated', 30 * DAY_IN_SECONDS );
+	}
+
+	static public function add_user_profile_fields( $user ) {
+		if ( 'yes' !== self::get_option( 'bb_powerpack_user_social_profile_urls', true ) ) {
+			return;
+		}
+		$platforms = apply_filters( 'pp_user_profile_social_platforms', array(
+			'Facebook',
+			'Twitter',
+			'Instagram',
+			'Google Plus',
+			'Pinterest',
+			'LinkedIn',
+			'YouTube',
+			'Vimeo',
+			'Dribbble',
+			'Tumblr',
+			'Flickr',
+			'GitHub',
+			'WordPress'
+		) );
+		$values = get_user_meta( $user->ID, 'bb_powerpack_user_social_profile', true );
+		$values = ! is_array( $values ) ? array() : $values;
+		?>
+		<h3><?php echo sprintf( esc_html__( 'Social Profile URLs (%s)', 'bb-powerpack' ), pp_get_admin_label() ); ?></h3>
+		<p class="description"><?php _e('Please add the social media URLs to display in the Author Box module.', 'bb-powerpack'); ?></p>
+		<table class="form-table">
+			<?php foreach ( $platforms as $platform ) :
+			$clean_name = sanitize_title( $platform );
+			$url = isset( $values[ $clean_name ] ) ? esc_url( $values[ $clean_name ] ) : '';
+			?>
+			<tr>
+				<th><label for="bb_powerpack_user_<?php echo $clean_name; ?>_url"><?php echo sprintf( esc_html__( '%s URL', 'bb-powerpack' ), $platform ); ?></label></th>
+				<td>
+					<input type="text" name="bb_powerpack_user_social_profile[<?php echo $clean_name; ?>]" id="bb_powerpack_user_<?php echo $clean_name; ?>_url" value="<?php echo $url; ?>" class="regular-text" />
+				</td>
+			</tr>
+			<?php endforeach; ?>
+		</table>
+		<?php
+	}
+
+	static public function save_user_profile_fields( $user_id ) {
+		if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . $user_id ) ) {
+			return;
+		}
+		
+		if ( ! current_user_can( 'edit_user', $user_id ) ) { 
+			return false; 
+		}
+
+		if ( ! isset( $_POST['bb_powerpack_user_social_profile'] ) || ! is_array( $_POST['bb_powerpack_user_social_profile'] ) ) {
+			return;
+		}
+
+		$raw_value = wp_unslash( $_POST['bb_powerpack_user_social_profile'] );
+		$value = array();
+
+		foreach ( $raw_value as $platform => $url ) {
+			$value[ $platform ] = sanitize_url( $url );
+		}
+
+		update_user_meta( $user_id, 'bb_powerpack_user_social_profile', $value );
 	}
 }
 

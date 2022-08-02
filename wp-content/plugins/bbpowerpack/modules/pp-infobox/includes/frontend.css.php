@@ -185,7 +185,7 @@ FLBuilderCSS::responsive_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span.pp-icon,
 .fl-node-<?php echo $id; ?> .pp-infobox-image img {
-	<?php if ( isset( $settings->icon_border ) && is_array( $settings->icon_border ) ) { ?>
+	<?php if ( isset( $settings->icon_border ) && is_array( $settings->icon_border ) && isset( $settings->icon_border['radius'] ) ) { ?>
 	border-top-left-radius: <?php echo $settings->icon_border['radius']['top_left']; ?>px;
 	border-top-right-radius: <?php echo $settings->icon_border['radius']['top_right']; ?>px;
 	border-bottom-left-radius: <?php echo $settings->icon_border['radius']['bottom_left']; ?>px;
@@ -347,11 +347,6 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php if( $settings->animation_duration ) { ?>animation-duration: <?php echo $settings->animation_duration; ?>ms;<?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
-	display: flex;
-}
-
 @media only screen and (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4-wrapper {
@@ -389,6 +384,12 @@ FLBuilderCSS::responsive_rule( array(
 ) );
 ?>
 
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+	display: flex;
+	align-items: center;
+}
+
 <?php if ( 'left' == $settings->alignment ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
@@ -408,6 +409,7 @@ FLBuilderCSS::responsive_rule( array(
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
 		margin: 0 auto;
 		float: none;
+		justify-content: center;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper,

@@ -5,9 +5,12 @@
 		this.settings 	= settings;
 		this.nodeClass  = '.fl-node-' + settings.id;
 		this.accordion	= $( this.nodeClass ).find( '.pp-accordion' ).first();
-		this.clicked 	= false;
-		this.nestedToggle = false;
-		this.offsetTop = settings.scrollOffsetTop;
+		this.clicked 	     = false;
+		this.nestedToggle    = false;
+		this.defaultOpened   = false;
+		this.offsetTop       = settings.scrollOffsetTop;
+		this.isBuilderActive = settings.isBuilderActive;
+
 		this._init();
 	};
 
@@ -171,8 +174,14 @@
 			// WP audio shortcode support
 			FLBuilderLayout.resizeAudio( content );
 
-			// Slideshow module support.
-			FLBuilderLayout.resizeSlideshow();
+			// Prevent row slideshow from getting stopped
+			// when an item is set to expand by default.
+			if ( ! this.defaultOpened ) {
+				// Slideshow module support.
+				FLBuilderLayout.resizeSlideshow();
+			} else {
+				this.defaultOpened = false;
+			}
 
 			// Content Grid module support.
 			if ( 'undefined' !== typeof $.fn.isotope ) {
@@ -192,7 +201,7 @@
 
 			if ( ! this.nestedToggle ) {
 				if ( item.offset().top < win.scrollTop() + 100 ) {
-					if ( ! this.clicked || this.settings.scrollAnimation ) {
+					if ( ! this.isBuilderActive && ( ! this.clicked || this.settings.scrollAnimation ) ) {
 						$( 'html, body' ).animate({
 							scrollTop: item.offset().top - this.offsetTop
 						}, 500, 'swing');
@@ -218,6 +227,7 @@
 
 				if(item !== null) {
 					this.clicked = true;
+					this.defaultOpened = true;
 					this.accordion.find( '> .pp-accordion-item > .pp-accordion-button' ).eq(item).trigger('click');
 				}
 			}

@@ -3,9 +3,6 @@
 	FLBuilder.registerModuleHelper('pp-smart-button', {
 
 		rules: {
-			text: {
-				required: true
-			},
 			border_size: {
 				required: true,
 				number: true

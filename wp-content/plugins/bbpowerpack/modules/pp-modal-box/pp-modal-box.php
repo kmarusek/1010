@@ -208,7 +208,10 @@ class PPModalBoxModule extends FLBuilderModule {
 				$content .= '</div>';
             	break;
             case 'url':
-                $content = '<iframe data-url="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
+				$is_video = $this->is_video_url( $settings->modal_type_url );
+				$content = $is_video ? '<div class="pp-modal-video-embed">' : '';
+                $content .= '<iframe data-url="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
+				$content .= $is_video ? '</div>' : '';
             	break;
             case 'content':
                 $content = wpautop( $settings->modal_type_content );
@@ -240,6 +243,17 @@ class PPModalBoxModule extends FLBuilderModule {
 
 		return apply_filters( 'pp_modal_box_content', $content, $settings );
     }
+
+	public function is_video_url( $url ) {
+		$regex = '/^.*((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be|vimeo\.com|dailymotion\.com|wistia\.com|wistia\.net))(\S+)?$/';
+		$is_video = false;
+
+		if ( preg_match( $regex, $url ) ) {
+			$is_video = true;
+		}
+
+		return $is_video;
+	}
 }
 
 /**
@@ -987,21 +1001,11 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'show_reset'        => true,
 						'show_alpha'		=> true,
 						'connections'		=> array('color'),
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'background-color'
-                        )
                     ),
                     'modal_bg_photo'    => array(
                         'type'              => 'photo',
                         'label'             => __('Background Image', 'bb-powerpack'),
                         'default'           => '',
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'background-image'
-                        )
                     ),
                     'modal_bg_size'     => array(
                         'type'          => 'select',
@@ -1011,11 +1015,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                             'contain'   => __('Contain', 'bb-powerpack'),
                             'cover'     => __('Cover', 'bb-powerpack'),
                         ),
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'background-size'
-                        )
                     ),
                     'modal_bg_repeat'   => array(
                         'type'          => 'select',
@@ -1026,11 +1025,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                             'repeat-y'      => __('Repeat Y', 'bb-powerpack'),
                             'no-repeat'     => __('No Repeat', 'bb-powerpack'),
                         ),
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'background-repeat'
-                        )
                     ),
                     'modal_backlight'   => array(
                         'type'              => 'pp-switch',
@@ -1075,12 +1069,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'           => 1,
 						'units'				=> array( 'px' ),
 						'slider'			=> true,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'border-width',
-                            'unit'              => 'px'
-                        )
                     ),
                     'modal_border_color' => array(
                         'type'              => 'color',
@@ -1088,11 +1076,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
 						'default'           => 'ffffff',
 						'show_reset'		=> true,
 						'connections'		=> array('color'),
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'border-color'
-                        )
                     ),
                     'modal_border_position' => array(
                         'type'              => 'select',
@@ -1112,26 +1095,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'               => 2,
                         'units'					=> array( 'px' ),
 						'slider'				=> true,
-                        'preview'               => array(
-                            'type'                  => 'css',
-                            'rules'                 => array(
-                                array(
-                                    'selector'              => '.pp-modal',
-                                    'property'              => 'border-radius',
-                                    'unit'                  => 'px'
-                                ),
-                                array(
-                                    'selector'              => '.pp-modal .pp-modal-header',
-                                    'property'              => 'border-top-left-radius',
-                                    'unit'                  => 'px'
-                                ),
-                                array(
-                                    'selector'              => '.pp-modal .pp-modal-header',
-                                    'property'              => 'border-top-right-radius',
-                                    'unit'                  => 'px'
-                                )
-                            )
-                        )
                     ),
                     'modal_padding'     => array(
                         'type'              => 'unit',
@@ -1139,12 +1102,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'           => 10,
 						'units'				=> array( 'px' ),
 						'slider'			=> true,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-content',
-                            'property'          => 'padding',
-                            'unit'              => 'px'
-                        )
                     ),
                     'modal_margin_top'  => array(
                         'type'              => 'unit',
@@ -1152,12 +1109,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'           => 0,
 						'units'				=> array( 'px' ),
 						'slider'			=> true,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'margin-top',
-                            'unit'              => 'px'
-                        )
                     ),
                     'modal_margin_bottom' => array(
                         'type'              => 'unit',
@@ -1165,12 +1116,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'           => 0,
 						'units'				=> array( 'px' ),
 						'slider'			=> true,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'margin-bottom',
-                            'unit'              => 'px'
-                        )
                     ),
                     'modal_margin_left' => array(
                         'type'              => 'unit',
@@ -1178,12 +1123,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'           => 0,
 						'units'				=> array( 'px' ),
 						'slider'			=> true,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'margin-left',
-                            'unit'              => 'px'
-                        )
                     ),
                     'modal_margin_right' => array(
                         'type'              => 'unit',
@@ -1191,12 +1130,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'           => 0,
 						'units'				=> array( 'px' ),
 						'slider'			=> true,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal',
-                            'property'          => 'margin-right',
-                            'unit'              => 'px'
-                        )
                     ),
                     'modal_shadow'      => array(
                         'type'              => 'pp-switch',
@@ -1268,11 +1201,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
 						'type'          => 'border',
 						'label'         => __( 'Border', 'bb-powerpack' ),
 						'responsive'	=> true,
-						'preview'   	=> array(
-                            'type'  		=> 'css',
-                            'selector'  	=> '.pp-modal-content-inner',
-                            'property'  	=> 'border',
-                        ),
 					),
                     'content_text_color'     => array(
                         'type'                  => 'color',
@@ -1286,12 +1214,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                         'default'               => '',
                         'units'					=> array( 'px' ),
 						'slider'				=> true,
-                        'preview'               => array(
-                            'type'                  => 'css',
-                            'selector'              => '.pp-modal-content-inner',
-                            'property'              => 'padding',
-                            'unit'                  => 'px'
-                        )
                     )
                 )
             ),

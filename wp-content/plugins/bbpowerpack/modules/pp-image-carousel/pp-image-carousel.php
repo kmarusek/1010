@@ -203,8 +203,13 @@ class PPImageCarouselModule extends FLBuilderModule {
 					$data->link = $photo->sizes->full->url;
 				}
 
-				if ( isset( $this->settings->lightbox_image_size ) && $this->settings->lightbox_image_size == 'full' ) {
-					$data->link = $photo->sizes->full->url;
+				if ( isset( $this->settings->lightbox_image_size ) ) {
+					$lightbox_img_size = $this->settings->lightbox_image_size;
+					if ( isset( $photo->sizes->{$lightbox_img_size} ) ) {
+						$data->link = $photo->sizes->{$lightbox_img_size}->url;
+					} else {
+						$data->link = $photo->sizes->full->url;
+					}
 				}
 
 				// Set thumbnail link
@@ -489,13 +494,9 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'help'	=> __( 'Custom Link: You can set link to images directly in media modal where you upload them.', 'bb-powerpack' ),
 					),
 					'lightbox_image_size'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __( 'Lightbox Image Size', 'bb-powerpack' ),
-						'default'	=> 'large',
-						'options'	=> array(
-							'large'		=> __( 'Large', 'bb-powerpack' ),
-							'full'		=> __( 'Full', 'bb-powerpack' ),
-						),
+						'type'          => 'photo-sizes',
+						'label'         => __( 'Lightbox Image Size', 'bb-powerpack' ),
+						'default'       => 'large',
 					),
 					'lightbox_caption'	=> array(
 						'type'		=> 'pp-switch',
@@ -563,7 +564,8 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 					),
 					'pause_on_interaction'     => array(
 						'type'          => 'pp-switch',
-						'label'         => __( 'Pause on Interaction', 'bb-powerpack' ),
+						'label'         => __( 'Disable on Interaction', 'bb-powerpack' ),
+						'help'          => __( 'Enabling this option will disable the slider autoplay when a user manually swipe the slider.', 'bb-powerpack' ),
 						'default'       => 'yes',
 						'options'       => array(
 							'yes'          	=> __( 'Yes', 'bb-powerpack' ),
