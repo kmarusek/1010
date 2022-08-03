@@ -643,3 +643,31 @@ add_action('init', function () {
         FLCustomizer::clear_all_css_cache();
     }
 }, 1);
+
+
+/**
+ * Add Custom Font Hauora to Customizer
+ */
+function custom_fonts_1010 ( $system_fonts ) {
+
+    $system_fonts[ 'Hauora' ] = array(
+      'fallback' => 'Times New Roman", Times, serif',
+      'weights' => array(
+          '200',
+          '300',
+          '400',
+          '500',
+          '600',
+          '700',
+          '800',
+      ),
+    );
+
+    return $system_fonts;
+  }
+  
+  //Add to Beaver Builder Theme Customizer
+  add_filter( 'fl_theme_system_fonts', 'custom_fonts_1010' );
+  
+  //Add to Page Builder modules
+  add_filter( 'fl_builder_font_families_system', 'custom_fonts_1010' );
