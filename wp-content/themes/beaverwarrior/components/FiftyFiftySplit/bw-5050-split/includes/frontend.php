@@ -45,7 +45,7 @@
         <div class="FiftyFiftySplit-image-side right">
             <div class="FiftyFiftySplit-background-img" style="background-image: url(<?php echo $settings->background_image_src ?>)">
                 <div class="FiftyFiftySplit-lens animation" style="background-image: url(<?php echo $settings->lens_image_src ?>)"></div>
-                <img class="FiftyFiftySplit-primary-img animation" src="<?php echo $settings->primary_image_src ?>" style="-webkit-mask-image: url(<?php echo get_stylesheet_directory_uri();?>/components/FiftyFiftySplit/bw-5050-split//images/circle-mask.png)"alt="">
+                <img class="FiftyFiftySplit-primary-img animation" src="<?php echo $settings->primary_image_src ?>" style="-webkit-mask-image: url(<?php echo $settings->mask_image_src ?>)" alt="">
             </div>
         </div>
 
