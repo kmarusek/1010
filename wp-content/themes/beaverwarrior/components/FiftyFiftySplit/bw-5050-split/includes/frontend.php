@@ -1,6 +1,6 @@
 
 <a id="FiftyFiftySplit-accordion-<?php echo esc_attr($id);?>" class="FiftyFiftySplit-accordion">
-    <p><?php echo $settings->accordion_title ?></p>
+    <p><?php echo $settings->content_title ?></p>
     <p id="FiftyFiftySplit-toggle-icon-<?php echo esc_attr($id);?>">+</p>
 </a>
 <?php if($settings->image_side == 'option-1') : ?>

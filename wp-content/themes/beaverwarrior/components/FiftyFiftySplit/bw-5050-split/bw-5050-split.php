@@ -60,6 +60,11 @@ FLBuilder::register_module('BW5050split', array(
                             'label' => __('Animated Lens Image', 'skeleton-warrior'),
                             'show_remove' => true,
                         ),
+                        'mask_image' => array (
+                            'type' => 'photo',
+                            'label' => __('Mask For Lens Animation', 'skeleton-warrior'),
+                            'show_remove' => true,
+                        ),
                     )
                 ),
                 'content-tab' => array (
@@ -85,16 +90,7 @@ FLBuilder::register_module('BW5050split', array(
                             'show_nofollow' => true,
                         ),
                     )
-                ),
-                'mobile-tab' => array (
-                    'title' => __( "Mobile Accordion", 'skeleton-warrior'),
-                    'fields' => array (
-                        'accordion_title' => array(
-                            'type' => 'text',
-                            'label' => __( 'Mobile Accordion Title', 'skeleton-warrior'),
-                        ),
-                    )
-                ),
+                    ),
             )
         ),
         'style-5050-tab' => array(
