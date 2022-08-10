@@ -651,7 +651,7 @@ add_action('init', function () {
 function custom_fonts_1010 ( $system_fonts ) {
 
     $system_fonts[ 'Hauora' ] = array(
-      'fallback' => 'Times New Roman", Times, serif',
+      'fallback' => "Times New Roman, Times, serif",
       'weights' => array(
           '200',
           '300',
