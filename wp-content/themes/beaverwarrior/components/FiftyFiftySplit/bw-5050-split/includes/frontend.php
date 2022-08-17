@@ -10,7 +10,7 @@
         <div class="FiftyFiftySplit-image-side left">
             <div class="FiftyFiftySplit-background-img" style="background-image: url(<?php echo $settings->background_image_src ?>)">
                 <div class="FiftyFiftySplit-lens animation" style="background-image: url(<?php echo $settings->lens_image_src ?>)"></div>
-                <img class="FiftyFiftySplit-primary-img animation" src="<?php echo $settings->primary_image_src ?>" style="-webkit-mask-image: url(<?php echo $settings->mask_image_src ?>)" alt="">
+                <img class="FiftyFiftySplit-primary-img animation" src="<?php echo $settings->primary_image_src ?>" style="-webkit-mask-image: url(<?php echo $settings->mask_image_src;?>); background-image: url(<?php echo $settings->background_image_src;?>);" alt="">
             </div>
         </div>
         <div class="FiftyFiftySplit-content-side right">
@@ -45,7 +45,7 @@
         <div class="FiftyFiftySplit-image-side right">
             <div class="FiftyFiftySplit-background-img" style="background-image: url(<?php echo $settings->background_image_src ?>)">
                 <div class="FiftyFiftySplit-lens animation" style="background-image: url(<?php echo $settings->lens_image_src ?>)"></div>
-                <img class="FiftyFiftySplit-primary-img animation" src="<?php echo $settings->primary_image_src ?>" style="-webkit-mask-image: url(<?php echo $settings->mask_image_src ?>)" alt="">
+                <img class="FiftyFiftySplit-primary-img animation" src="<?php echo $settings->primary_image_src ?>" style="-webkit-mask-image: url(<?php echo $settings->mask_image_src ?>); background-image: url(<?php echo $settings->background_image_src;?>);" alt="">
             </div>
         </div>
 

@@ -10,8 +10,8 @@
         }
         var rect = el.getBoundingClientRect();
         return (
-        (rect.top <= 1000
-            && rect.bottom0 >= 1000)
+        (rect.top <= 1080
+            && rect.bottom >= 1080)
         ||
         (rect.bottom >= (window.innerHeight || document.documentElement.clientHeight) &&
             rect.top <= (window.innerHeight || document.documentElement.clientHeight))

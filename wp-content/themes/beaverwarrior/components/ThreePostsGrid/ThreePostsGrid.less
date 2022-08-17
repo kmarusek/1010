@@ -1,0 +1,69 @@
+/**
+*   Custom CSS for ThreePostsGrid.
+**/
+.ThreePostsGrid-post .ThreePostsGrid-content {
+    border: solid 1px #cacaca ;
+    border-radius: 2%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+.row.ThreePostsGrid-equalHeight{
+    display:flex !important;
+    flex-wrap: wrap;
+}
+
+/**
+*   Custom CSS for ThreePostsGrid Date Container.
+**/
+.ThreePostsGrid-post-date-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+.ThreePostsGrid-share{
+    line-height: 1;
+    i{
+        line-height: 0;
+        padding: 0 20px;
+    }
+}
+/**
+*   Custom CSS for ThreePostsGrid Pagination Navigation.
+**/
+.ThreePostsGrid-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    #ThreePostsGrid-prev {
+        i {
+            margin-top: 1px;
+            font-size: 20px;
+        }
+    }
+    #ThreePostsGrid-next{
+        i {
+            margin-top: 1px;
+            font-size: 20px;
+        
+        }
+    }
+    li.ThreePostsGrid-page-item {
+        text-align: center;
+        text-decoration: none;
+    }
+}
+.ThreePostsGrid-pagination.pagination>.ThreePostsGrid-page-item>a {
+    border: none;
+    padding: 1px 10px;
+    color: #000;
+    font-weight:500;
+}
+.ThreePostsGrid-pagination.pagination>.ThreePostsGrid-current-page.active>a {
+    background-color: #FC6D1B ;
+    border-radius: 3px;
+    color: #fff;
+}
