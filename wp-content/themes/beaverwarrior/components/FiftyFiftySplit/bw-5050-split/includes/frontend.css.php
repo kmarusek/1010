@@ -26,9 +26,9 @@
    color: <?php echo FLBuilderColor::hex_or_rgb($settings->button_color); ?>;
 }
 
-.fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button {
+.fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button p{
    color: <?php echo FLBuilderColor::hex_or_rgb($settings->button_color); ?>;
 }
-.fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button:hover {
+.fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button:hover p {
    color: <?php echo FLBuilderColor::hex_or_rgb($settings->button_hover); ?>;
 }
