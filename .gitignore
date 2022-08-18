@@ -1,6 +1,7 @@
 # WordPress #
 ############
 wp-config-local.php
+wp-config.php
 wp-cli.local.yml
 wp-content/uploads
 wp-content/blogs.dir/
@@ -60,3 +61,5 @@ Thumbs.db
 .idea/.gitignore
 .idea/modules.xml
 .idea/space-station.iml
+.idea/
+.idea/workspace.xml

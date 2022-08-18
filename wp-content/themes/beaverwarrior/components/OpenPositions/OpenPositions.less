@@ -1,0 +1,151 @@
+.OpenPositions {
+  h6{
+    font-family: Hauora, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0.8px;
+    text-align: left;
+    color: #fc6815;
+    margin: 0 0 16px 0;
+    @media(max-width:767px){
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 0.48px;
+    }
+  }
+  h2{
+    font-family: Hauora, sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 64px;
+    letter-spacing: 2px;
+    text-align: left;
+    color: #120c17;
+    margin: 0 0 48px 0;
+    @media(max-width:767px){
+      font-size: 20px;
+      line-height: 36px;
+      letter-spacing: 1px;
+      margin: 0 0 25px 0;
+    }
+  }
+  &-main_container {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    @media(max-width:767px){
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+
+  &-category {
+    &_container {
+      margin-bottom: 81px;
+      @media(max-width:767px){
+        margin-bottom: 40px;
+      }
+    }
+
+    &_title {
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 1.6px;
+      margin-bottom: 30px;
+    }
+
+    &_item {
+      font-size: 12px;
+      font-weight: 600;
+      transition: .3s;
+      padding: 0 20px;
+      border-radius: 20px;
+      background-color: #f4f4f4;
+      color: #120c17;
+      line-height: 36px;
+      height: 36px;
+      margin-right: 17px;
+      cursor: pointer;
+      letter-spacing: 0.6px;
+      min-width: 175px;
+      text-align: center;
+      display: inline-block;
+      margin-bottom: 20px;
+      @media(max-width:767px){
+        font-size: 10px;
+        line-height: 34px;
+        height: 34px;
+        letter-spacing: 0.5px;
+        min-width: 90px;
+      }
+    }
+    &_item.active{
+      background-color: #120c17;
+      color: #fff;
+    }
+  }
+
+  &-job_listing {
+    border-radius: 10px;
+    border: solid 1px #d9d9d9;
+    padding: 31px 48px 31px 40px;
+    transition: .3s;
+
+    @media (max-width: 1000px) {
+      padding: 23px 20px 23px 23px;
+    }
+  }
+
+  &-listing {
+    &_content{
+      max-width: 450px;
+    }
+    &_title {
+      color: #120c17;
+      font-weight: 600;
+      font-family: Hauora, sans-serif;
+      font-size: 20px;
+      line-height: 36px;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      @media (max-width: 767px){
+        font-size: 16px;
+        line-height: 30px;
+        letter-spacing: 0.64px;
+      }
+    }
+
+    &_location {
+      color: #737373;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.64px;
+      line-height: 30px;
+      @media (max-width: 767px){
+        font-size: 12px;
+        line-height: 21.6px;
+        letter-spacing: 0.48px;
+      }
+    }
+  }
+
+  &-job_apply {
+    position: absolute;
+    right: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    @media(max-width:767px){
+      right: 20px;
+    }
+    i{
+      width: 15px;
+      color: #000;
+    }
+  }
+
+}
+
