@@ -1,101 +1,107 @@
-
 (function($){
-
+    
     $(function(){ 
-       
-        'use strict';
+   
+    // Returns an array of maxLength (or less) page numbers
+    // where a 0 in the returned array denotes a gap in the series.
+    // Parameters:
+    //   totalPages:     total number of pages
+    //   page:           current page
+    //   maxLength:      maximum size of returned array
 
 
-    /*
-    * Initial Setup for pagination; Find  number of post and pages and save that data in variables.
-    */
+    function getPageList(totalPages, page, maxLength) {
+        if (maxLength < 5) throw "maxLength must be at least 5";
 
-        //First we have to find how many post we have and the limit of post were suppose to display based on user input.
-        var numberOfItems = $(".ThreePostsGrid-container a").length;
-        var limitPerPage = <?php echo $module->getPostsPerPage(); ?>;
-
-        //Now we have to hide the items that exceed the number provided by the user.
-        $(".ThreePostsGrid-container .ThreePostsGrid-post:gt(" + (limitPerPage - 1) +")").hide();
-
-        //Next we need to find the number of pages based on the limit per page and total posts.
-        var totalPages =    Math.ceil(numberOfItems / limitPerPage);
-
-    /*
-    * Loop through all of our pages and ensure our pagination navigation is properly being displayed with the correct data.
-    */
-
-        //Display our first page and set it to active.
-        $(".ThreePostsGrid-pagination").append("<li class='ThreePostsGrid-page-item ThreePostsGrid-current-page active'><a href='javascript:void(0)'>" +  1  + "</a></li>");
-        //Now we need to loop through all additional pages and display them in pagination. 
-        for( var i = 2; i <= totalPages; i++){
-            $(".ThreePostsGrid-pagination").append("<li class='ThreePostsGrid-page-item ThreePostsGrid-current-page'><a href='javascript:void(0)'>" +  i  + "</a></li>");
+        function range(start, end) {
+            return Array.from(Array(end - start + 1), (_, i) => i + start); 
         }
-        //Make sure we append the Next button at the end of the pagination loop.
-        $(".ThreePostsGrid-pagination").append("<li id='ThreePostsGrid-next' class='ThreePostsGrid-page-item page-item'><a class='page-link' href='javascript:void(0)'><i class='<?php echo $settings->pagination_next_icon;?>'></i></a></li>");
-       
 
-    /*
-    * Add the onClick functionality to pagination navigation
-    */
+        var sideWidth = maxLength < 9 ? 1 : 2;
+        var leftWidth = (maxLength - sideWidth*2 - 3) >> 1;
+        var rightWidth = (maxLength - sideWidth*2 - 2) >> 1;
+        if (totalPages <= maxLength) {
+            // no breaks in list
+            return range(1, totalPages);
+        }
+        if (page <= maxLength - sideWidth - 1 - rightWidth) {
+            // no break on left of page
+            return range(1, maxLength - sideWidth - 1)
+                .concat(0, range(totalPages - sideWidth + 1, totalPages));
+        }
+        if (page >= totalPages - sideWidth - 1 - rightWidth) {
+            // no break on right of page
+            return range(1, sideWidth)
+                .concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages));
+        }
+        // Breaks on both sides
+        return range(1, sideWidth)
+            .concat(0, range(page - leftWidth, page + rightWidth),
+                    0, range(totalPages - sideWidth + 1, totalPages));
+    }
+    
+    // Number of items and limits the number of items per page
+    var numberOfItems = $(".ThreePostsGrid-container a").length;
+    var limitPerPage = <?php echo $module->getPostsPerPage(); ?>;
+    // Total pages rounded upwards
+    var totalPages = Math.ceil(numberOfItems / limitPerPage);
+    // Number of buttons at the top, not counting prev/next,
+    // but including the dotted buttons.
+    // Must be at least 5:
+    var paginationSize = 7; 
+    var currentPage;
 
-
-        $(".ThreePostsGrid-pagination li.ThreePostsGrid-current-page").on("click", function(){
-            if($(this).hasClass("active")){
-                return false;
-            } else {
-                    
-                    var currentPage = $(this).index();
-                    $(".ThreePostsGrid-pagination li").removeClass("active");
-                    $(this).addClass("active");
-                    $(".ThreePostsGrid-container .ThreePostsGrid-post").hide();
-
-                    var grandTotal = limitPerPage * currentPage;
-
-                    for(var i = grandTotal - limitPerPage; i < grandTotal ; i++ ) {
-                        $(".ThreePostsGrid-container .ThreePostsGrid-post:eq(" + i + ")").show();
-                    }
-                   
-            }
-            
-
+    function showPage(whichPage) {
+        if (whichPage < 1 || whichPage > totalPages) return false;
+        currentPage = whichPage;
+        $(".ThreePostsGrid-container a").hide()
+            .slice((currentPage-1) * limitPerPage, 
+                    currentPage * limitPerPage).show();
+        // Replace the navigation items (not prev/next):            
+        $(".ThreePostsGrid-pagination li").slice(1, -1).remove();
+        getPageList(totalPages, currentPage, paginationSize).forEach( item => {
+            $("<li>").addClass("ThreePostsGrid-page-item")
+                     .addClass(item ? "ThreePostsGrid-current-page" : "disabled")
+                     .toggleClass("active", item === currentPage).append(
+                $("<a>").addClass("page-link").attr({
+                    href: "javascript:void(0)"}).text(item || "...")
+            ).insertBefore("#ThreePostsGrid-next");
         });
+        // Disable prev/next when at first/last page:
+        $("#ThreePostsGrid-prev").toggleClass("disabled", currentPage === 1);
+        $("#ThreePostsGrid-next").toggleClass("disabled", currentPage === totalPages);
+        return true;
+    }
 
-        $("#ThreePostsGrid-next").on("click", function(){
-           var currentPage = $(".ThreePostsGrid-pagination li.active").index();
-           if ( currentPage === totalPages) {
-                return false;
-           } else {
-                currentPage++;
-                $(".ThreePostsGrid-pagination li").removeClass("active");
-                $(".ThreePostsGrid-container .ThreePostsGrid-post").hide();
+    // Include the prev/next buttons:
+    $(".ThreePostsGrid-pagination").append(
+        $("<li>").addClass("ThreePostsGrid-page-item").attr({ id: "ThreePostsGrid-prev" }).append(
+            $("<a>").addClass("page-link").attr({
+                href: "javascript:void(0)"}).html("<i class='<?php echo $settings->pagination_prev_icon;?>'></i>")
+        ),
+        $("<li>").addClass("ThreePostsGrid-page-item").attr({ id: "ThreePostsGrid-next" }).append(
+            $("<a>").addClass("page-link").attr({
+                href: "javascript:void(0)"}).html("<i class='<?php echo $settings->pagination_next_icon;?>'></i>")
+        )
+    );
+    // Show the page links
+    $(".ThreePostsGrid-container").show();
+    showPage(1);
 
-                var grandTotal = limitPerPage * currentPage;
+    // Use event delegation, as these items are recreated later    
+    $(document).on("click", ".ThreePostsGrid-pagination li.ThreePostsGrid-current-page:not(.active)", function () {
+        return showPage(+$(this).text());
+    });
+    $("#ThreePostsGrid-next").on("click", function () {
+        return showPage(currentPage+1);
+    });
 
-                for(var i = grandTotal - limitPerPage; i < grandTotal ; i++ ) {
-                    $(".ThreePostsGrid-container .ThreePostsGrid-post:eq(" + i + ")").show();
-                }
-                $(".ThreePostsGrid-pagination li.ThreePostsGrid-current-page:eq(" + (currentPage - 1) +")").addClass("active");
-           }
-        });
+    $("#ThreePostsGrid-prev").on("click", function () {
+        return showPage(currentPage-1);
+    });
 
-        $("#ThreePostsGrid-prev").on("click", function(){
-           var currentPage = $(".ThreePostsGrid-pagination li.active").index();
-           if ( currentPage === 1) {
-                return false;
-           } else {
-                currentPage--;
-                $(".ThreePostsGrid-pagination li").removeClass("active");
-                $(".ThreePostsGrid-container .ThreePostsGrid-post").hide();
 
-                var grandTotal = limitPerPage * currentPage;
-
-                for(var i = grandTotal - limitPerPage; i < grandTotal ; i++ ) {
-                    $(".ThreePostsGrid-container .ThreePostsGrid-post:eq(" + i + ")").show();
-                }
-                $(".ThreePostsGrid-pagination li.ThreePostsGrid-current-page:eq(" + (currentPage - 1) +")").addClass("active");
-           }
-        });
-
+ 
 
     });
 })(jQuery);

@@ -42,7 +42,7 @@ $posts_per_page = $module->getPostsPerPage();
                 </div>
                 <div class="ThreePostsGrid-post-date-container">
                         <span class="ThreePostsGrid-date"><?php echo $post_date;?></span>
-                        <span class="ThreePostsGrid-share">Share<i class="<?php echo $settings->posts_share_icon;?>"></i></span>
+                        <span class="ThreePostsGrid-share">Share<i class="ThreePostsGrid-share-icon" style="background-image: url(<?php echo $settings->posts_share_icon_src; ?>);"></i></span>
                 </div>
             </div>
 
@@ -54,5 +54,5 @@ $posts_per_page = $module->getPostsPerPage();
 </div>
 
 <ul class="ThreePostsGrid-pagination pagination">
-    <li id="ThreePostsGrid-prev" class="ThreePostsGrid-page-item page-item"><a class="page-link" href="javascript:void(0)"><i class="<?php echo $settings->pagination_prev_icon; ?>"></i></a></li>
+    
 </ul>

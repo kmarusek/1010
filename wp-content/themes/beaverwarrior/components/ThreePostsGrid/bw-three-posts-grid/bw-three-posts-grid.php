@@ -181,7 +181,7 @@ FLBuilder::register_module(
                             'description'  => 'Icon for the previous navigation on pagination controls',
                         ),
                         'posts_share_icon' => array(
-                            'type'          => 'icon',
+                            'type'          => 'photo',
                             'label'         => __( 'Posts Share Icon', 'fl-builder' ),
                             'show_remove'   => true
                         ),
