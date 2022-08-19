@@ -10,7 +10,7 @@ jQuery(function($) {
 			image: {
 					titleSrc: function(item) {
 						<?php if ( 'below' == $settings->show_caption || 'hover' == $settings->show_caption ) : ?>
-							return $( item.el ).closest( '.fl-photo' ).find( '.fl-photo-caption' ).text();
+							return '<?php echo ucfirst( str_replace( '-', ' ', sanitize_title( $module->get_caption() ) ) ); ?>';
 						<?php endif; ?>
 					}
 			},

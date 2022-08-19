@@ -214,7 +214,7 @@ class FLBuilderArt {
 	static public function render_art( $shape, $settings ) {
 
 		// Render artwork into a buffer
-		if ( $shape ) {
+		if ( $shape && isset( $shape['render'] ) ) {
 			ob_start();
 			$render = $shape['render'];
 
@@ -222,8 +222,8 @@ class FLBuilderArt {
 				include $render;
 			}
 			$output = ob_get_clean();
+			return $output;
 		}
-		return $output;
 	}
 
 	/**
@@ -315,6 +315,10 @@ class FLBuilderArt {
 		$shape_name = $settings->{ $prefix . 'shape' };
 		$shape_args = self::get_art( $shape_name );
 		$content    = self::render_art( $shape_args, $settings );
+
+		if ( ! isset( $shape_args['x'] ) ) {
+			return false;
+		}
 
 		$x                     = $shape_args['x'];
 		$y                     = $shape_args['y'];
