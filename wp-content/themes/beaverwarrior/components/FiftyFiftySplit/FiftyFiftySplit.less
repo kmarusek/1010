@@ -36,7 +36,7 @@
     -webkit-mask-position: center center;
      mask-position: center center;
     -webkit-mask-size: 70%;
-     mask-size: 61%;
+     mask-size: 70%;
 }
 .FiftyFiftySplit-lens {
      position: absolute;
@@ -118,7 +118,7 @@
 .FiftyFiftySplit-content-wrap h2 {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      font-weight: 500;
-     font-size: 2.1vw;
+     font-size: calc(24px + 1.2vw);
 
 }
 .FiftyFiftySplit-content-wrap p {
@@ -193,6 +193,8 @@ a.FiftyFiftySplit-accordion {
 a.FiftyFiftySplit-accordion p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      overflow: hidden;
+     font-size: 4.2vw;
+     font-weight: 600;
 }
 .active, a.FiftyFiftySplit-accordion:hover {
      background-color: transparent;
@@ -202,25 +204,36 @@ a.FiftyFiftySplit-accordion p {
 /*========= Responsive / Media Querys ==========*/
 
 @media only screen and (max-width: 960px) {
+
      a.FiftyFiftySplit-accordion {
           display: flex;
           justify-content: space-between;
      }
      .FiftyFiftySplit-wrap{
           padding: 0;
+          flex-direction: column-reverse;
+     }
+     .FiftyFiftySplit-wrap.home-page{
+          flex-direction: column-reverse;
+     }
+     .FiftyFiftySplit-wrap.home-page.FiftyFiftySplit-reverse{
+          flex-direction: column;
+     }
+     .FiftyFiftySplit-wrap.FiftyFiftySplit-reverse{
           flex-direction: column;
      }
      .FiftyFiftySplit-wrap.not-home-page {
           display: none;
           margin: auto;
           flex-wrap: wrap;
-          margin: 0 10vw;
+
      }
-     .FiftyFiftySplit-wrap.FiftyFiftySplit-reverse{
+     .FiftyFiftySplit-wrap.not-home-page.FiftyFiftySplit-reverse.toggle{
           flex-direction: column-reverse;
      }
      .FiftyFiftySplit-wrap.not-home-page.toggle{
           display: flex;
+          flex-direction: column;
      }
      .FiftyFiftySplit-content-side.left .FiftyFiftySplit-content-wrap {
           padding: 40px;
@@ -228,18 +241,78 @@ a.FiftyFiftySplit-accordion p {
      .FiftyFiftySplit-content-side.right .FiftyFiftySplit-content-wrap {
           padding: 40px;
      }
+
      .FiftyFiftySplit-content-side{
           width: 100%;
-          padding: 20px;
+          padding: 25px;
      }
      .FiftyFiftySplit-content-wrap{
           width: 100%;
+          padding: 0;
      }
+     .FiftyFiftySplit-content-wrap h2 {
+          font-size: 6vw;
+     }
+     .FiftyFiftySplit-content-wrap p {
+          font-size: 3.2vw;
+          padding-bottom: 15px;
+     }
+     .FiftyFiftySplit-button p {
+          font-size: 3.5vw;
+      }
      .FiftyFiftySplit-image-side {
           width: 100%;
      } 
+     .FiftyFiftySplit-image-side.right .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible{
+          animation: lens-slide-right 2s 1 normal;
+          @keyframes lens-slide-right{
+               from {
+                         background-position: 200% 0%; 
+               }
+               to {
      
-     .FiftyFiftySplit-content-wrap.FiftyFiftySplit-animation.is-visible {
+                         background-position: center center;
+               }
+          }
+     }
+     .FiftyFiftySplit-image-side.left .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible {
+          animation: lens-slide-left 2s 1 alternate;
+          @keyframes lens-slide-left{
+               from {
+                    background-position: -100% 0%;
+               }
+               to {
+                    background-position: center center;
+               }
+          }
+     }
+     .FiftyFiftySplit-image-side.left .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
+          animation: mask-slide-left 2s 1 alternate;
+          @keyframes mask-slide-left{
+               from {
+                    -webkit-mask-position: -100% 0%;
+                         mask-position: -100% 0%; 
+               }
+               to {
+                    -webkit-mask-position: center center;
+                         mask-position: center center;
+               }
+          }
+     }
+     .FiftyFiftySplit-image-side.right .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
+          animation: mask-slide-right 2s 1 normal;
+          @keyframes mask-slide-right{
+               from {
+                    -webkit-mask-position: 200% 0%;
+                         mask-position: 200% 0%; 
+               }
+               to {
+                    -webkit-mask-position: center center;
+                         mask-position: center center;
+               }
+          }
+     }
+     .FiftyFiftySplit-content-side.FiftyFiftySplit-animation.is-visible {
           animation: content-slide 2s 1 normal;
           @keyframes content-slide{
                0% {
@@ -251,11 +324,11 @@ a.FiftyFiftySplit-accordion p {
           }
      
      }
-     .FiftyFiftySplit-content-wrap.FiftyFiftySplit-animation.is-visible {
-          animation: content-slide 2s 1 normal;
-          @keyframes content-slide{
+     .FiftyFiftySplit-content-side.FiftyFiftySplit-animation.left.is-visible {
+          animation: content-slide-left 2s 1 normal;
+          @keyframes content-slide-left{
                0% {
-                    transform: translateX(400px);
+                    transform: translateX(-400px);
                }
                100%{
                     transform: translateX(0);

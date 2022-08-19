@@ -11,12 +11,12 @@
 <?php 
     elseif ( $settings->home_page_check === 'option-2' ) :
 
-    $wrapper_classes = "FiftyFiftySplit-wrap FiftyFiftySplit-home-page";
+    $wrapper_classes = "FiftyFiftySplit-wrap home-page";
 
 endif;?>
 
 <?php if($settings->image_side == 'option-1') : ?>
-    <section id="FiftyFiftySplit-<?php echo esc_attr($id); ?>"  class="<?php echo $wrapper_classes;?> ">
+    <section id="FiftyFiftySplit-<?php echo esc_attr($id); ?>"  class="<?php echo $wrapper_classes;?> FiftyFiftySplit-reverse">
   
 
         <div class="FiftyFiftySplit-image-side left">
@@ -43,7 +43,7 @@ endif;?>
 
 <?php elseif ($settings->image_side == 'option-2') : ?>
 
-    <section id="FiftyFiftySplit-<?php echo esc_attr($id); ?>"  class="<?php echo $wrapper_classes;?> FiftyFiftySplit-reverse">
+    <section id="FiftyFiftySplit-<?php echo esc_attr($id); ?>"  class="<?php echo $wrapper_classes;?> ">
 
         <div class="FiftyFiftySplit-content-side FiftyFiftySplit-animation left">
             <div class="FiftyFiftySplit-content-wrap ">
