@@ -31,7 +31,7 @@ class BWOpenPositions extends BeaverWarriorFLModule {
 FLBuilder::register_module(
 	'BWOpenPositions', array(
 	'style' => array (
-	    'title' => __('Style', 'fl-builder'),
+	    'title' => __('General', 'fl-builder'),
 	    'sections' => array (
 	            'style' => array (
 	                'fields' => array(
