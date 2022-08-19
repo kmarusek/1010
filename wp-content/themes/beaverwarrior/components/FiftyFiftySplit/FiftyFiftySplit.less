@@ -6,9 +6,10 @@
      align-items: center;
      box-sizing: border-box;
      overflow: hidden;
+     padding: 40px 0;
 
 }
-.FiftyFiftySplit-wrap.toggle{
+.FiftyFiftySplit-wrap.not-home-page.toggle{
      display: flex;
 }
 
@@ -21,7 +22,7 @@
      height: auto;
      margin: 0;
      position: relative;
-     background-size: 100% auto;
+     background-size: 100% 100%;
      background-repeat: no-repeat;
 
 }
@@ -46,8 +47,8 @@
      height: 100%;
      z-index: 1000;
 }
-.FiftyFiftySplit-image-side.left .FiftyFiftySplit-lens.animation.is-visible {
-     animation: lens-slide-left 1s 1 alternate;
+.FiftyFiftySplit-image-side.left .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible {
+     animation: lens-slide-left 2s 1 alternate;
      @keyframes lens-slide-left{
           from {
                background-position: -100% -100%;
@@ -57,8 +58,8 @@
           }
      }
 }
-.FiftyFiftySplit-image-side.left .FiftyFiftySplit-primary-img.animation.is-visible{
-     animation: mask-slide-left 1s 1 alternate;
+.FiftyFiftySplit-image-side.left .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
+     animation: mask-slide-left 2s 1 alternate;
      @keyframes mask-slide-left{
           from {
                -webkit-mask-position: -100% -100%;
@@ -70,8 +71,8 @@
           }
      }
 }
-.FiftyFiftySplit-image-side.right .FiftyFiftySplit-lens.animation.is-visible{
-     animation: lens-slide-right 1s 1 normal;
+.FiftyFiftySplit-image-side.right .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible{
+     animation: lens-slide-right 2s 1 normal;
      @keyframes lens-slide-right{
           from {
                     background-position: 200% -100%; 
@@ -82,8 +83,8 @@
           }
      }
 }
-.FiftyFiftySplit-image-side.right .FiftyFiftySplit-primary-img.animation.is-visible{
-     animation: mask-slide-right 1s 1 normal;
+.FiftyFiftySplit-image-side.right .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
+     animation: mask-slide-right 2s 1 normal;
      @keyframes mask-slide-right{
           from {
                -webkit-mask-position: 200% -100%;
@@ -98,6 +99,10 @@
 /*========= Content Side ==========*/
 .FiftyFiftySplit-content-side{
      width: 50%;
+     align-self: stretch;
+     display: flex;
+     justify-content: center;
+     align-items: center;
 }
 .FiftyFiftySplit-content-wrap{
      width: 70%;
@@ -112,18 +117,30 @@
 }
 .FiftyFiftySplit-content-wrap h2 {
      font-family: "Hauora", Verdana, Arial, sans-serif;
-     font-size: calc(20px + 1.3vw);
+     font-weight: 500;
+     font-size: 2.1vw;
+
 }
 .FiftyFiftySplit-content-wrap p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
-     font-size: calc(14px + .6vw);
+     font-weight: 300;
+     font-size: 1.2vw;
      padding-bottom: 15px;
 }
 .FiftyFiftySplit-buttonwrap {
      display: flex;
+     text-decoration: none;
+}
+.FiftyFiftySplit-button:hover {
+     text-decoration: none;
+}
+.FiftyFiftySplit-button:focus {
+     text-decoration: none;
 }
 .FiftyFiftySplit-button p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
+     font-weight: 300;
+     font-size: 1.2vw;
      padding: 0;
      
 }
@@ -139,8 +156,8 @@
      text-decoration: none;
 }
 
-.FiftyFiftySplit-content-wrap.animation.is-visible {
-     animation: content-slide 1s 1 normal;
+.FiftyFiftySplit-content-side.FiftyFiftySplit-animation.is-visible {
+     animation: content-slide 2s 1 normal;
      @keyframes content-slide{
           0% {
                transform: translateY(200px);
@@ -156,12 +173,14 @@
 a.FiftyFiftySplit-accordion {
 
      display: none;
-     margin: auto;
-     width: 80%;
+     margin: 0 10vw;
+     font-size: 2.1vw;
+     font-weight: 600;
      color: #000;
      cursor: pointer;
      padding: 18px;
      text-align: left;
+     text-decoration: none;
      border-top: solid 1px #000;
      border-left: none;
      border-right: none;
@@ -173,7 +192,7 @@ a.FiftyFiftySplit-accordion {
 }
 a.FiftyFiftySplit-accordion p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
-     font-size: calc(20px + .01vw);
+     overflow: hidden;
 }
 .active, a.FiftyFiftySplit-accordion:hover {
      background-color: transparent;
@@ -187,32 +206,53 @@ a.FiftyFiftySplit-accordion p {
           display: flex;
           justify-content: space-between;
      }
-     .FiftyFiftySplit-wrap {
-     display: none;
-     margin: auto;
-     flex-wrap: wrap;
-     width: 80%;
+     .FiftyFiftySplit-wrap{
+          padding: 0;
+          flex-direction: column;
+     }
+     .FiftyFiftySplit-wrap.not-home-page {
+          display: none;
+          margin: auto;
+          flex-wrap: wrap;
+          margin: 0 10vw;
      }
      .FiftyFiftySplit-wrap.FiftyFiftySplit-reverse{
           flex-direction: column-reverse;
      }
-     .FiftyFiftySplit-wrap.toggle{
-     display: flex;
+     .FiftyFiftySplit-wrap.not-home-page.toggle{
+          display: flex;
+     }
+     .FiftyFiftySplit-content-side.left .FiftyFiftySplit-content-wrap {
+          padding: 40px;
+     }
+     .FiftyFiftySplit-content-side.right .FiftyFiftySplit-content-wrap {
+          padding: 40px;
      }
      .FiftyFiftySplit-content-side{
-     width: 100%;
-     padding: 20px;
+          width: 100%;
+          padding: 20px;
      }
      .FiftyFiftySplit-content-wrap{
-     width: 100%;
+          width: 100%;
      }
      .FiftyFiftySplit-image-side {
           width: 100%;
-          padding: 20px;
      } 
      
-     .FiftyFiftySplit-content-wrap.animation.is-visible {
-          animation: content-slide 1s 1 normal;
+     .FiftyFiftySplit-content-wrap.FiftyFiftySplit-animation.is-visible {
+          animation: content-slide 2s 1 normal;
+          @keyframes content-slide{
+               0% {
+                    transform: translateX(400px);
+               }
+               100%{
+                    transform: translateX(0);
+               }
+          }
+     
+     }
+     .FiftyFiftySplit-content-wrap.FiftyFiftySplit-animation.is-visible {
+          animation: content-slide 2s 1 normal;
           @keyframes content-slide{
                0% {
                     transform: translateX(400px);

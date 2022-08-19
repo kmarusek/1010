@@ -31,20 +31,35 @@ class BW5050Split extends BeaverWarriorFLModule {
 
 FLBuilder::register_module('BW5050split', array(
         'general' => array(
-            'title' => __( '50/50 Split General', 'fl-builder'),
+            'title' => __( 'General', 'fl-builder'),
             'sections' => array (
-                'image-tab' => array (
-                    'title' => __( "Image Side", 'skeleton-warrior'),
+                'section-key' => array (
+                    'title' => __( "Section Key Items", 'skeleton-warrior'),
                     'fields' => array (
+                            'home_page_check' => array(
+                            'type'          => 'select',
+                            'label'         => __( 'Is this the home page?', 'skeleton-warrior' ),
+                            'default'       => 'option-1',
+                            'options'       => array(
+                              'option-1'      => __( 'No', 'skeleton-warrior' ),
+                              'option-2'      => __( 'Yes', 'skeleton-warrior' )
+                            ),
+                        ),
                         'image_side' => array(
                             'type'          => 'select',
-                            'label'         => __( 'Image Display', 'skeleton-warrior' ),
+                            'label'         => __( 'What side do you want the image to display?', 'skeleton-warrior' ),
                             'default'       => 'option-1',
                             'options'       => array(
                               'option-1'      => __( 'Leftside', 'skeleton-warrior' ),
                               'option-2'      => __( 'Rightside', 'skeleton-warrior' )
                             ),
                         ),
+                    ),
+                ),
+                'image-tab' => array (
+                    'title' => __( "Image Side", 'skeleton-warrior'),
+                    'fields' => array (
+
                         'primary_image' => array (
                             'type' => 'photo',
                             'label' => __('Primary Image', 'skeleton-warrior'),
@@ -93,7 +108,7 @@ FLBuilder::register_module('BW5050split', array(
                     ),
             )
         ),
-        'style-5050-tab' => array(
+        'style' => array(
             'title' => __( 'Style', 'skeleton-warrior'),
             'sections' => array(
                 'style' => array(

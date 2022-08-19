@@ -2,41 +2,28 @@
 (function($){
     $(function(){
 
-//Lens and Content Animation function
-    function isElementInViewport(el) {
-   
-        if (typeof jQuery === "function" && el instanceof jQuery) {
-        el = el[0];
-        }
-        var rect = el.getBoundingClientRect();
-        return (
-        (rect.top <= 1080
-            && rect.bottom >= 1080)
-        ||
-        (rect.bottom >= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight))
-        ||
-        (rect.top >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight))
-        );
-    }
+        const animations = document.querySelectorAll('.FiftyFiftySplit-animation');
 
-    var scroll = window.requestAnimationFrame
-    ||
-    function(callback){ window.setTimeout(callback, 1000/60)};
-    var animate = document.querySelectorAll('.animation');
-    function animationLoop(){
-        animate.forEach(function (element){
-            if( isElementInViewport(element)){
-                element.classList.add('is-visible');
-            }else{
-                element.classList.remove('is-visible');
-            }
+        observer = new IntersectionObserver((entries) =>{
+            entries.forEach( entry => {
+                if(entry.intersectionRatio > 0 ){
+                    entry.target.classList.add('is-visible');
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
+            })
+            
+            console.log(entries);
+
+
         });
-        scroll(animationLoop);
-    }
 
-    animationLoop();
+        animations.forEach(animation => {
+            observer.observe(animation)
+        })
+      
+
+
 
 
 

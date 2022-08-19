@@ -4,7 +4,6 @@
  * Typography
  */
 
-
 /**
  * Colors
  */
@@ -35,3 +34,6 @@
 .fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button:hover {
    border-color: <?php echo FLBuilderColor::hex_or_rgb($settings->button_hover); ?>;
 }
+
+
+
