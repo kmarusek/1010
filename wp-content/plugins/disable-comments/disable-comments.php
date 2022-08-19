@@ -4,7 +4,7 @@
  * Plugin Name: Disable Comments
  * Plugin URI: https://wordpress.org/plugins/disable-comments/
  * Description: Allows administrators to globally disable comments on their site. Comments can be disabled according to post type. You could bulk delete comments using Tools.
- * Version: 2.4.0
+ * Version: 2.4.1
  * Author: WPDeveloper
  * Author URI: https://wpdeveloper.com
  * License: GPL-3.0+
@@ -37,7 +37,7 @@ class Disable_Comments
 
 	function __construct()
 	{
-		define('DC_VERSION', '2.4.0');
+		define('DC_VERSION', '2.4.1');
 		define('DC_PLUGIN_SLUG', 'disable_comments_settings');
 		define('DC_PLUGIN_ROOT_PATH', dirname(__FILE__));
 		define('DC_PLUGIN_VIEWS_PATH', DC_PLUGIN_ROOT_PATH . '/views/');
@@ -572,7 +572,7 @@ class Disable_Comments
 			wp_enqueue_script('sweetalert2', DC_ASSETS_URI . 'js/sweetalert2.all.min.js', array('jquery'), false, true);
 			wp_enqueue_script('pagination', DC_ASSETS_URI . 'js/pagination.min.js', array('jquery'), false, true);
 			wp_enqueue_script('select2', DC_ASSETS_URI . 'js/select2.min.js', array('jquery'), false, true);
-			wp_enqueue_script('disable-comments-scripts', DC_ASSETS_URI . 'js/disable-comments-settings-scripts.js', array('jquery', 'select2', 'pagination', 'sweetalert2'), DC_VERSION, true);
+			wp_enqueue_script('disable-comments-scripts', DC_ASSETS_URI . 'js/disable-comments-settings-scripts.js', array('jquery', 'select2', 'pagination', 'sweetalert2', 'wp-i18n'), DC_VERSION, true);
 			wp_localize_script(
 				'disable-comments-scripts',
 				'disableCommentsObj',
@@ -583,6 +583,7 @@ class Disable_Comments
 					'_nonce' => wp_create_nonce('disable_comments_save_settings')
 				)
 			);
+			wp_set_script_translations( 'disable-comments-scripts', 'disable-comments' );
 		} else {
 			// notice css
 			wp_enqueue_style('disable-comments-notice',  DC_ASSETS_URI . 'css/notice.css', [], false);
