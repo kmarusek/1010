@@ -1,0 +1,125 @@
+.displayNone{
+  display: none !important;
+}
+/*===== Carousel Wrapper =====*/
+.OtherEvents{
+  --primary: #120C17;
+  --secondary: #737373;
+  --third:#ffffff;
+  --defaultfont: sans-serif;
+  --fourth: #fc6815;
+
+  font-family: var(--defaultfont);
+  color: var(--primary);
+  max-width: 840px;
+  margin:50px auto;
+  display: flex;
+  flex-flow: column;
+
+  &-select--type{
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid var(--secondary);
+}
+
+  &-banner {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 8px;
+    border: 1px solid var(--secondary);
+    margin-top: 20px;
+    padding: 20px;
+  }
+  &-type{
+    font-family: var(--defaultfont);
+    color: var(--secondary);
+    margin-right: 50px;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+  &-date{
+    display: flex;
+    justify-content: space-between;
+    color: var(--secondary);
+  }
+  &-date_from, &-date_to {
+    font-family: var(--defaultfont);
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-right: 10px;
+  }
+  &-title{
+    color: var(--primary);
+    width: 100%;
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 40px;
+  }
+  &-description{
+    font-family: var(--defaultfont);
+    font-size: 18px;
+    color: var(--secondary);
+    width: 100%;
+    padding: 15px 0;
+  }
+  &-learn_more{
+    font-family: var(--defaultfont);
+    color:var(--third);
+    display: flex;
+    justify-content: center;
+    width: 95px;
+    height: 40px;
+    align-items: center;
+    border-radius: 3px;
+  }
+  &-link_button{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--fourth);
+    .gg-arrow-top-right{
+      display: flex;
+      margin-left: 10px;
+      color: var(--fourth);
+    }
+  }
+  &-details {
+    display: flex;
+    flex-flow: wrap;
+    width: 100%;
+    padding: 2%;
+  }
+  &-image{
+    margin: auto 10px auto 0px;
+  img{
+    border-radius: 8px;
+    max-height: 500px;
+    width:100%;
+  }
+  }
+  @media only screen and (max-width: 600px) {
+      margin: 20px;
+    &-banner {
+      display: block;
+      width: 100%;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    &-details{
+      justify-content: space-between;
+    }
+    &-date{
+      margin-right: 20px;
+    }
+    &-title{
+      font-size: 25px;
+    }
+  }
+}
+.fl-node-jp1gnbwczsdm.fl-row-fixed-width, .fl-node-jp1gnbwczsdm .fl-row-fixed-width{
+    max-width: 1200px;
+}
