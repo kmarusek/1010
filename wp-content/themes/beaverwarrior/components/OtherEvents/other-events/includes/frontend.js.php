@@ -27,6 +27,7 @@ jQuery(document).ready(function(){
     jQuery(".Party").show();
     jQuery(".SpaceX").show();
   }
+  jQuery(".displayNoneParty").hide();
 
 });
 var result = jQuery('.OtherEvents-banner').sort(function (a, b) {
