@@ -30,11 +30,9 @@ endif;?>
                 <h2><?php echo $settings->content_title ?></h2>
                 <p><?php echo $settings->content ?></p>
                 <?php if ( $settings->button_url ): ?>
-                    <div class="FiftyFiftySplit-buttonwrap">
-                        <a class="FiftyFiftySplit-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
-                            <p><?php echo $settings->button_text ?></p>
+                        <a class="fl-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>" role="button">
+                            <span class="fl-button-text"><?php echo $settings->button_text ?></p>
                         </a>
-                    </div>
                 <?php endif; ?>
             </div>
         </div>

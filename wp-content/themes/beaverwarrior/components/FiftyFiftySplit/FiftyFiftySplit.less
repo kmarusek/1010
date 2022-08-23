@@ -51,10 +51,10 @@
      animation: lens-slide-left 2s 1 alternate;
      @keyframes lens-slide-left{
           from {
-               background-position: -100% -100%;
+               background-position-x: -200%;
           }
           to {
-               background-position: center center;
+               background-position: center;
           }
      }
 }
@@ -62,8 +62,8 @@
      animation: mask-slide-left 2s 1 alternate;
      @keyframes mask-slide-left{
           from {
-               -webkit-mask-position: -100% -100%;
-                    mask-position: -100% -100%; 
+               -webkit-mask-position-x: -200%;
+                    mask-position-x: -200%; 
           }
           to {
                -webkit-mask-position: center center;
@@ -75,11 +75,11 @@
      animation: lens-slide-right 2s 1 normal;
      @keyframes lens-slide-right{
           from {
-                    background-position: 200% -100%; 
+                    background-position-x: 200%; 
           }
           to {
 
-                    background-position: center center;
+                    background-position-x: center;
           }
      }
 }
@@ -87,12 +87,12 @@
      animation: mask-slide-right 2s 1 normal;
      @keyframes mask-slide-right{
           from {
-               -webkit-mask-position: 200% -100%;
-                    mask-position: 200% -100%; 
+               -webkit-mask-position-x: 200%;
+                    mask-position-x: 200%; 
           }
           to {
-               -webkit-mask-position: center center;
-                    mask-position: center center;
+               -webkit-mask-position-x: center;
+                    mask-position-x: center;
           }
      }
 }
@@ -259,55 +259,6 @@ a.FiftyFiftySplit-accordion p {
      .FiftyFiftySplit-image-side {
           width: 100%;
      } 
-     .FiftyFiftySplit-image-side.right .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible{
-          animation: lens-slide-right 2s 1 normal;
-          @keyframes lens-slide-right{
-               from {
-                         background-position: 200% 0%; 
-               }
-               to {
-     
-                         background-position: center center;
-               }
-          }
-     }
-     .FiftyFiftySplit-image-side.left .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible {
-          animation: lens-slide-left 2s 1 alternate;
-          @keyframes lens-slide-left{
-               from {
-                    background-position: -100% 0%;
-               }
-               to {
-                    background-position: center center;
-               }
-          }
-     }
-     .FiftyFiftySplit-image-side.left .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
-          animation: mask-slide-left 2s 1 alternate;
-          @keyframes mask-slide-left{
-               from {
-                    -webkit-mask-position: -100% 0%;
-                         mask-position: -100% 0%; 
-               }
-               to {
-                    -webkit-mask-position: center center;
-                         mask-position: center center;
-               }
-          }
-     }
-     .FiftyFiftySplit-image-side.right .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
-          animation: mask-slide-right 2s 1 normal;
-          @keyframes mask-slide-right{
-               from {
-                    -webkit-mask-position: 200% 0%;
-                         mask-position: 200% 0%; 
-               }
-               to {
-                    -webkit-mask-position: center center;
-                         mask-position: center center;
-               }
-          }
-     }
      .FiftyFiftySplit-content-side.FiftyFiftySplit-animation.is-visible {
           animation: content-slide 2s 1 normal;
           @keyframes content-slide{
