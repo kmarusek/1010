@@ -48,7 +48,7 @@
      z-index: 1000;
 }
 .FiftyFiftySplit-image-side.left .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible {
-     animation: lens-slide-left 2s 1 alternate;
+     animation: lens-slide-left 4s 1 alternate;
      @keyframes lens-slide-left{
           from {
                background-position-x: -200%;
@@ -59,7 +59,7 @@
      }
 }
 .FiftyFiftySplit-image-side.left .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
-     animation: mask-slide-left 2s 1 alternate;
+     animation: mask-slide-left 4s 1 alternate;
      @keyframes mask-slide-left{
           from {
                -webkit-mask-position-x: -200%;
@@ -72,7 +72,7 @@
      }
 }
 .FiftyFiftySplit-image-side.right .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible{
-     animation: lens-slide-right 2s 1 normal;
+     animation: lens-slide-right 4s 1 normal;
      @keyframes lens-slide-right{
           from {
                     background-position-x: 200%; 
@@ -84,7 +84,7 @@
      }
 }
 .FiftyFiftySplit-image-side.right .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
-     animation: mask-slide-right 2s 1 normal;
+     animation: mask-slide-right 4s 1 normal;
      @keyframes mask-slide-right{
           from {
                -webkit-mask-position-x: 200%;
@@ -127,7 +127,7 @@
      animation: content-slide 2s 1 normal;
      @keyframes content-slide{
           0% {
-               transform: translateY(200px);
+               transform: translateY(0px);
           }
           100%{
                transform: translateY(0);
@@ -274,7 +274,7 @@ a.FiftyFiftySplit-accordion p {
           animation: content-slide 2s 1 normal;
           @keyframes content-slide{
                0% {
-                    transform: translateX(400px);
+                    transform: translateX(100px);
                }
                100%{
                     transform: translateX(0);
@@ -286,7 +286,7 @@ a.FiftyFiftySplit-accordion p {
           animation: content-slide-left 2s 1 normal;
           @keyframes content-slide-left{
                0% {
-                    transform: translateX(-400px);
+                    transform: translateX(100px);
                }
                100%{
                     transform: translateX(0);
