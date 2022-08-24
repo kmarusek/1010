@@ -13,7 +13,7 @@
      display: flex;
 }
 
-/*========= Image Side ==========*/
+/*========= Image ==========*/
 .FiftyFiftySplit-image-side {
      width: 50%;
 }
@@ -96,7 +96,7 @@
           }
      }
 }
-/*========= Content Side ==========*/
+/*========= Content ==========*/
 .FiftyFiftySplit-content-side{
      width: 50%;
      align-self: stretch;
@@ -114,44 +114,15 @@
 .FiftyFiftySplit-content-wrap h2 {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      font-weight: 500;
-     font-size: 2.1vw;
+     font-size: ~"calc(30px + 1.3vw)";
 
 }
 .FiftyFiftySplit-content-wrap p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      font-weight: 400;
-     font-size: 1.3vw;
+     font-size: ~"calc(15px + .5vw)";
      padding-bottom: 35px;
 }
-.FiftyFiftySplit-buttonwrap {
-     display: flex;
-     text-decoration: none;
-}
-.FiftyFiftySplit-button:hover {
-     text-decoration: none;
-}
-.FiftyFiftySplit-button:focus {
-     text-decoration: none;
-}
-.FiftyFiftySplit-button p {
-     font-family: "Hauora", Verdana, Arial, sans-serif;
-     font-weight: 500;
-     font-size: 1.1vw;
-     padding: 0;
-     
-}
-.FiftyFiftySplit-button {
-     padding-bottom:8px;
-     border-bottom: 1px solid;
-     border-radius: 2px;
-     text-decoration: none;
-     transition: .4s;
-}
-.FiftyFiftySplit-button:hover {
-     transition: .4s;
-     text-decoration: none;
-}
-
 .FiftyFiftySplit-content-side.FiftyFiftySplit-animation.is-visible {
      animation: content-slide 2s 1 normal;
      @keyframes content-slide{
@@ -164,20 +135,66 @@
      }
 }
 
+/*========= Button ==========*/
+
+.FiftyFiftySplit-buttonwrap {
+     display: flex;
+     text-decoration: none;
+}
+a.FiftyFiftySplit-button {
+     color: #fc6815;
+     padding-bottom: 10px;
+     display: inline-block;
+     line-height: 18px;
+     text-decoration: none;
+     text-shadow: none;
+     position: relative !important;
+     cursor: pointer;
+     transition: none !important;
+     box-sizing: border-box;
+}
+a.FiftyFiftySplit-button::before {
+     content: '';
+     transform-origin: 100% 50%;
+     transform: scale3d(0,1,1);
+     transition: transform 0.3s;
+     position: absolute;
+     width: 100%;
+     height: 2px;
+     background: #fc6815;
+     top: 100%;
+     left: 0;
+     pointer-events: none;
+ 
+}
+a.FiftyFiftySplit-button:hover::before {
+     text-decoration: none;
+     transform-origin: 0% 50%;
+     transform: scale3d(1,1,1);
+}
+a.FiftyFiftySplit-button:focus {
+     text-decoration: none;
+}
+a.FiftyFiftySplit-button p{
+     font-family: "Hauora", Verdana, Arial, sans-serif;
+     font-weight: 500;
+     font-size: ~"calc(15px + .5vw)";
+     padding: 0;
+     
+}
+
 /*========= Accordion ==========*/
 
 a.FiftyFiftySplit-accordion {
-
      display: none;
      margin: 0 10vw;
-     font-size: 2.1vw;
      font-weight: 600;
      color: #000;
      cursor: pointer;
      padding: 18px;
      text-align: left;
      text-decoration: none;
-     border-top: solid 1px #000;
+     border-top: solid 1px #cacaca;
      border-left: none;
      border-right: none;
      border-bottom: none;
@@ -189,7 +206,7 @@ a.FiftyFiftySplit-accordion {
 a.FiftyFiftySplit-accordion p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      overflow: hidden;
-     font-size: 4.2vw;
+     font-size: ~"calc(16px + 2vw);";
      font-weight: 600;
 }
 .active, a.FiftyFiftySplit-accordion:hover {
@@ -246,16 +263,10 @@ a.FiftyFiftySplit-accordion p {
           width: 100%;
           padding: 0;
      }
-     .FiftyFiftySplit-content-wrap h2 {
-          font-size: 6vw;
-     }
+
      .FiftyFiftySplit-content-wrap p {
-          font-size: 3.2vw;
           padding-bottom: 15px;
      }
-     .FiftyFiftySplit-button p {
-          font-size: 3.5vw;
-      }
      .FiftyFiftySplit-image-side {
           width: 100%;
      } 

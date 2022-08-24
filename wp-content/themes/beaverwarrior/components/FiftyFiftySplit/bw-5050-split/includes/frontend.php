@@ -26,13 +26,15 @@ endif;?>
             </div>
         </div>
         <div class="FiftyFiftySplit-content-side FiftyFiftySplit-animation right">
-            <div class="FiftyFiftySplit-content-wrap ">
+            <div class="FiftyFiftySplit-content-wrap">
                 <h2><?php echo $settings->content_title ?></h2>
                 <p><?php echo $settings->content ?></p>
                 <?php if ( $settings->button_url ): ?>
-                        <a class="fl-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>" role="button">
-                            <span class="fl-button-text"><?php echo $settings->button_text ?></p>
+                    <div class="FiftyFiftySplit-buttonwrap">
+                        <a class="FiftyFiftySplit-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
+                            <p><?php echo $settings->button_text ?></p>
                         </a>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -44,7 +46,7 @@ endif;?>
     <section id="FiftyFiftySplit-<?php echo esc_attr($id); ?>"  class="<?php echo $wrapper_classes;?> ">
 
         <div class="FiftyFiftySplit-content-side FiftyFiftySplit-animation left">
-            <div class="FiftyFiftySplit-content-wrap ">
+            <div class="FiftyFiftySplit-content-wrap">
                 <h2><?php echo $settings->content_title ?></h2>
                 <p><?php echo $settings->content ?></p>
                 <?php if ( $settings->button_url ): ?>
