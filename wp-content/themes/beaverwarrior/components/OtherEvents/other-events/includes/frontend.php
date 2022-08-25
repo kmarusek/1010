@@ -23,7 +23,7 @@ $wrapper_classess = [
     $todayO = date("Y-m-d");
     $compareO = $other_events->other_events_date_to;
     if ($todayO > $compareO) {
-      $displaynoneo = 'displayNone';
+      $displaynoneo = 'OtherEvents-displayNone';
     } else {
       $displaynoneo = '';
     }

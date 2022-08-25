@@ -4,9 +4,7 @@
   --third:#120C17;
   --defaultfont: sans-serif;
 }
-.displayNone{
-  display: none !important;
-}
+
 /*===== Carousel Wrapper =====*/
 .FeaturedEvent {
   font-family: var(--defaultfont);
@@ -16,7 +14,9 @@
 
   display: flex;
   flex-flow: column;
-
+  &-displayNone{
+    display: none !important;
+  }
 
   &-banner {
     display: flex;
