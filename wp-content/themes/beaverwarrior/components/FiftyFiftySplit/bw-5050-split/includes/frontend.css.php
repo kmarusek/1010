@@ -28,11 +28,8 @@
 .fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button p{
    color: <?php echo FLBuilderColor::hex_or_rgb($settings->button_color); ?>;
 }
-.fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button:hover p {
-   color: <?php echo FLBuilderColor::hex_or_rgb($settings->button_hover); ?>;
-}
-.fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap .FiftyFiftySplit-button:hover {
-   border-color: <?php echo FLBuilderColor::hex_or_rgb($settings->button_hover); ?>;
+.fl-node-<?php echo $id; ?> .FiftyFiftySplit-content-wrap .FiftyFiftySplit-buttonwrap a.FiftyFiftySplit-button::before {
+   background: <?php echo FLBuilderColor::hex_or_rgb($settings->button_color); ?>;
 }
 
 

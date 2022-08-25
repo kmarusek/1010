@@ -13,7 +13,7 @@
      display: flex;
 }
 
-/*========= Image Side ==========*/
+/*========= Image ==========*/
 .FiftyFiftySplit-image-side {
      width: 50%;
 }
@@ -36,7 +36,7 @@
     -webkit-mask-position: center center;
      mask-position: center center;
     -webkit-mask-size: 70%;
-     mask-size: 61%;
+     mask-size: 70%;
 }
 .FiftyFiftySplit-lens {
      position: absolute;
@@ -48,22 +48,22 @@
      z-index: 1000;
 }
 .FiftyFiftySplit-image-side.left .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible {
-     animation: lens-slide-left 2s 1 alternate;
+     animation: lens-slide-left 4s 1 alternate;
      @keyframes lens-slide-left{
           from {
-               background-position: -100% -100%;
+               background-position-x: -200%;
           }
           to {
-               background-position: center center;
+               background-position: center;
           }
      }
 }
 .FiftyFiftySplit-image-side.left .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
-     animation: mask-slide-left 2s 1 alternate;
+     animation: mask-slide-left 4s 1 alternate;
      @keyframes mask-slide-left{
           from {
-               -webkit-mask-position: -100% -100%;
-                    mask-position: -100% -100%; 
+               -webkit-mask-position-x: -200%;
+                    mask-position-x: -200%; 
           }
           to {
                -webkit-mask-position: center center;
@@ -72,31 +72,31 @@
      }
 }
 .FiftyFiftySplit-image-side.right .FiftyFiftySplit-lens.FiftyFiftySplit-animation.is-visible{
-     animation: lens-slide-right 2s 1 normal;
+     animation: lens-slide-right 4s 1 normal;
      @keyframes lens-slide-right{
           from {
-                    background-position: 200% -100%; 
+                    background-position-x: 200%; 
           }
           to {
 
-                    background-position: center center;
+                    background-position-x: center;
           }
      }
 }
 .FiftyFiftySplit-image-side.right .FiftyFiftySplit-primary-img.FiftyFiftySplit-animation.is-visible{
-     animation: mask-slide-right 2s 1 normal;
+     animation: mask-slide-right 4s 1 normal;
      @keyframes mask-slide-right{
           from {
-               -webkit-mask-position: 200% -100%;
-                    mask-position: 200% -100%; 
+               -webkit-mask-position-x: 200%;
+                    mask-position-x: 200%; 
           }
           to {
-               -webkit-mask-position: center center;
-                    mask-position: center center;
+               -webkit-mask-position-x: center;
+                    mask-position-x: center;
           }
      }
 }
-/*========= Content Side ==========*/
+/*========= Content ==========*/
 .FiftyFiftySplit-content-side{
      width: 50%;
      align-self: stretch;
@@ -105,62 +105,29 @@
      align-items: center;
 }
 .FiftyFiftySplit-content-wrap{
-     width: 70%;
+     width: 85%;
 }
-.FiftyFiftySplit-content-side.left .FiftyFiftySplit-content-wrap {
-     padding-right: 40px;
-     margin-left: auto;
-}
-.FiftyFiftySplit-content-side.right .FiftyFiftySplit-content-wrap {
+.FiftyFiftySplit-content-side .FiftyFiftySplit-content-wrap {
      padding-left: 40px;
-     margin-right: auto;
+     margin: auto;
 }
 .FiftyFiftySplit-content-wrap h2 {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      font-weight: 500;
-     font-size: 2.1vw;
+     font-size: ~"calc(20px + 1.3vw)";
 
 }
 .FiftyFiftySplit-content-wrap p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      font-weight: 400;
-     font-size: 1.3vw;
+     font-size: ~"calc(14px + .4vw)";
      padding-bottom: 35px;
 }
-.FiftyFiftySplit-buttonwrap {
-     display: flex;
-     text-decoration: none;
-}
-.FiftyFiftySplit-button:hover {
-     text-decoration: none;
-}
-.FiftyFiftySplit-button:focus {
-     text-decoration: none;
-}
-.FiftyFiftySplit-button p {
-     font-family: "Hauora", Verdana, Arial, sans-serif;
-     font-weight: 500;
-     font-size: 1.1vw;
-     padding: 0;
-     
-}
-.FiftyFiftySplit-button {
-     padding-bottom:8px;
-     border-bottom: 1px solid;
-     border-radius: 2px;
-     text-decoration: none;
-     transition: .4s;
-}
-.FiftyFiftySplit-button:hover {
-     transition: .4s;
-     text-decoration: none;
-}
-
 .FiftyFiftySplit-content-side.FiftyFiftySplit-animation.is-visible {
      animation: content-slide 2s 1 normal;
      @keyframes content-slide{
           0% {
-               transform: translateY(200px);
+               transform: translateY( 400px);
           }
           100%{
                transform: translateY(0);
@@ -168,20 +135,66 @@
      }
 }
 
+/*========= Button ==========*/
+
+.FiftyFiftySplit-buttonwrap {
+     display: flex;
+     text-decoration: none;
+}
+a.FiftyFiftySplit-button {
+     color: #fc6815;
+     padding-bottom: 10px;
+     display: inline-block;
+     line-height: 18px;
+     text-decoration: none;
+     text-shadow: none;
+     position: relative !important;
+     cursor: pointer;
+     transition: none !important;
+     box-sizing: border-box;
+}
+a.FiftyFiftySplit-button::before {
+     content: '';
+     transform-origin: 100% 50%;
+     transform: scale3d(0,1,1);
+     transition: transform 0.3s;
+     position: absolute;
+     width: 100%;
+     height: 2px;
+     background: #fc6815;
+     top: 100%;
+     left: 0;
+     pointer-events: none;
+ 
+}
+a.FiftyFiftySplit-button:hover::before {
+     text-decoration: none;
+     transform-origin: 0% 50%;
+     transform: scale3d(1,1,1);
+}
+a.FiftyFiftySplit-button:focus {
+     text-decoration: none;
+}
+a.FiftyFiftySplit-button p{
+     font-family: "Hauora", Verdana, Arial, sans-serif;
+     font-weight: 500;
+     font-size: ~"calc(15px + .5vw)";
+     padding: 0;
+     
+}
+
 /*========= Accordion ==========*/
 
 a.FiftyFiftySplit-accordion {
-
      display: none;
      margin: 0 10vw;
-     font-size: 2.1vw;
      font-weight: 600;
      color: #000;
      cursor: pointer;
      padding: 18px;
      text-align: left;
      text-decoration: none;
-     border-top: solid 1px #000;
+     border-top: solid 1px #cacaca;
      border-left: none;
      border-right: none;
      border-bottom: none;
@@ -193,6 +206,8 @@ a.FiftyFiftySplit-accordion {
 a.FiftyFiftySplit-accordion p {
      font-family: "Hauora", Verdana, Arial, sans-serif;
      overflow: hidden;
+     font-size: ~"calc(16px + 2vw);";
+     font-weight: 600;
 }
 .active, a.FiftyFiftySplit-accordion:hover {
      background-color: transparent;
@@ -201,49 +216,64 @@ a.FiftyFiftySplit-accordion p {
 
 /*========= Responsive / Media Querys ==========*/
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1020px) {
+
      a.FiftyFiftySplit-accordion {
           display: flex;
           justify-content: space-between;
      }
      .FiftyFiftySplit-wrap{
           padding: 0;
+          flex-direction: column-reverse;
+     }
+     .FiftyFiftySplit-wrap.home-page{
+          flex-direction: column-reverse;
+     }
+     .FiftyFiftySplit-wrap.home-page.FiftyFiftySplit-reverse{
+          flex-direction: column;
+     }
+     .FiftyFiftySplit-wrap.FiftyFiftySplit-reverse{
           flex-direction: column;
      }
      .FiftyFiftySplit-wrap.not-home-page {
           display: none;
           margin: auto;
           flex-wrap: wrap;
-          margin: 0 10vw;
+
      }
-     .FiftyFiftySplit-wrap.FiftyFiftySplit-reverse{
+     .FiftyFiftySplit-wrap.not-home-page.FiftyFiftySplit-reverse.toggle{
           flex-direction: column-reverse;
      }
      .FiftyFiftySplit-wrap.not-home-page.toggle{
           display: flex;
+          flex-direction: column;
      }
-     .FiftyFiftySplit-content-side.left .FiftyFiftySplit-content-wrap {
-          padding: 40px;
-     }
-     .FiftyFiftySplit-content-side.right .FiftyFiftySplit-content-wrap {
-          padding: 40px;
-     }
+
      .FiftyFiftySplit-content-side{
           width: 100%;
-          padding: 20px;
+          padding: 25px;
      }
      .FiftyFiftySplit-content-wrap{
           width: 100%;
+          padding: 0;
+     }
+     .FiftyFiftySplit-content-wrap  {
+          padding-bottom: 15px;
+     }
+     .FiftyFiftySplit-content-wrap p {
+          padding-bottom: 15px;
+     }
+     .FiftyFiftySplit-content-side .FiftyFiftySplit-content-wrap {
+          padding-left: 0;
      }
      .FiftyFiftySplit-image-side {
           width: 100%;
      } 
-     
-     .FiftyFiftySplit-content-wrap.FiftyFiftySplit-animation.is-visible {
+     .FiftyFiftySplit-content-side.FiftyFiftySplit-animation.is-visible {
           animation: content-slide 2s 1 normal;
           @keyframes content-slide{
                0% {
-                    transform: translateX(400px);
+                    transform: translateX(100px);
                }
                100%{
                     transform: translateX(0);
@@ -251,11 +281,11 @@ a.FiftyFiftySplit-accordion p {
           }
      
      }
-     .FiftyFiftySplit-content-wrap.FiftyFiftySplit-animation.is-visible {
-          animation: content-slide 2s 1 normal;
-          @keyframes content-slide{
+     .FiftyFiftySplit-content-side.FiftyFiftySplit-animation.left.is-visible {
+          animation: content-slide-left 2s 1 normal;
+          @keyframes content-slide-left{
                0% {
-                    transform: translateX(400px);
+                    transform: translateX(100px);
                }
                100%{
                     transform: translateX(0);

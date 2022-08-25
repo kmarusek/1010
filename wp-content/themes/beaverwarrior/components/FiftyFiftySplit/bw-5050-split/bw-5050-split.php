@@ -141,14 +141,7 @@ FLBuilder::register_module('BW5050split', array(
                             'default' => '',
                             'show_reset' => true,
                             'show_alpha' => true,
-                        ),
-                        'button_hover' => array(
-                            'type' => 'color',
-                            'label' => __('Button:Hover Color Picker', 'skeleton-warrior'),
-                            'default' => '#eee',
-                            'show_reset' => true,
-                            'show_alpha' => true,
-                        ),
+                        )
                     )
                 ),
             ),
