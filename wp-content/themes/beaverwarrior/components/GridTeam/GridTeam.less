@@ -12,6 +12,9 @@
 	letter-spacing: 2px;
 	text-align: left;
 	color: #120c17;
+	@media only screen and (max-width: 992px) {
+	font-size: 24px;
+	}
   }
   &-row {
     display: flex;
@@ -23,6 +26,7 @@
 	display: flex;
 	justify-content: center;
     @media screen and (max-width: 992px) {
+		padding: 10px;
       .GridTeam-member_wrapper {
         display: flex;
         justify-content: center;
@@ -60,6 +64,9 @@
 	  -webkit-transition-timing-function: ease-out;
 	  transition-timing-function: ease-out;
 	}
+	@media screen and (max-width: 992px) {
+font-size: 16px;
+    }
   }
   &-panel_link {
 	text-decoration: none;
@@ -75,6 +82,9 @@
   }
   &-text_container {
 	margin-bottom: 60px;
+	@media screen and (max-width: 992px) {
+margin: 0%;
+    }
   }
   &-position {
 	position: relative;
@@ -89,6 +99,9 @@
   letter-spacing: 0.64px;
   text-align: left;
   color: #333;
+  @media screen and (max-width: 992px) {
+font-size: 12px;
+}
   }
   &-modal {
 	display: none;
@@ -194,6 +207,7 @@
 	padding: 62px 43px 59px 46px;
 	width: 1040px;
 	@media only screen and (max-width: 992px) {
+		width: 90%;
 	  overflow: scroll;
 	  padding: 35px 20px 3px;
 	}
