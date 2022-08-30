@@ -89,7 +89,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           catSet.add(`<p class="OpenPositions-category_item" data-cat="${el.departments[0].name}">${departmentName}`);
 
           //create html for each job
-          var html = `<a href='../open-position-details?id="${el.id}"' class='OpenPositions-job_listing animated fadeInUp' data-cat="${el.departments[0].name}">
+          var html = `<a href='../open-position-details?id=${el.id}' class='OpenPositions-job_listing animated fadeInUp' data-cat="${el.departments[0].name}">
                      <div class='OpenPositions-listing_content_container'>
                         <div class='OpenPositions-listing_content'>
                            <p class='OpenPositions-listing_title'>${el.title}</p>
