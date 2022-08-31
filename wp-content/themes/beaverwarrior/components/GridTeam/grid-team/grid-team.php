@@ -48,7 +48,7 @@ FLBuilder::register_module( 'BWGridTeam', [
                             'type'         => 'icon',
                             'label'        => __( 'Back icon', 'fl-builder' ),
                             'show_remove'  => true,
-                            'description'  => 'Icon for the back when module is pop-up',
+                            'description'  => 'Icon for the back when module is pop-up'
                         ),
                         'col_desktop' => [
                             'type' => 'unit',
