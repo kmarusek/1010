@@ -57,7 +57,7 @@ $wrapper_classes = [
 				<div class="GridTeam-modal-content">
 					<div class="GridTeam-modal-header">
 						<button type="button" class="GridTeam-close" data-dismiss="modal" aria-label="Close">
-							<span class='GridTeam-closeSymbol' aria-hidden="true">&times;</span>
+							<span class='GridTeam-closeSymbol' aria-hidden="true"><i class="GridTeam-icon"><?php echo $modal->back_icon ?></i>Go back</span>
 						</button>
 					</div>
 					<div class="GridTeam-modal-body">

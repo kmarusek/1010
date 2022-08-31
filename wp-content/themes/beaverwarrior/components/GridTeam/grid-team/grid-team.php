@@ -44,6 +44,12 @@ FLBuilder::register_module( 'BWGridTeam', [
                             'preview_text' => 'name', // Name of a field to use for the preview text
                             'multiple'     => true,
                         ),
+                        'back_icon' => array(
+                            'type'         => 'icon',
+                            'label'        => __( 'Back icon', 'fl-builder' ),
+                            'show_remove'  => true,
+                            'description'  => 'Icon for the back when module is pop-up',
+                        ),
                         'col_desktop' => [
                             'type' => 'unit',
                             'label' => __('Number of Columns - Desktop'),

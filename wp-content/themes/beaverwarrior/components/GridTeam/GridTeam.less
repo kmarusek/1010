@@ -1,5 +1,5 @@
 .GridTeam {
-  max-width: 1000px;
+  max-width: 1250px;
   margin: auto;
   text-align: center;
   &-team {
@@ -36,6 +36,8 @@
   &-image_container img{
 	border-radius: 10px;
 	margin: 0 0 20px;
+	width: 374px;
+    height: 392px;
   }
   &-name {
 	position: relative;
@@ -72,6 +74,9 @@ font-size: 16px !important;
 	text-decoration: none;
 	transition: all 0.5s ease-out;
 	outline: none !important;
+  }
+  &-panel_link:hover {
+	text-decoration: none;
   }
   &:hover {
 	&-text_container &-name {
@@ -118,8 +123,8 @@ font-size: 12px !important;
   &-modal-header {
 	border-bottom: none !important;
 	position: absolute;
-	top: 0px;
-	right: 0;
+	bottom: 50px;
+	right: 50px;
 	padding: 15px;
   }
   &-close {
@@ -196,7 +201,7 @@ font-size: 12px !important;
   }
   &-modal-content {
 	background: white;
-	border-radius: 5px;
+	border-radius: 12px;
 	position: relative;
 	margin-left: 0;
 	margin-right: 0;
@@ -258,5 +263,8 @@ font-size: 12px !important;
 }
 .modal-backdrop{
 	display: none;
+}
+.fl-row-fixed-width{
+	max-width: 1440px;
 }
 
