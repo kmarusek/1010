@@ -725,6 +725,8 @@ function populate_roles_160() {
 	add_role( 'author', 'Author' );
 	add_role( 'contributor', 'Contributor' );
 	add_role( 'subscriber', 'Subscriber' );
+	add_role( 'legalUser', 'Legal User' );
+	
 
 	// Add caps for Administrator role.
 	$role = get_role( 'administrator' );
