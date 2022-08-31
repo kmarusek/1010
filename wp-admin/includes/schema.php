@@ -805,6 +805,10 @@ function populate_roles_160() {
 	$role = get_role( 'subscriber' );
 	$role->add_cap( 'read' );
 	$role->add_cap( 'level_0' );
+// Add caps for Legal User role.
+	$role = get_role( 'legalUser' );
+	$role->add_cap( 'read' );
+	$role->add_cap( 'level_0' );
 }
 
 /**
