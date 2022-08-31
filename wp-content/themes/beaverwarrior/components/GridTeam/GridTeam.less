@@ -2,7 +2,9 @@
 	max-width: 1250px;
 	margin: auto;
 	text-align: center;
-
+	@media only screen and (max-width: 992px) {
+		margin: 24px;
+	}
 	&-team {
 		margin: 0 61px 46px 82px;
 		font-size: 40px;
@@ -45,7 +47,11 @@
 		margin: 0 0 20px;
 		width: 374px;
 		height: 392px;
-	}
+		@media screen and (max-width: 992px) {
+		width: 149.8px;
+  height: 157px;
+  border-radius: 4px;
+	}}
 
 	&-name {
 		position: relative;
@@ -145,6 +151,11 @@
 		bottom: 50px;
 		right: 50px;
 		padding: 15px;
+		@media screen and (max-width: 992px) {
+			padding: 0%;
+			bottom: 46px;
+			right: 46px;
+		}
 	}
 
 	&-close {
@@ -167,6 +178,7 @@
 	&-closeSymbol {
 		font-weight: 100;
 		display: flex;
+		align-items: center;
 	}
 
 	&-back {
@@ -181,7 +193,7 @@
 	}
 
 	&-modal-body {
-		padding: 15px !important;
+		padding: 0px;
 		max-height: 90vh;
 		overflow: auto;
 
@@ -218,7 +230,7 @@
 	}
 
 	&-modal-title {
-		margin: 0 19px 8px 0;
+		margin: 14px 19px 8px 0;
 		font-size: 20px;
 		font-weight: 600;
 		font-stretch: normal;
@@ -228,7 +240,9 @@
 		text-align: left;
 		color: #120c17;
 	}
-
+	&-modal-title:first-child {
+		margin-top: 0;
+	}
 	&-modal_text p {
 		margin: 8px 0 0;
 		font-size: 14px;
@@ -255,7 +269,8 @@
 		width: 1040px;
 
 		@media only screen and (max-width: 992px) {
-			width: 90%;
+			width: 345px;
+			height: 610px;
 			overflow: scroll;
 			padding: 35px 20px 3px;
 		}
