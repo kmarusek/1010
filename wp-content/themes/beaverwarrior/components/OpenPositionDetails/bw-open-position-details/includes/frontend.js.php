@@ -17,7 +17,7 @@
         </div>`;
 
         var htmlForm = `
-            <form class="job__form cf" action="${url}" enctype="multipart/form-data" method="post">
+            <form id="OpenPositionDetails-form-<?php echo esc_attr($id);?>" class="job__form cf">
                             <input name="jobId" value="${job_id}" type="hidden">
                              <div class="cf">
                         <p class="job__form__helper"><span class="asterisk">*</span> Required</p>
@@ -32,7 +32,8 @@
             <div class="form-group">
              <label for="${field.name}">
                         ${label} <span class="asterisk">${ast}</span>                    </label><br/>
-                        <input class="textbox form-control" required="${required}  name="${field.name}" type="${fieldType}" value="">
+                        <input class="textbox form-control" name="${field.name}" type="${fieldType}" value="" ${required}>
+                        							<span class="form-error">Please fill this field.</span>
               </div>`;
 
         }
@@ -50,10 +51,11 @@
                         ${label} <span class="asterisk">${ast}</span>
                 </label>
                 <br/>
-                 <input type="radio" id="html" name="${field.name}" value="0" required="${required}>
-                 <label for="html">No</label>
-                 <input type="radio" id="css" name="${field.name}" value="1" required="${required}>
+                 <label for="html">No</label>
+                 <input type="radio" id="html" name="${field.name}" value="0" ${required}/>
                  <label for="css">Yes</label>
+                 <input type="radio" id="css" name="${field.name}" value="1" ${required}/>
+                 <span class="form-error">Please fill this field.</span>
             </div>
               `;
         }
@@ -64,6 +66,9 @@
             var ast = '*';
             if(!required){
                 ast = '';
+                required = "";
+            }else{
+                required = "required";
             }
             var fields = question.fields;
             fields.forEach((field) => {
@@ -78,7 +83,7 @@
                 }
             });
         });
-        htmlForm = htmlForm + htmlFormFields + '<button type="submit" class="btn" id="submitForm">Submit Application</button></form>';
+        htmlForm = htmlForm + htmlFormFields + '<div class="form-group"><div class="g-recaptcha" data-sitekey="6LdZ970hAAAAAO6wMFijylzqylqgrzWD50UoVbl0"></div><span class="form-error recaptcha-error">Please check this, it is required.</span></div><button type="submit" class="btn fl-button" id="submitForm">Submit Application</button><p class="message">Thank you for your submission.</p></form>';
         document.querySelector(".OpenPositionDetails-details").innerHTML = html;
         document.querySelector(".OpenPositionDetails-form").innerHTML = htmlForm;
     }
@@ -93,4 +98,167 @@
         content = content.replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').replace(/&quot;/g, '\"');
         buildHtml(data, departmentName, content);
     });
+
 })(jQuery);
+
+jQuery(document).ready(function ($) {
+    $('.OpenPositionDetails-form').on('focus', ':input[name=first_name]',  function() {
+        console.log('yupii');
+        // trigger loading api.js (recaptcha.js) script
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://www.google.com/recaptcha/api.js';
+        head.appendChild(script);
+
+        // remove focus to avoid js error:
+        // Uncaught Error: reCAPTCHA has already been rendered in this element at Object.kh
+        $('form:not(.filter) :input:visible:enabled:first').off('focus');
+    });
+    $(".OpenPositionDetails-form").on('click', '#submitForm', function(e) {
+        e.preventDefault();
+        var url = new URL(window.location.href);
+        var job_id = url.searchParams.get('id');
+        var urlHost = "https://boards-api.greenhouse.io/v1/boards/1010data/jobs/"+job_id;
+        var recaptcha = $("#g-recaptcha-response").val();
+        var jsonObj = {};
+        //var recaptcha = $("#g-recaptcha-response").val();
+        var valid = true;
+        $(".OpenPositionDetails-form :input[required]:visible").each(function(){
+            var input = $(this);
+            var err = input.next(".form-error");
+            if(input.attr('type') == 'text'){
+                if(input.val() == '') {
+                    valid = false;
+                    err.css('display', 'block');
+                    input.css('border-bottom', '1px solid #cc4b37');
+                }else{
+                    err.hide();
+                    input.css('border-bottom', '1px solid #ccc');
+                }
+                if(input.attr('name') == 'email' && input.val() != ''){
+                    if(!isEmail(input.val())) {
+                        valid = false;
+                        err.text("Please enter a valid email address.");
+                        err.css('display', 'block');
+                        input.css('border-bottom', '1px solid #cc4b37');
+                    }else{
+                        err.hide();
+                        input.css('border-bottom', '1px solid #ccc');
+                    }
+                }
+            }
+            if(input.attr('type') == 'file'){
+                if(input.val() == '') {
+                    valid = false;
+                    err.css('display', 'block');
+                    input.css('border-bottom', '1px solid #cc4b37');
+                } else if (!(/\.(pdf|doc|docx|txt|rtf)$/i).test(input.val())) {
+                    valid = false;
+                    err.text("Accepted files are pdf, doc, docx, txt and rtf.")
+                    err.css('display', 'block');
+                    input.css('border-bottom', '1px solid #cc4b37');
+                }else{
+                    err.hide();
+                    input.css('border-bottom', '1px solid #ccc');
+                }
+            }
+            if(input.attr('type') == 'radio'){
+                if ($('input[name='+input.attr("name")+']:checked').length <= 0){
+                    valid = false;
+                    err.css('display', 'block');
+                }else{
+                    err.hide();
+                }
+            }
+          //  console.log(input.attr('name'));
+           // console.log(input.attr('type'));
+            // console.log(input.val());
+        });
+        var phone = $(".OpenPositionDetails-form :input[name=phone]");
+        var phoneErr = $(".OpenPositionDetails-form :input[name=phone]").next(".form-error");
+        if(phone.val() != '' && !phone_validate(phone.val())){
+            phoneErr.text('Please enter a valid phone number.');
+            valid = false;
+            phoneErr.css('display', 'block');
+            phone.css('border-bottom', '1px solid #cc4b37');
+        }else{
+            phoneErr.hide();
+            phone.css('border-bottom', '1px solid #ccc');
+        }
+        var coverLetter = $(".OpenPositionDetails-form :input[name=cover_letter]");
+        var coverLetterErr = $(".OpenPositionDetails-form :input[name=cover_letter]").next(".form-error");
+        if(coverLetter.val() != '' && !(/\.(pdf|doc|docx|txt|rtf)$/i).test(coverLetter.val())){
+            coverLetterErr.text('Accepted files are pdf, doc, docx, txt and rtf.');
+            valid = false;
+            coverLetterErr.css('display', 'block');
+            coverLetter.css('border-bottom', '1px solid #cc4b37');
+        }else{
+            coverLetterErr.hide();
+            coverLetter.css('border-bottom', '1px solid #ccc');
+        }
+        if (recaptcha === "") {
+            valid = false;
+            $(".recaptcha-error").show();
+            $(".rc-anchor-normal").css('border', '2px solid #cc4b37');
+            return;
+        }else{
+            $(".recaptcha-error").hide();
+        }
+        // var form = $(this).not("#g-recaptcha-response, #captcha").serialize(),
+        // 		action = $(this).attr('action');
+        if(valid == true)  {
+            $('#g-recaptcha-response').attr('disabled', 'disabled');
+            $('#captcha').attr('disabled', 'disabled');
+            $(".recaptcha-error").hide();
+            $("#submitForm").attr("disabled", "disabled");
+            $("#submitForm").attr("style", "background-color:#ccc !important");
+            $(".OpenPositionDetails-form :input").each(function(){
+                var input = $(this);
+                if(input.attr('type') == 'radio'){
+                    jsonObj[input.attr('name')] = $('input[name='+input.attr("name")+']:checked').val();
+                }else{
+                    jsonObj[input.attr('name')] = input.val();
+                }
+                if(input.attr('type') == 'undefined'){
+                    console.log(input);
+                }
+            });
+            console.log(jsonObj);
+            $.ajax({
+                type: "POST",
+                crossDomain: true,
+                url: urlHost,
+                data: JSON.stringify(jsonObj),
+                contentType: "application/json",
+                dataType: 'jsonp',
+                headers: {'Authorization': 'Basic 62a32faac59b9475d0124ffe62935f7c-1'},
+                beforeSend: function() {
+                },
+                /*beforeSend: function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Token ' + window.localStorage.getItem('token'));
+                },*/
+                success: function(data) {
+                    var message = $(".OpenPositionDetails-form .message");
+                    message.css('display', 'block');
+                },
+                error: function() {
+                    var message = $(".OpenPositionDetails-form .message");
+                    message.text('There was an error with you submission');
+                    message.css('display', 'block');
+                }
+            });
+        }else{
+            return;
+        }
+    });
+    function phone_validate(phno)
+    {
+        var regexPattern=new RegExp(/^\d{7,}$/);    // regular expression pattern
+        return regexPattern.test(phno);
+    }
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+});

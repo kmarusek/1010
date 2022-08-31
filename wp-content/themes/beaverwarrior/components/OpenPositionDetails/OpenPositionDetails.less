@@ -1,4 +1,9 @@
 .OpenPositionDetails {
+	&-wrapper{
+		display: grid;
+		grid-template-columns: 654px 1fr;
+		gap: 90px;
+	}
 	&-details{
 
 	}
@@ -57,11 +62,8 @@
 		}
 	}
 	&-form{
-		position: fixed;
+		position: sticky;
 		top: 150px;
-		bottom: 50px;
-		overflow-y: scroll;
-		overflow-x: hidden;
 		padding: 20px;
 		background: #ccc;
 		.job__form__helper{
@@ -72,8 +74,19 @@
 			color: #fff;
 			border:none;
 		}
-		#submitForm:hover{
+		#submitForm:hover, #submitForm:active:focus, #submitForm:focus{
 			border:none;
+			outline: none;
+		}
+		.form-error{
+			display: none;
+			color: #cc4b37;
+			font-size: 12px;
+			font-weight: 300;
+			font-family: Hauora,sans-serif;
+		}
+		.message{
+			display: none;
 		}
 	}
 }
