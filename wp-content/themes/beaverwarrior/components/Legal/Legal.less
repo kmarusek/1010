@@ -1,0 +1,91 @@
+.Legal {
+	--primary: #120c17;
+	max-width: 1000px;
+	margin: auto;
+	text-align: center;
+
+	@media only screen and (max-width: 992px) {
+		padding: 58px 0 137px;
+	}
+
+	&-title {
+		font-family: 'Hauora';
+		font-size: 40px;
+		font-weight: 600;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.6;
+		letter-spacing: 2px;
+		color: var(--primary);
+
+		@media only screen and (max-width: 992px) {
+			margin: 58px 80px 34px;
+			font-size: 32px;
+			line-height: 1.6;
+			letter-spacing: 1.6px;
+		}
+	}
+
+	&-row {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		margin-top: 40px;
+	}
+
+	&-content {
+		display: flex;
+		justify-content: center;
+
+		@media screen and (max-width: 992px) {
+			padding: 0 24px !important;
+
+			.Legal-content_wrapper {
+				display: flex;
+				justify-content: center;
+			}
+		}
+	}
+
+	&-name {
+		font-family: 'Hauora';
+		margin: 0 13px 8px 0;
+		font-size: 24px;
+		font-weight: 600;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: normal;
+		letter-spacing: 1.2px;
+		text-align: left;
+		color: #120c17;
+
+		@media screen and (max-width: 992px) {
+			font-size: 20px !important;
+			padding: 10px 0 0;
+		}
+	}
+
+	&-text_container {
+
+		@media screen and (max-width: 992px) {
+			margin: 0% !important;
+		}
+	}
+
+	&-position {
+		flex-grow: 0;
+		margin: 8px 0 0;
+		font-size: 16px;
+		font-weight: normal;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.88;
+		letter-spacing: 0.64px;
+		text-align: left;
+		color: #333;
+
+		@media screen and (max-width: 992px) {
+			font-size: 12px !important;
+		}
+	}
+}
