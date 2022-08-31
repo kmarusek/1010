@@ -13,7 +13,7 @@ $wrapper_classes = [
 $today = date("Y-m-d");
 $compare = $featured_event->featured_event_date_to;
 if($today>$compare){
-  $displaynone ='displayNone';
+  $displaynone ='FeaturedEvent-displayNone';
 }
 else
 {
