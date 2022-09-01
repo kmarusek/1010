@@ -264,10 +264,10 @@ FLBuilder::register_settings_form('team_group_forms', array(
                             ]
                         ],
                         'modal_text' => array(
-                            'type'          => 'editor',
+                            'type'          => 'textarea',
                             'label'         => __('Modal text', 'fl-builder'),
-                            'show_target'   => true,
-                            'show_nofollow' => false,
+                            'maxlength'   => '570',
+							'rows'          => '12'
                         ),
                     ),
                 ),
