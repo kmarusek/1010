@@ -47,10 +47,26 @@
     color: var(--secondary);
   }
   &-date_from, &-date_to {
-    font-family: var(--defaultfont);
     text-transform: uppercase;
-    font-size: 13px;
-    margin-right: 10px;
+    margin-right: 5px;
+    flex-grow: 0;
+    font-family: Hauora;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: 0.8px;
+
+    @media only screen and (max-width: 600px) {
+      font-family: Hauora;
+      font-size: 14px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.71;
+      letter-spacing: 0.56px;
+    }
   }
   &-title{
     color: var(--primary);
