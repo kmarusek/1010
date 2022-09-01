@@ -1,12 +1,10 @@
 <?php
-
 /**
  * @class BWGridTeam
  *
  */
 class BWGridTeam extends BeaverWarriorFLModule
 {
-
     /**
      * Parent class constructor.
      * @method __construct
@@ -44,30 +42,33 @@ FLBuilder::register_module(
                         'the_team_member' => array(
                             'type'         => 'form',
                             'label'        => __('Grid Items', 'fl-builder'),
-                            'form'         => 'team_group_form', // ID from registered form below
+                            'form'         => 'team_group_forms', // ID from registered form below
                             'preview_text' => 'name', // Name of a field to use for the preview text
                             'multiple'     => true,
                         ),
-                        'back_icon' => array(
+                        'back_icon' => [
                             'type'         => 'icon',
-                            'label'        => __('Back icon', 'fl-builder'),
+                            'label'        => __( 'Select Back Icon', 'fl-builder' ),
                             'show_remove'  => true,
-                            'description'  => 'Icon for the back when module is pop-up'
-                        ),
+                            'description'  => 'Icon for modal back',
+                        ],
                         'col_desktop' => [
                             'type' => 'unit',
                             'label' => __('Number of Columns - Desktop'),
-                            'description' => 'Columns'
+                            'description' => 'Columns',
+                            'default' => 3
                         ],
                         'col_tablet' => [
                             'type' => 'unit',
-                            'label' => __('Number of Columns - Tabletp'),
-                            'description' => 'Columns'
+                            'label' => __('Number of Columns - Tablet'),
+                            'description' => 'Columns',
+                            'default' => 1
                         ],
                         'col_mobile' => [
                             'type' => 'unit',
                             'label' => __('Number of Columns - Mobile'),
-                            'description' => 'Columns'
+                            'description' => 'Columns',
+                            'default' => 1
                         ],
                         'space_between' => [
                             'type' => 'unit',
@@ -209,7 +210,7 @@ FLBuilder::register_module(
     ]
 );
 
-FLBuilder::register_settings_form('team_group_form', array(
+FLBuilder::register_settings_form('team_group_forms', array(
     'title' => __('Add Member', 'fl-builder'),
     'tabs'  => array(
         'general' => array( // Tab
@@ -217,18 +218,17 @@ FLBuilder::register_settings_form('team_group_form', array(
             'sections' => array( // Tab Sections
                 'general' => array( // Section
                     'title'  => '', // Section Title
-                    'fields' => array( // Section Fields
+                    'fields' => array(
                         'image' => array(
                             'type'  => 'photo',
                             'label' => __('List Image', 'fl-builder'),
-                            'default'       => 'medium',
+                            'show_remove'  => true,
                             'image_size' => array(
                                 'type'          => 'photo-sizes',
                                 'label'         => __('Photo Sizes Field', 'fl-builder'),
-                                'default'       => 'medium'
-                            ),
+                                'default'       => 'Medium'
+                            )
                         ),
-
                         'name' => array(
                             'type'  => 'text',
                             'label' => __('Title', 'fl-builder'),
@@ -238,12 +238,14 @@ FLBuilder::register_settings_form('team_group_form', array(
                             'label' => __('Subtitle', 'fl-builder'),
                         ),
                         'cta' => [
-                            'type' => 'text',
-                            'label' => __('CTA Text', 'fl-builder')
+                            'type'         => 'icon',
+                            'label'        => __( 'Select Contact Icon', 'fl-builder' ),
+                            'show_remove'  => true,
+                            'description'  => 'Icon for the social media'
                         ],
                         'url' => [
                             'type' => 'link',
-                            'label' => __('Link', 'fl-builder')
+                            'label' => __('Link', 'fl-builder'),
                         ],
                         'include_modal' => [
                             'type' => 'select',
@@ -272,4 +274,4 @@ FLBuilder::register_settings_form('team_group_form', array(
             ),
         ),
     ),
-),);
+));

@@ -77,9 +77,9 @@ $wrapper_classes = [
 										<?php echo $modal->modal_text; ?>
 									</div>
 									<?php
-									if ($member->cta !== '') :
+									if ($modal->url !== '') :
 									?><h4 class='GridTeam-modal-title'>Contact</h4>
-										<a class='GridTeam-cta' href='<?php echo $member->url; ?>'><?php echo $member->cta; ?></a>
+										<a class='GridTeam-cta' href='<?php echo $modal->url; ?>'><i class="<?php echo $modal->cta; ?>"></i></a>
 									<?php endif; ?>
 								</div>
 							</div>
