@@ -12,8 +12,6 @@
                     entry.target.classList.remove('is-visible');
                 }
             })
-            
-            console.log(entries);
 
 
         });
