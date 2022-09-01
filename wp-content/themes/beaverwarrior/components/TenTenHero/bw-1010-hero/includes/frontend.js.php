@@ -51,7 +51,7 @@
           slides[slideIndex-1].classList.add('is-visible');
       
         }
-        setInterval(plusSlides, 8000, 1); // call plusSlider, with 1 as parameter
+        setInterval(plusSlides, 12000, 1); // call plusSlider, with 1 as parameter
 
 
 //JQUERY to select last word of TENTENHero Title and change its color.
