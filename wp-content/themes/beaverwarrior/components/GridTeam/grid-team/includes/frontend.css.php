@@ -95,7 +95,6 @@ $tablet_css = [
 	]
 ];
 $module->rendermoduleCSSResponsiveTablet($tablet_css);
-
 $desktop_css = [
 	'.GridTeam' => [
 		'.GridTeam-team_member' => ['width' => 'calc('.$desktop_width.'% - 1px)'],
@@ -106,6 +105,15 @@ $desktop_css = [
 		'.GridTeam-modal_text' => $module->getTypography('modal_text_typography')
 	]
 ];
+if($module->settings->col_desktop >3){
+	$desktop_css = [
+	'.GridTeam' => [
+		'.GridTeam-image_container img' => ['width' => '100%'],
+		'.GridTeam-image_container img' => ['height' => '100%'],
+		'.GridTeam-image_container' => ['margin' => '10px']
+	]
+];
+}
 $module->rendermoduleCSSResponsiveDesktop($desktop_css);
 
 ?>
