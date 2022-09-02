@@ -39,6 +39,13 @@ return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
 
 jQuery('.OtherEvents-date_order').html(result);
 
+jQuery(".OtherEvents-link").hover(
+  function() {
+    jQuery(".fl-builder-content .fl-button i").css("fontSize", "1.7em");
+  }, function() {
+    jQuery(".fl-builder-content .fl-button i").css("fontSize", "1.3em");
+  }
+);
   });
 
 
