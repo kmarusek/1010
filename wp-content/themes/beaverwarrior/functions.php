@@ -690,3 +690,13 @@ add_role(
         'delete_published_pages' => false, // This user will NOT be able to  delete published pages.
     )
 );
+
+// hide module if acf field is empty
+add_filter( 'fl_builder_is_node_visible', function( $is_visible, $node ) {
+    if ( 'module' === $node->type ) {
+        if ( ! empty( $node->settings->class ) && false !== strpos( $node->settings->class, 'hide-if-empty' ) ) {
+            return false;
+        }
+    }
+    return $is_visible;
+}, 10, 2);
