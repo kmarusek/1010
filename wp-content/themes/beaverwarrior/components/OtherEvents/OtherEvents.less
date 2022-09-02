@@ -127,10 +127,17 @@
   &-image{
     margin: auto;
   img{
-    border-radius: 8px;
-    max-height: 500px;
-    width:100%;
+    border-radius: 10px;
+    max-width: 431px;
+    max-height: 371px;
+    @media only screen and (max-width: 600px) {
+      border-radius: 4.6px;
+      max-width: 291px;
+      max-height: 247px;
+    }
   }
+
+
   }
   @media only screen and (max-width: 600px) {
       margin: 20px;
