@@ -65,9 +65,13 @@ $wrapper_classess = [
         </div>
         <div class="OtherEvents-title"><?php echo $other_events->other_events_main_title ?></div>
         <div class="OtherEvents-description"><?php echo $other_events->other_events_description ?></div>
-        <a href="<?php echo $other_events->other_events_link ?>" class="OtherEvents-learn_more">
-          <div class="OtherEvents-link_button"><?php echo $other_events->other_events_link_button ?><i class="gg-arrow-top-right"></i></i></div>
-        </a>
+        <div class="fl-button-wrap fl-button-width-auto fl-button-has-icon">
+			<a href="<?php echo $other_events->other_events_link ?>" target="_blank" class="fl-button" role="button" rel="noopener">
+							<span class="fl-button-text"><?php echo $other_events->other_events_link_button ?></span>
+						<i class="fl-button-icon fl-button-icon-after icon-arrowright-up" aria-hidden="true"></i>
+			</a>
+      
+</div>
       </div>
 
       <div class="OtherEvents-image">
