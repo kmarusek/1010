@@ -41,7 +41,7 @@ jQuery('.OtherEvents-date_order').html(result);
 
 jQuery(".OtherEvents-link").hover(
   function() {
-    jQuery(".fl-builder-content .fl-button i").css("fontSize", "1.7em");
+    jQuery(".fl-builder-content .fl-button i").css("fontSize", "1.5em");
   }, function() {
     jQuery(".fl-builder-content .fl-button i").css("fontSize", "1.3em");
   }
