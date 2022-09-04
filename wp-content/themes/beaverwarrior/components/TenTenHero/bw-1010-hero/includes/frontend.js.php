@@ -3,7 +3,7 @@
     $(function(){
       
 //Content viewport trigger
-        const animations = document.querySelectorAll('.TenTenHero-animation');
+        const TenTenAnimations = document.querySelectorAll('.TenTenHero-animation');
 
         observer = new IntersectionObserver((entries) =>{
             entries.forEach( entry => {
@@ -18,8 +18,8 @@
 
         });
 
-        animations.forEach(animation => {
-            observer.observe(animation)
+        animations.forEach(TenTenAnimation => {
+            observer.observe(TenTenAnimation)
         });
 
         
