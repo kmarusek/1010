@@ -2,7 +2,7 @@
 (function($){
     $(function(){
       
-//Lens and Mask animation trigger
+//Content viewport trigger
         const animations = document.querySelectorAll('.TenTenHero-animation');
 
         observer = new IntersectionObserver((entries) =>{
@@ -20,11 +20,11 @@
 
         animations.forEach(animation => {
             observer.observe(animation)
-        })
+        });
 
         
         
-// Javascript to create crossfade between images in TENTENHero.       
+// Crossfade between images in TENTENHero.       
         var slideIndex = 1;
         showSlides(slideIndex);
 
@@ -54,7 +54,7 @@
         setInterval(plusSlides, 12000, 1); // call plusSlider, with 1 as parameter
 
 
-//JQUERY to select last word of TENTENHero Title and change its color.
+//Select last word of TENTENHero Title and change its color.
         $(".TenTenHero-title-selector").html(function(){
           var text= $(this).text().trim().split(" ");
           var last = text.pop();
