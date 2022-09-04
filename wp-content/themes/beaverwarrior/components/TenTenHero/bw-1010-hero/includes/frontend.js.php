@@ -18,7 +18,7 @@
 
         });
 
-        animations.forEach(TenTenAnimation => {
+        TenTenAnimations.forEach(TenTenAnimation => {
             observer.observe(TenTenAnimation)
         });
 
