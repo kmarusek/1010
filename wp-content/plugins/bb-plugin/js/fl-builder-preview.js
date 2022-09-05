@@ -3186,7 +3186,7 @@
 					break;
 			}
 
-			this.updateCSSRule( shapeSelector, 'height', shapeProps.height );
+			this.updateCSSRule( shapeSelector, 'height', shapeProps.height + ' !important' );
 			this.updateCSSRule( shapeSelector, 'top', shapeProps.top );
 			this.updateCSSRule( shapeSelector, 'bottom', shapeProps.bottom );
 

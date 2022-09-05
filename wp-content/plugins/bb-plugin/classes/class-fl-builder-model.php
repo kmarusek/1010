@@ -4050,14 +4050,15 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function save_settings( $node_id = null, $settings = null ) {
-		$node = self::get_node( $node_id );
-		if ( ! current_user_can( 'unfiltered_html' ) && true !== self::verify_settings( $settings ) ) {
+		$node      = self::get_node( $node_id );
+		if ( ! FLBuilderModel::user_has_unfiltered_html() && true !== self::verify_settings( $settings ) ) {
 			return array(
 				'node_id'  => $node->node,
 				'settings' => $node->settings,
 				'layout'   => FLBuilderAJAXLayout::render(),
 			);
 		}
+
 		$new_settings     = (object) array_merge( (array) $node->settings, (array) $settings );
 		$template_post_id = self::is_node_global( $node );
 
@@ -7022,6 +7023,13 @@ final class FLBuilderModel {
 			$id = self::uniqid( $prefix, $length );
 		}
 		return ( $prefix ) ? $prefix . '-' . $id : $id;
+	}
+
+	/**
+	 * @since 2.6
+	 */
+	static public function user_has_unfiltered_html() {
+		return apply_filters( 'fl_user_has_unfiltered_html', current_user_can( 'unfiltered_html' ) );
 	}
 
 	/**

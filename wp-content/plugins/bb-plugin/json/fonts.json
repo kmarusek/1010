@@ -14,6 +14,11 @@
     "fallback": "serif"
   }
 }, {
+  "Aboreto": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Abril Fatface": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -199,7 +204,17 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Alumni Sans Collegiate One": {
+    "variants": ["regular", "italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Alumni Sans Inline One": {
+    "variants": ["regular", "italic"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Alumni Sans Pinstripe": {
     "variants": ["regular", "italic"],
     "fallback": "sans-serif"
   }
@@ -1669,6 +1684,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "DynaPuff": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Dynalight": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -1937,6 +1957,11 @@
   "Festive": {
     "variants": ["regular"],
     "fallback": "cursive"
+  }
+}, {
+  "Figtree": {
+    "variants": ["300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
   }
 }, {
   "Finger Paint": {
@@ -3925,7 +3950,7 @@
   }
 }, {
   "MuseoModerno": {
-    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
     "fallback": "sans-serif"
   }
 }, {
@@ -4881,6 +4906,11 @@
 }, {
   "Noto Serif Gurmukhi": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "serif"
+  }
+}, {
+  "Noto Serif HK": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "serif"
   }
 }, {
@@ -5844,7 +5874,37 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Rubik Burned": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Rubik Dirt": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Rubik Distressed": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Rubik Glitch": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Rubik Iso": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Rubik Marker Hatch": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Rubik Maze": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -6176,6 +6236,11 @@
 }, {
   "Signika Negative": {
     "variants": ["300", "regular", "500", "600", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Silkscreen": {
+    "variants": ["regular", "700"],
     "fallback": "sans-serif"
   }
 }, {

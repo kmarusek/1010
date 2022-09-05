@@ -175,6 +175,14 @@
 		 * @return void
 		 */
 		_menuOnFocus: function(){
+			var cKey      = 0,
+			    isShifted = false;
+
+			$( this.nodeClass ).off('keydown').on( 'keydown', 'a', function( e ){
+				cKey      = e.which;
+				isShifted = e.shiftKey;
+			});
+
 			$( this.nodeClass ).off('focus').on( 'focus', 'a', $.proxy( function( e ){
 				var $menuItem	= $( e.target ).parents( '.menu-item' ).first(),
 					$parents	= $( e.target ).parentsUntil( this.wrapperClass );
@@ -185,12 +193,25 @@
 				$parents.addClass('focus')
 
 			}, this ) ).on( 'focusout', 'a', $.proxy( function( e ){
+				var el            = $(e.target).parent(),
+		            $megaMenu     = el.closest( '.mega-menu' ),
+		            $megaLastItem = $megaMenu.find('> .sub-menu > .menu-item:last-child'),
+					isLastChild   = ! $megaMenu.length && el.is(':last-child' );
 
-				el = $(e.target).parent()
+		        if( $megaMenu.length ) {
+					isLastChild = el.is( $megaLastItem ) || el.is( $megaLastItem.find( '.menu-item:last-child' ) );
+				}
 
-				if( el.is(':last-child' ) ) {
+				if ( isLastChild && cKey === 9 && isShifted ) {
+					isLastChild = false;
+					cKey       = 0;
+					isShifted  = false;
+				}
+
+				if ( isLastChild ) {
 					$( e.target ).parentsUntil( this.wrapperClass ).removeClass( 'focus' );
 				}
+
 			}, this ) );
 		},
 

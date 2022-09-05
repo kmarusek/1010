@@ -98,7 +98,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'recentIcons'                => apply_filters( 'fl_builder_recent_icons', get_option( 'fl_plugin_recent_icons', array() ) ),
 	'themerLayoutsUrl'           => admin_url( '/edit.php?post_type=fl-theme-layout' ),
 	'userCaps'                   => array(
-		'unfiltered_html'        => current_user_can( 'unfiltered_html' ),
+		'unfiltered_html'        => FLBuilderModel::user_has_unfiltered_html(),
 		'global_unfiltered_html' => defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ? true : false,
 	),
 	/**

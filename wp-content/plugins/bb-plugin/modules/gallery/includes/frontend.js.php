@@ -15,7 +15,7 @@
 				'image': {
 					titleSrc: function(item) {
 						<?php if ( 'below' == $settings->show_captions ) : ?>
-							text = item.el.next('.fl-photo-caption').text();
+							text = item.el.parent().next('.fl-photo-caption').text();
 							return string_to_slug( text );
 						<?php elseif ( 'hover' == $settings->show_captions ) : ?>
 							text = item.el.next('.fl-photo-caption').text();
@@ -99,7 +99,6 @@
 
 	var string_to_slug = function (str) {
 	str = str.replace(/^\s+|\s+$/g, ''); // trim
-	str = str.toLowerCase();
 
 	// remove accents, swap ñ for n, etc
 	var from = "àáäâèéëêìíïîòóöôùúüûñçěščřžýúůďťň·/_,:;";
@@ -109,15 +108,11 @@
 			str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
 		}
 
-		str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+		str = str.replace(/[^a-zA-Z0-9 -"']/g, '') // remove invalid chars
 			.replace(/\s+/g, ' ') // collapse whitespace and replace by a space
 			.replace( /\//g, '' ); // collapse all forward-slashes
 
-		return capitalizeFirstLetter(str);
-	}
-
-	function capitalizeFirstLetter(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
+		return str;
 	}
 
 })(jQuery);

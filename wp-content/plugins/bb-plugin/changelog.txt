@@ -1,3 +1,14 @@
+<h4>2.5.5.4 08/23/2022</h4>
+<p>strong>Hot Fix</strong></p>
+<ul>
+ 	<li>Gallery Module: Fix caption now showing with the below photo position</li>
+ 	<li>Fix live preview not working with Row Shapes height</li>
+ 	<li>Menu Module: Fix tabbing through items not working properly with a mega menu</li>
+ 	<li>Video Module: Fix videos not showing when using GoDaddy's CDN</li>
+ 	<li>Tweak sanitization of photo captions when used in lightboxes to allow quotes and preserve capitalization</li>
+ 	<li>Add new filter <code>fl_user_has_unfiltered_html</code>. Users using the <code>fl_builder_ui_js_config</code> filter to allow unfiltered HTML for other roles should switch to this new dedicated filter. (<a href="https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/common-issues/error-settings-not-saved/#filter-examples" target="_blank" rel="noopener">See our docs for how to use the new filter</a>)</li>
+</ul>
+
 <h4>2.5.5.3 08/09/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
@@ -1028,7 +1039,7 @@ Fixed default text still appearing even after being removed</li>
 <p><strong>Enhancements</strong></p>
 <ul>
 	<li>Accessibility: Added title attribute setting for iframe in Map module.</li>
-	<li>Accessibility: Added TAB functionaility to Menu module.</li>
+	<li>Accessibility: Added TAB functionality to Menu module.</li>
 	<li>Accessibility: Improved accessibility of Tabs and Accordion modules.</li>
 	<li>Accessibility: Added alt attribute to slideshow images.</li>
 	<li>Accessibility: Always show label setting as it is also used for aria attribute in Menu module.</li>

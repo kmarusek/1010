@@ -78,7 +78,7 @@ class FLVideoModule extends FLBuilderModule {
 			$video_sc = sprintf( '%s', __( 'Video not specified. Please select one to display.', 'fl-builder' ) );
 
 			if ( ! empty( $vid_data->url ) ) {
-				$video_sc = '[video ' . $vid_data->extension . '="' . $vid_data->url . '"' . $vid_data->video_webm . ' poster="' . $video_poster . '" ' . $vid_data->autoplay . $vid_data->loop . $preload . '][/video]';
+				$video_sc = '[video ' . $vid_data->extension . '="' . preg_replace( '/\/?\?.*/', '', $vid_data->url ) . '"' . $vid_data->video_webm . ' poster="' . $video_poster . '" ' . $vid_data->autoplay . $vid_data->loop . $preload . '][/video]';
 			}
 
 			if ( 'yes' === $this->settings->video_lightbox ) {

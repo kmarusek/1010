@@ -350,7 +350,7 @@ class FLPhotoModule extends FLBuilderModule {
 		$is_svg = ! empty( $photo->mime ) && 'image/svg+xml' === $photo->mime;
 
 		if ( $is_svg && isset( $photo->sizes ) ) {
-			if ( $photo->sizes->full->height && $photo->sizes->full->width ) {
+			if ( isset( $photo->sizes->full->height ) && isset( $photo->sizes->full->width ) ) {
 				$attrs .= 'height="' . $photo->sizes->full->height . '" width="' . $photo->sizes->full->width . '" ';
 			}
 		}
