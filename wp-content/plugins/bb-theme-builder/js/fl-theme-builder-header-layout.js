@@ -547,10 +547,11 @@
 					// Shrink images but don't include lightbox and menu images.
 					this.header.find('img').each( function( i ) {
 						var image           = $( this ),
+							maxMegaMenu     = image.closest( '.max-mega-menu' ).length,
 							imageInLightbox = image.closest( '.fl-button-lightbox-content' ).length,
-							imageInNavMenu  = image.closest( '.fl-menu' ).length;
+							imageInNavMenu  = image.closest( 'li.menu-item' ).length;
 
-						if ( ! ( imageInLightbox || imageInNavMenu ) ) {
+						if ( ! ( imageInLightbox || imageInNavMenu || maxMegaMenu ) ) {
 							image.css( 'max-height', shrinkImageHeight );
 						}
 
@@ -638,10 +639,11 @@
 					height          = image.height(),
 					node            = image.closest( '.fl-module' ).data( 'node' ),
 					className       = 'fl-node-' + node + '-img-' + i,
+					maxMegaMenu     = image.closest( '.max-mega-menu' ).length,
 					imageInLightbox = image.closest( '.fl-button-lightbox-content' ).length,
-					imageInNavMenu  = image.closest( '.fl-menu' ).length;
+					imageInNavMenu  = image.closest( 'li.menu-item' ).length;
 
-				if ( ! ( imageInLightbox || imageInNavMenu ) ) {
+				if ( ! ( imageInLightbox || imageInNavMenu || maxMegaMenu  ) ) {
 					image.addClass( className );
 					styles += '.' + className + ' { max-height: ' + ( height ? height : image[0].height )  + 'px }';
 				}

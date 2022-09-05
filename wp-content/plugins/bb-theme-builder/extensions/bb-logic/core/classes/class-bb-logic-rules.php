@@ -121,7 +121,7 @@ final class BB_Logic_Rules {
 		$result   = false;
 		$value    = $data['value'];
 		$operator = $data['operator'];
-		$compare  = isset( $data['compare'] ) ? $data['compare'] : '';
+		$compare  = isset( $data['compare'] ) ? do_shortcode( $data['compare'] ) : '';
 		$isset    = isset( $data['isset'] ) ? $data['isset'] : false;
 		$start    = isset( $data['start'] ) ? $data['start'] : 0;
 		$end      = isset( $data['end'] ) ? $data['end'] : 0;

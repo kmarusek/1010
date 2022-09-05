@@ -1,3 +1,30 @@
+<h4>1.4.3.1 - 08/24/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>WooCommerce: Fix taxonomy filters set in the Post Module not working correctly on the frontend</li>
+</ul>
+
+<h4>1.4.3 - 08/23/2022</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Allow shortcodes in conditional logic value field</li>
+	<li>Performance: Remove get_custom_fields_select() call when BB is not active</li>
+	<li>TEC: Add option to display currency symbol with the cost</li>
+	<li>WooCommerce: Add option to use Catalog visibility setting in Posts Module</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix Shrink Header from applying to images in menus created by 3rd parties</li>
+	<li>Fix Header/Footer layouts not rendering on Archive layouts when the query pulls in a post using the No Header/Footer template from the BB Theme</li>
+	<li>ACF: Make sure color picker is available on Options page</li>
+	<li>ACF: Color picker shortcode now gives option to output the # symbol and the field is now output in the detected fields dropdown</li>
+	<li>ACF: Fix Page Link field not being detected automatically</li>
+	<li>EDD: Fix select options button needing to be clicked twice</li>
+	<li>EDD: Improvements for compatibility with EDD 3.0</li>
+	<li>WooCommerce: Fix compatibility with the Wishlist add-on</li>
+</ul>
+
 <h4>1.4.2.2 - 07/28/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

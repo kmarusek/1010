@@ -58,6 +58,10 @@ final class FLPageDataACF {
 			case 'button_group':
 				$content = $value;
 				break;
+			case 'color_picker':
+				$prefix  = empty( $settings->prefix ) ? false : wp_validate_boolean( $settings->prefix );
+				$content = $prefix ? $object['value'] : str_replace( '#', '', $object['value'] );
+				break;
 			case 'page_link':
 				$content = '';
 
@@ -226,6 +230,7 @@ final class FLPageDataACF {
 				}
 				break;
 			case 'true_false':
+			case 'color_picker':
 				$content = strval( $value );
 				break;
 			case 'acf_smartslider3':
@@ -383,7 +388,8 @@ final class FLPageDataACF {
 		if ( empty( $object ) || ! isset( $object['type'] ) || 'color_picker' != $object['type'] ) {
 			return $content;
 		} else {
-			$content = str_replace( '#', '', $object['value'] );
+			$prefix  = empty( $settings->prefix ) ? false : wp_validate_boolean( $settings->prefix );
+			$content = $prefix ? $object['value'] : str_replace( '#', '', $object['value'] );
 		}
 
 		return $content;
@@ -810,7 +816,11 @@ final class FLPageDataACF {
 		$form       = array();
 		$sub_fields = array();
 		$relation   = array( 'post_object', 'page_link', 'user', 'taxonomy', 'relationship' );
-		$results    = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field'", ARRAY_A );
+
+		if ( ! FLBuilderModel::is_builder_active() ) {
+			return array();
+		}
+		$results = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field'", ARRAY_A );
 
 		// maybe filter
 		foreach ( $results as $k => $field ) {
@@ -822,7 +832,7 @@ final class FLPageDataACF {
 						unset( $results[ $k ] );
 					}
 				} else {
-					if ( in_array( $type, $relation ) ) {
+					if ( in_array( $type, $relation ) && 'page_link' !== $type ) {
 						unset( $results[ $k ] );
 					}
 				}

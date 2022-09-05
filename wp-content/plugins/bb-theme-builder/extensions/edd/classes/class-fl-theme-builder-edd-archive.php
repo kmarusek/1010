@@ -63,11 +63,11 @@ final class FLThemeBuildeEDDArchive {
 			return false;
 		}
 
-		if ( 'show' == $settings->edd_button ) {
+		if ( 'hide' !== $settings->edd_button ) {
 			echo '<div class="edd fl-post-module-edd-button fl-post-grid-edd-button">';
 
-			if ( edd_has_variable_prices( get_the_ID() ) ) {
-				echo '<a href="' . get_permalink() . '" class="edd-add-to-cart button blue edd-submit">' . __( 'Select Options', 'bb-theme-builder' ) . '</a>';
+			if ( edd_has_variable_prices( get_the_ID() ) && 'show' === $settings->edd_button ) {
+				echo '<a href="' . get_permalink() . '" class="button blue edd-submit">' . __( 'Select Options', 'bb-theme-builder' ) . '</a>';
 			} else {
 				echo FLPageData::get_value( 'post', 'edd_add_to_cart_button' );
 			}
@@ -99,11 +99,11 @@ final class FLThemeBuildeEDDArchive {
 	 * @return void
 	 */
 	static public function post_feed_after_content( $settings ) {
-		if ( 'show' == $settings->edd_button ) {
+		if ( 'hide' !== $settings->edd_button ) {
 			echo '<div class="edd fl-post-module-edd-button fl-post-feed-edd-button">';
 
-			if ( edd_has_variable_prices( get_the_ID() ) ) {
-				echo '<a href="' . get_permalink() . '" class="edd-add-to-cart button blue edd-submit">' . __( 'Select Options', 'bb-theme-builder' ) . '</a>';
+			if ( edd_has_variable_prices( get_the_ID() ) && 'show' === $settings->edd_button ) {
+				echo '<a href="' . get_permalink() . '" class="button blue edd-submit">' . __( 'Select Options', 'bb-theme-builder' ) . '</a>';
 			} else {
 				echo FLPageData::get_value( 'post', 'edd_add_to_cart_button' );
 			}
@@ -157,8 +157,9 @@ final class FLThemeBuildeEDDArchive {
 					'label'   => __( 'Cart Button', 'bb-theme-builder' ),
 					'default' => 'hide',
 					'options' => array(
-						'show' => __( 'Show', 'bb-theme-builder' ),
-						'hide' => __( 'Hide', 'bb-theme-builder' ),
+						'show'          => __( 'Show Default', 'bb-theme-builder' ),
+						'show_standard' => __( 'Show Standard', 'bb-theme-builder' ),
+						'hide'          => __( 'Hide', 'bb-theme-builder' ),
 					),
 				),
 			),

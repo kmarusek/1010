@@ -30,8 +30,7 @@ final class FLPageDataEDD {
 	 * @return string
 	 */
 	static public function get_product_price() {
-		$post_id    = get_the_ID();
-		$item_props = edd_add_schema_microdata() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '';
+		$post_id = get_the_ID();
 
 		if ( edd_is_free_download( $post_id ) ) {
 			$price = __( 'Free', 'bb-theme-builder' );

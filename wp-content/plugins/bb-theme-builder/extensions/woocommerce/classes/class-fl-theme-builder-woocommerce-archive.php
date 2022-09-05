@@ -345,6 +345,15 @@ final class FLThemeBuilderWooCommerceArchive {
 						'hide' => __( 'Hide', 'bb-theme-builder' ),
 					),
 				),
+				'woo_visible'    => array(
+					'type'    => 'select',
+					'label'   => __( 'Show Hidden Products', 'bb-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'bb-theme-builder' ),
+						'hide' => __( 'Hide', 'bb-theme-builder' ),
+					),
+				),
 
 			),
 		);
