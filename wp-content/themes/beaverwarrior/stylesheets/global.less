@@ -344,6 +344,8 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-left: -20px;
+    margin-right: -20px;
 }
 .featuredLogos img {
     height: 38px;
@@ -353,6 +355,15 @@
 
 .featuredSpeakers .col-sm-3 {
     margin-bottom: 23px;
+}
+
+.featuredLogos.jc-start {
+    justify-content: flex-start;
+}
+
+.featuredLogos.jc-start img {
+    height: 30px;
+    padding: 6px 15px;
 }
 
 .speakerImage img {
@@ -381,6 +392,24 @@
     letter-spacing: 0.7px;
     text-align: left;
     color: #333;
+}
+
+
+
+.boxShadowCol {
+    box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.05);
+}
+.overflow-hidden {
+    overflow:hidden
+}
+
+.wp-video-shortcode {
+    border-radius: 12px!important;
+    overflow: hidden;
+}
+
+.mejs-overlay-button {
+    background: url(../../../themes/beaverwarrior/assets/img/video-play-button.svg) no-repeat;
 }
 
 @media (min-width: 576px) {
@@ -459,5 +488,9 @@
     .featuredSpeakers .col-sm-3 {
         width: 50%!important;
         float: left!important;
+    }
+
+    .featuredLogos img {
+        height: 32px;
     }
 }
