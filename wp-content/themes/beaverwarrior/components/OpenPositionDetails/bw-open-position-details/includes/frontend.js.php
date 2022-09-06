@@ -91,7 +91,6 @@
     fetch(getJobsData).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log(data);
         var departmentName = data.departments[0].name.split(" - ");
         departmentName = departmentName[0];
         var content = data.content;
@@ -103,7 +102,6 @@
 
 jQuery(document).ready(function ($) {
     $('.OpenPositionDetails-form').on('focus', ':input[name=first_name]',  function() {
-        console.log('yupii');
         // trigger loading api.js (recaptcha.js) script
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
@@ -220,11 +218,7 @@ jQuery(document).ready(function ($) {
                 }else{
                     jsonObj[input.attr('name')] = input.val();
                 }
-                if(input.attr('type') == 'undefined'){
-                    console.log(input);
-                }
             });
-            console.log(jsonObj);
             $.ajax({
                 type: "POST",
                 crossDomain: true,
