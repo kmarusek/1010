@@ -26,6 +26,7 @@ $closeClass = 'fa-times';
                         });
                         $(this).find('.DataNavMenu-depth_2').addClass('active');
                         let itemHeight = $(this).find('.DataNavMenu-depth_2').height();
+                        console.log(itemHeight);
                         if(itemHeight > 420){
                             menuDepth1.height(itemHeight - 41);
                         }else{
