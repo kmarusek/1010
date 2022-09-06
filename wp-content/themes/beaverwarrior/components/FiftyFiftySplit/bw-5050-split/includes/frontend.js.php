@@ -2,9 +2,9 @@
 (function($){
     $(function(){
 
-        const FiftyFiftySplitAnimations = document.querySelectorAll('.FiftyFiftySplit-animation');
+        const animations = document.querySelectorAll('.FiftyFiftySplit-animation');
 
-        FiftyFiftySplitObserver = new IntersectionObserver((entries) =>{
+        observer = new IntersectionObserver((entries) =>{
             entries.forEach( entry => {
                 if(entry.intersectionRatio > 0 ){
                     entry.target.classList.add('is-visible');
@@ -16,9 +16,9 @@
 
         });
 
-        FiftyFiftySplitAnimations.forEach(FiftyFiftSplitAnimation => {
-            FiftyFiftySplitObserver.observe(FiftyFiftSplitAnimation)
-        });
+        animations.forEach(animation => {
+            observer.observe(animation)
+        })
       
 
 
