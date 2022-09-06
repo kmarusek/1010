@@ -339,6 +339,48 @@
     position: relative;
 }
 
+.featuredLogos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.featuredLogos img {
+    height: 38px;
+    padding: 6px 20px;
+}
+
+.featuredSpeakers .col-sm-3 {
+    margin-bottom: 23px;
+}
+
+.speakerImage img {
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.speakerName {
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: 0.9px;
+    text-align: left;
+    color: #120c17;
+    margin-bottom: 4px;
+}
+
+.speakerPos {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: 0.7px;
+    text-align: left;
+    color: #333;
+}
+
 @media (min-width: 576px) {
    .ctaCards .fl-col {
         width: 50%!important;
@@ -354,16 +396,16 @@
       line-height: 1.71;
       letter-spacing: 0.56px;
     }
-    .mktoForm .mktoFormRow:nth-child(3), .mktoForm .mktoFormRow:nth-child(5) {
-        width: 46%;
+    .marketoForm .mktoForm .mktoFormRow:nth-child(3), .mktoForm .mktoFormRow:nth-child(5) {
+        width: 45%;
         float: left;
     }
     
-    .mktoForm .mktoFormRow:nth-child(2), .mktoForm .mktoFormRow:nth-child(4) {
+    .marketoForm .mktoForm .mktoFormRow:nth-child(2), .mktoForm .mktoFormRow:nth-child(4) {
         width: 45%;
         float: right!important;
     }
-    .mktoForm .mktoFormRow {
+    .marketoForm .mktoForm .mktoFormRow {
         clear: none!important;
     }
 }
@@ -390,5 +432,30 @@
     }
     .simpleAnimatedButton3 .fl-button .fl-button-icon {
         font-size: 12px;
+    }
+
+    .speakerName {
+        font-size: 14px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: 0.56px;
+        text-align: left;
+        color: #120c17;
+    }
+    .speakerPos {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.6;
+        letter-spacing: 0.7px;
+        text-align: left;
+        color: #333;
+    }
+    .featuredSpeakers .col-sm-3 {
+        width: 50%!important;
+        float: left!important;
     }
 }
