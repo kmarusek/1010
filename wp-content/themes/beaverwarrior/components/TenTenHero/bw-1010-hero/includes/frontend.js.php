@@ -1,11 +1,10 @@
-
 (function($){
     $(function(){
       
 //Content viewport trigger
-        const TenTenAnimations = document.querySelectorAll('.TenTenHero-animation');
+      const TenTenAnimations = document.querySelectorAll('.TenTenHero-animation');
 
-        observer = new IntersectionObserver((entries) =>{
+      TenTenHeroObserver = new IntersectionObserver((entries) =>{
             entries.forEach( entry => {
                 if(entry.intersectionRatio > 0 ){
                     entry.target.classList.add('is-visible');
@@ -19,7 +18,7 @@
         });
 
         TenTenAnimations.forEach(TenTenAnimation => {
-            observer.observe(TenTenAnimation)
+          TenTenHeroObserver.observe(TenTenAnimation)
         });
 
         
