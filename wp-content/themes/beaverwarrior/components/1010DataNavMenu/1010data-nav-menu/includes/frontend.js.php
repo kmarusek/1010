@@ -26,8 +26,7 @@ $closeClass = 'fa-times';
                         });
                         $(this).find('.DataNavMenu-depth_2').addClass('active');
                         let itemHeight = $(this).find('.DataNavMenu-depth_2').height();
-                        console.log(itemHeight);
-                        if(itemHeight > 420){
+                        if(itemHeight + 120 > 367){
                             menuDepth1.height(itemHeight - 41);
                         }else{
                             menuDepth1.height(271);
@@ -57,6 +56,7 @@ $closeClass = 'fa-times';
             if( !$(this).hasClass('is-active')) {
                 $('.DataNavMenu-sub_menu').each(function () {
                     $(this).removeClass('is-open');
+                    $('.DataNavMenu-expand').addClass('collapsed');
                 })
             }
             $('.DataNavMenu-type--full_width .DataNavMenu-depth_1 > li > .DataNavMenu-depth_2').remove();
