@@ -141,7 +141,7 @@
 }
 .TextButtonLink .fl-button i {
     margin-top: 5px;
-    font-size: 30px;
+    font-size: 26px;
     margin-right: 15px;
     padding: 0;
 }
@@ -321,6 +321,24 @@
   transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;   
 }
 
+.selectWrapper:after {
+    content: "";
+    position: absolute;
+    background-image: url(../../../themes/beaverwarrior/assets/img/downButton.svg);
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.selectWrapper {
+    height: 47px;
+    position: relative;
+}
+
 @media (min-width: 576px) {
    .ctaCards .fl-col {
         width: 50%!important;
@@ -335,6 +353,18 @@
       font-size: 14px;
       line-height: 1.71;
       letter-spacing: 0.56px;
+    }
+    .mktoForm .mktoFormRow:nth-child(3), .mktoForm .mktoFormRow:nth-child(5) {
+        width: 46%;
+        float: left;
+    }
+    
+    .mktoForm .mktoFormRow:nth-child(2), .mktoForm .mktoFormRow:nth-child(4) {
+        width: 45%;
+        float: right!important;
+    }
+    .mktoForm .mktoFormRow {
+        clear: none!important;
     }
 }
 
