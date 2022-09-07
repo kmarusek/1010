@@ -421,6 +421,14 @@
     top: -10px;
 }
 
+.mktoForm .mktoField::placeholder {
+    font-size: 14px!important;
+}
+
+.boxShadowCol {
+    background-color:rgba(249, 249, 249, 0.6) !important;
+}
+
 @media (min-width: 576px) {
    .ctaCards .fl-col {
         width: 50%!important;
@@ -447,6 +455,9 @@
     }
     .marketoForm .mktoForm .mktoFormRow {
         clear: none!important;
+    }
+    .boxShadowCol {
+        box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.05);
     }
 }
 
@@ -501,5 +512,13 @@
 
     .featuredLogos img {
         height: 32px;
+    }
+    .mktoButtonRow {
+        display: block!important;
+        width: 100%!important;
+    }
+    
+    body .mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+        width: 100%!Important;
     }
 }
