@@ -115,6 +115,11 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			);
 			if ( 'all' !== $settings->show_events ) {
 				$query['meta_query'] = self::get_events_meta_query( $settings->show_events );
+			} else {
+				$query['meta_query'] = array(
+					'key'     => '_EventHideFromUpcoming',
+					'compare' => 'NOT EXISTS',
+				);
 			}
 
 			$query = new WP_Query( array_merge( $wp_query->query_vars, $query ) );
@@ -141,7 +146,10 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			return $args;
 		}
 
-		if ( 'tribe_events' !== $settings->post_type ) {
+		if ( is_array( $settings->post_type ) && ! in_array( 'tribe_events', $settings->post_type ) ) {
+			return $args;
+		}
+		if ( is_string( $settings->post_type ) && 'tribe_events' !== $settings->post_type ) {
 			return $args;
 		}
 
@@ -149,13 +157,13 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			$args['orderby'] = $settings->order_by;
 			$args['order']   = $settings->order;
 		} else {
-			$args['orderby']      = 'meta_value';
-			$args['eventDisplay'] = 'custom';
-			$args['meta_key']     = '_' . $settings->event_orderby;
-			$args['order']        = $settings->event_order;
+			$args['orderby']  = 'meta_value';
+			$args['meta_key'] = '_' . $settings->event_orderby;
+			$args['order']    = $settings->event_order;
 		}
 
-		$args['meta_query'] = self::get_events_meta_query( $settings->show_events );
+		$args['eventDisplay'] = 'custom';
+		$args['meta_query']   = self::get_events_meta_query( $settings->show_events );
 
 		return $args;
 	}
@@ -253,6 +261,15 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 
 		}
 
+		if ( ! isset( $meta_query['relation'] ) ) {
+			$meta_query['relation'] = 'AND';
+		}
+
+		$meta_query[] = array(
+			'key'     => '_EventHideFromUpcoming',
+			'compare' => 'NOT EXISTS',
+		);
+
 		return $meta_query;
 	}
 
@@ -260,12 +277,16 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 	 * Fixes query issues with event archive layouts before
 	 * the layout is rendered.
 	 *
+	 * Backward compat: TEC 5+
+	 *
 	 * @since TBD
 	 * @return void
 	 */
 	static public function before_render_content() {
-		Tribe__Events__Templates::restoreQuery();
-		remove_action( 'loop_start', array( 'Tribe__Events__Templates', 'setup_ecp_template' ) );
+		if ( method_exists( 'Tribe__Events__Templates', 'restoreQuery' ) ) {
+			Tribe__Events__Templates::restoreQuery();
+			remove_action( 'loop_start', array( 'Tribe__Events__Templates', 'setup_ecp_template' ) );
+		}
 	}
 
 	/**

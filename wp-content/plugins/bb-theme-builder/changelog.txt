@@ -1,3 +1,10 @@
+<h4>1.4.3.2 - 09/06/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>TEC: Fix compatibility with TEC 6.</li>
+	<li>WooCommerce: Fix "Add to Cart" button being displayed twice when using Yith "Request A Quote" Addon</li>
+</ul>
+
 <h4>1.4.3.1 - 08/24/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
