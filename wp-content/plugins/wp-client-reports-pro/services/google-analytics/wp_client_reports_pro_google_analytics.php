@@ -313,14 +313,14 @@ function wp_client_reports_pro_get_ga_data($start_date, $end_date) {
                 $data = json_decode($response->getBody()->getContents());
 
                 if (isset($data->rows[0]->metricValues[0]->value)) {
-                    $google_analytics_data->users = $data->rows[0]->metricValues[0]->value;
-                    $google_analytics_data->new_users = $data->rows[0]->metricValues[1]->value; 
-                    $google_analytics_data->sessions = $data->rows[0]->metricValues[2]->value;
-                    $google_analytics_data->sessions_per_user = round($data->rows[0]->metricValues[3]->value, 2);
-                    $google_analytics_data->hits = $data->rows[0]->metricValues[4]->value;
-                    $google_analytics_data->pageviews_per_session = round($data->rows[0]->metricValues[5]->value, 2);
-                    $google_analytics_data->avg_session_duration = round((($data->rows[0]->metricValues[6]->value) / 60), 2);
-                    $google_analytics_data->bounce_rate = round(abs($data->rows[0]->metricValues[7]->value - 1) * 100, 1) . "%";
+                    $google_analytics_data->users = number_format($data->rows[0]->metricValues[0]->value);
+                    $google_analytics_data->new_users = number_format($data->rows[0]->metricValues[1]->value); 
+                    $google_analytics_data->sessions = number_format($data->rows[0]->metricValues[2]->value);
+                    $google_analytics_data->sessions_per_user = number_format(round($data->rows[0]->metricValues[3]->value, 2), 2);
+                    $google_analytics_data->hits = number_format($data->rows[0]->metricValues[4]->value);
+                    $google_analytics_data->pageviews_per_session = number_format(round($data->rows[0]->metricValues[5]->value, 2), 2);
+                    $google_analytics_data->avg_session_duration = number_format(round((($data->rows[0]->metricValues[6]->value) / 60), 2), 2);
+                    $google_analytics_data->bounce_rate = number_format(round(abs($data->rows[0]->metricValues[7]->value - 1) * 100, 1)) . "%";
                 }
 
             } else {
@@ -337,14 +337,14 @@ function wp_client_reports_pro_get_ga_data($start_date, $end_date) {
                 $general_stats_rows = $general_stats->getRows();
 
                 if (isset($general_stats_rows[0])) {
-                    $google_analytics_data->users = $general_stats_rows[0][0];
-                    $google_analytics_data->new_users = $general_stats_rows[0][1]; 
-                    $google_analytics_data->sessions = $general_stats_rows[0][2];
-                    $google_analytics_data->sessions_per_user = round($general_stats_rows[0][3], 2);
-                    $google_analytics_data->hits = $general_stats_rows[0][4];
-                    $google_analytics_data->pageviews_per_session = round($general_stats_rows[0][5], 2);
-                    $google_analytics_data->avg_session_duration = round((($general_stats_rows[0][6]) / 60), 2);
-                    $google_analytics_data->bounce_rate = round($general_stats_rows[0][7], 1) . "%";
+                    $google_analytics_data->users = number_format($general_stats_rows[0][0]);
+                    $google_analytics_data->new_users = number_format($general_stats_rows[0][1]); 
+                    $google_analytics_data->sessions = number_format($general_stats_rows[0][2]);
+                    $google_analytics_data->sessions_per_user = number_format(round($general_stats_rows[0][3], 2), 2);
+                    $google_analytics_data->hits = number_format($general_stats_rows[0][4]);
+                    $google_analytics_data->pageviews_per_session = number_format(round($general_stats_rows[0][5], 2), 2);
+                    $google_analytics_data->avg_session_duration = number_format(round((($general_stats_rows[0][6]) / 60), 2), 2);
+                    $google_analytics_data->bounce_rate = number_format(round($general_stats_rows[0][7], 1)) . "%";
                     //$google_analytics_data->goal_completionsAll = $general_stats[0][6];
                     //$google_analytics_data->goalConversionRateAll = $general_stats[0][7];
                 }

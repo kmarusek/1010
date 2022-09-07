@@ -187,6 +187,14 @@
         image_frame.open();
     });
 
+    
+    $('#wp-client-reports-pro-remove-logo').click(function(e) {
+        e.preventDefault();
+        $('input#wp_client_reports_pro_logo').val("");
+        $('#wp-client-reports-pro-logo-preview').attr("src","").hide();
+        $('#wp-client-reports-pro-remove-logo').attr("src","").hide();
+    });
+
     // Ajax request to refresh the image preview
     function refreshImage(the_id){
         var data = {

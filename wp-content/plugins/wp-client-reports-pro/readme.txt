@@ -4,7 +4,7 @@ Donate link: https://switchwp.com/wp-client-reports/
 Tags:  reports, client reports, analytics, maintenance, updates, plugin updates, theme updates
 Requires at least: 5.3.0
 Tested up to: 5.8
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 Requires PHP: 5.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,6 +30,12 @@ Send an HTML email with update statistics whenever you complete updates to show 
 
 
 == Changelog ==
+
+= 1.0.12 =
+* New Service: Wordfence
+* Add logo width setting for emailed reports
+* Allow logo to be removed from settings
+* Format large numbers in Google Analytics report
 
 = 1.0.11 =
 * Fixed syntax issue with a stray comma
