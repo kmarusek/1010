@@ -1354,7 +1354,7 @@
 
 		/**
 		 * Init Row Shape Layer's height.
-		 * 
+		 *
 		 * @since 2.5.3
 		 * @access private
 		 * @method _initRowShapeLayerHeight
@@ -1363,7 +1363,7 @@
 			FLBuilderLayout._adjustRowShapeLayerHeight();
 			$( window ).on( 'resize', FLBuilderLayout._adjustRowShapeLayerHeight );
 		},
-		
+
 		/**
 		 * Adjust Row Shape Layer's height to fix to remove the fine line that appears on certain screen sizes.
 		 *
@@ -1373,7 +1373,7 @@
 		 */
 		_adjustRowShapeLayerHeight: function() {
 			var rowShapeLayers = $('.fl-builder-shape-layer');
-				
+
 			$( rowShapeLayers ).each(function (index) {
 				var rowShapeLayer = $(this),
 					shape = $(rowShapeLayer).find('svg'),
@@ -1384,6 +1384,24 @@
 					$(shape).css('height', Math.ceil( height ) );
 				}
 			});
+		},
+		_string_to_slug: function( str ) {
+			str = str.replace(/^\s+|\s+$/g, ''); // trim
+			// remove accents, swap ñ for n, etc
+			var from = "àáäâèéëêìíïîòóöôùúüûñçěščřžýúůďťň·";
+			var to   = "aaaaeeeeiiiioooouuuuncescrzyuudtn-";
+			for (var i=0, l=from.length ; i < l ; i++) {
+				str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+			}
+			if ( 'undefined' == typeof window._fl_string_to_slug_regex ) {
+				regex = new RegExp('[^a-zA-Z0-9\'":() !.,-_|]', 'g');
+			} else {
+				regex = new RegExp('[^' + window._fl_string_to_slug_regex + '\'":\(\) !.,-_|]', 'g');
+			}
+			str = str.replace(regex, '') // remove invalid chars
+				.replace(/\s+/g, ' ') // collapse whitespace and replace by a space
+				.replace( /\//g, '' ); // collapse all forward-slashes
+			return str;
 		}
 	};
 

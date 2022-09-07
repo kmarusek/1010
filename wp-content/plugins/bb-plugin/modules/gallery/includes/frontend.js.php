@@ -16,10 +16,10 @@
 					titleSrc: function(item) {
 						<?php if ( 'below' == $settings->show_captions ) : ?>
 							text = item.el.parent().next('.fl-photo-caption').text();
-							return string_to_slug( text );
+							return FLBuilderLayout._string_to_slug( text );
 						<?php elseif ( 'hover' == $settings->show_captions ) : ?>
 							text = item.el.next('.fl-photo-caption').text();
-							return string_to_slug( text );
+							return FLBuilderLayout._string_to_slug( text );
 						<?php endif; ?>
 					}
 				},
@@ -91,28 +91,11 @@
 		<?php endif; ?>
 	});
 
+	window._fl_string_to_slug_regex = '<?php echo apply_filters( 'fl_photocaptionregex', 'a-zA-Z0-9' ); ?>';
+
 	jQuery(document).ready(function(){
 		setTimeout(function(){
 			jQuery('.fl-node-<?php echo $id; ?> .fl-mosaicflow-content').trigger('resize');
 		},50);
 	});
-
-	var string_to_slug = function (str) {
-	str = str.replace(/^\s+|\s+$/g, ''); // trim
-
-	// remove accents, swap ñ for n, etc
-	var from = "àáäâèéëêìíïîòóöôùúüûñçěščřžýúůďťň·/_,:;";
-	var to   = "aaaaeeeeiiiioooouuuuncescrzyuudtn------";
-
-	for (var i=0, l=from.length ; i < l ; i++) {
-			str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-		}
-
-		str = str.replace(/[^a-zA-Z0-9 -"']/g, '') // remove invalid chars
-			.replace(/\s+/g, ' ') // collapse whitespace and replace by a space
-			.replace( /\//g, '' ); // collapse all forward-slashes
-
-		return str;
-	}
-
 })(jQuery);

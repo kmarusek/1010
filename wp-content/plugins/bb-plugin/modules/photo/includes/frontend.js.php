@@ -10,7 +10,7 @@ jQuery(function($) {
 			image: {
 					titleSrc: function(item) {
 						<?php if ( 'below' == $settings->show_caption || 'hover' == $settings->show_caption ) : ?>
-							return string_to_slug( '<?php echo addslashes( $module->get_caption() ); ?>' );
+							return FLBuilderLayout._string_to_slug( '<?php echo str_replace( array( "\r", "\n" ), array( '', ' ' ), trim( addslashes( $module->get_caption() ) ) ); ?>' );
 						<?php endif; ?>
 					}
 			},
@@ -34,22 +34,5 @@ jQuery(function($) {
 			} );
 	});
 	<?php endif; ?>
-
-	var string_to_slug = function (str) {
-	str = str.replace(/^\s+|\s+$/g, ''); // trim
-
-	// remove accents, swap ñ for n, etc
-	var from = "àáäâèéëêìíïîòóöôùúüûñçěščřžýúůďťň·/_,:;";
-	var to   = "aaaaeeeeiiiioooouuuuncescrzyuudtn------";
-
-	for (var i=0, l=from.length ; i < l ; i++) {
-			str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-		}
-
-		str = str.replace(/[^a-zA-Z0-9 -"']/g, '') // remove invalid chars
-			.replace(/\s+/g, ' ') // collapse whitespace and replace by a space
-			.replace( /\//g, '' ); // collapse all forward-slashes
-
-		return str;
-	}
+	window._fl_string_to_slug_regex = '<?php echo apply_filters( 'fl_photocaptionregex', 'a-zA-Z0-9' ); ?>';
 });

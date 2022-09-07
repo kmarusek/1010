@@ -1,4 +1,12 @@
-<h4>2.5.5.4 08/23/2022</h4>
+<h4>2.5.5.5 - 09/06/2022</h4>
+<p>strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix JS error with Photo module captions when new lines are used in the caption</li>
+	<li>Add new filter <code>fl_photocaptionregex</code> so users can adjust the regex for allowed characters in captions when displayed in the lightbox</li>
+	<li>Fix Fatal PHP Error with Posts Module when using TEC 6</li>
+</ul>
+
+<h4>2.5.5.4 - 08/23/2022</h4>
 <p>strong>Hot Fix</strong></p>
 <ul>
  	<li>Gallery Module: Fix caption now showing with the below photo position</li>
@@ -9,7 +17,7 @@
  	<li>Add new filter <code>fl_user_has_unfiltered_html</code>. Users using the <code>fl_builder_ui_js_config</code> filter to allow unfiltered HTML for other roles should switch to this new dedicated filter. (<a href="https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/common-issues/error-settings-not-saved/#filter-examples" target="_blank" rel="noopener">See our docs for how to use the new filter</a>)</li>
 </ul>
 
-<h4>2.5.5.3 08/09/2022</h4>
+<h4>2.5.5.3 - 08/09/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
 	<li>Sanitize photo captions when used in lightboxes</li>

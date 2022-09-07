@@ -48,7 +48,6 @@ final class FLBuilderCompatibility {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'ee_remove_stylesheet' ), 99999 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_woocommerce_products_filter' ), 12 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'fix_woo_archive_loop' ), 99 );
-		add_action( 'pre_get_posts', array( __CLASS__, 'fix_tribe_events_hide_from_listings_archive' ) );
 		add_action( 'fl_builder_menu_module_before_render', array( __CLASS__, 'fix_menu_module_before_render' ) );
 		add_action( 'fl_builder_menu_module_after_render', array( __CLASS__, 'fix_menu_module_after_render' ) );
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'fix_dulicate_page' ), 11 );
@@ -81,7 +80,6 @@ final class FLBuilderCompatibility {
 		add_filter( 'fl_builder_loop_rewrite_rules', array( __CLASS__, 'fix_wpseo_category_pagination_rule' ) );
 		add_filter( 'fl_builder_loop_rewrite_rules', array( __CLASS__, 'fix_seopress_category_pagination_rule' ) );
 		add_filter( 'fl_builder_loop_rewrite_rules', array( __CLASS__, 'fix_polylang_pagination_rule' ) );
-		add_filter( 'fl_builder_loop_query_args', array( __CLASS__, 'fix_tribe_events_hide_from_listings' ) );
 		add_filter( 'tribe_events_rewrite_rules_custom', array( __CLASS__, 'fix_tribe_events_pagination_rule' ), 10, 3 );
 		add_filter( 'woocommerce_product_tabs', array( __CLASS__, 'fix_builder_on_empty_product_description' ) );
 		add_filter( 'aioseo_conflicting_shortcodes', array( __CLASS__, 'aioseo_conflicting_shortcodes' ) );
@@ -996,52 +994,6 @@ final class FLBuilderCompatibility {
 		$rules[ $tec_tag_rules ] = 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=list&flpaged=$matches[2]';
 
 		return $rules;
-	}
-	/**
-	 * Fix 'Hide From Event Listings' from the Event Options under the Event Edit Screen
-	 * not being picked up by the Posts Grid module such as when used in a Themer Archive Layout.
-	 *
-	 * @since 2.4.1
-	 */
-	public static function fix_tribe_events_hide_from_listings_archive( $query ) {
-		if ( ! class_exists( 'Tribe__Events__Query' ) || ! class_exists( 'FLThemeBuilder' ) || is_admin() ) {
-			return;
-		}
-
-		if ( ( $query->is_main_query() && is_post_type_archive( 'tribe_events' ) ) || ( 'fl-theme-layout' === get_post_type() ) ) {
-			$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
-			$current_post_not_in  = $query->get( 'post__not_in' );
-			$query->set( 'post__not_in', array_merge( $current_post_not_in, $hide_upcoming_events ) );
-		}
-	}
-
-	/**
-	 * Fix 'Hide From Event Listings' from the Event Options under the Event Edit Screen
-	 * not being picked up by the Posts Grid module set to 'custom_query'.
-	 *
-	 * @since 2.4.1
-	 */
-	public static function fix_tribe_events_hide_from_listings( $args ) {
-		if ( ! class_exists( 'Tribe__Events__Query' ) || is_admin() ) {
-			return $args;
-		}
-
-		if ( empty( $args['settings']->post_type ) || empty( $args['settings']->data_source ) ) {
-			return $args;
-		}
-
-		if ( 'tribe_events' !== $args['settings']->post_type || 'custom_query' !== $args['settings']->data_source ) {
-			return $args;
-		}
-
-		$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
-		if ( isset( $args['post__not_in'] ) ) {
-			$args['post__not_in'] = array_merge( $args['post__not_in'], $hide_upcoming_events );
-		} else {
-			$args['post__not_in'] = $hide_upcoming_events;
-		}
-
-		return $args;
 	}
 
 	/**
