@@ -65,6 +65,22 @@
 	background: transparent;
 }
 
+.uabb-cf7-style .wpcf7-acceptance input[type='checkbox'] {
+    display: none;
+}
+
+.uabb-cf7-style .wpcf7-acceptance input[type='checkbox'] + span:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    text-align: center;
+}
+.uabb-cf7-style .wpcf7-acceptance input[type='checkbox']:checked + span:before {
+    content: "\2714";
+    line-height: 1.2;
+}
+
 @media only screen and (min-width: 769px) {
 	.uabb-cf7-style .uabb-cf7-col-1 {
 		width: 100%;

@@ -91,6 +91,13 @@ if ( isset( $settings->skins ) && 'default' !== $settings->skins ) {
 		}
 		?>
 	}
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-ss-icon img {
+		<?php
+		if ( isset( $settings->icon_img_size ) ) {
+			echo ( '' !== $settings->icon_img_size ) ? 'width:' . esc_attr( $settings->icon_img_size ) . 'px;' : '';
+		}
+		?>
+	}
 	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-social-share-wrap .uabb-ss-grid-button {
 		<?php
 		if ( isset( $settings->button_height ) ) {

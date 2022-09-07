@@ -214,11 +214,11 @@ FLBuilder::register_module(
 						),
 						'youtube_related_videos'  => array(
 							'type'    => 'select',
-							'label'   => __( 'Disable Related Videos', 'uabb' ),
-							'default' => 'no',
+							'label'   => __( 'Related Videos From', 'uabb' ),
+							'default' => 'yes',
 							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
+								'yes' => __( 'Current video channel', 'uabb' ),
+								'no'  => __( 'Any random video', 'uabb' ),
 							),
 						),
 						'youtube_player_controls' => array(
@@ -1249,13 +1249,13 @@ FLBuilder::register_module(
 
 								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/open-modal-popup-from-another-module/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=modal-popup-module" target="_blank" rel="noopener"> How to open a modal popup from another module? </a> </li>
 
-								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> 
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i>
 								<a href="https://www.ultimatebeaver.com/docs/close-modal-popup-on-click-of-button-text/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=modal-popup-module" target="_blank" rel="noopener"> Is it Possible to Close a Modal Popup on the Click of a Button or Text? </a> </li>
 
-								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> 
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i>
 								<a href="https://www.ultimatebeaver.com/docs/building-site-wide-modal-popups-beaver-builder-uabb/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=modal-popup-module" target="_blank" rel="noopener"> Building Site-wide Modal Popups in Beaver Builder & UABB </a> </li>
 
-								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> 
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i>
 								<a href="https://www.ultimatebeaver.com/docs/can-use-modal-popup-module-effectively/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=modal-popup-module" target="_blank" rel="noopener"> How can I use the Modal Popup module effectively?  </a> </li>
 							 </ul>',
 						),

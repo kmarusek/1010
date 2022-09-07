@@ -152,7 +152,7 @@ html.uabb-active-live-preview .fl-builder-shortcode-mask {
 
 /* Modal Popup drag fix */
 .fl-builder-edit .uabb-modal-parent-wrapper .uabb-drag-fix {
-    position: fixed;
+    position: absolute;
     left: -9999px;
     top: -9999px;
 }

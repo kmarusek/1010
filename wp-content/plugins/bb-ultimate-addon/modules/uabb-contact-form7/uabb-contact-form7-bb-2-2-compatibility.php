@@ -347,13 +347,13 @@ FLBuilder::register_module(
 								'type'  => 'css',
 								'rules' => array(
 									array(
-										'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before',
+										'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before, .uabb-cf7-style.wpcf7-acceptance input[type="checkbox"]:checked + span:before',
 										'property'  => 'width',
 										'unit'      => 'px',
 										'important' => true,
 									),
 									array(
-										'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before',
+										'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before,  .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before, .uabb-cf7-style.wpcf7-acceptance input[type="checkbox"]:checked + span:before',
 										'property'  => 'height',
 										'unit'      => 'px',
 										'important' => true,
@@ -370,7 +370,7 @@ FLBuilder::register_module(
 							'show_reset'  => true,
 							'preview'     => array(
 								'type'      => 'css',
-								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before',
+								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before',
 								'property'  => 'background',
 								'important' => true,
 							),
@@ -384,7 +384,7 @@ FLBuilder::register_module(
 							'show_reset'  => true,
 							'preview'     => array(
 								'type'      => 'css',
-								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"]:checked + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"]:checked + span:before',
+								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"]:checked + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"]:checked + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"]:checked + span:before',
 								'property'  => 'background',
 								'important' => true,
 							),
@@ -398,7 +398,7 @@ FLBuilder::register_module(
 							'units'       => array( 'px' ),
 							'preview'     => array(
 								'type'      => 'css',
-								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before',
+								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"]:checked + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before',
 								'property'  => 'border-width',
 								'unit'      => 'px',
 								'important' => true,
@@ -413,7 +413,7 @@ FLBuilder::register_module(
 							'show_reset'  => true,
 							'preview'     => array(
 								'type'      => 'css',
-								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before',
+								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"]:checked + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before',
 								'property'  => 'border-color',
 								'important' => true,
 							),
@@ -442,7 +442,7 @@ FLBuilder::register_module(
 							'units'       => array( 'px' ),
 							'preview'     => array(
 								'type'      => 'css',
-								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before',
+								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before',
 								'property'  => 'border-radius',
 								'unit'      => 'px',
 								'important' => true,
@@ -1059,7 +1059,7 @@ FLBuilder::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'      => 'css',
-								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span',
+								'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span, .uabb-cf7-style input[type="checkbox"] + span',
 								'important' => true,
 							),
 						),
@@ -1072,7 +1072,7 @@ FLBuilder::register_module(
 							'show_reset'  => true,
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span',
+								'selector' => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span, .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span',
 								'property' => 'color',
 							),
 						),

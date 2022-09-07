@@ -258,10 +258,18 @@ if ( count( $settings->social_icons ) > 0 ) {
 					<?php if ( 'icon' === $settings->share_view || 'icon-text' === $settings->share_view ) { ?>
 						<span class="uabb-ss-icon">
 							<?php if ( '' !== $icon->icon ) { ?>
-							<i class="<?php echo $icon->icon; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" aria-hidden="true"></i>
+								<?php if ( 'photo' !== $icon->image_type ) { ?>
+									<i class="<?php echo $icon->icon; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" aria-hidden="true"></i>
+							<?php } else { ?>
+								<img src="<?php echo $icon->photo_src; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" alt="<?php echo $icon->photo; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"></img>
+							<?php } ?>
 						<?php } else { ?>
-							<i class="<?php echo $share_icon; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" aria-hidden="true"></i>
-						<?php } ?>
+								<?php if ( 'photo' !== $icon->image_type ) { ?>
+								<i class="<?php echo $share_icon; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" aria-hidden="true"></i>
+							<?php } else { ?>
+									<img src="<?php echo $icon->photo_src; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" alt="<?php echo $icon->photo; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"></img>
+								<?php } ?>
+							<?php } ?>
 						</span>
 					<?php } ?>
 

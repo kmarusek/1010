@@ -382,9 +382,14 @@ final class UABBBuilderAdminSettings {
 				'priority' => 510,
 			);
 		}
-		$items['uabb-social'] = array(
+		$items['uabb-social']           = array(
 			'title'    => __( 'Social Login Settings', 'uabb' ),
 			'show'     => ! is_network_admin() || ! FLBuilderAdminSettings::multisite_support(),
+			'priority' => 511,
+		);
+		$items['uabb-rollback-version'] = array(
+			'title'    => __( 'Rollback Version', 'uabb' ),
+			'show'     => ( is_network_admin() || ! FLBuilderAdminSettings::multisite_support() ) && bsf_display_rollback_version_form( 'uabb' ),
 			'priority' => 511,
 		);
 
@@ -426,6 +431,7 @@ final class UABBBuilderAdminSettings {
 
 		self::render_form( 'template-cloud' );
 		self::render_form( 'social' );
+		self::render_form( 'rollback-version' );
 
 		// Let extensions hook into form rendering.
 		do_action( 'uabb_builder_admin_settings_render_forms' );
