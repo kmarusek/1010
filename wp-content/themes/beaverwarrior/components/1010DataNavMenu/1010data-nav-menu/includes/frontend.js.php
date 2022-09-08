@@ -118,6 +118,7 @@ $closeClass = 'fa-times';
         })
 
         //open submenu
+        var windowsize = $(window).width();
         if(windowsize <= 900) {
             $('.DataNavMenu-menu_wrapper > .menu-item-has-children > a').on("click", function (e) {
                 e.preventDefault();
@@ -155,7 +156,7 @@ $closeClass = 'fa-times';
                     let parent_menu = $(this).parent();
                     parent_menu.removeClass('is-open');
                 }
-            })
+            });
         }
 
     });
