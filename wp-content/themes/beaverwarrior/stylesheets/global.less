@@ -231,10 +231,10 @@
 }
 
 .mktoForm select.mktoField {
-      -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
+//       -webkit-appearance: none;
+//   -moz-appearance: none;
+//   -o-appearance: none;
+//   appearance: none;
   font-size: 14px!important;
 }
 
@@ -426,6 +426,10 @@
     background-color:rgba(249, 249, 249, 0.6) !important;
 }
 
+.cf-btn-w100 .mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+    width: 100%!important;
+}
+
 @media (min-width: 576px) {
    .ctaCards .fl-col {
         width: 50%!important;
@@ -516,6 +520,12 @@
     }
     
     body .mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
-        width: 100%!Important;
+        width: 100%!important;
+    }
+}
+
+@media (max-width: 575px) {
+    .featuredLogos img {
+        height: 32px;
     }
 }
