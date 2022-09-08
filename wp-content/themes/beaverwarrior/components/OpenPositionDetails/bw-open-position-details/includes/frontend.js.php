@@ -18,7 +18,7 @@
 
         var htmlForm = `
             <form id="OpenPositionDetails-form-<?php echo esc_attr($id);?>" class="job__form cf">
-                            <input name="jobId" value="${job_id}" type="hidden">
+                            <input name="id" value="${job_id}" type="hidden">
                              <div class="cf">
                         <p class="job__form__helper"><span class="asterisk">*</span> Required</p>
                         <h2 class="section__head">Apply Now!</h2>
@@ -219,8 +219,11 @@ jQuery(document).ready(function ($) {
                     jsonObj[input.attr('name')] = input.val();
                 }
             });
+            console.log(urlHost);
+            console.log(jsonObj);
             $.ajax({
                 type: "POST",
+                method: "POST",
                 crossDomain: true,
                 url: urlHost,
                 data: JSON.stringify(jsonObj),
@@ -229,10 +232,8 @@ jQuery(document).ready(function ($) {
                 headers: {'Authorization': 'Basic 62a32faac59b9475d0124ffe62935f7c-1'},
                 beforeSend: function() {
                 },
-                /*beforeSend: function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Token ' + window.localStorage.getItem('token'));
-                },*/
                 success: function(data) {
+                    console.log(data);
                     var message = $(".OpenPositionDetails-form .message");
                     message.css('display', 'block');
                 },
