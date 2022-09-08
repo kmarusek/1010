@@ -23,7 +23,7 @@ wp_enqueue_style('lineicons', 'https://cdn.lineicons.com/3.0/lineicons.css');
 
             <div class="DataNavMenu-search_form">
                 <a href="#">
-                    <img src="http://localhost:8888/dev1010data//wp-content/uploads/2022/09/akar-icons-search.svg"/>
+                    <img src="/wp-content/uploads/2022/09/akar-icons-search.svg"/>
                 </a>
                 <?php get_search_form(); ?>
             </div>

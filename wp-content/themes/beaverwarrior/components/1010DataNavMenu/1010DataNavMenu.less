@@ -26,7 +26,42 @@ header{
     z-index: 9999999 !important;
     .DataNavMenu-menu_buttons .Data-primary_button a{
         background-color: #fc6815;
-        color: #120c17;
+        color: #fff;
+        border: 1px solid #f05c09;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        &:before, &:after{
+            width: 0%;
+            height: 0%;
+            opacity: 0;
+            transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+            background: transparent;
+            z-index: 2;
+            position: absolute;
+            content: "";
+        }
+        &:before{
+            top: 0;
+            right: 0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+        }
+        &:after{
+            bottom: 0;
+            left: 0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+        }
+        &:hover{
+            &:before, &:after{
+                width: 100%;
+                height: 99%;
+                opacity: 1;
+                transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;
+            }
+        }
     }
 }
 .DataNavMenu {
