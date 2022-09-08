@@ -1,15 +1,15 @@
 <?php
 if ( $settings->home_page_check === 'not-homepage') : ?>
 
-<section id="TenTenHero-<?php echo esc_attr($id); ?>"  class="TenTenHero-wrap is-homepage">
+<section id="TenTenHero-<?php echo esc_attr($id); ?>"  class="TenTenHero-wrap not-homepage">
 
         <div class="TenTenHero-content-side TenTenHero-animation">
             <div class="TenTenHero-content-wrap">
                 <?php if ($settings->subpage_subtitle): ?>
-                <h3 class="TenTenHero-subtitle"><?php echo $settings->subpage_subtitle ?></h3>
+                <h4 class="TenTenHero-subtitle"><?php echo $settings->subpage_subtitle ?></h4>
                 <?php endif;?>
-                <h2 class="TenTenHero-title-selector"><?php echo $settings->content_title ?></h2>
-                <h4><?php echo $settings->content ?></h4>
+                <h3 class="TenTenHero-title-selector"><?php echo $settings->content_title ?></h3>
+                <h6><?php echo $settings->content ?></h6>
                 <?php if ( $settings->button_url ): ?>
                     <div class="TenTenHero-buttonwrap">
                         <a class="TenTenHero-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
