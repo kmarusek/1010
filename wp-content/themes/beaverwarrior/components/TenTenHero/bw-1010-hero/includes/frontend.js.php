@@ -53,7 +53,7 @@
 
 
       //Select last word of TENTENHero Title and change its color.
-        $(".TenTenHero-title-selector").html(function(){
+        $(".TenTenHero-homepage-title-selector").html(function(){
           var text= $(this).text().trim().split(" ");
           var last = text.pop();
           return text.join(" ") + (text.length > 0 ? " <span class='TenTenHero-lastword'>" + last + "</span>" : last);

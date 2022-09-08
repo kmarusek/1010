@@ -36,6 +36,15 @@ FLBuilder::register_module('BW1010Hero', array(
                 'images' => array (
                     'title' => __("Hero Image(s)", 'skeleton-warrior'),
                     'fields' => array (
+                        'home_page_check' => array(
+                            'type'          => 'select',
+                            'label'         => __( 'Is this the home page?', 'skeleton-warrior' ),
+                            'default'       => 'not-homepage',
+                            'options'       => array(
+                              'not-homepage'      => __( 'No', 'skeleton-warrior' ),
+                              'is-homepage'      => __( 'Yes', 'skeleton-warrior' )
+                            ),
+                        ),
                         'heros' => array(
                             'type' => 'form',
                             'label' => __('Hero Image', 'skeleton-warrior'),
@@ -47,6 +56,10 @@ FLBuilder::register_module('BW1010Hero', array(
                 'content' => array (
                     'title' => __("Content Side", 'skeleton-warrior'),
                     'fields' => array(
+                        'subpage_subtitle' => array(
+                            'type' => 'text',
+                            'label' => __( 'Subpage Subtitle', 'skeleton-warrior'),
+                        ),
                         'content_title' => array(
                             'type' => 'text',
                             'label' => __( 'Content Title', 'skeleton-warrior'),
