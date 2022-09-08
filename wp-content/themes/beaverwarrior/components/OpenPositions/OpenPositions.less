@@ -103,8 +103,11 @@
   &-listing {
     &_content{
       max-width: 450px;
+      @media(max-width: 1025px){
+        max-width: 340px;
+      }
       @media(max-width:767px){
-        max-width: 250px;
+        max-width: 90%;
       }
     }
     &_title {
