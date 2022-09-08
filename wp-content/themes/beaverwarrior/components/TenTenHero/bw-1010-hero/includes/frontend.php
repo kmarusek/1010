@@ -41,8 +41,8 @@ elseif ( $settings->home_page_check === 'is-homepage' ) :;?>
 
         <div class="TenTenHero-content-side TenTenHero-animation">
             <div class="TenTenHero-content-wrap">
-                <h2 class="TenTenHero-homepage-title-selector"><?php echo $settings->content_title ?></h2>
-                <h4><?php echo $settings->content ?></h4>
+                <h3 class="TenTenHero-homepage-title-selector"><?php echo $settings->content_title ?></h3>
+                <h6><?php echo $settings->content ?></h6>
                 <?php if ( $settings->button_url ): ?>
                     <div class="TenTenHero-buttonwrap">
                         <a class="TenTenHero-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
