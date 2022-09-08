@@ -118,43 +118,45 @@ $closeClass = 'fa-times';
         })
 
         //open submenu
-        $('.DataNavMenu-menu_wrapper > .menu-item-has-children > a').on("click", function (e) {
-            e.preventDefault();
+        if(windowsize <= 900) {
+            $('.DataNavMenu-menu_wrapper > .menu-item-has-children > a').on("click", function (e) {
+                e.preventDefault();
 
-            if ($('body').hasClass('is-toggled')) {
-                let expand = $(this).find('.DataNavMenu-expand');
-                let parent_menu = $(this).parent().find('> .DataNavMenu-sub_menu');
-                if(!parent_menu.hasClass('is-open')){
-                    $('.DataNavMenu-sub_menu').each(function () {
-                        $(this).removeClass('is-open');
-                    })
-                    $('.DataNavMenu-expand').each(function () {
-                        $(this).addClass('collapsed');
-                    });
-                    expand.removeClass('collapsed');
-                    parent_menu.addClass('is-open');
-                }else{
+                if ($('body').hasClass('is-toggled')) {
+                    let expand = $(this).find('.DataNavMenu-expand');
+                    let parent_menu = $(this).parent().find('> .DataNavMenu-sub_menu');
+                    if (!parent_menu.hasClass('is-open')) {
+                        $('.DataNavMenu-sub_menu').each(function () {
+                            $(this).removeClass('is-open');
+                        })
+                        $('.DataNavMenu-expand').each(function () {
+                            $(this).addClass('collapsed');
+                        });
+                        expand.removeClass('collapsed');
+                        parent_menu.addClass('is-open');
+                    } else {
+                        parent_menu.removeClass('is-open');
+                        expand.addClass('collapsed');
+                    }
+                }
+            })
+            $('.DataNavMenu-inner_depth_1 > a').on("click", function (e) {
+                e.preventDefault();
+                if ($('body').hasClass('is-toggled')) {
+                    let menu = $(this).parent().find('> .DataNavMenu-depth_2');
+                    if (!menu.hasClass('is-open')) {
+                        menu.addClass('is-open');
+                    }
+                }
+            })
+            $('.DataNavMenu-inner_depth_1').on("click", ".DataNavMenu-depth_2 > a", function (e) {
+                e.preventDefault();
+                if ($('body').hasClass('is-toggled')) {
+                    let parent_menu = $(this).parent();
                     parent_menu.removeClass('is-open');
-                    expand.addClass('collapsed');
                 }
-            }
-        })
-        $('.DataNavMenu-inner_depth_1 > a').on("click", function (e) {
-            e.preventDefault();
-            if ($('body').hasClass('is-toggled')) {
-                let menu = $(this).parent().find('> .DataNavMenu-depth_2');
-                if(!menu.hasClass('is-open')){
-                    menu.addClass('is-open');
-                }
-            }
-        })
-        $('.DataNavMenu-inner_depth_1').on("click", ".DataNavMenu-depth_2 > a",  function (e) {
-            e.preventDefault();
-            if ($('body').hasClass('is-toggled')) {
-                let parent_menu = $(this).parent();
-                parent_menu.removeClass('is-open');
-            }
-        })
+            })
+        }
 
     });
 
