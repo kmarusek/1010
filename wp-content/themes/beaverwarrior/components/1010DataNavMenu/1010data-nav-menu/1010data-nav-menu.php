@@ -22,6 +22,7 @@ class DataNavMenu extends BeaverWarriorFLModule
          'enabled'         => true,
          'partial_refresh' => true
       ]);
+      $this->add_css( 'font-awesome' );
    }
 
    /**

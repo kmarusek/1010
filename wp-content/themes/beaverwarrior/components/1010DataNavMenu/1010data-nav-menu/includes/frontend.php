@@ -23,7 +23,7 @@ wp_enqueue_style('lineicons', 'https://cdn.lineicons.com/3.0/lineicons.css');
 
             <div class="DataNavMenu-search_form">
                 <a href="#">
-                    <img src="/wp-content/uploads/2022/09/akar-icons-search.svg"/>
+                    <img src="http://localhost:8888/dev1010data//wp-content/uploads/2022/09/akar-icons-search.svg"/>
                 </a>
                 <?php get_search_form(); ?>
             </div>
@@ -58,7 +58,7 @@ wp_enqueue_style('lineicons', 'https://cdn.lineicons.com/3.0/lineicons.css');
 
         <div class="DataNavMenu-menu_buttons">
             <div class="Data-sigin_button DataNavMenu-menu_button">
-                <a href="<?php echo $settings->signin_button_link;?>"><img src="/wp-content/uploads/2022/09/frame.svg"/></a>
+                <a href="<?php echo $settings->signin_button_link;?>"><?php echo $settings->signin_button; ?><img src="/wp-content/uploads/2022/09/frame.svg"/></a>
             </div>
             <div class="Data-primary_button DataNavMenu-menu_button">
                 <a href="<?php echo $settings->button_link;?>"><?php echo $settings->right_button; ?></a>
