@@ -19,10 +19,15 @@
         z-index: 999;
     }
 }
+header{
+    z-index: 9999999 !important;
+}
 .fl-builder-content[data-type="header"].fl-theme-builder-header-sticky{
     z-index: 9999999 !important;
-    background-color: #fc6815;
-    color: #120c17;
+    .DataNavMenu-menu_buttons .Data-primary_button a:hover{
+        background-color: #fc6815;
+        color: #120c17;
+    }
 }
 .DataNavMenu {
     a{
@@ -197,7 +202,6 @@
             left: 50%;
             transform: translateX(-50%);
             top: 88px;
-            min-width: 453px;
             .DataNavMenu {
                 &-depth_1{
                     background-color: #fff;
@@ -219,6 +223,9 @@
                     letter-spacing: 0.56px;
                     color: #120c17;
                     margin-bottom: 6px;
+                    &:hover{
+                        color: #fc6815;
+                    }
                 }
                 &-description{
                     margin-left: 47px;
@@ -253,8 +260,8 @@
                 &-depth_1{
                     position: relative;
                     padding: 48px 42px !important;
-                    li{
-                        a {
+                    & > li{
+                        & > a {
                             display: block;
                             position: relative;
                             &:after, &:before {
@@ -290,8 +297,8 @@
                             }
                         }
                     }
-                    li.active{
-                        a{
+                    & > li.active{
+                        & > a{
                             color: #fc6815;
 
                             &:after, &:before {
@@ -319,13 +326,16 @@
                         max-width: 357px;
                         margin-bottom: 24px;
                         a{
-                            color: #120c17 !important;
+                            color: #120c17;
                             font-family: Hauora, sans-serif;
                             font-size: 14px;
                             font-weight: 600;
                             line-height: 24px;
                             letter-spacing: 0.56px;
                             margin: 0 0 6px 0;
+                            &:hover{
+                                color: #fc6815;
+                            }
                             &:before, &:after{
                                 display: none !important;
                             }
