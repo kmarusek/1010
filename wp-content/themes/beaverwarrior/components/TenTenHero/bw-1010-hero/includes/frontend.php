@@ -9,7 +9,7 @@ if ( $settings->home_page_check === 'not-homepage') : ?>
                 <h3 class="TenTenHero-subtitle"><?php echo $settings->subpage_subtitle ?></h3>
                 <?php endif;?>
                 <h2 class="TenTenHero-title-selector"><?php echo $settings->content_title ?></h2>
-                <p><?php echo $settings->content ?></p>
+                <h4><?php echo $settings->content ?></h4>
                 <?php if ( $settings->button_url ): ?>
                     <div class="TenTenHero-buttonwrap">
                         <a class="TenTenHero-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
@@ -42,7 +42,7 @@ elseif ( $settings->home_page_check === 'is-homepage' ) :;?>
         <div class="TenTenHero-content-side TenTenHero-animation">
             <div class="TenTenHero-content-wrap">
                 <h2 class="TenTenHero-homepage-title-selector"><?php echo $settings->content_title ?></h2>
-                <p><?php echo $settings->content ?></p>
+                <h4><?php echo $settings->content ?></h4>
                 <?php if ( $settings->button_url ): ?>
                     <div class="TenTenHero-buttonwrap">
                         <a class="TenTenHero-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
