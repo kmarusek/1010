@@ -71,7 +71,8 @@
   }
   &-title{
     color: var(--primary);
-    width: 100%;
+    max-width: 538px;
+    max-height: 88px;
     margin-top: 15px;
     font-weight: 500;
     font-size: 30px;
@@ -126,6 +127,10 @@
   }
   &-image{
     margin: auto;
+    @media only screen and (max-width: 600px){
+    display: flex;
+    justify-content: center;}
+
   img{
     border-radius: 10px;
     max-width: 431px;
@@ -144,6 +149,7 @@
     &-banner {
       display: block;
       width: 100%;
+      height: 572px;
       justify-content: space-between;
       padding: 20px;
     }
@@ -154,7 +160,14 @@
       margin-right: 20px;
     }
     &-title{
-      font-size: 25px;
+      flex-grow: 0;
+      font-family:var(--defaultfont);
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.71;
+      letter-spacing: 0.56px;
     }
   }
   a.fl-button, a.fl-button:visited, a.fl-button:hover {
