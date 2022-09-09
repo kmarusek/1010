@@ -54,7 +54,7 @@
 .TenTenHero-slide.is-visible {
       display: block;
 }
-.TenTenHero-image-side .TenTenHero-lens.TenTenHero-animation{
+.TenTenHero-image-side .TenTenHero-lens{
      animation: hero-lens-slide 6s infinite alternate;
      @keyframes hero-lens-slide{
           from {
@@ -66,7 +66,7 @@
           }
      }
 }
-.TenTenHero-mask.TenTenHero-animation{
+.TenTenHero-mask{
      animation: hero-mask-slide 6s infinite alternate;
     
      @keyframes hero-mask-slide{
@@ -95,20 +95,33 @@
      padding-left: 40px;
      margin: auto;
 }
-.TenTenHero-content-wrap h2 {
+.TenTenHero-content-wrap h4.TenTenHero-subtitle {
+     color:#f05c09;
+     font-weight: 500;
+}
+.TenTenHero-content-wrap h2{
      font-family: "Hauora", Verdana, Arial, sans-serif;
      font-weight: 500;
-     font-size: ~"calc(20px + 3.3vw)";
+     font-size: ~"calc(20px + 3vw)";
+     color: #ffffff;
 
+}
+.TenTenHero-content-wrap h3{
+     font-family: "Hauora", Verdana, Arial, sans-serif;
+     font-weight: 500;
+     // font-size: ~"calc(20px + 3.3vw)";
+     color: #ffffff;
+
+}
+.TenTenHero-content-wrap h6 {
+     font-family: "Hauora", Verdana, Arial, sans-serif;
+     font-weight: 400;
+     color: #ffffff;
+     // font-size: ~"calc(14px + .5vw)";
+     padding-bottom: 35px;
 }
 .TenTenHero-lastword {
      color: #f05c09;
-}
-.TenTenHero-content-wrap p {
-     font-family: "Hauora", Verdana, Arial, sans-serif;
-     font-weight: 400;
-     font-size: ~"calc(14px + .5vw)";
-     padding-bottom: 35px;
 }
 .TenTenHero-content-side.TenTenHero-animation.is-visible {
      animation: hero-content-slide 2s 1 normal;
@@ -197,8 +210,9 @@ a.TenTenHero-button:hover .TenTenHero-icon{
      .TenTenHero-content-wrap  {
           padding-bottom: 15px;
      }
+
      .TenTenHero-content-wrap h2 {
-          font-size: ~"calc(20px + 5vw)";
+          font-size: ~"calc(20px + 4vw)";
           
      }
      .TenTenHero-content-wrap p {
@@ -235,7 +249,7 @@ a.TenTenHero-button:hover .TenTenHero-icon{
           }
      
      }
-     .TenTenHero-image-side .TenTenHero-lens.TenTenHero-animation{
+     .TenTenHero-image-side .TenTenHero-lens{
           animation: hero-lens-slide 4s infinite alternate;
           @keyframes hero-lens-slide{
                from {
@@ -247,7 +261,7 @@ a.TenTenHero-button:hover .TenTenHero-icon{
                }
           }
      }
-     .TenTenHero-mask.TenTenHero-animation{
+     .TenTenHero-mask{
           animation: hero-mask-slide 4s infinite alternate;
          
           @keyframes hero-mask-slide{

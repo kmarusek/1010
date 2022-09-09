@@ -1,0 +1,535 @@
+.position-relative {
+    position: relative;
+}
+
+.z-index-9 {
+    z-index: 9;
+}
+
+.line-button .fl-button {
+    position: relative!important;
+}
+
+.line-button .fl-button {
+    transition: none!important;
+}
+
+.line-button .fl-button:after, 
+.line-button .fl-button:before {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    top: 100%;
+    left: 0;
+    pointer-events: none;
+}
+
+.line-button .fl-button:before {
+    content: '';
+}
+.line-button .fl-button:before {
+    transform-origin: 100% 50%;
+    transform: scale3d(0,1,1);
+    transition: transform 0.3s;
+}
+.line-button .fl-button:hover:before {
+    transform-origin: 0% 50%;
+    transform: scale3d(1,1,1);
+}
+
+.simpleAnimatedButton .fl-button:hover .fl-button-icon {
+    left: 0;
+}
+
+.simpleAnimatedButton .fl-button .fl-button-icon {
+    margin: 0!important;
+    font-size: 20px;
+    position: relative;
+    left: -4px;
+    transition: 0.3s all;
+}
+.simpleAnimatedButton2 .fl-button:hover .fl-button-icon {
+    top: -3px;
+}
+
+.simpleAnimatedButton2 .fl-button .fl-button-icon {
+    margin: 0!important;
+    font-size: 20px;
+    position: relative;
+    left: -4px;
+    transition: 0.3s all;
+    top: 0;
+}
+
+.simpleAnimatedButton3 .fl-button:hover .fl-button-icon {
+    top: 3px;
+}
+
+.simpleAnimatedButton3 .fl-button .fl-button-icon {
+    margin: 0!important;
+    font-size: 20px;
+    position: relative;
+    transition: 0.3s all;
+    top: 0;
+}
+
+.custom-button .fl-button:before,
+.custom-button .fl-button:after {
+  position: absolute;
+  content: "";
+}
+
+.custom-button .fl-button {
+  position: relative;
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.custom-button .fl-button {
+  padding: 5px;
+}
+
+.custom-button .fl-button:before,
+.custom-button .fl-button:after {
+  background: transparent;
+  z-index: 2;
+}
+.custom-button .fl-button:before,
+.custom-button .fl-button:after {
+  width: 0%; height: 0%;
+  opacity: 0;
+  transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+}
+.custom-button .fl-button:before {
+  top: 0; right: 0;
+  border-top: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+}
+.custom-button .fl-button:after {
+  bottom: 0; left: 0;
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+.custom-button .fl-button:hover:before,
+.custom-button .fl-button:hover:after {
+  width: 100%; height: 99%;
+  opacity: 1;
+  transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;   
+}
+.logoStack .fl-col {
+    width: 33.33%!important;
+}
+.single-post-content .fl-rich-text p {
+    margin-bottom: 18px;
+}
+.wp-block-image {
+    border-radius: 6px;
+    margin: 30px 0;
+}
+.categoryPills .fl-rich-text a {
+    background: rgba(252, 104, 21, 0.08);
+    padding: 8px 25px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    margin-right: 10px;
+}
+.categoryPills .fl-rich-text a:hover {
+    border: 1px solid #fc6815;
+    text-decoration: none!important;
+}
+.TextButtonLink .fl-button i {
+    margin-top: 5px;
+    font-size: 22px!important;
+    margin-right: 15px;
+    padding: 0;
+}
+
+.TextButtonLink .fl-button {
+    display: flex!important;
+}
+
+.manualBreadCrumb .fl-rich-text a {
+    color: #737373!important;
+}
+
+.manualBreadCrumb .fl-rich-text strong {
+    margin: 0 5px;
+}
+
+.manualBreadCrumb .fl-rich-text a:hover {
+    color: #fc6815!important;
+    text-decoration: none!important;
+}
+
+.fl-button:hover {
+    transition: 0.3s ease-in-out;
+}
+
+.fl-rich-text a {
+    color: #fc6815;
+}
+.fl-rich-text a:hover {
+    color: #120c17;
+    text-decoration: none!important;
+}
+.footerMenu ul.menu {
+    padding-left: 0!important;
+}
+.footerMenu ul.menu li a {
+      font-size: 12px;
+      line-height: 1.8;
+      letter-spacing: 0.48px;
+      text-align: left;
+      color: rgba(255, 255, 255, 0.77)!important;
+      text-transform: uppercase;
+}
+.footerMenu ul.menu li a:hover {
+    color: #fc6815!important;
+    text-decoration: none!important;
+}
+
+.threeColResponsive .fl-col {
+    width: 50%!important;
+}
+
+.alignedTopIconList .fl-list-item-content-icon {
+    vertical-align: top!important;
+}
+
+.mktoForm {
+    width: 100%!important;
+}
+
+.mktoForm .mktoFormCol {
+    width: 100%!important;
+}
+
+.mktoForm .mktoFormCol > div {
+    float: none!important;
+}
+
+.mktoForm .mktoFieldWrap {
+    float: none!important;
+}
+
+.mktoForm input[type=text], .mktoForm input[type=url], .mktoForm input[type=email], .mktoForm input[type=tel], .mktoForm input[type=number], .mktoForm input[type=date], .mktoForm textarea.mktoField, .mktoForm select.mktoField {
+    width: 100%!important;
+    border-radius: 4px;
+    border: solid 1px #737373!important;
+    background-color: #fff;
+    height: 48px!important;
+    font-family: "Hauora", Times New Roman, Times, serif;
+    padding: 10px!important;
+    font-weight: 500!important;
+     letter-spacing: 0.56px!important;
+}
+
+.mktoForm textarea.mktoField {
+    height: 200px!important;
+}
+
+.mktoForm select.mktoField {
+//       -webkit-appearance: none;
+//   -moz-appearance: none;
+//   -o-appearance: none;
+//   appearance: none;
+  font-size: 14px!important;
+}
+
+.mktoForm .mktoLabel {
+    float: none!important;
+    line-height: 1.2em;
+    padding-top: 0.3em;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.71;
+    letter-spacing: 0.56px;
+    text-align: left;
+    color: #120c17;
+    margin-bottom: 10px!important;
+    font-family: "Hauora", Times New Roman, Times, serif;
+}
+
+.mktoButtonWrap.mktoSimple {
+    margin-left: 0!important;
+}
+
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+    padding: 10px 21px!important;
+    border-radius: 0!important;
+    background-color: #FC6816!important;
+    background-image: none!important;
+    border: 1px solid #fc6815!important;
+    width: 146px!important;
+    margin-top: 55px;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.71;
+    letter-spacing: 0.56px;
+    text-align: center;
+    color: #f4f4f4;
+    font-family: "Hauora", Times New Roman, Times, serif!important;
+}
+
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:before,
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:after {
+  position: absolute;
+  content: "";
+}
+
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+  position: relative;
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton{
+  padding: 5px;
+}
+
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:before,
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:after {
+  background: transparent;
+  z-index: 2;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:before,
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:after {
+  width: 0%; height: 0%;
+  opacity: 0;
+  transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:before {
+  top: 0; right: 0;
+  border-top: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:after {
+  bottom: 0; left: 0;
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:hover:before,
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:hover:after {
+  width: 100%; height: 99%;
+  opacity: 1;
+  transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;   
+}
+
+.selectWrapper:after {
+    content: "";
+    position: absolute;
+    background-image: url(../../../wp-content/themes/beaverwarrior/assets/img/downButton.svg);
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.selectWrapper {
+    height: 47px;
+    position: relative;
+}
+
+.featuredLogos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+.featuredLogos img {
+    height: 38px;
+    padding: 6px 20px;
+    margin-bottom: 30px;
+}
+
+.featuredSpeakers .col-sm-3 {
+    margin-bottom: 23px;
+}
+
+.featuredLogos.jc-start {
+    justify-content: flex-start;
+}
+
+.featuredLogos.jc-start img {
+    height: 30px;
+    padding: 6px 15px;
+}
+
+.speakerImage img {
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.speakerName {
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: 0.9px;
+    text-align: left;
+    color: #120c17;
+    margin-bottom: 4px;
+}
+
+.speakerPos {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: 0.7px;
+    text-align: left;
+    color: #333;
+}
+
+.overflow-hidden {
+    overflow:hidden
+}
+
+.wp-video-shortcode {
+    border-radius: 12px!important;
+    overflow: hidden;
+}
+
+.mejs-overlay-button {
+    background: url(../../../wp-content/themes/beaverwarrior/assets/img/video-play-button.svg) no-repeat!important;
+}
+
+.pdfPreview .fl-photo-img {
+    position: relative;
+    top: 0;
+    transition: 0.3s all;
+}
+
+.pdfPreview .fl-photo-img:hover {
+    top: -10px;
+}
+
+.mktoForm .mktoField::placeholder {
+    font-size: 14px!important;
+}
+
+.boxShadowCol {
+    background-color:rgba(249, 249, 249, 0.6) !important;
+}
+
+.cf-btn-w100 .mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+    width: 100%!important;
+}
+
+.cf-btn-w100 .mktoButtonRow {
+    width: 100%!important;
+}
+
+@media (min-width: 576px) {
+   .ctaCards .fl-col {
+        width: 50%!important;
+    } 
+}
+
+@media (min-width: 769px) {
+    .logoStack .fl-col {
+        width: 25%!important;
+    }
+    .footerMenu ul.menu li a {
+      font-size: 14px;
+      line-height: 1.71;
+      letter-spacing: 0.56px;
+    }
+    .marketoForm .mktoForm .mktoFormRow:nth-child(3), .marketoForm .mktoForm .mktoFormRow:nth-child(5) {
+        width: 45%;
+        float: left;
+    }
+    
+    .marketoForm .mktoForm .mktoFormRow:nth-child(2), .marketoForm .mktoForm .mktoFormRow:nth-child(4) {
+        width: 45%;
+        float: right!important;
+    }
+    .marketoForm .mktoForm .mktoFormRow {
+        clear: none!important;
+    }
+    .boxShadowCol {
+        box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.05);
+    }
+}
+
+@media (min-width: 1025px) {
+    .ctaCards .fl-col {
+        width: 33.33%!important;
+    }
+    
+    .threeColResponsive .fl-col {
+        width: 33.33%!important;
+    }
+    
+    
+    .bottomPlacement {
+        position: absolute;
+        bottom: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .whiteBGMobile .fl-row-content-wrap {
+        background-color: #fff!important;
+    }
+    .simpleAnimatedButton3 .fl-button .fl-button-icon {
+        font-size: 12px;
+    }
+
+    .speakerName {
+        font-size: 14px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: 0.56px;
+        text-align: left;
+        color: #120c17;
+    }
+    .speakerPos {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.6;
+        letter-spacing: 0.7px;
+        text-align: left;
+        color: #333;
+    }
+    .featuredSpeakers .col-sm-3 {
+        width: 50%!important;
+        float: left!important;
+    }
+
+    .featuredLogos img {
+        height: 32px;
+    }
+    .mktoButtonRow {
+        display: block!important;
+        width: 100%!important;
+    }
+    
+    body .mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+        width: 100%!important;
+    }
+}
+
+@media (max-width: 575px) {
+    .featuredLogos img {
+        width: 50%!important;
+    }
+}

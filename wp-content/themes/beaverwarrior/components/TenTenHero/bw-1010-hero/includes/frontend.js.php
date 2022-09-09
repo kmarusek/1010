@@ -1,11 +1,9 @@
-
 (function($){
     $(function(){
       
-//Lens and Mask animation trigger
-        const animations = document.querySelectorAll('.TenTenHero-animation');
+      const TenTenAnimations = document.querySelectorAll('.TenTenHero-animation');
 
-        observer = new IntersectionObserver((entries) =>{
+      TenTenHeroObserver = new IntersectionObserver((entries) =>{
             entries.forEach( entry => {
                 if(entry.intersectionRatio > 0 ){
                     entry.target.classList.add('is-visible');
@@ -18,13 +16,13 @@
 
         });
 
-        animations.forEach(animation => {
-            observer.observe(animation)
-        })
+        TenTenAnimations.forEach(TenTenAnimation => {
+          TenTenHeroObserver.observe(TenTenAnimation)
+        });
 
         
         
-// Javascript to create crossfade between images in TENTENHero.       
+      // Crossfade between images in TENTENHero.       
         var slideIndex = 1;
         showSlides(slideIndex);
 
@@ -54,8 +52,8 @@
         setInterval(plusSlides, 12000, 1); // call plusSlider, with 1 as parameter
 
 
-//JQUERY to select last word of TENTENHero Title and change its color.
-        $(".TenTenHero-title-selector").html(function(){
+      //Select last word of TENTENHero Title and change its color.
+        $(".TenTenHero-homepage-title-selector").html(function(){
           var text= $(this).text().trim().split(" ");
           var last = text.pop();
           return text.join(" ") + (text.length > 0 ? " <span class='TenTenHero-lastword'>" + last + "</span>" : last);
