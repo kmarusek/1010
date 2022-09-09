@@ -30,6 +30,7 @@ wp_enqueue_style('lineicons', 'https://cdn.lineicons.com/3.0/lineicons.css');
 
             <div class="DataNavMenu-right_menu">
                 <div class="Data-sigin_button DataNavMenu-menu_button">
+                    <div class="mobile-border"></div>
                     <a href="<?php echo $settings->signin_button_link;?>"><?php echo $settings->signin_button; ?></a>
                 </div>
                 <div class="Data-primary_button DataNavMenu-menu_button">

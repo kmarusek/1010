@@ -153,6 +153,9 @@ header{
                 letter-spacing: 0.56px;
                 text-align: left;
                 color: #fff;
+                img{
+                    margin-left: 5px;
+                }
             }
         }
         .Data-primary_button{
@@ -238,11 +241,13 @@ header{
             left: 50%;
             transform: translateX(-50%);
             top: 88px;
+            border-radius: 6px;
             .DataNavMenu {
                 &-depth_1{
                     background-color: #fff;
                     padding: 56px 48px !important;
                     min-width: auto;
+                    border-radius: 6px;
                 }
                 &-sub_menu_item_icon{
                     display: inline;
@@ -293,10 +298,13 @@ header{
 
         &--cta_menu{
             left: 60px;
+            border-radius: 6px;
             .DataNavMenu {
                 &-depth_1{
                     position: relative;
                     padding: 48px 42px !important;
+                    border-top-left-radius: 6px;
+                    border-bottom-left-radius: 6px;
                     & > li{
                         & > a {
                             display: block;
@@ -1035,7 +1043,15 @@ header{
         &-right_menu{
             width: 100%;
             padding: 38px 24px;
-            border-top: 1px solid rgba(115, 115, 115, 0.38);
+            .mobile-border{
+                border-top: 1px solid rgba(115, 115, 115, 0.38);
+                position: absolute;
+                top: -38px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+            }
             .DataNavMenu{
                 &-menu_button a{
                     font-family: Hauora, sans-serif;
@@ -1046,6 +1062,9 @@ header{
                     text-align: left;
                     color: #120c17;
                 }
+            }
+            .Data-sigin_button{
+                position: relative;
             }
             .Data-primary_button{
                 margin-top: 16px;
@@ -1183,7 +1202,7 @@ header{
                     display: block !important;
                     &.is-open {
                         left: 0 !important;
-                        min-height: 100%;
+                        min-height: 100vh;
                     }
                     > a{
                         position: absolute !important;
