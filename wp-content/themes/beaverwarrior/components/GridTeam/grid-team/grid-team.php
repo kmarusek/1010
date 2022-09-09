@@ -62,13 +62,13 @@ FLBuilder::register_module(
                             'type' => 'unit',
                             'label' => __('Number of Columns - Tablet'),
                             'description' => 'Columns',
-                            'default' => 1
+                            'default' => 2
                         ],
                         'col_mobile' => [
                             'type' => 'unit',
                             'label' => __('Number of Columns - Mobile'),
                             'description' => 'Columns',
-                            'default' => 1
+                            'default' => 2
                         ],
                         'space_between' => [
                             'type' => 'unit',
