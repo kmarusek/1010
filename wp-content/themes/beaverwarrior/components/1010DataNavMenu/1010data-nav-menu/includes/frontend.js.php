@@ -35,7 +35,7 @@ $closeClass = 'fa-times';
                 }
                 if( $(this).hasClass('DataNavMenu-type--simple')) {
                     if($(this).find(".DataNavMenu-depth_1").children().length-1 >= 4){
-                        $(this).find(".DataNavMenu-depth_1").css({"overflow":"scroll", "max-height":"600px", "padding-bottom": "100px !important"});
+                        $(this).find(".DataNavMenu-depth_1").addClass('overflown');
                     }
                 }
             });
