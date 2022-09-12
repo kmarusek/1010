@@ -213,25 +213,26 @@ jQuery(document).ready(function ($) {
             $("#submitForm").attr("style", "background-color:#ccc !important");
             $(".OpenPositionDetails-form :input").each(function(){
                 var input = $(this);
-                if(input.attr('type') == 'radio'){
+                if(input.attr('name') == 'first_name' || input.attr('name') == 'last_name' || input.attr('name') == 'email'){
+                    jsonObj[input.attr('name')] = input.val();
+                }
+               /* if(input.attr('type') == 'radio'){
                     jsonObj[input.attr('name')] = $('input[name='+input.attr("name")+']:checked').val();
                 }else{
                     jsonObj[input.attr('name')] = input.val();
-                }
+                }*/
             });
             console.log(urlHost);
             console.log(jsonObj);
+            //return false;
             $.ajax({
-                type: "POST",
                 method: "POST",
-                crossDomain: true,
                 url: urlHost,
+                crossDomain: true,
                 data: JSON.stringify(jsonObj),
                 contentType: "application/json",
-                dataType: 'jsonp',
-                headers: {'Authorization': 'Basic 62a32faac59b9475d0124ffe62935f7c-1'},
-                beforeSend: function() {
-                },
+                dataType: "json",
+                headers: {"Authorization": "Basic 62a32faac59b9475d0124ffe62935f7c-1"},
                 success: function(data) {
                     console.log(data);
                     var message = $(".OpenPositionDetails-form .message");

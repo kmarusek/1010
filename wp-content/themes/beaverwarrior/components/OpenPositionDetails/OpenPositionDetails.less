@@ -3,6 +3,9 @@
 		display: grid;
 		grid-template-columns: 654px 1fr;
 		gap: 90px;
+		@media(max-width: 1023px){
+			display: block;
+		}
 	}
 	&-details{
 
@@ -68,6 +71,12 @@
 		background: #ccc;
 		.job__form__helper{
 			float:right;
+			@media(max-width: 1024px){
+				font-size: 12px;
+			}
+		}
+		.section__head{
+			font-size: 24px;
 		}
 		#submitForm{
 			background-color: #fc6815;

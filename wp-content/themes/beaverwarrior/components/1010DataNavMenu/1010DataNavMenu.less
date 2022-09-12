@@ -842,6 +842,12 @@ header{
         }
         &-search_form{
             min-width: 200px;
+            @media(max-width: 1203px){
+                min-width: 150px;
+                .SiteHeader-form_item input[type="search"]{
+                    min-width: 150px !important;
+                }
+            }
             @media(max-width: 1180px){
                 display: none;
             }
