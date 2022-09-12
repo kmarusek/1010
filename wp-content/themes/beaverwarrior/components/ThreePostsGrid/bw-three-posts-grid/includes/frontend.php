@@ -32,7 +32,7 @@ $posts_per_page = $module->getPostsPerPage();
         // By default, the post classes
         $post_classes = array( 'ThreePostsGrid-post col-xs-12 col-md-6 col-lg-4' );
 
-        if($post_type === 'article'){
+        if($post_type === 'news'){
         ?>
 
         <a class="<?php echo implode(' ', $post_classes ); ?>" href="<?php  the_field('article_link', $post_id);?>" data-post-id="<?php echo $post_id;?>">    
