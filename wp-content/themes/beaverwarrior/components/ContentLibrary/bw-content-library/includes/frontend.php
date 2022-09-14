@@ -132,8 +132,8 @@ foreach( $postCats as $cat ){
 
             <div class="ContentLibrary-post feature-post" style="background-image: url(<?php echo $settings->feature_posts_background_image_src; ?>)">            
                     <div class="ContentLibrary-content-container">
-                        <h4 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h4>
-                        <h2 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h2>
+                        <h5 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h5>
+                        <h4 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h4>
                     </div>
                     <div class="ContentLibrary-post-link-container">
                         <a class="" href="<?php echo $settings->feature_post_url;?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
@@ -167,8 +167,8 @@ foreach( $postCats as $cat ){
             <div class="ContentLibrary-post <?php echo $post_categories_string; ?>" style="background-image: url(<?php echo $settings->posts_background_image_src ?>)">       
         
                     <div class="ContentLibrary-content-container">
-                        <h4 class="ContentLibrary-categories"><?php echo $post_categories_string;?></h4>
-                        <h2 class="ContentLibrary-title"><?php  echo $post_title;?></h2>
+                        <h5 class="ContentLibrary-categories"><?php echo $post_categories_string;?></h5>
+                        <h4 class="ContentLibrary-title"><?php  echo $post_title;?></h4>
                     </div>
                     <div class="ContentLibrary-post-link-container">
                         <a class="" href="<?php echo $post_url?>" data-post-id="<?php echo $post_id;?>">
