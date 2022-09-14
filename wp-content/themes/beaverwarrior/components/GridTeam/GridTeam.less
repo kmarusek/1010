@@ -92,6 +92,11 @@
 		text-decoration: none;
 		transition: all 0.5s ease-out;
 		outline: none !important;
+		&:hover{
+			.GridTeam-name{
+				text-decoration: underline;
+			}
+		}
 	}
 
 	&-panel_link:hover {
@@ -152,6 +157,7 @@
 		bottom: 50px;
 		right: 50px;
 		padding: 15px;
+		display: none;
 		@media screen and (max-width: 992px) {
 			padding: 0%;
 			bottom: 46px;
@@ -169,10 +175,16 @@
 		font-size: 30px;
 		line-height: 0;
 		opacity: 1;
-
+		margin-bottom: 66px;
+		margin-top: 43px;
+		float: right;
 		&:hover, &:active {
 			background-color: transparent;
 			border: none;
+		}
+		@media only screen and (max-width: 992px){
+			margin-top: 22px;
+			margin-bottom: 53px;
 		}
 	}
 
@@ -250,16 +262,19 @@
 			margin-bottom: -1px;
 		}
 	}
-	&-modal_text p {
-		margin: 8px 0 0;
-		font-size: 14px;
-		font-weight: normal;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: 1.71;
-		letter-spacing: 0.56px;
-		text-align: left;
-		color: #333;
+	&-modal_text{
+		margin-right: 15px;
+		p {
+			margin: 8px 0 0;
+			font-size: 14px;
+			font-weight: normal;
+			font-stretch: normal;
+			font-style: normal;
+			line-height: 1.71;
+			letter-spacing: 0.56px;
+			text-align: left;
+			color: #333;
+		}
 	}
 
 	&-modal-content {

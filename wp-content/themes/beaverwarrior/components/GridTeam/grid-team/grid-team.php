@@ -266,8 +266,6 @@ FLBuilder::register_settings_form('team_group_forms', array(
                         'modal_text' => array(
                             'type'          => 'textarea',
                             'label'         => __('Modal text', 'fl-builder'),
-                            'maxlength'   => '570',
-							'rows'          => '12'
                         ),
                     ),
                 ),

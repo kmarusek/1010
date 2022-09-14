@@ -81,6 +81,9 @@ $wrapper_classes = [
 									?><h4 class='GridTeam-modal-title'>Contact</h4>
 										<a class='GridTeam-cta' href='<?php echo $modal->url; ?>'><i class="<?php echo $modal->cta; ?>"></i></a>
 									<?php endif; ?>
+                                    <button type="button" class="GridTeam-close" data-dismiss="modal" aria-label="Close">
+                                        <span class='GridTeam-closeSymbol' aria-hidden="true"><i class="<?php echo $settings->back_icon; ?>"></i><div class="GridTeam-back">Go back</div></span>
+                                    </button>
 								</div>
 							</div>
 						</div>
