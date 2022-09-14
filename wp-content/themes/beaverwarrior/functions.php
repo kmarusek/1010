@@ -179,6 +179,10 @@ function skeletonwarrior_enqueue_scripts() {
     //to conditionally enqueue these scripts instead.
     wp_enqueue_script('slick-slider');
     wp_enqueue_style('slick-slider');
+    /*wp_enqueue_script( 'ajax-script', get_stylesheet_directory_uri() . '/components/OpenPositionDetails/includes/frontend.js', array('jquery') );
+
+    wp_localize_script( 'ajax-script', 'aj_object',
+        array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );*/
 }
 add_action('wp_enqueue_scripts', 'skeletonwarrior_enqueue_scripts');
 
@@ -700,3 +704,22 @@ add_filter( 'fl_builder_is_node_visible', function( $is_visible, $node ) {
     }
     return $is_visible;
 }, 10, 2);
+add_action('wp_head', 'wp97797_define_ajaxurl');
+
+function wp97797_define_ajaxurl() { ?>
+    <script type="text/javascript">
+        var ajaxurl = "'.admin_url('admin-ajax.php').'";
+    </script>
+<?php }
+function open_positions_ajax_call(){
+
+    echo 'Ajax call output:';
+
+    echo '<pre>';
+    var_dump($_POST);
+    echo '</pre>';
+
+    wp_die();// this is required to terminate immediately and return a proper response
+}
+add_action('wp_ajax_open_positions_ajax_call', 'open_positions_ajax_call');  // for logged in users only
+add_action('wp_ajax_nopriv_open_positions_ajax_call', 'open_positions_ajax_call'); // for ALL users

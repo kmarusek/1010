@@ -224,7 +224,16 @@ jQuery(document).ready(function ($) {
             });
             console.log(urlHost);
             console.log(jsonObj);
+
+            jsonObj['action'] = 'open_positions_ajax_call';
+            $.post(ajaxurl, JSON.stringify(jsonObj), function(response) {
+                var message = $(".OpenPositionDetails-form .message");
+                $(".OpenPositionDetails-form .message").text(response);
+                message.css('display', 'block');
+            });
             //return false;
+
+            /*
             $.ajax({
                 method: "POST",
                 url: urlHost,
@@ -243,7 +252,7 @@ jQuery(document).ready(function ($) {
                     message.text('There was an error with you submission');
                     message.css('display', 'block');
                 }
-            });
+            });*/
         }else{
             return;
         }
