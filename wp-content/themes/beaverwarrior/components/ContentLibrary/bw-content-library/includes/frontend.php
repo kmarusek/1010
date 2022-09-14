@@ -132,7 +132,7 @@ foreach( $postCats as $cat ){
 
             <div class="ContentLibrary-post feature-post" style="background-image: url(<?php echo $settings->feature_posts_background_image_src; ?>)">            
                     <div class="ContentLibrary-content-container">
-                        <h4 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h4>
+                        <p class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></p>
                         <h5 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h5>
                     </div>
                     <div class="ContentLibrary-post-link-container">
@@ -167,7 +167,7 @@ foreach( $postCats as $cat ){
             <div class="ContentLibrary-post <?php echo $post_categories_string; ?>" style="background-image: url(<?php echo $settings->posts_background_image_src ?>)">       
         
                     <div class="ContentLibrary-content-container">
-                        <h4 class="ContentLibrary-categories"><?php echo $post_categories_string;?></h4>
+                        <p class="ContentLibrary-categories"><?php echo $post_categories_string;?></p>
                         <h5 class="ContentLibrary-title"><?php  echo $post_title;?></h5>
                     </div>
                     <div class="ContentLibrary-post-link-container">
