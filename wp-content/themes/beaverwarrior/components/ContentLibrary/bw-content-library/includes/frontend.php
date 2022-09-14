@@ -110,7 +110,7 @@ foreach( $postCats as $cat ){
 ?>
             <a class="ContentLibrary-nav-item-link" href="<?php echo esc_url( $cat['url'] ); ?>">
                 <li class="ContentLibrary-nav-item">
-                    <h4><?php echo esc_html( $cat['name'] ); ?></h4>
+                    <h5><?php echo esc_html( $cat['name'] ); ?></h5>
                 </li>
             </a>
 <?php   
@@ -132,8 +132,8 @@ foreach( $postCats as $cat ){
 
             <div class="ContentLibrary-post feature-post" style="background-image: url(<?php echo $settings->feature_posts_background_image_src; ?>)">            
                     <div class="ContentLibrary-content-container">
-                        <h5 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h5>
-                        <h4 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h4>
+                        <h4 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h4>
+                        <h5 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h5>
                     </div>
                     <div class="ContentLibrary-post-link-container">
                         <a class="" href="<?php echo $settings->feature_post_url;?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
@@ -167,8 +167,8 @@ foreach( $postCats as $cat ){
             <div class="ContentLibrary-post <?php echo $post_categories_string; ?>" style="background-image: url(<?php echo $settings->posts_background_image_src ?>)">       
         
                     <div class="ContentLibrary-content-container">
-                        <h5 class="ContentLibrary-categories"><?php echo $post_categories_string;?></h5>
-                        <h4 class="ContentLibrary-title"><?php  echo $post_title;?></h4>
+                        <h4 class="ContentLibrary-categories"><?php echo $post_categories_string;?></h4>
+                        <h5 class="ContentLibrary-title"><?php  echo $post_title;?></h5>
                     </div>
                     <div class="ContentLibrary-post-link-container">
                         <a class="" href="<?php echo $post_url?>" data-post-id="<?php echo $post_id;?>">
