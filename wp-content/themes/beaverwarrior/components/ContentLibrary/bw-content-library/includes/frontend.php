@@ -110,7 +110,7 @@ foreach( $postCats as $cat ){
 ?>
             <a class="ContentLibrary-nav-item-link" href="<?php echo esc_url( $cat['url'] ); ?>">
                 <li class="ContentLibrary-nav-item">
-                    <h5><?php echo esc_html( $cat['name'] ); ?></h5>
+                    <h6><?php echo esc_html( $cat['name'] ); ?></h6>
                 </li>
             </a>
 <?php   
