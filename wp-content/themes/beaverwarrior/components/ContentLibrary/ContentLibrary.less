@@ -1,0 +1,228 @@
+/**
+*   Custom CSS For Content Library Navigation
+**/
+.ContentLibrary-menu-wrap{
+    background-color: #120C17;
+    margin-bottom: 80px;
+}
+.ContentLibrary-mobile_menu {
+    display: none;
+    button{
+        outline: none;
+    }
+    button:hover,:focus,:active{
+        background-color: transparent;
+        border: none
+
+    }
+    .hamburger-inner {
+        background: white !important;
+    
+        &:before, &:after {
+            background: white !important;
+        }
+    }
+    .hamburger--collapse {
+        line-height: 1;
+        padding: 5px;
+
+        .hamburger-box {
+            width: 18px;
+            height: 16px;
+        }
+
+        .hamburger-inner {
+            width: 12.7px;
+            height: 2px;
+            bottom: 0;
+
+            &:before{
+                width: 12.7px;
+                top: -5px;
+                height: 2px;
+            }
+
+            &:after {
+                width: 12.7px;
+                height: 2px;
+                top: -10px;
+            }
+        }
+    }
+    .hamburger--collapse.is-active{
+        .hamburger-box{
+            top: 5px;
+            left: 2px;
+        }
+    }
+}
+
+
+.hamburger {
+    opacity: 1 !important;
+}
+
+.ContentLibrary-menu-items .ContentLibrary-category-menu {
+    list-style-type: none;
+    list-style: none;
+    display: flex;
+    max-width: 1440px;
+    margin: auto;
+    padding: 0;
+}
+
+.ContentLibrary-category-menu .ContentLibrary-nav-item-link:hover h4 {
+    color: #ffffff;
+}
+.ContentLibrary-category-menu .ContentLibrary-nav-item h4{
+    font-weight: 400;
+    margin: 30px 20px;
+    color: #B5B1B1;
+    text-transform: uppercase;
+}
+/**
+*   Content Library Grid 
+**/
+.ContentLibrary-container {
+    max-width: 1420px;
+    padding: 20px;
+    margin: auto;
+}
+.ContentLibrary-grid-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 450px;
+    column-gap: 50px;
+    row-gap: 25px;
+  
+}
+.ContentLibrary-post.feature-post{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+.ContentLibrary-post {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap:wrap;
+    padding: 25px;
+    color: #ffffff;
+    background-position: center;
+    background-size:cover;
+    border-radius: 18px;
+    h2,h3,h4{
+        color: #ffffff;
+    }
+    h4 {
+        font-weight: 400;
+    }
+    .ContentLibrary-content-container, .ContentLibrary-post-link-container{
+        width: 100%;
+    }
+    .ContentLibrary-post-link-container{
+        align-self: flex-end;
+        text-align: right;
+        a {
+            padding: 13px;
+            color: #ffffff;
+            border-radius: 50%;
+            background-color: rgba(255,255,255, 0.3);
+            transition: color .1s ease-in;
+            transition: background-color .1s ease-in;
+            &:hover {
+                background-color: rgba(255,255,255, 1);
+                color: #FC6D1B;
+            }
+            .ContentLibrary-icon::before{
+                margin-top: 3px;
+            }
+        }
+    
+    }
+}
+
+/**
+*   Custom CSS for ContentLibrary Pagination Navigation.
+**/
+.ContentLibrary-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    #ContentLibrary-prev {
+        i {
+            margin-top: 1px;
+            font-size: 20px;
+        }
+    }
+    #ContentLibrary-next{
+        i {
+            margin-top: 1px;
+            font-size: 20px;
+        
+        }
+    }
+    li.ContentLibrary-page-item {
+        text-align: center;
+        text-decoration: none;
+    }
+}
+.ContentLibrary-pagination.pagination>.ContentLibrary-page-item>a {
+    border: none;
+    padding: 1px 10px;
+    color: #000;
+    font-weight:500;
+}
+.ContentLibrary-pagination.pagination>.ContentLibrary-current-page.active>a {
+    background-color: #FC6D1B ;
+    border-radius: 3px;
+    color: #fff;
+}
+
+//responsive
+@media only screen and (max-width: 1250px){
+    .ContentLibrary-grid-container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media only screen and (max-width: 900px) {
+    .ContentLibrary-grid-container{
+        grid-template-columns: repeat(1, 1fr);
+        .ContentLibrary-post.feature-post {
+            grid-column-start: 1;
+            grid-column-end: 1;
+            grid-row-start: 1;
+            grid-row-end: 1;
+        }
+    }
+    .ContentLibrary-menu-wrap{
+       padding: 20px 80px;
+       margin-bottom: 40px;
+    }
+    .ContentLibrary-mobile_menu {
+        display: block;
+    }
+
+    .ContentLibrary-menu-items {
+        position: absolute;
+        z-index: 9999999;
+        background: #120C17;
+        width: 50vw;
+        left: 0px;
+        flex-direction: column;
+        transition: .3s;
+        top: 175px;
+        padding-top: 47px;
+        left: -200%;
+        opacity: 0;
+        .ContentLibrary-category-menu {
+            flex-direction: column;
+        }
+    }
+    .ContentLibrary-menu-wrap.is-toggled .ContentLibrary-menu-items {
+        opacity: 1;
+        left: 0;
+    }
+}
