@@ -132,8 +132,8 @@ foreach( $postCats as $cat ){
 
             <div class="ContentLibrary-post feature-post" style="background-image: url(<?php echo $settings->feature_posts_background_image_src; ?>)">            
                     <div class="ContentLibrary-content-container">
-                        <p class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></p>
-                        <h5 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h5>
+                        <h6 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h6>
+                        <h2 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h2>
                     </div>
                     <div class="ContentLibrary-post-link-container">
                         <a class="" href="<?php echo $settings->feature_post_url;?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
