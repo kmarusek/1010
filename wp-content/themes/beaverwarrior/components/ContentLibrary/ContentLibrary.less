@@ -193,6 +193,19 @@
 //responsive
 @media only screen and (max-width: 1350px){
     .ContentLibrary-post.feature-post{
+        width: 48%;
+        height: 50vw;
+    }
+    .ContentLibrary-post-gutter-sizer {
+        width: 3%;
+    }
+    .ContentLibrary-post-sizer,.ContentLibrary-post {
+        width: 48%;
+        height: 50vw;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .ContentLibrary-post.feature-post{
         width: 100%;
         height: 100vw;
     }
@@ -203,8 +216,6 @@
         width: 100%;
         height: 100vw;
     }
-}
-@media only screen and (max-width: 900px) {
     .ContentLibrary-menu-wrap{
        padding: 20px 80px;
        margin-bottom: 40px;
@@ -232,5 +243,8 @@
     .ContentLibrary-menu-wrap.is-toggled .ContentLibrary-menu-items {
         opacity: 1;
         left: 0;
+    }
+    .ContentLibrary-post h2 {
+        font-size: 20px;
     }
 }
