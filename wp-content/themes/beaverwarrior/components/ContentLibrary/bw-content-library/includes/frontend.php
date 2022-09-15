@@ -1,4 +1,7 @@
 <?php
+wp_enqueue_script( "metafizzy", "https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js");
+?>
+<?php
 // Start out by getting the posts
 $posts          = $module->getPosts();
 // Get the posts per page
@@ -104,15 +107,19 @@ if( !empty( $postCats ) ){
     
     <div class="ContentLibrary-menu-items">
         <ul class="ContentLibrary-category-menu">
-
+            <li class="ContentLibrary-nav-item is-checked" data-filter="*">
+                <h6>All</h6>
+            </li>
 <?php
-foreach( $postCats as $cat ){ 
+foreach( $postCats as $cat ){
+        $categoryName = $cat['name'];
+
+
 ?>
-            <a class="ContentLibrary-nav-item-link" href="<?php echo esc_url( $cat['url'] ); ?>">
-                <li class="ContentLibrary-nav-item">
-                    <h6><?php echo esc_html( $cat['name'] ); ?></h6>
+            
+                <li class="ContentLibrary-nav-item" data-filter=".<?php echo $categoryName = str_replace(' ','-',$categoryName);?>">
+                    <h6><?php echo esc_html($cat['name']);?></h6>
                 </li>
-            </a>
 <?php   
     } 
 } 
@@ -129,7 +136,8 @@ foreach( $postCats as $cat ){
 <div class="ContentLibrary-container">
     <div class="ContentLibrary-grid-container">
 
-
+            <div class="ContentLibrary-post-sizer"></div>
+            <div class="ContentLibrary-post-gutter-sizer"></div>
             <div class="ContentLibrary-post feature-post" style="background-image: url(<?php echo $settings->feature_posts_background_image_src; ?>)">            
                     <div class="ContentLibrary-content-container">
                         <h6 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h6>
@@ -159,12 +167,13 @@ foreach( $postCats as $cat ){
         $post_excerpt           = $module->getPostExcerpt( $current_post->post_content, $post_id );
         // The URL for the post
         $post_url               = get_permalink( $post_id );
-     
-
+        // Post Category Class 
+        $categoriesClass        = $module->getPostCategoryString( $post_id )
+        
      
 ?>
          
-            <div class="ContentLibrary-post <?php echo $post_categories_string; ?>" style="background-image: url(<?php echo $settings->posts_background_image_src ?>)">       
+            <div class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" >       
         
                     <div class="ContentLibrary-content-container">
                         <p class="ContentLibrary-categories"><?php echo $post_categories_string;?></p>

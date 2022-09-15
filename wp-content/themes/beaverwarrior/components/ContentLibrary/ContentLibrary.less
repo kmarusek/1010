@@ -4,6 +4,7 @@
 .ContentLibrary-menu-wrap{
     background-color: #120C17;
     margin-bottom: 80px;
+    position: relative;
 }
 .ContentLibrary-mobile_menu {
     display: none;
@@ -56,12 +57,10 @@
         }
     }
 }
-
-
 .hamburger {
     opacity: 1 !important;
 }
-
+// Navigation line items
 .ContentLibrary-menu-items .ContentLibrary-category-menu {
     list-style-type: none;
     list-style: none;
@@ -70,10 +69,11 @@
     margin: auto;
     padding: 0;
 }
-.ContentLibrary-category-menu .ContentLibrary-nav-item-link {
-    text-decoration: none;;
+.ContentLibrary-category-menu .ContentLibrary-nav-item{
+    text-decoration: none;
+    cursor: pointer;
 }
-.ContentLibrary-category-menu .ContentLibrary-nav-item-link:hover h6 {
+.ContentLibrary-category-menu .ContentLibrary-nav-item:hover h6 {
     color: #ffffff;
 }
 .ContentLibrary-category-menu .ContentLibrary-nav-item h6{
@@ -91,21 +91,26 @@
     padding: 20px;
     margin: auto;
 }
-.ContentLibrary-grid-container{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 480px;
-    column-gap: 60px;
-    row-gap: 25px;
+// .ContentLibrary-grid-container{
+//     // display: grid;
+//     // grid-template-columns: repeat(4, 1fr);
+//     // grid-auto-rows: 480px;
+//     // column-gap: 60px;
+//     // row-gap: 25px;
   
-}
+// }
 .ContentLibrary-post.feature-post{
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 3;
+    // width: ~"calc(50% - 60px);";
+    width: 47%;
+    height: ~"calc(50vw + 25px)";
 }
-.ContentLibrary-post {
+.ContentLibrary-post-gutter-sizer {
+    width: 3%;
+}
+.ContentLibrary-post-sizer,.ContentLibrary-post {
+    width: 22%;
+    height: 25vw;
+    margin-bottom: 25px !important;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -187,19 +192,18 @@
 
 //responsive
 @media only screen and (max-width: 1250px){
-    .ContentLibrary-grid-container{
-        grid-template-columns: repeat(3, 1fr);
-    }
+
 }
 @media only screen and (max-width: 900px) {
-    .ContentLibrary-grid-container{
-        grid-template-columns: repeat(1, 1fr);
-        .ContentLibrary-post.feature-post {
-            grid-column-start: 1;
-            grid-column-end: 1;
-            grid-row-start: 1;
-            grid-row-end: 1;
-        }
+    .ContentLibrary-post.feature-post{
+        width: 100%;
+        height: 25vw;
+    }
+    .ContentLibrary-post-gutter-sizer {
+        width: 0%;
+    }
+    .ContentLibrary-post-sizer,.ContentLibrary-post {
+        width: 100%;
     }
     .ContentLibrary-menu-wrap{
        padding: 20px 80px;
@@ -217,7 +221,7 @@
         left: 0px;
         flex-direction: column;
         transition: .3s;
-        top: 175px;
+        top: 8vw;
         padding-top: 47px;
         left: -200%;
         opacity: 0;

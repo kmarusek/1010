@@ -165,33 +165,33 @@ FLBuilder::register_module(
             'title' => __( 'Content', 'fl-builder'),
             'file'  => FL_BUILDER_DIR . 'includes/loop-settings.php'
         ),
-        'pagination' => array(
-            'title' => __( 'Pagination', 'fl-builder'),
-            'sections' => array(
-                'section_pagination' => array(
-                    'fields' => array(
-                        'max_posts_per_page' => array(
-                            'type'    => 'unit',
-                            'default' => 9,
-                            'label'   => __( 'Posts per page', 'fl-builder' ),
-                        ),
-                        'pagination_next_icon' => array(
-                            'type'         => 'icon',
-                            'label'        => __( 'Next Icon', 'fl-builder' ),
-                            'show_remove'  => true,
-                            'description'  => 'Icon for the next navigation on pagination controls',
-                        ),
-                        'pagination_prev_icon' => array(
-                            'type'         => 'icon',
-                            'label'        => __( 'Previous Icon', 'fl-builder' ),
-                            'show_remove'  => true,
-                            'description'  => 'Icon for the previous navigation on pagination controls',
-                        ),
+        // 'pagination' => array(
+        //     'title' => __( 'Pagination', 'fl-builder'),
+        //     'sections' => array(
+        //         'section_pagination' => array(
+        //             'fields' => array(
+        //                 'max_posts_per_page' => array(
+        //                     'type'    => 'unit',
+        //                     'default' => 9,
+        //                     'label'   => __( 'Posts per page', 'fl-builder' ),
+        //                 ),
+        //                 'pagination_next_icon' => array(
+        //                     'type'         => 'icon',
+        //                     'label'        => __( 'Next Icon', 'fl-builder' ),
+        //                     'show_remove'  => true,
+        //                     'description'  => 'Icon for the next navigation on pagination controls',
+        //                 ),
+        //                 'pagination_prev_icon' => array(
+        //                     'type'         => 'icon',
+        //                     'label'        => __( 'Previous Icon', 'fl-builder' ),
+        //                     'show_remove'  => true,
+        //                     'description'  => 'Icon for the previous navigation on pagination controls',
+        //                 ),
 
-                    )
-                )
-            )
-        ),
+        //             )
+        //         )
+        //     )
+        // ),
         'style' => array(
             'title' => __( 'Style', 'fl-builder'),
             'sections' => array(
@@ -202,9 +202,34 @@ FLBuilder::register_module(
                             'label'     => __('Feature Post Background Image', 'fl-builder'),
                             'show_remove' => true,
                         ),
-                        'posts_background_image' => array(
+                        'webinars_posts_background_image' => array(
                             'type'      => 'photo',
-                            'label'     => __('Background Image', 'fl-builder'),
+                            'label'     => __('Webinars Background Image', 'fl-builder'),
+                            'show_remove' => true,
+                        ),
+                        'case_study_posts_background_image' => array(
+                            'type'      => 'photo',
+                            'label'     => __('Case Study Background Image', 'fl-builder'),
+                            'show_remove' => true,
+                        ),
+                        'datasheets_posts_background_image' => array(
+                            'type'      => 'photo',
+                            'label'     => __('Datasheets Background Image', 'fl-builder'),
+                            'show_remove' => true,
+                        ),
+                        'videos_posts_background_image' => array(
+                            'type'      => 'photo',
+                            'label'     => __('Videos Background Image', 'fl-builder'),
+                            'show_remove' => true,
+                        ),
+                        'white_papers_posts_background_image' => array(
+                            'type'      => 'photo',
+                            'label'     => __('White Papers Background Image', 'fl-builder'),
+                            'show_remove' => true,
+                        ),
+                        'spending_guides_posts_background_image' => array(
+                            'type'      => 'photo',
+                            'label'     => __('Spending Guides Background Image', 'fl-builder'),
                             'show_remove' => true,
                         ),
                         'posts_anchor_icon' => array(
@@ -212,63 +237,63 @@ FLBuilder::register_module(
                             'label'         => __( 'Posts Link Arrow Icon', 'fl-builder' ),
                             'show_remove'   => true
                         ),
-                        'posts_margin' => array(
-                            'type'         => 'dimension',
-                            'label'        => __( 'Post margin', 'fl-builder' ),
-                            'units'        => array( 'px' ),
-                            'default_unit' => 'px',
-                            'default'      => 20,
-                            'slider'       => array(
-                                'min'  => 0,
-                                'max'  => 200,
-                                'step' => 1
-                            ),
-                            'preview' => array(
-                                'type'      => 'css',
-                                'selector'  => '.ContentLibrary-container .post',
-                                'property'  => 'margin'
-                            )
-                        )
+                        // 'posts_margin' => array(
+                        //     'type'         => 'dimension',
+                        //     'label'        => __( 'Post margin', 'fl-builder' ),
+                        //     'units'        => array( 'px' ),
+                        //     'default_unit' => 'px',
+                        //     'default'      => 20,
+                        //     'slider'       => array(
+                        //         'min'  => 0,
+                        //         'max'  => 200,
+                        //         'step' => 1
+                        //     ),
+                        //     'preview' => array(
+                        //         'type'      => 'css',
+                        //         'selector'  => '.ContentLibrary-container .post',
+                        //         'property'  => 'margin'
+                        //     )
+                        // )
                     )
                 ),
-                'section_spacing' => array(
-                    'title' => __( 'Spacing', 'fl-builder'),
-                    'fields' => array(
-                        'post_categories_margin_bottom' => array(
-                            'type'         => 'unit',
-                            'label'        => __( 'Categories', 'fl-builder' ),
-                            'units'        => array( 'px' ),
-                            'default_unit' => 'px',
-                            'slider'       => array(
-                                'min'  => 0,
-                                'max'  => 200,
-                                'step' => 1
-                            ),
-                            'preview'      => array(
-                                'type'      => 'css',
-                                'selector'  => '.ContentLibrary-category-container',
-                                'property'  => 'margin-bottom'
-                            )
-                        ),
-                        'post_title_margin_bottom' => array(
-                            'type'         => 'unit',
-                            'label'        => __( 'Title', 'fl-builder' ),
-                            'units'        => array( 'px' ),
-                            'default_unit' => 'px',
-                            'slider'       => array(
-                                'min'  => 0,
-                                'max'  => 200,
-                                'step' => 1
-                            ),
-                            'preview'      => array(
-                                'type'     => 'css',
-                                'selector' => '.ContentLibrary-title-container',
-                                'property' => 'margin-bottom'
-                            )
-                        ),
+                // 'section_spacing' => array(
+                //     'title' => __( 'Spacing', 'fl-builder'),
+                //     'fields' => array(
+                //         'post_categories_margin_bottom' => array(
+                //             'type'         => 'unit',
+                //             'label'        => __( 'Categories', 'fl-builder' ),
+                //             'units'        => array( 'px' ),
+                //             'default_unit' => 'px',
+                //             'slider'       => array(
+                //                 'min'  => 0,
+                //                 'max'  => 200,
+                //                 'step' => 1
+                //             ),
+                //             'preview'      => array(
+                //                 'type'      => 'css',
+                //                 'selector'  => '.ContentLibrary-category-container',
+                //                 'property'  => 'margin-bottom'
+                //             )
+                //         ),
+                //         'post_title_margin_bottom' => array(
+                //             'type'         => 'unit',
+                //             'label'        => __( 'Title', 'fl-builder' ),
+                //             'units'        => array( 'px' ),
+                //             'default_unit' => 'px',
+                //             'slider'       => array(
+                //                 'min'  => 0,
+                //                 'max'  => 200,
+                //                 'step' => 1
+                //             ),
+                //             'preview'      => array(
+                //                 'type'     => 'css',
+                //                 'selector' => '.ContentLibrary-title-container',
+                //                 'property' => 'margin-bottom'
+                //             )
+                //         ),
                        
-                    )
-                ) //
+                //     )
+                // )
             ) //
         ) //
     ) //
