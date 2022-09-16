@@ -43,6 +43,11 @@ FLBuilder::register_module(
                             'type' => 'text',
                             'label' => __('Heading','skeleton-warrior')
                         ],
+                        'main_text' => [
+                            'type' => 'textarea',
+                            'label' => __('Main text','skeleton-warrior'),
+                            'rows' => 12
+                        ],
 	                )
 	            )
 	        )

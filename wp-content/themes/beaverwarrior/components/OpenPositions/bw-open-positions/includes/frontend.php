@@ -8,6 +8,7 @@
 <div class="OpenPositions" id="OpenPositions-<?php echo esc_attr($id);?>">
     <h6><?php echo esc_attr($settings->subheading);?></h6>
     <h2><?php echo esc_attr($settings->heading);?></h2>
+    <p><?php echo esc_attr($settings->main_text);?></p>
     <div class='OpenPositions-category_container'>
         <div class='OpenPositions-category_container'>
         </div>

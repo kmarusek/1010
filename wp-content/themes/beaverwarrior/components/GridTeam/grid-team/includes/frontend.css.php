@@ -30,21 +30,21 @@ $default_css = [
 		),
 		'.GridTeam_modal_text' => array_merge(
 			['color' => $module->getModuleSettingColor('modal_text_color')],
-			$module->getTypography('modal_text_typography'),
+			$module->getTypography('modal_text_typography')
 		),
 		'.GridTeam_modal_text' => [
 			'p' => array_merge(
 				['color' => $module->getModuleSettingColor('modal_text_color')],
-				$module->getTypography('modal_text_typography'),
+				$module->getTypography('modal_text_typography')
 			),
 			'ul' => array_merge(
 				['color' => $module->getModuleSettingColor('modal_text_color')],
-				$module->getTypography('modal_text_typography'),
+				$module->getTypography('modal_text_typography')
 			)
 		],
 		'.GridTeam-cta' => array_merge(
 			['color' => $module->getModuleSettingColor('cta_color')],
-			$module->getTypography('cta_typography'),
+			$module->getTypography('cta_typography')
 		),
 		'.GridTeam-cta:hover' => [
 			'color' => $module->getModuleSettingColor('cta_hover_color')

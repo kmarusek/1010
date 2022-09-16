@@ -101,7 +101,7 @@
 })(jQuery);
 
 jQuery(document).ready(function ($) {
-    $('.OpenPositionDetails-form').on('focus', ':input[name=first_name]',  function() {
+    $('.OpenPositionDetails-form').on('focus', ':input[name=first_name]', function () {
         // trigger loading api.js (recaptcha.js) script
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
@@ -225,8 +225,26 @@ jQuery(document).ready(function ($) {
             console.log(urlHost);
             console.log(jsonObj);
 
-            jsonObj['action'] = 'open_positions_ajax_call';
-            $.post(ajaxurl, JSON.stringify(jsonObj), function(response) {
+            //jsonObj['action'] = 'open_positions_ajax_call';
+            $.ajax({
+                method: "POST",
+                url: my_ajax_object.ajaxurl,
+                data: {action: "open_positions_ajax_call", data:'test'},
+                contentType: "application/json",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    var message = $(".OpenPositionDetails-form .message");
+                    message.css('display', 'block');
+                },
+                error: function(error) {
+                    console.log(error);
+                    var message = $(".OpenPositionDetails-form .message");
+                    message.text('There was an error with you submission');
+                    message.css('display', 'block');
+                }
+            });
+      /*      $.post('http://localhost:8888/dev1010data/wp-admin/admin-ajax.php', JSON.stringify(jsonObj), function(response) {
                 var message = $(".OpenPositionDetails-form .message");
                 $(".OpenPositionDetails-form .message").text(response);
                 message.css('display', 'block');

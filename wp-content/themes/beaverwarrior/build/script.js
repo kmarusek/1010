@@ -1,4 +1,4 @@
-// From https://github.com/kevlatus/polyfill-array-includes/blob/master/array-includes.js
+!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);;// From https://github.com/kevlatus/polyfill-array-includes/blob/master/array-includes.js
 if (!Array.prototype.includes) {
     Object.defineProperty(Array.prototype, 'includes', {
         value: function (searchElement, fromIndex) {
@@ -165,7 +165,7 @@ if (needsPolyfill) {
   }
 }
 
-})();;!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);;if (!String.prototype.endsWith) {
+})();;if (!String.prototype.endsWith) {
     String.prototype.endsWith = function(search, this_len) {
         if (this_len === undefined || this_len > this.length) {
             this_len = this.length;
@@ -2075,137 +2075,6 @@ if (needsPolyfill) {
 
     return module;
 }));
-;/*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("CollapseContent", ["jquery", "Behaviors"], factory);
-    } else {
-        root.CollapseContent = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-
-    var module = {};
-
-    function $do(that, target) {
-        return function () {
-            target.apply(that, arguments);
-        };
-    }
-
-    function CollapseContentRegion(elem) {
-        Behaviors.init(CollapseContentRegion, this, arguments);
-
-        this.$elem = $(elem);
-        this.visible = this.$elem.data("collapsecontent-region-visible") !== undefined;
-
-        this.update_classes();
-    }
-
-    Behaviors.inherit(CollapseContentRegion, Behaviors.Behavior);
-
-    CollapseContentRegion.QUERY = "[data-collapsecontent-region]";
-
-    CollapseContentRegion.prototype.update_classes = function () {
-        this.$elem.find("[data-collapsecontent-body]").each(function (index, body_elem) {
-            if (this.visible) {
-                $(body_elem).addClass("is-CollapseContent--visible");
-                $(body_elem).removeClass("is-CollapseContent--hidden");
-            } else {
-                $(body_elem).removeClass("is-CollapseContent--visible");
-                $(body_elem).addClass("is-CollapseContent--hidden");
-            }
-        }.bind(this));
-
-        this.$elem.find("[data-collapsecontent-trigger]").each(function (index, trigger_elem) {
-            if (this.visible) {
-                $(trigger_elem).addClass("is-CollapseContent--visible");
-                $(trigger_elem).removeClass("is-CollapseContent--hidden");
-            } else {
-                $(trigger_elem).removeClass("is-CollapseContent--visible");
-                $(trigger_elem).addClass("is-CollapseContent--hidden");
-            }
-        }.bind(this));
-    };
-
-    CollapseContentRegion.prototype.make_visible = function () {
-        this.visible = true;
-        this.update_classes();
-    };
-
-    CollapseContentRegion.prototype.make_hidden = function () {
-        this.visible = false;
-        this.update_classes();
-    };
-
-    CollapseContentRegion.prototype.toggle = function () {
-        this.visible = !this.visible;
-        this.update_classes();
-
-        // Fire custom event when toggles are activated
-        newEvent = new $.Event({
-            "type": "collapsecontent-toggle",
-            "visible": this.visible,
-            "target": this.$elem,
-        });
-
-        this.$elem.trigger(newEvent);
-    };
-
-    function CollapseContentTrigger(elem) {
-        Behaviors.init(CollapseContentTrigger, this, arguments);
-
-        this.$elem = $(elem);
-
-        if (this.$elem.data("collapsecontent-trigger") !== undefined) {
-            //Mode 1: Trigger explicitly specifies region to toggle.
-            this.region = this.set_region($(this.$elem.data("collapsecontent-trigger"))[0]);
-        } else if (this.$elem.attr("href") !== undefined) {
-            //Mode 1: Trigger explicitly specifies region to toggle, as an href..
-            this.region = this.set_region($(this.$elem.data("collapsecontent-trigger"))[0]);
-        }
-
-        if (this.region === undefined) {
-            //Mode 2: Find parent element that qualifies as a region.
-            this.region = this.set_region(this.$elem.parents().filter(CollapseContentRegion.QUERY)[0]);
-        }
-
-        if (this.region === undefined) {
-            console.error("There is a CollapseContent trigger that neither points to a valid region nor is a child of a valid region..");
-        }
-
-        this.$elem.on("click", this.toggle_intent.bind(this));
-    }
-
-    Behaviors.inherit(CollapseContentTrigger, Behaviors.Behavior);
-
-    CollapseContentTrigger.QUERY = "[data-collapsecontent-trigger]";
-
-    CollapseContentTrigger.prototype.set_region = function (elem) {
-        if (elem === undefined) {
-            return;
-        }
-
-        return CollapseContentRegion.locate(elem);
-    };
-
-    CollapseContentTrigger.prototype.toggle_intent = function (evt) {
-        if (evt) {
-            evt.preventDefault();
-        }
-        
-        this.region.toggle();
-    };
-
-    Behaviors.register_behavior(CollapseContentRegion);
-    Behaviors.register_behavior(CollapseContentTrigger);
-
-    module.CollapseContentRegion = CollapseContentRegion;
-    module.CollapseContentTrigger = CollapseContentTrigger;
-
-    return module;
-}));
 ;(function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -2514,7 +2383,138 @@ if (needsPolyfill) {
     module.ContentSlider = ContentSlider;
     
     return module;
-}));;/* Paginate.js
+}));;/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("CollapseContent", ["jquery", "Behaviors"], factory);
+    } else {
+        root.CollapseContent = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+
+    var module = {};
+
+    function $do(that, target) {
+        return function () {
+            target.apply(that, arguments);
+        };
+    }
+
+    function CollapseContentRegion(elem) {
+        Behaviors.init(CollapseContentRegion, this, arguments);
+
+        this.$elem = $(elem);
+        this.visible = this.$elem.data("collapsecontent-region-visible") !== undefined;
+
+        this.update_classes();
+    }
+
+    Behaviors.inherit(CollapseContentRegion, Behaviors.Behavior);
+
+    CollapseContentRegion.QUERY = "[data-collapsecontent-region]";
+
+    CollapseContentRegion.prototype.update_classes = function () {
+        this.$elem.find("[data-collapsecontent-body]").each(function (index, body_elem) {
+            if (this.visible) {
+                $(body_elem).addClass("is-CollapseContent--visible");
+                $(body_elem).removeClass("is-CollapseContent--hidden");
+            } else {
+                $(body_elem).removeClass("is-CollapseContent--visible");
+                $(body_elem).addClass("is-CollapseContent--hidden");
+            }
+        }.bind(this));
+
+        this.$elem.find("[data-collapsecontent-trigger]").each(function (index, trigger_elem) {
+            if (this.visible) {
+                $(trigger_elem).addClass("is-CollapseContent--visible");
+                $(trigger_elem).removeClass("is-CollapseContent--hidden");
+            } else {
+                $(trigger_elem).removeClass("is-CollapseContent--visible");
+                $(trigger_elem).addClass("is-CollapseContent--hidden");
+            }
+        }.bind(this));
+    };
+
+    CollapseContentRegion.prototype.make_visible = function () {
+        this.visible = true;
+        this.update_classes();
+    };
+
+    CollapseContentRegion.prototype.make_hidden = function () {
+        this.visible = false;
+        this.update_classes();
+    };
+
+    CollapseContentRegion.prototype.toggle = function () {
+        this.visible = !this.visible;
+        this.update_classes();
+
+        // Fire custom event when toggles are activated
+        newEvent = new $.Event({
+            "type": "collapsecontent-toggle",
+            "visible": this.visible,
+            "target": this.$elem,
+        });
+
+        this.$elem.trigger(newEvent);
+    };
+
+    function CollapseContentTrigger(elem) {
+        Behaviors.init(CollapseContentTrigger, this, arguments);
+
+        this.$elem = $(elem);
+
+        if (this.$elem.data("collapsecontent-trigger") !== undefined) {
+            //Mode 1: Trigger explicitly specifies region to toggle.
+            this.region = this.set_region($(this.$elem.data("collapsecontent-trigger"))[0]);
+        } else if (this.$elem.attr("href") !== undefined) {
+            //Mode 1: Trigger explicitly specifies region to toggle, as an href..
+            this.region = this.set_region($(this.$elem.data("collapsecontent-trigger"))[0]);
+        }
+
+        if (this.region === undefined) {
+            //Mode 2: Find parent element that qualifies as a region.
+            this.region = this.set_region(this.$elem.parents().filter(CollapseContentRegion.QUERY)[0]);
+        }
+
+        if (this.region === undefined) {
+            console.error("There is a CollapseContent trigger that neither points to a valid region nor is a child of a valid region..");
+        }
+
+        this.$elem.on("click", this.toggle_intent.bind(this));
+    }
+
+    Behaviors.inherit(CollapseContentTrigger, Behaviors.Behavior);
+
+    CollapseContentTrigger.QUERY = "[data-collapsecontent-trigger]";
+
+    CollapseContentTrigger.prototype.set_region = function (elem) {
+        if (elem === undefined) {
+            return;
+        }
+
+        return CollapseContentRegion.locate(elem);
+    };
+
+    CollapseContentTrigger.prototype.toggle_intent = function (evt) {
+        if (evt) {
+            evt.preventDefault();
+        }
+        
+        this.region.toggle();
+    };
+
+    Behaviors.register_behavior(CollapseContentRegion);
+    Behaviors.register_behavior(CollapseContentTrigger);
+
+    module.CollapseContentRegion = CollapseContentRegion;
+    module.CollapseContentTrigger = CollapseContentTrigger;
+
+    return module;
+}));
+;/* Paginate.js
  * A progressively-enhancing infinite scroll library
  * ©2014 HUEMOR Designs All Rights Reserved
  */
@@ -3219,7 +3219,7 @@ if (needsPolyfill) {
     Behaviors.register_behavior(Paginate);
     
     return module;
-}));;/*global define,google,Promise*/
+}));;;/*global define,google,Promise*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -4293,7 +4293,180 @@ if (!Array.prototype.indexOf) {
 
     return module;
 }));
-;/*global define, console, document, window, Promise*/
+;/*jQuery(document).ready(function ($) {
+    $(".OpenPositionDetails-form").on('click', '#submitForm', function (e) {
+        e.preventDefault();
+        var url = new URL(window.location.href);
+        var job_id = url.searchParams.get('id');
+        var urlHost = "https://boards-api.greenhouse.io/v1/boards/1010data/jobs/" + job_id;
+        var recaptcha = $("#g-recaptcha-response").val();
+        var jsonObj = {};
+        //var recaptcha = $("#g-recaptcha-response").val();
+        var valid = true;
+        $(".OpenPositionDetails-form :input[required]:visible").each(function () {
+            var input = $(this);
+            var err = input.next(".form-error");
+            if (input.attr('type') == 'text') {
+                if (input.val() == '') {
+                    valid = false;
+                    err.css('display', 'block');
+                    input.css('border-bottom', '1px solid #cc4b37');
+                } else {
+                    err.hide();
+                    input.css('border-bottom', '1px solid #ccc');
+                }
+                if (input.attr('name') == 'email' && input.val() != '') {
+                    if (!isEmail(input.val())) {
+                        valid = false;
+                        err.text("Please enter a valid email address.");
+                        err.css('display', 'block');
+                        input.css('border-bottom', '1px solid #cc4b37');
+                    } else {
+                        err.hide();
+                        input.css('border-bottom', '1px solid #ccc');
+                    }
+                }
+            }
+            if (input.attr('type') == 'file') {
+                if (input.val() == '') {
+                    valid = false;
+                    err.css('display', 'block');
+                    input.css('border-bottom', '1px solid #cc4b37');
+                } else if (!(/\.(pdf|doc|docx|txt|rtf)$/i).test(input.val())) {
+                    valid = false;
+                    err.text("Accepted files are pdf, doc, docx, txt and rtf.")
+                    err.css('display', 'block');
+                    input.css('border-bottom', '1px solid #cc4b37');
+                } else {
+                    err.hide();
+                    input.css('border-bottom', '1px solid #ccc');
+                }
+            }
+            if (input.attr('type') == 'radio') {
+                if ($('input[name=' + input.attr("name") + ']:checked').length <= 0) {
+                    valid = false;
+                    err.css('display', 'block');
+                } else {
+                    err.hide();
+                }
+            }
+            //  console.log(input.attr('name'));
+            // console.log(input.attr('type'));
+            // console.log(input.val());
+        });
+        var phone = $(".OpenPositionDetails-form :input[name=phone]");
+        var phoneErr = $(".OpenPositionDetails-form :input[name=phone]").next(".form-error");
+        if (phone.val() != '' && !phone_validate(phone.val())) {
+            phoneErr.text('Please enter a valid phone number.');
+            valid = false;
+            phoneErr.css('display', 'block');
+            phone.css('border-bottom', '1px solid #cc4b37');
+        } else {
+            phoneErr.hide();
+            phone.css('border-bottom', '1px solid #ccc');
+        }
+        var coverLetter = $(".OpenPositionDetails-form :input[name=cover_letter]");
+        var coverLetterErr = $(".OpenPositionDetails-form :input[name=cover_letter]").next(".form-error");
+        if (coverLetter.val() != '' && !(/\.(pdf|doc|docx|txt|rtf)$/i).test(coverLetter.val())) {
+            coverLetterErr.text('Accepted files are pdf, doc, docx, txt and rtf.');
+            valid = false;
+            coverLetterErr.css('display', 'block');
+            coverLetter.css('border-bottom', '1px solid #cc4b37');
+        } else {
+            coverLetterErr.hide();
+            coverLetter.css('border-bottom', '1px solid #ccc');
+        }
+        if (recaptcha === "") {
+            valid = false;
+            $(".recaptcha-error").show();
+            $(".rc-anchor-normal").css('border', '2px solid #cc4b37');
+            return;
+        } else {
+            $(".recaptcha-error").hide();
+        }
+        // var form = $(this).not("#g-recaptcha-response, #captcha").serialize(),
+        // 		action = $(this).attr('action');
+        if (valid == true) {
+            $('#g-recaptcha-response').attr('disabled', 'disabled');
+            $('#captcha').attr('disabled', 'disabled');
+            $(".recaptcha-error").hide();
+            $("#submitForm").attr("disabled", "disabled");
+            $("#submitForm").attr("style", "background-color:#ccc !important");
+            $(".OpenPositionDetails-form :input").each(function () {
+                var input = $(this);
+                if (input.attr('name') == 'first_name' || input.attr('name') == 'last_name' || input.attr('name') == 'email') {
+                    jsonObj[input.attr('name')] = input.val();
+                }
+                /* if(input.attr('type') == 'radio'){
+                     jsonObj[input.attr('name')] = $('input[name='+input.attr("name")+']:checked').val();
+                 }else{
+                     jsonObj[input.attr('name')] = input.val();
+                 }*/
+       /*     });
+            console.log(urlHost);
+            console.log(jsonObj);
+
+            //jsonObj['action'] = 'open_positions_ajax_call';
+            $.ajax({
+                method: "POST",
+                type: "POST",
+                url: my_ajax_object.ajaxurl,
+                data: {action: "open_positions_ajax_call", data:'test'},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var message = $(".OpenPositionDetails-form .message");
+                    message.css('display', 'block');
+                },
+                error: function (error) {
+                    console.log(error);
+                    var message = $(".OpenPositionDetails-form .message");
+                    message.text('There was an error with you submission');
+                    message.css('display', 'block');
+                }
+            });
+            /*      $.post(my_ajax_object.ajaxurl, JSON.stringify(jsonObj), function(response) {
+                      var message = $(".OpenPositionDetails-form .message");
+                      $(".OpenPositionDetails-form .message").text(response);
+                      message.css('display', 'block');
+                  });
+                  //return false;
+
+                  /*
+                  $.ajax({
+                      method: "POST",
+                      url: urlHost,
+                      crossDomain: true,
+                      data: JSON.stringify(jsonObj),
+                      contentType: "application/json",
+                      dataType: "json",
+                      headers: {"Authorization": "Basic 62a32faac59b9475d0124ffe62935f7c-1"},
+                      success: function(data) {
+                          console.log(data);
+                          var message = $(".OpenPositionDetails-form .message");
+                          message.css('display', 'block');
+                      },
+                      error: function() {
+                          var message = $(".OpenPositionDetails-form .message");
+                          message.text('There was an error with you submission');
+                          message.css('display', 'block');
+                      }
+                  });*/
+   /*     } else {
+            return;
+        }
+    });
+
+    function phone_validate(phno) {
+        var regexPattern = new RegExp(/^\d{7,}$/);    // regular expression pattern
+        return regexPattern.test(phno);
+    }
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+});;/*global define, console, document, window, Promise*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -5312,7 +5485,7 @@ if (!Array.prototype.indexOf) {
 
     return module;
 }));
-;/*jslint continue: true*/
+;;;/*jslint continue: true*/
 /*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
 (function (root, factory) {
     "use strict";
@@ -6550,4 +6723,4 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
-//# sourceMappingURL=script.js.map
+//# sourceMappingURL=debug/script.js.map
