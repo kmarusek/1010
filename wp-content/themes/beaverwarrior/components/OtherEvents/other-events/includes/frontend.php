@@ -78,9 +78,7 @@ $wrapper_classess = [
         <img src="<?php echo $other_events->other_events_image_src ?>" />
       </div>
     </div>
-    </div>
   <?php endforeach; ?>
-
-
   </div>
+
 </section>

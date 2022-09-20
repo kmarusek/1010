@@ -113,7 +113,8 @@ jQuery(document).ready(function ($) {
         // Uncaught Error: reCAPTCHA has already been rendered in this element at Object.kh
         $('form:not(.filter) :input:visible:enabled:first').off('focus');
     });
-    $(".OpenPositionDetails-form").on('click', '#submitForm', function(e) {
+});
+  /*  $(".OpenPositionDetails-form").on('click', '#submitForm', function(e) {
         e.preventDefault();
         var url = new URL(window.location.href);
         var job_id = url.searchParams.get('id');
@@ -221,7 +222,7 @@ jQuery(document).ready(function ($) {
                 }else{
                     jsonObj[input.attr('name')] = input.val();
                 }*/
-            });
+    /*        });
             console.log(urlHost);
             console.log(jsonObj);
 
@@ -229,9 +230,7 @@ jQuery(document).ready(function ($) {
             $.ajax({
                 method: "POST",
                 url: my_ajax_object.ajaxurl,
-                data: {action: "open_positions_ajax_call", data:'test'},
-                contentType: "application/json",
-                dataType: "json",
+                data: {action: "open_positions_ajax_call"},
                 success: function(data) {
                     console.log(data);
                     var message = $(".OpenPositionDetails-form .message");
@@ -271,7 +270,7 @@ jQuery(document).ready(function ($) {
                     message.css('display', 'block');
                 }
             });*/
-        }else{
+    /*    }else{
             return;
         }
     });
@@ -285,3 +284,4 @@ jQuery(document).ready(function ($) {
         return regex.test(email);
     }
 });
+*/

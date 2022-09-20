@@ -1,6 +1,8 @@
-/*jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
     $(".OpenPositionDetails-form").on('click', '#submitForm', function (e) {
         e.preventDefault();
+        var fd = new FormData();
+        console.log(fd);
         var url = new URL(window.location.href);
         var job_id = url.searchParams.get('id');
         var urlHost = "https://boards-api.greenhouse.io/v1/boards/1010data/jobs/" + job_id;
@@ -99,23 +101,35 @@
             $("#submitForm").attr("style", "background-color:#ccc !important");
             $(".OpenPositionDetails-form :input").each(function () {
                 var input = $(this);
-                if (input.attr('name') == 'first_name' || input.attr('name') == 'last_name' || input.attr('name') == 'email') {
+                /*if (input.attr('name') == 'first_name' || input.attr('name') == 'last_name' || input.attr('name') == 'email') {
                     jsonObj[input.attr('name')] = input.val();
-                }
-                /* if(input.attr('type') == 'radio'){
-                     jsonObj[input.attr('name')] = $('input[name='+input.attr("name")+']:checked').val();
-                 }else{
-                     jsonObj[input.attr('name')] = input.val();
-                 }*/
-      /*      });
-            console.log(urlHost);
-            console.log(jsonObj);
-
+                }*/
+                 if(input.val()){
+                     if(input.attr('type') == 'radio'){
+                         jsonObj[input.attr('name')] = $('input[name='+input.attr("name")+']:checked').val();
+                         fd.append(input.attr('name'), $('input[name='+input.attr("name")+']:checked').val());
+                     } else if (input.attr('type') == 'file'){
+                         for( var i = 0; i < input.length; i++){
+                             console.log(input[i].files[i]);
+                             fd.append('file', input[i].files[i]);
+                         }
+                     }
+                     else if (input.attr('name') != 'g-recaptcha-response' && input.attr('name') != 'undefined'){
+                         jsonObj[input.attr('name')] = input.val();
+                         fd.append(input.attr('name'), input.val());
+                     }
+                 }
+            });
+//            console.log(jsonObj);
+            fd.append('action', 'open_positions_ajax_call');
+            fd.append('url', urlHost);
             //jsonObj['action'] = 'open_positions_ajax_call';
             $.ajax({
                 type: "POST",
                 url: my_ajax_object.ajaxurl,
-                data: {action: "open_positions_ajax_call"},
+                data: fd,
+                processData: false,
+                contentType: false,
                 success: function(data) {
                     console.log(data);
                     var message = $(".OpenPositionDetails-form .message");
@@ -155,7 +169,7 @@
                           message.css('display', 'block');
                       }
                   });*/
- /*       } else {
+        } else {
             return;
         }
     });
