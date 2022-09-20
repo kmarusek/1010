@@ -700,3 +700,30 @@ add_filter( 'fl_builder_is_node_visible', function( $is_visible, $node ) {
     }
     return $is_visible;
 }, 10, 2);
+
+//This function modifies the current posts query to structure the order by the date picker ACF as opposed to the posted date. This only runs on "News" CPT. 
+//authored by Kevin Marusek.
+function ThreePostsGrid_pre_get_posts( $query ) {
+	
+	// do not modify queries in the admin
+	if( is_admin() ) {
+		
+		return $query;
+		
+	}
+	
+
+	// only modify queries for 'news' post type
+	if( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'news' ) {
+		
+		$query->set('orderby', 'meta_value');	
+		$query->set('meta_key', 'article_date');	 
+		
+	}
+	
+
+	// return
+	return $query;
+
+}
+add_action('pre_get_posts', 'ThreePostsGrid_pre_get_posts');
