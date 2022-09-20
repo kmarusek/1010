@@ -726,4 +726,4 @@ function ThreePostsGrid_pre_get_posts( $query ) {
 	return $query;
 
 }
-add_action('pre_get_posts', 'ThreePostsGrid_pre_get_posts');
+add_action( 'pre_get_posts', 'ThreePostsGrid_pre_get_posts' );
