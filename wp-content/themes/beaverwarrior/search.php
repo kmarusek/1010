@@ -1,6 +1,6 @@
 <?php print get_template_component('HTML'); ?>
 <?php print get_template_component('Page'); ?>
-<?php print get_template_component('SiteHeader'); ?>
+<?php print get_template_component('1010DataNavMenu'); ?>
 
 <?php print get_template_layout('SearchResults'); ?>
 
