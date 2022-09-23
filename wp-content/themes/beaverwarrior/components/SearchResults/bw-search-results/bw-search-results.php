@@ -35,9 +35,10 @@ class BWSearchResults extends BeaverWarriorFLModule {
      *
      * @return array An array of posts
      */
-    public function getPosts(){ 
+    public function getPosts($q){
 
         $settings = $this->settings;
+        $settings['s'] = $q;
         $settings->posts_per_page = -1;
 
         $query  = FLBuilderLoop::query( $settings );
