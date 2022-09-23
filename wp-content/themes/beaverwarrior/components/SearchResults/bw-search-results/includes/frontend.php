@@ -1,8 +1,4 @@
 <?php
-$q = isset($_GET['s']) ? $_GET['s'] : null;
-if (isset($q)) {
-    $settings->s = $q;
-}
 // Start out by getting the posts
 $posts          = $module->getPosts();
 // Get the posts per page

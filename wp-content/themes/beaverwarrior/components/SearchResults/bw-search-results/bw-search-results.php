@@ -37,7 +37,12 @@ class BWSearchResults extends BeaverWarriorFLModule {
      */
     public function getPosts(){
 
+        $q = isset($_GET['s']) ? $_GET['s'] : null;
+
         $settings = $this->settings;
+        if (isset($q)) {
+            $settings->s = $q;
+        }
         $settings->posts_per_page = -1;
 
         $query  = FLBuilderLoop::query( $settings );
