@@ -2,13 +2,16 @@
 $q = isset($_GET['s']) ? $_GET['s'] : null;
 if (isset($q)) {
     //var_dump($q);
+    strtolower($q);
 }else{
     $q = '';
 }
 // Start out by getting the posts
 $posts          = $module->getPosts();
 foreach($posts as $i => $post){
-    if(str_contains($post->post_title, $q) || str_contains($post->post_content, $q)){
+    $current_post_title = strtolower($post->post_title);
+    $current_post_content = strtolower($post->post_content);
+    if(str_contains($current_post_title, $q) || str_contains($current_post_content, $q)){
             //do nothing
         }
     else{
