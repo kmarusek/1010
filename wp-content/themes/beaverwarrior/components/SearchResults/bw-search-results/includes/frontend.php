@@ -1,8 +1,7 @@
 <?php
 $q = isset($_GET['s']) ? $_GET['s'] : null;
 if (isset($q)) {
-    //var_dump($q);
-    strtolower($q);
+    $q = strtolower($q);
 }else{
     $q = '';
 }
