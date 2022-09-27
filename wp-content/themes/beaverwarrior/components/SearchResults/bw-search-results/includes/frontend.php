@@ -1,6 +1,20 @@
 <?php
+$q = isset($_GET['s']) ? $_GET['s'] : null;
+if (isset($q)) {
+    var_dump($q);
+}else{
+    $q = 'working';
+}
 // Start out by getting the posts
 $posts          = $module->getPosts();
+foreach($posts as $i => $post){
+    if(str_contains($post->post_title, $q) || str_contains($post->post_content, $q)){
+            //do nothing
+        }
+    else{
+        unset($posts->posts[$i]);
+    }
+}
 // Get the posts per page
 $posts_per_page = $module->getPostsPerPage();
 

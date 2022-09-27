@@ -37,12 +37,8 @@ class BWSearchResults extends BeaverWarriorFLModule {
      */
     public function getPosts(){
 
-        $q = isset($_GET['s']) ? $_GET['s'] : null;
-
         $settings = $this->settings;
-        if (isset($q)) {
-            $settings->s = $q;
-        }
+
         $settings->posts_per_page = -1;
 
         $query  = FLBuilderLoop::query( $settings );
@@ -151,12 +147,12 @@ FLBuilder::register_module(
                             'label'      => __( 'Posts per column', 'fl-builder' ),
                             'responsive' => array(
                                 'default' => array(
-                                    'default'    => 3,
+                                    'default'    => 4,
                                     'medium'     => 2,
                                     'responsive' => 1
                                 ),
                                 'placeholder' => array(
-                                    'default'    => 3,
+                                    'default'    => 4,
                                     'medium'     => 2,
                                     'responsive' => 1
                                 )
@@ -231,7 +227,7 @@ FLBuilder::register_module(
                     'fields' => array(
                         'max_posts_per_page' => array(
                             'type'    => 'unit',
-                            'default' => 9,
+                            'default' => 12,
                             'label'   => __( 'Posts per page', 'fl-builder' ),
                         )
                     )
