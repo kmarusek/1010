@@ -1,9 +1,9 @@
 <?php
 $q = isset($_GET['s']) ? $_GET['s'] : null;
 if (isset($q)) {
-    var_dump($q);
+    //var_dump($q);
 }else{
-    $q = 'working';
+    $q = '';
 }
 // Start out by getting the posts
 $posts          = $module->getPosts();
@@ -12,7 +12,7 @@ foreach($posts as $i => $post){
             //do nothing
         }
     else{
-        unset($posts->posts[$i]);
+        unset($posts[$i]);
     }
 }
 // Get the posts per page
