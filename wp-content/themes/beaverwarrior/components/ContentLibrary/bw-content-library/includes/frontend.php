@@ -126,7 +126,7 @@ foreach( $postCats as $cat ){
 ?>  
                 <div class="ContentLibrary-search">
 					<input type="text" class="fuzzy-search" onclick="resetList();" placeholder="   " />
-                    <i class="ContentLibrary-icon <?php echo $settings->search_icon; ?>"></i>
+                    <img class="ContentLibrary-search-icon" src="/wp-content/uploads/2022/09/akar-icons-search.svg"/>
 				</div>
             </div>
         </div>
