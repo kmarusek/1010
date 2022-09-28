@@ -136,62 +136,36 @@ class BWContentLibrary extends BeaverWarriorFLModule {
 
 FLBuilder::register_module( 
     'BWContentLibrary', array(
-        'feature_post' => array(
-            'title'     => __( 'Feature Post', 'fl-builder' ),
-            'sections'    => array(
-                'general' => array(
-                    'fields'    => array(
-                        'feature_post_category' => array(
-                            'type'          => 'text',
-                            'label'         => __( 'Feature Post Category', 'fl-builder' ),
-                            'show_remove'   => true,
-                        ),
-                        'feature_post_title'    => array(
-                            'type'          => 'text',
-                            'label'         => __( 'Feature Post Title', 'fl-builder' ),
-                            'show_remove'   => true,
-                        ),
-                        'feature_post_url'      => array(
-                            'type'          => 'link',
-                            'label'         => __( 'Feature Post URL', 'fl-builder' ),
-                            'show_target' => true,
-                            'show_nofollow' => true,
-                        )
-                    )
-                )
-            )
-        ),
         'content' => array(
             'title' => __( 'Content', 'fl-builder'),
             'file'  => FL_BUILDER_DIR . 'includes/loop-settings.php'
         ),
-        // 'pagination' => array(
-        //     'title' => __( 'Pagination', 'fl-builder'),
-        //     'sections' => array(
-        //         'section_pagination' => array(
-        //             'fields' => array(
-        //                 'max_posts_per_page' => array(
-        //                     'type'    => 'unit',
-        //                     'default' => 9,
-        //                     'label'   => __( 'Posts per page', 'fl-builder' ),
-        //                 ),
-        //                 'pagination_next_icon' => array(
-        //                     'type'         => 'icon',
-        //                     'label'        => __( 'Next Icon', 'fl-builder' ),
-        //                     'show_remove'  => true,
-        //                     'description'  => 'Icon for the next navigation on pagination controls',
-        //                 ),
-        //                 'pagination_prev_icon' => array(
-        //                     'type'         => 'icon',
-        //                     'label'        => __( 'Previous Icon', 'fl-builder' ),
-        //                     'show_remove'  => true,
-        //                     'description'  => 'Icon for the previous navigation on pagination controls',
-        //                 ),
-
-        //             )
-        //         )
-        //     )
-        // ),
+        'pagination' => array(
+            'title' => __( 'Pagination', 'fl-builder'),
+            'sections' => array(
+                'section_pagination' => array(
+                    'fields' => array(
+                        'max_posts_per_page' => array(
+                            'type'    => 'unit',
+                            'default' => 12,
+                            'label'   => __( 'Posts per page', 'fl-builder' ),
+                        ),
+                        'pagination_next_icon' => array(
+                            'type'         => 'icon',
+                            'label'        => __( 'Next Icon', 'fl-builder' ),
+                            'show_remove'  => true,
+                            'description'  => 'Icon for the next navigation on pagination controls',
+                        ),
+                        'pagination_prev_icon' => array(
+                            'type'         => 'icon',
+                            'label'        => __( 'Previous Icon', 'fl-builder' ),
+                            'show_remove'  => true,
+                            'description'  => 'Icon for the previous navigation on pagination controls',
+                        ),
+                    )
+                )
+            )
+        ),
         'style' => array(
             'title' => __( 'Style', 'fl-builder'),
             'sections' => array(
@@ -236,6 +210,12 @@ FLBuilder::register_module(
                             'type'          => 'icon',
                             'label'         => __( 'Posts Link Arrow Icon', 'fl-builder' ),
                             'show_remove'   => true
+                        ),
+                        'search_icon' => array(
+                            'type'         => 'icon',
+                            'label'        => __( 'Search Icon', 'fl-builder' ),
+                            'show_remove'  => true,
+                            'description'  => 'Icon for the search bar',
                         ),
                         // 'posts_margin' => array(
                         //     'type'         => 'dimension',

@@ -1,5 +1,6 @@
 <?php
-wp_enqueue_script( "metafizzy", "https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js");
+wp_enqueue_script( "list.js", "https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js");
+
 ?>
 <?php
 // Start out by getting the posts
@@ -94,61 +95,51 @@ $postCats = get_terms_by_post_type($settings->post_type);
 
 if( !empty( $postCats ) ){
 ?>
+<div id="ContentLibrary-list">
+    <div class="ContentLibrary-menu-wrap">
+        <div class="ContentLibrary-mobile_menu">
+            <button class="hamburger hamburger--collapse" type="button">
+                <span class="hamburger-box">
+                  <span class="hamburger-inner"></span>
+                </span>
+            </button>
+        </div>
 
-<div class="ContentLibrary-menu-wrap">
-
-    <div class="ContentLibrary-mobile_menu">
-        <button class="hamburger hamburger--collapse" type="button">
-            <span class="hamburger-box">
-              <span class="hamburger-inner"></span>
-            </span>
-        </button>
-    </div>
-    
-    <div class="ContentLibrary-menu-items">
-        <ul class="ContentLibrary-category-menu">
-            <li class="ContentLibrary-nav-item is-checked" data-filter="*">
-                <h6>All</h6>
-            </li>
+        <div class="ContentLibrary-filter-wrap">
+            <div class="ContentLibrary-category-menu">
+                <div class="ContentLibrary-radio-inline">
+                    <input class="ContentLibrary-input filter-all" type="radio" value="all" name="category" id="category-all" checked/>
+                    <label for="category-all">All</label>
+                </div>
 <?php
+//sort through all categories and push value into string to be called by loop and inserted into HTML.
 foreach( $postCats as $cat ){
         $categoryName = $cat['name'];
-
-
 ?>
+                <div class="ContentLibrary-radio-inline">
+                        <input class="ContentLibrary-input filter" type="radio" value="<?php echo $categoryName = str_replace(' ','-',$categoryName);?>" name="category" id="category-<?php echo $categoryName = str_replace(' ','-',$categoryName);?>" /> 
+                        <label for="category-<?php echo $categoryName = str_replace(' ','-',$categoryName);?>"><?php echo esc_html($cat['name']);?></label>
+                </div>
             
-                <li class="ContentLibrary-nav-item" data-filter=".<?php echo $categoryName = str_replace(' ','-',$categoryName);?>">
-                    <h6><?php echo esc_html($cat['name']);?></h6>
-                </li>
 <?php   
-    } 
-} 
-?>
-
-        </ul>
+} } 
+?>  
+                <div class="ContentLibrary-search">
+					<input type="text" class="fuzzy-search" onclick="resetList();" placeholder="   " />
+                    <i class="ContentLibrary-icon <?php echo $settings->search_icon; ?>"></i>
+				</div>
+            </div>
+        </div>
     </div>
-</div>
 <?php
 // End of Category Navigation
 
 // Start of Feature Post and Post Loop 
 ?>
-<div class="ContentLibrary-container">
-    <div class="ContentLibrary-grid-container">
+<div class="ContentLibrary-post-container">
+    <ul class="list ContentLibrary-post-grid">
 
-            <div class="ContentLibrary-post-sizer"></div>
-            <div class="ContentLibrary-post-gutter-sizer"></div>
-            <div class="ContentLibrary-post feature-post" style="background-image: url(<?php echo $settings->feature_posts_background_image_src; ?>)">            
-                    <div class="ContentLibrary-content-container">
-                        <h6 class="ContentLibrary-categories"><?php echo $settings->feature_post_category;?></h6>
-                        <h2 class="ContentLibrary-title"><?php  echo $settings->feature_post_title;?></h2>
-                    </div>
-                    <div class="ContentLibrary-post-link-container">
-                        <a class="" href="<?php echo $settings->feature_post_url;?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
-                            <i class="ContentLibrary-icon <?php echo $settings->posts_anchor_icon; ?>"></i>
-                        </a>
-                    </div>
-            </div>
+
     <?php
     // Loop through all of the posts
     for ( $i=0; $i<count($posts); $i++ ){
@@ -172,26 +163,24 @@ foreach( $postCats as $cat ){
         
      
 ?>
-         
-            <div class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" >       
-        
+         <a class="" href="<?php echo $post_url?>" data-category="<?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" data-post-id="<?php echo $post_id;?>">
+            <li class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" > 
                     <div class="ContentLibrary-content-container">
-                        <p class="ContentLibrary-categories"><?php echo $post_categories_string;?></p>
-                        <h5 class="ContentLibrary-title"><?php  echo $post_title;?></h5>
+                        <p class="ContentLibrary-categories categories"><?php echo $post_categories_string;?></p>
+                        <h5 class="ContentLibrary-title title"><?php  echo $post_title;?></h5>
                     </div>
                     <div class="ContentLibrary-post-link-container">
-                        <a class="" href="<?php echo $post_url?>" data-post-id="<?php echo $post_id;?>">
                             <i class="ContentLibrary-icon <?php echo $settings->posts_anchor_icon; ?>"></i>
-                        </a>
                     </div>
-
-            </div>
-
+            </li>
+        </a>
 <?php
 }
 ?>
+        </ul>
+        <div class="ContentLibrary-pagination">
+            <ul class="pagination">
+            </ul>
+        </div>
     </div>
 </div>
-<ul class="ContentLibrary-pagination pagination">
-    
-</ul>
