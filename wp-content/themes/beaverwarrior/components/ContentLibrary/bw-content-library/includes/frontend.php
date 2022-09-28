@@ -163,7 +163,7 @@ foreach( $postCats as $cat ){
         
      
 ?>
-         <a class="" href="<?php echo $post_url?>" data-category="<?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" data-post-id="<?php echo $post_id;?>">
+         <a class="ContentLibrary-post-link" href="<?php echo $post_url?>" data-category="<?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" data-post-id="<?php echo $post_id;?>">
             <li class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" > 
                     <div class="ContentLibrary-content-container">
                         <p class="ContentLibrary-categories categories"><?php echo $post_categories_string;?></p>

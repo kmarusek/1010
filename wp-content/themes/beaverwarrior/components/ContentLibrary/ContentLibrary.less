@@ -109,6 +109,11 @@ input.filter,.filter-all {
 /**
 *   Content Library Grid 
 **/
+a.ContentLibrary-post-link:focus,:hover,:active{
+    outline: none;
+    text-decoration: none;
+    
+}
 a:hover li.ContentLibrary-post .ContentLibrary-post-link-container .ContentLibrary-icon::before{
     background-color: rgba(255,255,255, 1);
     color: #FC6D1B;
@@ -159,7 +164,12 @@ li.ContentLibrary-post {
             //     color: #FC6D1B;
             // }
             .ContentLibrary-icon::before{
-                padding: 16px 4px 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: auto;
+                height: 40px;
+                width: 40px;
                 color: #ffffff;
                 border-radius: 50%;
                 background-color: rgba(255,255,255, 0.2);
