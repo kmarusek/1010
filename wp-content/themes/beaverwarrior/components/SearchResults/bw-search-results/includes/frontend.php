@@ -17,6 +17,7 @@ foreach($posts as $i => $post){
         unset($posts[$i]);
     }
 }
+var_dump($posts);
 // Get the posts per page
 $posts_per_page = $module->getPostsPerPage();
 
