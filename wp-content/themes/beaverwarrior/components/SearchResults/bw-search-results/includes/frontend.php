@@ -8,7 +8,7 @@ if (isset($q)) {
 // Start out by getting the posts
 $posts          = $module->getPosts();
 foreach($posts as $i => $post){
-    $current_post_id = $current_post->ID;
+    $current_post_id = $post->ID;
     $current_post_title = strtolower($post->post_title);
     $current_post_content = strtolower($post->post_content);
     $current_post_excerpt = strtolower($module->getPostExcerpt( $post->post_content, $current_post_id ));
