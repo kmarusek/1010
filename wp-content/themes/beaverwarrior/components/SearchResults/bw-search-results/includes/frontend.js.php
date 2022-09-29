@@ -1,4 +1,4 @@
-(function($){
+/*(function($){
     
     $(function(){ 
    
@@ -17,7 +17,7 @@
             return Array.from(Array(end - start + 1), (_, i) => i + start); 
         }
 
-        var sideWidth = maxLength < 9 ? 1 : 2;
+        var sideWidth = maxLength < 12 ? 1 : 2;
         var leftWidth = (maxLength - sideWidth*2 - 3) >> 1;
         var rightWidth = (maxLength - sideWidth*2 - 2) >> 1;
         if (totalPages <= maxLength) {

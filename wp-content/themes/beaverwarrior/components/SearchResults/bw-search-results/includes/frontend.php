@@ -3,7 +3,7 @@ $q = isset($_GET['s']) ? $_GET['s'] : null;
 if (isset($q)) {
     $q = strtolower($q);
 }else{
-    $q = '';
+    $q = 'test';
 }
 // Start out by getting the posts
 $posts          = $module->getPosts();
@@ -17,7 +17,6 @@ foreach($posts as $i => $post){
         unset($posts[$i]);
     }
 }
-var_dump($posts);
 // Get the posts per page
 $posts_per_page = $module->getPostsPerPage();
 
@@ -103,9 +102,9 @@ $posts_per_page = $module->getPostsPerPage();
     </div>
 </div>
 <?php if(count($posts) > 0 ):?>
-<ul class="SearchResults-pagination pagination">
+<!--<ul class="SearchResults-pagination pagination">
     
-</ul>
+</ul>-->
 <?php else: ?>
 <h2 style="text-align: center;">Unfortunately, no search results where found.</h2>
 <?php endif;?>
