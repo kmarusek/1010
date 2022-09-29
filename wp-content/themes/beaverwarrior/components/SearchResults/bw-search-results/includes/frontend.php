@@ -3,14 +3,16 @@ $q = isset($_GET['s']) ? $_GET['s'] : null;
 if (isset($q)) {
     $q = strtolower($q);
 }else{
-    $q = 'test';
+    $q = '';
 }
 // Start out by getting the posts
 $posts          = $module->getPosts();
 foreach($posts as $i => $post){
+    $current_post_id = $current_post->ID;
     $current_post_title = strtolower($post->post_title);
     $current_post_content = strtolower($post->post_content);
-    if (strpos($current_post_title, $q) !== false || strpos($current_post_content, $q) !== false) {
+    $current_post_excerpt = strtolower($module->getPostExcerpt( $post->post_content, $current_post_id ));
+    if (strpos($current_post_title, $q) !== false || strpos($current_post_content, $q) !== false || strpos($current_post_excerpt, $q) !== false) {
             //do nothing
         }
     else{
