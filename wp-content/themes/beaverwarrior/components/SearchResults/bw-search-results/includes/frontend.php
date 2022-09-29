@@ -46,7 +46,7 @@ if ( $the_query->have_posts() ) {
 else{
     ?>
     <h2 style='font-weight:bold;color:#000'>Nothing Found</h2>
-    <div class="alert alert-info">
+    <div class="alert alert-warning">
         <p>Sorry, but nothing matched your search criteria. Please try again with some different keywords.</p>
     </div>
 <?php } ?>
