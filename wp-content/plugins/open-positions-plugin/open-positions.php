@@ -26,30 +26,33 @@ function so_enqueue_scripts(){
 function open_positions_ajax_call(){
 
     //$url = $_POST['url'];
-    var_dump($_POST);
-    var_dump($_FILES);
+    //var_dump($_POST);
+    //var_dump($_FILES);
     // File name
     $file_name = $_FILES['file']['name'];
     $tmp_name = $_FILES['file']['tmp_name'];
     $type = $_FILES['file']['type'];
+    $filesize = $_FILES['file']['size'];
 // File extension
-    $file_type = pathinfo($file_name, PATHINFO_EXTENSION);
     $postfields = $_POST;
     $url = $postfields['url'];
     unset($postfields['action']);
     unset($postfields['url']);
-    $curl = new \CURLFile($file_name, $type, $file_name);
+    if (function_exists('curl_file_create')) {
+        $postfields['resume'] = curl_file_create($tmp_name, $type, $file_name);
+    } else {
+        $postfields['resume'] = '@' . $tmp_name . '/' . $file_name;
+    }
     $headers = array("Content-Type:multipart/form-data", "Authorization: Basic ". base64_encode('62a32faac59b9475d0124ffe62935f7c-1')); // cURL headers for file uploading
     //$postfields['resume'] = curl_file_create($postfields['resume']);
-    var_dump($postfields);
     $ch = curl_init();
     $options = array(
         CURLOPT_URL => $url,
         CURLOPT_HEADER => true,
         CURLOPT_POST => 1,
         CURLOPT_HTTPHEADER => $headers,
-        CURLOPT_POSTFIELDS => $postfields, ['resume' => $curl],
-        //CURLOPT_INFILESIZE => $filesize,
+        CURLOPT_POSTFIELDS => $postfields,
+        CURLOPT_INFILESIZE => $filesize,
         CURLOPT_RETURNTRANSFER => true
     ); // cURL options
     curl_setopt_array($ch, $options);

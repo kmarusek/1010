@@ -2,7 +2,6 @@ jQuery(document).ready(function ($) {
     $(".OpenPositionDetails-form").on('click', '#submitForm', function (e) {
         e.preventDefault();
         var fd = new FormData();
-        console.log(fd);
         var url = new URL(window.location.href);
         var job_id = url.searchParams.get('id');
         var urlHost = "https://boards-api.greenhouse.io/v1/boards/1010data/jobs/" + job_id;
@@ -110,7 +109,6 @@ jQuery(document).ready(function ($) {
                          fd.append(input.attr('name'), $('input[name='+input.attr("name")+']:checked').val());
                      } else if (input.attr('type') == 'file'){
                          for( var i = 0; i < input.length; i++){
-                             console.log(input[i].files[i]);
                              fd.append('file', input[i].files[i]);
                          }
                      }

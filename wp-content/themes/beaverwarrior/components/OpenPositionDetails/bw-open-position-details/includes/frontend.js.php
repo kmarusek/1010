@@ -108,7 +108,6 @@ jQuery(document).ready(function ($) {
         script.type = 'text/javascript';
         script.src = 'https://www.google.com/recaptcha/api.js';
         head.appendChild(script);
-
         // remove focus to avoid js error:
         // Uncaught Error: reCAPTCHA has already been rendered in this element at Object.kh
         $('form:not(.filter) :input:visible:enabled:first').off('focus');

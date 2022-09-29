@@ -10,7 +10,7 @@ $posts          = $module->getPosts();
 foreach($posts as $i => $post){
     $current_post_title = strtolower($post->post_title);
     $current_post_content = strtolower($post->post_content);
-    if(str_contains($current_post_title, $q) || str_contains($current_post_content, $q)){
+    if (strpos($current_post_title, $q) !== false || strpos($current_post_content, $q) !== false) {
             //do nothing
         }
     else{
@@ -101,7 +101,10 @@ $posts_per_page = $module->getPostsPerPage();
     ?>
     </div>
 </div>
-
+<?php if(count($posts) > 0 ):?>
 <ul class="SearchResults-pagination pagination">
     
 </ul>
+<?php else: ?>
+<h2 style="text-align: center;">Unfortunately, no search results where found.</h2>
+<?php endif;?>
