@@ -108,9 +108,7 @@ jQuery(document).ready(function ($) {
                          jsonObj[input.attr('name')] = $('input[name='+input.attr("name")+']:checked').val();
                          fd.append(input.attr('name'), $('input[name='+input.attr("name")+']:checked').val());
                      } else if (input.attr('type') == 'file'){
-                         for( var i = 0; i < input.length; i++){
-                             fd.append('file', input[i].files[i]);
-                         }
+                             fd.append('file[]', input[0].files[0]);
                      }
                      else if (input.attr('name') != 'g-recaptcha-response' && input.attr('name') != 'undefined'){
                          jsonObj[input.attr('name')] = input.val();
