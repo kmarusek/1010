@@ -2,6 +2,9 @@
     &-post{
         text-decoration: none;
         margin: 0 0 24px 0;
+        @media(max-width: 500px){
+            width: 100%;
+        }
     }
     &-search-title{
         font-family: Hauora, sans-serif;
@@ -22,6 +25,10 @@
         border-radius: 6px;
         border: solid 1px rgba(115, 115, 115, 0.38);
         .SearchResults{
+            &-title-container{
+                min-height: 36px;
+                margin: 0 0 12px 0;
+            }
             &-title{
                 font-family: Hauora, sans-serif;
                 font-size: 20px;
@@ -30,7 +37,16 @@
                 letter-spacing: 0.8px;
                 text-align: left;
                 color: #120c17;
-                margin: 0 0 12px 0;
+                margin: 0;overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
+            &-excerpt-container{
+                min-height: 166px;
+                margin: 0 0 16px 0;
             }
             &-excerpt{
                 opacity: 0.6;
@@ -41,9 +57,18 @@
                 letter-spacing: 0.64px;
                 text-align: left;
                 color: #120c17;
-                margin: 0 0 16px 0;
+                margin: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 5;
+                line-clamp: 5;
+                -webkit-box-orient: vertical;
             }
             &-btn-container{
+                position: absolute;
+                bottom: 24px;
+                min-height: 31px;
                 a{
                     font-family: Hauora, sans-serif;
                     font-size: 16px;
