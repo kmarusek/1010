@@ -23,7 +23,7 @@ if ( $the_query->have_posts() ) {
         while ( $the_query->have_posts() ) {
         $the_query->the_post();
         ?>
-            <div class="FeaturedResources-item" style="background-image: url('http://localhost:8888/dev1010data/wp-content/uploads/2022/10/shere_matrix.png')">
+            <div class="FeaturedResources-item" style="background-image: url('/wp-content/uploads/2022/10/shere_matrix.png')">
                 <a class="FeaturedResources-item_link" href="<?php the_permalink();?>">
                     <div class="FeaturedResources-content">
                         <h4 class="FeaturedResources-category"><?php $cats =  get_the_category(get_the_ID()); foreach ( $cats as $key => $value) { echo $value->category_nicename . " "; }  ?></h4>
