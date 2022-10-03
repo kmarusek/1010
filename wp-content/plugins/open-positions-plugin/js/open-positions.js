@@ -130,6 +130,7 @@ jQuery(document).ready(function ($) {
                     console.log(data);
                     var message = $(".OpenPositionDetails-form .message");
                     message.css('display', 'block');
+                    window.location.href = '/form-confirmation';
                 },
                 error: function(error) {
                     console.log(error);
