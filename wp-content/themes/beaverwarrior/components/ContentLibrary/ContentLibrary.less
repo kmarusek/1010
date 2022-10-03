@@ -229,6 +229,12 @@ li.ContentLibrary-post {
     }
 }
 @media only screen and (max-width: 820px){
+    ul.ContentLibrary-post-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .ContentLibrary-post h2 {
+        font-size: 20px;
+    }
     .ContentLibrary-mobile_menu {
         display: block;
     }
@@ -258,14 +264,6 @@ li.ContentLibrary-post {
     .ContentLibrary-menu-wrap.is-toggled .ContentLibrary-filter-wrap {
         opacity: 1;
         left: 0;
-    }
-}
-@media only screen and (max-width: 720px) {
-    ul.ContentLibrary-post-grid{
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .ContentLibrary-post h2 {
-        font-size: 20px;
     }
 }
 @media only screen and (max-width: 530px){
