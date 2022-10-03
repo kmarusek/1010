@@ -9,6 +9,9 @@
       letter-spacing: 0.8px;
       color: #fc6815;
       margin: 0 0 20px 0;
+      @media(max-width: 767px){
+         margin: 0 0 16px 0;
+      }
    }
    &-heading{
       font-family: Hauora, sans-serif;
@@ -19,12 +22,22 @@
       color: #fff;
       margin: 0 0 60px 0;
       max-width: calc(~"100% - 130px");
+      @media(max-width:1024px){
+         margin: 0 0 40px 0;
+      }
       @media(max-width: 767px){
          max-width: 100%;
+         margin: 0 0 29px 0;
       }
    }
    &-container{
       margin-bottom: 60px;
+      @media(max-width:1024px){
+         margin-bottom: 40px;
+      }
+      @media(max-width:767px){
+         margin-bottom: 24px;
+      }
       .slick-list{
          margin: 0 -30px;
          @media(max-width: 1024px){
