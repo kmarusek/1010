@@ -2,7 +2,6 @@ jQuery(document).ready(function ($) {
     $(".OpenPositionDetails-form").on('click', '#submitForm', function (e) {
         e.preventDefault();
         var fd = new FormData();
-        console.log(fd);
         var url = new URL(window.location.href);
         var job_id = url.searchParams.get('id');
         var urlHost = "https://boards-api.greenhouse.io/v1/boards/1010data/jobs/" + job_id;
@@ -109,10 +108,7 @@ jQuery(document).ready(function ($) {
                          jsonObj[input.attr('name')] = $('input[name='+input.attr("name")+']:checked').val();
                          fd.append(input.attr('name'), $('input[name='+input.attr("name")+']:checked').val());
                      } else if (input.attr('type') == 'file'){
-                         for( var i = 0; i < input.length; i++){
-                             console.log(input[i].files[i]);
-                             fd.append('file', input[i].files[i]);
-                         }
+                             fd.append('file[]', input[0].files[0]);
                      }
                      else if (input.attr('name') != 'g-recaptcha-response' && input.attr('name') != 'undefined'){
                          jsonObj[input.attr('name')] = input.val();
@@ -134,6 +130,7 @@ jQuery(document).ready(function ($) {
                     console.log(data);
                     var message = $(".OpenPositionDetails-form .message");
                     message.css('display', 'block');
+                    window.location.href = '/form-confirmation';
                 },
                 error: function(error) {
                     console.log(error);
