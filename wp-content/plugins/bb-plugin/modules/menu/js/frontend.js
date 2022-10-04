@@ -93,6 +93,16 @@
 		},
 
 		/**
+		 * Check if the screen size fits a large viewport.
+		 *
+		 * @since  1.10.5
+		 * @return bool
+		 */
+		_isLarge: function(){
+			return this.currentBrowserWidth <= this.breakPoints.large ? true : false;
+		},
+
+		/**
 		 * Check if the menu should toggle for the current viewport base on the selected breakpoint
 		 *
 		 * @see 	this._isMobile()
@@ -104,6 +114,7 @@
 			if ( ( 'always' == this.mobileBreakpoint
 				|| ( this._isMobile() && 'mobile' == this.mobileBreakpoint )
 				|| ( this._isMedium() && 'medium-mobile' == this.mobileBreakpoint )
+				|| ( this._isLarge() && 'large-mobile' == this.mobileBreakpoint )
 			) && ( $( this.wrapperClass ).find( '.fl-menu-mobile-toggle' ).is(':visible') || 'expanded' == this.mobileToggle ) ) {
 				return true;
 			}

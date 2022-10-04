@@ -7,12 +7,14 @@ if ( ! names ) {
 		names = {
 			description: data.name + '[' + data.index + '][description]',
 			icon: data.name + '[' + data.index + '][icon]',
+			icon_color: data.name + '[' + data.index + '][icon_color]',
 			tooltip: data.name + '[' + data.index + '][tooltip]',
 		};
 	} else {
 		names = {
 			description: data.name + '[][description]',
 			icon: data.name + '[][icon]',
+			icon_color: data.name + '[][icon_color]',
 			tooltip: data.name + '[][tooltip]',
 		};
 	}
@@ -36,6 +38,16 @@ var featureIcon = wp.template( 'fl-builder-field-icon')({
 	},
 });
 
+var featureIconColor = wp.template( 'fl-builder-field-color' )({
+	name: names.icon_color,
+	value: ( ( 'undefined' != typeof data.value.icon_color ) ? data.value.icon_color : '' ),
+	field: {
+		className: 'fl-pricing-table-feature-icon-color',
+		show_reset: true,
+		show_alpha: true,
+	},
+});
+
 #>
 <div class="fl-price-feature-field">
 	<div class="fl-price-feature-row fl-price-feature-description-row">
@@ -48,6 +60,10 @@ var featureIcon = wp.template( 'fl-builder-field-icon')({
 		<div class="fl-price-feature-icon-wrapper">
 			<label class="fl-price-feature-field-icon-label"><?php _e( 'Feature Icon', 'fl-builder' ); ?></label>
 			{{{featureIcon}}}
+		</div>
+		<div class="fl-price-feature-icon-color-wrapper">
+			<label class="fl-price-feature-field-icon-color-label"><?php _e( 'Feature Icon Color', 'fl-builder' ); ?></label>
+			{{{featureIconColor}}}
 		</div>
 	</div>
 	<div class="fl-price-feature-row fl-price-feature-tooltip-row">

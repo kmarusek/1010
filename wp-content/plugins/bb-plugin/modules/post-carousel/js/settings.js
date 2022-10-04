@@ -10,7 +10,7 @@
 
 			layout.on('change', this._fixfeatured);
 			icon.on( 'change', this._flipSettings );
-			this._flipSettings()
+			this._flipSettings();
 		},
 
 		_flipSettings: function() {

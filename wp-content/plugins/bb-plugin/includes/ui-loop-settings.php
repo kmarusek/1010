@@ -41,6 +41,7 @@ do_action( 'fl_builder_loop_settings_before_form', $settings );
 		'toggle'  => array(
 			'custom_query' => array(
 				'fields' => array( 'posts_per_page' ),
+				'tabs'   => array( 'filter' ),
 			),
 		),
 	), $settings);
@@ -58,8 +59,9 @@ do_action( 'fl_builder_loop_settings_before_form', $settings );
 
 		// Post type
 		FLBuilder::render_settings_field('post_type', array(
-			'type'  => 'post-type',
-			'label' => __( 'Post Type', 'fl-builder' ),
+			'type'         => 'post-type',
+			'label'        => __( 'Post Type', 'fl-builder' ),
+			'multi-select' => true,
 		), $settings);
 
 		// Order
@@ -130,7 +132,6 @@ do_action( 'fl_builder_loop_settings_before_form', $settings );
 				'no'  => __( 'No', 'fl-builder' ),
 			),
 		), $settings);
-
 		?>
 		</table>
 	</div>
@@ -168,13 +169,11 @@ do_action( 'fl_builder_loop_settings_before_form', $settings );
 					'matching' => true,
 				), $settings );
 			}
-
 			?>
 			</table>
 		<?php endforeach; ?>
 		<table class="fl-form-table">
 		<?php
-
 		// Author
 		FLBuilder::render_settings_field('users', array(
 			'type'     => 'suggest',
@@ -183,7 +182,6 @@ do_action( 'fl_builder_loop_settings_before_form', $settings );
 			'help'     => __( 'Enter a list of authors usernames.', 'fl-builder' ),
 			'matching' => true,
 		), $settings);
-
 		?>
 		</table>
 	</div>

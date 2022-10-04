@@ -24,6 +24,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Abyssinica SIL": {
+    "variants": ["regular"],
+    "fallback": "serif"
+  }
+}, {
   "Aclonica": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -154,6 +159,11 @@
     "fallback": "serif"
   }
 }, {
+  "Alkalami": {
+    "variants": ["regular"],
+    "fallback": "serif"
+  }
+}, {
   "Allan": {
     "variants": ["regular", "700"],
     "fallback": "sans-serif"
@@ -246,6 +256,11 @@
 }, {
   "Amiri": {
     "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Amiri Quran": {
+    "variants": ["regular"],
     "fallback": "serif"
   }
 }, {
@@ -405,6 +420,11 @@
   }
 }, {
   "Aref Ruqaa": {
+    "variants": ["regular", "700"],
+    "fallback": "serif"
+  }
+}, {
+  "Aref Ruqaa Ink": {
     "variants": ["regular", "700"],
     "fallback": "serif"
   }
@@ -924,6 +944,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Blaka Ink": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Blinker": {
     "variants": ["100", "200", "300", "regular", "600", "700", "800", "900"],
     "fallback": "sans-serif"
@@ -1029,6 +1054,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Bungee Spice": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Butcherman": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -1065,6 +1095,11 @@
   }
 }, {
   "Cairo": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Cairo Play": {
     "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "sans-serif"
   }
@@ -2739,6 +2774,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Inter Tight": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Irish Grover": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -3165,8 +3205,8 @@
   }
 }, {
   "Lateef": {
-    "variants": ["regular"],
-    "fallback": "cursive"
+    "variants": ["200", "300", "regular", "500", "600", "700", "800"],
+    "fallback": "serif"
   }
 }, {
   "Lato": {
@@ -3969,6 +4009,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Nabla": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Nanum Brush Script": {
     "variants": ["regular"],
     "fallback": "cursive"
@@ -4084,6 +4129,11 @@
     "fallback": "serif"
   }
 }, {
+  "Noto Color Emoji": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Noto Emoji": {
     "variants": ["300", "regular", "500", "600", "700"],
     "fallback": "sans-serif"
@@ -4105,7 +4155,7 @@
   }
 }, {
   "Noto Nastaliq Urdu": {
-    "variants": ["regular", "700"],
+    "variants": ["regular", "500", "600", "700"],
     "fallback": "serif"
   }
 }, {
@@ -4274,6 +4324,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Noto Sans Ethiopic": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Noto Sans Georgian": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "sans-serif"
@@ -4360,7 +4415,7 @@
   }
 }, {
   "Noto Sans Javanese": {
-    "variants": ["regular", "700"],
+    "variants": ["regular", "500", "600", "700"],
     "fallback": "sans-serif"
   }
 }, {
@@ -4610,7 +4665,7 @@
   }
 }, {
   "Noto Sans Oriya": {
-    "variants": ["100", "regular", "700", "900"],
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "sans-serif"
   }
 }, {
@@ -5726,6 +5781,16 @@
 }, {
   "Reem Kufi": {
     "variants": ["regular", "500", "600", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Reem Kufi Fun": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Reem Kufi Ink": {
+    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {

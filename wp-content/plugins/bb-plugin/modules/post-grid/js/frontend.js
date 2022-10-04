@@ -117,10 +117,12 @@
 		_isMatchHeight: function(){
 			var width 		= $( window ).width(),
 				breakpoints = FLBuilderLayoutConfig.breakpoints,
-				matchMedium = '' != this.matchHeight.medium ? this.matchHeight.medium : this.matchHeight.default;
+				matchLarge = '' != this.matchHeight.large ? this.matchHeight.large : this.matchHeight.default,
+				matchMedium = '' != this.matchHeight.medium ? this.matchHeight.medium : this.matchHeight.default,
 				matchSmall  = '' != this.matchHeight.responsive ? this.matchHeight.responsive : this.matchHeight.default;
 
-			return (width > breakpoints.medium && 1 == this.matchHeight.default)
+			return (width > breakpoints.medium && 1 == this.matchHeight.default) // Must check medium here for backwards compat
+				   || (width > breakpoints.medium && width <= breakpoints.large && 1 == matchLarge)
 				   || (width > breakpoints.small && width <= breakpoints.medium && 1 == matchMedium)
 				   || (width <= breakpoints.small && 1 == matchSmall);
 		},
@@ -225,7 +227,7 @@
 			elements.find( 'img[srcset]' ).each( function( index, img ) {
 				img.outerHTML = img.outerHTML;
 			});
-			
+
 			this.currPage++;
 
 			this._removeLoadMoreButton();

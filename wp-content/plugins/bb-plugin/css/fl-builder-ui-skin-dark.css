@@ -143,15 +143,18 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-builder--selector-display-label {
     color: #b5becb;
 }
-.fl-builder-ui-skin--dark .fl-builder-panel-search-input input {
+.fl-builder-ui-skin--dark .fl-builder-panel-search-input input,
+.fl-builder-ui-skin--dark .fl-builder-panel-saved-search input {
     border-color: #5b656f;
     color: #b8c2ce;
 }
-.fl-builder-ui-skin--dark .fl-builder-panel-search-input input {
+.fl-builder-ui-skin--dark .fl-builder-panel-search-input input,
+.fl-builder-ui-skin--dark .fl-builder-panel-saved-search input {
     background: #171b1f !important;
 }
 .fl-builder-ui-skin--dark .fl-builder--selector-display-label:focus,
-.fl-builder-ui-skin--dark .fl-builder-panel-search-input input:focus {
+.fl-builder-ui-skin--dark .fl-builder-panel-search-input input:focus,
+.fl-builder-ui-skin--dark .fl-builder-panel-saved-search input:focus {
     border-color: #00a0d2;
 }
 .fl-builder-ui-skin--dark .fl-builder--group-label {
@@ -269,9 +272,8 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-lightbox .fl-builder-button.fl-builder-button-primary {
     color: #ffffff !important;
 }
-.fl-builder-ui-skin--dark .fl-color-picker,
-.fl-builder-ui-skin--dark .fl-color-picker-color.fl-color-picker-empty {
-    background: #1a1b22 !important;
+.fl-builder-ui-skin--dark .fl-color-picker {
+    background-image: url('../img/transp_bg_dark.png');
 }
 .fl-color-picker-color.fl-color-picker-empty .fl-color-picker-icon {
     fill:#6f7881;
@@ -328,9 +330,18 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 	background-color: #181b20 !important;
 }
 
-.fl-builder-ui-skin--dark .fl-lightbox .select2-container--default .selection .select2-selection--single {
+.fl-builder-ui-skin--dark .fl-lightbox .select2-selection--multiple .select2-selection__rendered .select2-selection__choice{
+	color: black !important;
+}
+
+.fl-builder-ui-skin--dark .fl-lightbox .select2-container--default .selection .select2-selection--single,
+.fl-builder-ui-skin--dark .fl-lightbox .select2-container--default .selection .select2-selection--multiple {
 	border-color: #181b20 !important;
 }
+.fl-builder-ui-skin--dark .fl-lightbox .select2-container--default .selection .select2-selection--multiple {
+	background-color: #181b20 !important;
+}
+
 .fl-builder-ui-skin--dark .select2-dropdown {
 	background-color: #181b20 !important;
 }

@@ -298,8 +298,8 @@ FLBuilderCSS::typography_field_rule( array(
 ) );
 ?>
 <?php if ( 'no' !== $settings->dual_billing && ! empty( $settings->switch_label_color ) ) : ?>
-	.fl-node-<?php echo $id; ?> span.first_option,
-	.fl-node-<?php echo $id; ?> span.second_option {
+	.fl-node-<?php echo $id; ?> .fl-module-content .fl-pricing-table-payment-frequency span.first_option,
+	.fl-node-<?php echo $id; ?> .fl-module-content .fl-pricing-table-payment-frequency span.second_option {
 		color: <?php echo FLBuilderColor::hex_or_rgb( $settings->switch_label_color ); ?>;
 	}
 <?php endif; ?>
@@ -326,7 +326,7 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 
 		FLBuilderCSS::responsive_rule( array(
 			'settings'     => $pricing_column,
-			'setting_name' => 'margin',
+			'setting_name' => 'pbox_top_margin',
 			'selector'     => ".fl-node-$id .fl-pricing-table-column-$i",
 			'prop'         => 'margin-top',
 			'unit'         => 'px',
@@ -348,7 +348,7 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 	}
 
 	<?php if ( ! empty( $pricing_column->title_color ) ) : ?>
-		.fl-node-<?php echo $id; ?> .fl-pricing-table-column-<?php echo $i; ?> h2 {
+		.fl-node-<?php echo $id; ?> .fl-pricing-table-column-<?php echo $i; ?> h2.fl-pricing-table-title {
 			color: <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->title_color ); ?>;
 		}
 	<?php endif; ?>
@@ -356,6 +356,11 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 	<?php if ( empty( $pricing_column->title_typography->font_size->length ) ) : ?>
 		.fl-node-<?php echo $id; ?> .fl-pricing-table-column-<?php echo $i; ?> h2 {
 			font-size: <?php echo ( empty( $pricing_column->title_size ) ? '24' : $pricing_column->title_size ); ?>px;
+		}
+	<?php endif; ?>
+	<?php if ( ! empty( $pricing_column->price_color ) ) : ?>
+		.fl-node-<?php echo $id; ?> .fl-pricing-table .fl-pricing-table-wrap .fl-pricing-table-column-<?php echo $i; ?> .fl-pricing-table-price span {
+			color: <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->price_color ); ?>;
 		}
 	<?php endif; ?>
 	<?php
@@ -380,7 +385,8 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 
 	/*Pricing Box Highlight*/
 	<?php if ( 'price' == $settings->highlight ) : ?>
-	.fl-node-<?php echo $id; ?> .fl-pricing-table .fl-pricing-table-column-<?php echo $i; ?> .fl-pricing-table-price {
+	.fl-node-<?php echo $id; ?> .fl-pricing-table .fl-pricing-table-column-<?php echo $i; ?> .fl-pricing-table-price,
+	.fl-node-<?php echo $id; ?> .fl-pricing-table .fl-pricing-table-column-<?php echo $i; ?> .fl-pricing-table-price span {
 		background: <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->column_background ); ?>;
 		color: <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->column_color ); ?>;
 	}
@@ -418,7 +424,7 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 
 		<?php if ( empty( $pricing_column->btn_bg_color ) ) : ?>
 			background-color: <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->column_background ); ?> !important;
-			border: 1px solid <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->column_background ); ?> !important;
+			border: 1px solid <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->column_background ); ?>;
 		<?php endif; ?>
 
 		<?php if ( empty( $pricing_column->btn_width ) ) : ?>
@@ -459,10 +465,20 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 			margin-top: -<?php echo ceil( $ribbon_content_height / 2 ); ?>px;
 		}
 		.fl-node-<?php echo $id; ?> .fl-pricing-table-column-<?php echo $i; ?> .fl-pricing-ribbon .fl-pricing-ribbon-content span {
+			color: <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->ribbon_text_color ); ?>;
+		}
+		.fl-node-<?php echo $id; ?> .fl-pricing-table-column-<?php echo $i; ?> .fl-pricing-ribbon .fl-pricing-ribbon-content span {
 			display: inline-block;
 			max-width: 150px;
 			overflow: hidden;
 		}
+		<?php
+			FLBuilderCSS::typography_field_rule( array(
+				'settings'     => $pricing_column,
+				'setting_name' => 'ribbon_typography',
+				'selector'     => ".fl-node-$id .fl-pricing-table-column-$i .fl-pricing-ribbon .fl-pricing-ribbon-content",
+			) );
+		?>
 		<?php if ( 'top' === $pricing_column->ribbon_position ) : ?>
 			/* Riboon Position: Top */
 			.fl-node-<?php echo $id; ?> .fl-pricing-table-column-<?php echo $i; ?> .fl-pricing-ribbon-top .fl-pricing-ribbon-content {
@@ -527,6 +543,15 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 
 	FLBuilder::render_module_css( 'button', $id . ' .fl-pricing-table-column-' . $i, $module->get_button_settings( $pricing_column ) );
 
+	// Border Hover Color
+	if ( ! empty( $pricing_column->btn_border_hover_color ) ) {
+		?>
+		.fl-builder-content .fl-node-<?php echo $id; ?> .fl-pricing-table-column-<?php echo $i; ?> a.fl-button:hover {
+			border-color: <?php echo FLBuilderColor::hex_or_rgb( $pricing_column->btn_border_hover_color ); ?>;
+		}
+		<?php
+	}
+
 	// Check each feature in the column to see if there's something to override.
 	$list_index = 0;
 
@@ -545,14 +570,16 @@ for ( $i = 0; $i < $total_pricing_cols; $i++ ) :
 			endif;
 
 			// Feature Item Icon Color
-			if ( ! empty( $pricing_column->feature_item_icon_color ) ) :
-				FLBuilderCSS::rule( array(
-					'selector' => ".fl-node-$id .fl-pricing-table-column-$i .feature-item-$list_index .fl-feature-icon",
-					'props'    => array(
-						'color' => $pricing_column->feature_item_icon_color,
-					),
-				));
-			endif;
+			$feature_item_icon_color = ! empty( $feature->icon_color ) ? $feature->icon_color : '';
+			if ( empty( $feature_item_icon_color ) && ! empty( $pricing_column->feature_item_icon_color ) ) {
+				$feature_item_icon_color = $pricing_column->feature_item_icon_color;
+			}
+			FLBuilderCSS::rule( array(
+				'selector' => ".fl-node-$id .fl-pricing-table-column-$i .feature-item-$list_index .fl-feature-icon",
+				'props'    => array(
+					'color' => $feature_item_icon_color,
+				),
+			));
 
 			// Feature Item Tooltip Icon Color
 			if ( ! empty( $pricing_column->pbox_tooltip_icon_color ) ) :

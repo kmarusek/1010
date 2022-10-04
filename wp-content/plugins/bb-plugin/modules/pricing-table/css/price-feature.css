@@ -8,7 +8,16 @@
 .fl-builder-ui-skin--dark .fl-builder-settings-fields .fl-price-feature-field .fl-price-feature-row {
     background-color: #181b20;
 }
-
+.fl-builder-settings-fields .fl-price-feature-field .fl-price-feature-field-icon-color-label {
+    padding-bottom: 3px;
+}
+.fl-builder-settings-fields .fl-price-feature-field .fl-price-feature-icon-color-wrapper {
+    padding-bottom: 5px;
+}
+.fl-lightbox .fl-color-picker.fl-pricing-table-feature-icon-color {
+    width: 95%;
+    margin: 10px auto;
+}
 .fl-builder-settings-fields .fl-price-feature-field label {
     display: block;
     margin: 0;

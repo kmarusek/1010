@@ -27,13 +27,17 @@
 							}
 						} else if ( 'select' === field.type ) {
 							text = field.options[ data.value[ data.field.preview_text ] ];
-						} else if ( '' !== data.value[ data.field.preview_text ] ) {
+						} else if ( '' !== data.value[ data.field.preview_text ] && typeof data.value[ data.field.preview_text ] !== 'undefined' ) {
 							var tmp = document.createElement( 'div' );
 							text = data.value[ data.field.preview_text ].toString().replace( /&#39;/g, "'" );
 							tmp.innerHTML = text;
 							text = ( tmp.textContent || tmp.innerText || '' ).replace( /^(.{35}[^\s]*).*/, "$1" )  + '...';
 						}
 					}
+					if( '' === text && 'filter_meta_label' === data.field.preview_text ) {
+						text = data.value['filter_meta_key'];
+					}
+
 				}
 			}
 		}

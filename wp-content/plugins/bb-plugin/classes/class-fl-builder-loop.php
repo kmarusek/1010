@@ -245,6 +245,37 @@ final class FLBuilderLoop {
 			);
 		}
 
+		// Filter by meta key
+		if ( ( isset( $settings->custom_field ) && is_array( $settings->custom_field ) && count( $settings->custom_field ) > 0 ) && ( isset( $settings->data_source ) && 'custom_query' == $settings->data_source ) ) {
+			if ( count( $settings->custom_field ) == 1 ) {
+
+				if ( isset( $settings->custom_field[0]->filter_meta_key ) && ! empty( $settings->custom_field[0]->filter_meta_key ) ) {
+					$args['meta_key'] = untrailingslashit( $settings->custom_field[0]->filter_meta_key );
+					if ( 'EXISTS' != $settings->custom_field[0]->filter_meta_compare && 'NOT EXISTS' != $settings->custom_field[0]->filter_meta_compare ) {
+						$args['meta_value'] = untrailingslashit( $settings->custom_field[0]->filter_meta_value );
+					}
+					$args['meta_type']    = $settings->custom_field[0]->filter_meta_type;
+					$args['meta_compare'] = $settings->custom_field[0]->filter_meta_compare;
+				}
+			} else {
+				if ( isset( $settings->custom_field_relation ) ) {
+					$args['meta_query']['relation'] = $settings->custom_field_relation;
+					foreach ( $settings->custom_field as $fields ) {
+						if ( ! empty( $fields ) ) {
+							$filter_arr        = array();
+							$filter_arr['key'] = untrailingslashit( $fields->filter_meta_key );
+							if ( 'EXISTS' != $fields->filter_meta_compare && 'NOT EXISTS' != $fields->filter_meta_compare ) {
+								$filter_arr['value'] = untrailingslashit( $fields->filter_meta_value );
+							}
+							$filter_arr['type']    = $fields->filter_meta_type;
+							$filter_arr['compare'] = $fields->filter_meta_compare;
+							$args['meta_query'][]  = $filter_arr;
+						}
+					}
+				}
+			}
+		}
+
 		// Build the author query.
 		if ( ! empty( $users ) ) {
 
@@ -261,96 +292,99 @@ final class FLBuilderLoop {
 
 			$args[ $arg ] = $users;
 		}
+		foreach ( (array) $post_type as $type ) {
+			// Build the taxonomy query.
+			$taxonomies = self::taxonomies( $type );
 
-		// Build the taxonomy query.
-		$taxonomies = self::taxonomies( $post_type );
+			foreach ( $taxonomies as $tax_slug => $tax ) {
 
-		foreach ( $taxonomies as $tax_slug => $tax ) {
+				$tax_value = '';
+				$term_ids  = array();
+				$operator  = 'IN';
 
-			$tax_value = '';
-			$term_ids  = array();
-			$operator  = 'IN';
+				// Get the value of the suggest field.
+				if ( isset( $settings->{'tax_' . $type . '_' . $tax_slug} ) ) {
+					// New style slug.
+					$tax_value = $settings->{'tax_' . $type . '_' . $tax_slug};
+				} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
+					// Old style slug for backwards compat.
+					$tax_value = $settings->{'tax_' . $tax_slug};
+				}
 
-			// Get the value of the suggest field.
-			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
-				// New style slug.
-				$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
-			} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
-				// Old style slug for backwards compat.
-				$tax_value = $settings->{'tax_' . $tax_slug};
-			}
+				// Get the term IDs array.
+				if ( ! empty( $tax_value ) ) {
+					$term_ids = explode( ',', $tax_value );
+				}
 
-			// Get the term IDs array.
-			if ( ! empty( $tax_value ) ) {
-				$term_ids = explode( ',', $tax_value );
-			}
+				// Handle matching settings.
+				if ( isset( $settings->{'tax_' . $type . '_' . $tax_slug . '_matching'} ) ) {
 
-			// Handle matching settings.
-			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
+					$tax_matching = $settings->{'tax_' . $type . '_' . $tax_slug . '_matching'};
 
-				$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
+					if ( ! $tax_matching ) {
+						// Do not match these terms.
+						$operator = 'NOT IN';
+					} elseif ( 'related' === $tax_matching ) {
+						// Match posts by related terms from the global post.
+						global $post;
+						$terms   = wp_get_post_terms( $post->ID, $tax_slug );
+						$related = array();
 
-				if ( ! $tax_matching ) {
-					// Do not match these terms.
-					$operator = 'NOT IN';
-				} elseif ( 'related' === $tax_matching ) {
-					// Match posts by related terms from the global post.
-					global $post;
-					$terms   = wp_get_post_terms( $post->ID, $tax_slug );
-					$related = array();
+						foreach ( $terms as $term ) {
+							if ( ! in_array( $term->term_id, $term_ids ) ) {
+								$related[] = $term->term_id;
+							}
+						}
 
-					foreach ( $terms as $term ) {
-						if ( ! in_array( $term->term_id, $term_ids ) ) {
-							$related[] = $term->term_id;
+						if ( empty( $related ) ) {
+							// If no related terms, match all except those in the suggest field.
+							$operator = 'NOT IN';
+						} else {
+
+							// Don't include posts with terms selected in the suggest field.
+							$args['tax_query'][] = array(
+								'taxonomy' => $tax_slug,
+								'field'    => 'id',
+								'terms'    => $term_ids,
+								'operator' => 'NOT IN',
+							);
+
+							// Set the term IDs to the related terms.
+							$term_ids = $related;
 						}
 					}
-
-					if ( empty( $related ) ) {
-						// If no related terms, match all except those in the suggest field.
-						$operator = 'NOT IN';
-					} else {
-
-						// Don't include posts with terms selected in the suggest field.
-						$args['tax_query'][] = array(
-							'taxonomy' => $tax_slug,
-							'field'    => 'id',
-							'terms'    => $term_ids,
-							'operator' => 'NOT IN',
-						);
-
-						// Set the term IDs to the related terms.
-						$term_ids = $related;
-					}
 				}
-			}
 
-			if ( ! empty( $term_ids ) ) {
+				if ( ! empty( $term_ids ) ) {
 
-				$args['tax_query'][] = array(
-					'taxonomy' => $tax_slug,
-					'field'    => 'id',
-					'terms'    => $term_ids,
-					'operator' => $operator,
-				);
+					$args['tax_query'][] = array(
+						'taxonomy' => $tax_slug,
+						'field'    => 'id',
+						'terms'    => $term_ids,
+						'operator' => $operator,
+					);
+				}
 			}
 		}
 
-		// Post in/not in query.
-		if ( isset( $settings->{'posts_' . $post_type} ) ) {
+		foreach ( (array) $post_type as $type ) {
+			// Post in/not in query.
+			if ( isset( $settings->{'posts_' . $type} ) ) {
 
-			$ids = $settings->{'posts_' . $post_type};
-			$arg = 'post__in';
+				$ids = $settings->{'posts_' . $type};
+				$arg = 'post__in';
 
-			// Set to NOT IN if matching is present and set to 0.
-			if ( isset( $settings->{'posts_' . $post_type . '_matching'} ) ) {
-				if ( ! $settings->{'posts_' . $post_type . '_matching'} ) {
-					$arg = 'post__not_in';
+				// Set to NOT IN if matching is present and set to 0.
+				if ( isset( $settings->{'posts_' . $type . '_matching'} ) ) {
+					if ( ! $settings->{'posts_' . $type . '_matching'} ) {
+						$arg = 'post__not_in';
+					}
 				}
-			}
 
-			// Add the args if we have IDs.
-			if ( ! empty( $ids ) ) {
-				$args[ $arg ] = explode( ',', $settings->{'posts_' . $post_type} );
+				// Add the args if we have IDs.
+				if ( ! empty( $ids ) ) {
+					$args[ $arg ] = explode( ',', $settings->{'posts_' . $type} );
+				}
 			}
 		}
 

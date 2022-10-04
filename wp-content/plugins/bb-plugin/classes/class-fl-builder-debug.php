@@ -45,7 +45,7 @@ final class FL_Debug {
 		if ( is_array( $test['data'] ) ) {
 			$test['data'] = implode( "\n", $test['data'] );
 		}
-		return sprintf( "%s\n%s\n\n", $test['name'], $test['data'] );
+		return isset( $test['name'] ) ? sprintf( "%s\n%s\n\n", $test['name'], $test['data'] ) : sprintf( "%s\n\n", $test['data'] );
 	}
 
 	private static function register( $slug, $args ) {
@@ -144,7 +144,7 @@ final class FL_Debug {
 
 		$args = array(
 			'name' => 'FL Modsec Fix',
-			'data' => defined( 'FL_BUILDER_MODSEC_FIX' ) && FL_BUILDER_MODSEC_FIX ? 'Yes' : 'No',
+			'data' => FLBuilderUtils::is_modsec_fix_enabled() ? 'Yes' : 'No',
 		);
 		self::register( 'fl_modsec', $args );
 
@@ -501,6 +501,22 @@ final class FL_Debug {
 				self::register( 'av_downloads', $args );
 			}
 		}
+
+		self::register( 'adv', array(
+			'name' => 'Advanced Options',
+			'data' => self::divider(),
+		) );
+
+		$adv_opts = FLBuilderAdminAdvanced::get_settings();
+		$opts     = array();
+		foreach ( $adv_opts as $key => $opt ) {
+			$option = get_option( "_fl_builder_{$key}", $opt['default'] ) ? 'Enabled' : 'Disabled';
+			$opts[] = sprintf( '%s: %s', $opt['label'], $option );
+		}
+		$args = array(
+			'data' => $opts,
+		);
+		self::register( 'adv_settings', $args );
 
 		$args = array(
 			'name' => 'Server',

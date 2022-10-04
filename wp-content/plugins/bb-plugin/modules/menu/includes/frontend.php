@@ -22,7 +22,9 @@ if ( isset( $settings->menu_search ) && 'show' == $settings->menu_search ) {
 	<div class="fl-clear"></div>
 	<?php
 
-	if ( ! empty( $settings->menu ) ) {
+	$core_menus = $module->get_core_menus();
+
+	if ( ! empty( $settings->menu ) && in_array( $settings->menu, $core_menus ) ) {
 
 		if ( isset( $settings->menu_layout ) ) {
 			if ( in_array( $settings->menu_layout, array( 'vertical', 'horizontal' ) ) && isset( $settings->submenu_hover_toggle ) ) {

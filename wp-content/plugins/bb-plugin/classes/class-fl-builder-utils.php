@@ -126,7 +126,7 @@ final class FLBuilderUtils {
 	 * @return array
 	 */
 	static public function modsec_fix_decode( $settings ) {
-		if ( defined( 'FL_BUILDER_MODSEC_FIX' ) && FL_BUILDER_MODSEC_FIX ) {
+		if ( self::is_modsec_fix_enabled() ) {
 
 			if ( is_string( $settings ) ) {
 				$settings = wp_slash( base64_decode( $settings ) );
@@ -329,5 +329,39 @@ final class FLBuilderUtils {
 	 */
 	public static function update_option( $option, $value, $autoload = false ) {
 		return update_option( $option, $value, $autoload );
+	}
+
+	/**
+	 * @since 2.6
+	 */
+	public static function sanitize_aspect_css( $setting ) {
+		$setting = str_replace( ':', '/', $setting );
+		if ( ! preg_match( '#^(auto|inherit|initial|unset)$|^(?:auto)?\s?([0-9]+\s?\/\s?[0-9]+)|^[1]$#', $setting ) ) {
+			return '';
+		}
+		return $setting;
+	}
+
+	public static function is_modsec_fix_enabled() {
+		$enabled = defined( 'FL_BUILDER_MODSEC_FIX' ) && FL_BUILDER_MODSEC_FIX;
+		return apply_filters( 'fl_is_modsec_fix_enabled', $enabled );
+	}
+
+	/**
+	 * post_type in settings can be an array as of 2.6
+	 * @since 2.6
+	 */
+	public static function get_post_type_slugs( $post_type, $separator = ' ' ) {
+		return is_array( $post_type ) ? implode( $separator, $post_type ) : $post_type;
+	}
+
+	/**
+	 * @since 2.6
+	 */
+	public static function post_type_contains( $post_type, $post_types ) {
+		if ( is_array( $post_types ) ) {
+			return in_array( $post_type, $post_types );
+		}
+		return $post_type == $post_types;
 	}
 }

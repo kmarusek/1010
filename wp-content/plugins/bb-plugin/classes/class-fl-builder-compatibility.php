@@ -56,6 +56,7 @@ final class FLBuilderCompatibility {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_signify_theme_media' ), 11 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'hide_tribe_child_recurring_events' ) );
 		add_action( 'wp_print_scripts', array( __CLASS__, 'convert_box_bb' ), 20 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'yith_woocommerce_affiliates' ), 20 );
 
 		// Filters
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'bp_pages_support' ), 11, 2 );
@@ -91,8 +92,9 @@ final class FLBuilderCompatibility {
 		add_filter( 'get_the_excerpt', array( __CLASS__, 'fix_rest_excerpt_filter' ), 10, 2 );
 		add_filter( 'woocommerce_tab_manager_tab_panel_content', array( __CLASS__, 'fix_woo_tab_manager_missing_content' ), 10, 3 );
 		add_filter( 'fl_builder_loop_query_args', array( __CLASS__, 'hide_tribe_child_recurring_events_custom_query' ) );
-		add_filter( 'fl_builder_render_assets_inline', array( __CLASS__, 'fix_ultimate_dashboard_pro' ), 11 );
+		add_filter( 'fl_builder_render_assets_inline', array( __CLASS__, 'fix_ultimate_dashboard_pro' ), 1001 );
 		add_filter( 'the_content', __CLASS__ . '::render_tribe_event_template', 11 );
+		add_filter( 'fl_builder_loop_query', array( __CLASS__, 'fix_tribe_events_pagination' ), 20, 2 );
 	}
 
 	/**
@@ -1225,7 +1227,7 @@ final class FLBuilderCompatibility {
 			return $args;
 		}
 
-		if ( 'tribe_events' !== $args['settings']->post_type || 'custom_query' !== $args['settings']->data_source ) {
+		if ( ! FLBuilderUtils::post_type_contains( 'tribe_events', $args['settings']->post_type ) || 'custom_query' !== $args['settings']->data_source ) {
 			return $args;
 		}
 
@@ -1257,5 +1259,44 @@ final class FLBuilderCompatibility {
 			remove_action( 'wp_head', 'convbox_head_script' );
 		}
 	}
+
+	/**
+	 * @since 2.6
+	 */
+
+	public static function yith_woocommerce_affiliates() {
+		if ( class_exists( 'FLBuilderModel' ) && ( FLBuilderModel::is_builder_active() ) ) {
+			wp_dequeue_script( 'yith-wcaf-shortcodes' );
+		}
+	}
+
+	/**
+	 * Fixes TEC 6 pagination.
+	 *
+	 * @since 2.6
+	 */
+	public static function fix_tribe_events_pagination( $query, $settings ) {
+		if ( ! class_exists( 'TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Only_Modifier' ) ) {
+			return $query;
+		}
+
+		if ( empty( $settings->data_source ) || $query->post_count < 1 ) {
+			return $query;
+		}
+
+		if ( 'main_query' === $settings->data_source && ! is_post_type_archive( 'tribe_events' ) ) {
+			return $query;
+		}
+
+		if ( 'custom_query' === $settings->data_source && ! FLBuilderUtils::post_type_contains( 'tribe_events', $settings->post_type ) ) {
+			return $query;
+		}
+
+		$query->max_num_pages = ceil( $query->found_posts / $query->query_vars['posts_per_page'] );
+
+		return $query;
+	}
+
+
 }
 FLBuilderCompatibility::init();

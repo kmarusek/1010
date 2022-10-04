@@ -62,6 +62,19 @@ FLBuilder::register_settings_form('col', array(
 								'type' => 'none',
 							),
 						),
+						'aspect_ratio'      => array(
+							'type'       => 'text',
+							'label'      => __( 'Aspect Ratio', 'fl-builder' ),
+							'default'    => '',
+							'help'       => 'Use the forward slash notation: width/height.',
+							'responsive' => true,
+							'sanitize'   => 'FLBuilderUtils::sanitize_aspect_css',
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.fl-col-content',
+								'property' => 'aspect-ratio',
+							),
+						),
 						'content_alignment' => array(
 							'type'    => 'select',
 							'label'   => __( 'Vertical Alignment', 'fl-builder' ),
@@ -393,13 +406,35 @@ FLBuilder::register_settings_form('col', array(
 							'responsive' => array(
 								'default_unit' => array(
 									'default'    => $global_settings->column_margins_unit,
+									'large'      => $global_settings->column_margins_large_unit,
 									'medium'     => $global_settings->column_margins_medium_unit,
 									'responsive' => $global_settings->column_margins_responsive_unit,
 								),
 								'placeholder'  => array(
-									'default'    => empty( $global_settings->column_margins ) ? '0' : $global_settings->column_margins,
-									'medium'     => empty( $global_settings->column_margins_medium ) ? '0' : $global_settings->column_margins_medium,
-									'responsive' => empty( $global_settings->column_margins_responsive ) ? '0' : $global_settings->column_margins_responsive,
+									'default'    => array(
+										'top'    => empty( $global_settings->column_margins_top ) ? '' : $global_settings->column_margins_top,
+										'right'  => empty( $global_settings->column_margins_right ) ? '' : $global_settings->column_margins_right,
+										'bottom' => empty( $global_settings->column_margins_bottom ) ? '' : $global_settings->column_margins_bottom,
+										'left'   => empty( $global_settings->column_margins_left ) ? '' : $global_settings->column_margins_left,
+									),
+									'large'      => array(
+										'top'    => empty( $global_settings->column_margins_top_large ) ? $global_settings->column_margins_top : $global_settings->column_margins_top_large,
+										'right'  => empty( $global_settings->column_margins_right_large ) ? $global_settings->column_margins_right : $global_settings->column_margins_right_large,
+										'bottom' => empty( $global_settings->column_margins_bottom_large ) ? $global_settings->column_margins_bottom : $global_settings->column_margins_bottom_large,
+										'left'   => empty( $global_settings->column_margins_left_large ) ? $global_settings->column_margins_left : $global_settings->column_margins_left_large,
+									),
+									'medium'     => array(
+										'top'    => empty( $global_settings->column_margins_top_medium ) ? $global_settings->column_margins_top : $global_settings->column_margins_top_medium,
+										'right'  => empty( $global_settings->column_margins_right_medium ) ? $global_settings->column_margins_right : $global_settings->column_margins_right_medium,
+										'bottom' => empty( $global_settings->column_margins_bottom_medium ) ? $global_settings->column_margins_bottom : $global_settings->column_margins_bottom_medium,
+										'left'   => empty( $global_settings->column_margins_left_medium ) ? $global_settings->column_margins_left : $global_settings->column_margins_left_medium,
+									),
+									'responsive' => array(
+										'top'    => empty( $global_settings->column_margins_top_responsive ) ? $global_settings->column_margins_top_medium : $global_settings->column_margins_top_responsive,
+										'right'  => empty( $global_settings->column_margins_right_responsive ) ? $global_settings->column_margins_right_medium : $global_settings->column_margins_right_responsive,
+										'bottom' => empty( $global_settings->column_margins_bottom_responsive ) ? $global_settings->column_margins_bottom_medium : $global_settings->column_margins_bottom_responsive,
+										'left'   => empty( $global_settings->column_margins_left_responsive ) ? $global_settings->column_margins_left_medium : $global_settings->column_margins_left_responsive,
+									),
 								),
 							),
 						),
@@ -420,13 +455,35 @@ FLBuilder::register_settings_form('col', array(
 							'responsive' => array(
 								'default_unit' => array(
 									'default'    => $global_settings->column_padding_unit,
+									'large'      => $global_settings->column_padding_large_unit,
 									'medium'     => $global_settings->column_padding_medium_unit,
 									'responsive' => $global_settings->column_padding_responsive_unit,
 								),
 								'placeholder'  => array(
-									'default'    => empty( $global_settings->column_padding ) ? '0' : $global_settings->column_padding,
-									'medium'     => empty( $global_settings->column_padding_medium ) ? '0' : $global_settings->column_padding_medium,
-									'responsive' => empty( $global_settings->column_padding_responsive ) ? '0' : $global_settings->column_padding_responsive,
+									'default'    => array(
+										'top'    => empty( $global_settings->column_padding_top ) ? '' : $global_settings->column_padding_top,
+										'right'  => empty( $global_settings->column_padding_right ) ? '' : $global_settings->column_padding_right,
+										'bottom' => empty( $global_settings->column_padding_bottom ) ? '' : $global_settings->column_padding_bottom,
+										'left'   => empty( $global_settings->column_padding_left ) ? '' : $global_settings->column_padding_left,
+									),
+									'large'      => array(
+										'top'    => empty( $global_settings->column_padding_top_large ) ? '' : $global_settings->column_padding_top_large,
+										'right'  => empty( $global_settings->column_padding_right_large ) ? '' : $global_settings->column_padding_right_large,
+										'bottom' => empty( $global_settings->column_padding_bottom_large ) ? '' : $global_settings->column_padding_bottom_large,
+										'left'   => empty( $global_settings->column_padding_left_large ) ? '' : $global_settings->column_padding_left_large,
+									),
+									'medium'     => array(
+										'top'    => empty( $global_settings->column_padding_top_medium ) ? '' : $global_settings->column_padding_top_medium,
+										'right'  => empty( $global_settings->column_padding_right_medium ) ? '' : $global_settings->column_padding_right_medium,
+										'bottom' => empty( $global_settings->column_padding_bottom_medium ) ? '' : $global_settings->column_padding_bottom_medium,
+										'left'   => empty( $global_settings->column_padding_left_medium ) ? '' : $global_settings->column_padding_left_medium,
+									),
+									'responsive' => array(
+										'top'    => empty( $global_settings->column_padding_top_responsive ) ? '' : $global_settings->column_padding_top_responsive,
+										'right'  => empty( $global_settings->column_padding_right_responsive ) ? '' : $global_settings->column_padding_right_responsive,
+										'bottom' => empty( $global_settings->column_padding_bottom_responsive ) ? '' : $global_settings->column_padding_bottom_responsive,
+										'left'   => empty( $global_settings->column_padding_left_responsive ) ? '' : $global_settings->column_padding_left_responsive,
+									),
 								),
 							),
 						),
@@ -440,8 +497,11 @@ FLBuilder::register_settings_form('col', array(
 							'label'   => __( 'Breakpoint', 'fl-builder' ),
 							'options' => array(
 								''               => __( 'All', 'fl-builder' ),
-								'desktop'        => __( 'Large Devices Only', 'fl-builder' ),
-								'desktop-medium' => __( 'Large &amp; Medium Devices Only', 'fl-builder' ),
+								'xl'             => __( 'Extra Large Devices Only', 'fl-builder' ),
+								'desktop'        => __( 'Extra Large &amp; Large Devices Only', 'fl-builder' ),
+								'desktop-medium' => __( 'Extra Large, Large &amp; Medium Devices Only', 'fl-builder' ),
+								'large'          => __( 'Large Devices Only', 'fl-builder' ),
+								'large-medium'   => __( 'Large &amp; Medium Devices Only', 'fl-builder' ),
 								'medium'         => __( 'Medium Devices Only', 'fl-builder' ),
 								'medium-mobile'  => __( 'Medium &amp; Small Devices Only', 'fl-builder' ),
 								'mobile'         => __( 'Small Devices Only', 'fl-builder' ),
@@ -554,6 +614,23 @@ FLBuilder::register_settings_form('col', array(
 							'preview'  => array(
 								'type' => 'none',
 							),
+						),
+					),
+				),
+				'export_import' => array(
+					'title'  => __( 'Export/Import', 'fl-builder' ),
+					'fields' => array(
+						'export' => array(
+							'type'    => 'raw',
+							'label'   => __( 'Export', 'fl-builder' ),
+							'preview' => 'none',
+							'content' => '<button style="margin-right:10px" class="fl-builder-button fl-builder-button-small col-export-all" title="Copy Settings">Copy Settings</button><button class="fl-builder-button fl-builder-button-small col-export-style" title="Copy Styles">Copy Styles</button>',
+						),
+						'import' => array(
+							'type'    => 'raw',
+							'label'   => __( 'Import', 'fl-builder' ),
+							'preview' => 'none',
+							'content' => '<div class="col-import-wrap"><input type="text" class="col-import-input" placeholder="Paste settings or styles here..." /><button class="fl-builder-button fl-builder-button-small col-import-apply">Import</button></div><div class="col-import-error"></div>',
 						),
 					),
 				),

@@ -36,7 +36,7 @@ YUI({'logExclude': { 'yui': true } }).use('fl-slideshow', function(Y){
 			navPosition: '<?php echo $settings->nav_position; ?>',
 			navType: '<?php echo $settings->nav_type; ?>',
 			<?php if ( $settings->nav_overlay ) : ?>
-			overlayHideDelay: <?php echo $settings->overlay_hide_delay * 1000; ?>,
+			overlayHideDelay: <?php echo intval( $settings->overlay_hide_delay ) * 1000; ?>,
 			overlayHideOnMousemove: <?php echo $settings->overlay_hide; ?>,
 			<?php endif; ?>
 			pinterestButtonEnabled: <?php echo $settings->pinterest; ?>,
@@ -46,7 +46,7 @@ YUI({'logExclude': { 'yui': true } }).use('fl-slideshow', function(Y){
 			responsiveThreshold: <?php echo $global_settings->responsive_breakpoint; ?>,
 			<?php endif; ?>
 			source: [{<?php echo $source; ?>}],
-			speed: <?php echo $settings->speed * 1000; ?>,
+			speed: <?php echo intval( $settings->speed ) * 1000; ?>,
 			tweetButtonEnabled: <?php echo $settings->twitter; ?>,
 			thumbsImageHeight: <?php echo $settings->thumbs_size; ?>,
 			thumbsImageWidth: <?php echo $settings->thumbs_size; ?>,

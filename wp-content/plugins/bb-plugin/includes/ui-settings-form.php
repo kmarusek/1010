@@ -18,6 +18,9 @@
 			<div class="fl-lightbox-header">
 				<h1>
 					{{{data.title}}}
+					<# if ( data.settings.node_label && ! FLBuilderConfig.node_labels_disabled ) { #>
+					{{{FLBuilderConfig.node_labels_separator}}}{{{data.settings.node_label}}}
+					<# } #>
 					<# for ( var i = 0; i < data.badges.length; i++ ) { #>
 					<span class="fl-builder-badge fl-builder-badge-{{data.badges[ i ]}}">{{data.badges[ i ]}}</span>
 					<# } #>

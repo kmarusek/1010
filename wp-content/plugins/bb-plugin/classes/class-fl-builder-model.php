@@ -191,6 +191,7 @@ final class FLBuilderModel {
 		add_action( 'fl_builder_after_save_user_template', __CLASS__ . '::save_layout_revision' );
 
 		/* Filters */
+		add_filter( 'fl_builder_get_global_settings', __CLASS__ . '::filter_global_settings', 10, 1 );
 		add_filter( 'heartbeat_received', __CLASS__ . '::lock_post', 10, 2 );
 		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::filter_row_settings_for_resize', 10, 2 );
 		add_filter( 'wp_revisions_to_keep', __CLASS__ . '::limit_revisions', 10, 2 );
@@ -498,6 +499,155 @@ final class FLBuilderModel {
 		 * @see fl_builder_is_post_editable
 		 */
 		return (bool) apply_filters( 'fl_builder_is_post_editable', $editable );
+	}
+
+	/**
+	 * Filter global settings.
+	 *
+	 * @return object
+	 */
+	static public function filter_global_settings( $new_settings ) {
+		// row margin.
+		if ( isset( $new_settings->row_margins ) ) {
+			$new_settings->row_margins_top    = $new_settings->row_margins;
+			$new_settings->row_margins_right  = $new_settings->row_margins;
+			$new_settings->row_margins_bottom = $new_settings->row_margins;
+			$new_settings->row_margins_left   = $new_settings->row_margins;
+
+			unset( $new_settings->row_margins );
+		}
+
+		if ( isset( $new_settings->row_margins_medium ) ) {
+			$new_settings->row_margins_top_medium    = $new_settings->row_margins_medium;
+			$new_settings->row_margins_right_medium  = $new_settings->row_margins_medium;
+			$new_settings->row_margins_bottom_medium = $new_settings->row_margins_medium;
+			$new_settings->row_margins_left_medium   = $new_settings->row_margins_medium;
+
+			unset( $new_settings->row_margins_medium );
+		}
+
+		if ( isset( $new_settings->row_margins_responsive ) ) {
+			$new_settings->row_margins_top_responsive    = $new_settings->row_margins_responsive;
+			$new_settings->row_margins_right_responsive  = $new_settings->row_margins_responsive;
+			$new_settings->row_margins_bottom_responsive = $new_settings->row_margins_responsive;
+			$new_settings->row_margins_left_responsive   = $new_settings->row_margins_responsive;
+
+			unset( $new_settings->row_margins_responsive );
+		}
+
+		// row padding.
+		if ( isset( $new_settings->row_padding ) ) {
+			$new_settings->row_padding_top    = $new_settings->row_padding;
+			$new_settings->row_padding_right  = $new_settings->row_padding;
+			$new_settings->row_padding_bottom = $new_settings->row_padding;
+			$new_settings->row_padding_left   = $new_settings->row_padding;
+
+			unset( $new_settings->row_padding );
+		}
+
+		if ( isset( $new_settings->row_padding_medium ) ) {
+			$new_settings->row_padding_top_medium    = $new_settings->row_padding_medium;
+			$new_settings->row_padding_right_medium  = $new_settings->row_padding_medium;
+			$new_settings->row_padding_bottom_medium = $new_settings->row_padding_medium;
+			$new_settings->row_padding_left_medium   = $new_settings->row_padding_medium;
+
+			unset( $new_settings->row_padding_medium );
+		}
+
+		if ( isset( $new_settings->row_padding_responsive ) ) {
+			$new_settings->row_padding_top_responsive    = $new_settings->row_padding_responsive;
+			$new_settings->row_padding_right_responsive  = $new_settings->row_padding_responsive;
+			$new_settings->row_padding_bottom_responsive = $new_settings->row_padding_responsive;
+			$new_settings->row_padding_left_responsive   = $new_settings->row_padding_responsive;
+
+			unset( $new_settings->row_padding_responsive );
+		}
+
+		// column margin.
+		if ( isset( $new_settings->column_margins ) ) {
+			$new_settings->column_margins_top    = $new_settings->column_margins;
+			$new_settings->column_margins_right  = $new_settings->column_margins;
+			$new_settings->column_margins_bottom = $new_settings->column_margins;
+			$new_settings->column_margins_left   = $new_settings->column_margins;
+
+			unset( $new_settings->column_margins );
+		}
+
+		if ( isset( $new_settings->column_margins_medium ) ) {
+			$new_settings->column_margins_top_medium    = $new_settings->column_margins_medium;
+			$new_settings->column_margins_right_medium  = $new_settings->column_margins_medium;
+			$new_settings->column_margins_bottom_medium = $new_settings->column_margins_medium;
+			$new_settings->column_margins_left_medium   = $new_settings->column_margins_medium;
+
+			unset( $new_settings->column_margins_medium );
+		}
+
+		if ( isset( $new_settings->column_margins_responsive ) ) {
+			$new_settings->column_margins_top_responsive    = $new_settings->column_margins_responsive;
+			$new_settings->column_margins_right_responsive  = $new_settings->column_margins_responsive;
+			$new_settings->column_margins_bottom_responsive = $new_settings->column_margins_responsive;
+			$new_settings->column_margins_left_responsive   = $new_settings->column_margins_responsive;
+
+			unset( $new_settings->column_margins_responsive );
+		}
+
+		// column padding.
+		if ( isset( $new_settings->column_padding ) ) {
+			$new_settings->column_padding_top    = $new_settings->column_padding;
+			$new_settings->column_padding_right  = $new_settings->column_padding;
+			$new_settings->column_padding_bottom = $new_settings->column_padding;
+			$new_settings->column_padding_left   = $new_settings->column_padding;
+
+			unset( $new_settings->column_padding );
+		}
+
+		if ( isset( $new_settings->column_padding_medium ) ) {
+			$new_settings->column_padding_top_medium    = $new_settings->column_padding_medium;
+			$new_settings->column_padding_right_medium  = $new_settings->column_padding_medium;
+			$new_settings->column_padding_bottom_medium = $new_settings->column_padding_medium;
+			$new_settings->column_padding_left_medium   = $new_settings->column_padding_medium;
+
+			unset( $new_settings->column_padding_medium );
+		}
+
+		if ( isset( $new_settings->column_padding_responsive ) ) {
+			$new_settings->column_padding_top_responsive    = $new_settings->column_padding_responsive;
+			$new_settings->column_padding_right_responsive  = $new_settings->column_padding_responsive;
+			$new_settings->column_padding_bottom_responsive = $new_settings->column_padding_responsive;
+			$new_settings->column_padding_left_responsive   = $new_settings->column_padding_responsive;
+
+			unset( $new_settings->column_padding_responsive );
+		}
+
+		// module margin.
+		if ( isset( $new_settings->module_margins ) ) {
+			$new_settings->module_margins_top    = $new_settings->module_margins;
+			$new_settings->module_margins_right  = $new_settings->module_margins;
+			$new_settings->module_margins_bottom = $new_settings->module_margins;
+			$new_settings->module_margins_left   = $new_settings->module_margins;
+
+			unset( $new_settings->module_margins );
+		}
+
+		if ( isset( $new_settings->module_margins_medium ) ) {
+			$new_settings->module_margins_top_medium    = $new_settings->module_margins_medium;
+			$new_settings->module_margins_right_medium  = $new_settings->module_margins_medium;
+			$new_settings->module_margins_bottom_medium = $new_settings->module_margins_medium;
+			$new_settings->module_margins_left_medium   = $new_settings->module_margins_medium;
+
+			unset( $new_settings->module_margins_medium );
+		}
+
+		if ( isset( $new_settings->module_margins_responsive ) ) {
+			$new_settings->module_margins_top_responsive    = $new_settings->module_margins_responsive;
+			$new_settings->module_margins_right_responsive  = $new_settings->module_margins_responsive;
+			$new_settings->module_margins_bottom_responsive = $new_settings->module_margins_responsive;
+			$new_settings->module_margins_left_responsive   = $new_settings->module_margins_responsive;
+
+			unset( $new_settings->module_margins_responsive );
+		}
+
+		return $new_settings;
 	}
 
 	/**
@@ -3939,7 +4089,7 @@ final class FLBuilderModel {
 				$defaults->$name = is_array( $default ) ? $default : array( $default );
 			} else {
 
-				foreach ( array( 'default', 'medium', 'responsive' ) as $device ) {
+				foreach ( array( 'default', 'large', 'medium', 'responsive' ) as $device ) {
 
 					if ( ! $responsive && 'default' !== $device ) {
 						continue;
@@ -4050,7 +4200,7 @@ final class FLBuilderModel {
 	 * @return void
 	 */
 	static public function save_settings( $node_id = null, $settings = null ) {
-		$node      = self::get_node( $node_id );
+		$node = self::get_node( $node_id );
 		if ( ! FLBuilderModel::user_has_unfiltered_html() && true !== self::verify_settings( $settings ) ) {
 			return array(
 				'node_id'  => $node->node,
@@ -4248,9 +4398,17 @@ final class FLBuilderModel {
 				$settings = new StdClass();
 			}
 
+			// Special handling for color scheme
+			if ( is_array( $settings ) ) {
+				$settings['color_scheme'] = FLBuilderUserSettings::get_color_scheme();
+			} else {
+				$settings->color_scheme = FLBuilderUserSettings::get_color_scheme();
+			}
+
 			// Merge in defaults and cache settings
 			self::$global_settings = (object) array_merge( (array) $defaults, (array) $settings );
 			self::$global_settings = self::merge_nested_form_defaults( 'general', 'global', self::$global_settings );
+			self::$global_settings = apply_filters( 'fl_builder_get_global_settings', self::$global_settings );
 		}
 
 		return self::$global_settings;
@@ -4265,14 +4423,30 @@ final class FLBuilderModel {
 	 */
 	static public function save_global_settings( $settings = array() ) {
 		$old_settings = self::get_global_settings();
-
-		$settings = self::sanitize_global( $settings );
-
+		$settings     = self::sanitize_global( $settings );
 		$new_settings = (object) array_merge( (array) $old_settings, (array) $settings );
+		/**
+		* Special handling for color scheme
+		* Color scheme is actually a user setting, not a global setting. It just appears in the global settings form.
+		*/
+		if ( property_exists( $new_settings, 'color_scheme' ) ) {
 
+			FLBuilderUserSettings::save_color_scheme( $new_settings->color_scheme );
+
+			// No need to store this in global settings
+			unset( $new_settings->color_scheme );
+		}
+
+		// delete all posts assets.
 		self::delete_asset_cache_for_all_posts();
+
+		// remove old global settings.
 		self::$global_settings = null;
 
+		// apply filter beofre update.
+		$new_settings = apply_filters( 'fl_builder_before_save_global_settings', $new_settings );
+
+		// update db with new settings.
 		FLBuilderUtils::update_option( '_fl_builder_settings', $new_settings );
 
 		return self::get_global_settings();
@@ -4576,20 +4750,25 @@ final class FLBuilderModel {
 		$status   = ! $status ? self::get_node_status() : $status;
 		$key      = 'published' == $status ? '_fl_builder_data' : '_fl_builder_draft';
 		$raw_data = get_metadata( 'post', $post_id, $key );
-		$data     = self::slash_settings( self::clean_layout_data( $data ) );
+		/**
+		 * @since 2.6
+		 * @see fl_builder_enable_small_data_mode
+		 */
+		if ( apply_filters( 'fl_builder_enable_small_data_mode', false ) ) {
 
-		// TODO this is the performance patch for settings, needs to be fixed though...
-		// $data     = self::clean_layout_data( $data );
-		//
-		// if ( 'published' === $status ) {
-		// 	foreach ( $data as $node_id => $node ) {
-		// 		if ( isset( $node->settings ) ) {
-		// 			$data[ $node_id ]->settings = (object) self::array_remove_by_values( (array) $node->settings, array( '', null, array() ) );
-		// 		}
-		// 	}
-		// }
-		//
-		// $data = self::slash_settings( $data );
+			$data = self::clean_layout_data( $data );
+
+			if ( 'published' === $status ) {
+				foreach ( $data as $node_id => $node ) {
+					if ( isset( $node->settings ) ) {
+						$data[ $node_id ]->settings = (object) self::array_remove_by_values( (array) $node->settings, array( '', null, array() ) );
+					}
+				}
+			}
+			$data = self::slash_settings( $data );
+		} else {
+			$data = self::slash_settings( self::clean_layout_data( $data ) );
+		}
 
 		// Update the data.
 		if ( 0 === count( $raw_data ) ) {
@@ -6406,9 +6585,9 @@ final class FLBuilderModel {
 
 		// This is needed for backwards compat with the old core templates category.
 		$core_categories = array(
-			'general' => __( 'General', 'fl-builder' ),
-			'landing' => __( 'Landing Pages', 'fl-builder' ),
-			'company' => __( 'Content Pages', 'fl-builder' ),
+			'general' => 'General',
+			'landing' => 'Landing Pages',
+			'company' => 'Content Pages',
 		);
 
 		// Build the the templates array.
@@ -6466,7 +6645,7 @@ final class FLBuilderModel {
 			if ( ! $template['group'] ) {
 				// If we don't have a group, use categories as groups.
 				foreach ( $template['category'] as $cat_name ) {
-					$template_groups[] = $cat_name;
+					$template_groups[] = __( $cat_name, 'fl-builder' ); // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 				}
 				// Clear the categories since we're using groups instead.
 				$template['category'] = array(

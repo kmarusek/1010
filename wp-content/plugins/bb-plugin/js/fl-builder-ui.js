@@ -454,7 +454,7 @@
             FLBuilder.addHook('didEnterRevisionPreview', this.hide.bind(this));
             FLBuilder.addHook('didExitRevisionPreview', this.show.bind(this));
             FLBuilder.addHook('didPublishLayout', this.onPublish.bind(this));
-			FLBuilder.addHook('didPublishLayout', this.onPublishCacheClear.bind(this));
+         // FLBuilder.addHook('didPublishLayout', this.onPublishCacheClear.bind(this));
         },
 
         /**

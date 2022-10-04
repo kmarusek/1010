@@ -29,6 +29,12 @@ class FLBuilderArt {
 
 		// Add special <option> sets for js output
 		add_filter( 'fl_builder_shared_option_sets', 'FLBuilderArt::filter_shared_option_sets' );
+
+		add_filter( 'fl_builder_register_settings_form', 'FLBuilderArt::global_options', 10, 2 );
+
+		add_action( 'init', 'FLBuilderArt::register_global_form' );
+
+		add_action( 'init', 'FLBuilderArt::register_global_shapes' );
 	}
 
 	/**
@@ -132,6 +138,7 @@ class FLBuilderArt {
 			'preserve_aspect_ratio' => 'none',
 			'render'                => '',
 			'preset_settings'       => array(),
+			'shape_original'        => '',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -148,10 +155,11 @@ class FLBuilderArt {
 		 * This is so when you choose a shape, we can also setup other fields for the optimal initial appearance.
 		 */
 		FLBuilderSettingsPresets::register( 'shape', array(
-			'name'     => $args['name'],
-			'label'    => $args['label'],
-			'settings' => $args['preset_settings'],
-			'data'     => array(
+			'name'           => $args['name'],
+			'label'          => $args['label'],
+			'settings'       => $args['preset_settings'],
+			'shape_original' => $args['shape_original'],
+			'data'           => array(
 				'viewBox' => array(
 					'x'      => $args['x'],
 					'y'      => $args['y'],
@@ -177,10 +185,13 @@ class FLBuilderArt {
 		 */
 		$art = apply_filters( 'fl_shape_artwork', self::$artwork );
 
-		if ( $key && isset( $art[ $key ] ) ) {
-			return $art[ $key ];
+		if ( $key ) {
+			if ( isset( $art[ $key ] ) ) {
+				return $art[ $key ];
+			} else {
+				return false;
+			}
 		}
-
 		return $art;
 	}
 
@@ -213,6 +224,7 @@ class FLBuilderArt {
 	 */
 	static public function render_art( $shape, $settings ) {
 
+		$output = '';
 		// Render artwork into a buffer
 		if ( $shape && isset( $shape['render'] ) ) {
 			ob_start();
@@ -220,10 +232,12 @@ class FLBuilderArt {
 
 			if ( is_string( $render ) && file_exists( $render ) ) {
 				include $render;
+			} else {
+				echo $render;
 			}
 			$output = ob_get_clean();
-			return $output;
 		}
+		return $output;
 	}
 
 	/**
@@ -316,7 +330,7 @@ class FLBuilderArt {
 		$shape_args = self::get_art( $shape_name );
 		$content    = self::render_art( $shape_args, $settings );
 
-		if ( ! isset( $shape_args['x'] ) ) {
+		if ( ! $shape_args ) {
 			return false;
 		}
 
@@ -817,6 +831,113 @@ class FLBuilderArt {
 			default:
 				return null;
 		}
+	}
+
+	static public function register_global_shapes( $global_settings = false ) {
+
+		$width  = '800';
+		$height = '100';
+
+		if ( FLBuilderAJAX::doing_ajax() ) {
+			return false;
+		}
+
+		if ( ! $global_settings ) {
+			$global_settings = FLBuilderModel::get_global_settings();
+		}
+
+		if ( isset( $global_settings->shape_form ) && ! empty( $global_settings->shape_form ) ) {
+			foreach ( (array) $global_settings->shape_form as $i => $shape ) {
+
+				if ( ! isset( $shape->shape ) || '' == $shape->shape_name || '' == $shape->shape ) {
+					continue;
+				}
+
+				$svg  = $shape->shape;
+				$name = $shape->shape_name;
+
+				// find width/height
+				$sizes = preg_match( '/viewBox="[0-9]+\s[0-9]+\s([0-9]+)\s([0-9]+)/', $svg, $matches );
+
+				if ( isset( $matches[1] ) && isset( $matches[2] ) ) {
+					$width  = $matches[1];
+					$height = $matches[2];
+				}
+
+				// here we just want the internals of the svg everything else is stripped.
+				$svg = preg_replace( '/^<\?xml[^>]*>/', '', $svg );
+				$svg = preg_replace( '/<svg[^>]*>/', '', $svg );
+				$svg = preg_replace( '/(<[a-z]+)/', '$1 class="fl-shape" ', ltrim( $svg ) );
+				$svg = str_replace( '</svg>', '', $svg );
+
+				$args = array(
+					'render'         => $svg,
+					'width'          => $width,
+					'height'         => $height,
+					'name'           => '' !== $shape->shape_original ? $shape->shape_original : 'global-shapes-' . sanitize_title( $name ),
+					'label'          => $name,
+					'shape_original' => '' !== $shape->shape_original ? $shape->shape_original : 'global-shapes-' . sanitize_title( $name ),
+				);
+				self::register_shape( $args );
+			}
+		}
+	}
+
+	static public function global_options( $form, $id ) {
+
+		if ( 'global' == $id ) {
+			$form['tabs']['shapes'] = array(
+				'title'       => 'Shapes',
+				'description' => 'Paste your SVG code to add new row shapes to the shape dropdown.',
+				'sections'    => array(
+					'shapes' => array(
+						'title'  => 'Row SVG Shapes',
+						'fields' => array(
+							'shape_form' => array(
+								'type'         => 'form',
+								'label'        => 'Shape',
+								'form'         => 'global_shapes_form',
+								'preview_text' => 'shape_name',
+								'multiple'     => true,
+							),
+						),
+					),
+				),
+			);
+		}
+		return $form;
+	}
+
+	public static function register_global_form() {
+		FLBuilder::register_settings_form('global_shapes_form', array(
+			'title' => __( 'Add Shape', 'fl-builder' ),
+			'tabs'  => array(
+				'general' => array(
+					'title'    => __( 'General', 'fl-builder' ), // Tab title
+					'sections' => array(
+						'general' => array(
+							'title'  => '',
+							'fields' => array(
+								'shape_name'     => array(
+									'type'     => 'text',
+									'label'    => 'Name',
+									'required' => true,
+								),
+								'shape'          => array(
+									'label'    => 'SVG Code',
+									'type'     => 'textarea',
+									'rows'     => 10,
+									'required' => true,
+								),
+								'shape_original' => array(
+									'type' => 'text',
+								),
+							),
+						),
+					),
+				),
+			),
+		));
 	}
 }
 FLBuilderArt::init();

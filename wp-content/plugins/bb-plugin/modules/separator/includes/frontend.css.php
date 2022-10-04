@@ -7,6 +7,22 @@
 }
 
 <?php if ( $global_settings->responsive_enabled ) { ?>
+	<?php if ( ! empty( $settings->height_large ) || ! empty( $settings->width_large ) || ! empty( $settings->align_large ) ) { ?>
+	@media (max-width: <?php echo $global_settings->large_breakpoint; ?>px) {
+		.fl-node-<?php echo $id; ?> .fl-separator {
+			<?php if ( ! empty( $settings->height_large ) ) { ?>
+				border-top-width: <?php echo $settings->height_large; ?>px;
+			<?php } ?>
+			<?php if ( ! empty( $settings->width_large ) ) { ?>
+				max-width: <?php echo $settings->width_large . $settings->width_large_unit; ?>;
+			<?php } ?>
+			<?php if ( ! empty( $settings->align_large ) ) { ?>
+				margin: <?php echo $settings->align_large; ?>;
+			<?php } ?>
+		}
+	}
+	<?php } ?>
+	<?php if ( ! empty( $settings->height_medium ) || ! empty( $settings->width_medium ) || ! empty( $settings->align_medium ) ) { ?>
 	@media (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 		.fl-node-<?php echo $id; ?> .fl-separator {
 			<?php if ( ! empty( $settings->height_medium ) ) { ?>
@@ -20,6 +36,8 @@
 			<?php } ?>
 		}
 	}
+	<?php } ?>
+	<?php if ( ! empty( $settings->height_responsive ) || ! empty( $settings->width_responsive ) || ! empty( $settings->align_responsive ) ) { ?>
 	@media (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 		.fl-node-<?php echo $id; ?> .fl-separator {
 			<?php if ( ! empty( $settings->height_responsive ) ) { ?>
@@ -33,4 +51,5 @@
 			<?php } ?>
 		}
 	}
+	<?php } ?>
 <?php } ?>

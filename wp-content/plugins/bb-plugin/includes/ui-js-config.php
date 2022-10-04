@@ -19,7 +19,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'isRtl'                      => is_rtl(),
 	'isUserTemplate'             => false,
 	'lite'                       => true === FL_BUILDER_LITE,
-	'modSecFix'                  => ( defined( 'FL_BUILDER_MODSEC_FIX' ) && FL_BUILDER_MODSEC_FIX ),
+	'modSecFix'                  => FLBuilderUtils::is_modsec_fix_enabled(),
 	'MaxInputVars'               => FL_Debug::safe_ini_get( 'max_input_vars' ),
 	'moduleGroups'               => FLBuilderModel::get_module_groups(),
 	'nestedColumns'              => ( ! defined( 'FL_BUILDER_NESTED_COLUMNS' ) || FL_BUILDER_NESTED_COLUMNS ),
@@ -102,6 +102,14 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 		'global_unfiltered_html' => defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ? true : false,
 	),
 	/**
+	 * @see fl_node_labels_enabled
+	 */
+	'node_labels_disabled'       => apply_filters( 'fl_node_labels_disabled', false ),
+	/**
+	 * @see fl_node_labels_separator
+	 */
+	'node_labels_separator'      => apply_filters( 'fl_node_labels_separator', ' - ' ),
+	/**
 	 * CSS to ignore during responsive preview
 	 * @see fl_builder_responsive_ignore
 	 */
@@ -151,6 +159,7 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'codeErrorIgnore'                => esc_attr__( 'Save With Errors', 'fl-builder' ),
 	'codeErrorDetected'              => esc_html__( 'We detected a possible issue here:', 'fl-builder' ),
 	'childColumn'                    => esc_attr__( 'Child Column', 'fl-builder' ),
+	'collapse_all'                   => esc_attr__( 'Collapse All', 'fl-builder' ),
 	'column'                         => esc_attr__( 'Column', 'fl-builder' ),
 	'contentSliderSelectLayout'      => esc_attr__( 'Please select either a background layout or content layout before submitting.', 'fl-builder' ),
 	'contentSliderTransitionWarn'    => esc_attr__( 'Transition value should be lower than Delay value.', 'fl-builder' ),
@@ -177,6 +186,7 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'enterValidDay'                  => esc_attr__( 'Error! Please enter a valid day.', 'fl-builder' ),
 	'enterValidMonth'                => esc_attr__( 'Error! Please enter a valid month.', 'fl-builder' ),
 	'enterValidYear'                 => esc_attr__( 'Error! Please enter a valid year.', 'fl-builder' ),
+	'expand_all'                     => esc_attr__( 'Expand All', 'fl-builder' ),
 	'errorMessage'                   => esc_attr__( 'Beaver Builder caught the following JavaScript error. If Beaver Builder is not functioning as expected the cause is most likely this error. Please help us by disabling all plugins and testing Beaver Builder while reactivating each to determine if the issue is related to a third party plugin.', 'fl-builder' ),
 	'fieldLoading'                   => esc_attr__( 'Field Loading...', 'fl-builder' ),
 	'fontAwesome'                    => esc_attr( FLBuilderFontAwesome::error_text() ),

@@ -30,6 +30,7 @@ var defaults = {
 
 disabled_defaults = {
 	default: {},
+	large: {},
 	medium: {},
 	responsive: {}
 }

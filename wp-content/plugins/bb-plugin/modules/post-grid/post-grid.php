@@ -20,6 +20,24 @@ class FLPostGridModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Ensure backwards compatibility with old settings
+	 * before defaults are merged in.
+	 *
+	 * @since 2.6.0.1
+	 * @param object $settings A module settings object.
+	 * @return object
+	 */
+	public function filter_raw_settings( $settings ) {
+
+		// Handle columns for the new large breakpoint.
+		if ( ! isset( $settings->post_columns_large ) ) {
+			$settings->post_columns_large = $settings->post_columns;
+		}
+
+		return $settings;
+	}
+
+	/**
 	 * Ensure backwards compatibility with old settings.
 	 *
 	 * @since 2.2
@@ -397,9 +415,8 @@ class FLPostGridModule extends FLBuilderModule {
 		if ( is_archive() && 'main_query' === $data_source ) {
 			$schema = is_post_type_archive( 'post' ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
 		} else {
-			$schema = ( 'post' === $post_type ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
+			$schema = ( FLBuilderUtils::post_type_contains( 'post', $post_type ) ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
 		}
-
 		return $schema;
 	}
 
@@ -587,6 +604,20 @@ class FLPostGridModule extends FLBuilderModule {
 	public function get_posts_container() {
 		return $this->settings->posts_container;
 	}
+
+	public function get_columns_count( $screen = 'default' ) {
+		$value = $this->settings->{ 'post_columns' . ( 'default' === $screen ? '' : '_' . $screen ) };
+
+		if ( '' === $value ) {
+			return 3;
+		}
+
+		if ( $value < 1 ) {
+			return 3;
+		}
+
+		return $value;
+	}
 }
 
 /**
@@ -612,11 +643,11 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'toggle'  => array(
 							'columns' => array(
 								'sections' => array( 'posts', 'image', 'content', 'terms', 'post_style', 'text_style' ),
-								'fields'   => array( 'match_height', 'post_columns', 'post_spacing', 'post_padding', 'image', 'grid_image_position', 'grid_image_spacing', 'show_author', 'show_comments_grid', 'info_separator', 'image_size', 'image_fallback', 'show_image' ),
+								'fields'   => array( 'match_height', 'post_columns', 'post_spacing', 'post_padding', 'image', 'grid_image_position', 'grid_image_spacing', 'show_author', 'link_author', 'show_comments_grid', 'info_separator', 'image_size', 'image_fallback', 'show_image' ),
 							),
 							'grid'    => array(
 								'sections' => array( 'posts', 'image', 'content', 'terms', 'post_style', 'text_style' ),
-								'fields'   => array( 'match_height', 'post_width', 'post_spacing', 'post_padding', 'grid_image_position', 'grid_image_spacing', 'show_author', 'show_comments_grid', 'info_separator', 'image_fallback', 'image_size', 'show_image' ),
+								'fields'   => array( 'match_height', 'post_width', 'post_spacing', 'post_padding', 'grid_image_position', 'grid_image_spacing', 'show_author', 'link_author', 'show_comments_grid', 'info_separator', 'image_fallback', 'image_size', 'show_image' ),
 							),
 							'gallery' => array(
 								'sections' => array( 'gallery_general', 'overlay_style', 'icons', 'image' ),
@@ -624,7 +655,7 @@ FLBuilder::register_module('FLPostGridModule', array(
 							),
 							'feed'    => array(
 								'sections' => array( 'posts', 'image', 'content', 'terms', 'post_style', 'text_style' ),
-								'fields'   => array( 'feed_post_spacing', 'feed_post_padding', 'image_position', 'image_spacing', 'image_width', 'show_author', 'show_comments', 'info_separator', 'content_type', 'image_fallback', 'image_size', 'show_image' ),
+								'fields'   => array( 'feed_post_spacing', 'feed_post_padding', 'image_position', 'image_spacing', 'image_width', 'show_author', 'link_author', 'show_comments', 'info_separator', 'content_type', 'image_fallback', 'image_size', 'show_image' ),
 							),
 						),
 					),
@@ -660,6 +691,7 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'responsive' => array(
 							'default' => array(
 								'default'    => '3',
+								'large'      => '3',
 								'medium'     => '2',
 								'responsive' => '1',
 							),
@@ -842,6 +874,20 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'options' => array(
 							'1' => __( 'Show', 'fl-builder' ),
 							'0' => __( 'Hide', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'1' => array(
+								'fields' => array( 'link_author' ),
+							),
+						),
+					),
+					'link_author'        => array(
+						'type'    => 'select',
+						'label'   => __( 'Enable Author Link', 'fl-builder' ),
+						'default' => '1',
+						'options' => array(
+							'1' => __( 'Yes', 'fl-builder' ),
+							'0' => __( 'No', 'fl-builder' ),
 						),
 					),
 					'show_date'          => array(
@@ -1502,3 +1548,5 @@ FLBuilder::register_module('FLPostGridModule', array(
 		),
 	),
 ));
+// custom field filter form
+include FL_BUILDER_DIR . 'includes/loop-settings-filter.php';

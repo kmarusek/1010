@@ -50,6 +50,17 @@ if ( 'horizontal' === $settings->layout && ! empty( $settings->align ) ) {
 	) );
 }
 
+// Align Horizontal -- Large
+if ( 'horizontal' === $settings->layout && ! empty( $settings->align_large ) ) {
+	FLBuilderCSS::rule( array(
+		'selector' => ".fl-node-$id .fl-button-group-layout-horizontal .fl-button-group-buttons",
+		'media'    => 'large',
+		'props'    => array(
+			'justify-content' => $module->map_horizontal_alignment( $settings->align_large ),
+		),
+	) );
+}
+
 // Align Horizontal -- Medium
 if ( 'horizontal' === $settings->layout && ! empty( $settings->align_medium ) ) {
 	FLBuilderCSS::rule( array(
@@ -114,7 +125,7 @@ FLBuilderCSS::typography_field_rule( array(
 // Button Padding
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'     => $settings,
-	'setting_name' => 'button_padding',
+	'setting_name' => 'button_spacing',
 	'selector'     => ".fl-builder-content .fl-node-$id .fl-button-group .fl-button-group-buttons .fl-button-group-button a.fl-button",
 	'unit'         => 'px',
 	'props'        => array(
@@ -192,6 +203,54 @@ if ( ! empty( $settings->bg_hover_color ) ) :
 	<?php
 endif;
 
+// Background Gradient
+if ( 'adv-gradient' === $settings->style ) :
+	$adv_grad_css_rule = array();
+	if ( empty( $settings->bg_gradient['colors'][0] ) && empty( $settings->bg_gradient['colors'][1] ) ) {
+		$adv_grad_bg_color       = 'a3a3a3';
+		$adv_grad_bg_color_start = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $adv_grad_bg_color, 30, 'lighten' ) );
+		$adv_grad_bg_color_end   = FLBuilderColor::hex_or_rgb( $adv_grad_bg_color );
+		$adv_grad_border_color   = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $adv_grad_bg_color, 12, 'darken' ) );
+
+		$adv_grad_css_rule['selector'] = ".fl-node-$id .fl-button-group-buttons .fl-button-group-button a.fl-button, .fl-node-$id .fl-button-group-buttons .fl-button-group-button a.fl-button:hover";
+		$adv_grad_css_rule['props']    = array(
+			'border'           => "1px solid $adv_grad_border_color",
+			'background-image' => "linear-gradient(to bottom, $adv_grad_bg_color_start 0%, $adv_grad_bg_color_end 100%)",
+		);
+	} else {
+		$adv_grad_css_rule['selector'] = ".fl-node-$id .fl-button-group-buttons .fl-button-group-button a.fl-button";
+		$adv_grad_css_rule['props']    = array(
+			'background-image' => FLBuilderColor::gradient( $settings->bg_gradient ),
+		);
+	}
+
+	FLBuilderCSS::rule( $adv_grad_css_rule );
+
+endif;
+
+$group_custom_gradient_hover_enable = 'adv-gradient' === $settings->style && ! ( empty( $settings->bg_gradient_hover['colors'][0] ) && empty( $settings->bg_gradient_hover['colors'][1] ) );
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-button-group-buttons .fl-button-group-button a.fl-button:hover",
+	'enabled'  => $group_custom_gradient_hover_enable,
+	'props'    => array(
+		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient_hover ),
+	),
+) );
+
+if ( 'adv-gradient' !== $settings->style ) {
+	$temp_border_color = empty( $settings->border['color'] ) ? '' : $settings->border['color'];
+	if ( empty( $temp_border_color ) ) {
+		$temp_border_color = empty( $settings->bg_color ) ? 'a3a3a3' : $settings->bg_color;
+	}
+	if ( ! empty( $settings->border['color'] ) ) {
+		$settings->border['color'] = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $temp_border_color, 12, 'darken' ) );
+	}
+} else {
+	$temp_border_color = empty( $settings->border['color'] ) ? 'a3a3a3' : $settings->border['color'];
+	if ( ! empty( $settings->border['color'] ) ) {
+		$settings->border['color'] = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $temp_border_color, 12, 'darken' ) );
+	}
+}
 // Border - Settings
 FLBuilderCSS::border_field_rule( array(
 	'settings'     => $settings,
@@ -200,8 +259,20 @@ FLBuilderCSS::border_field_rule( array(
 ) );
 
 // Border - Hover Settings
-if ( ! empty( $settings->border_hover_color ) && is_array( $settings->border ) ) {
-	$settings->border['color'] = $settings->border_hover_color;
+if ( 'adv-gradient' !== $settings->style ) {
+	$temp_border_hover_color = empty( $settings->border_hover_color ) ? '' : $settings->border_hover_color;
+	if ( empty( $temp_border_hover_color ) ) {
+		$temp_border_hover_color = empty( $settings->bg_color ) ? 'a3a3a3' : $settings->bg_color;
+	} else {
+		$temp_border_hover_color = $settings->border_hover_color;
+	}
+	if ( ! empty( $settings->border['color'] ) ) {
+		$settings->border['color'] = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $temp_border_hover_color, 12, 'darken' ) );
+	}
+} else {
+	if ( ! empty( $settings->border_hover_color ) && ! empty( $settings->border['color'] ) ) {
+		$settings->border['color'] = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $settings->border_hover_color, 12, 'darken' ) );
+	}
 }
 
 FLBuilderCSS::border_field_rule( array(
@@ -323,6 +394,56 @@ for ( $i = 0; $i < count( $settings->items ); $i++ ) :
 		<?php
 	endif;
 
+	if ( 'adv-gradient' === $settings->items[ $i ]->button_item_style ) :
+		// Background Gradient
+		$button_item_gradient = json_decode( json_encode( $settings->items[ $i ]->button_item_bg_gradient ), true );
+		$adv_grad_css_rule    = array();
+		if ( empty( $button_item_gradient['colors'][0] ) && empty( $button_item_gradient['colors'][1] ) ) {
+			$adv_grad_bg_color       = 'a3a3a3';
+			$adv_grad_bg_color_start = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $adv_grad_bg_color, 30, 'lighten' ) );
+			$adv_grad_bg_color_end   = FLBuilderColor::hex_or_rgb( $adv_grad_bg_color );
+			$adv_grad_border_color   = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $adv_grad_bg_color, 12, 'darken' ) );
+
+			$adv_grad_css_rule['selector'] = "$button_group_button_id a.fl-button, $button_group_button_id a.fl-button:hover";
+			$adv_grad_css_rule['props']    = array(
+				'border'           => "1px solid $adv_grad_border_color",
+				'background-image' => "linear-gradient(to bottom, $adv_grad_bg_color_start 0%, $adv_grad_bg_color_end 100%)",
+			);
+		} else {
+			$adv_grad_css_rule['selector'] = "$button_group_button_id a.fl-button";
+			$adv_grad_css_rule['props']    = array(
+				'background-image' => FLBuilderColor::gradient( $button_item_gradient ),
+			);
+		}
+
+		FLBuilderCSS::rule( $adv_grad_css_rule );
+
+		// Background Hover Gradient
+		$button_item_gradient_hover = json_decode( json_encode( $settings->items[ $i ]->button_item_bg_gradient_hover ), true );
+		if ( ! ( empty( $button_item_gradient_hover['colors'][0] ) && empty( $button_item_gradient_hover['colors'][1] ) ) ) :
+			FLBuilderCSS::rule( array(
+				'selector' => "$button_group_button_id a.fl-button:hover",
+				'props'    => array(
+					'background-image' => FLBuilderColor::gradient( $button_item_gradient_hover ),
+				),
+			) );
+		endif;
+	endif;
+
+	if ( 'flat' === $settings->items[ $i ]->button_item_style && ! empty( $settings->items[ $i ]->button_item_button_transition ) ) :
+		$button_item_selector      = "$button_group_button_id .fl-button, $button_group_button_id .fl-button *";
+		$button_item_bg_transition = ( 'enable' === $settings->items[ $i ]->button_item_button_transition ) ? 'all 0.2s linear' : 'none';
+		FLBuilderCSS::rule( array(
+			'selector' => $button_item_selector,
+			'props'    => array(
+				'transition'         => $button_item_bg_transition,
+				'-moz-transition'    => $button_item_bg_transition,
+				'-webkit-transition' => $button_item_bg_transition,
+				'-o-transition'      => $button_item_bg_transition,
+			),
+		));
+	endif;
+
 	if ( ( 'html' == $settings->items[ $i ]->lightbox_content_type ) && ! empty( $settings->items[ $i ]->lightbox_content_html ) ) :
 		$button_node_id = "fl-node-$id-$i";
 		?>
@@ -375,7 +496,19 @@ for ( $i = 0; $i < count( $settings->items ); $i++ ) :
 	endif;
 
 	// Border
-	if ( ! empty( $settings->items[ $i ]->button_item_border ) ) {
+	if ( ! empty( $settings->items[ $i ]->button_item_border->style ) ) {
+		if ( empty( $settings->items[ $i ]->button_item_border->width->top ) ) {
+			$settings->items[ $i ]->button_item_border->width->top = $settings->border['width']['top'];
+		}
+		if ( empty( $settings->items[ $i ]->button_item_border->width->bottom ) ) {
+			$settings->items[ $i ]->button_item_border->width->bottom = $settings->border['width']['bottom'];
+		}
+		if ( empty( $settings->items[ $i ]->button_item_border->width->left ) ) {
+			$settings->items[ $i ]->button_item_border->width->left = $settings->border['width']['left'];
+		}
+		if ( empty( $settings->items[ $i ]->button_item_border->width->right ) ) {
+			$settings->items[ $i ]->button_item_border->width->right = $settings->border['width']['right'];
+		}
 		FLBuilderCSS::border_field_rule( array(
 			'settings'     => $settings->items[ $i ],
 			'setting_name' => 'button_item_border',
@@ -395,13 +528,14 @@ for ( $i = 0; $i < count( $settings->items ); $i++ ) :
 endfor;
 
 // Transition
-if ( 'enable' == $settings->button_transition ) :
+if ( 'flat' === $settings->style ) :
+	$transition = ( 'enable' === $settings->button_transition ) ? 'all 0.2s linear' : 'none';
 	?>
-.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button,
-.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button * {
-	transition: all 0.2s linear !important;
-	-moz-transition: all 0.2s linear !important;
-	-webkit-transition: all 0.2s linear !important;
-	-o-transition: all 0.2s linear !important;
-}
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button,
+	.fl-builder-content .fl-node-<?php echo $id; ?> .fl-button * {
+		transition: <?php echo $transition; ?>;
+		-moz-transition: <?php echo $transition; ?>;
+		-webkit-transition: <?php echo $transition; ?>;
+		-o-transition: <?php echo $transition; ?>;
+	}
 <?php endif; ?>

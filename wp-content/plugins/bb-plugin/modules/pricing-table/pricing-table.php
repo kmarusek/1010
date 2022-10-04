@@ -87,6 +87,12 @@ class FLPricingTableModule extends FLBuilderModule {
 
 			$pricing_column = $settings->pricing_columns[ $i ];
 
+			// Rename column field 'margin' to 'pbox_top_margin'
+			if ( isset( $settings->pricing_columns[ $i ]->margin ) ) {
+				$settings->pricing_columns[ $i ]->pbox_top_margin = $settings->pricing_columns[ $i ]->margin;
+				unset( $settings->pricing_columns[ $i ]->margin );
+			}
+
 			// Rename column field 'tooltip_icon_color' to 'pbox_tooltip_icon_color'
 			if ( isset( $settings->pricing_columns[ $i ]->tooltip_icon_color ) ) {
 				$settings->pricing_columns[ $i ]->pbox_tooltip_icon_color = $settings->pricing_columns[ $i ]->tooltip_icon_color;
@@ -1189,7 +1195,7 @@ FLBuilder::register_settings_form('pricing_column_form', array(
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),
-						'margin'            => array(
+						'pbox_top_margin'   => array(
 							'type'       => 'unit',
 							'label'      => __( 'Box Top Margin', 'fl-builder' ),
 							'default'    => '0',
@@ -1224,6 +1230,13 @@ FLBuilder::register_settings_form('pricing_column_form', array(
 					'title'     => __( 'Price Style', 'fl-builder' ),
 					'collapsed' => true,
 					'fields'    => array(
+						'price_color'      => array(
+							'type'       => 'color',
+							'label'      => __( 'Price Color', 'fl-builder' ),
+							'default'    => '',
+							'show_reset' => true,
+							'show_alpha' => true,
+						),
 						'price_typography' => array(
 							'type'       => 'typography',
 							'label'      => 'Typography',
@@ -1258,6 +1271,17 @@ FLBuilder::register_settings_form('pricing_column_form', array(
 							'show_alpha'  => true,
 							'preview'     => array(
 								'type' => 'none',
+							),
+						),
+						'ribbon_typography'  => array(
+							'type'       => 'typography',
+							'label'      => 'Typography',
+							'responsive' => true,
+							'disabled'   => array(
+								'default' => array( 'text_align' ),
+							),
+							'preview'    => array(
+								'type' => 'refresh',
 							),
 						),
 						'ribbon_height'      => array(

@@ -34,6 +34,15 @@ class FLButtonModule extends FLBuilderModule {
 			unset( $settings->mobile_align );
 		}
 
+		if ( ! empty( $settings->style ) && 'gradient' === $settings->style ) {
+			if ( ! empty( $settings->bg_gradient ) ) {
+				$button_gradient = is_array( $settings->bg_gradient ) ? $settings->bg_gradient : json_decode( json_encode( $settings->bg_gradient ), true );
+				if ( ! empty( $button_gradient['colors'][0] ) || ! empty( $button_gradient['colors'][1] ) ) {
+					$settings->style = 'adv-gradient';
+				}
+			}
+		}
+
 		// Handle old font size setting.
 		if ( isset( $settings->font_size ) ) {
 			$settings->typography                = array();
@@ -452,6 +461,29 @@ FLBuilder::register_module('FLButtonModule', array(
 			'colors' => array(
 				'title'  => __( 'Background', 'fl-builder' ),
 				'fields' => array(
+					'style'             => array(
+						'type'    => 'select',
+						'label'   => __( 'Background Style', 'fl-builder' ),
+						'default' => 'flat',
+						'options' => array(
+							'flat'         => __( 'Flat', 'fl-builder' ),
+							'gradient'     => __( 'Auto Gradient', 'fl-builder' ),
+							'adv-gradient' => __( 'Advanced Gradient', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'flat'         => array(
+								'fields' => array( 'button_transition' ),
+							),
+							'adv-gradient' => array(
+								'fields' => array( 'bg_gradient', 'bg_gradient_hover' ),
+							),
+						),
+						'hide'    => array(
+							'adv-gradient' => array(
+								'fields' => array( 'bg_color', 'bg_hover_color' ),
+							),
+						),
+					),
 					'bg_color'          => array(
 						'type'        => 'color',
 						'connections' => array( 'color' ),
@@ -460,7 +492,7 @@ FLBuilder::register_module('FLButtonModule', array(
 						'show_reset'  => true,
 						'show_alpha'  => true,
 						'preview'     => array(
-							'type' => 'none',
+							'type' => 'refresh',
 						),
 					),
 					'bg_hover_color'    => array(
@@ -474,15 +506,6 @@ FLBuilder::register_module('FLButtonModule', array(
 							'type' => 'none',
 						),
 					),
-					'style'             => array(
-						'type'    => 'select',
-						'label'   => __( 'Background Style', 'fl-builder' ),
-						'default' => 'flat',
-						'options' => array(
-							'flat'     => __( 'Flat', 'fl-builder' ),
-							'gradient' => __( 'Gradient', 'fl-builder' ),
-						),
-					),
 					'button_transition' => array(
 						'type'    => 'select',
 						'label'   => __( 'Background Animation', 'fl-builder' ),
@@ -491,6 +514,20 @@ FLBuilder::register_module('FLButtonModule', array(
 							'disable' => __( 'Disabled', 'fl-builder' ),
 							'enable'  => __( 'Enabled', 'fl-builder' ),
 						),
+						'preview' => array(
+							'type' => 'none',
+						),
+					),
+					'bg_gradient'       => array(
+						'type'    => 'gradient',
+						'label'   => __( 'Background Gradient', 'fl-builder' ),
+						'preview' => array(
+							'type' => 'refresh',
+						),
+					),
+					'bg_gradient_hover' => array(
+						'type'    => 'gradient',
+						'label'   => __( 'Background Hover Gradient', 'fl-builder' ),
 						'preview' => array(
 							'type' => 'none',
 						),

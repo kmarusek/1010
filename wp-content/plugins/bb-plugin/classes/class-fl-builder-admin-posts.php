@@ -350,7 +350,7 @@ final class FLBuilderAdminPosts {
 				$enabled               = get_post_meta( $post->ID, '_fl_builder_enabled', true );
 				$dot                   = '&nbsp;<span style="color:' . ( $enabled ? '#6bc373' : '#d9d9d9' ) . '; font-size:18px;">&bull;</span>';
 				$actions['fl-builder'] = '<a href="' . FLBuilderModel::get_edit_url() . '">' . FLBuilderModel::get_branding() . $dot . '</a>';
-				if ( $enabled ) {
+				if ( $enabled && true === apply_filters( 'fl_builder_duplicate_enabled', true ) ) {
 					$url = add_query_arg( array(
 						'post_type'        => $post->post_type,
 						'post_id'          => $post->ID,
@@ -376,7 +376,10 @@ final class FLBuilderAdminPosts {
 
 			if ( wp_verify_nonce( $nonce, 'duplicate_nonce' ) ) {
 				$post_id = FLBuilderModel::duplicate_post( $id );
-				$url     = FLBuilderModel::get_edit_url( $post_id );
+				$url     = add_query_arg( array(
+					'post'   => $post_id,
+					'action' => 'edit',
+				), admin_url( 'post.php' ) );
 				wp_redirect( $url );
 				exit;
 			} else {

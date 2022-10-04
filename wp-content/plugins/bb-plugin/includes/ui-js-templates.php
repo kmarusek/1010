@@ -8,7 +8,15 @@
 				<?php if ( ! FLBuilderModel::is_post_user_template( 'row' ) && ! $simple_ui ) : ?>
 				<i class="fl-block-move fas fa-arrows-alt fl-tip" title="<?php _e( 'Move', 'fl-builder' ); ?>"></i>
 				<?php endif; ?>
-				<i class="fl-block-settings fas fa-wrench fl-tip" title="<?php _e( 'Row Settings', 'fl-builder' ); ?>"></i>
+				<span class="fl-builder-has-submenu fl-builder-submenu-hover">
+					<i class="fl-block-settings fas fa-wrench fl-tip" title="<?php _e( 'Row Settings', 'fl-builder' ); ?><# if ( data.nodeLabel && ! FLBuilderConfig.node_labels_disabled ) { #>{{FLBuilderConfig.node_labels_separator}}{{data.nodeLabel}}<# } #>"></i>
+
+					<ul class="fl-builder-submenu">
+						<li><a class="fl-block-settings" href="javascript:void(0);"><?php _e( 'Row Settings', 'fl-builder' ); ?></a></li>
+						<li><a class="fl-row-quick-copy" href="javascript:void(0);"><?php _e( 'Copy Row Settings', 'fl-builder' ); ?></a></li>
+						<li><a class="fl-row-quick-paste <# if ( 'row' === FLBuilderSettingsCopyPaste._getClipboardType() ) { #>fl-quick-paste-active<# } #>" href="javascript:void(0);"><?php _e( 'Paste Row Settings', 'fl-builder' ); ?></a></li>
+					</ul>
+				</span>
 				<?php if ( ! FLBuilderModel::is_post_user_template( 'row' ) && ! $simple_ui ) : ?>
 				<i class="fl-block-copy far fa-clone fl-tip" title="<?php _e( 'Duplicate', 'fl-builder' ); ?>"></i>
 				<?php endif; ?>
@@ -30,6 +38,11 @@
 			</div>
 			<div class="fl-clear"></div>
 		</div>
+
+		<# if ( data.nodeLabel && ! FLBuilderConfig.node_labels_disabled ) { #>
+			<span class="fl-block-label<# if ( data.hasRules ) { #> fl-block-label-has-rules<# } #>">{{data.nodeLabel}}</span>
+		<# } #>
+
 		<# if ( data.hasRules ) { #>
 		<i class="fas fa-eye fl-tip fl-block-has-rules {{data.rulesTypeRow}}" title="<?php _e( 'This row has visibility rules', 'fl-builder' ); ?>: {{data.rulesTextRow}}"></i>
 		<# } #>
@@ -52,8 +65,9 @@
 					<# } #>
 				<# } #>
 				<?php endif; ?>
-				<span class="fl-builder-has-submenu">
-					<i class="fl-block-settings fas fa-columns fl-tip" title="<?php _e( 'Edit Column', 'fl-builder' ); ?>"></i>
+
+				<span class="fl-builder-has-submenu fl-builder-submenu-hover">
+					<i class="fl-block-settings fas fa-columns fl-tip" title="<?php _e( 'Edit Column', 'fl-builder' ); ?><# if ( data.nodeLabel && ! FLBuilderConfig.node_labels_disabled ) { #>{{FLBuilderConfig.node_labels_separator}}{{data.nodeLabel}}<# } #>"></i>
 					<?php if ( ! $simple_ui ) : ?>
 					<# if ( ! data.global || ( data.global && FLBuilderConfig.userTemplateType ) ) { #>
 					<ul class="fl-builder-submenu fl-block-col-submenu">
@@ -64,6 +78,8 @@
 						<# if ( data.rowIsFixedWidth ) { #>
 						<li><a class="fl-block-row-reset" href="javascript:void(0);"><?php _e( 'Reset Row Width', 'fl-builder' ); ?></a></li>
 						<# } #>
+						<li><a class="fl-col-quick-copy" href="javascript:void(0);"><?php _e( 'Copy Column Settings', 'fl-builder' ); ?></a></li>
+						<li><a class="fl-col-quick-paste <# if ( 'column' === FLBuilderSettingsCopyPaste._getClipboardType() ) { #>fl-quick-paste-active<# } #>" href="javascript:void(0);"><?php _e( 'Paste Column Settings', 'fl-builder' ); ?></a></li>
 						<# if ( data.hasParentCol ) { #>
 						<li class="fl-builder-submenu-sep"><div></div></li>
 						<# if ( 'column' != FLBuilderConfig.userTemplateType ) { #>
@@ -84,6 +100,11 @@
 			</div>
 			<div class="fl-clear"></div>
 		</div>
+
+		<# if ( data.nodeLabel && ! FLBuilderConfig.node_labels_disabled ) { #>
+			<span class="fl-block-label<# if ( data.hasRules ) { #> fl-block-label-has-rules<# } #>">{{data.nodeLabel}}</span>
+		<# } #>
+
 		<# if ( data.hasRules ) { #>
 		<i class="fas fa-eye fl-tip fl-block-has-rules" title="<?php _e( 'This column has visibility rules.', 'fl-builder' ); ?>"></i>
 		<# } #>
@@ -143,12 +164,22 @@
 				<?php if ( ! FLBuilderModel::is_post_user_template( 'module' ) && ! $simple_ui ) : ?>
 				<i class="fl-block-move fas fa-arrows-alt fl-tip" title="<?php _e( 'Move', 'fl-builder' ); ?>"></i>
 				<?php endif; ?>
-				<?php /* translators: %s: module name */ ?>
-				<i class="fl-block-settings fas fa-wrench fl-tip" title="<?php printf( __( '%s Settings', 'fl-builder' ), '{{data.moduleName}}' ); ?>"></i>
+				<span class="fl-builder-has-submenu fl-builder-submenu-hover">
+					<?php /* translators: %s: module name */ ?>
+					<i class="fl-block-settings fas fa-wrench fl-tip" title="<?php printf( __( '%s Settings', 'fl-builder' ), '{{data.moduleName}}' ); ?><# if ( data.nodeLabel && ! FLBuilderConfig.node_labels_disabled ) { #>{{FLBuilderConfig.node_labels_separator}}{{data.nodeLabel}}<# } #>"></i>
+					<ul class="fl-builder-submenu">
+						<?php /* translators: %s: module name */ ?>
+						<li><a class="fl-block-settings" href="javascript:void(0);"><?php printf( __( '%s Settings', 'fl-builder' ), '{{data.moduleName}}' ); ?></a></li>
+						<?php /* translators: %s: module name */ ?>
+						<li><a class="fl-module-quick-copy" href="javascript:void(0);"><?php printf( __( 'Copy %s Settings', 'fl-builder' ), '{{data.moduleName}}' ); ?></a></li>
+						<?php /* translators: %s: module name */ ?>
+						<li><a class="fl-module-quick-paste <# if ( data.moduleType === FLBuilderSettingsCopyPaste._getClipboardType() ) { #>fl-quick-paste-active<# } #>" href="javascript:void(0);"><?php printf( __( 'Paste %s Settings', 'fl-builder' ), '{{data.moduleName}}' ); ?></a></li>
+					</ul>
+				</span>
 				<?php if ( ! FLBuilderModel::is_post_user_template( 'module' ) && ! $simple_ui ) : ?>
 				<i class="fl-block-copy far fa-clone fl-tip" title="<?php _e( 'Duplicate', 'fl-builder' ); ?>"></i>
-				<span class="fl-builder-has-submenu">
-					<i class="fl-block-col-settings fas fa-columns fl-tip" title="<?php _e( 'Edit Column', 'fl-builder' ); ?>"></i>
+				<span class="fl-builder-has-submenu fl-builder-submenu-hover">
+					<i class="fl-block-col-settings fas fa-columns fl-tip" title="<?php _e( 'Edit Column', 'fl-builder' ); ?><# if ( data.colNodeLabel ) { #> - {{data.colNodeLabel}}<# } #>"></i>
 					<# if ( ! data.isRootCol ) { #>
 					<ul class="fl-builder-submenu fl-block-col-submenu">
 						<li><a class="fl-block-col-edit" href="javascript:void(0);"><?php _e( 'Column Settings', 'fl-builder' ); ?></a></li>
@@ -163,6 +194,8 @@
 						<# if ( data.rowIsFixedWidth ) { #>
 						<li><a class="fl-block-row-reset" href="javascript:void(0);"><?php _e( 'Reset Row Width', 'fl-builder' ); ?></a></li>
 						<# } #>
+						<li><a class="fl-col-quick-copy" href="javascript:void(0);"><?php _e( 'Copy Column Settings', 'fl-builder' ); ?></a></li>
+						<li><a class="fl-col-quick-paste <# if ( 'column' === FLBuilderSettingsCopyPaste._getClipboardType() ) { #>fl-quick-paste-active<# } #>" href="javascript:void(0);"><?php _e( 'Paste Column Settings', 'fl-builder' ); ?></a></li>
 						<# if ( data.hasParentCol ) { #>
 						<li class="fl-builder-submenu-sep"><div></div></li>
 						<# if ( 'column' != FLBuilderConfig.userTemplateType ) { #>
@@ -179,11 +212,17 @@
 			</div>
 			<div class="fl-clear"></div>
 		</div>
+
+		<# if ( data.nodeLabel && ! FLBuilderConfig.node_labels_disabled ) { #>
+			<span class="fl-block-label<# if ( data.hasRules ) { #> fl-block-label-has-rules<# } #>">{{data.nodeLabel}}</span>
+		<# } #>
+
 		<# if ( data.colHasRules ) { #>
 		<i class="fas fa-eye fl-tip fl-block-has-rules {{data.rulesTypeCol}}" title="<?php _e( 'This column has visibility rules', 'fl-builder' ); ?>: {{data.rulesTextCol}}"></i>
 		<# } else if ( data.hasRules ) { #>
 		<i class="fas fa-eye fl-tip fl-block-has-rules {{data.rulesTypeModule}}" title="<?php _e( 'This module has visibility rules', 'fl-builder' ); ?>: {{data.rulesTextModule}}"></i>
 		<# } #>
+
 		<?php if ( ! FLBuilderModel::is_post_user_template( 'module' ) && ! $simple_ui ) : ?>
 		<# if ( ! data.groupLoading && ! data.isRootCol ) { #>
 			<# if ( ! data.colFirst || ( data.hasParentCol && data.colFirst && ! data.parentFirst ) ) { #>
@@ -285,11 +324,11 @@
 <script type="text/html" id="tmpl-fl-crash-lightbox">
 	<div class="fl-lightbox-message">{{{data.message}}}</div>
 	<# if ( data.debug ) { #>
-		<div class="fl-lightbox-message-info">Here is the message reported in your browser’s JavaScript console.<pre>{{{data.debug}}}</pre></div>
+		<div class="fl-lightbox-message-info">Here is the message reported in your browser's JavaScript console.<pre>{{{data.debug}}}</pre></div>
 	<# } #>
 	<div class="fl-lightbox-message-info">{{{data.info}}}</div>
 	<div class="fl-lightbox-footer">
-		<span class="fl-builder-alert-close fl-builder-button fl-builder-button-large fl-builder-button-primary" href=2"javascript:void(0);"><?php _e( 'OK', 'fl-builder' ); ?></span>
+		<span class="fl-builder-alert-close fl-builder-button fl-builder-button-large fl-builder-button-primary" href="javascript:void(0);"><?php _e( 'OK', 'fl-builder' ); ?></span>
 	</div>
 </script>
 <!-- #tmpl-fl-crash-lightbox -->
@@ -335,6 +374,9 @@
 			</button>
 			<button class="fl-builder-button fl-builder-button-large" data-mode="medium">
 				<i class="dashicons dashicons-tablet"></i>
+			</button>
+			<button class="fl-builder-button fl-builder-button-large" data-mode="large">
+				<i class="dashicons dashicons-laptop"></i>
 			</button>
 			<button class="fl-builder-button fl-builder-button-large" data-mode="default">
 				<?php _e( 'Exit', 'fl-builder' ); ?>

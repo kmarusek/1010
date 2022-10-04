@@ -123,7 +123,7 @@ final class FLBuilderColor {
 	 * @param array $setting
 	 * @return string
 	 */
-	static public function gradient( $setting ) {
+	static public function gradient( $setting, $test = false ) {
 		$gradient = '';
 		$values   = array();
 
@@ -145,6 +145,9 @@ final class FLBuilderColor {
 			$stop = $setting['stops'][ $i ];
 
 			if ( empty( $color ) ) {
+				if ( $test ) {
+					return false;
+				}
 				$color = 'rgba(255,255,255,0)';
 			}
 			if ( ! strstr( $color, 'rgb' ) ) {

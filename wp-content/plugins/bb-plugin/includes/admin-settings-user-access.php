@@ -12,7 +12,10 @@
 					<h3><?php echo $group; ?></h3>
 					<?php $i = 1; foreach ( $group_data as $cap => $cap_data ) : ?>
 						<div class="fl-user-access-setting">
-							<h4><?php echo $cap_data['label']; ?><i class="dashicons dashicons-editor-help" title="<?php echo esc_html( $cap_data['description'] ); ?>"></i></h4>
+							<h4><?php echo $cap_data['label']; ?></h4>
+							<p class="fl-user-access-description">
+							<?php echo isset( $cap_data['description'] ) ? $cap_data['description'] : ''; ?>
+							</p>
 							<?php if ( FLBuilderAdminSettings::multisite_support() && ! is_network_admin() ) : ?>
 							<label class="fl-ua-override-ms-label">
 								<input class="fl-ua-override-ms-cb" type="checkbox" name="fl_ua_override_ms[<?php echo $cap; ?>]" value="1" <?php echo ( isset( $raw_settings[ $cap ] ) ) ? 'checked' : ''; ?> />

@@ -32,7 +32,6 @@
 				'bg_color'              => isset( $settings->items[ $i ]->button_item_bg_color ) ? $settings->items[ $i ]->button_item_bg_color : '',
 				'bg_hover_color'        => isset( $settings->items[ $i ]->button_item_bg_hover_color ) ? $settings->items[ $i ]->button_item_bg_hover_color : '',
 				'style'                 => isset( $settings->items[ $i ]->button_item_style ) ? $settings->items[ $i ]->button_item_style : '',
-				'button_transition'     => isset( $settings->items[ $i ]->button_transition ) ? $settings->items[ $i ]->button_transition : '',
 				'border'                => isset( $settings->items[ $i ]->button_item_border ) ? $settings->items[ $i ]->button_item_border : '',
 				'border_hover_color'    => isset( $settings->items[ $i ]->button_item_border_hover_color ) ? $settings->items[ $i ]->button_item_border_hover_color : '',
 			);

@@ -55,8 +55,17 @@
 				icon 				= form.find('input[name=btn_icon]'),
 				moduleSettingsForm 	= $('form.fl-builder-pricing-table-settings'),
 				featuresSection		= $( '#fl-builder-settings-section-features' ),
-				featureToggleButton	= '.fl-builder-price-feature-toggle-button';
-			
+				featureToggleButton	= '.fl-builder-price-feature-toggle-button',
+				boxTopMarginField   = $( '#fl-field-pbox_top_margin' ),
+				ptSettingsForm      = $( '.fl-builder-settings.fl-builder-module-settings' ),
+				ptSettings          = FLBuilder._getSettings( ptSettingsForm );
+
+			if ( 'legacy' === ptSettings.border_type ) {
+				boxTopMarginField.show();
+			} else {
+				boxTopMarginField.hide();
+			}
+
 			featuresSection.on('click', featureToggleButton, this._togglePricesFeaturesClicked);
 			icon.on('change', this._flipSettings);
 			this._flipSettings( form );

@@ -31,7 +31,7 @@
   left: 0;
   bottom: 0;
   width: 380px;
-  background: #ffffff;
+  background: var(--fluid-background);
   color: var(--fluid-color);
   border-right: 1px solid #d5dadd;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
@@ -58,8 +58,8 @@
       margin-top: 0; }
     .fl-notifications-panel .fl-builder-ui-post:hover {
       text-decoration: none;
-      background: white;
-      color: black; }
+      background: var(--fluid-box-background);
+      color: var(--fluid-box-color); }
     .fl-notifications-panel .fl-builder-ui-post .fl-builder-ui-post-title {
       font-size: 17px;
       line-height: 1.4;
@@ -300,6 +300,61 @@ body.fl-builder-ui-skin--dark .fl-ui-root .fl-ui-panel {
   --fl-builder-outline-inset: 15px;
   --fl-builder-outline-item-size: 30px; }
 
+.fl-builder-outline-menu {
+  align-self: flex-end;
+  padding: 0 5px; }
+  .fl-builder-outline-menu .fl-builder-outline-menu-button:focus {
+    background: transparent; }
+  .fl-builder-outline-menu .fl-builder-outline-menu-dropdown {
+    position: absolute;
+    top: auto;
+    right: 8px;
+    width: auto;
+    min-width: 140px;
+    border-radius: 4px;
+    background: #ffffff;
+    border: none;
+    border-top: 3px solid #00a0d2;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10000009; }
+    .fl-builder-outline-menu .fl-builder-outline-menu-dropdown:before {
+      bottom: 100%;
+      right: 4px;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border: solid;
+      border-color: rgba(255, 255, 255, 0);
+      border-bottom-color: #00a0d2;
+      border-width: 10px;
+      margin-left: -10px; }
+    .fl-builder-outline-menu .fl-builder-outline-menu-dropdown .fl-builder--menu-item {
+      width: 100%;
+      margin: 0; }
+      .fl-builder-outline-menu .fl-builder-outline-menu-dropdown .fl-builder--menu-item:hover {
+        background: #e6eaed;
+        color: #000000; }
+
+.fl-builder-ui-skin--light .fl-builder-outline-menu-button {
+  color: #676F7A;
+  fill: #676F7A; }
+
+.fl-builder-ui-skin--dark .fl-builder-outline-menu-button {
+  color: #c6cdd6;
+  fill: #c6cdd6; }
+
+.fl-builder-ui-skin--dark .fl-builder-outline-menu-dropdown {
+  background: #23282d;
+  color: #b4b9be;
+  border-color: #1d1d1d; }
+  .fl-builder-ui-skin--dark .fl-builder-outline-menu-dropdown:before {
+    border-bottom-color: #1d1d1d; }
+  .fl-builder-ui-skin--dark .fl-builder-outline-menu-dropdown .fl-builder--menu-item:hover {
+    background: #383f46;
+    color: #a8b3bf; }
+
 ul.fl-builder-node-outline {
   margin: 0;
   padding: 10px 5px;
@@ -385,7 +440,7 @@ ul.fl-builder-node-outline {
         opacity: .5;
         position: absolute;
         top: 0;
-        left: 0;
+        left: calc( var(--level) * var(--fl-builder-outline-inset) - var(--fl-builder-outline-inset));
         bottom: 0;
         width: 20px; }
         ul.fl-builder-node-outline li .fl-builder-node-outline-item-content .fl-builder-outline-item-gutter button {
@@ -420,6 +475,10 @@ ul.fl-builder-node-outline {
         color: var(--fl-builder-blue); }
       ul.fl-builder-node-outline li .fl-builder-node-outline-item-content.is-global-node .fl-builder-outline-item-icon-wrap {
         color: var(--fl-builder-orange); }
+      ul.fl-builder-node-outline li .fl-builder-node-outline-item-content.is-outline-focus-node {
+        background: var(--fl-builder-hover-color); }
+      ul.fl-builder-node-outline li .fl-builder-node-outline-item-content.is-outline-active-node {
+        background: var(--fluid-opaque-12); }
       ul.fl-builder-node-outline li .fl-builder-node-outline-item-content .fl-builder-outline-item-label-wrap {
         flex: 1 1 auto;
         max-width: 100%;
@@ -450,6 +509,8 @@ ul.fl-builder-node-outline {
   .fluid-color-scheme-dark .fl-builder-node-outline li .fl-builder-node-outline-item-content.is-missing-definition {
     --item-color: #ffe2ad;
     --item-background: #4d3200; }
+  .fluid-color-scheme-dark .fl-builder-node-outline li .fl-builder-node-outline-item-content.is-outline-active-node {
+    color: var(--fluid-opaque-2); }
 
 .fl-builder-workspace .fl-builder-dev-experiments-panel {
   width: 320px; }

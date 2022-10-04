@@ -145,7 +145,6 @@ final class FLBuilderFontAwesome {
 	public static function register_plugin() {
 		$args = apply_filters( 'fl_builder_font_awesome_register_args', array(
 			'name'       => __( 'Beaver Builder', 'fl-builder' ),
-			'v4Compat'   => false,
 			'technology' => 'webfont',
 		) );
 		fa()->register( $args );

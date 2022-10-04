@@ -490,8 +490,8 @@ if ( 'always' != $module->get_media_breakpoint() ) :
 		<?php if ( 'yes' == $settings->mobile_full_width ) : ?>
 			.fl-node-<?php echo $id; ?> .fl-menu .menu {
 				position: absolute;
-				left: <?php echo empty( $settings->margin_left ) ? $global_settings->module_margins : $settings->margin_left; ?>px;
-				right: <?php echo empty( $settings->margin_right ) ? $global_settings->module_margins : $settings->margin_right; ?>px;
+				left: <?php echo empty( $settings->margin_left ) ? $global_settings->module_margins_left : $settings->margin_left; ?>px;
+				right: <?php echo empty( $settings->margin_right ) ? $global_settings->module_margins_right : $settings->margin_right; ?>px;
 				z-index: 1500;
 			}
 		<?php endif; ?>
@@ -564,9 +564,9 @@ if ( 'always' != $module->get_media_breakpoint() ) :
 		<?php
 	endif;
 
-	?>
-	<?php
-	if ( 'medium-mobile' == $settings->mobile_breakpoint ) {
+	if ( 'large-mobile' == $settings->mobile_breakpoint ) {
+		$media = 'large';
+	} elseif ( 'medium-mobile' == $settings->mobile_breakpoint ) {
 		$media = 'medium';
 	} elseif ( 'mobile' == $settings->mobile_breakpoint ) {
 		$media = 'responsive';

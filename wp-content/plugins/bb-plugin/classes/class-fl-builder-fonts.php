@@ -384,7 +384,9 @@ final class FLBuilderFonts {
 
 			$google_url = substr( $google_url, 0, -1 );
 
-			wp_enqueue_style( 'fl-builder-google-fonts-' . md5( $google_url ), $google_url, array() );
+			if ( true === apply_filters( 'fl_enable_google_fonts_enqueue', true ) ) {
+				wp_enqueue_style( 'fl-builder-google-fonts-' . md5( $google_url ), $google_url, array() );
+			}
 
 			self::$fonts = array();
 		}

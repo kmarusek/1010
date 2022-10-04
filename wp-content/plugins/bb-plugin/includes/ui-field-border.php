@@ -32,6 +32,7 @@ var defaults = {
 
 var disabledDefaults = {
 	default: {},
+	large: {},
 	medium: {},
 	responsive: {}
 };

@@ -23,7 +23,7 @@
 				<?php
 
 				// Content
-				$module->render_content( $slide );
+				$module->render_content( $slide, $i, $id );
 
 				// Foreground photo or video
 				$module->render_media( $slide );

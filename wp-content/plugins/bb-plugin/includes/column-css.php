@@ -71,6 +71,22 @@ FLBuilderCSS::rule( array(
 	),
 ) );
 
+// Width - Large
+FLBuilderCSS::rule( array(
+	'media'    => 'large',
+	'selector' => ".fl-builder-content .fl-node-$id",
+	'enabled'  => '' !== $settings->size_large && $responsive_enabled,
+	'props'    => array(
+		'width'            => "{$settings->size_large}% !important",
+		'max-width'        => 'none',
+		'-webkit-box-flex' => '0 1 auto',
+		'-moz-box-flex'    => '0 1 auto',
+		'-webkit-flex'     => '0 1 auto',
+		'-ms-flex'         => '0 1 auto',
+		'flex'             => '0 1 auto',
+	),
+) );
+
 // Width - Medium
 FLBuilderCSS::rule( array(
 	'media'    => 'medium',
@@ -162,6 +178,30 @@ FLBuilderCSS::rule( array(
 	),
 ) );
 
+// Background Photo - Large
+if ( 'custom_pos' == $settings->bg_position_large ) {
+	$bg_position_large  = empty( $settings->bg_x_position_large ) ? '0' : $settings->bg_x_position_large;
+	$bg_position_large .= $settings->bg_x_position_large_unit;
+	$bg_position_large .= ' ';
+	$bg_position_large .= empty( $settings->bg_y_position_large ) ? '0' : $settings->bg_y_position_large;
+	$bg_position_large .= $settings->bg_y_position_large_unit;
+} else {
+	$bg_position_large = $settings->bg_position_large;
+}
+
+FLBuilderCSS::rule( array(
+	'media'    => 'large',
+	'selector' => ".fl-node-$id > .fl-col-content",
+	'enabled'  => 'photo' === $settings->bg_type,
+	'props'    => array(
+		'background-image'      => $settings->bg_image_large_src,
+		'background-repeat'     => $settings->bg_repeat_large,
+		'background-position'   => $bg_position_large,
+		'background-attachment' => $settings->bg_attachment_large,
+		'background-size'       => $settings->bg_size_large,
+	),
+) );
+
 // Background Photo - Medium
 if ( 'custom_pos' == $settings->bg_position_medium ) {
 	$bg_position_medium  = empty( $settings->bg_x_position_medium ) ? '0' : $settings->bg_x_position_medium;
@@ -223,4 +263,12 @@ FLBuilderCSS::responsive_rule( array(
 	'setting_name' => 'min_height',
 	'selector'     => ".fl-builder-content .fl-node-$id > .fl-col-content",
 	'prop'         => 'min-height',
+) );
+
+// Aspect Ratio
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $col->settings,
+	'setting_name' => 'aspect_ratio',
+	'selector'     => ".fl-builder-content .fl-node-$id > .fl-col-content",
+	'prop'         => 'aspect-ratio',
 ) );

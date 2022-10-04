@@ -81,21 +81,14 @@
 		{
 			var form          = $('.fl-builder-settings'),
 				bgLayout      = form.find('select[name=bg_layout]').val(),
-				contentLayout = form.find('select[name=content_layout]').val(),
-				show          = true;
+				contentLayout = form.find('select[name=content_layout]').val();
 
-			if(bgLayout == 'video' || contentLayout == 'none') {
-				show = false;
-			}
-
-			if(show) {
-				$('[data-form-id=content_slider_slide] a[href*=fl-builder-settings-tab-style]').show();
-				$('a[href*=fl-builder-settings-tab-cta]').show();
-			}
-			else {
+			if ( 'video' == bgLayout || 'none' == contentLayout ){
 				$('[data-form-id=content_slider_slide] a[href*=fl-builder-settings-tab-style]').hide();
-				$('a[href*=fl-builder-settings-tab-cta]').hide();
+			} else {
+				$('[data-form-id=content_slider_slide] a[href*=fl-builder-settings-tab-style]').show();
 			}
+
 		},
 		_toggleMobileTab: function()
 		{
