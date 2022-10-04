@@ -117,19 +117,19 @@ foreach( $postCats as $cat ){
         $categoryName = $cat['name'];
 ?>
                 <div class="ContentLibrary-radio-inline">
-                        <input class="ContentLibrary-input filter" type="radio" value="<?php echo $categoryName = str_replace(' ','-',$categoryName);?>" name="category" id="category-<?php echo $categoryName = str_replace(' ','-',$categoryName);?>" /> 
-                        <label for="category-<?php echo $categoryName = str_replace(' ','-',$categoryName);?>"><?php echo esc_html($cat['name']);?></label>
+                    <input class="ContentLibrary-input filter" type="radio" value="<?php echo $categoryName = str_replace(' ','-',$categoryName);?>" name="category" id="category-<?php echo $categoryName = str_replace(' ','-',$categoryName);?>" /> 
+                    <label for="category-<?php echo $categoryName = str_replace(' ','-',$categoryName);?>"><?php echo esc_html($cat['name']);?></label>
                 </div>
             
 <?php   
 } } 
 ?>  
-                <div class="ContentLibrary-search">
-					<input type="text" class="fuzzy-search" onclick="resetList();" placeholder="   " />
-                    <img class="ContentLibrary-search-icon" src="/wp-content/uploads/2022/09/akar-icons-search.svg"/>
-				</div>
             </div>
         </div>
+        <div class="ContentLibrary-search">
+			<input type="text" class="fuzzy-search" onclick="resetList();" placeholder="   " />
+            <img class="ContentLibrary-search-icon" src="/wp-content/uploads/2022/09/akar-icons-search.svg"/>
+		</div>
     </div>
 <?php
 // End of Category Navigation
