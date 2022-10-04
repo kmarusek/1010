@@ -50,12 +50,11 @@
                <label for="${field.name}">
                         ${label} <span class="asterisk">${ast}</span>
                 </label>
-                <br/>
-                 <label for="html">No</label>
-                 <input type="radio" id="html" name="${field.name}" value="0" ${required}/>
-                 <label for="css">Yes</label>
+                <br/><label for="html">No </label>&nbsp;
+             <input type="radio" id="html" name="${field.name}" value="0" ${required}/>
+                 <label for="css">Yes </label>&nbsp;
                  <input type="radio" id="css" name="${field.name}" value="1" ${required}/>
-                 <span class="form-error">Please fill this field.</span>
+             <span class="form-error">Please fill this field.</span>
             </div>
               `;
         }
