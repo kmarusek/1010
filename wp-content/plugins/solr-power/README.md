@@ -1,17 +1,18 @@
 # Solr Search for WordPress #
-**Contributors:** [getpantheon](https://profiles.wordpress.org/getpantheon), [Outlandish Josh](https://profiles.wordpress.org/Outlandish Josh), [10up](https://profiles.wordpress.org/10up), [collinsinternet](https://profiles.wordpress.org/collinsinternet), [andrew.taylor](https://profiles.wordpress.org/andrew.taylor), [danielbachhuber](https://profiles.wordpress.org/danielbachhuber), [mattleff](https://profiles.wordpress.org/mattleff), [mikengarrett](https://profiles.wordpress.org/mikengarrett)  
-**Tags:** search  
-**Requires at least:** 4.6  
-**Requires PHP:** 7.1  
-**Tested up to:** 5.9  
-**Stable tag:** 2.3.2  
-**License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
+**Contributors:** [getpantheon](https://profiles.wordpress.org/getpantheon), [Outlandish Josh](https://profiles.wordpress.org/outlandish-josh), [10up](https://profiles.wordpress.org/10up), [collinsinternet](https://profiles.wordpress.org/collinsinternet), [andrew.taylor](https://profiles.wordpress.org/andrew.taylor), [danielbachhuber](https://profiles.wordpress.org/danielbachhuber), [mattleff](https://profiles.wordpress.org/mattleff), [mikengarrett](https://profiles.wordpress.org/mikengarrett), [jazzsequence](https://profiles.wordpress.org/jazzs3quence)
+**Tags:** search
+**Requires at least:** 4.6
+**Requires PHP:** 7.1
+**Tested up to:** 6.0
+**Stable tag:** 2.3.3
+**License:** GPLv2 or later
+**License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
 Improve your user experience with the Apache Solr search engine for your WordPress website.
 
 ## Description ##
 
+[![Actively Maintained](https://img.shields.io/badge/Pantheon-Actively_Maintained-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#actively-maintained-support)
 [![Travis Build Status](https://travis-ci.org/pantheon-systems/solr-power.svg?branch=master)](https://travis-ci.org/pantheon-systems/solr-power)
 [![Circle CI Build Status](https://circleci.com/gh/pantheon-systems/solr-power.svg?style=shield&circle-token=3af522a81a29eab25828a6b0d52e2f1afa7f044b)](https://circleci.com/gh/pantheon-systems/solr-power)
 
@@ -66,6 +67,8 @@ If you are using lando for development, the MU plugin is not needed. Lando auto 
 
 ## Development ##
 
+**Contributors note:** Since 2.3.3 the default branch is `main`. Please make sure you are working against the correct branch. The `master` branch will no longer be accepting pull requests.
+
 This plugin is under active development on GitHub:
 
 [https://github.com/pantheon-systems/solr-power](https://github.com/pantheon-systems/solr-power)
@@ -103,25 +106,25 @@ All Solr Power related commands are grouped into the `wp solr` command, see an e
        or: wp solr optimize-index
        or: wp solr repost-schema
        or: wp solr stats [--field=<field>] [--format=<format>]
-    
+
     See 'wp help solr <command>' for more information on a specific command.
 
 You can see more details about the commands using `wp help solr`:
 
     **NAME**
-    
+
       wp solr
-    
+
     **DESCRIPTION**
-    
+
       Perform a variety of actions against your Solr instance.
-    
+
     **SYNOPSIS**
-    
+
       wp solr <command>
-    
+
     **SUBCOMMANDS**
-    
+
       check-server-settings      Check server settings.
       delete                     Remove one or more posts from the index.
       index                      Index all posts for a site.
@@ -176,8 +179,8 @@ Add the following to `schema.xml`:
 
       <!-- Add to <types> -->
       <!-- See: https://lucene.apache.org/solr/6_2_0/solr-core/org/apache/solr/schema/TrieDateField.html -->
-      <fieldType name="tdate" class="solr.TrieDateField" omitNorms="true" precisionStep="6" positionIncrementGap="0"/>	
-      
+      <fieldType name="tdate" class="solr.TrieDateField" omitNorms="true" precisionStep="6" positionIncrementGap="0"/>
+
       <!-- Add to <fields> -->
       <field name="post_date_iso" type="tdate" indexed="true" stored="true" required="true" />
 
@@ -195,7 +198,7 @@ Add the following to your `functions.php` file.
             return $doc;
       }
       add_filter( 'solr_build_document', 'my_solr_build_document', 10, 2 );
-      
+
       /**
        * Hooks into query processor, Dismax, to add publish date boost.
        * See: https://www.metaltoad.com/blog/date-boosting-solr-drupal-search-results
@@ -217,6 +220,10 @@ Add the following to your `functions.php` file.
 
 
 ## Changelog ##
+
+## 2.3.3 (September 28, 2022) ##
+* Fixes issue where options could not be saved [[#541](https://github.com/pantheon-systems/solr-power/issues/541)]
+* Enforces network activation requirement for WordPress multisite [[#538](https://github.com/pantheon-systems/solr-power/issues/538)]
 
 ### 2.3.2 (April 1, 2022) ###
 * Fixes query filtering for `'fields' => 'id=>parent'` [[#528](https://github.com/pantheon-systems/solr-power/pull/528)].
