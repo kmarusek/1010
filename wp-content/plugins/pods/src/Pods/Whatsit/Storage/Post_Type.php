@@ -106,6 +106,12 @@ class Post_Type extends Collection {
 			$fallback_mode = (boolean) $args['fallback_mode'];
 		}
 
+		$meta_query = [];
+
+		if ( ! empty( $args['meta_query'] ) ) {
+			$meta_query = (array) $args['meta_query'];
+		}
+
 		/**
 		 * Filter the maximum number of posts to get for post type storage.
 		 *
@@ -120,7 +126,7 @@ class Post_Type extends Collection {
 			'order'            => 'ASC',
 			'orderby'          => 'title',
 			'posts_per_page'   => $limit,
-			'meta_query'       => [],
+			'meta_query'       => $meta_query,
 			'post_type'        => 'any',
 			'post_status'      => [
 				'publish',
@@ -343,6 +349,13 @@ class Post_Type extends Collection {
 			}
 
 			$cache_key_parts[] = $current_language;
+
+			$cache_key_post_type = 'any';
+
+			if ( isset( $post_args['post_type'] ) ) {
+				$cache_key_post_type = $post_args['post_type'];
+			}
+
 			$cache_key_parts[] = wp_json_encode( $post_args );
 
 			/**
@@ -363,7 +376,7 @@ class Post_Type extends Collection {
 
 			if ( empty( $args['refresh'] ) ) {
 				$posts        = pods_transient_get( $cache_key );
-				$post_objects = pods_cache_get( $cache_key . '_objects', 'pods_post_type_storage' );
+				$post_objects = pods_cache_get( $cache_key . '_objects', 'pods_post_type_storage_' . $cache_key_post_type );
 			}
 		}//end if
 
