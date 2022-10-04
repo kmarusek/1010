@@ -420,12 +420,12 @@ class PPPricingTableModule extends FLBuilderModule {
 			}
 
 			$text = '';
-			if ( ! empty( $feature['text'] ) ) {
+			//if ( ! empty( $feature['text'] ) ) {
 				if ( ! empty( $settings->matrix_items ) && isset( $settings->matrix_items[ $list_index - 1 ] ) ) {
 					$text = '<span class="pp-pricing-table-item-label">' . trim( $settings->matrix_items[ $list_index - 1 ] ) . '</span>';
 				}
 				$text .= '<span class="pp-pricing-table-item-text">' . trim( $feature['text'] ) . '</span>';
-			}
+			//}
 
 			$tooltip_icon = empty( $settings->default_feature_tooltip_icon ) ? 'fas fa-question-circle' : $settings->default_feature_tooltip_icon;
 
@@ -435,7 +435,7 @@ class PPPricingTableModule extends FLBuilderModule {
 				FLBuilderIcons::enqueue_styles_for_icon( $tooltip_icon );
 				$tooltip  = '<div class="pp-pricing-item-tooltip"><i class="pp-pricing-item-tooltip-icon ' . esc_attr( $tooltip_icon ) . '" aria-hidden="true"></i>';
 				$tooltip .= '<div class="pp-pricing-item-tooltip-text" style="display: none;">';
-				$tooltip .= esc_html( $feature['tooltip'] );
+				$tooltip .= $feature['tooltip'];
 				$tooltip .= '</div></div>';
 			}
 

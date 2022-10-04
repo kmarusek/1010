@@ -8,7 +8,7 @@ $is_link_enabled = ( isset( $settings->enable_link ) && 'yes' === $settings->ena
 			$module->render_separator();
 		} ?>
 
-		<<?php echo $settings->heading_tag; ?> class="heading-title<?php echo $module->is_html_in_text() && 'block' !== $settings->heading_style ? ' text-inline-block' : ''; ?>">
+		<<?php echo $settings->heading_tag; ?> class="heading-title<?php echo $module->maybe_text_inline_block() ? ' text-inline-block' : ''; ?>">
 
 			<?php if ( $is_link_enabled ) : ?>
 				<a class="pp-heading-link"

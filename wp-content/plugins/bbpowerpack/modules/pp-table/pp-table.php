@@ -179,6 +179,14 @@ class PPTableModule extends FLBuilderModule {
 			),
 		);
 
+		if ( class_exists( 'FLThemeBuilderLoader' ) ) {
+			$fields['source']['options']['post'] = __( 'Dynamic (Post)', 'bb-powerpack' );
+			$fields['source']['toggle']['post'] = array(
+				'tabs'     => array( 'post_content' ),
+				'sections' => array( 'post_content' )
+			);
+		}
+
 		if ( class_exists( 'acf' ) ) {
 			$fields['source']['options']['acf_repeater'] = __( 'ACF Repeater', 'bb-powerpack' );
 			$fields['source']['toggle']['acf_repeater'] = array(
@@ -200,6 +208,83 @@ class PPTableModule extends FLBuilderModule {
 		return $fields;
 	}
 
+	public static function get_general_sections() {
+		$sections = array(
+			'general'    => array(
+				'title'	 => '',
+				'fields' => PPTableModule::get_general_fields()
+			),
+		);
+
+		if ( class_exists( 'FLThemeBuilderLoader' ) ) {
+			$sections['post_content'] = array(
+				'title' => __( 'Content', 'bb-powerpack' ),
+				'file'  => BB_POWERPACK_DIR . 'includes/ui-loop-settings-simple.php',
+			);
+		}
+
+		$sections['sort'] = array(
+			'title'         => __('Sortable Table', 'bb-powerpack'),
+			'fields'        => array( // Section Fields
+				'is_sortable'     => array(
+					'type'          => 'pp-switch',
+					'label'         => __('Sort', 'bb-powerpack'),
+					'default'       => 'yes',
+					'options'       => array(
+						'yes'	=> __('Yes', 'bb-powerpack'),
+						'no'    => __('No', 'bb-powerpack'),
+					),
+				),
+			)
+		);
+
+		$sections['scroll'] = array(
+			'title'         => __('Scrollable Table', 'bb-powerpack'),
+			'fields'        => array( // Section Fields
+				'scrollable'     => array(
+					'type'          => 'pp-switch',
+					'label'         => __('Scroll', 'bb-powerpack'),
+					'default'       => 'swipe',
+					'options'       => array(
+						'swipe'     => __('Yes', 'bb-powerpack'),
+						'stack'     => __('No', 'bb-powerpack')
+					),
+					'toggle'        => array(
+						'swipe'         => array(
+							'fields'        => array('custom_breakpoint')
+						)
+					),
+					'help'         => __('This will disable stacking and enable swipe/scroll when below the breakpoint', 'bb-powerpack'),
+				),
+				'custom_breakpoint' => array(
+					'type'              => 'unit',
+					'label'             => __('Define Custom Breakpoint', 'bb-powerpack'),
+					'default'           => '',
+					'slider'            => true,
+					'help'              => __('Devices equal or below the defined screen width will have this feature.', 'bb-powerpack')
+				)
+			)
+		);
+
+		return $sections;
+	}
+
+	public function get_post_query() {
+		if ( ! isset( $this->settings->post_type ) || empty( $this->settings->post_type ) ) {
+			$this->settings->post_type = 'post';
+		}
+
+		$settings = $this->settings;
+
+		$settings->data_source = 'custom_query';
+		$settings->post_type  = ! empty( $this->settings->post_type ) ? $this->settings->post_type : 'post';
+		$settings->posts_per_page = ! empty( $this->settings->posts_per_page ) || '-1' !== $this->settings->posts_per_page ? $this->settings->posts_per_page : '-1';
+		$settings->order = ! empty( $this->settings->order ) ? $this->settings->order : 'DESC';
+
+		$query = FLBuilderLoop::query( $settings );
+		return $query;
+	}
+
 	public function get_sortable_attrs() {
 		$sortable_attrs = $this->settings->is_sortable;
 
@@ -211,6 +296,60 @@ class PPTableModule extends FLBuilderModule {
 
 		return $sortable_attrs;
 	}
+
+	public function render_colgroup() {
+		$settings = $this->settings;
+		$source   = $settings->source;
+
+		if ( 'post' === $source ) {
+			$columns = $settings->post_items;
+	
+			if ( is_array( $columns ) && ! empty( $columns ) ) {
+				echo '<colgroup>';
+				foreach ( $columns as $column ) {
+					echo '<col';
+					$col_attrs = array();
+					$col_attrs_str = '';
+					$col_span = 1;
+					$col_styles = '';
+					if ( isset( $column->col_width ) && ! empty( $column->col_width ) ) {
+						$width_unit = isset( $column->col_width_unit ) ? $column->col_width_unit : 'px';
+						$col_styles .= 'width: ' . $column->col_width . $width_unit . ';';
+					}
+					if ( isset( $column->col_bg_color ) && ! empty( $column->col_bg_color ) ) {
+						$col_styles .= ' background-color: ' . pp_get_color_value( $column->col_bg_color ) . ';';
+					}
+					if ( isset( $column->col_span ) && ! empty( absint( $column->col_span ) ) ) {
+						$col_span = $column->col_span;
+					}
+					$col_attrs['span'] = $col_span;
+	
+					if ( ! empty( $col_styles ) ) {
+						$col_attrs['style'] = $col_styles;
+					}
+	
+					if ( ! empty( $col_attrs ) ) {
+						foreach ( $col_attrs as $attr => $val ) {
+							$col_attrs_str .= ' ' . $attr . '="' . $val . '"';
+						}
+	
+						echo $col_attrs_str;
+					}
+					echo '>';
+				}
+				echo '</colgroup>';
+			}
+		}
+	}
+
+	public function render_message( $msg ) {
+		if ( isset( $_GET['fl_builder'] ) ) {
+			echo '<div class="pp-builder-message">';
+			echo '<h4>' . sprintf( esc_html__( '[%s] - couldn\'t populate the data', 'bb-powerpack' ), $this->name ) . '</h4>';
+			echo $msg;
+			echo '</div>';
+		}
+	}
 }
 
 /**
@@ -219,53 +358,25 @@ class PPTableModule extends FLBuilderModule {
 BB_PowerPack::register_module('PPTableModule', array(
 	'general'		=> array(
 		'title'			=> __('General', 'bb-powerpack'),
-		'sections'		=> array(
-			'general'		=> array(
-				'title'			=> '',
-				'fields'		=> PPTableModule::get_general_fields()
-			),
-			'sort'       	=> array(
-                'title'         => __('Sortable Table', 'bb-powerpack'),
+		'sections'		=> PPTableModule::get_general_sections()
+	),
+	'post_content' => array(
+		'title' => __( 'Content', 'bb-powerpack' ),
+		'sections'      => array(
+            'post_columns'       => array(
+                'title'         => __('Columns', 'bb-powerpack'),
                 'fields'        => array( // Section Fields
-                    'is_sortable'     => array(
-                        'type'          => 'pp-switch',
-                        'label'         => __('Sort', 'bb-powerpack'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'	=> __('Yes', 'bb-powerpack'),
-                            'no'    => __('No', 'bb-powerpack'),
-                        ),
+                    'post_items'     => array(
+                        'type'          => 'form',
+                        'label'        => __('Column', 'bb-powerpack'),
+                        'form'          => 'pp_post_content_table_row',
+                        'preview_text'  => 'col_heading',
+                        'multiple'      => true
                     ),
                 )
             ),
-            'scroll'       => array(
-                'title'         => __('Scrollable Table', 'bb-powerpack'),
-                'fields'        => array( // Section Fields
-                    'scrollable'     => array(
-                        'type'          => 'pp-switch',
-                        'label'         => __('Scroll', 'bb-powerpack'),
-                        'default'       => 'swipe',
-                        'options'       => array(
-                            'swipe'     => __('Yes', 'bb-powerpack'),
-                            'stack'     => __('No', 'bb-powerpack')
-                        ),
-                        'toggle'        => array(
-                            'swipe'         => array(
-                                'fields'        => array('custom_breakpoint')
-                            )
-                        ),
-                        'help'         => __('This will disable stacking and enable swipe/scroll when below the breakpoint', 'bb-powerpack'),
-                    ),
-                    'custom_breakpoint' => array(
-                        'type'              => 'unit',
-                        'label'             => __('Define Custom Breakpoint', 'bb-powerpack'),
-                        'default'           => '',
-                        'slider'            => true,
-                        'help'              => __('Devices equal or below the defined screen width will have this feature.', 'bb-powerpack')
-                    )
-                )
-            ),
-		)
+
+        )
 	),
 	'header'		=> array(
         'title'         => __('Table Headers', 'bb-powerpack'),
@@ -627,6 +738,59 @@ FLBuilder::register_settings_form('pp_content_table_row', array(
 					)
 				),
 
+			)
+		),
+	)
+));
+
+FLBuilder::register_settings_form('pp_post_content_table_row', array(
+	'title' => __('Post Content', 'bb-powerpack'),
+	'tabs'  => array(
+        'general'	=> array( // Tab
+			'title'         => __('Columns', 'bb-powerpack'), // Tab title
+			'sections'      => array( // Tab Sections
+				'general'       => array(
+					'title'     => __( 'Content', 'bb-powerpack' ),
+					'fields'    => array(
+						'col_heading' => array(
+							'type'        => 'text',
+							'label'       => __('Column Heading', 'bb-powerpack'),
+							'connections' => array('string', 'custom'),
+							'preview'     => array(
+								'type' => 'none'
+							),
+						),
+                        'col_content' => array(
+							'type'        => 'textarea',
+							'label'       => __('Content', 'bb-powerpack'),
+                            'connections' => array('string', 'html', 'custom'),
+							'preview'     => array(
+								'type' => 'none'
+							),
+						),
+					)
+				),
+				'style' => array(
+					'title' => __( 'Style', 'bb-powerpack' ),
+					'fields' => array(
+						// 'col_span' => array(
+						// 	'type'     => 'unit',
+						// 	'label'    => __('Column Span', 'bb-powerpack'),
+						// ),
+						'col_width' => array(
+							'type'     => 'unit',
+							'label'    => __('Column Width', 'bb-powerpack'),
+							'units'    => array( 'px', '%' ),
+						),
+						'col_bg_color' => array(
+							'type'     => 'color',
+							'label'    => __('Background Color', 'bb-powerpack'),
+							'show_alpha' => true,
+							'show_reset' => true,
+							'connections' => array( 'color' ),
+						),
+					),
+				),
 			)
 		),
 	)

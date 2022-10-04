@@ -3,6 +3,9 @@
 	if ( $settings->show_content == 'custom' && isset( $settings->custom_content ) ) {
 		$themer_parse_shortcodes = apply_filters( 'pp_cg_beaver_themer_parse_shortcodes', true, $settings );
 		if ( is_callable( 'FLThemeBuilderFieldConnections::parse_shortcodes' ) && $themer_parse_shortcodes ) {
+			if ( is_callable( 'FLThemeBuilderFieldConnections::connect_settings' ) ) {
+				$settings = FLThemeBuilderFieldConnections::connect_settings( $settings );
+			}
 			echo FLThemeBuilderFieldConnections::parse_shortcodes( $settings->custom_content );
 		} else {
 			echo $settings->custom_content;

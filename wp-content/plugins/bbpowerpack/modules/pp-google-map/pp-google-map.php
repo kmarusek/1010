@@ -43,6 +43,35 @@ class PPGoogleMapModule extends FLBuilderModule {
 		}
 	}
 
+	public function filter_settings( $settings, $updater ) {
+		if ( isset( $settings->post_slug ) ) {
+			$settings->post_type = $settings->post_slug;
+			unset( $settings->post_slug );
+		}
+		if ( isset( $settings->post_count ) ) {
+			$settings->posts_per_page = $settings->post_count;
+			unset( $settings->post_count );
+		}
+		if ( isset( $settings->post_order_by ) ) {
+			$settings->order_by = $settings->post_order_by;
+			unset( $settings->post_order_by );
+		}
+		if ( isset( $settings->post_order_by_meta_key ) ) {
+			$settings->order_by_meta_key = $settings->post_order_by_meta_key;
+			unset( $settings->post_order_by_meta_key );
+		}
+		if ( isset( $settings->post_order ) ) {
+			$settings->order = $settings->post_order;
+			unset( $settings->post_order );
+		}
+		if ( isset( $settings->post_offset ) ) {
+			$settings->offset = $settings->post_offset;
+			unset( $settings->post_offset );
+		}
+
+		return $settings;
+	}
+
 	public static function get_general_fields() {
 		$fields = array(
 			'map_source'        => array(
@@ -59,7 +88,7 @@ class PPGoogleMapModule extends FLBuilderModule {
 					),
 					'post'   => array(
 						'fields'   => array( 'post_map_name', 'post_map_latitude', 'post_map_longitude', 'post_marker_point' ),
-						'sections' => array( 'post_content' ),
+						'sections' => array( 'post', 'location' ),
 					),
 				),
 			),
@@ -223,125 +252,39 @@ class PPGoogleMapModule extends FLBuilderModule {
 	}
 
 	public function get_cpt_data() {
-		if ( ! isset( $this->settings->post_slug ) || empty( $this->settings->post_slug ) ) {
-			return;
+		$data = array();
+
+		if ( ! isset( $this->settings->post_type ) || empty( $this->settings->post_type ) ) {
+			return $data;
 		}
 
-		$data = array();
 		$settings = $this->settings;
 
-		$post_type = ! empty( $settings->post_slug ) ? $settings->post_slug : 'post';
-		$post_count = ! empty( $settings->post_count ) || '-1' !== $settings->post_count ? $settings->post_count : '-1';
+		$settings->post_type  = ! empty( $this->settings->post_type ) ? $this->settings->post_type : 'post';
+		$settings->posts_per_page = ! empty( $this->settings->posts_per_page ) || '-1' !== $this->settings->posts_per_page ? $this->settings->posts_per_page : '-1';
+		$settings->order = ! empty( $this->settings->order ) ? $this->settings->order : 'ASC';
 
-		$post_args = array(
-			'post_type'   => $post_type,
-			'post_status' => 'publish',
-			'numberposts' => $post_count,
-		);
+		$query = FLBuilderLoop::query( $this->settings );
 
-		if ( is_tax() ) {
-			$post_args['tax_query'] = array(
-				array(
-					'taxonomy' => get_queried_object()->taxonomy,
-					'field'	=> 'slug',
-					'terms' => get_queried_object()->slug,
-				)
-			);
-		} else {
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
 
-			$taxonomies = FLBuilderLoop::taxonomies( $post_type );
+				$item                   = new stdClass;
+				$item->map_name         = ! empty( $settings->post_map_name ) ? do_shortcode( $settings->post_map_name ) : get_the_title();
+				$item->map_latitude     = ! empty( $settings->post_map_latitude ) ? do_shortcode( $settings->post_map_latitude ) : '';
+				$item->map_longitude    = ! empty( $settings->post_map_longitude ) ? do_shortcode( $settings->post_map_longitude ) : '';
+				$item->marker_point     = ! empty( $settings->post_marker_point ) ? $settings->post_marker_point : 'default';
+				$item->marker_img       = isset( $settings->post_marker_img_src ) && ! empty( $settings->post_marker_img_src ) ? $settings->post_marker_img_src : '';
+				$item->enable_info      = ! empty( $settings->post_enable_info ) ? $settings->post_enable_info : 'no';
+				$item->info_window_text = ! empty( $settings->post_info_window_text ) ? do_shortcode( $settings->post_info_window_text ) : get_the_title();
+				$item->marker_link      = get_permalink();
+				$item->marker_link_target = '_blank';
 
-			foreach ( $taxonomies as $tax_slug => $tax ) {
-
-				$tax_value = '';
-				$term_ids  = array();
-				$operator  = 'IN';
-
-				// Get the value of the suggest field.
-				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
-					// New style slug.
-					$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
-				} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
-					// Old style slug for backwards compat.
-					$tax_value = $settings->{'tax_' . $tax_slug};
-				}
-
-				// Get the term IDs array.
-				if ( ! empty( $tax_value ) ) {
-					$term_ids = explode( ',', $tax_value );
-				}
-
-				// Handle matching settings.
-				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
-
-					$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
-
-					if ( ! $tax_matching ) {
-						// Do not match these terms.
-						$operator = 'NOT IN';
-					} elseif ( 'related' === $tax_matching ) {
-						// Match posts by related terms from the global post.
-						global $post;
-						$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
-						$related = array();
-
-						foreach ( $terms as $term ) {
-							if ( ! in_array( $term->term_id, $term_ids ) ) {
-								$related[] = $term->term_id;
-							}
-						}
-
-						if ( empty( $related ) ) {
-							// If no related terms, match all except those in the suggest field.
-							$operator = 'NOT IN';
-						} else {
-
-							// Don't include posts with terms selected in the suggest field.
-							$post_args['tax_query'][] = array(
-								'taxonomy'	=> $tax_slug,
-								'field'		=> 'id',
-								'terms'		=> $term_ids,
-								'operator'  => 'NOT IN',
-							);
-
-							// Set the term IDs to the related terms.
-							$term_ids = $related;
-						}
-					}
-				} // End if().
-
-				if ( ! empty( $term_ids ) ) {
-
-					$post_args['tax_query'][] = array(
-						'taxonomy'	=> $tax_slug,
-						'field'		=> 'id',
-						'terms'		=> $term_ids,
-						'operator'  => $operator,
-					);
-				}
-			} // End foreach().
+				$data[] = $item;
+			}
+			wp_reset_postdata();
 		}
-
-		$posts = get_posts( $post_args );
-
-		global $post;
-
-		foreach ( $posts as $post ) {
-			setup_postdata( $post );
-			$item                   = new stdClass;
-			$item->map_name         = ! empty( $settings->post_map_name ) ? do_shortcode( $settings->post_map_name ) : get_the_title( $post->ID );
-			$item->map_latitude     = ! empty( $settings->post_map_latitude ) ? do_shortcode( $settings->post_map_latitude ) : '';
-			$item->map_longitude    = ! empty( $settings->post_map_longitude ) ? do_shortcode( $settings->post_map_longitude ) : '';
-			$item->marker_point     = ! empty( $settings->post_marker_point ) ? $settings->post_marker_point : 'default';
-			$item->marker_img       = isset( $settings->post_marker_img_src ) && ! empty( $settings->post_marker_img_src ) ? $settings->post_marker_img_src : '';
-			$item->enable_info      = ! empty( $settings->post_enable_info ) ? $settings->post_enable_info : 'no';
-			$item->info_window_text = ! empty( $settings->post_info_window_text ) ? do_shortcode( $settings->post_info_window_text ) : get_the_title( $post->ID );
-			$item->marker_link      = get_permalink( $post );
-			$item->marker_link_target = '_blank';
-
-			$data[] = $item;
-		}
-		wp_reset_postdata();
 
 		return $data;
 	}

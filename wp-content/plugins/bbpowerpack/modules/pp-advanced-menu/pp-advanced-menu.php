@@ -866,6 +866,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
                         'label'      => __('Link Color', 'bb-powerpack'),
                         'default'    => '',
 						'show_reset' => true,
+						'show_alpha' => true,
 						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 'css',
@@ -890,6 +891,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
                         'label'      => __('Link Hover Color', 'bb-powerpack'),
                         'default'    => '',
 						'show_reset' => true,
+						'show_alpha' => true,
 						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 'css',
@@ -1122,6 +1124,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
                         'label'      => __('Link Color', 'bb-powerpack'),
                         'default'    => '',
 						'show_reset' => true,
+						'show_alpha' => true,
 						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
@@ -1134,6 +1137,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
                         'label'      => __('Link Hover Color', 'bb-powerpack'),
                         'default'    => '',
 						'show_reset' => true,
+						'show_alpha' => true,
 						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
@@ -1447,6 +1451,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 						'label'      => __('Link Color', 'bb-powerpack'),
 						'default'    => '',
 						'show_reset' => true,
+						'show_alpha' => true,
 						'connections'	=> array('color'),
 						'preview'	 => array(
 							'type'		=> 'css',

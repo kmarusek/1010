@@ -79,21 +79,39 @@ FLBuilderCSS::typography_field_rule( array(
 	'selector' 		=> ".fl-node-$id .pp-infobox-description",
 ) );
 ?>
-.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title {
-	<?php if ( !empty( $settings->title_color_h ) ) { ?>
-		color: #<?php echo $settings->title_color_h; ?>;
-	<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title a {
-	<?php if ( !empty( $settings->title_color_h ) ) { ?>
-		color: #<?php echo $settings->title_color_h; ?>;
-	<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-description {
-	<?php if ( !empty( $settings->text_color_h ) ) { ?>
-		color: #<?php echo $settings->text_color_h; ?>;
-	<?php } ?>
-}
+<?php if ( 'box' === $settings->pp_infobox_link_type ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title a {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-description {
+		<?php if ( !empty( $settings->text_color_h ) ) { ?>
+			color: #<?php echo $settings->text_color_h; ?>;
+		<?php } ?>
+	}
+<?php } else { ?>
+	.fl-node-<?php echo $id; ?> .pp-infobox .pp-infobox-title:hover {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox .pp-infobox-title a:hover {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox .pp-infobox-description:hover {
+		<?php if ( !empty( $settings->text_color_h ) ) { ?>
+			color: #<?php echo $settings->text_color_h; ?>;
+		<?php } ?>
+	}
+<?php } ?>
 <?php
 // Icon - Border
 FLBuilderCSS::border_field_rule( array(
@@ -134,20 +152,33 @@ FLBuilderCSS::responsive_rule( array(
 ?>
 <?php if( $settings->icon_type == 'icon' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-icon {
-		<?php if( $settings->icon_box_size ) { ?>padding: <?php echo $settings->icon_box_size; ?>px;<?php } ?>
-		<?php if( $settings->icon_background ) { ?>background: <?php echo pp_get_color_value( $settings->icon_background ); ?>;<?php } ?>
+		<?php if ( $settings->icon_box_size ) { ?>
+			padding: <?php echo $settings->icon_box_size; ?>px;
+		<?php } ?>
+		<?php if ( ! empty( $settings->icon_background ) ) { ?>
+			background: <?php echo pp_get_color_value( $settings->icon_background ); ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span.pp-icon {
-		<?php if( $settings->icon_color ) { ?>color: #<?php echo $settings->icon_color; ?>;<?php } ?>
+		<?php if ( ! empty( $settings->icon_color ) ) { ?>
+			color: #<?php echo $settings->icon_color; ?>;
+		<?php } ?>
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon {
+		<?php if ( ! empty( $settings->icon_border_color_hover ) ) { ?>
+			border-color: #<?php echo $settings->icon_border_color_hover; ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon {
-		<?php if( ! empty( $settings->icon_border_color_hover ) ) { ?>border-color: #<?php echo $settings->icon_border_color_hover; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon {
-		<?php if( $settings->icon_background_hover ) { ?>background: <?php echo pp_get_color_value( $settings->icon_background_hover ); ?>;<?php } ?>
+		<?php if ( ! empty( $settings->icon_background_hover ) ) { ?>
+			background: <?php echo pp_get_color_value( $settings->icon_background_hover ); ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon span.pp-icon {
-		<?php if( $settings->icon_color_hover ) { ?>color: #<?php echo $settings->icon_color_hover; ?>;<?php } ?>
+		<?php if ( ! empty( $settings->icon_color_hover ) ) { ?>
+			color: #<?php echo $settings->icon_color_hover; ?>;
+		<?php } ?>
 	}
 <?php } ?>
 <?php if( $settings->icon_type == 'image' ) { ?>

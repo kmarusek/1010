@@ -285,6 +285,10 @@ function pp_column_separators_css( $css, $nodes, $global_settings ) {
                     <?php if ( 'no' == $column->settings->separator_tablet ) { ?>
                         display: none;
                     <?php } ?>
+					<?php if ( isset( $settings->separator_position_medium ) && ! empty( $settings->separator_position_medium ) ) { ?>
+						<?php echo $settings->separator_position; ?>: auto;
+						<?php echo $settings->separator_position_medium; ?>: 0;
+					<?php } ?>
                 }
                 <?php if ( 'yes' == $column->settings->separator_tablet && $column->settings->separator_height_tablet > 0 ) { ?>
                     .fl-node-<?php echo $column->node; ?> .pp-col-separator svg {
@@ -298,6 +302,13 @@ function pp_column_separators_css( $css, $nodes, $global_settings ) {
                         display: none;
                     <?php } else { ?>
 						display: block;
+					<?php } ?>
+					<?php if ( isset( $settings->separator_position_responsive ) && ! empty( $settings->separator_position_responsive ) ) { ?>
+						<?php echo $settings->separator_position; ?>: auto;
+						<?php if ( isset( $settings->separator_position_medium ) && ! empty( $settings->separator_position_medium ) ) { ?>
+							<?php echo $settings->separator_position_medium; ?>: auto;
+						<?php } ?>
+						<?php echo $settings->separator_position_responsive; ?>: 0;
 					<?php } ?>
                 }
                 <?php if ( 'yes' == $column->settings->separator_mobile && $column->settings->separator_height_mobile > 0 ) { ?>

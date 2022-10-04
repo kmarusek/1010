@@ -1381,6 +1381,18 @@ BB_PowerPack::register_module('PPLoginFormModule', array(
 							'property'		=> 'color',
 						)
 					),
+					'field_placeholder_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Placeholder Text Color', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-field-group .pp-login-form--input::placeholder',
+							'property'		=> 'color',
+						)
+					),
 					'field_bg_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Background Color', 'bb-powerpack'),

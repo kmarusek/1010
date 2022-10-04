@@ -98,7 +98,8 @@ var ppcg_<?php echo $id; ?> = '';
 				responsiveBaseWidth: window,
 				loop: <?php echo isset( $settings->slide_loop ) && 'yes' === $settings->slide_loop ? 'true' : 'false'; ?>,
 				center: <?php echo ( isset( $settings->slides_center_align ) && 'yes' == $settings->slides_center_align ) ? 'true' : 'false'; ?>,
-				autoHeight: <?php echo isset( $settings->auto_height ) && 'yes' === $settings->auto_height ? 'true' : 'false'; ?>
+				autoHeight: <?php echo isset( $settings->auto_height ) && 'yes' === $settings->auto_height ? 'true' : 'false'; ?>,
+				URLhashListener: <?php echo isset( $settings->url_hash_listener ) && 'yes' === $settings->url_hash_listener ? 'true' : 'false'; ?>
 			}
 			<?php } // End if(). ?>
 	};
@@ -123,11 +124,10 @@ var ppcg_<?php echo $id; ?> = '';
 
 	<?php if ( is_search() ) { ?>
 	PPContentGridOptions.is_search = true;
-	PPContentGridOptions.search_term = '<?php echo isset( $_GET['s'] ) ? (string) $_GET['s'] : ''; ?>';
 	<?php } ?>
 
 	<?php if ( isset( $_GET['orderby'] ) && ! empty( $_GET['orderby'] ) ) { ?>
-	PPContentGridOptions.orderby = '<?php echo (string) $_GET['orderby']; ?>';
+	PPContentGridOptions.orderby = '<?php echo esc_attr( wp_unslash( $_GET['orderby'] ) ); ?>';
 	<?php } ?>
 
 	<?php if ( isset( $module->template_id ) ) { ?>

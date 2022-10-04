@@ -55,11 +55,20 @@
     min-height: 100%;
     margin: 0;
 }
+/* .pp-modal.layout-standard:not(.position-auto) {
+	top: 50%;
+	transform: translateY(-50%);
+} */
 .pp-modal .pp-modal-content {
 	height: inherit;
 	overflow-y: auto;
+	position: relative;
+    z-index: 1;
     -webkit-overflow-scrolling: touch;
 }
+/* .pp-modal.layout-standard .pp-modal-content {
+	max-height: 90vh;
+} */
 .pp-modal .pp-modal-body {
     overflow: hidden;
 	height: inherit;

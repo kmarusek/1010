@@ -54,7 +54,7 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a {
 	<?php if( $settings->responsive_link_bg_color ) { ?>background-color: <?php echo pp_get_color_value( $settings->responsive_link_bg_color ); ?>;<?php } ?>
-	<?php if( $settings->responsive_link_color ) { ?>color: #<?php echo $settings->responsive_link_color; ?>;<?php } ?>
+	<?php if( $settings->responsive_link_color ) { ?>color: <?php echo pp_get_color_value( $settings->responsive_link_color ); ?>;<?php } ?>
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
@@ -65,7 +65,7 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a span.menu-item-text {
 	display: inline-block;
 	border-style: solid;
-	border-color: <?php echo ($settings->responsive_link_border_color) ? '#' . $settings->responsive_link_border_color : 'transparent'; ?>;
+	border-color: <?php echo ($settings->responsive_link_border_color) ? pp_get_color_value( $settings->responsive_link_border_color ) : 'transparent'; ?>;
 }
 <?php
 // Responsive Link Border Width
@@ -102,7 +102,7 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a:focus {
 	<?php if( $settings->responsive_link_bg_hover_color ) { ?>background-color: <?php echo pp_get_color_value( $settings->responsive_link_bg_hover_color ); ?>;<?php } ?>
-	<?php if( $settings->responsive_link_hover_color ) { ?>color: #<?php echo $settings->responsive_link_hover_color; ?>;<?php } ?>
+	<?php if( $settings->responsive_link_hover_color ) { ?>color: <?php echo pp_get_color_value( $settings->responsive_link_hover_color ); ?>;<?php } ?>
 }
 
 <?php if( '' != $settings->animation_speed ) { ?>
@@ -135,7 +135,7 @@ FLBuilderCSS::dimension_field_rule( array(
 		height: <?php echo  $settings->close_icon_size ; ?>px;
 	<?php } ?>
 	<?php if( $settings->close_icon_color ) { ?>
-		background-color: #<?php echo $settings->close_icon_color; ?>;
+		background-color: <?php echo pp_get_color_value( $settings->close_icon_color ); ?>;
 	<?php } ?>
 }
 
@@ -145,14 +145,14 @@ FLBuilderCSS::dimension_field_rule( array(
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-none .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-arrows .sub-menu .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-none .sub-menu .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->responsive_link_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->responsive_link_color ); ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus .pp-menu-toggle:after,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus .sub-menu .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus .sub-menu .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->responsive_link_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->responsive_link_color ); ?>;
 		}
 		<?php } ?>
 <?php } ?>
@@ -164,14 +164,14 @@ FLBuilderCSS::dimension_field_rule( array(
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-none li:hover .pp-menu-toggle:before
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-arrows .sub-menu li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-none .sub-menu li:hover .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->responsive_link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->responsive_link_hover_color ); ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus li:hover .pp-menu-toggle:after,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus .sub-menu li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .pp-toggle-plus .sub-menu li:hover .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->responsive_link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->responsive_link_hover_color ); ?>;
 		}
 		<?php } ?>
 <?php } ?>

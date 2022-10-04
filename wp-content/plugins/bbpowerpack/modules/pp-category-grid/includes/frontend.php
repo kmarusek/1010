@@ -65,6 +65,7 @@ if ( ( ! $cat_match || 'related' === $cat_match ) && ! empty( $ids ) ) {
 
 // Show child terms on taxonomy archive page.
 if ( isset( $settings->on_tax_archive ) && ( is_tax() || is_category() || is_tag() ) ) {
+	$settings->is_tax_archive = true;
 	$current_object = get_queried_object();
 	if ( 'children_only' === $settings->on_tax_archive ) {
 		$args['child_of'] = $current_object->term_id;
@@ -72,6 +73,10 @@ if ( isset( $settings->on_tax_archive ) && ( is_tax() || is_category() || is_tag
 	if ( 'parent_only' === $settings->on_tax_archive && intval( $current_object->parent ) > 0 ) {
 		$args['include'] = (array) $current_object->parent;
 	}
+}
+
+if ( ! empty( $setting->id ) ) {
+	$args['pp_category_grid_id'] = $setting->id;
 }
 
 $args = apply_filters( 'pp_category_grid_query_args', $args, $settings );
@@ -116,6 +121,8 @@ $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->categ
 $is_tax_archive = is_tax() || is_category() || is_tag();
 $queried_object = $is_tax_archive ? get_queried_object() : false;
 $exclude_current_cat = apply_filters( 'pp_category_grid_exclude_current_category', true );
+
+do_action( 'pp_category_grid_before_container', $settings );
 ?>
 
 <div class="pp-categories-container<?php echo 'yes' === $settings->category_grid_slider ? ' swiper-container' : ''; ?>">
@@ -149,8 +156,9 @@ $exclude_current_cat = apply_filters( 'pp_category_grid_exclude_current_category
 				}
 			}
 		} elseif ( isset( $settings->display_data ) && 'children_only' === $settings->display_data ) {
-			if ( isset( $args['include'][0] ) && intval( $args['include'][0] ) > 0 ) {
-				$inc_array = $args['include'];
+			$key = isset( $settings->display_direct_child ) && 'yes' === $settings->display_direct_child ? 'parent' : 'include';
+			if ( isset( $args[ $key ][0] ) && intval( $args[ $key ][0] ) > 0 ) {
+				$inc_array = $args[ $key ];
 				if ( ! in_array( $cat->parent, $inc_array ) ) {
 					continue;
 				}
@@ -206,3 +214,5 @@ $exclude_current_cat = apply_filters( 'pp_category_grid_exclude_current_category
 	?>
 
 </div>
+
+<?php do_action( 'pp_category_grid_after_container', $settings ); ?>

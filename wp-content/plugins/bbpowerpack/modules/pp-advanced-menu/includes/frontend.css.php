@@ -73,14 +73,14 @@ FLBuilderCSS::typography_field_rule( array(
 	border-bottom-width: <?php echo ( $settings->border_size['bottom'] != '' && $settings->border_color ) ? $settings->border_size['bottom'] : '0'; ?>px;
 	border-left-width: <?php echo ( $settings->border_size['left'] != '' && $settings->border_color ) ? $settings->border_size['left'] : '0'; ?>px;
 	border-right-width: <?php echo ( $settings->border_size['right'] != '' && $settings->border_color ) ? $settings->border_size['right'] : '0'; ?>px;
-	border-color: <?php echo '#' . $settings->border_color; ?>;
-	background-color: <?php echo ( false === strpos( $settings->background_color, 'rgb' ) ) ? '#' . $settings->background_color : $settings->background_color; ?>;
-	color: <?php echo '#' . $settings->link_color; ?>;
+	border-color: <?php echo pp_get_color_value( $settings->border_color ); ?>;
+	background-color: <?php echo pp_get_color_value( $settings->background_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->link_color ); ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li > a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li > .pp-has-submenu-container > a:hover {
 	<?php if ( ! empty( $settings->border_hover_color ) ) { ?>
-	border-color: #<?php echo $settings->border_hover_color; ?>;
+	border-color: <?php echo pp_get_color_value( $settings->border_hover_color ); ?>;
 	<?php } ?>
 }
 <?php
@@ -104,12 +104,12 @@ FLBuilderCSS::dimension_field_rule( array(
 		<?php if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-arrows .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->link_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_color ); ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->link_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_color ); ?>;
 		}
 		<?php } ?>
 <?php } ?>
@@ -121,25 +121,25 @@ FLBuilderCSS::dimension_field_rule( array(
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-arrows li.focus .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none li.focus .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_hover_color ); ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li:hover .pp-menu-toggle:after,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li.focus .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li.focus .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_hover_color ); ?>;
 		}
 		<?php } ?>
         <?php if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-arrows li a:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none li a:hover .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_hover_color ); ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li a:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li a:hover .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_hover_color ); ?>;
 		}
 		<?php } ?>
 <?php }
@@ -175,7 +175,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none .pp-has-submenu-container:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none .pp-has-submenu-container.focus .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none li.current-menu-item > .pp-has-submenu-container .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->link_hover_color ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_hover_color ) ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .pp-has-submenu-container:hover .pp-menu-toggle:before,
@@ -188,7 +188,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
         .fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .pp-has-submenu-container a:hover .pp-menu-toggle:after,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .pp-has-submenu-container.focus a .pp-menu-toggle:after,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus li.current-menu-item > .pp-has-submenu-container .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->link_hover_color ?>;
+			border-color: <?php echo pp_get_color_value( $settings->link_hover_color ) ?>;
 		}
 	<?php } ?>
 
@@ -247,9 +247,9 @@ FLBuilderCSS::typography_field_rule( array(
 	border-width: 0;
 	border-style: <?php echo $settings->submenu_border_style; ?>;
 	border-bottom-width: <?php echo ( $settings->submenu_border_size != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size : ''; ?>px;
-	border-color: <?php echo '#' . $settings->submenu_border_color; ?>;
+	border-color: <?php echo pp_get_color_value( $settings->submenu_border_color ); ?>;
 	background-color: <?php echo pp_get_color_value( $settings->submenu_background_color ); ?>;
-	color: #<?php echo empty($settings->submenu_link_color) ? $settings->link_color : $settings->submenu_link_color; ?>;
+	color: <?php echo empty($settings->submenu_link_color) ? pp_get_color_value( $settings->link_color ) : pp_get_color_value( $settings->submenu_link_color ); ?>;
 }
 <?php
 // Submenu link Padding
@@ -279,7 +279,7 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > a,
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > .pp-has-submenu-container > a {
 	background-color: <?php echo pp_get_color_value( $settings->submenu_background_hover_color ); ?>;
-	color: #<?php echo empty($settings->submenu_link_hover_color) ? $settings->link_hover_color : $settings->submenu_link_hover_color; ?>;
+	color: <?php echo empty( $settings->submenu_link_hover_color ) ? pp_get_color_value( $settings->link_hover_color ) : pp_get_color_value( $settings->submenu_link_hover_color ); ?>;
 }
 
 <?php if( !empty( $settings->submenu_link_color ) ) { ?>
@@ -287,12 +287,12 @@ FLBuilderCSS::dimension_field_rule( array(
 		<?php if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-arrows .sub-menu .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none .sub-menu .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->submenu_link_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->submenu_link_color ); ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .sub-menu .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .sub-menu .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->submenu_link_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->submenu_link_color ); ?>;
 		}
 		<?php } ?>
 <?php } ?>
@@ -302,12 +302,12 @@ FLBuilderCSS::dimension_field_rule( array(
 		<?php if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-arrows .sub-menu li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-none .sub-menu li:hover .pp-menu-toggle:before {
-			border-color: #<?php echo $settings->submenu_link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->submenu_link_hover_color ); ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .sub-menu li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-toggle-plus .sub-menu li:hover .pp-menu-toggle:after {
-			border-color: #<?php echo $settings->submenu_link_hover_color; ?>;
+			border-color: <?php echo pp_get_color_value( $settings->submenu_link_hover_color ); ?>;
 		}
 		<?php } ?>
 <?php } ?>
@@ -739,7 +739,7 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
 		<?php
 		if( !empty( $settings->mobile_toggle_color ) ) {
-			echo 'color: #'. $settings->mobile_toggle_color .';';
+			echo 'color: '. pp_get_color_value( $settings->mobile_toggle_color ) .';';
 		}
 
 		if( $settings->mobile_toggle_font['family'] != 'Default' && ( $settings->mobile_toggle == 'hamburger-label' || $settings->mobile_toggle == 'text' ) ) { ?>
@@ -772,9 +772,9 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner,
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:before,
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:after {
-		<?php if( !empty( $settings->mobile_toggle_color ) ) {
-			echo 'background-color: #'. $settings->mobile_toggle_color .';';
-		} ?>
+		<?php if( !empty( $settings->mobile_toggle_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $settings->mobile_toggle_color ); ?>;
+		<?php } ?>
 		<?php if ( $settings->mobile_toggle_thickness !== '' ) { ?>
 			height: <?php echo $settings->mobile_toggle_thickness; ?>px;
 		<?php } ?>
@@ -783,7 +783,7 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle rect {
 		<?php
 			if( !empty( $settings->link_color ) ) {
-				echo 'fill: #'. $settings->link_color .';';
+				echo 'fill: '. pp_get_color_value( $settings->link_color ) .';';
 			}
 		?>
 	}
@@ -898,9 +898,9 @@ endif; ?>
 	.fl-node-<?php echo $id; ?> .sub-menu > li > a,
 	.fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
 		border-bottom-width: <?php echo ( $settings->submenu_border_size_medium != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size_medium : ''; ?>px;
-		<?php if( isset( $settings->responsive_submenu_bg_color ) ) {
-			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color);
-		} ?>
+		<?php if( isset( $settings->responsive_submenu_bg_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value($settings->responsive_submenu_bg_color); ?>;
+		<?php } ?>
 	}
 
 	.fl-node-<?php echo $id; ?> .sub-menu {
@@ -962,9 +962,9 @@ endif; ?>
 	.fl-node-<?php echo $id; ?> .sub-menu > li > a,
 	.fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
 		border-bottom-width: <?php echo ( $settings->submenu_border_size_responsive != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size_responsive : ''; ?>px;
-		<?php if( isset( $settings->responsive_submenu_bg_color ) ) {
-			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color);
-		} ?>
+		<?php if( isset( $settings->responsive_submenu_bg_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value($settings->responsive_submenu_bg_color); ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
 		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_responsive ) { ?>

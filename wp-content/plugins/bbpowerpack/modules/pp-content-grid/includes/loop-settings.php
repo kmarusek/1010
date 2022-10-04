@@ -964,5 +964,23 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 		$('.fl-builder-pp-content-grid-settings select[name="post_type"], .fl-builder-pp-content-grid-settings select[name="data_source"]').on('change', function() {
 			pp_custom_query_taxonomies();
 		});
+
+		var onSourceChange = function() {
+			var $form = $('.fl-builder-settings');
+
+			$form.find( 'select[name="data_source"]' ).on( 'change', function() {
+				$form.attr( 'data-current-source', $(this).val() );
+			} );
+		};
+
+		var initSettings = function() {
+			var $form = $('.fl-builder-settings');
+
+			$form.find( 'select[name="data_source"]' ).on( 'change', onSourceChange );
+
+			$form.attr( 'data-current-source', $form.find( 'select[name="data_source"]' ).val() );
+		};
+
+		initSettings();
 	})(jQuery);
 </script>

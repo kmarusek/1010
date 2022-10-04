@@ -72,7 +72,7 @@ if ( isset( $settings->layout ) ) {
 				<div class="pp-testimonial layout-1<?php echo $classes; ?>">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
+							<img class="pp-testimonial-img" src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
 					<div class="pp-content-wrapper">
@@ -113,7 +113,7 @@ if ( isset( $settings->layout ) ) {
 					<div class="pp-vertical-align">
 						<?php if ( $testimonial->photo ) { ?>
 							<div class="pp-testimonials-image">
-								<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
+								<img class="pp-testimonial-img" src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 							</div>
 						<?php } ?>
 						<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
@@ -142,7 +142,7 @@ if ( isset( $settings->layout ) ) {
 				<div class="pp-testimonial layout-3<?php echo $classes; ?> clearfix">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
+							<img class="pp-testimonial-img" src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
 					<div class="layout-3-content pp-content-wrapper">
@@ -176,7 +176,7 @@ if ( isset( $settings->layout ) ) {
 				<div class="pp-testimonial layout-4<?php echo $classes; ?><?php echo ! $testimonial->photo ? ' no-image-inner' : ''; ?>">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
+							<img class="pp-testimonial-img" src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
 					<div class="layout-4-content pp-content-wrapper">
@@ -240,7 +240,7 @@ if ( isset( $settings->layout ) ) {
 				<div class="pp-testimonial layout-1<?php echo $classes; ?>">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
+							<img class="pp-testimonial-img" src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
 					<?php if ( $testimonial->testimonial ) { ?>

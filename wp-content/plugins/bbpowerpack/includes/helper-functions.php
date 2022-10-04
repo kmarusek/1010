@@ -735,7 +735,9 @@ function pp_get_image_alt( $img_id = false, $default = '' ) {
 		return;
 	}
 	if ( ! class_exists( 'FLBuilderPhoto' ) ) {
-		return;
+		$image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+		$image_alt = empty( $image_alt ) ? esc_attr( $default ) : $image_alt;
+		return $image_alt;
 	}
 	
 	$img_id = absint( $img_id );
@@ -1016,4 +1018,31 @@ function pp_next_icon_svg( $sr_text = '', $echo = true ) {
 	} else {
 		return $svg;
 	}
+}
+
+function pp_get_post_content( $post ) {
+	if ( ! $post instanceof WP_Post ) {
+		return;
+	}
+
+	ob_start();
+
+	if ( FLBuilderModel::is_builder_enabled( $post->ID ) ) {
+
+		// Enqueue styles and scripts for the post.
+		FLBuilder::enqueue_layout_styles_scripts_by_id( $post->ID );
+
+		// Print the styles if we are outside of the head tag.
+		if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {
+			wp_print_styles();
+		}
+
+		// Render the builder content.
+		FLBuilder::render_content_by_id( $post->ID );
+	} else {
+		// Render the WP editor content if the builder isn't enabled.
+		echo apply_filters( 'the_content', get_the_content( null, false, $post->ID ) );
+	}
+
+	return ob_get_clean();
 }

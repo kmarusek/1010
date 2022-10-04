@@ -4,9 +4,6 @@
 .pp-tabs-labels {
 	display: none !important;
 }
-.pp-tabs-label.pp-tab-active {
-	/*position: static;*/
-}
 
 /*  Panel Labels
 ------------------------------------ */
@@ -56,4 +53,95 @@
 .pp-tabs-vertical .pp-tabs-panels {
 	float: none;
 	width: auto;
+}
+
+
+.pp-tabs-panel-content {
+	padding: 20px;
+}
+.pp-tabs .pp-tabs-label {
+	text-align: left;
+	border-bottom: 2px solid #e7e7e7;
+}
+.pp-tabs .pp-tabs-label.pp-tab-active {
+	border-bottom: 0;
+}
+
+.pp-tabs .pp-tabs-default .pp-tabs-label,
+.pp-tabs .pp-tabs-default .pp-tabs-label.pp-tab-active,
+.pp-tabs .pp-tabs-style-5 .pp-tabs-label,
+.pp-tabs .pp-tabs-style-6 .pp-tabs-label,
+.pp-tabs .pp-tabs-style-6 .pp-tabs-label.pp-tab-active,
+.pp-tabs .pp-tabs-style-7 .pp-tabs-label,
+.pp-tabs .pp-tabs-style-7 .pp-tabs-label.pp-tab-active,
+.pp-tabs .pp-tabs-style-8 .pp-tabs-label {
+	background-color: transparent !important;
+}
+
+.pp-tabs-style-1 .pp-tabs-label {
+	border: 0 !important;
+	border-bottom: 2px solid #e7e7e7 !important;
+}
+.pp-tabs-style-1 .pp-tabs-label.pp-tab-active {
+	border-bottom: 0 !important;
+}
+.pp-tabs-style-2 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after,
+.pp-tabs-style-3 .pp-tabs-label:after,
+.pp-tabs-style-4 .pp-tabs-label.pp-tab-active:before,
+.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after,
+.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
+	display: none;
+}
+.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner {
+	border-bottom: 0;
+}
+
+.pp-tabs-horizontal .pp-tabs-label .pp-tab-label-inner:before {
+	content: "";
+	display: block;
+	height: auto;
+	vertical-align: middle;
+}
+.pp-tabs-style-2 .pp-tabs-label .pp-tab-label-inner {
+	display: table;
+}
+.pp-tabs-vertical.pp-tabs-style-2 .pp-tabs-label .pp-tab-label-inner:after {
+	display: none;
+}
+.pp-tabs-style-2 .pp-tabs-label:first-child:before, .pp-tabs-style-2 .pp-tabs-label::after {
+	display: none;
+}
+.pp-tabs .pp-tab-title {
+	display: inline-block;
+	width: auto;
+}
+.pp-tab-icon {
+	padding-left: 0 !important;
+	display: inline-table !important;
+	margin-bottom: 0 !important;
+	margin-top: 0 !important;
+	margin-right: 15px !important;
+}
+.pp-tab-icon-right .pp-tab-icon,
+.pp-tab-icon-bottom .pp-tab-icon {
+	margin-right: 0 !important;
+	margin-left: 15px !important;
+}
+.pp-tabs-panel-label .pp-toggle-icon {
+	text-align: right;
+}
+.pp-tabs-style-5 .pp-tabs-label .pp-tab-label-inner:after {
+	display: none;
+}
+
+.pp-tabs-horizontal.pp-tabs-default .pp-tabs-label.pp-tab-active {
+	/*border: none;*/
+}
+
+.pp-tabs-style-8 .pp-tabs-label {
+	margin: 0 !important;
+}
+
+.pp-tabs-style-8 .pp-tabs-label .pp-tab-label-inner:after {
+	display: none;
 }

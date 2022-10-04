@@ -747,18 +747,19 @@ function pp_row_infinite_bg_css( $css, $nodes, $global_settings ) {
 				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap {
 					background-color: transparent;
 					background-image: url(<?php echo $row->settings->pp_bg_image_src;?>);
-					background-repeat: repeat;
 					background-position: 0 0;
 				}
 				<?php if ( isset($row->settings->scrolling_direction ) && 'horizontal' == $row->settings->scrolling_direction ) { ?>
 					.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap {
 						animation: pp-animation-horizontally-<?php echo $row->settings->scrolling_direction_h; ?>-<?php echo $row->node; ?> <?php echo $row->settings->scrolling_speed; ?>s linear infinite;
 						background-size: cover;
+						background-repeat: repeat-x;
 					}
 				<?php } elseif ( isset($row->settings->scrolling_direction ) && 'vertical' == $row->settings->scrolling_direction ) { ?>
 					.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap {
 						animation: pp-animation-vertically-<?php echo $row->settings->scrolling_direction_v; ?>-<?php echo $row->node; ?> <?php echo $row->settings->scrolling_speed; ?>s linear infinite;
-						background-size: contain;
+						background-size: cover;
+						background-repeat: repeat-y;
 					}
 				<?php } ?>
 				<?php if( isset($row->settings->pp_infinite_overlay) ) { ?>
@@ -826,6 +827,7 @@ function pp_row_animated_bg_css( $css, $nodes, $global_settings ) {
 					z-index: 0;
 				}
 				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap .fl-row-content {
+					position: relative;
 					z-index: 1;
 				}
 

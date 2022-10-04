@@ -6,14 +6,9 @@
 			var self = this;
 			
 			self._toggleOverlayFields();
-			self._toggleFilterFields();
 
 			form.find('#fl-field-map_source').on('change', function() {
 				self._toggleOverlayFields();
-			});
-
-			form.find('#fl-field-post_slug').on('change', function() {
-				self._toggleFilterFields();
 			});
 		},
 
@@ -31,18 +26,6 @@
 				form.find('#fl-field-acf_options_info_window_text').hide();
 			} else {
 				form.find('#fl-field-acf_options_info_window_text').show();
-			}
-		},
-
-		_toggleFilterFields: function() {
-			var form  = $('.fl-builder-settings');
-			var postType = form.find('#fl-field-post_slug select').val();
-			var section = $('.pp-custom-query-' + postType + '-filter');
-
-			form.find('.fl-custom-query-filter').hide();
-
-			if ( section.length > 0 ) {
-				section.show();
 			}
 		}
 	});

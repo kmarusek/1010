@@ -1,3 +1,8 @@
+<?php if ( 'onclick' !== $settings->modal_load ) { ?>
+body:not(.fl-builder-edit) .fl-node-<?php echo $id; ?> > .fl-module-content {
+	margin: 0;
+}
+<?php } ?>
 <?php if ( 'disabled' === $settings->modal_preview ) { ?>
 	body.fl-builder-edit .fl-node-<?php echo $id; ?> .pp-modal-wrap {
 		display: none;

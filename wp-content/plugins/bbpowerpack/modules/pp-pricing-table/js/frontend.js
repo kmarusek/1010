@@ -67,12 +67,12 @@
 
 		_showHelpTooltip: function(e) {
 			this._hideHelpTooltip();
-			$(e.target).closest('.pp-pricing-item-tooltip').find('.pp-pricing-item-tooltip-text').fadeIn();
+			$(e.target).closest('.pp-pricing-item-tooltip').find('.pp-pricing-item-tooltip-text').fadeIn(200);
 			e.stopPropagation();
 		},
 
 		_hideHelpTooltip: function() {
-			$('.fl-module-pp-pricing-table .pp-pricing-item-tooltip-text').fadeOut();
+			$('.fl-module-pp-pricing-table .pp-pricing-item-tooltip-text').fadeOut(200);
 		},
 	};
 

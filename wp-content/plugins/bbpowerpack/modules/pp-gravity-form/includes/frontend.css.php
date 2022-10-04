@@ -423,8 +423,6 @@ FLBuilderCSS::responsive_rule(
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper.gf_browser_ie .gform_page_footer .button {
 	<?php if ( 'true' === $settings->button_width ) { ?>
 	width: 100%;
-	<?php } elseif ( isset( $settings->button_custom_width ) && ! empty( $settings->button_custom_width ) ) { ?>
-	width: <?php echo $settings->button_custom_width; ?>px;
 	<?php } else { ?>
 	width: auto;
 	<?php } ?>
@@ -442,6 +440,21 @@ FLBuilderCSS::responsive_rule(
 	<?php } ?>
 	white-space: normal;
 }
+
+<?php
+FLBuilderCSS::responsive_rule( array(
+	'settings' => $settings,
+	'setting_name' => 'button_custom_width',
+	'prop' => 'width',
+	'unit' => 'px',
+	'enabled' => 'true' !== $settings->button_width,
+	'selector' => ".fl-node-$id .pp-gf-content .gform_wrapper .gform-button,
+		.fl-node-$id .pp-gf-content .gform_wrapper .gform_footer .gform_button,
+		.fl-node-$id .pp-gf-content .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
+		.fl-node-$id .pp-gf-content .gform_wrapper .gform_page_footer .button,
+		.fl-node-$id .pp-gf-content .gform_wrapper.gf_browser_ie .gform_page_footer .button"
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gform_page_footer .button {
 	<?php if ( 'true' === $settings->button_width ) { ?>

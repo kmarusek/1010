@@ -326,8 +326,7 @@
 				onResized: $.proxy(this._gridLayoutMatchHeightSimple, this),
 				onRefreshed: $.proxy(this._gridLayoutMatchHeightSimple, this),
 				onLoadedLazy: $.proxy(this._gridLayoutMatchHeightSimple, this),
-				rtl: $('body').hasClass( 'rtl' ),
-				URLhashListener: true
+				rtl: $('body').hasClass( 'rtl' )
 			};
 			if ( $(this.postClass).length < this.settings.carousel.items ) {
 				this.settings.carousel.slideBy = 'page';
@@ -435,7 +434,7 @@
 
 			if ( this.settings.is_search ) {
 				data['is_search'] = true;
-				data['search_term'] = this.settings.search_term;
+				data['search_term'] = bb_powerpack.search_term;
 			}
 
 			if ('undefined' !== typeof this.settings.orderby || '' !== this.settings.orderby) {
@@ -550,7 +549,8 @@
 
 			if ( ('load_more' !== self.settings.pagination && 'scroll' !== self.settings.pagination) || self.isFiltering ) {
 				if ( self.settings.scrollTo && ! self.isDefaultFilter ) {
-					var offsetTop = $(self.nodeClass).offset().top - 200;
+					var scrollToClass = self.settings.scrollToClass || self.nodeClass;
+					var offsetTop = $(scrollToClass).offset().top - 200;
 					$('html, body').stop().animate({
 						scrollTop: offsetTop
 					}, 300);

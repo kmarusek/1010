@@ -331,7 +331,7 @@ BB_PowerPack::register_module('PPVideoGalleryModule', array(
 						'label'			=> __( 'Video Aspect Ratio in Lightbox', 'bb-powerpack' ),
 						'default' 		=> 'default',
 						'options' 		=> array(
-							'default'       => __( 'Same as above', 'bb-powerpack' ),
+							'default'       => __( 'Auto', 'bb-powerpack' ),
 							'169' 			=> '16:9',
 							'219' 			=> '21:9',
 							'43' 			=> '4:3',

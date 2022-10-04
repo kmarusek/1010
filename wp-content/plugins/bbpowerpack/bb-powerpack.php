@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.24.3
+ * Version: 2.25.2
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -121,7 +121,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.24.3' );
+		define( 'BB_POWERPACK_VER', '2.25.2' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -321,7 +321,8 @@ final class BB_PowerPack {
 		?>
 		<script>
 			var bb_powerpack = {
-				ajaxurl: '<?php echo admin_url( 'admin-ajax.php' ); ?>'
+				ajaxurl: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+				search_term: '<?php echo get_search_query(); ?>'
 			};
 		</script>
 		<?php

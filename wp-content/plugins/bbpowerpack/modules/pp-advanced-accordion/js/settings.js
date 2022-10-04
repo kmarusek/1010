@@ -21,7 +21,7 @@
 			var form            = $('.fl-builder-settings'),
 				itemSpacing     = form.find('input[name=item_spacing]');
 			
-			this._getPostSlugOnChange();
+			//this._getPostSlugOnChange();
 			
 			itemSpacing.on('keyup', this._previewItemSpacing);
 

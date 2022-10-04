@@ -21,3 +21,19 @@
 	box-shadow: none !important;
 	padding: 0;
 }
+
+.pp-builder-message {
+	padding: 10px;
+	background-color: #ffeed5;
+	font-family: monospace;
+	font-size: 15px;
+	border: 1px solid #ffd18c;
+	color: #000 !important;
+}
+.pp-builder-message h4 {
+	margin-top: 0;
+	font-family: monospace;
+	font-size: 18px;
+	font-style: normal;
+	color: #000 !important;
+}

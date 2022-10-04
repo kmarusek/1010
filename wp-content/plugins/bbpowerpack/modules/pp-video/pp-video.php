@@ -902,14 +902,10 @@ BB_PowerPack::register_module(
 							'type'		=> 'pp-switch',
 							'label'		=> __( 'Enable Lightbox', 'bb-powerpack' ),
 							'default'	=> 'no',
-							'options'	=> array(
-								'yes'		=> __( 'Yes', 'bb-powerpack' ),
-								'no'		=> __( 'No', 'bb-powerpack' ),
-							),
 							'toggle'	=> array(
 								'yes'		=> array(
 									'sections'	=> array( 'lightbox_style' ),
-									'fields'    => array( 'aspect_ratio_lightbox' ),
+									'fields'    => array( 'aspect_ratio_lightbox', 'custom_trigger_selector', 'custom_trigger_hide_video' ),
 								),
 							),
 						),
@@ -918,13 +914,25 @@ BB_PowerPack::register_module(
 							'label'			=> __( 'Video Aspect Ratio in Lightbox', 'bb-powerpack' ),
 							'default' 		=> 'default',
 							'options' 		=> array(
-								'default'       => __( 'Same as above', 'bb-powerpack' ),
+								'default'       => __( 'Auto', 'bb-powerpack' ),
 								'169' 			=> '16:9',
 								'219' 			=> '21:9',
 								'43' 			=> '4:3',
 								'32' 			=> '3:2',
 								'11' 			=> '1:1',
 							),
+						),
+						'custom_trigger_selector' => array(
+							'type'	  => 'text',
+							'label'	  => __( 'Custom Trigger Selector (optional)', 'bb-powerpack' ),
+							'placeholder' => '#play-my-video or .play-my-video',
+							'help'    => __( 'This additional selector will be used to play the video in lightbox on click. Add an ID prefixed with hash # or a class prefix with dot .', 'bb-powerpack' ),
+						),
+						'custom_trigger_hide_video' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Hide video from the page', 'bb-powerpack' ),
+							'default' => 'no',
+							'help'    => __( 'If you want to use custom trigger only then you can enable this option to hide the video from the page and let the custom trigger open the video in lightbox. Video will be visible only in the builder.', 'bb-powerpack' ),
 						),
 					),
 				),

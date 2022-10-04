@@ -298,7 +298,7 @@ function pp_column_separators( $form, $id ) {
                             'zigzag'                    => __('ZigZag', 'bb-powerpack'),
                         ),
                         'preview'                   => array(
-                            'type'                      => 'none'
+                            'type'                      => 'refresh'
                         )
                     ),
                     'separator_color'           => array(
@@ -323,7 +323,19 @@ function pp_column_separators( $form, $id ) {
                             'type'                      => 'none'
                         )
                     ),
-                    'separator_height'          => array(
+                    'separator_position'        => array(
+                        'type'                      => 'select',
+                        'label'                     => __('Position', 'bb-powerpack'),
+                        'default'                   => 'bottom',
+                        'responsive'                => true,
+                        'options'                   => array(
+                            'top'                       => __('Top', 'bb-powerpack'),
+                            'bottom'                    => __('Bottom', 'bb-powerpack'),
+                            'left'                      => __('Left', 'bb-powerpack'),
+                            'right'                     => __('Right', 'bb-powerpack'),
+                        )
+					),
+					'separator_height'          => array(
                         'type'                      => 'text',
                         'label'                     => __('Height', 'bb-powerpack'),
                         'default'                   => 100,
@@ -337,17 +349,6 @@ function pp_column_separators( $form, $id ) {
                             'unit'                      => 'px'
                         )
                     ),
-                    'separator_position'        => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Position', 'bb-powerpack'),
-                        'default'                   => 'bottom',
-                        'options'                   => array(
-                            'top'                       => __('Top', 'bb-powerpack'),
-                            'bottom'                    => __('Bottom', 'bb-powerpack'),
-                            'left'                      => __('Left', 'bb-powerpack'),
-                            'right'                     => __('Right', 'bb-powerpack'),
-                        )
-                    )
                 )
             ),
             'separator_responsive'      => array(

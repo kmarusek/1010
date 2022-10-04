@@ -85,6 +85,21 @@ FLBuilderCSS::dimension_field_rule( array(
 	)
 ) );
 ?>
+.fl-node-<?php echo $id; ?> .pp-tabs-labels .pp-tabs-label .pp-tab-label-flex {
+	<?php if ( is_array( $settings->label_typography ) && isset( $settings->label_typography['text_align'] ) ) {
+		$prop = 'top' === $settings->tab_icon_position || 'bottom' === $settings->tab_icon_position ? 'align-items' : 'justify-content';
+		?>
+		<?php if ( 'left' === $settings->label_typography['text_align'] ) { ?>
+			<?php echo $prop; ?>: flex-start;
+		<?php } ?>
+		<?php if ( 'center' === $settings->label_typography['text_align'] ) { ?>
+			<?php echo $prop; ?>: center;
+		<?php } ?>
+		<?php if ( 'right' === $settings->label_typography['text_align'] ) { ?>
+			<?php echo $prop; ?>: flex-end;
+		<?php } ?>
+	<?php } ?>
+}
 .fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-panel-content {
 	<?php if( $settings->content_bg_color ) { ?>background-color: <?php echo pp_get_color_value( $settings->content_bg_color ); ?>;<?php } ?>
 	<?php if( $settings->content_bg_type == 'image' && $settings->content_bg_image ) { ?>

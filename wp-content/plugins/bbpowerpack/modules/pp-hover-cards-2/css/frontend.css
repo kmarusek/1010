@@ -36,7 +36,8 @@
 	transition: opacity 0.35s;
 }
 
-.pp-hover-card:hover:before {
+.pp-hover-card:hover:before,
+.pp-hover-card.focus:before {
 	opacity: 1;
 }
 
@@ -77,7 +78,8 @@
 	max-width: none !important;
 }
 
-.pp-hover-card:hover .pp-hover-card-image {
+.pp-hover-card:hover .pp-hover-card-image,
+.pp-hover-card.focus .pp-hover-card-image {
 	opacity: 1;
 }
 
@@ -119,7 +121,8 @@
 	transition: opacity 0.2s, transform 0.35s
 }
 
-.pp-hover-card.style-1:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-1:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-1.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
 	-webkit-transition-delay: 0.05s;
 	transition-delay: 0.05s;
@@ -128,7 +131,9 @@
 }
 
 .pp-hover-card.style-1:hover .pp-hover-card-content .pp-hover-card-title-wrap,
-.pp-hover-card.style-1:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-1:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-1.focus .pp-hover-card-content .pp-hover-card-title-wrap,
+.pp-hover-card.style-1.focus .pp-hover-card-content .pp-hover-card-description {
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	-ms-transform: translate3d(0,0,0);
@@ -175,14 +180,16 @@
     transform: translate3d(0,10px,0);
 }
 
-.pp-hover-card.style-2:hover .pp-hover-card-content .pp-hover-card-title-wrap {
+.pp-hover-card.style-2:hover .pp-hover-card-content .pp-hover-card-title-wrap,
+.pp-hover-card.style-2.focus .pp-hover-card-content .pp-hover-card-title-wrap {
 	-webkit-transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
 	-moz-transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
 	-ms-transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
     transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
 }
 
-.pp-hover-card.style-2:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-2:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-2.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     -moz-transform: translate3d(0,0,0);
@@ -240,7 +247,9 @@
 }
 
 .pp-hover-card.style-3:hover .pp-hover-card-inner:before,
-.pp-hover-card.style-3:hover .pp-hover-card-inner:after {
+.pp-hover-card.style-3:hover .pp-hover-card-inner:after,
+.pp-hover-card.style-3.focus .pp-hover-card-inner:before,
+.pp-hover-card.style-3.focus .pp-hover-card-inner:after {
 	opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);
@@ -258,7 +267,8 @@
 }
 
 .pp-hover-card.style-3 .pp-hover-card-content .pp-hover-card-title,
-.pp-hover-card.style-3:hover .pp-hover-card-content .pp-hover-card-title {
+.pp-hover-card.style-3:hover .pp-hover-card-content .pp-hover-card-title,
+.pp-hover-card.style-3.focus .pp-hover-card-content .pp-hover-card-title {
 	-webkit-transition: color 0.35s;
 	-moz-transition: color 0.35s;
 	-ms-transition: color 0.35s;
@@ -273,7 +283,8 @@
     transform: translate3d(0,-30px,0);
 }
 
-.pp-hover-card.style-3:hover .pp-hover-card-content .pp-hover-card-title-wrap {
+.pp-hover-card.style-3:hover .pp-hover-card-content .pp-hover-card-title-wrap,
+.pp-hover-card.style-3.focus .pp-hover-card-content .pp-hover-card-title-wrap {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -291,7 +302,8 @@
     transition: opacity 0.35s, transform 0.35s;
 }
 
-.pp-hover-card.style-3:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-3:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-3.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -355,19 +367,24 @@
 }
 
 .pp-hover-card.style-4:hover .pp-hover-card-inner:before,
-.pp-hover-card.style-4:hover .pp-hover-card-inner:after {
+.pp-hover-card.style-4:hover .pp-hover-card-inner:after,
+.pp-hover-card.style-4.focus .pp-hover-card-inner:before,
+.pp-hover-card.style-4.focus .pp-hover-card-inner:after {
 	opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
 }
 
-.pp-hover-card.style-4:hover .pp-hover-card-content .pp-hover-card-title-wrap {
+.pp-hover-card.style-4:hover .pp-hover-card-content .pp-hover-card-title-wrap,
+.pp-hover-card.style-4.focus .pp-hover-card-content .pp-hover-card-title-wrap {
 	-webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
 
 .pp-hover-card.style-4:hover .pp-hover-card-inner:before,
-.pp-hover-card.style-4:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-4:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-4.focus .pp-hover-card-inner:before,
+.pp-hover-card.style-4.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
@@ -429,13 +446,16 @@
     transition: opacity 0.35s, transform 0.35s;
 }
 
-.pp-hover-card.style-5:hover .pp-hover-card-content .pp-hover-card-title-wrap {
+.pp-hover-card.style-5:hover .pp-hover-card-content .pp-hover-card-title-wrap,
+.pp-hover-card.style-5.focus .pp-hover-card-content .pp-hover-card-title-wrap {
 	-webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
 
 .pp-hover-card.style-5:hover .pp-hover-card-content .pp-hover-card-title-wrap:after,
-.pp-hover-card.style-5:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-5:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-5.focus .pp-hover-card-content .pp-hover-card-title-wrap:after,
+.pp-hover-card.style-5.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -483,12 +503,14 @@
     transform: translate3d(0,20px,0) scale(1.1);
 }
 
-.pp-hover-card.style-6:hover .pp-hover-card-content .pp-hover-card-title-wrap {
+.pp-hover-card.style-6:hover .pp-hover-card-content .pp-hover-card-title-wrap,
+.pp-hover-card.style-6.focus .pp-hover-card-content .pp-hover-card-title-wrap {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 }
 
-.pp-hover-card.style-6:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-6:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-6.focus .pp-hover-card-content .pp-hover-card-title-wrap {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0) scale(1);
     transform: translate3d(0,0,0) scale(1);
@@ -542,7 +564,9 @@
 }
 
 .pp-hover-card.style-7:hover .pp-hover-card-inner:before,
-.pp-hover-card.style-7:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-7:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-7.focus .pp-hover-card-inner:before,
+.pp-hover-card.style-7.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -610,13 +634,16 @@
 }
 
 .pp-hover-card.style-8:hover .pp-hover-card-inner:before,
-.pp-hover-card.style-8:hover .pp-hover-card-inner:after {
+.pp-hover-card.style-8:hover .pp-hover-card-inner:after,
+.pp-hover-card.style-8.focus .pp-hover-card-inner:before,
+.pp-hover-card.style-8.focus .pp-hover-card-inner:after {
 	opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
 }
 
-.pp-hover-card.style-8:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-8:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-8.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -669,12 +696,14 @@
     transform: translate3d(100%,0,0);
 }
 
-.pp-hover-card.style-9:hover .pp-hover-card-content .pp-hover-card-title-wrap:after {
+.pp-hover-card.style-9:hover .pp-hover-card-content .pp-hover-card-title-wrap:after,
+.pp-hover-card.style-9.focus .pp-hover-card-content .pp-hover-card-title-wrap:after {
 	-webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
 
-.pp-hover-card.style-9:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-9:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-9.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -731,7 +760,9 @@
 }
 
 .pp-hover-card.style-10:hover .pp-hover-card-inner:before,
-.pp-hover-card.style-10:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-10:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-10.focus .pp-hover-card-inner:before,
+.pp-hover-card.style-10.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
@@ -768,7 +799,8 @@
     transform: translate3d(-40px,0,0);
 }
 
-.pp-hover-card.style-11:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-11:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-11.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -818,12 +850,14 @@
     transition: opacity 0.35s;
 }
 
-.pp-hover-card.style-12:hover .pp-hover-card-inner:before {
+.pp-hover-card.style-12:hover .pp-hover-card-inner:before,
+.pp-hover-card.style-12.focus .pp-hover-card-inner:before {
 	-webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,110%,0);
 	transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,110%,0);
 }
 
-.pp-hover-card.style-12:hover .pp-hover-card-content .pp-hover-card-description {
+.pp-hover-card.style-12:hover .pp-hover-card-content .pp-hover-card-description,
+.pp-hover-card.style-12.focus .pp-hover-card-content .pp-hover-card-description {
 	opacity: 1;
     -webkit-transition-delay: 0.1s;
     transition-delay: 0.1s;

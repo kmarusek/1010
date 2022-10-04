@@ -118,7 +118,7 @@ FLBuilderCSS::responsive_rule( array(
 	<?php } ?>
 <?php } ?>
 <?php if ( $settings->testimonial_layout == '3' ) {
-	$wd = $settings->image_size + 30; ?>
+	$wd = floatval($settings->image_size) + 30; ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonial.layout-3 .pp-content-wrapper {
 		width: calc(100% - <?php echo $wd; ?>px);
 		<?php if ( $settings->layout_4_content_bg ) { ?>background: <?php echo pp_get_color_value( $settings->layout_4_content_bg ); ?>;<?php } ?>

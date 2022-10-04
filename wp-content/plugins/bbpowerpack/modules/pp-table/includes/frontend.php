@@ -1,23 +1,20 @@
 <?php
-$source = isset( $settings->source ) ? $settings->source : 'manual';
-$tableheaders = array();
-$tablerows = array();
+$source         = isset( $settings->source ) ? $settings->source : 'manual';
+$tableheaders   = array();
+$tablerows      = array();
 $sortable_attrs = $module->get_sortable_attrs();
-?>
 
-<div class="pp-table-wrap">
-<?php
-if ( 'csv_import' == $source ) {
+if ( 'csv_import' === $source ) {
 	if ( isset( $settings->csv_import ) && ! empty( $settings->csv_import ) ) {
 		$csv_import = (array) $settings->csv_import;
 		if ( isset( $csv_import['filepath'] ) ) {
 			$csv_filepath 	= $csv_import['filepath'];
 			if ( file_exists( $csv_filepath ) ) {
-				$csv_content 	= file_get_contents( $csv_filepath );
+				$csv_content = file_get_contents( $csv_filepath );
 				if ( ! empty( $csv_content ) ) {
-					$csv_rows 		= explode( "\n", $csv_content );
-					$tableheaders 	= str_getcsv( $csv_rows[0] );
-					$tablerows 		= array();
+					$csv_rows 	  = explode( "\n", $csv_content );
+					$tableheaders = str_getcsv( $csv_rows[0] );
+					$tablerows 	  = array();
 
 					if ( isset( $settings->first_row_header ) && 'yes' === $settings->first_row_header ) {
 						$i = 1;
@@ -34,30 +31,76 @@ if ( 'csv_import' == $source ) {
 			}
 		}
 	}
+} elseif ( 'post' === $source ) {
+	$columns = $settings->post_items;
+
+	if ( ! is_array( $columns ) || empty( $columns ) ) {
+		$module->render_message( esc_html__( 'Add columns for the table to populate.', 'bb-powerpack' ) );
+		return;
+	}
+
+	global $post;
+	$initial_current_post = $post;
+
+	$query = $module->get_post_query();
+
+	if ( $query->have_posts() ) {
+
+		while ( $query->have_posts() ) {
+			$query->the_post();
+
+			$post_id = get_the_ID();
+			$cells = array();
+
+			for ( $i = 0; $i < count( $columns ); $i++ ) {
+				if ( ! is_object( $columns[ $i ] ) ) {
+					continue;
+				}
+
+				$column = FLThemeBuilderFieldConnections::connect_settings( $columns[ $i ] );
+
+				if ( ! isset( $tableheaders[ 'col_' . $i ] ) ) {
+					$tableheaders[ 'col_' . $i ] = FLThemeBuilderFieldConnections::parse_shortcodes( $column->col_heading );
+				}
+
+				$content = FLThemeBuilderFieldConnections::parse_shortcodes( $column->col_content );
+
+				$cells[ 'col_' . $i ] = $content;
+			}
+
+			$row = new stdClass;
+			$row->cell = $cells;
+
+			$tablerows[] = $row;
+		}
+
+		wp_reset_postdata();
+	}
+
+	$post = $initial_current_post;
+	setup_postdata( $initial_current_post );
+
 } elseif ( 'acf_repeater' === $source ) {
 	$repeater_name = isset( $settings->acf_repeater_name ) ? $settings->acf_repeater_name : '';
 	$post_id = empty( $settings->acf_repeater_post_id ) ? get_the_ID() : absint( $settings->acf_repeater_post_id );
-	if ( isset( $_GET['fl_builder'] ) ) {
-		if ( ! class_exists( 'acf' ) ) {
-			esc_html_e( 'ACF Pro plugin is not active.', 'bb-powerpack' );
-			return;
-		} elseif ( empty( $repeater_name ) ) {
-			esc_html_e( 'Enter ACF Repeater Name.', 'bb-powerpack' );
-			return;
-		} elseif ( ! $post_id ) {
-			esc_html_e( 'Invalid post ID.', 'bb-powerpack' );
-			return;
-		}
+
+	if ( ! class_exists( 'acf' ) ) {
+		$module->render_message( esc_html__( 'ACF Pro plugin is not active.', 'bb-powerpack' ) );
+		return;
+	} elseif ( empty( $repeater_name ) ) {
+		$module->render_message( esc_html__( 'Provide ACF Repeater Name.', 'bb-powerpack' ) );
+		return;
+	} elseif ( ! $post_id ) {
+		$module->render_message( esc_html__( 'Invalid post ID.', 'bb-powerpack' ) );
+		return;
 	}
 
 	$field = get_field_object( $repeater_name, $post_id );
 
 	// Check whether it is ACF repeater field or not.
-	if ( isset( $_GET['fl_builder'] ) ) {
-		if ( empty( $field ) || ! is_array( $field ) || 'repeater' !== $field['type'] ) {
-			echo sprintf( __( '"%s" ACF Repeater field does not exist.', 'bb-powerpack' ), $repeater_name );
-			return;
-		}
+	if ( empty( $field ) || ! is_array( $field ) || 'repeater' !== $field['type'] ) {
+		$module->render_message( sprintf( esc_html__( '"%s" ACF Repeater field does not exist.', 'bb-powerpack' ), $repeater_name ) );
+		return;
 	}
 
 	$sub_fields = $field['sub_fields'];
@@ -118,13 +161,16 @@ if ( 'csv_import' == $source ) {
 }
 
 $tableheaders = apply_filters( 'pp_table_headers', $tableheaders, $settings );
-$tablerows = apply_filters( 'pp_table_rows', $tablerows, $settings );
-
-do_action( 'pp_before_table_module', $settings );
+$tablerows    = apply_filters( 'pp_table_rows', $tablerows, $settings );
 	
 ?>
+<div class="pp-table-wrap">
+
+<?php do_action( 'pp_before_table_module', $settings ); ?>
+
 <table class="pp-table-<?php echo $id; ?> pp-table-content tablesaw" <?php echo $sortable_attrs; ?> data-tablesaw-minimap>
-	<?php if ( ! empty( $tableheaders[0] ) && ( 'manual' === $source || ( isset( $settings->first_row_header ) && 'yes' === $settings->first_row_header ) ) ) { ?>
+	<?php $module->render_colgroup(); ?>
+	<?php if ( ! empty( $tableheaders ) && ( in_array( $source, array( 'manual', 'post', 'acf_repeater' ) ) || ( 'csv_import' === $source && 'yes' === $settings->first_row_header ) ) ) { ?>
 	<thead>
 		<tr>
 			<?php
@@ -136,7 +182,7 @@ do_action( 'pp_before_table_module', $settings );
 						<?php if ( 'manual' === $source && isset( $settings->header_icon ) && ! empty( $settings->header_icon ) ) { ?>
 							<i class="pp-table-header-icon <?php echo $settings->header_icon; ?>"></i>
 						<?php } ?>
-						<?php echo sprintf( '<span class="pp-table-header-text">%s</span>', trim( $tableheader ) ); ?>
+						<?php echo sprintf( '<span class="pp-table-header-text">%s</span>', do_shortcode( trim( $tableheader ) ) ); ?>
 					</span>
 					<?php
 				echo '</th>';
@@ -152,7 +198,7 @@ do_action( 'pp_before_table_module', $settings );
 			foreach ( $tablerows as $tablerow ) {
 				echo '<tr class="pp-table-row">';
 				foreach ( $tablerow->cell as $tablecell ) {
-					echo '<td>' . trim( $tablecell ) . '</td>';
+					echo '<td>' . do_shortcode( trim( $tablecell ) ) . '</td>';
 				}
 				echo '</tr>';
 			}

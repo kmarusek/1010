@@ -224,11 +224,13 @@ class PPInfoBoxModule extends FLBuilderModule {
 		$settings 		= $this->settings;
 		$button_class 	= ( 'button' == $settings->pp_infobox_link_type && '' != $settings->link_css_class ) ? ' ' . $settings->link_css_class : '';
 		$nofollow		= ( isset( $settings->link_nofollow ) && 'yes' == $settings->link_nofollow ) ? ' rel="nofollow"' : '';
+		$force_render	= apply_filters( 'pp_infobox_button_force_render', false, $settings );
+		$link_tag	    = $force_render && 'box' === $settings->pp_infobox_link_type ? 'div' : 'a';
 
-		if ( 'button' == $settings->pp_infobox_link_type || 'button+title' == $settings->pp_infobox_link_type ) {
+		if ( 'button' === $settings->pp_infobox_link_type || 'button+title' === $settings->pp_infobox_link_type || $force_render ) {
 			?>
 			<div class="pp-infobox-button pp-button-wrap">
-				<a class="pp-more-link pp-button<?php echo $button_class; ?>" href="<?php echo $settings->link; ?>" role="button" target="<?php echo $settings->link_target; ?>"<?php echo $nofollow; ?>>
+				<<?php echo $link_tag; ?> class="pp-more-link pp-button<?php echo $button_class; ?>" href="<?php echo $settings->link; ?>" role="button" target="<?php echo $settings->link_target; ?>"<?php echo $nofollow; ?>>
 					<?php if ( isset( $settings->button_icon ) && 'left' === $settings->button_icon_aligment ) { ?>
 						<i class="pp-button-icon pp-button-icon-left <?php echo $settings->button_icon; ?>"></i>
 					<?php } ?>
@@ -236,11 +238,11 @@ class PPInfoBoxModule extends FLBuilderModule {
 					<?php if ( isset( $settings->button_icon ) && 'right' === $settings->button_icon_aligment ) { ?>
 						<i class="pp-button-icon pp-button-icon-right <?php echo $settings->button_icon; ?>"></i>
 					<?php } ?>
-				</a>
+				</<?php echo $link_tag; ?>>
 			</div>
 			<?php
 		}
-		if ( 'read_more' == $settings->pp_infobox_link_type ) {
+		if ( 'read_more' === $settings->pp_infobox_link_type && ! $force_render ) {
 			?>
 			<div class="pp-infobox-button">
 				<p>

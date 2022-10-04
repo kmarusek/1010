@@ -3,6 +3,7 @@
 $photo_border_width = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['width'] ) ) ? $settings->photo_border_group['width'] : 0;
 $photo_border_radius = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['radius'] ) ) ? $settings->photo_border_group['radius'] : 0;
 $photo_border = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['style'] ) ) ? $settings->photo_border_group['style'] : 'none';
+$photo_spacing = (float) $settings->photo_spacing;
 ?>
 
 .fancybox-<?php echo $id; ?> button.fancybox-button {
@@ -25,13 +26,13 @@ if ( 'justified' != $settings->gallery_layout ) {
 	$medium_col = isset( $settings->photo_grid_count_medium ) && ! empty( $settings->photo_grid_count_medium ) ? $settings->photo_grid_count_medium : 2;
 	$mobile_col = isset( $settings->photo_grid_count_responsive ) && ! empty( $settings->photo_grid_count_responsive ) ? $settings->photo_grid_count_responsive : 1;
 
-	$space_desktop = ( $desktop_col - 1 ) * $settings->photo_spacing;
+	$space_desktop = ( $desktop_col - 1 ) * $photo_spacing;
 	$photo_columns_desktop = ( ( 100 - $space_desktop ) / $desktop_col ) - 0.1;
 
-	$space_tablet = ( $medium_col - 1 ) * $settings->photo_spacing;
+	$space_tablet = ( $medium_col - 1 ) * $photo_spacing;
 	$photo_columns_tablet = ( ( 100 - $space_tablet ) / $medium_col ) - 0.1;
 
-	$space_mobile = ( $mobile_col - 1 ) * $settings->photo_spacing;
+	$space_mobile = ( $mobile_col - 1 ) * $photo_spacing;
 	$photo_columns_mobile = ( ( 100 - $space_mobile ) / $mobile_col ) - 0.1;
 ?>
 
@@ -52,12 +53,12 @@ if ( 'justified' != $settings->gallery_layout ) {
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-item {
 	width: <?php echo $photo_columns_desktop;?>%;
 	<?php if ( 'grid' == $settings->gallery_layout ) { ?>
-		margin-right: <?php echo $settings->photo_spacing; ?>%;
+		margin-right: <?php echo $photo_spacing; ?>%;
 	<?php } ?>
-	margin-bottom: <?php echo $settings->photo_spacing; ?>%;
-	<?php if ( 0 == $settings->photo_spacing && 'grid' == $settings->gallery_layout ) { ?>
-		margin-right: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['left'] : 0 ); ?>px;
-		margin-bottom: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['top'] : 0 ); ?>px;
+	margin-bottom: <?php echo $photo_spacing; ?>%;
+	<?php if ( 0 == $photo_spacing && 'grid' == $settings->gallery_layout ) { ?>
+		margin-right: <?php echo $photo_spacing - ( 'none' != $photo_border ? $photo_border_width['left'] : 0 ); ?>px;
+		margin-bottom: <?php echo $photo_spacing - ( 'none' != $photo_border ? $photo_border_width['top'] : 0 ); ?>px;
 	<?php } ?>
 }
 
@@ -132,7 +133,7 @@ if ( 'justified' != $settings->gallery_layout ) {
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-photo-space {
-	width: <?php echo $settings->photo_spacing; ?>%;
+	width: <?php echo $photo_spacing; ?>%;
 }
 
 <?php } ?>
@@ -648,6 +649,9 @@ if ( 'justified' != $settings->gallery_layout ) {
 		background-color: <?php echo pp_get_color_value( $settings->lightbox_overlay_color ); ?>;
 	<?php endif; ?>
 }
+.fancybox-is-open .fancybox-<?php echo $id; ?>-overlay {
+	opacity: 1;
+}
 
 @media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 	
@@ -664,7 +668,7 @@ if ( 'justified' != $settings->gallery_layout ) {
 				clear: none;
 			}
 			.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $desktop_col; ?>n){
-				margin-right: <?php echo $settings->photo_spacing; ?>%;
+				margin-right: <?php echo $photo_spacing; ?>%;
 			}
 			<?php if ( $medium_col > 1 ) { ?>
 				.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $medium_col; ?>n+1){
@@ -694,7 +698,7 @@ if ( 'justified' != $settings->gallery_layout ) {
 				clear: none;
 			}
 			.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $medium_col; ?>n){
-				margin-right: <?php echo $settings->photo_spacing; ?>%;
+				margin-right: <?php echo $photo_spacing; ?>%;
 			}
 			<?php if ( $mobile_col > 1 ) { ?>
 				.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $mobile_col; ?>n+1){

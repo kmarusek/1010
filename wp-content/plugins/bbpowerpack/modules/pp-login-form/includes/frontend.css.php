@@ -89,6 +89,25 @@ FLBuilderCSS::typography_field_rule( array(
 	background-color: <?php echo pp_get_color_value( $settings->field_bg_color ); ?>;
 	<?php } ?>
 }
+
+<?php if ( isset( $settings->field_placeholder_color ) && ! empty( $settings->field_placeholder_color ) ) { ?>
+.fl-node-<?php echo $id; ?> .pp-field-group .pp-login-form--input::-webkit-input-placeholder {
+	color: #<?php echo $settings->field_placeholder_color; ?>;
+}
+.fl-node-<?php echo $id; ?> .pp-field-group .pp-login-form--input::-ms-input-placeholder {
+	color: #<?php echo $settings->field_placeholder_color; ?>;
+}
+.fl-node-<?php echo $id; ?> .pp-field-group .pp-login-form--input::-moz-placeholder {
+	color: #<?php echo $settings->field_placeholder_color; ?>;
+}
+.fl-node-<?php echo $id; ?> .pp-field-group .pp-login-form--input:-moz-placeholder {
+	color: #<?php echo $settings->field_placeholder_color; ?>;
+}
+.fl-node-<?php echo $id; ?> .pp-field-group .pp-login-form--input::placeholder {
+	color: #<?php echo $settings->field_placeholder_color; ?>;
+}
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-field-group .pp-login-form--input:focus,
 .fl-node-<?php echo $id; ?> .pp-field-group input[type="checkbox"]:focus {
 	<?php if ( ! empty( $settings->field_border_focus_color ) ) { ?>

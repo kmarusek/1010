@@ -90,7 +90,7 @@
 		},
 
 		_hashChange: function () {
-			if (location.hash && $( location.hash ).length > 0) {
+			if (location.hash && -1 === location.hash.search( '#!' ) && $( location.hash ).length > 0) {
 				var element = $( location.hash + '.pp-tabs-label' );
 				if (element && element.length > 0) {
 					var header = $( '.fl-theme-builder-header-sticky' );

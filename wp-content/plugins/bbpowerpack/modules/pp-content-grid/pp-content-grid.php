@@ -480,6 +480,40 @@ class PPContentGridModule extends FLBuilderModule {
 		return $js_fields;
 	}
 
+	public function taxonomy_thumbnail_setting_fields( $fields ) {
+		$post_type = '';
+		$settings  = $this->settings;
+
+		if ( 'custom_query' === $settings->data_source ) {
+			$post_type = $settings->post_type;
+		} else {
+			global $post;
+
+			if ( $post instanceof WP_Post ) {
+				$post_type = get_post_type( $post );
+			}
+		}
+
+		if ( empty( $post_type ) ) {
+			return $fields;
+		}
+
+		$taxonomies = FLBuilderLoop::taxonomies( get_post_type( $post ) );
+		$options = array();
+
+		foreach ( $taxonomies as $slug => $tax ) {
+			$options[ $slug ] = $tax->label;
+		}
+
+		$fields['taxonomy'] = array(
+			'type'    => 'select',
+			'label'   => __( 'Select Taxonomy', 'bb-powerpack' ),
+			'options' => $options
+		);
+
+		return $fields;
+	}
+
 	public function exclude_current_post( $args ) {
 		if ( ! isset( $args['settings'] ) ) {
 			return $args;
@@ -833,6 +867,15 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'label'		=> __( 'Auto Height', 'bb-powerpack' ),
 						'help'		=> __( 'In order to use Auto Height, you will need to disable Equal Heights option located under Layout tab.', 'bb-powerpack' ),
 						'default'	=> 'no',
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
+					),
+					'url_hash_listener' => array(
+						'type'		=> 'pp-switch',
+						'label'		=> __( 'URL Hash Listener', 'bb-powerpack' ),
+						'help'		=> __( 'Slide to the specific post when there is a hash in the URL. For example, #pp-post-123', 'bb-powerpack' ),
+						'default'	=> 'yes',
 						'preview'	=> array(
 							'type'		=> 'refresh'
 						),

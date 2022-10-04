@@ -234,7 +234,11 @@ class PPModalBoxModule extends FLBuilderModule {
 					}
 				}
 				if ( ! $is_current ) {
-                	$content = '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
+					if ( isset( $_GET['fl_builder'] ) ) {
+                		$content = '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
+					} else {
+						$content = pp_get_post_content( get_post( $settings->modal_type_templates ) );
+					}
 				}
          		break;
             default:

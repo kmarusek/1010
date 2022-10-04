@@ -6,13 +6,15 @@
 .fl-node-<?php echo $id; ?> .pp-custom-grid-sizer {
     width: <?php echo $settings->post_width; ?>px;
 }
-@media screen and (max-width: <?php echo $settings->post_width + $settings->post_spacing; ?>px) {
-	.fl-node-<?php echo $id; ?> .pp-custom-grid,
-	.fl-node-<?php echo $id; ?> .pp-custom-grid-post,
-	.fl-node-<?php echo $id; ?> .pp-custom-grid-sizer {
-		width: 100% !important;
+	<?php if ( '' !== $settings->post_width && '' !== $settings->post_spacing ) { ?>
+	@media screen and (max-width: <?php echo $settings->post_width + $settings->post_spacing; ?>px) {
+		.fl-node-<?php echo $id; ?> .pp-custom-grid,
+		.fl-node-<?php echo $id; ?> .pp-custom-grid-post,
+		.fl-node-<?php echo $id; ?> .pp-custom-grid-sizer {
+			width: 100% !important;
+		}
 	}
-}
+	<?php } ?>
 <?php endif; ?>
 <?php if ( $settings->match_height ) : ?>
 	<?php if ( '' !== $settings->post_spacing ) { ?>
