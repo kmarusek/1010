@@ -13,6 +13,17 @@ a.ThreePostsGrid-post{
     flex-wrap: nowrap;
     height: 100%;
 }
+.ThreePostsGrid-excerpt{
+    overflow:hidden;
+    line-height: 2rem;
+    max-height: 8rem;
+    -webkit-box-orient: vertical;
+    display: block;
+    display: -webkit-box;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+}
 .row.ThreePostsGrid-equalHeight{
     display:flex !important;
     flex-wrap: wrap;
@@ -72,4 +83,9 @@ a.ThreePostsGrid-post{
     background-color: #FC6D1B ;
     border-radius: 3px;
     color: #fff;
+}
+@media only screen and (min-width: 768px){
+    h4.ThreePostsGrid-title {
+        font-size: 22px;
+    }
 }
