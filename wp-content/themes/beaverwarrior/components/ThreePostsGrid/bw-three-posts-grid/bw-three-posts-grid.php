@@ -106,7 +106,7 @@ class BWThreePostsGrid extends BeaverWarriorFLModule {
         }
         // Otherwise, return truncated content
         else {
-            return wp_trim_words( $post_content, $this->settings->except_word_length ); 
+            return wp_trim_words( $post_content, $this->settings->excerpt_word_length ); 
         }
     }
 
@@ -156,17 +156,6 @@ FLBuilder::register_module(
                                     'responsive' => 1
                                 )
                             ),
-                        ),
-                        'except_word_length' => array(
-                            'type'        => 'unit',
-                            'label'       => __( 'Excerpt length', 'fl-builder' ),
-                            'description' => 'words',
-                            'default'     => 55,
-                            'slider'      => array(
-                                'min'  => 1,
-                                'max'  => 200,
-                                'step' => 5
-                            )
                         ),
                         'pagination_next_icon' => array(
                             'type'         => 'icon',
