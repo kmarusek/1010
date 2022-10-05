@@ -1,13 +1,18 @@
 /**
 *   Custom CSS for ThreePostsGrid.
 **/
-a.ThreePostsGrid-post{
+.ThreePostsGrid-post {
     text-decoration: none;
-}
-.ThreePostsGrid-post .ThreePostsGrid-content {
     border: solid 1px #cacaca ;
     border-radius: 7px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+
+}
+.ThreePostsGrid-content {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -30,23 +35,137 @@ a.ThreePostsGrid-post{
 }
 
 /**
-*   Custom CSS for ThreePostsGrid Date Container.
+*   Custom CSS for ThreePostsGrid Share/Date Container.
 **/
-.ThreePostsGrid-post-date-container{
-    display: flex;
-    justify-content: space-between;
-    margin-top: auto;
+.ThreePostsGrid-share-date-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.ThreePostsGrid-share{
-    line-height: 1;
-    i{
-        line-height: 0;
-        padding: 0 20px;
-        background-size: 20px;
-        background-repeat: no-repeat;
-        background-position: center;
+.ThreePostsGrid-post-date-container{
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.ThreePostsGrid-share-container i {
+  opacity: 0;
+  font-size: 28px;
+  will-change: transform;
+  -webkit-transform: scale(.1);
+          transform: scale(.1);
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  color: #FC6D1B;
+    &:hover {
+      color: #000;
     }
 }
+.ThreePostsGrid-share_label {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+    i {
+      margin-left: 20px;
+    }
+}
+
+.ThreePostsGrid-share-btn_wrap {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  width: 240px;
+  height: 72px;
+  background-color: #ffffff;
+  padding: 0 18px;
+  will-change: transform;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.ThreePostsGrid-share-btn_wrap:hover {
+  /* transition-delay: .4s; */
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1)
+}
+
+.ThreePostsGrid-share-btn_wrap span {
+  position: absolute;
+  z-index: 99;
+  width: 200px;
+  height: 70px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 70px;
+  letter-spacing: 2px;
+  color: #000;
+  background-color:#ffffff;
+  padding: 0 18px;
+  -webkit-transition: all 1.2s ease;
+  transition: all 1.2s ease;
+}
+
+.ThreePostsGrid-share-container{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 185px;
+  height: 40px;
+  border: 1px solid #cacaca;
+}
+.ThreePostsGrid-share-container a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ThreePostsGrid-share-container a:nth-of-type(1) {
+          -webkit-transition-delay: 1.1s;
+                  transition-delay: 1.1s;
+}
+
+.ThreePostsGrid-share-container a:nth-of-type(2) {
+          -webkit-transition-delay: .9s;
+                  transition-delay: .9s;
+}
+
+.ThreePostsGrid-share-container a:nth-of-type(3) {
+          -webkit-transition-delay: .7s;
+                  transition-delay: .7s;
+}
+
+.ThreePostsGrid-share-container a:nth-of-type(4) {
+          -webkit-transition-delay: .4s;
+                  transition-delay: .4s;
+}
+
+.ThreePostsGrid-share-btn_wrap:hover span {
+  -webkit-transition-delay: .25s;
+          transition-delay: .25s;
+  -webkit-transform: translateX(-280px);
+          transform: translateX(-280px)
+}
+
+.ThreePostsGrid-share-btn_wrap:hover i {
+  opacity: 1;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+
 /**
 *   Custom CSS for ThreePostsGrid Pagination Navigation.
 **/

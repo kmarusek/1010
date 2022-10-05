@@ -41,7 +41,7 @@
     }
     
     // Number of items and limits the number of items per page
-    var numberOfItems = $(".ThreePostsGrid-container a").length;
+    var numberOfItems = $(".ThreePostsGrid-container .ThreePostsGrid-post").length;
     var limitPerPage = <?php echo $module->getPostsPerPage(); ?>;
     // Total pages rounded upwards
     var totalPages = Math.ceil(numberOfItems / limitPerPage);
@@ -54,7 +54,7 @@
     function showPage(whichPage) {
         if (whichPage < 1 || whichPage > totalPages) return false;
         currentPage = whichPage;
-        $(".ThreePostsGrid-container a").hide()
+        $(".ThreePostsGrid-container .ThreePostsGrid-post").hide()
             .slice((currentPage-1) * limitPerPage, 
                     currentPage * limitPerPage).show();
         // Replace the navigation items (not prev/next):            
@@ -74,7 +74,7 @@
     }
 
     // Include the prev/next buttons:
-    $(".ThreePostsGrid-pagination").append(
+    $(".ThreePostsGrid-pagination.pagination").append(
         $("<li>").addClass("ThreePostsGrid-page-item").attr({ id: "ThreePostsGrid-prev" }).append(
             $("<a>").addClass("page-link").attr({
                 href: "javascript:void(0)"}).html("<i class='<?php echo $settings->pagination_prev_icon;?>'></i>")

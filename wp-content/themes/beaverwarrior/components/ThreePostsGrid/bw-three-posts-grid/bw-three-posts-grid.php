@@ -137,25 +137,34 @@ class BWThreePostsGrid extends BeaverWarriorFLModule {
 FLBuilder::register_module( 
     'BWThreePostsGrid', array(
         'general' => array(
-            'title' => __( 'General', 'fl-builder'),
+            'title' => __( 'Icons', 'fl-builder'),
             'sections' => array(
                 'general' => array(
                     'fields' => array(
-                        'posts_per_column' => array(
-                            'type'       => 'unit',
-                            'label'      => __( 'Posts per column', 'fl-builder' ),
-                            'responsive' => array(
-                                'default' => array(
-                                    'default'    => 3,
-                                    'medium'     => 2,
-                                    'responsive' => 1
-                                ),
-                                'placeholder' => array(
-                                    'default'    => 3,
-                                    'medium'     => 2,
-                                    'responsive' => 1
-                                )
-                            ),
+                        'posts_share_icon' => array(
+                            'type'          => 'icon',
+                            'label'         => __( 'Posts Share Icon', 'fl-builder' ),
+                            'show_remove'   => true
+                        ),
+                        'posts_share_facebook_icon' => array(
+                            'type'          => 'icon',
+                            'label'         => __( 'Posts Facebook Share Icon', 'fl-builder' ),
+                            'show_remove'   => true
+                        ),
+                        'posts_share_linkedin_icon' => array(
+                            'type'          => 'icon',
+                            'label'         => __( 'Posts Linkedin Share Icon', 'fl-builder' ),
+                            'show_remove'   => true
+                        ),
+                        'posts_share_twitter_icon' => array(
+                            'type'          => 'icon',
+                            'label'         => __( 'Posts Twitter Share Icon', 'fl-builder' ),
+                            'show_remove'   => true
+                        ),
+                        'posts_share_email_icon' => array(
+                            'type'          => 'icon',
+                            'label'         => __( 'Posts Email Share Icon', 'fl-builder' ),
+                            'show_remove'   => true
                         ),
                         'pagination_next_icon' => array(
                             'type'         => 'icon',
@@ -168,11 +177,6 @@ FLBuilder::register_module(
                             'label'        => __( 'Previous Icon', 'fl-builder' ),
                             'show_remove'  => true,
                             'description'  => 'Icon for the previous navigation on pagination controls',
-                        ),
-                        'posts_share_icon' => array(
-                            'type'          => 'photo',
-                            'label'         => __( 'Posts Share Icon', 'fl-builder' ),
-                            'show_remove'   => true
                         ),
                     )
                 ),
