@@ -37,26 +37,28 @@ if($post_type === 'news'){
 
            
             <div class="<?php echo implode(' ', $post_classes ); ?>" > 
-                <a class="ThreePostsGrid-content" href="<?php  the_field('article_link', $post_id);?>" data-post-id="<?php echo $post_id;?>">       
-                    <div class="ThreePostsGrid-category-container">
-                        <span class="ThreePostsGrid-categories"><?php echo the_field('article_author', $post_id);?></span>
-                    </div>
-                    <div class="ThreePostsGrid-title-container">
-                        <h4 class="ThreePostsGrid-title"><?php  the_field('article_title', $post_id);?></h4>
-                    </div>
-                    <div class="ThreePostsGrid-excerpt-container">
-                        <p class="ThreePostsGrid-excerpt"><?php  the_field('article_excerpt', $post_id)?>...</p>
-                    </div>
-                </a>
-                <div class="ThreePostsGrid-share-date-wrap">
-                    <div class="ThreePostsGrid-date"><?php  the_field('article_date', $post_id);?></div>
-                    <div class="ThreePostsGrid-share-btn_wrap">
-                        <span class="ThreePostsGrid-share_label">Share<i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_icon; ?>"></i></span>
-                        <div class="ThreePostsGrid-share-container">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_facebook_icon; ?>" ></i></a>
-                            <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=1010data%20Blogvia=1010data"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_linkedin_icon; ?>" ></i></a>
-                            <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=<TEXT>via=<USERNAME>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_twitter_icon; ?>" ></i></a>
-                            <a href="mailto:?subject=Checkout%20out%20this%20story&body=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_email_icon; ?>" ></i></a>
+                <div class="ThreePostsGrid-content">
+                    <a class="ThreePostsGrid-link" href="<?php  the_field('article_link', $post_id);?>" data-post-id="<?php echo $post_id;?>">       
+                        <div class="ThreePostsGrid-category-container">
+                            <span class="ThreePostsGrid-categories"><?php echo the_field('article_author', $post_id);?></span>
+                        </div>
+                        <div class="ThreePostsGrid-title-container">
+                            <h4 class="ThreePostsGrid-title"><?php  the_field('article_title', $post_id);?></h4>
+                        </div>
+                        <div class="ThreePostsGrid-excerpt-container">
+                            <p class="ThreePostsGrid-excerpt"><?php  the_field('article_excerpt', $post_id)?>...</p>
+                        </div>
+                    </a>
+                    <div class="ThreePostsGrid-share-date-wrap">
+                        <div class="ThreePostsGrid-date"><?php  the_field('article_date', $post_id);?></div>
+                        <div class="ThreePostsGrid-share-btn_wrap">
+                            <span class="ThreePostsGrid-share_label">Share<i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_icon; ?>"></i></span>
+                            <div class="ThreePostsGrid-share-container">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_facebook_icon; ?>" ></i></a>
+                                <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=1010data%20Blogvia=1010data"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_linkedin_icon; ?>" ></i></a>
+                                <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=<TEXT>via=<USERNAME>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_twitter_icon; ?>" ></i></a>
+                                <a href="mailto:?subject=Checkout%20out%20this%20story&body=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_email_icon; ?>" ></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,26 +72,28 @@ elseif($post_type === 'post'){
 ?>
             
         <div class="<?php echo implode(' ', $post_classes ); ?> "> 
-            <a class="ThreePostsGrid-content" href="<?php echo $post_url;?>" data-post-id="<?php echo $post_id;?>">      
-                <div class="ThreePostsGrid-category-container">
-                    <span class="ThreePostsGrid-categories"><?php echo $post_categories_string;?></span>
-                </div>
-                <div class="ThreePostsGrid-title-container">
-                    <h4 class="ThreePostsGrid-title"><?php echo $post_title;?></h4>
-                </div>
-                <div class="ThreePostsGrid-excerpt-container">
-                    <p class="ThreePostsGrid-excerpt"><?php echo $post_excerpt?></p>
-                </div>
-            </a>
-            <div class="ThreePostsGrid-share-date-wrap">
-                <div class="ThreePostsGrid-date"><?php echo $post_date;?></div>
-                <div class="ThreePostsGrid-share-btn_wrap">
-                    <span class="ThreePostsGrid-share_label">Share<i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_icon; ?>"></i></span>
-                    <div class="ThreePostsGrid-share-container">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $post_url;?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_facebook_icon; ?>" ></i></a>
-                        <a href="https://twitter.com/share?url=<?php echo $post_url;?>&text=1010data%20Blogvia=1010data"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_linkedin_icon; ?>" ></i></a>
-                        <a href="https://twitter.com/share?url=<?php echo $post_url;?>&text=<TEXT>via=<USERNAME>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_twitter_icon; ?>" ></i></a>
-                        <a href="mailto:?subject=Checkout%20out%20this%20story&body=<?php echo $post_url;?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_email_icon; ?>" ></i></a>
+            <div class="ThreePostsGrid-content">
+                <a class="ThreePostsGrid-link" href="<?php echo $post_url;?>" data-post-id="<?php echo $post_id;?>">      
+                    <div class="ThreePostsGrid-category-container">
+                        <span class="ThreePostsGrid-categories"><?php echo $post_categories_string;?></span>
+                    </div>
+                    <div class="ThreePostsGrid-title-container">
+                        <h4 class="ThreePostsGrid-title"><?php echo $post_title;?></h4>
+                    </div>
+                    <div class="ThreePostsGrid-excerpt-container">
+                        <p class="ThreePostsGrid-excerpt"><?php echo $post_excerpt?></p>
+                    </div>
+                </a>
+                <div class="ThreePostsGrid-share-date-wrap">
+                    <div class="ThreePostsGrid-date"><?php echo $post_date;?></div>
+                    <div class="ThreePostsGrid-share-btn_wrap">
+                        <span class="ThreePostsGrid-share_label">Share<i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_icon; ?>"></i></span>
+                        <div class="ThreePostsGrid-share-container">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $post_url;?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_facebook_icon; ?>" ></i></a>
+                            <a href="https://twitter.com/share?url=<?php echo $post_url;?>&text=1010data%20Blogvia=1010data"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_linkedin_icon; ?>" ></i></a>
+                            <a href="https://twitter.com/share?url=<?php echo $post_url;?>&text=<TEXT>via=<USERNAME>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_twitter_icon; ?>" ></i></a>
+                            <a href="mailto:?subject=Checkout%20out%20this%20story&body=<?php echo $post_url;?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_email_icon; ?>" ></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
