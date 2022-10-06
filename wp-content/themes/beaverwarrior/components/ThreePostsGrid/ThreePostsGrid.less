@@ -41,7 +41,7 @@
 }
 .ThreePostsGrid-share-container i {
   opacity: 0;
-  font-size: 28px;
+  font-size: 22px;
   will-change: transform;
   -webkit-transform: scale(.1);
           transform: scale(.1);
@@ -51,6 +51,28 @@
     &:hover {
       color: #000;
     }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ThreePostsGrid-share-icon {
+    .linkedin{
+      font-size: 26px;
+    }
+    .twitter{
+      font-size: 24px;
+    }
+    .mail {
+      margin-top: 10px;
+      :before {
+        font-size: 26px !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+
 }
 .ThreePostsGrid-share_label {
   font-size: 20px;
@@ -115,14 +137,17 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 185px;
+  width: 150px;
   height: 40px;
   border: 1px solid #cacaca;
+  overflow: hidden;
 }
 .ThreePostsGrid-share-container a {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 25%;
+  height: 100%;
 }
 .ThreePostsGrid-share-container a:nth-of-type(1) {
           -webkit-transition-delay: 1.1s;

@@ -54,10 +54,10 @@ if($post_type === 'news'){
                         <div class="ThreePostsGrid-share-btn_wrap">
                             <span class="ThreePostsGrid-share_label">Share<i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_icon; ?>"></i></span>
                             <div class="ThreePostsGrid-share-container">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_facebook_icon; ?>" ></i></a>
-                                <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=1010data%20Blogvia=1010data"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_linkedin_icon; ?>" ></i></a>
-                                <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=<TEXT>via=<USERNAME>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_twitter_icon; ?>" ></i></a>
-                                <a href="mailto:?subject=Checkout%20out%20this%20story&body=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_email_icon; ?>" ></i></a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon facebook<?php echo $settings->posts_share_facebook_icon; ?>" ></i></a>
+                                <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=1010data%20Blogvia=1010data"><i class="ThreePostsGrid-share-icon linkedin <?php echo $settings->posts_share_linkedin_icon; ?>" ></i></a>
+                                <a href="https://twitter.com/share?url=<?php  the_field('article_link', $post_id);?>&text=<TEXT>via=<USERNAME>"><i class="ThreePostsGrid-share-icon twitter <?php echo $settings->posts_share_twitter_icon; ?>" ></i></a>
+                                <a href="mailto:?subject=Checkout%20out%20this%20story&body=<?php  the_field('article_link', $post_id);?>"><i class="ThreePostsGrid-share-icon email <?php echo $settings->posts_share_email_icon; ?>" ></i></a>
                             </div>
                         </div>
                     </div>
