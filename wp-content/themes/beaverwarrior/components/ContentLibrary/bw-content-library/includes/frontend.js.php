@@ -1,7 +1,11 @@
 (function($){
     
   $(function(){ 
-
+      //Search Bar Show
+      $(".ContentLibrary-search a").click(function () {
+            $(this).hide();
+            $(".ContentLibrary-search-bar").addClass('active');
+        });
       //Mobile Hamburger menu
       $('.ContentLibrary-mobile_menu button').click(function () {
                 $(this).toggleClass('is-active');

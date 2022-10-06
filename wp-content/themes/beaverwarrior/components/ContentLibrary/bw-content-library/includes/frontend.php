@@ -127,8 +127,12 @@ foreach( $postCats as $cat ){
             </div>
         </div>
         <div class="ContentLibrary-search">
-			<input type="text" class="fuzzy-search" onclick="resetList();" placeholder="   " />
-            <img class="ContentLibrary-search-icon" src="/wp-content/uploads/2022/09/akar-icons-search.svg"/>
+            <div class="ContentLibrary-search-bar">
+			    <input type="text" class="fuzzy-search" name="ls" id="ls" onclick="resetList();" placeholder="search library" aria-label="search library"/>
+            </div>
+            <a href="#!">
+                <img class="ContentLibrary-search-icon" src="/wp-content/uploads/2022/09/akar-icons-search.svg"/>
+            </a>
 		</div>
     </div>
 <?php
