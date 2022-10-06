@@ -42,7 +42,7 @@ $custom_css_general = [
             ]
         )
     ],
-    '.ThreePostsGrid-post-date-container' => [
+    '.ThreePostsGrid-post-date-wrap' => [
         'margin-bottom' => $module->getModuleSettingWithUnits( 'post_date_margin_bottom' ),
         '.ThreePostsGrid-date' => array_merge(
             $module->getTypography( 'post_date_typography' ),
@@ -50,7 +50,7 @@ $custom_css_general = [
                 'color' => $module->getModuleSettingColor( 'post_date_color' )
             ]
             ),
-        '.ThreePostsGrid-share' => array_merge(
+        '.ThreePostsGrid-share_label' => array_merge(
             $module->getTypography( 'post_share_typography' ),
             [
                 'color' => $module->getModuleSettingColor( 'post_share_color' )
