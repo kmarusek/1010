@@ -32,8 +32,8 @@
     };
 
 
-    $('.ContentLibrary-pagination').append('<div id="ContentLibrary-next"><i class="<?php echo $settings->pagination_next_icon;?>"></i></div>');
-    $('.ContentLibrary-pagination').prepend('<div id="ContentLibrary-prev"><i class="<?php echo $settings->pagination_prev_icon;?>"></i></div>');
+    $('.ContentLibrary-pagination').append('<div id="ContentLibrary-next" class="hide-class"><i class="<?php echo $settings->pagination_next_icon;?>"></i></div>');
+    $('.ContentLibrary-pagination').prepend('<div id="ContentLibrary-prev" class="hide-class"><i class="<?php echo $settings->pagination_prev_icon;?>"></i></div>');
 
     $('#ContentLibrary-next').on('click', function(){
         $('.pagination .active').next().trigger('click');
@@ -79,7 +79,15 @@
 
 
     $("input[name=category]").change(updateList);
-	
+
+    contentLibraryList.on('updated', function (list) {
+    if (list.matchingItems.length <= list.page) {
+        $('.hide-class').hide();
+      } else {
+        $('.hide-class').show();
+      }
+    });
+    
     contentLibraryList.on('updated', function (list) {
       if (list.matchingItems.length > 0) {
         $('.ContentLibrary-no-results').hide()
