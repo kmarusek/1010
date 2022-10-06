@@ -82,9 +82,9 @@
 	
     contentLibraryList.on('updated', function (list) {
       if (list.matchingItems.length > 0) {
-        $('.no-result').hide()
+        $('.ContentLibrary-no-results').hide()
       } else {
-        $('.no-result').show()
+        $('.ContentLibrary-no-results').show()
       }
     });
 

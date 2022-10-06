@@ -167,7 +167,7 @@ foreach( $postCats as $cat ){
         
      
 ?>
-         <a class="ContentLibrary-post-link" href="<?php echo $post_url?>" data-category="<?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" data-post-id="<?php echo $post_id;?>">
+        <a class="ContentLibrary-post-link" href="<?php echo $post_url?>" data-category="<?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" data-post-id="<?php echo $post_id;?>">
             <li class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" > 
                     <div class="ContentLibrary-content-container">
                         <p class="ContentLibrary-categories categories"><?php echo $post_categories_string;?></p>
@@ -182,6 +182,9 @@ foreach( $postCats as $cat ){
 }
 ?>
         </ul>
+        <div class="ContentLibrary-no-results">
+            <p class="test">Sorry, no results were found.</p>
+        </div>
         <div class="ContentLibrary-pagination">
             <ul class="pagination">
             </ul>
