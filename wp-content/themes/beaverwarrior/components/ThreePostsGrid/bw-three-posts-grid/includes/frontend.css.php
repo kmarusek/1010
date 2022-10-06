@@ -10,7 +10,7 @@ $custom_css_general = [
         'margin' => $module->getModuleSettingDimension( 'posts_margin' ),
     ],
     '.ThreePostsGrid-category-container' => [
-        'margin-bottom' => $module->getModuleSettingWithUnits( 'post_categories_margin_bottom' ),
+        'margin' => $module->getModuleSettingDimension( 'post_categories_margin' ),
         '.ThreePostsGrid-categories' => array_merge(
             $module->getTypography( 'post_categories_typography' ),
             [
@@ -18,15 +18,9 @@ $custom_css_general = [
             ]
         )
     ],
-    '.ThreePostsGrid-title' => array_merge(
-        $module->getTypography( 'post_title_typography' ),
-        [
-            'color' => $module->getModuleSettingColor( 'post_title_color' )
-        ]
-    ),
     '.ThreePostsGrid-title-container' => [
-        'margin-bottom' => $module->getModuleSettingWithUnits( 'post_title_margin_bottom' ),
-        '.post-title' => array_merge(
+        'margin' => $module->getModuleSettingDimension( 'post_title_margin' ),
+        '.ThreePostsGrid-title' => array_merge(
             $module->getTypography( 'post_title_typography' ),
             [
                 'color' => $module->getModuleSettingColor( 'post_title_color' )
@@ -34,7 +28,7 @@ $custom_css_general = [
         )
     ],
     '.ThreePostsGrid-excerpt-container' => [
-        'margin-bottom' => $module->getModuleSettingWithUnits( 'post_excerpt_margin_bottom' ),
+        'margin' => $module->getModuleSettingDimension( 'post_excerpt_margin' ),
         '.ThreePostsGrid-excerpt' => array_merge(
             $module->getTypography( 'post_excerpt_typography' ),
             [
@@ -43,7 +37,7 @@ $custom_css_general = [
         )
     ],
     '.ThreePostsGrid-post-date-wrap' => [
-        'margin-bottom' => $module->getModuleSettingWithUnits( 'post_date_margin_bottom' ),
+        'margin' => $module->getModuleSettingDimension( 'post_date_margin' ),
         '.ThreePostsGrid-date' => array_merge(
             $module->getTypography( 'post_date_typography' ),
             [
@@ -59,6 +53,9 @@ $custom_css_general = [
                 'color' => $module->getModuleSettingColor( 'post_share_color' )
             ]
             ),
+    ],
+    '.ThreePostsGrid-pagination' => [
+        'margin' => $module->getModuleSettingDimension( 'pagination_margin' ),
     ],
     '.paginationjs-pages' => [
         '> ul li a' => array_merge(

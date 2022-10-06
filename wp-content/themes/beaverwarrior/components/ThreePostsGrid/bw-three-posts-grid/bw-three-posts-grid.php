@@ -397,7 +397,7 @@ FLBuilder::register_module(
                             ),
                             'preview' => array(
                                 'type'      => 'css',
-                                'selector'  => '.ThreePostsGrid-container .post',
+                                'selector'  => '.ThreePostsGrid-container-post',
                                 'property'  => 'margin'
                             )
                         )
@@ -406,9 +406,9 @@ FLBuilder::register_module(
                 'section_spacing' => array(
                     'title' => __( 'Spacing', 'fl-builder'),
                     'fields' => array(
-                        'post_categories_margin_bottom' => array(
-                            'type'         => 'unit',
-                            'label'        => __( 'Categories', 'fl-builder' ),
+                        'post_categories_margin' => array(
+                            'type'         => 'dimension',
+                            'label'        => __( 'Category Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
                             'default_unit' => 'px',
                             'slider'       => array(
@@ -422,9 +422,9 @@ FLBuilder::register_module(
                                 'property'  => 'margin-bottom'
                             )
                         ),
-                        'post_title_margin_bottom' => array(
-                            'type'         => 'unit',
-                            'label'        => __( 'Title', 'fl-builder' ),
+                        'post_title_margin' => array(
+                            'type'         => 'dimension',
+                            'label'        => __( 'Title Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
                             'default_unit' => 'px',
                             'slider'       => array(
@@ -438,9 +438,9 @@ FLBuilder::register_module(
                                 'property' => 'margin-bottom'
                             )
                         ),
-                        'post_excerpt_margin_bottom' => array(
-                            'type'         => 'unit',
-                            'label'        => __( 'Excerpt', 'fl-builder' ),
+                        'post_excerpt_margin' => array(
+                            'type'         => 'dimension',
+                            'label'        => __( 'Excerpt Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
                             'default_unit' => 'px',
                             'slider'       => array(
@@ -454,9 +454,9 @@ FLBuilder::register_module(
                                 'property' => 'margin-bottom'
                             )
                         ),
-                        'post_date_margin_bottom' => array(
-                            'type'         => 'unit',
-                            'label'        => __( 'Post Date', 'fl-builder' ),
+                        'post_date_margin' => array(
+                            'type'         => 'dimension',
+                            'label'        => __( 'Post Date/Share Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
                             'default_unit' => 'px',
                             'slider'       => array(
@@ -467,6 +467,22 @@ FLBuilder::register_module(
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-post-date-container',
+                                'property' => 'margin-bottom'
+                            )
+                        ),
+                        'pagination_margin' => array(
+                            'type'         => 'dimension',
+                            'label'        => __( 'Pagination Margins', 'fl-builder' ),
+                            'units'        => array( 'px' ),
+                            'default_unit' => 'px',
+                            'slider'       => array(
+                                'min'  => 0,
+                                'max'  => 200,
+                                'step' => 1
+                            ),
+                            'preview' => array(
+                                'type'     => 'css',
+                                'selector' => '.ThreePostsGrid-pagination',
                                 'property' => 'margin-bottom'
                             )
                         )
