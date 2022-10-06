@@ -50,6 +50,9 @@ $custom_css_general = [
                 'color' => $module->getModuleSettingColor( 'post_date_color' )
             ]
             ),
+
+    ],
+    '.ThreePostsGrid-share-btn_wrap' => [
         '.ThreePostsGrid-share_label' => array_merge(
             $module->getTypography( 'post_share_typography' ),
             [
