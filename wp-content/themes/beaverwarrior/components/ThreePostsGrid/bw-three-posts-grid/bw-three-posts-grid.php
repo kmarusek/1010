@@ -231,6 +231,7 @@ FLBuilder::register_module(
                         'post_categories_typography' => array(
                             'type'    => 'typography',
                             'label'   => __( 'Typography', 'fl-builder' ),
+                            'responsive' => true,
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-categories'
@@ -264,6 +265,7 @@ FLBuilder::register_module(
                         'post_title_typography' => array(
                             'type'    => 'typography',
                             'label'   => __( 'Typography', 'fl-builder' ),
+                            'responsive' => true,
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-title'
@@ -286,6 +288,7 @@ FLBuilder::register_module(
                         'post_excerpt_typography' => array(
                             'type'    => 'typography',
                             'label'   => __( 'Typography', 'fl-builder' ),
+                            'responsive' => true,
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-excerpt'
@@ -308,6 +311,7 @@ FLBuilder::register_module(
                         'post_date_typography' => array(
                             'type'    => 'typography',
                             'label'   => __( 'Typography', 'fl-builder' ),
+                            'responsive' => true,
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-date'
@@ -330,6 +334,7 @@ FLBuilder::register_module(
                         'post_share_typography' => array(
                             'type'    => 'typography',
                             'label'   => __( 'Typography', 'fl-builder' ),
+                            'responsive' => true,
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-share'
