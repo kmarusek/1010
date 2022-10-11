@@ -87,7 +87,7 @@ elseif($post_type === 'post'){
                 <div class="ThreePostsGrid-share-date-wrap">
                     <div class="ThreePostsGrid-date"><?php echo $post_date;?></div>
                     <div class="ThreePostsGrid-share-btn_wrap">
-                        <span class="ThreePostsGrid-share_label">Share<i class="ThreePostsGrid-share-icon <?php echo $settings->posts_share_icon; ?>"></i></span>
+                        <span class="ThreePostsGrid-share_label">Share<i class="ThreePostsGrid-share_icon <?php echo $settings->posts_share_icon; ?>"></i></span>
                         <div class="ThreePostsGrid-share-container">
                             <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $post_url;?>"><i class="ThreePostsGrid-share-icon facebook <?php echo $settings->posts_share_facebook_icon; ?>" ></i></a>
                             <a href="https://twitter.com/share?url=<?php echo $post_url;?>&text=1010data%20Blogvia=1010data"><i class="ThreePostsGrid-share-icon linkedin <?php echo $settings->posts_share_linkedin_icon; ?>" ></i></a>
