@@ -337,7 +337,7 @@ FLBuilder::register_module(
                             'responsive' => true,
                             'preview' => array(
                                 'type'     => 'css',
-                                'selector' => '.ThreePostsGrid-share'
+                                'selector' => '.ThreePostsGrid-share_label'
                             )
                         ),
                         'post_share_color' => array(
