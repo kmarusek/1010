@@ -68,7 +68,7 @@
         text-align: left;
         color: #fc6815;
         &:hover i {
-          top: -3px;
+          top: -5px;
         }
         i{
           margin: 0!important;
@@ -76,8 +76,12 @@
           position: relative;
           left: -4px;
           transition: 0.3s all;
-          top: 0;
+          top: 2;
           color: #fc6815;
+          &::before {
+            font-size: 24px;
+            font-weight: 600;
+          }
         }
       }
     }
@@ -92,7 +96,7 @@
 }
 //responsive
 @media only screen and (max-width: 900px){
-  .TenTenEvents{
+.TenTenEvents{
     &-post {
       flex-wrap: wrap;
       &_text{
@@ -120,5 +124,12 @@
   .post_text-cat_date {
     width: 100%;
   }
-  }  
+  .TenTenEvents-link_button{
+    i{
+      &::before {
+        font-size: 20px;
+      }
+    } 
+  }
+} 
 }
