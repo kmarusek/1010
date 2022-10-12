@@ -234,7 +234,7 @@ FLBuilder::register_module('BW1010Events', array(
                         ),
                         'preview' => array(
                             'type'      => 'css',
-                            'selector'  => '.post_text-date',
+                            'selector'  => '.TenTenEvents .post_text-cat_date',
                             'property'  => 'margin'
                         )
                     ),
@@ -252,7 +252,7 @@ FLBuilder::register_module('BW1010Events', array(
                         ),
                         'preview' => array(
                             'type'      => 'css',
-                            'selector'  => '.post_text-title',
+                            'selector'  => '.TenTenEvents .post_text-title',
                             'property'  => 'margin'
                         )
                     ),
@@ -270,7 +270,7 @@ FLBuilder::register_module('BW1010Events', array(
                         ),
                         'preview' => array(
                             'type'      => 'css',
-                            'selector'  => '.post_text-excerpt',
+                            'selector'  => '.TenTenEvents .post_text-excerpt',
                             'property'  => 'margin'
                         )
                     ),
@@ -288,7 +288,7 @@ FLBuilder::register_module('BW1010Events', array(
                         ),
                         'preview' => array(
                             'type'      => 'css',
-                            'selector'  => '.post_text-link',
+                            'selector'  => '.TenTenEvents .post_text-link',
                             'property'  => 'margin'
                         )
                     ),
