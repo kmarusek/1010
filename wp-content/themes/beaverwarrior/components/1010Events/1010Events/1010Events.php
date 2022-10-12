@@ -95,6 +95,22 @@ FLBuilder::register_module('BW1010Events', array(
         'title' =>  __( 'Events Loop' , 'skeleton-warrior' ),
         'file'  =>  FL_BUILDER_DIR  . 'includes/loop-settings.php'
     ),
+    'events_icons' => array (
+        'title' => __('Icons','skeleton-warrior'),
+        'sections' => array (
+            'section_icon' => array(
+                'title' => __( 'Button Icon', 'fl-builder' ),
+                'fields' => array(
+                    'event_anchor_icon' => array(
+                        'type'         => 'icon',
+                        'label'        => __( 'Button Icon', 'fl-builder' ),
+                        'show_remove'  => true,
+                        'description'  => 'Icon for "learn more" button',
+                    )
+                )
+            )
+        )
+    ),
     'events_typography' => array (
         'title' => __('Typography','skeleton-warrior'),
         'sections' => array (
