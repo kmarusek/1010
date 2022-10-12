@@ -173,7 +173,7 @@ FLBuilder::register_module('BW1010Events', array(
                         'units'        => array( 'px' ),
                         'responsive' => true,
                         'default_unit' => 'px',
-                        'default'      => 20,
+                        'default'      => 0,
                         'slider'       => array(
                             'min'  => 0,
                             'max'  => 200,
@@ -191,7 +191,7 @@ FLBuilder::register_module('BW1010Events', array(
                         'units'        => array( 'px' ),
                         'responsive' => true,
                         'default_unit' => 'px',
-                        'default'      => 20,
+                        'default'      => 0,
                         'slider'       => array(
                             'min'  => 0,
                             'max'  => 200,
