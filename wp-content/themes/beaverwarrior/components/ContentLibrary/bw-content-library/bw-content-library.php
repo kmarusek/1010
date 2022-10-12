@@ -45,17 +45,6 @@ class BWContentLibrary extends BeaverWarriorFLModule {
         return isset( $query->posts ) ? $query->posts : array();
     }
 
-    /**
-     * Method to return if pagination is enabled or not.
-     *
-     * @return boolean True if pagination is enabled
-     */
-    public function paginationIsEnabled(){
-        $pagination_is_enabled = $this->settings->enable_pagination === 'enabled';
-        // Do we have enough posts to warrant pagination?
-        $post_count_larger_than_pagination = count( $this->getPosts() ) > $this->settings->max_posts_per_page;
-        return $pagination_is_enabled && $post_count_larger_than_pagination;
-    }
 
     /**
      * Method used to get a string of a posts' categories.
@@ -80,58 +69,16 @@ class BWContentLibrary extends BeaverWarriorFLModule {
         return implode(', ', $post_categories_array );
     }
 
-   /**
-     * Method to return if Show categories is enabled or not.
-     *
-     * @return boolean True if Show categories is enabled
-     */
-    public function showCategoriesIsEnabled(){
-        $show_categories_is_enabled = $this->settings->show_categories === 'enabled';
-  
-        return $show_categories_is_enabled;
-    }
-
     /**
-     * Method to get the excerpt based on the set number of words in this module.
+     * Method used to get a post per page number determined by user on UI.
      *
-     * @param  string $post_content The post content to truncate
-     * @param  int $post_id The post ID
-     *
-     * @return string               The truncated content
+     * @return string          A number for number of post to display per page
      */
-    public function getPostExcerpt( $post_content, $post_id ){
-        // If we have an excerpt, use that instead 
-        if ( has_excerpt( $post_id ) ){
-            return get_the_excerpt( $post_id );
-        }
-        // Otherwise, return truncated content
-        else {
-            return wp_trim_words( $post_content, $this->settings->except_word_length ); 
-        }
-    }
-
     public function getPostsPerPage(){
         return $this->settings->max_posts_per_page;
     }
 
-    /**
-     * Method to get an array of post IDs for the pagination data source.
-     *
-     * @return array The post IDs
-     */
-    public function getPaginationDataSource(){
-        // Declare our return
-        $return_array = array();
-        // Start by getting the slides
-        $posts = $this->getPosts();
-        // Loop through the slides and add the IDs to the data source array
-        for ( $i=0; $i<count($posts); $i++ ){
-            // Add the ID to the return array
-            array_push($return_array, $posts[$i]->ID);
-        }
-        // Return the array
-        return $return_array;
-    }
+
 }
 
 FLBuilder::register_module( 
@@ -217,63 +164,8 @@ FLBuilder::register_module(
                             'show_remove'  => true,
                             'description'  => 'Icon for the search bar',
                         ),
-                        // 'posts_margin' => array(
-                        //     'type'         => 'dimension',
-                        //     'label'        => __( 'Post margin', 'fl-builder' ),
-                        //     'units'        => array( 'px' ),
-                        //     'default_unit' => 'px',
-                        //     'default'      => 20,
-                        //     'slider'       => array(
-                        //         'min'  => 0,
-                        //         'max'  => 200,
-                        //         'step' => 1
-                        //     ),
-                        //     'preview' => array(
-                        //         'type'      => 'css',
-                        //         'selector'  => '.ContentLibrary-container .post',
-                        //         'property'  => 'margin'
-                        //     )
-                        // )
                     )
                 ),
-                // 'section_spacing' => array(
-                //     'title' => __( 'Spacing', 'fl-builder'),
-                //     'fields' => array(
-                //         'post_categories_margin_bottom' => array(
-                //             'type'         => 'unit',
-                //             'label'        => __( 'Categories', 'fl-builder' ),
-                //             'units'        => array( 'px' ),
-                //             'default_unit' => 'px',
-                //             'slider'       => array(
-                //                 'min'  => 0,
-                //                 'max'  => 200,
-                //                 'step' => 1
-                //             ),
-                //             'preview'      => array(
-                //                 'type'      => 'css',
-                //                 'selector'  => '.ContentLibrary-category-container',
-                //                 'property'  => 'margin-bottom'
-                //             )
-                //         ),
-                //         'post_title_margin_bottom' => array(
-                //             'type'         => 'unit',
-                //             'label'        => __( 'Title', 'fl-builder' ),
-                //             'units'        => array( 'px' ),
-                //             'default_unit' => 'px',
-                //             'slider'       => array(
-                //                 'min'  => 0,
-                //                 'max'  => 200,
-                //                 'step' => 1
-                //             ),
-                //             'preview'      => array(
-                //                 'type'     => 'css',
-                //                 'selector' => '.ContentLibrary-title-container',
-                //                 'property' => 'margin-bottom'
-                //             )
-                //         ),
-                       
-                //     )
-                // )
             ) //
         ) //
     ) //
