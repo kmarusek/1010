@@ -91,14 +91,9 @@ class BW1010Events extends BeaverWarriorFLModule {
 };
 
 FLBuilder::register_module('BW1010Events', array(
-    'general' => array (
-        'title' => __('Events Loop Manager', 'fl-builder'),
-        'sections' => array (
-            'content' => array (
-                'title' =>  __( 'Events Loop' , 'skeleton-warrior' ),
-                'file'  =>  FL_BUILDER_DIR  . 'includes/loop-settings.php'
-            ),  
-        )
+    'events_loop'  => array (
+        'title' =>  __( 'Events Loop' , 'skeleton-warrior' ),
+        'file'  =>  FL_BUILDER_DIR  . 'includes/loop-settings.php'
     ),
     'events_typography' => array (
         'title' => __('Typography','skeleton-warrior'),
