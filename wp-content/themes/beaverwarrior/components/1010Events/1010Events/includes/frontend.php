@@ -124,7 +124,7 @@ foreach( $postCats as $cat ){
 ?>  
       </select>
     </div>
-    <ul class="list">
+    <ul class="TenTenEvents-list list">
     <?php
     // Loop through all of the posts
     for ( $i=0; $i<count($posts); $i++ ){
