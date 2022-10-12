@@ -211,7 +211,7 @@ FLBuilder::register_module('BW1010Events', array(
                         'preview' => array(
                             'type'      => 'css',
                             'selector'  => '.TenTenEvents-post',
-                            'property'  => 'margin'
+                            'property'  => 'padding'
                         )
                     )
             
