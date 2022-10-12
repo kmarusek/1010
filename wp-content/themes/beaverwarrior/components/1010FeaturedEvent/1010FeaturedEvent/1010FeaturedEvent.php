@@ -95,6 +95,81 @@ FLBuilder::register_module('BW1010FeaturedEvent', array(
         'title' =>  __( 'Featured Events Loop' , 'skeleton-warrior' ),
         'file'  =>  FL_BUILDER_DIR  . 'includes/loop-settings.php'
     ),
+    'events_typography' => array (
+        'title' => __('Typography','skeleton-warrior'),
+        'sections' => array (
+            'section_category_typography' => array (
+                'title' => __( '"Featured Event" Typography', 'fl-builder'),
+                'fields' => array(
+                    'event_category_typography' => array(
+                        'type'    => 'typography',
+                        'label'   => __( 'Typography', 'fl-builder' ),
+                        'responsive' => true,
+                        'preview' => array(
+                            'type'     => 'css',
+                            'selector' => '.post_featured'
+                        )
+                    ),
+                ),
+            ),
+            'section_date_typography' => array (
+                'title' => __( 'Date Typography', 'fl-builder'),
+                'fields' => array(
+                    'event_date_typography' => array(
+                        'type'    => 'typography',
+                        'label'   => __( 'Typography', 'fl-builder' ),
+                        'responsive' => true,
+                        'preview' => array(
+                            'type'     => 'css',
+                            'selector' => '.post_text-date'
+                        )
+                    ),
+                ),
+            ),
+            'section_title_typography' => array (
+                'title' => __( 'Title Typography', 'fl-builder'),
+                'fields' => array(
+                    'event_title_typography' => array(
+                        'type'    => 'typography',
+                        'label'   => __( 'Typography', 'fl-builder' ),
+                        'responsive' => true,
+                        'preview' => array(
+                            'type'     => 'css',
+                            'selector' => '.post_text-title h4'
+                        )
+                    ),
+                ),
+            ),
+            'section_excerpt_typography' => array (
+                'title' => __( 'Excerpt Typography', 'fl-builder'),
+                'fields' => array(
+                    'event_excerpt_typography' => array(
+                        'type'    => 'typography',
+                        'label'   => __( 'Typography', 'fl-builder' ),
+                        'responsive' => true,
+                        'preview' => array(
+                            'type'     => 'css',
+                            'selector' => '.post_text-excerpt p'
+                        )
+                    ),
+                ),
+            ),
+            'section_link_typography' => array (
+                'title' => __( 'Button Text Typography', 'fl-builder'),
+                'fields' => array(
+                    'event_link_typography' => array(
+                        'type'    => 'typography',
+                        'label'   => __( 'Typography', 'fl-builder' ),
+                        'responsive' => true,
+                        'preview' => array(
+                            'type'     => 'css',
+                            'selector' => '.post_text-link a'
+                        )
+                    ),
+                ),
+            ),
+        ),
+    ),
     'events_spacing' => array (
         'title' => __('Spacing','skeleton-warrior'),
         'sections' => array (
@@ -219,81 +294,7 @@ FLBuilder::register_module('BW1010FeaturedEvent', array(
             ),
         ),
     ),
-    'events_typography' => array (
-        'title' => __('Typography','skeleton-warrior'),
-        'sections' => array (
-            'section_category_typography' => array (
-                'title' => __( '"Featured Event" Typography', 'fl-builder'),
-                'fields' => array(
-                    'event_category_typography' => array(
-                        'type'    => 'typography',
-                        'label'   => __( 'Typography', 'fl-builder' ),
-                        'responsive' => true,
-                        'preview' => array(
-                            'type'     => 'css',
-                            'selector' => '.post_featured'
-                        )
-                    ),
-                ),
-            ),
-            'section_date_typography' => array (
-                'title' => __( 'Date Typography', 'fl-builder'),
-                'fields' => array(
-                    'event_date_typography' => array(
-                        'type'    => 'typography',
-                        'label'   => __( 'Typography', 'fl-builder' ),
-                        'responsive' => true,
-                        'preview' => array(
-                            'type'     => 'css',
-                            'selector' => '.post_text-date'
-                        )
-                    ),
-                ),
-            ),
-            'section_title_typography' => array (
-                'title' => __( 'Title Typography', 'fl-builder'),
-                'fields' => array(
-                    'event_title_typography' => array(
-                        'type'    => 'typography',
-                        'label'   => __( 'Typography', 'fl-builder' ),
-                        'responsive' => true,
-                        'preview' => array(
-                            'type'     => 'css',
-                            'selector' => '.post_text-title h4'
-                        )
-                    ),
-                ),
-            ),
-            'section_excerpt_typography' => array (
-                'title' => __( 'Excerpt Typography', 'fl-builder'),
-                'fields' => array(
-                    'event_excerpt_typography' => array(
-                        'type'    => 'typography',
-                        'label'   => __( 'Typography', 'fl-builder' ),
-                        'responsive' => true,
-                        'preview' => array(
-                            'type'     => 'css',
-                            'selector' => '.post_text-excerpt p'
-                        )
-                    ),
-                ),
-            ),
-            'section_link_typography' => array (
-                'title' => __( 'Button Text Typography', 'fl-builder'),
-                'fields' => array(
-                    'event_link_typography' => array(
-                        'type'    => 'typography',
-                        'label'   => __( 'Typography', 'fl-builder' ),
-                        'responsive' => true,
-                        'preview' => array(
-                            'type'     => 'css',
-                            'selector' => '.post_text-link a'
-                        )
-                    ),
-                ),
-            ),
-        ),
-    ),
+    
     
 ));
 
