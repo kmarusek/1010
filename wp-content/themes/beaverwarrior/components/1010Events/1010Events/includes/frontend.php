@@ -18,7 +18,7 @@ $posts          = $module->getPosts();
 //Gather all Catergories for CPT Filter
 if( !function_exists('get_terms_by_post_type') ){
 
-    function get_terms_by_post_type( $postType = 'post', $taxonomy = 'category'){
+    function get_terms_by_post_type( $postType = 'post', $taxonomy = 'event_category'){
 
         /**
          * 
