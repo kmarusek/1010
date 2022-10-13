@@ -55,6 +55,18 @@ FLBuilderCSS::dimension_field_rule( array(
   ) );
   FLBuilderCSS::dimension_field_rule( array(
     'settings'    => $settings,
+    'setting_name'    => 'post_container_padding',
+    'selector'    => ".ThreePostsGrid-content",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'padding-top'    => 'post_container_padding_padding_top', // As in $settings->padding_top
+      'padding-right'  => 'post_container_padding_padding_right',
+      'padding-bottom' => 'post_container_padding_padding_bottom',
+      'padding-left'   => 'post_container_padding_padding_left',
+    ),
+  ) );
+  FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
     'setting_name'    => 'post_categories_margin',
     'selector'    => ".ThreePostsGrid-category-container",
     'unit'        => 'px', // Omit if custom unit select is used.

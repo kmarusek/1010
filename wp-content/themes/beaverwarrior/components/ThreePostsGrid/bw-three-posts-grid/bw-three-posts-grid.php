@@ -412,6 +412,23 @@ FLBuilder::register_module(
                 'section_spacing' => array(
                     'title' => __( 'Element Spacing', 'fl-builder'),
                     'fields' => array(
+                        'post_container_padding' => array(
+                            'type'         => 'dimension',
+                            'label'        => __( 'Posts Container Padding', 'fl-builder' ),
+                            'units'        => array( 'px' ),
+                            'responsive'   => true,
+                            'default_unit' => 'px',
+                            'slider'       => array(
+                                'min'  => 0,
+                                'max'  => 200,
+                                'step' => 1
+                            ),
+                            'preview'      => array(
+                                'type'      => 'css',
+                                'selector'  => '.ThreePostsGrid-content',
+                                'property'  => 'padding'
+                            )
+                        ),
                         'post_categories_margin' => array(
                             'type'         => 'dimension',
                             'label'        => __( 'Category Margins', 'fl-builder' ),
