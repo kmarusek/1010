@@ -189,22 +189,24 @@ a.ThreePostsGrid-link:hover {
 /**
 *   Custom CSS for ThreePostsGrid Pagination Navigation.
 **/
-.ThreePostsGrid-pagination {
+ul.ThreePostsGrid-pagination {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 100px;
+    padding: 0;
     #ThreePostsGrid-prev {
         i {
             margin-top: 1px;
-            font-size: 20px;
+            font-size: 16px;
+            color: #120c17;
         }
     }
     #ThreePostsGrid-next{
         i {
             margin-top: 1px;
-            font-size: 20px;
-        
+            font-size: 16px;
+            color: #120c17;
         }
     }
     li.ThreePostsGrid-page-item {
@@ -216,7 +218,7 @@ a.ThreePostsGrid-link:hover {
 .ThreePostsGrid-pagination.pagination>.ThreePostsGrid-page-item>a {
     border: none;
     padding: 1px 10px;
-    color: #000;
+    color: #120c17;
     font-weight:500;
 }
 .ThreePostsGrid-pagination.pagination>.ThreePostsGrid-current-page.active>a {
@@ -246,5 +248,26 @@ a.ThreePostsGrid-link:hover {
 @media only screen and (min-width: 768px){
     h4.ThreePostsGrid-title {
         font-size: 22px;
+    }
+    .ThreePostsGrid-share-container{
+        width: 120px;
+    }
+    .ThreePostsGrid-share-container i {
+      font-size: 17px;
+    }
+    .ThreePostsGrid-share-icon {
+        &.linkedin{
+          font-size: 20px;
+        }
+        &.twitter{
+          font-size: 20px;
+        }
+    }
+    ul.ThreePostsGrid-pagination {
+      li.ThreePostsGrid-page-item {
+          text-align: center;
+          text-decoration: none;
+          margin: 0 3px;
+      }
     }
 }

@@ -40,14 +40,82 @@ FLBuilderCSS::typography_field_rule(
         'selector'  => ".ThreePostsGrid-share_label",
     )
 );
-
-// The Color and Spacing
+// Spacing
+FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
+    'setting_name'    => 'posts_margin',
+    'selector'    => ".ThreePostsGrid-post",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'margin-top'    => 'posts_margin_top', // As in $settings->padding_top
+      'margin-right'  => 'posts_margin_right',
+      'margin-bottom' => 'posts_margin_bottom',
+      'margin-left'   => 'posts_margin_left',
+    ),
+  ) );
+  FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
+    'setting_name'    => 'post_categories_margin',
+    'selector'    => ".ThreePostsGrid-category-container",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'margin-top'    => 'post_categories_margin_top', // As in $settings->padding_top
+      'margin-right'  => 'post_categories_margin_right',
+      'margin-bottom' => 'post_categories_margin_bottom',
+      'margin-left'   => 'post_categories_margin_left',
+    ),
+  ) );
+  FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
+    'setting_name'    => 'post_title_margin',
+    'selector'    => ".ThreePostsGrid-title-container",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'margin-top'    => 'post_title_margin_top', // As in $settings->padding_top
+      'margin-right'  => 'post_title_margin_right',
+      'margin-bottom' => 'post_title_margin_bottom',
+      'margin-left'   => 'post_title_margin_left',
+    ),
+  ) );
+  FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
+    'setting_name'    => 'post_excerpt_margin',
+    'selector'    => ".ThreePostsGrid-excerpt-container",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'margin-top'    => 'post_excerpt_margin_top', // As in $settings->padding_top
+      'margin-right'  => 'post_excerpt_margin_right',
+      'margin-bottom' => 'post_excerpt_margin_bottom',
+      'margin-left'   => 'post_excerpt_margin_left',
+    ),
+  ) );
+  FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
+    'setting_name'    => 'post_date_margin',
+    'selector'    => ".ThreePostsGrid-post-date-container",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'margin-top'    => 'post_date_margin_top', // As in $settings->padding_top
+      'margin-right'  => 'post_date_margin_right',
+      'margin-bottom' => 'post_date_margin_bottom',
+      'margin-left'   => 'post_date_margin_left',
+    ),
+  ) );
+  FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
+    'setting_name'    => 'pagination_margin',
+    'selector'    => ".ThreePostsGrid-pagination_wrap",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'margin-top'    => 'pagination_margin_top', // As in $settings->padding_top
+      'margin-right'  => 'pagination_margin_right',
+      'margin-bottom' => 'pagination_margin_bottom',
+      'margin-left'   => 'pagination_margin_left',
+    ),
+  ) );
+// Color
 $custom_css_general = [
-    '.ThreePostsGrid-post' => [
-        'margin' => $module->getModuleSettingDimension( 'posts_margin' ),
-    ],
     '.ThreePostsGrid-category-container' => [
-        'margin' => $module->getModuleSettingDimension( 'post_categories_margin' ),
         '.ThreePostsGrid-categories' => array_merge(
             [
                 'color'         => $module->getModuleSettingColor( 'post_categories_color' )
@@ -55,7 +123,6 @@ $custom_css_general = [
         )
     ],
     '.ThreePostsGrid-title-container' => [
-        'margin' => $module->getModuleSettingDimension( 'post_title_margin' ),
         '.ThreePostsGrid-title' => array_merge(
             [
                 'color' => $module->getModuleSettingColor( 'post_title_color' )
@@ -63,7 +130,6 @@ $custom_css_general = [
         )
     ],
     '.ThreePostsGrid-excerpt-container' => [
-        'margin' => $module->getModuleSettingDimension( 'post_excerpt_margin' ),
         '.ThreePostsGrid-excerpt' => array_merge(
             [
                 'color' => $module->getModuleSettingColor( 'post_excerpt_color' )
@@ -71,7 +137,6 @@ $custom_css_general = [
         )
     ],
     '.ThreePostsGrid-post-date-wrap' => [
-        'margin' => $module->getModuleSettingDimension( 'post_date_margin' ),
         '.ThreePostsGrid-date' => array_merge(
             [
                 'color' => $module->getModuleSettingColor( 'post_date_color' )
@@ -85,9 +150,6 @@ $custom_css_general = [
                 'color' => $module->getModuleSettingColor( 'post_share_color' )
             ]
             ),
-    ],
-    '.ThreePostsGrid-pagination' => [
-        'margin' => $module->getModuleSettingDimension( 'pagination_margin' ),
     ],
     '.paginationjs-pages' => [
         '> ul li a' => array_merge(

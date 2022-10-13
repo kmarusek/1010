@@ -385,16 +385,17 @@ FLBuilder::register_module(
             )
         ),  //
         'style' => array( //
-            'title' => __( 'Style', 'fl-builder'),
+            'title' => __( 'Spacing', 'fl-builder'),
             'sections' => array(
                 'general' => array(
                     'fields' => array(
                         'posts_margin' => array(
                             'type'         => 'dimension',
-                            'label'        => __( 'Post margin', 'fl-builder' ),
+                            'label'        => __( 'Margin Between Post', 'fl-builder' ),
                             'units'        => array( 'px' ),
+                            'responsive'   => true,
                             'default_unit' => 'px',
-                            'default'      => 20,
+                            'default'      => 0,
                             'slider'       => array(
                                 'min'  => 0,
                                 'max'  => 200,
@@ -402,19 +403,20 @@ FLBuilder::register_module(
                             ),
                             'preview' => array(
                                 'type'      => 'css',
-                                'selector'  => '.ThreePostsGrid-container-post',
+                                'selector'  => '.ThreePostsGrid-post',
                                 'property'  => 'margin'
                             )
                         )
                     )
                 ),
                 'section_spacing' => array(
-                    'title' => __( 'Spacing', 'fl-builder'),
+                    'title' => __( 'Element Spacing', 'fl-builder'),
                     'fields' => array(
                         'post_categories_margin' => array(
                             'type'         => 'dimension',
                             'label'        => __( 'Category Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
+                            'responsive'   => true,
                             'default_unit' => 'px',
                             'slider'       => array(
                                 'min'  => 0,
@@ -424,13 +426,14 @@ FLBuilder::register_module(
                             'preview'      => array(
                                 'type'      => 'css',
                                 'selector'  => '.ThreePostsGrid-category-container',
-                                'property'  => 'margin-bottom'
+                                'property'  => 'margin'
                             )
                         ),
                         'post_title_margin' => array(
                             'type'         => 'dimension',
                             'label'        => __( 'Title Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
+                            'responsive'   => true,
                             'default_unit' => 'px',
                             'slider'       => array(
                                 'min'  => 0,
@@ -440,13 +443,14 @@ FLBuilder::register_module(
                             'preview'      => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-title-container',
-                                'property' => 'margin-bottom'
+                                'property' => 'margin'
                             )
                         ),
                         'post_excerpt_margin' => array(
                             'type'         => 'dimension',
                             'label'        => __( 'Excerpt Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
+                            'responsive'   => true,
                             'default_unit' => 'px',
                             'slider'       => array(
                                 'min'  => 0,
@@ -456,13 +460,14 @@ FLBuilder::register_module(
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-excerpt-container',
-                                'property' => 'margin-bottom'
+                                'property' => 'margin'
                             )
                         ),
                         'post_date_margin' => array(
                             'type'         => 'dimension',
                             'label'        => __( 'Post Date/Share Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
+                            'responsive'   => true,
                             'default_unit' => 'px',
                             'slider'       => array(
                                 'min'  => 0,
@@ -472,13 +477,14 @@ FLBuilder::register_module(
                             'preview' => array(
                                 'type'     => 'css',
                                 'selector' => '.ThreePostsGrid-post-date-container',
-                                'property' => 'margin-bottom'
+                                'property' => 'margin'
                             )
                         ),
                         'pagination_margin' => array(
                             'type'         => 'dimension',
                             'label'        => __( 'Pagination Margins', 'fl-builder' ),
                             'units'        => array( 'px' ),
+                            'responsive'   => true,
                             'default_unit' => 'px',
                             'slider'       => array(
                                 'min'  => 0,
@@ -487,8 +493,8 @@ FLBuilder::register_module(
                             ),
                             'preview' => array(
                                 'type'     => 'css',
-                                'selector' => '.ThreePostsGrid-pagination',
-                                'property' => 'margin-bottom'
+                                'selector' => '.ThreePostsGrid-pagination_wrap',
+                                'property' => 'margin'
                             )
                         )
                     )

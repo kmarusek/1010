@@ -106,5 +106,6 @@ elseif($post_type === 'post'){
 ?>
     </div>
 </div>
-
+<div class="ThreePostsGrid-pagination_wrap">
     <ul class="ThreePostsGrid-pagination pagination"></ul>
+</div>
