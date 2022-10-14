@@ -50,7 +50,7 @@ $featured_events_wrapper_classes = [
               </div>
               <div class="post_text-link">
                 <a class="TenTenFeaturedEvent-link_button" href="<?php echo $post_url?>">
-                  Learn More
+                  <p>Learn More</p>
                 </a>
               </div>
           </div>

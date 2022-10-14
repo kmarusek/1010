@@ -34,7 +34,7 @@ FLBuilderCSS::typography_field_rule(
     array(
         'settings'  => $settings,
         'setting_name' => 'event_link_typography',
-        'selector'  => ".post_text-link a",
+        'selector'  => ".post_text-link p",
     ),
 );
 

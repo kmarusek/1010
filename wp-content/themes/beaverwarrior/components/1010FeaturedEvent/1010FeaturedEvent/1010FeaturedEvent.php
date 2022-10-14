@@ -163,7 +163,7 @@ FLBuilder::register_module('BW1010FeaturedEvent', array(
                         'responsive' => true,
                         'preview' => array(
                             'type'     => 'css',
-                            'selector' => '.post_text-link a'
+                            'selector' => '.post_text-link p'
                         )
                     ),
                 ),
