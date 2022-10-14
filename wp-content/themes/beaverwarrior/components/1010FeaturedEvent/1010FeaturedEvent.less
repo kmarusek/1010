@@ -46,13 +46,12 @@
         width: 100%;
         p{
         overflow: hidden;
-        line-height: 36px;
         max-height: 108px;
         -webkit-box-orient: vertical;
         display: block;
         overflow: hidden !important;
         text-overflow: ellipsis; 
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 3;
         max-width: 523px;
         text-align: left;
         color: rgba(255, 255, 255, 0.77);
@@ -116,6 +115,9 @@
       }
       &_image{
         width: 100%;
+        img{
+        max-height: 247px;
+        }
       }
      
   }
@@ -124,6 +126,11 @@
   }
   .TenTenFeaturedEvent-post_text .post_text-date {
     margin-right: 29px;
-}
-  }  
+  }
+  .post_text-excerpt {
+    p{
+    max-height: 72px;
+    }
+  }
+} 
 }
