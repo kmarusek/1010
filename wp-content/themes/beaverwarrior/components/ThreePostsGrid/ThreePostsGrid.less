@@ -243,6 +243,19 @@ ul.ThreePostsGrid-pagination {
     padding: 0;
   }
 }
+@media only screen and (max-width: 768px){
+  .ThreePostsGrid-share-container i {
+    font-size: 17px;
+  }
+  .ThreePostsGrid-share-icon {
+      &.linkedin{
+        font-size: 20px;
+      }
+      &.twitter{
+        font-size: 20px;
+      }
+  }
+}
 @media only screen and (min-width: 768px){
     h4.ThreePostsGrid-title {
         font-size: 22px;
@@ -250,17 +263,7 @@ ul.ThreePostsGrid-pagination {
     .ThreePostsGrid-share-container{
         width: 120px;
     }
-    .ThreePostsGrid-share-container i {
-      font-size: 17px;
-    }
-    .ThreePostsGrid-share-icon {
-        &.linkedin{
-          font-size: 20px;
-        }
-        &.twitter{
-          font-size: 20px;
-        }
-    }
+   
     ul.ThreePostsGrid-pagination {
       li.ThreePostsGrid-page-item {
           text-align: center;
