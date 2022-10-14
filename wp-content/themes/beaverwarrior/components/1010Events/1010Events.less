@@ -6,12 +6,24 @@
     padding: 0;
   }
   &-category_menu {
+    font-family: 'Hauora, Times New Roman, Times, serif';
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .56px;
+    line-height: 24px;
     border-radius: 6px;
     height: 52px;
     width: 214px;
     padding: 0 21px;
     text-align: left;
     color: #000;
+    option{
+      font-family: 'Hauora, Times New Roman, Times, serif';
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .56px;
+      line-height: 24px;
+    }
   }
   &-post_container{
     .list {
@@ -96,6 +108,18 @@
 //responsive
 @media only screen and (max-width: 900px){
 .TenTenEvents{
+    &-category_menu {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .48px;
+      line-height: 20px;
+      option{
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .48px;
+        line-height: 20px;
+      }
+    }
     &-post {
       flex-wrap: wrap;
       &_text{
