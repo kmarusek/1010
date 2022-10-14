@@ -217,7 +217,7 @@ ul.ThreePostsGrid-pagination {
     border: none;
     padding: 1px 10px;
     color: #120c17;
-    font-weight:500;
+    font-weight:600;
 }
 .ThreePostsGrid-pagination.pagination>.ThreePostsGrid-current-page.active>a {
     background-color: #FC6D1B ;
@@ -250,6 +250,13 @@ ul.ThreePostsGrid-pagination {
   .ThreePostsGrid-share-container i {
     font-size: 17px;
   }
+  ul.ThreePostsGrid-pagination {
+    li.ThreePostsGrid-page-item {
+        text-align: center;
+        text-decoration: none;
+        margin: 0 4px;
+    }
+  }
   .ThreePostsGrid-share-icon {
       &.linkedin{
         font-size: 20px;
@@ -258,16 +265,4 @@ ul.ThreePostsGrid-pagination {
         font-size: 20px;
       }
   }
-}
-@media only screen and (min-width: 768px){
-    h4.ThreePostsGrid-title {
-        font-size: 22px;
-    }
-    ul.ThreePostsGrid-pagination {
-      li.ThreePostsGrid-page-item {
-          text-align: center;
-          text-decoration: none;
-          margin: 0 3px;
-      }
-    }
 }
