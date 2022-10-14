@@ -41,28 +41,30 @@ FLBuilderCSS::typography_field_rule(
     )
 );
 // Spacing
-FLBuilderCSS::dimension_field_rule( array(
-    'settings'    => $settings,
-    'setting_name'    => 'posts_margin',
-    'selector'    => ".ThreePostsGrid-post",
-    'unit'        => 'px', // Omit if custom unit select is used.
-    'props'       => array(
-      'margin-top'    => 'posts_margin_top', // As in $settings->padding_top
-      'margin-right'  => 'posts_margin_right',
-      'margin-bottom' => 'posts_margin_bottom',
-      'margin-left'   => 'posts_margin_left',
-    ),
-  ) );
+FLBuilderCSS::dimension_field_rule( 
+    array(
+        'settings'    => $settings,
+        'setting_name'    => 'posts_margin',
+        'selector'    => ".ThreePostsGrid-post",
+        'unit'        => 'px', // Omit if custom unit select is used.
+        'props'       => array(
+          'margin-top'    => 'posts_margin_top', // As in $settings->padding_top
+          'margin-right'  => 'posts_margin_right',
+          'margin-bottom' => 'posts_margin_bottom',
+          'margin-left'   => 'posts_margin_left',
+        ),
+    ) 
+);
   FLBuilderCSS::dimension_field_rule( array(
     'settings'    => $settings,
     'setting_name'    => 'post_container_padding',
     'selector'    => ".ThreePostsGrid-content",
     'unit'        => 'px', // Omit if custom unit select is used.
     'props'       => array(
-      'padding-top'    => 'post_container_padding_padding_top', // As in $settings->padding_top
-      'padding-right'  => 'post_container_padding_padding_right',
-      'padding-bottom' => 'post_container_padding_padding_bottom',
-      'padding-left'   => 'post_container_padding_padding_left',
+      'padding-top'    => 'post_container_padding_top', // As in $settings->padding_top
+      'padding-right'  => 'post_container_padding_right',
+      'padding-bottom' => 'post_container_padding_bottom',
+      'padding-left'   => 'post_container_padding_left',
     ),
   ) );
   FLBuilderCSS::dimension_field_rule( array(
