@@ -1,7 +1,7 @@
 (function(){
 
     var url = new URL(window.location.href);
-    var job_id = url.searchParams.get('id');
+    var job_id = url.searchParams.get('gh_jid');
     var getJobsData = "https://boards-api.greenhouse.io/v1/boards/1010data/jobs/"+job_id+"?questions=true";
 
 
@@ -115,7 +115,7 @@ jQuery(document).ready(function ($) {
   /*  $(".OpenPositionDetails-form").on('click', '#submitForm', function(e) {
         e.preventDefault();
         var url = new URL(window.location.href);
-        var job_id = url.searchParams.get('id');
+        var job_id = url.searchParams.get('gh_jid');
         var urlHost = "https://boards-api.greenhouse.io/v1/boards/1010data/jobs/"+job_id;
         var recaptcha = $("#g-recaptcha-response").val();
         var jsonObj = {};
