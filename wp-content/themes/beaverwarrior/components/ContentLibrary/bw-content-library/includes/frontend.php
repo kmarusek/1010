@@ -13,7 +13,7 @@ $posts_per_page = $module->getPostsPerPage();
 //Gather all Catergories for CPT 
 if( !function_exists('get_terms_by_post_type') ){
 
-    function get_terms_by_post_type( $postType = 'post', $taxonomy = 'category'){
+    function get_terms_by_post_type( $postType = 'post', $taxonomy = 'content_categories'){
 
         /**
          * 

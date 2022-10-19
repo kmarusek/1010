@@ -9,7 +9,7 @@ class BWContentLibrary extends BeaverWarriorFLModule {
     /**
      * The taxonomy for post categories
      */
-    const POST_TAXONOMY_CATEGORY = 'category';
+    const POST_TAXONOMY_CATEGORY = 'content_categories';
 
     /**
      * Parent class constructor.
