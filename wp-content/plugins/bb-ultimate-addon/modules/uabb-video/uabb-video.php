@@ -530,7 +530,7 @@ class UABBVideo extends FLBuilderModule {
 				<?php $this->get_header_wrap( $id ); ?>
 				<div class="uabb-video-inner-wrap">
 					<div class="uabb-video__play" data-src="<?php echo esc_url( $src ); ?>">
-					<<?php echo esc_attr( $custom_tag ); ?> src="<?php echo wp_kses_post( $video_thumb ); ?>" <?php echo ( 'yes' === $this->settings->show_image_overlay ) ? 'alt=' . esc_attr( $alt ) : ''; ?>></<?php echo esc_attr( $custom_tag ); ?>>
+					<<?php echo esc_attr( $custom_tag ); ?> src="<?php echo wp_kses_post( $video_thumb ); ?>" alt="<?php echo ( 'yes' === $this->settings->show_image_overlay ) ? esc_attr( $alt ) : esc_attr( $this->settings->video_type ) . '-video-thumbnail'; ?>"></<?php echo esc_attr( $custom_tag ); ?>>
 						<div class="uabb-video__play-icon <?php echo esc_attr( ( 'icon' === $this->settings->play_source ) ? $this->settings->play_icon : '' ); ?> uabb-animation-<?php echo esc_attr( $this->settings->hover_animation ); ?>">
 							<?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
@@ -600,7 +600,7 @@ class UABBVideo extends FLBuilderModule {
 		if ( '' === $this->settings->vimeo_link && 'wistia' === $this->settings->video_type ) {
 			return '';
 		}
-		if ( '' === $this->settings->video && 'hosted' === $this->settings->video_type ) {
+		if ( '' === $this->settings->video && 'hosted' === $this->settings->video_type && '' === $this->settings->video_url ) {
 			return '';
 		}
 		$this->get_video_embed();

@@ -62,7 +62,7 @@ class UABBLoginForm extends FLBuilderModule {
 
 		if ( isset( $settings->google_login_select ) && 'yes' === $settings->google_login_select && ! empty( $uabb_social_google_client_id ) ) {
 
-			$this->add_js( 'uabb_lf_google_login', 'https://apis.google.com/js/api:client.js' );
+			$this->add_js( 'uabb_lf_google_login', 'https://accounts.google.com/gsi/client' );
 		}
 	}
 	/**
@@ -79,6 +79,37 @@ class UABBLoginForm extends FLBuilderModule {
 		}
 		return '';
 	}
+
+	/**
+	 * Get access token info.
+	 *
+	 * @since 1.20.1
+	 * @access public
+	 * @param string $id_token ID token.
+	 * @param string $uabb_google_client_id settings page client ID.
+	 * @return array
+	 */
+	public function verify_user_data( $id_token, $uabb_google_client_id ) {
+
+		require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-login-form/includes/vendor/autoload.php';
+
+		// Get $id_token via HTTPS POST.
+		$client = new \Google_Client( array( 'client_id' => $uabb_google_client_id ) );  //PHPCS:ignore:PHPCompatibility.PHP.ShortArray.Found
+
+		$verified_data = $client->verifyIdToken( $id_token );
+
+		if ( $verified_data ) {
+			return $verified_data;
+		} else {
+			wp_send_json_error(
+				array(
+					'error' => __( 'Unauthorized access', 'uabb' ),
+				)
+			);
+		}
+
+	}
+
 	/**
 	 * Google button ajax function.
 	 *
@@ -89,80 +120,100 @@ class UABBLoginForm extends FLBuilderModule {
 
 		check_ajax_referer( 'uabb-lf-nonce', 'nonce' );
 
-		$uabb_social_google_client_id = '';
+		$data      = array();
+		$response  = array();
+		$user_data = array();
+		$result    = '';
 
-		$uabb_setting_options = UABB_Init::$uabb_options['fl_builder_uabb'];
+		if ( isset( $_POST['data'] ) ) {
 
-		if ( is_array( $uabb_setting_options ) ) {
+			$id_token             = filter_input( INPUT_POST, 'id_token', FILTER_SANITIZE_STRING );
+			$uabb_setting_options = UABB_Init::$uabb_options['fl_builder_uabb'];
 
-			$uabb_social_google_client_id = ( array_key_exists( 'uabb-social-google-client-id', $uabb_setting_options ) ) ? $uabb_setting_options['uabb-social-google-client-id'] : '';
-		}
+			if ( is_array( $uabb_setting_options ) ) {
 
-		$username        = sanitize_user( $_POST['name'] );
-		$email           = sanitize_email( $_POST['email'] );
-		$first_name      = $username;
-		$username        = explode( '@', $email, 2 );
-		$username        = $username[0];
-		$user_data       = get_user_by( 'email', $email );
-		$password_length = apply_filters( 'uabb_lf_password_length', 12 );
-		$id_token        = filter_input( INPUT_POST, 'security_string', FILTER_SANITIZE_STRING );
-
-		$rest_data = $this->get_user_profile_info_google( $id_token, $uabb_social_google_client_id );
-
-		if ( empty( $rest_data ) || $email !== $rest_data['email'] || ( $uabb_social_google_client_id !== $rest_data['aud'] ) ) {
-
-			wp_send_json_error(
-				array(
-					'error' => __( 'Unauthorized access', 'uabb' ),
-				)
-			);
-		}
-		if ( ! empty( $user_data ) && false !== $user_data ) {
-
-			$user_ID    = $user_data->ID;
-			$user_email = $user_data->user_email;
-			$username   = $user_data->user_login;
-			wp_set_auth_cookie( $user_ID );
-			wp_set_current_user( $user_ID, $username );
-			do_action( 'wp_login', $user_data->user_login, $user_data );
-			wp_send_json_success();
-			exit;
-		} else {
-
-			if ( username_exists( $username ) ) {
-					// Generate something unique to append to the username in case of a conflict with another user.
-					$suffix    = '-' . zeroise( wp_rand( 0, 9999 ), 4 );
-					$username .= $suffix;
+				$uabb_social_google_client_id = ( array_key_exists( 'uabb-social-google-client-id', $uabb_setting_options ) ) ? $uabb_setting_options['uabb-social-google-client-id'] : '';
 			}
-			$password     = wp_generate_password( $password_length, true, false );
-			$google_array = array(
-				'user_login' => $username,
-				'user_pass'  => $password,
-				'user_email' => $rest_data['email'],
-				'first_name' => isset( $first_name ) ? $first_name : $username,
-			);
-			wp_insert_user( $google_array );
-			$user_data = get_user_by( 'email', $rest_data['email'] );
+			$verified_data = $this->verify_user_data( $id_token, $uabb_social_google_client_id );
 
-			if ( $user_data ) {
-				$user_ID         = $user_data->ID;
-				$user_email      = $user_data->user_email;
-				$user_meta_array = array(
+			$data       = $_POST['data'];
+			$name       = isset( $verified_data['name'] ) ? $verified_data['name'] : '';
+			$email      = isset( $verified_data['email'] ) ? $verified_data['email'] : '';
+			$send_email = $data['send_email'];
 
-					'email'      => $user_email,
-					'login_from' => 'google',
+			// Check if email is verified with Google.
+			if ( empty( $verified_data ) || ( $verified_data['aud'] !== $uabb_social_google_client_id ) || ( isset( $verified_data['email'] ) && $verified_data['email'] !== $email ) ) {
+				wp_send_json_error(
+					array(
+						'error' => __( 'Unauthorized access', 'uabb' ),
+					)
 				);
+			}
 
-				update_user_meta( $user_ID, 'uabb_login_form', $user_meta_array );
+			$user_data = get_user_by( 'email', $email );
 
-				if ( wp_check_password( $password, $user_data->user_pass, $user_data->ID ) ) {
-					wp_set_auth_cookie( $user_ID );
-					wp_set_current_user( $user_ID, $username );
-					do_action( 'wp_login', $user_data->user_login, $user_data );
-					wp_send_json_success();
-					exit;
+			$response['username'] = $name;
+
+			if ( ! empty( $user_data ) && false !== $user_data ) {
+
+				$user_ID    = $user_data->ID;
+				$user_email = $user_data->user_email;
+				wp_set_auth_cookie( $user_ID );
+				wp_set_current_user( $user_ID, $name );
+				do_action( 'wp_login', $user_data->user_login, $user_data );
+				$response['success'] = true;
+
+			} else {
+
+				$password = wp_generate_password( 12, true, false );
+
+				if ( username_exists( $name ) ) {
+					// Generate something unique to append to the username in case of a conflict with another user.
+					$suffix = '-' . zeroise( wp_rand( 0, 9999 ), 4 );
+					$name  .= $suffix;
+
+					$user_array = array(
+						'user_login' => strtolower( preg_replace( '/\s+/', '', $name ) ),
+						'user_pass'  => $password,
+						'user_email' => $email,
+						'first_name' => $verified_data['name'],
+					);
+					$result     = wp_insert_user( $user_array );
+				} else {
+					$result = wp_create_user( $name, $password, $email );
+				}
+
+				if ( 'no' !== $send_email ) {
+					$this->send_user_email( $result, $send_email );
+				}
+
+				$user_data = get_user_by( 'email', $email );
+
+				if ( $user_data ) {
+
+					$user_ID    = $user_data->ID;
+					$user_email = $user_data->user_email;
+
+					$user_meta = array(
+						'login_source' => 'google',
+					);
+
+					update_user_meta( $user_ID, 'uabb_login_form', $user_meta );
+
+					if ( wp_check_password( $password, $user_data->user_pass, $user_data->ID ) ) {
+
+						wp_set_auth_cookie( $user_ID );
+						wp_set_current_user( $user_ID, $name );
+						do_action( 'wp_login', $user_data->user_login, $user_data );
+						$response['success'] = true;
+					}
 				}
 			}
+
+				wp_send_json( $response );
+
+		} else {
+			die;
 		}
 	}
 	/**
@@ -516,26 +567,47 @@ class UABBLoginForm extends FLBuilderModule {
 			<div class="uabb-lf-social-login-wrap <?php echo esc_attr( $social_buttons_layout_desktop ); ?>">
 				<?php if ( 'yes' === $this->settings->google_login_select && isset( $uabb_social_google_client_id ) && ! empty( $uabb_social_google_client_id ) ) { ?>
 
-						<div class="uabb-lf-input-group uabb-lf-row uabb-lf-google-login uabb-lf-google-button-wrap">
-							<div class="uabb-google-content-wrapper uabb-google-login <?php echo esc_attr( $google_button_class ); ?>" id="uabb-google-login">
-								<div class="uabb-google-button-icon">
-									<div class="uabb-google-button-icon-image">
-										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="uabb-google-button-svg"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
-									</div>
-								</div>
-								<span class="uabb-google-text"><?php echo esc_attr( apply_filters( 'uabb_login_form_google_button_text', $google_button_string ) ); ?></span>
+					<div class="uabb-lf-input-group uabb-lf-row uabb-lf-google-login uabb-lf-google-button-wrap">
+						<?php
+						if ( 'light' === $this->settings->social_button_theme ) {
+							$theme = 'outline';
+							$width = '135';
+							$text  = 'signin';
+
+						} else {
+							$theme = 'filled_blue';
+							$width = '212';
+							$text  = 'signin_with';
+
+						}
+						?>
+							<div id="g_id_onload"
+								data-client_id="<?php echo esc_attr( $uabb_social_google_client_id ); ?>"
+								data-context="signin"
+								data-ux_mode="popup"
+								data-callback="handleCredentialResponse"
+								data-auto_prompt="false">
+							</div>
+
+							<div class="g_id_signin"
+								data-type="standard"
+								data-theme="<?php echo esc_attr( $theme ); ?>"
+								data-text=="s<?php echo esc_attr( $text ); ?>"
+								data-size="large"
+								data-logo_alignment="left"
+								data-width="<?php echo esc_attr( $width ); ?>">
 							</div>
 						</div>
 				<?php } elseif ( 'yes' === $this->settings->google_login_select && empty( $uabb_social_google_client_id ) && FLBuilderModel::is_builder_active() ) { ?>
 
 							<label class="uabb-social-error-message">
-								<?php esc_attr_e( 'Please configure the Google Client ID from', 'uabb' ); ?>	 
+								<?php esc_attr_e( 'Please configure the Google Client ID from', 'uabb' ); ?>
 								<b>
 									<?php
 										esc_attr_e( 'Dashboard > Settings > UABB > Social Login Settings', 'uabb' );
 									?>
 								</b>
-							</label>				
+							</label>
 				<?php } ?>
 
 				<?php if ( 'yes' === $this->settings->facebook_login_select && isset( $uabb_social_facebook_app_id ) && ! empty( $uabb_social_facebook_app_id ) && isset( $uabb_social_facebook_app_secret ) && ! empty( $uabb_social_facebook_app_secret ) ) { ?>

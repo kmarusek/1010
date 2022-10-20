@@ -63,8 +63,8 @@ class BlogPostsModule extends FLBuilderModule {
 			global $wp_query;
 			$page = (int) $wp_query->get( 'page' );
 			if ( $page > 1 ) {
-				$query->set( 'page', 1 );
-				$query->set( 'paged', $page );
+				$wp_query->set( 'page', 1 );
+				$wp_query->set( 'paged', $page );
 			}
 			remove_action( 'template_redirect', 'redirect_canonical' );
 		}
@@ -1451,7 +1451,7 @@ class BlogPostsModule extends FLBuilderModule {
 		$new_height   = $height;
 
 		// Make sure we have enough memory to crop @ini_set( 'memory_limit', '300M' );.
-		ini_set( 'memory_limit', '300M' ); // phpcs:ignore WordPress.PHP.IniSet.memory_limit_Blacklisted
+		wp_raise_memory_limit( 'memory_limit', '300M' );
 
 		// Crop the photo.
 		$editor->resize( $new_width, $new_height, true );
@@ -1909,16 +1909,16 @@ class BlogPostsModule extends FLBuilderModule {
 									if ( isset( $this->settings->{ 'masonary_filter_' . $post_type } ) && $tax_slug === $this->settings->{ 'masonary_filter_' . $post_type } ) {
 										if ( isset( $this->settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) && '0' === $this->settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) {
 											if ( ! in_array( $cat_details->term_id, $tax_value ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-												echo '<li class="uabb-masonary-filter-' . esc_attr( $this->node ) . '" data-filter=".uabb-masonary-cat-' . esc_attr( $cat_details->term_id ) . '">' . esc_attr( $cat_details->name ) . '</li>';
+												echo '<li class="uabb-masonary-filter-' . esc_attr( $this->node ) . '" data-filter=".uabb-masonary-cat-' . esc_attr( $cat_details->term_id ) . '" tabindex="0">' . esc_attr( $cat_details->name ) . '</li>';
 											}
 										} else {
 											if ( in_array( $cat_details->term_id, $tax_value ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-												echo '<li class="uabb-masonary-filter-' . esc_attr( $this->node ) . '" data-filter=".uabb-masonary-cat-' . esc_attr( $cat_details->term_id ) . '">' . esc_attr( $cat_details->name ) . '</li>';
+												echo '<li class="uabb-masonary-filter-' . esc_attr( $this->node ) . '" data-filter=".uabb-masonary-cat-' . esc_attr( $cat_details->term_id ) . '" tabindex="0">' . esc_attr( $cat_details->name ) . '</li>';
 											}
 										}
 									}
 								} else {
-									echo '<li class="uabb-masonary-filter-' . esc_attr( $this->node ) . '" data-filter=".uabb-masonary-cat-' . esc_attr( $cat_details->term_id ) . '">' . esc_attr( $cat_details->name ) . '</li>';
+									echo '<li class="uabb-masonary-filter-' . esc_attr( $this->node ) . '" data-filter=".uabb-masonary-cat-' . esc_attr( $cat_details->term_id ) . '" tabindex="0">' . esc_attr( $cat_details->name ) . '</li>';
 								}
 							}
 								echo '</ul>';

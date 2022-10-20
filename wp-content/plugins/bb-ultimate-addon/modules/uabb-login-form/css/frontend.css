@@ -129,6 +129,7 @@
 		display: -ms-inline-flexbox;
 		display: inline-flex;
 	}
+
 	.uabb-lf-form-wrap .uabb-lf-social-login-wrap.uabb-social-layout-stack-desktop {
 		display: block;
 	}
@@ -138,6 +139,7 @@
 	.uabb-lf-form-wrap .uabb-lf-social-login-wrap .uabb-lf-facebook-button-wrap.uabb-lf-input-group.uabb-lf-facebook-login {
 		margin-left: 0;
 	}
+
 	.uabb-lf-form-wrap .uabb-lf-social-login-wrap.uabb-social-layout-inline-desktop,
 	.uabb-lf-form-wrap .uabb-lf-social-login-wrap.uabb-social-layout-stack-desktop {
 		display: block;
@@ -150,21 +152,21 @@
 
 .uabb-lf-input-group .uabb-lf-icon {
 	-js-display: inline-flex;
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -moz-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    position: absolute;
-    cursor: pointer;
-    height: 100%;
-    right: 0px;
-    margin-right: 10px;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+	display: -webkit-inline-box;
+	display: -webkit-inline-flex;
+	display: -moz-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	position: absolute;
+	cursor: pointer;
+	height: 100%;
+	right: 0px;
+	margin-right: 10px;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
 }
 
 [dir='rtl'] .uabb-lf-input-group .uabb-lf-icon {
@@ -198,29 +200,13 @@
 	left: unset;
 }
 
-.uabb-google-content-wrapper {
-	display: -webkit-inline-box;
-	display: -ms-inline-flexbox;
-	display: inline-flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	background-color: #4285f4;
-	border: none;
-	color: #fff;
-	border: 1px solid #4285f4;
-	cursor: pointer;
-	overflow: hidden;
-}
-
 .uabb-google-button-icon svg,
 .uabb-facebook-button-icon svg {
 	vertical-align: sub;
 }
 
-.uabb-google-content-wrapper:hover {
-	-webkit-box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3);
-	box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3);
+.g_id_signin iframe {
+	margin: unset !important;
 }
 
 .uabb-google-login .uabb-google-button-icon {
@@ -335,6 +321,7 @@
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}

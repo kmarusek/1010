@@ -1,3 +1,17 @@
+Version 1.35.1, Tuesday, 11th October 2022
+- Improvement: Advanced Posts - Made Filterable Tabs accessible.
+- Improvement: Advanced Posts - Used wp_raise_memory_limit() instead of ini_set().
+- Improvement: How-to Schema - Removed UABB text to support branding.
+- Improvement: Login Form - Updated JS library for Google login.
+- Improvement: Video - Added alt attribute for Default Thumbnail.
+- Fixed: Advanced Menu - Layout issue with mega menu.
+- Fixed: Advanced Posts - Resolved PHP error.
+- Fixed: Heading - The alignment setting is not working for mobile devices.
+- Fixed: Social Login settings not visible in UABB settings.
+- Fixed: Video - External Video URL link is not working.
+- Fixed: Woo - Mini Cart - Fatal error when used in Astra Custom Layout and Rankmath plugin is active.
+- Fixed: Woo - Products - Pagination is not working when source is set to Main Query.
+
 Version 1.35.0, Wednesday, 7th September 2022
 - New: Rollback to previous versions feature.
 - Improvement: Contact Form 7 Styler - Added style support for acceptance field checkbox.

@@ -267,7 +267,7 @@ if ( apply_filters( 'uabb_heading_remove_description_default_space', true ) ) {
 			array(
 				'settings'     => $settings,
 				'setting_name' => 'font_typo',
-				'selector'     => ".fl-node-$id .uabb-heading,.fl-node-$id .uabb-heading-wrapper .uabb-heading .uabb-heading-text",
+				'selector'     => ".fl-node-$id .uabb-heading-wrapper .uabb-heading,.fl-node-$id .uabb-heading-wrapper .uabb-heading .uabb-heading-text",
 			)
 		);
 	}
@@ -320,7 +320,7 @@ if ( apply_filters( 'uabb_heading_remove_description_default_space', true ) ) {
 			array(
 				'settings'     => $settings,
 				'setting_name' => 'desc_font_typo',
-				'selector'     => ".fl-node-$id .uabb-text-editor, .fl-node-$id .uabb-text-editor p",
+				'selector'     => ".fl-node-$id .uabb-text-editor.uabb-text-editor, .fl-node-$id .uabb-text-editor.uabb-text-editor p",
 			)
 		);
 	}
