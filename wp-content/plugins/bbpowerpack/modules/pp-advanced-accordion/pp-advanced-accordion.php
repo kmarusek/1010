@@ -5,6 +5,8 @@
  */
 class PPAccordionModule extends FLBuilderModule {
 
+	private $cached_content = array();
+
 	/**
 	 * @method __construct
 	 */
@@ -190,6 +192,24 @@ class PPAccordionModule extends FLBuilderModule {
 		return apply_filters( 'pp_accordion_items', $items, $this->settings );
 	}
 
+	public function get_post_content( $post_id ) {
+		global $post;
+
+		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
+			return esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
+		}
+
+		if ( isset( $_GET['fl_builder'] ) ) {
+			return '[fl_builder_insert_layout id="' . $post_id . '" type="fl-builder-template"]';
+		}
+
+		if ( ! isset( $this->cached_content[ $post_id ] ) ) {
+			$this->cached_content[ $post_id ] = pp_get_post_content( get_post( $post_id ) );
+		}
+
+		return $this->cached_content[ $post_id ];
+	}
+
 	public function render_accordion_item_icon( $item ) {
 		$icon_type = isset( $item->accordion_icon_type ) ? $item->accordion_icon_type : 'icon';
 
@@ -239,13 +259,13 @@ class PPAccordionModule extends FLBuilderModule {
 				$html = $wp_embed->autoembed( $item->content_video );
 				break;
 			case 'module':
-				$html = pp_get_post_content( get_post( $item->content_module ) );
+				$html = $this->get_post_content( $item->content_module );
 				break;
 			case 'row':
-				$html = pp_get_post_content( get_post( $item->content_row ) );
+				$html = $this->get_post_content( $item->content_row );
 				break;
 			case 'layout':
-				$html = pp_get_post_content( get_post( $item->content_layout ) );
+				$html = $this->get_post_content( $item->content_layout );
 				break;
 			default:
 				break;
@@ -864,18 +884,21 @@ FLBuilder::register_settings_form( 'pp_accordion_items_form', array(
 						),
 						'content_module'	=> array(
 							'type'				=> 'select',
-							'label'				=> __( 'Saved Module', 'bb-powerpack' ),
-							'options'			=> array()
+							'label'				=> __('Saved Module', 'bb-powerpack'),
+							'options'			=> array(),
+							'saved_data'        => 'module',
 						),
 						'content_row'		=> array(
 							'type'				=> 'select',
-							'label'				=> __( 'Saved Row', 'bb-powerpack' ),
-							'options'			=> array()
+							'label'				=> __('Saved Row', 'bb-powerpack'),
+							'options'			=> array(),
+							'saved_data'        => 'row',
 						),
 						'content_layout'	=> array(
 							'type'				=> 'select',
-							'label'				=> __( 'Saved Layout', 'bb-powerpack' ),
-							'options'			=> array()
+							'label'				=> __('Saved Layout', 'bb-powerpack'),
+							'options'			=> array(),
+							'saved_data'        => 'layout',
 						),
 					)
 				)

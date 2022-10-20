@@ -5,6 +5,8 @@
  */
 class PPModalBoxModule extends FLBuilderModule {
 
+	private $cached_content = array();
+
     /**
      * Constructor function for the module. You must pass the
      * name, description, dir and url in an array to the parent class.
@@ -237,7 +239,12 @@ class PPModalBoxModule extends FLBuilderModule {
 					if ( isset( $_GET['fl_builder'] ) ) {
                 		$content = '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
 					} else {
-						$content = pp_get_post_content( get_post( $settings->modal_type_templates ) );
+						if ( isset( $this->cached_content[ $settings->modal_type_templates ] ) ) {
+							$content = $this->cached_content[ $settings->modal_type_templates ];
+						} else {
+							$content = pp_get_post_content( get_post( $settings->modal_type_templates ) );
+							$this->cached_content[ $settings->modal_type_templates ] = $content;
+						}
 					}
 				}
          		break;
@@ -467,14 +474,14 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                 'title'         => __('Trigger', 'bb-powerpack'),
                 'fields'        => array(
                     'modal_load'           => array(
-                        'type'                  => 'pp-switch',
+                        'type'                  => 'select',
                         'label'                 => __('Trigger', 'bb-powerpack'),
                         'default'               => 'auto',
                         'options'               => array(
 							'auto'                  => __('Auto', 'bb-powerpack'),
 							'onclick'               => __('On Click', 'bb-powerpack'),
                             'exit_intent'           => __('Exit Intent', 'bb-powerpack'),
-                            'other'                 => __('Other', 'bb-powerpack')
+                            'other'                 => __('Custom Element Click', 'bb-powerpack')
 						),
                         'toggle'            => array(
                             'auto'              => array(
@@ -487,9 +494,6 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                             'exit_intent'       => array(
                                 'sections'  => array('modal_exit_intent'),
                             ),
-                            'other'      => array(
-                                'fields'    => array('modal_css_class'),
-                            )
                         ),
                         'hide'              => array(
                             'auto'              => array(
@@ -501,22 +505,14 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                                 'tabs'              => array('modal_button_style'),
                             ),
                         ),
-                        'help'              => __('Other - modal can be triggered through any other element(s) on this page by providing modal CSS class to that element.', 'bb-powerpack')
+                        'help'              => __('Custom Element Click - modal can be triggered through any other element(s) on this page by providing CSS class or ID to that element.', 'bb-powerpack')
                     ),
-                    'modal_css_class'       => array(
-                        'type'                  => 'pp-css-class',
-                        'label'                 => __('Default CSS Class', 'bb-powerpack'),
-                        'default'               => '',
-                        'disabled'              => 'disabled',
-                        'class'                 => 'modal-trigger-class',
-                        'help'                  => __('Add this CSS class to the element you want to trigger the modal with.', 'bb-powerpack')
-					),
 					'modal_custom_class'       => array(
                         'type'                  => 'text',
                         'label'                 => __('Your own Class/ID', 'bb-powerpack'),
                         'description'           => __('Please add a class with . prefix (.my-class) or ID with # prefix (#my-id) here. No spaces.', 'bb-powerpack'),
                         'default'               => '',
-                        'help'                  => __('Add this CSS class/ID to the element you want to trigger the modal with.', 'bb-powerpack'),
+                        'help'                  => __('Add this CSS class/ID to the element you want to trigger the modal with. This option can work along with any Trigger type you select above.', 'bb-powerpack'),
                     ),
                 )
             ),
@@ -867,7 +863,7 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
 					'title_tag' => array(
 						'type'          => 'select',
 						'label'         => __('HTML Tag', 'bb-powerpack'),
-						'default'       => 'h2',
+						'default'       => 'h4',
 						'options'       => array(
 							'h1'            => 'H1',
 							'h2'            => 'H2',
@@ -1241,7 +1237,7 @@ BB_PowerPack::register_module('PPModalBoxModule', array(
                     'overlay_bg_color'  => array(
                         'type'              => 'color',
                         'label'             => __('Background Color', 'bb-powerpack'),
-                        'default'           => '000000',
+                        'default'           => 'rgba(0,0,0,0.3)',
 						'show_alpha'		=> true,
 						'show_reset'		=> true,
 						'connections'		=> array('color'),

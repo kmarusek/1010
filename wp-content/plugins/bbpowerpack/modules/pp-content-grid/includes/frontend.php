@@ -70,6 +70,10 @@ if ( ! isset( $settings->pp_post_id ) ) {
 	$settings->pp_post_id = get_the_ID();
 }
 
+if ( ! isset( $settings->offset ) || empty( $settings->offset ) ) {
+	$settings->offset = 0;
+}
+
 if ( 'acf_relationship' == $settings->data_source ) {
 	$settings->post_type = 'any';
 }
@@ -131,10 +135,6 @@ add_filter( 'fl_builder_loop_query_args', function( $args ) {
 	return $args;
 } );
 
-if ( ! isset( $settings->offset ) || empty( $settings->offset ) ) {
-	$settings->offset = 0;
-}
-
 // Save the current post, so that it can be restored later (see the end of this file).
 global $post;
 $initial_current_post = $post;
@@ -157,7 +157,7 @@ $query = FLBuilderLoop::query( $settings );
 		$current_post_type = is_callable( 'get_post_type' ) ? get_post_type() : '';
 
 		if ( 'main_query' === $settings->data_source && ! empty( $current_post_type ) ) {
-			$settings->post_type = $current_post_type;
+			$post_type = $current_post_type;
 		}
 
 		if ( 'acf_relationship' != $settings->data_source ) {
@@ -184,18 +184,20 @@ $query = FLBuilderLoop::query( $settings );
 
 					$query->the_post();
 
-					$post_id 	= get_the_ID();
-					$permalink 	= apply_filters( 'pp_cg_post_permalink', get_permalink(), $post_id, $settings );
-					$title_attrs 	= the_title_attribute( array( 'echo' => false ) );
+					$post_id 	 = get_the_ID();
+					$post_type   = get_post_type( get_post() );
+					$permalink 	 = apply_filters( 'pp_cg_post_permalink', get_permalink(), $post_id, $settings );
+					$title_attrs = the_title_attribute( array( 'echo' => false ) );
 
-					$terms_list = wp_get_post_terms( $post_id, $settings->post_taxonomies );
+					$terms_list  = wp_get_post_terms( $post_id, $settings->post_taxonomies );
+					$terms_list  = is_wp_error( $terms_list ) ? array() : $terms_list;
 					
-					if ( $settings->post_type == 'product' && function_exists( 'wc_get_product' ) ) {
-						$product = wc_get_product( $post_id );
-						if ( ! is_object( $product ) ) {
-							$render = false;
-						}
-					}
+					// if ( in_array( 'product', (array) $post_type ) && function_exists( 'wc_get_product' ) ) {
+					// 	$product = wc_get_product( $post_id );
+					// 	if ( ! is_object( $product ) ) {
+					// 		$render = false;
+					// 	}
+					// }
 
 					if ( $render ) {
 						$count++;

@@ -1,4 +1,6 @@
 <?php
+$layout = isset( $settings->layout ) ? $settings->layout : 'default';
+
 if ( ! isset( $settings->post_type ) ) {
 	$post_type = 'post';
 } else {
@@ -117,9 +119,9 @@ if ( is_single() && $post && $post->ID ) {
 	$current_post_terms = wp_get_post_terms( $post->ID, $taxonomy, array( 'fields' => 'slugs' ) );
 }
 
-$hide_img = isset( $settings->category_show_image ) && 'no' === $settings->category_show_image;
-$is_tax_archive = is_tax() || is_category() || is_tag();
-$queried_object = $is_tax_archive ? get_queried_object() : false;
+$hide_img            = isset( $settings->category_show_image ) && 'no' === $settings->category_show_image;
+$is_tax_archive      = is_tax() || is_category() || is_tag();
+$queried_object      = $is_tax_archive ? get_queried_object() : false;
 $exclude_current_cat = apply_filters( 'pp_category_grid_exclude_current_category', true );
 
 do_action( 'pp_category_grid_before_container', $settings );
@@ -182,17 +184,9 @@ do_action( 'pp_category_grid_before_container', $settings );
 				continue;
 			}
 		}
-		$cat_thumb_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
-		if ( 'enabled' === $taxonomy_thumbnail_enable && ! empty( $taxonomy_thumbnail_taxonomies ) && in_array( $tax_type, (array) $taxonomy_thumbnail_taxonomies ) ) {
-			$taxonomy_thumbnail_id = get_term_meta( $cat->term_id, 'taxonomy_thumbnail_id', true );
-			if ( empty( $cat_thumb_id ) ) {
-				$cat_thumb_id = $taxonomy_thumbnail_id;
-			}
-		}
-		$category_image = wp_get_attachment_image_src( $cat_thumb_id, $settings->category_image_size );
-		$term_link      = get_term_link( $cat, $taxonomy );
 
 		$layout_path = apply_filters( 'pp_category_grid_layout_path', $module->dir . 'includes/layout-1.php', $cat, $settings );
+
 		if ( ! empty( $layout_path ) ) {
 			include $layout_path;
 		}

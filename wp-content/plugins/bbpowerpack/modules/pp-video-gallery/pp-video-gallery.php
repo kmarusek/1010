@@ -1249,6 +1249,7 @@ FLBuilder::register_settings_form('pp_video_gallery_items', array(
 								'youtube' 		=> __( 'YouTube', 'bb-powerpack' ),
 								'vimeo' 		=> __( 'Vimeo', 'bb-powerpack' ),
 								'dailymotion' 	=> __( 'Dailymotion', 'bb-powerpack' ),
+								'wistia' 		=> __( 'Wistia', 'bb-powerpack' ),
 								'hosted' 		=> __( 'Self Hosted', 'bb-powerpack' ),
 								'external'		=> __( 'External URL', 'bb-powerpack' ),
 							),
@@ -1261,6 +1262,9 @@ FLBuilder::register_settings_form('pp_video_gallery_items', array(
 								),
 								'dailymotion'	=> array(
 									'fields'		=> array( 'dailymotion_url', 'controls', 'showinfo', 'logo', 'color' ),
+								),
+								'wistia'	=> array(
+									'fields'		=> array( 'wistia_url', 'loop', 'controls', 'color' ),
 								),
 								'hosted'	=> array(
 									'fields'	=> array( 'hosted_url', 'end_time', 'controls', 'download_button', 'poster' ),
@@ -1288,6 +1292,13 @@ FLBuilder::register_settings_form('pp_video_gallery_items', array(
 							'type'			=> 'text',
 							'label'			=> __( 'Link', 'bb-powerpack' ),
 							'placeholder'	=> __( 'Enter Dailymotion URL', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'url' ),
+						),
+						'wistia_url'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Link', 'bb-powerpack' ),
+							'placeholder'	=> __( 'Enter Wistia URL', 'bb-powerpack' ),
 							'default'		=> '',
 							'connections'	=> array( 'url' ),
 						),

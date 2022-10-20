@@ -6,9 +6,11 @@
 		$columns = $columns + 1;
 	}
 
+	$eq_heights = isset( $settings->equal_heights ) && 'yes' === $settings->equal_heights && 'cards' === $settings->pricing_table_style ? ' pp-pricing-table-eq-heights' : '';
+
 ?>
 
-<div class="pp-pricing-table pp-pricing-table-spacing-<?php echo $settings->box_spacing; ?>">
+<div class="pp-pricing-table pp-pricing-table-spacing-<?php echo $settings->box_spacing; ?><?php echo $eq_heights; ?>">
 
 	<?php if ( 'yes' == $settings->dual_pricing ) { ?>
 	<div class="pp-pricing-table-switch">
@@ -19,6 +21,7 @@
 	</div>
 	<?php } ?>
 
+	<div class="pp-pricing-table-colset">
 	<?php if ( $settings->pricing_table_style == 'matrix' ) { ?>
 		<div class="pp-pricing-table-col pp-pricing-table-col-<?php echo $columns; ?> pp-pricing-table-matrix">
 			<div class="pp-pricing-table-column">
@@ -66,10 +69,18 @@
 	?>
 	<div class="pp-pricing-table-col pp-pricing-table-card pp-pricing-table-col-<?php echo $columns; ?><?php echo $highlight; ?><?php echo $f_title; ?>">
 		<div class="pp-pricing-table-column pp-pricing-table-column-<?php echo $i; ?>">
-			<?php if ( $pricing_column->hl_featured_title ) { ?>
+			<?php if ( $pricing_column->hl_featured_title ) {
+				$ribbon_class = isset( $settings->featured_title_ribbon ) && 'yes' === $settings->featured_title_ribbon ? ' pp-pricing-ribbon pp-pricing-ribbon-' . $settings->featured_title_ribbon_pos : '';
+				?>
+				<?php if ( ! empty( $ribbon_class ) ) { ?>
+				<div class="<?php echo $ribbon_class; ?>">
+				<?php } ?>
 				<div class="pp-pricing-featured-title">
-					<?php echo $pricing_column->hl_featured_title; ?>
+					<span><?php echo $pricing_column->hl_featured_title; ?></span>
 				</div>
+				<?php if ( ! empty( $ribbon_class ) ) { ?>
+				</div>
+				<?php } ?>
 			<?php } ?>
 			<div class="pp-pricing-table-inner-wrap">
 				<div class="pp-pricing-table-header">
@@ -99,4 +110,5 @@
 	endfor;
 
 	?>
+	</div>
 </div>

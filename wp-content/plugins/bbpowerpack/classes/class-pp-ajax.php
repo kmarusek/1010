@@ -211,16 +211,16 @@ class BB_PowerPack_Ajax {
 			'pagination' => false,
 		);
 
-		$post_type = $settings->post_type;
-		$offset    = isset( $settings->offset ) ? intval( $settings->offset ) : 0;
-
 		global $post;
 		global $wp_query;
+
+		$post_type = 'main_query' === $settings->data_source ? get_post_type() : $settings->post_type;
+		$offset    = isset( $settings->offset ) ? intval( $settings->offset ) : 0;
 
 		$args = array(
 			'post_type'             => $post_type,
 			'post_status'           => 'publish',
-			'tax_query'           => array(
+			'tax_query'             => array(
 				'relation' => 'AND',
 			),
 			'ignore_sticky_posts'   => true,
@@ -286,76 +286,79 @@ class BB_PowerPack_Ajax {
 
 		if ( 'custom_query' === $settings->data_source ) {
 
-			$taxonomies = FLBuilderLoop::taxonomies( $post_type );
+			foreach ( (array) $post_type as $type ) {
 
-			foreach ( $taxonomies as $tax_slug => $tax ) {
+				$taxonomies = FLBuilderLoop::taxonomies( $type );
 
-				$tax_value = '';
-				$term_ids  = array();
-				$operator  = 'IN';
+				foreach ( $taxonomies as $tax_slug => $tax ) {
 
-				// Get the value of the suggest field.
-				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
-					// New style slug.
-					$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
-				} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
-					// Old style slug for backwards compat.
-					$tax_value = $settings->{'tax_' . $tax_slug};
-				}
+					$tax_value = '';
+					$term_ids  = array();
+					$operator  = 'IN';
 
-				// Get the term IDs array.
-				if ( ! empty( $tax_value ) ) {
-					$term_ids = explode( ',', $tax_value );
-				}
+					// Get the value of the suggest field.
+					if ( isset( $settings->{'tax_' . $type . '_' . $tax_slug} ) ) {
+						// New style slug.
+						$tax_value = $settings->{'tax_' . $type . '_' . $tax_slug};
+					} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
+						// Old style slug for backwards compat.
+						$tax_value = $settings->{'tax_' . $tax_slug};
+					}
 
-				// Handle matching settings.
-				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
+					// Get the term IDs array.
+					if ( ! empty( $tax_value ) ) {
+						$term_ids = explode( ',', $tax_value );
+					}
 
-					$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
+					// Handle matching settings.
+					if ( isset( $settings->{'tax_' . $type . '_' . $tax_slug . '_matching'} ) ) {
 
-					if ( ! $tax_matching ) {
-						// Do not match these terms.
-						$operator = 'NOT IN';
-					} elseif ( 'related' === $tax_matching ) {
-						// Match posts by related terms from the global post.
-						global $post;
-						$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
-						$related = array();
+						$tax_matching = $settings->{'tax_' . $type . '_' . $tax_slug . '_matching'};
 
-						foreach ( $terms as $term ) {
-							if ( ! in_array( $term->term_id, $term_ids ) ) {
-								$related[] = $term->term_id;
+						if ( ! $tax_matching ) {
+							// Do not match these terms.
+							$operator = 'NOT IN';
+						} elseif ( 'related' === $tax_matching ) {
+							// Match posts by related terms from the global post.
+							global $post;
+							$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
+							$related = array();
+
+							foreach ( $terms as $term ) {
+								if ( ! in_array( $term->term_id, $term_ids ) ) {
+									$related[] = $term->term_id;
+								}
+							}
+
+							if ( empty( $related ) ) {
+								// If no related terms, match all except those in the suggest field.
+								$operator = 'NOT IN';
+							} else {
+
+								// Don't include posts with terms selected in the suggest field.
+								$args['tax_query'][] = array(
+									'taxonomy'	=> $tax_slug,
+									'field'		=> 'id',
+									'terms'		=> $term_ids,
+									'operator'  => 'NOT IN',
+								);
+
+								// Set the term IDs to the related terms.
+								$term_ids = $related;
 							}
 						}
+					} // End if().
 
-						if ( empty( $related ) ) {
-							// If no related terms, match all except those in the suggest field.
-							$operator = 'NOT IN';
-						} else {
+					if ( ! empty( $term_ids ) ) {
 
-							// Don't include posts with terms selected in the suggest field.
-							$args['tax_query'][] = array(
-								'taxonomy'	=> $tax_slug,
-								'field'		=> 'id',
-								'terms'		=> $term_ids,
-								'operator'  => 'NOT IN',
-							);
-
-							// Set the term IDs to the related terms.
-							$term_ids = $related;
-						}
+						$args['tax_query'][] = array(
+							'taxonomy'	=> $tax_slug,
+							'field'		=> 'id',
+							'terms'		=> $term_ids,
+							'operator'  => $operator,
+						);
 					}
-				} // End if().
-
-				if ( ! empty( $term_ids ) ) {
-
-					$args['tax_query'][] = array(
-						'taxonomy'	=> $tax_slug,
-						'field'		=> 'id',
-						'terms'		=> $term_ids,
-						'operator'  => $operator,
-					);
-				}
+				} // End foreach().
 			} // End foreach().
 		}
 		
@@ -364,34 +367,44 @@ class BB_PowerPack_Ajax {
 				$args['posts_per_page'] = $settings->posts_per_page;
 			}
 
-			// posts filter.
-			if ( isset( $settings->{'posts_' . $post_type} ) ) {
+			foreach ( (array) $post_type as $type ) {
+				// posts filter.
+				if ( isset( $settings->{'posts_' . $type} ) ) {
 
-				$ids = $settings->{'posts_' . $post_type};
-				$arg = 'post__in';
+					$ids = $settings->{'posts_' . $type};
+					$arg = 'post__in';
 
-				if ( isset( $settings->{'posts_' . $post_type . '_matching'} ) ) {
-					if ( ! $settings->{'posts_' . $post_type . '_matching'} ) {
-						$arg = 'post__not_in';
+					if ( isset( $settings->{'posts_' . $type . '_matching'} ) ) {
+						if ( ! $settings->{'posts_' . $type . '_matching'} ) {
+							$arg = 'post__not_in';
+						}
 					}
-				}
 
-				if ( ! empty( $ids ) ) {
-					$args[ $arg ] = explode( ',', $ids );
+					if ( ! empty( $ids ) ) {
+						$args[ $arg ] = explode( ',', $ids );
+					}
 				}
 			}
 			
+			// Exclude current post.
 			if ( $post && isset( $settings->exclude_current_post ) && 'yes' === $settings->exclude_current_post ) {
 				$args['post__not_in'][] = $post->ID;
 			}
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && 'product' === $post_type ) {
-			$args['meta_query'][] = array(
-				'key'       => '_stock_status',
-				'value'     => 'instock',
-				'compare'   => '=',
-			);
+		// Do not query WooCommerce out of stock products.
+		// Also, making sure this applies to product post type only.
+		if (
+			'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && in_array( 'product', (array) $post_type ) && 
+			( ! isset( $settings->post_grid_filters_post_type ) || 'product' === $settings->post_grid_filters_post_type )
+		) {
+			if ( apply_filters( 'pp_post_grid_ajax_wc_hide_out_of_stock', true, $args ) ) {
+				$args['meta_query'][] = array(
+					'key'       => '_stock_status',
+					'value'     => 'instock',
+					'compare'   => '=',
+				);
+			}
 		}
 
 		if ( isset( $_POST['paged'] ) ) {
@@ -436,7 +449,40 @@ class BB_PowerPack_Ajax {
 			}
 		} // End if().
 
-		if ( 'tribe_events' === $post_type ) {
+		// Filter by meta key
+		if ( ( isset( $settings->custom_field ) && is_array( $settings->custom_field ) && count( $settings->custom_field ) > 0 ) && 'custom_query' == $settings->data_source ) {
+			if ( count( $settings->custom_field ) == 1 ) {
+				$field = (object) $settings->custom_field[0];
+				if ( isset( $field->filter_meta_key ) && ! empty( $field->filter_meta_key ) ) {
+					$args['meta_key'] = untrailingslashit( $field->filter_meta_key );
+					if ( 'EXISTS' != $field->filter_meta_compare && 'NOT EXISTS' != $field->filter_meta_compare ) {
+						$args['meta_value'] = untrailingslashit( $field->filter_meta_value );
+					}
+					$args['meta_type']    = $field->filter_meta_type;
+					$args['meta_compare'] = $field->filter_meta_compare;
+					
+				}
+			} else {
+				if ( isset( $settings->custom_field_relation ) ) {
+					$args['meta_query']['relation'] = $settings->custom_field_relation;
+					foreach ( $settings->custom_field as $field ) {
+						if ( ! empty( $field ) ) {
+							$field            = (object) $field;
+							$filter_arr        = array();
+							$filter_arr['key'] = untrailingslashit( $field->filter_meta_key );
+							if ( 'EXISTS' != $field->filter_meta_compare && 'NOT EXISTS' != $field->filter_meta_compare ) {
+								$filter_arr['value'] = untrailingslashit( $field->filter_meta_value );
+							}
+							$filter_arr['type']    = $field->filter_meta_type;
+							$filter_arr['compare'] = $field->filter_meta_compare;
+							$args['meta_query'][]  = $filter_arr;
+						}
+					}
+				}
+			}
+		}
+
+		if ( in_array( 'tribe_events', (array) $post_type ) ) {
 
 			if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
 				$orderby = $settings->event_orderby;
@@ -450,10 +496,10 @@ class BB_PowerPack_Ajax {
 				$order = 'ASC';
 			}
 
-			$args['meta_key'] 		= '_' . $orderby;
-			$args['orderby'] 		= 'meta_value';
-			$args['order'] 			= $order;
-			$args['eventDisplay'] 	= 'custom';
+			$args['meta_key']     = '_' . $orderby;
+			$args['orderby']      = 'meta_value';
+			$args['order']        = $order;
+			$args['eventDisplay'] = 'custom';
 
 			if ( 'custom_query' === $settings->data_source ) {
 				if ( isset( $settings->event_orderby ) && empty( $settings->event_orderby ) ) {
@@ -590,7 +636,7 @@ class BB_PowerPack_Ajax {
 				$post_id = get_the_ID();
 				$permalink = get_permalink();
 				$post_type = get_post_type( get_post() );
-				$settings->post_type = $post_type;
+				//$settings->post_type = $post_type;
 
 				$count++;
 
@@ -763,31 +809,41 @@ class BB_PowerPack_Ajax {
 	 * @param string $post_type Post type.
 	 */
 	static public function get_post_taxonomies( $post_type = 'post' ) {
-		if ( isset( $_POST['post_type'] ) && ! empty( $_POST['post_type'] ) ) {
-			$post_type = sanitize_text_field( wp_unslash( $_POST['post_type'] ) );
+		if ( ! isset( $_POST['post_type'] ) || empty( $_POST['post_type'] ) ) {
+			die;
 		}
 
-		if ( 'all' === $post_type ) {
-			$post_types = FLBuilderLoop::post_types();
-			$taxonomies = array();
-			foreach ( $post_types as $type => $obj ) {
-				$type_taxonomies = FLBuilderLoop::taxonomies( $type );
-				if ( ! empty( $type_taxonomies ) ) {
-					foreach ( $type_taxonomies as $key => $tax ) {
-						if ( ! array_key_exists( $key, $taxonomies ) ) {
-							$taxonomies[ $key ] = $tax;
+		$post_type = wp_unslash( $_POST['post_type'] );
+		$post_type = (array) $post_type;
+		$post_type = array_map( 'sanitize_text_field', $post_type );
+		$html      = '';
+
+		if ( 'all' === $post_type[0] ) {
+			$post_type = FLBuilderLoop::post_types();
+		}
+
+		foreach ( $post_type as $type ) {
+			$object     = get_post_type_object( $type );
+			$taxonomies = FLBuilderLoop::taxonomies( $type );
+
+			if ( ! empty( $taxonomies ) ) {
+				$html .= '<optgroup label="' . $object->label . '">';
+				foreach ( $taxonomies as $key => $tax ) {
+					$selected = '';
+
+					if ( isset( $_POST['value'] ) ) {
+						$value = wp_unslash( $_POST['value'] );
+						$value = (array) $value;
+
+						if ( in_array( $key, $value ) ) {
+							$selected = ' selected="selected"';
 						}
 					}
+
+					$html .= '<option value="' . $key . '" data-post-type="' . $type . '"' . $selected . '>' . $tax->label . ' (' . $tax->name . ')' . '</option>';
 				}
+				$html .= '</optgroup>';
 			}
-		} else {
-			$taxonomies = FLBuilderLoop::taxonomies( $post_type );
-		}
-
-		$html = '';
-
-		foreach ( $taxonomies as $tax_slug => $tax ) {
-			$html .= '<option value="' . $tax_slug . '">' . $tax->label . ' (' . $tax->name . ')' . '</option>';
 		}
 
 		echo $html;
@@ -822,12 +878,20 @@ class BB_PowerPack_Ajax {
 			);
 		}
 
+		$currentPost = 0;
+		if ( isset( $_POST['currentPost'] ) ) {
+			$currentPost = absint( $_POST['currentPost'] );
+		}
+
 		$posts = get_posts( $args );
 
 		$options = '';
 
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
+				if ( $post->ID === $currentPost ) {
+					continue;
+				}
 				$options .= '<option value="' . $post->ID . '">' . $post->post_title . '</option>';
 			}
 

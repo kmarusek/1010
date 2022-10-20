@@ -55,7 +55,7 @@ if ( isset( $settings->layout ) ) {
 		$classes = '';
 		if ( 'slider' == $layout ) {
 			$classes = $is_carousel ? ' carousel-enabled' : '';
-			echo '<div class="owl-carousel owl-theme' . ( 'no' === $settings->adaptive_height ? ' owl-height' : '' ) . '">';
+			echo '<div class="owl-carousel owl-theme' . ( 'no' === $settings->adaptive_height ? ' owl-height' : '' ) . '" tabindex="0"' . ( '' != $settings->heading ? ' aria-label="' . esc_attr( $settings->heading ) . '"' : '' ) . '>';
 		} else {
 			$classes = '';
 		}

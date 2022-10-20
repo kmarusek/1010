@@ -21,9 +21,12 @@ final class BB_PowerPack_Modules {
 			self::$_enabled_categories = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_module_categories', true );
 		}
 
-		add_filter( 'fl_builder_enabled_modules', __CLASS__ . '::filter_enabled_modules' );
+		if ( isset( $_GET['fl_builder'] ) ) {
+			add_filter( 'fl_builder_enable_small_data_mode', '__return_false', 13 );
+		}
+		add_filter( 'fl_builder_enabled_modules',     __CLASS__ . '::filter_enabled_modules' );
 		add_action( 'fl_builder_admin_settings_save', __CLASS__ . '::on_bb_settings_save' );
-		add_action( 'admin_footer', __CLASS__ . '::admin_footer' );
+		add_action( 'admin_footer',                   __CLASS__ . '::admin_footer' );
 	}
 
 	public static function is_bb_module_settings_page() {

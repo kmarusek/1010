@@ -205,6 +205,8 @@ class PPSubscribeFormModule extends FLBuilderModule {
 				}
 			}
 
+			do_action( 'pp_subscribe_form_before_submission', $result, $settings );
+
 			if ( ! $result['error'] ) {
 				// Subscribe.
 				$instance = FLBuilderServices::get_service_instance( $settings->service );
@@ -1210,11 +1212,6 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 						'show_reset'            => true,
 						'show_alpha'		    => false,
 						'connections'			=> array('color'),
-                        'preview'               => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-form-field label[for=pp-subscribe-form-name], .pp-form-field label[for="pp-subscribe-form-email"]',
-                            'property'          => 'color'
-                        )
                     ),
                 )
             ),
@@ -1356,20 +1353,20 @@ BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 							'gradient'      => __( 'Gradient', 'bb-powerpack' ),
 						),
 					),
-					'btn_bg_opacity' => array(
-						'type'          => 'unit',
-						'label'         => __( 'Background Opacity', 'bb-powerpack' ),
-						'default'       => '100',
-						'units'		    => array('%'),
-						'slider'     	=> true,
-					),
-					'btn_bg_hover_opacity' => array(
-						'type'          => 'unit',
-						'label'         => __('Background Hover Opacity', 'bb-powerpack'),
-						'default'       => '100',
-						'units'		    => array('%'),
-						'slider'     	=> true,
-					),
+					// 'btn_bg_opacity' => array(
+					// 	'type'          => 'unit',
+					// 	'label'         => __( 'Background Opacity', 'bb-powerpack' ),
+					// 	'default'       => '100',
+					// 	'units'		    => array('%'),
+					// 	'slider'     	=> true,
+					// ),
+					// 'btn_bg_hover_opacity' => array(
+					// 	'type'          => 'unit',
+					// 	'label'         => __('Background Hover Opacity', 'bb-powerpack'),
+					// 	'default'       => '100',
+					// 	'units'		    => array('%'),
+					// 	'slider'     	=> true,
+					// ),
 					'btn_button_transition' => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Transition', 'bb-powerpack'),

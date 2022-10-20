@@ -56,6 +56,7 @@
 
 .pp-logos-content .bx-wrapper {
 	margin-bottom: 0;
+	direction: ltr;
 }
 .pp-logos-carousel:not(.pp-logos-wrapper-loaded) {
 	opacity: 0;

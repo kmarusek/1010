@@ -51,6 +51,8 @@ $hcaptcha_sitekey     = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_h
 
 			<?php endif; ?>
 
+			<?php do_action( 'pp_subscribe_form_before_email_field', $settings ); ?>
+
 			<div class="pp-form-field pp-email-field">
 			<?php
 					if ( $show_labels && isset( $settings->input_email_label ) && ! empty( $settings->input_email_label ) ) { ?>
@@ -61,6 +63,8 @@ $hcaptcha_sitekey     = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_h
 				<input id="pp-subscribe-form-email-<?php echo $id; ?>" type="email" name="pp-subscribe-form-email" placeholder="<?php echo esc_attr( $settings->input_email_placeholder ); ?>" value="<?php echo esc_attr( $email ); ?>" />
 				<div class="pp-form-error-message"><?php echo $messages['empty_invalid_email']; ?></div>
 			</div>
+
+			<?php do_action( 'pp_subscribe_form_after_email_field', $settings ); ?>
 
 			<?php if ( ( 'stacked' == $settings->layout || 'compact' == $settings->layout ) ) : ?>
 				<?php if ( isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) : ?>

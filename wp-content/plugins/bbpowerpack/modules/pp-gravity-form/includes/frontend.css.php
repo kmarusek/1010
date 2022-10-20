@@ -54,7 +54,7 @@ FLBuilderCSS::typography_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'section_typography',
-		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper h2.gsection_title",
+		'selector'     => ".fl-node-$id .pp-gf-content .gform_wrapper h2.gsection_title, .fl-node-$id .pp-gf-content .gform_wrapper h3.gsection_title",
 	)
 );
 // Form Button Typography
@@ -235,7 +235,8 @@ FLBuilderCSS::typography_field_rule(
 	<?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper h2.gsection_title {
+.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper h2.gsection_title,
+.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper h3.gsection_title {
 	<?php if ( $settings->section_text_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->section_text_color ); ?>;
 	<?php } ?>
@@ -299,13 +300,13 @@ FLBuilderCSS::responsive_rule(
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .ginput_complex input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=image]):not([type=file]),
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .ginput_complex select {
-	<?php if ( $settings->input_field_margin >= 0 ) { ?>
+	<?php if ( '' !== $settings->input_field_margin && $settings->input_field_margin >= 0 ) { ?>
 	margin-bottom: <?php echo ( $settings->input_field_margin * 30 ) / 100; ?>px;
 	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .ginput_complex span {
-	<?php if ( $settings->input_field_margin >= 0 ) { ?>
+	<?php if ( '' !== $settings->input_field_margin && $settings->input_field_margin >= 0 ) { ?>
 	margin-bottom: <?php echo ( $settings->input_field_margin * 40 ) / 100; ?>px;
 	<?php } ?>
 }

@@ -36,7 +36,7 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>><?php the_title(); ?></a>
 		</<?php echo $settings->title_tag; ?>>
 
-		<?php if ( 'tribe_events' == $settings->post_type && ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'FLThemeBuilderLoader' ) ) ) { ?>
+		<?php if ( in_array( 'tribe_events', (array) $post_type ) && ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'FLThemeBuilderLoader' ) ) ) { ?>
 			<?php include $module_dir . 'includes/templates/event-content.php'; ?>
 		<?php } ?>
 	</div>

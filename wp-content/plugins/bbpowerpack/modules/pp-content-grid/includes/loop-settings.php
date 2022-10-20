@@ -55,7 +55,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			),
 			'toggle'        => array(
 				'custom_query'  => array(
-					'sections'		=> array( 'query', 'filter' ),
+					'sections'		=> array( 'query', 'filter', 'custom_field' ),
 					'fields'        => array( 'posts_per_page' )
 				),
 				'pods_relationship'	=> array(
@@ -160,6 +160,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			FLBuilder::render_settings_field('post_type', array(
 				'type'          => 'post-type',
 				'label'         => __('Post Type', 'bb-powerpack'),
+				'multi-select' => true,
 			), $settings);
 
 			// Order by
@@ -273,6 +274,45 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			), $settings);
 
 			?>
+			</table>
+		</div>
+	</div>
+	<div id="fl-builder-settings-section-custom_field" class="fl-builder-settings-section fl-builder-settings-section-collapsed">
+		<div class="fl-builder-settings-section-header">
+			<button class="fl-builder-settings-title">
+				<svg class="fl-symbol">
+					<use xlink:href="#fl-down-caret"></use>
+				</svg>
+				<?php _e( 'Custom Field Filter', 'bb-powerpack' ); ?>
+			</button>
+		</div>
+
+		<div class="fl-builder-settings-section-content">
+			<table class="fl-form-table">
+			<?php
+				FLBuilder::render_settings_field( 'custom_field_relation', array(
+					'type'    => 'select',
+					'label'   => __( 'Relation', 'bb-powerpack' ),
+					'default' => 'AND',
+					'options' => array(
+						'AND' => __( 'AND', 'bb-powerpack' ),
+						'OR'  => __( 'OR', 'bb-powerpack' ),
+					),
+				), $settings);
+				?>
+			</table>
+			<table class="fl-form-table">
+			<?php
+				FLBuilder::render_settings_field( 'custom_field', array(
+					'type'         => 'form',
+					'help'         => __( 'Custom field key.', 'bb-powerpack' ),
+					'label'        => __( 'Custom Field', 'bb-powerpack' ),
+					'form'         => 'custom_fields_form',
+					'default'      => array( 0 => '' ),
+					'preview_text' => 'filter_meta_label',
+					'multiple'     => true,
+				), $settings);
+				?>
 			</table>
 		</div>
 	</div>
@@ -414,6 +454,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 		</button>
 	</div>
 	<div class="fl-builder-settings-section-content">
+		<div class="fl-builder-settings-description" style="padding-top: 20px;"><?php _e( 'Please note filters may not work correctly when you select multiple post types in Custom Query.', 'bb-powerpack' ); ?></div>
 		<table class="fl-form-table">
 			<?php
 			FLBuilder::render_settings_field('post_grid_filters_display', array(
@@ -449,7 +490,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				'type'		=> 'select',
 				'label'		=> __('Select Taxonomy', 'bb-powerpack'),
 				'default'	=> '',
-				'options'       => array()
+				'options'   => array()
 			), $settings);
 
 			FLBuilder::render_settings_field('post_grid_filters_terms', array(
@@ -831,11 +872,11 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 
 			FLBuilder::render_settings_field('show_categories', array(
 				'type'			=> 'pp-switch',
-				'label'			=> __('Show Taxonomies', 'bb-powerpack'),
+				'label'			=> __('Show Taxonomy Terms', 'bb-powerpack'),
 				'default'		=> 'no',
 				'options'       => array(
 					'yes'          => __('Yes', 'bb-powerpack'),
-					'no'         => __('No', 'bb-powerpack'),
+					'no'           => __('No', 'bb-powerpack'),
 				),
 				'toggle'	=> array(
 					'yes'	=> array(
@@ -844,12 +885,16 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				)
 			),$settings);
 
-			FLBuilder::render_settings_field('post_taxonomies', array(
-				'type'		=> 'select',
-				'label'		=> __('Select Taxonomy', 'bb-powerpack'),
-				'default'	=> 'none',
-				'options'   => array()
-			), $settings);
+			//foreach(FLBuilderLoop::post_types() as $slug => $type) {
+				FLBuilder::render_settings_field('post_taxonomies', array(
+					'type'		=> 'select',
+					'label'		=> __('Select Taxonomies', 'bb-powerpack'),
+					'description' => __( 'Cmd + Click on Mac or Ctrl + Click on Windows to select multiple.', 'bb-powerpack' ),
+					'default'	=> 'none',
+					'options'   => array(),
+					'multi-select'  => true,
+				), $settings);
+			//}
 
 			// Separators
 			FLBuilder::render_settings_field('meta_separator', array(
@@ -903,25 +948,31 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 				return;
 			}
 			var post_grid_filters = $('.fl-builder-pp-content-grid-settings select[name="post_grid_filters"]');
-			var post_taxonomies = $('.fl-builder-pp-content-grid-settings select[name="post_taxonomies"]');
-			var selected_filter = '<?php echo $settings->post_grid_filters; ?>';
-			var selected_taxonomy = '<?php echo $settings->post_taxonomies; ?>';
+			var post_taxonomies = $('.fl-builder-pp-content-grid-settings select[name="post_taxonomies[]"]');
+			var selected_filter = <?php echo json_encode( $settings->post_grid_filters ); ?>;
+			var selected_taxonomy = <?php echo json_encode( $settings->post_taxonomies ); ?>;
 			var post_type = '<?php echo $post_type; ?>';
-			var post_type_field = $('.fl-builder-pp-content-grid-settings select[name="post_type"]');
-			post_type_field.find('option').removeAttr('selected');
-			post_type_field.find('option[value="'+post_type+'"]').attr('selected', 'selected');
-			post_type_field.trigger('change');
+			// var post_type_field = $('.fl-builder-pp-content-grid-settings select[name="post_type"]');
+			// post_type_field.find('option').removeAttr('selected');
+			// post_type_field.find('option[value="'+post_type+'"]').attr('selected', 'selected');
+			// post_type_field.trigger('change');
 			if ( '' !== post_type ) {
 				$.ajax({
 					type: 'post',
-					data: { action: 'pp_get_taxonomies', post_type: post_type },
+					data: {
+						action: 'pp_get_taxonomies',
+						post_type: post_type,
+						value: selected_taxonomy
+					},
 					url: ajaxurl,
 					success: function(res) {
 						if ( res !== 'undefined' || res !== '' ) {
 							post_grid_filters.html(res);
+							post_grid_filters.find('option').removeAttr('selected');
 							post_grid_filters.find('option[value="'+selected_filter+'"]').attr('selected', 'selected');
+							post_grid_filters.val(selected_filter);
 							post_taxonomies.html(res);
-							post_taxonomies.find('option[value="'+selected_taxonomy+'"]').attr('selected', 'selected');
+							//post_taxonomies.find('option[value="'+selected_taxonomy+'"]').attr('selected', 'selected');
 						}
 					}
 				});
@@ -933,27 +984,30 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 		<?php } ?>
 
 		function pp_custom_query_taxonomies() {
-			if ( $( '.fl-builder-pp-content-grid-settings select[name="data_source"]' ).val() !== 'custom_query' ) {
+			if ( 'custom_query' !== $( '.fl-builder-pp-content-grid-settings select[name="data_source"]' ).val() ) {
 				return;
 			}
-			var post_type_slug = $('.fl-builder-pp-content-grid-settings select[name="post_type"]').val();
+			var post_type_slug = $('.fl-builder-pp-content-grid-settings select[name="post_type[]"]').val();
 			var post_grid_filters = $('.fl-builder-pp-content-grid-settings select[name="post_grid_filters"]');
-			var post_taxonomies = $('.fl-builder-pp-content-grid-settings select[name="post_taxonomies"]');
-			var selected_filter = '<?php echo $settings->post_grid_filters; ?>';
-			var selected_taxonomy = '<?php echo $settings->post_taxonomies; ?>';
+			var post_taxonomies = $('.fl-builder-pp-content-grid-settings select[name="post_taxonomies[]"]');
+			var selected_filter = <?php echo json_encode( $settings->post_grid_filters ); ?>;
+			var selected_taxonomy = <?php echo json_encode( $settings->post_taxonomies ); ?>;
 			$.ajax({
 				type: 'post',
 				data: {
 					action: 'pp_get_taxonomies',
-					post_type: post_type_slug
+					post_type: post_type_slug,
+					value: selected_taxonomy
 				},
 				url: ajaxurl,
 				success: function(res) {
 					if ( res !== 'undefined' || res !== '' ) {
 						post_grid_filters.html(res);
+						post_grid_filters.find('option').removeAttr('selected');
 						post_grid_filters.find('option[value="'+selected_filter+'"]').attr('selected', 'selected');
+						post_grid_filters.val(selected_filter);
 						post_taxonomies.html(res);
-						post_taxonomies.find('option[value="'+selected_taxonomy+'"]').attr('selected', 'selected');
+						//post_taxonomies.find('option[value="'+selected_taxonomy+'"]').attr('selected', 'selected');
 					}
 				}
 			});
@@ -961,7 +1015,7 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 
 		pp_custom_query_taxonomies();
 
-		$('.fl-builder-pp-content-grid-settings select[name="post_type"], .fl-builder-pp-content-grid-settings select[name="data_source"]').on('change', function() {
+		$('.fl-builder-pp-content-grid-settings select[name="post_type[]"], .fl-builder-pp-content-grid-settings select[name="data_source"]').on('change', function() {
 			pp_custom_query_taxonomies();
 		});
 

@@ -89,6 +89,20 @@
 				$(this).append( '<span class="sr-only">Testimonial Slide ' + count + '</span>' );
 				count++;
 			});
+			
+			var carousel = this;
+			carousel.$element.on( 'focus', function() {
+				carousel.$element.on( 'keyup', function(e) {
+					if ( 37 === e.keyCode || 37 === e.which ) {
+						carousel.prev();
+					}
+					if ( 39 === e.keyCode || 39 === e.which ) {
+						carousel.next();
+					}
+				} );
+			} ).on( 'blur', function() {
+				carousel.$element.off( 'keyup' );
+			} );
 		},
 		onResized: equalheight,
 		onRefreshed: equalheight,

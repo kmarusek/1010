@@ -20,27 +20,7 @@ class PPContentTilesModule extends FLBuilderModule {
 			'editor_export' 	=> false,
 			'partial_refresh'	=> true,
 		));
-
-		add_action( 'wp_ajax_ct_get_post_tax', array( $this, 'get_post_taxonomies' ) );
-		add_action( 'wp_ajax_nopriv_ct_get_post_tax', array( $this, 'get_post_taxonomies' ) );
 	}
-
-	/**
-     * Get taxonomies
-     */
-    public function get_post_taxonomies()
-	{
-		$slug = isset( $_POST['post_type_slug'] ) ? $_POST['post_type_slug'] : '';
-		$taxonomies = FLBuilderLoop::taxonomies($slug);
-		$html = '';
-		$html .= '<option value="none">'. __('None', 'bb-powerpack') .'</option>';
-
-		foreach ( $taxonomies as $tax_slug => $tax ) {
-			$html .= '<option value="'.$tax_slug.'">'.$tax->label.'</option>';
-		}
-
-        echo $html; die();
-    }
 
 	/**
 	 * Renders the schema structured data for the current

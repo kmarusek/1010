@@ -352,7 +352,7 @@
 	position: relative;
 }
 
-.pp-tabs-style-3 .pp-tabs-labels .pp-tabs-label:first-child {
+.pp-tabs-style-3:not(.pp-tabs-vertical-left) .pp-tabs-labels .pp-tabs-label:first-child {
 	margin-left: 0;
 }
 

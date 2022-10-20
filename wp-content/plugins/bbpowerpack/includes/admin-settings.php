@@ -15,7 +15,7 @@ $current_tab = self::get_current_tab();
 
 <div class="wrap pp-admin-settings-wrap">
 	<div class="pp-admin-settings-header">
-		<div>
+		<div class="pp-admin-settings-head">
 			<h3>
 			<?php
 				$admin_label = pp_get_admin_label();
@@ -50,3 +50,16 @@ $current_tab = self::get_current_tab();
 	padding-left: 0;
 }
 </style>
+<script>
+(function($) {
+	$('.pp-admin-field-toggle input').on( 'focus', function() {
+		$(this).parent().addClass( 'focus' );
+	} ).on( 'blur', function() {
+		$(this).parent().removeClass( 'focus' );
+	} );
+
+	$('.pp-admin-settings-tabs .nav-tab').on( 'click', function() {
+		$('.pp-admin-settings-content').html('<div style="display: flex;"><img src="<?php echo admin_url( 'images/spinner.gif' ); ?>" /> &nbsp;<?php esc_html_e( 'Loading...', 'bb-powerpack' ); ?></div>');
+	} );
+})(jQuery);
+</script>

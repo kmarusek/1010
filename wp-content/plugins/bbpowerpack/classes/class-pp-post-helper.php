@@ -228,16 +228,16 @@ class BB_PowerPack_Post_Helper {
 	}
 
 	static public function pagination( $query, $settings ) {
-		$total = 0;
-		$page = 0;
-		$paged = FLBuilderLoop::get_paged();
-		$per_page = absint( $settings->posts_per_page );
-		$total_posts_count = absint( $settings->total_posts_count );
-		$posts_aval = $query->found_posts;
+		$total               = 0;
+		$page                = 0;
+		$paged               = FLBuilderLoop::get_paged();
+		$per_page            = 'main_query' !== $settings->data_source ? absint( $settings->posts_per_page ) : get_option( 'posts_per_page' );
+		$total_posts_count   = absint( $settings->total_posts_count );
+		$posts_aval          = $query->found_posts;
 		$permalink_structure = get_option( 'permalink_structure' );
-		$base = html_entity_decode( get_pagenum_link() );
+		$base                = html_entity_decode( get_pagenum_link() );
 
-		if ( ! $per_page ) {
+		if ( ! $per_page && 'main_query' !== $settings->data_source ) {
 			$per_page = get_option( 'posts_per_page' );
 		}
 
@@ -291,21 +291,27 @@ class BB_PowerPack_Post_Helper {
 	 * @return void
 	 */
 	static public function ajax_pagination( $query, $settings, $current_url = '', $paged = 1, $filter = '', $node_id = '' ) {
-		$total_pages = $query->max_num_pages;
+		$total_pages         = $query->max_num_pages;
+		$per_page            = 'main_query' !== $settings->data_source ? absint( $settings->posts_per_page ) : get_option( 'posts_per_page' );
+		$total_posts_count   = absint( $settings->total_posts_count );
 		$permalink_structure = get_option( 'permalink_structure' );
-		$current_url = empty( $current_url ) ? get_pagenum_link() : $current_url;
-		$base = untrailingslashit( html_entity_decode( $current_url ) );
+		$current_url         = empty( $current_url ) ? get_pagenum_link() : $current_url;
+		$base                = untrailingslashit( html_entity_decode( $current_url ) );
 
-		if ( 'custom' == $settings->total_post && $settings->total_posts_count != $query->found_posts ) {
+		if ( ! $per_page && 'main_query' !== $settings->data_source ) {
+			$per_page = get_option( 'posts_per_page' );
+		}
+
+		if ( 'custom' == $settings->total_post && ! empty( $total_posts_count ) && $total_posts_count != $query->found_posts ) {
 			$total = 0;
 
-			if ( $settings->total_posts_count > $query->found_posts ) {
-				$total_pages = $query->found_posts / $settings->posts_per_page;
-				$total = $query->found_posts % $settings->posts_per_page;
+			if ( $total_posts_count > $query->found_posts ) {
+				$total_pages = $query->found_posts / $per_page;
+				$total = $query->found_posts % $per_page;
 			}
-			if ( $settings->total_posts_count < $query->found_posts ) {
-				$total_pages = $settings->total_posts_count / $settings->posts_per_page;
-				$total = $settings->total_posts_count % $settings->posts_per_page;
+			if ( $total_posts_count < $query->found_posts ) {
+				$total_pages = $total_posts_count / $per_page;
+				$total = $total_posts_count % $per_page;
 			}
 
 			if ( $total > 0 ) {
@@ -453,6 +459,7 @@ class BB_PowerPack_Post_Helper {
 	 */
 	static public function schema_collection_type( $data_source = 'custom_query', $post_type = 'post' ) {
 		$schema = '';
+		$post_type = (array) $post_type;
 
 		if ( ! self::is_schema_enabled() ) {
 			return $schema;
@@ -461,7 +468,7 @@ class BB_PowerPack_Post_Helper {
 		if ( is_archive() && 'main_query' === $data_source ) {
 			$schema = is_post_type_archive( 'post' ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
 		} else {
-			$schema = ( 'post' === $post_type ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
+			$schema = ( in_array( 'post', $post_type ) ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
 		}
 
 		return $schema;

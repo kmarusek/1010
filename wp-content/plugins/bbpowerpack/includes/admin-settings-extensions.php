@@ -13,9 +13,9 @@ $extensions         = pp_extensions();
 $enabled_extensions = self::get_enabled_extensions();
 ?>
 
+<?php if ( ! class_exists( 'FLBuilderUIContentPanel' ) ) { ?>
 <table class="form-table">
 	<tbody>
-		<?php if ( ! class_exists( 'FLBuilderUIContentPanel' ) ) { ?>
 		<tr valign="top">
 			<th scope="row" valign="top">
 				<?php esc_html_e('Quick Preview', 'bb-powerpack'); ?>
@@ -42,9 +42,9 @@ $enabled_extensions = self::get_enabled_extensions();
 				</p>
 			</td>
 		</tr>
-		<?php } ?>
 	</tbody>
 </table>
+<?php } ?>
 
 <h3><?php esc_html_e( 'Row Extensions', 'bb-powerpack' ); ?></h3>
 <table class="form-table pp-flex-table">
@@ -60,7 +60,7 @@ $enabled_extensions = self::get_enabled_extensions();
 				?>
 				<label class="pp-admin-field-toggle">
 					<input id="pp_extension_row_<?php echo $key; ?>" name="bb_powerpack_extensions[row][]" type="checkbox" value="<?php echo $key; ?>"<?php echo $is_enabled ? ' checked="checked"' : '' ?> />
-					<span class="pp-admin-field-toggle-slider"></span>
+					<span class="pp-admin-field-toggle-slider" aria-hidden="true"></span>
 				</label>
 			</td>
 		</tr>

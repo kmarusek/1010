@@ -5,6 +5,8 @@
  */
 class PPOffcanvasContent extends FLBuilderModule {
 
+	private $cached_content = array();
+
 	/**
 	 * Class constructor.
 	 *
@@ -57,12 +59,23 @@ class PPOffcanvasContent extends FLBuilderModule {
 		return $settings;
 	}
 
-	public function get_shortcode_content( $post_id ) {
+	public function get_post_content( $post_id ) {
+		global $post;
+		if ( is_object( $post ) && isset( $post->ID ) ) {
+			if ( $post->ID == $post_id ) {
+				return esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
+			}
+		}
+
 		if ( isset( $_GET['fl_builder'] ) ) {
 			return '[fl_builder_insert_layout id="' . $post_id . '" type="fl-builder-template"]';
 		}
+
+		if ( ! isset( $this->cached_content[ $post_id ] ) ) {
+			$this->cached_content[ $post_id ] = pp_get_post_content( get_post( $post_id ) );
+		}
 		
-		return pp_get_post_content( get_post( $post_id ) );
+		return $this->cached_content[ $post_id ];
 	}
 
 	/**
@@ -88,13 +101,13 @@ class PPOffcanvasContent extends FLBuilderModule {
 				}
 				break;
 			case 'module':
-				$html = $this->get_shortcode_content( $settings->content_module );
+				$html = $this->get_post_content( $settings->content_module );
 				break;
 			case 'row':
-				$html = $this->get_shortcode_content( $settings->content_row );
+				$html = $this->get_post_content( $settings->content_row );
 				break;
 			case 'layout':
-				$html = $this->get_shortcode_content( $settings->content_layout );
+				$html = $this->get_post_content( $settings->content_layout );
 				break;
 			case 'sidebar':
 				$sidebar = $settings->content_sidebar;
@@ -195,20 +208,23 @@ BB_PowerPack::register_module(
 							'preview_text' => 'content_title',
 							'multiple'     => true,
 						),
-						'content_module'  => array(
-							'type'    => 'select',
-							'label'   => __( 'Saved Module', 'bb-powerpack' ),
-							'options' => array(),
+						'content_module'	=> array(
+							'type'				=> 'select',
+							'label'				=> __('Saved Module', 'bb-powerpack'),
+							'options'			=> array(),
+							'saved_data'        => 'module',
 						),
-						'content_row'     => array(
-							'type'    => 'select',
-							'label'   => __( 'Saved Row', 'bb-powerpack' ),
-							'options' => array(),
+						'content_row'		=> array(
+							'type'				=> 'select',
+							'label'				=> __('Saved Row', 'bb-powerpack'),
+							'options'			=> array(),
+							'saved_data'        => 'row',
 						),
-						'content_layout'  => array(
-							'type'    => 'select',
-							'label'   => __( 'Saved Layout', 'bb-powerpack' ),
-							'options' => array(),
+						'content_layout'	=> array(
+							'type'				=> 'select',
+							'label'				=> __('Saved Layout', 'bb-powerpack'),
+							'options'			=> array(),
+							'saved_data'        => 'layout',
 						),
 						'content_sidebar' => PPOffcanvasContent::get_wp_widgets(),
 					),

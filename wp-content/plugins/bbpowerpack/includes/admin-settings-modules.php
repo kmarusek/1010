@@ -46,7 +46,7 @@
 					<label for="bb_powerpack_<?php echo $cat; ?>"><?php echo $data['category']; ?></label>
 					<label class="pp-admin-field-toggle">
 						<input id="bb_powerpack_<?php echo $cat; ?>" name="bb_powerpack_module_categories[]" type="checkbox" value="<?php echo $cat; ?>"<?php echo $is_cat_enabled ? ' checked="checked"' : '' ?> />
-						<span class="pp-admin-field-toggle-slider"></span>
+						<span class="pp-admin-field-toggle-slider" aria-hidden="true"></span>
 					</label>
 				</h3>
 			</div>
@@ -77,7 +77,7 @@
 						}
 						$row_class .= $used_on ? ' pp-module-used' : '';
 						?>
-						<tr valign="top" class="<?php echo $row_class; ?>">
+						<tr valign="top" class="<?php echo $row_class; ?>" tabindex="0">
 							<th scope="row" valign="top">
 								<label for="bb_powerpack_modules_<?php echo $module['slug']; ?>"><?php echo $module['name']; ?></label>
 								<?php if ( ! empty( $used_on_text ) ) { ?>
@@ -100,9 +100,11 @@
 										name="bb_powerpack_modules[]" 
 										type="checkbox" 
 										value="<?php echo $module['slug']; ?>"
-										<?php echo $is_enabled ? ' checked="checked"' : '' ?> 
+										<?php echo $is_enabled ? ' checked="checked"' : '' ?>
+										tabindex="-1"
+										aria-hidden="true"
 									/>
-									<span class="pp-admin-field-toggle-slider"></span>
+									<span class="pp-admin-field-toggle-slider" aria-hidden="true"></span>
 								</label>
 							</td>
 						</tr>
@@ -119,6 +121,20 @@
 
 <script>
 	(function($) {
+		$('.pp-modules tr').on( 'keypress', function(e) {
+			if ( e.which == 1 || e.which == 13 || e.which == 32 ) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var $input = $(this).find( 'input[type=checkbox]' );
+				if ( $input.prop( 'checked' ) ) {
+					$input.prop( 'checked', false );
+				} else {
+					$input.prop( 'checked', true );
+				}
+			}
+		} );
+
 		// Toggle inactive class.
 		$('input[name="bb_powerpack_modules[]"').on('change', function() {
 			if ( $(this).is(':checked') ) {

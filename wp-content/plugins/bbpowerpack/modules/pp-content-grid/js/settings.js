@@ -29,7 +29,7 @@
 
 			form.find('select[name="post_grid_style_select"]').on('change', $.proxy( this._tirggerStyleChange, this ));
 			this._tirggerStyleChange();
-			form.find('select[name="post_type"]').on('change', $.proxy( this._triggerPostTypeChange, this ));
+			form.find('select[name="post_type[]"]').on('change', $.proxy( this._triggerPostTypeChange, this ));
 			form.find('select[name="data_source"]').on('change', $.proxy( this._triggerSourceChange, this ));
 			this._triggerSourceChange();
 
@@ -70,6 +70,16 @@
 			});
 		},
 
+		submit: function() {
+			var form = $( '.fl-builder-settings' ),
+				filtersPostType = form.find( 'select[name="post_grid_filters"] option:selected' ).attr( 'data-post-type' ) || false;
+
+			if ( filtersPostType ) {
+				$('<input name="post_grid_filters_post_type" type="hidden" value="' + filtersPostType + '">').insertAfter( form.find( 'select[name="post_grid_filters"]' ) );
+			}
+			return true;
+		},
+
 		_tirggerStyleChange: function()
 		{
 			var form = $('.fl-builder-settings'),
@@ -89,21 +99,24 @@
 
 		_triggerPostTypeChange: function() {
 			var form = $('.fl-builder-settings'),
-				field = form.find('select[name="post_type"]');
+				field = form.find('select[name="post_type[]"]'),
+				value = field.val();
 
 			field.find('option').each(function() {
 				var cls = 'pp-cg-post-type_' + $(this).attr('value');
 				form.removeClass( cls );
 			});
 
-			form.addClass( 'pp-cg-post-type_' + field.val() );
+			value.forEach( function(type) {
+				form.addClass( 'pp-cg-post-type_' + type );
+			});
 
 			// WooCommerce and EDD
-			if( field.val() === 'product' || field.val() === 'download' || form.find( 'select[name="data_source"]' ).val() === 'main_query' ) {
+			if( -1 !== $.inArray( 'product', value ) || -1 !== $.inArray( 'download', value ) || form.find( 'select[name="data_source"]' ).val() === 'main_query' ) {
 				$('#fl-builder-settings-section-product-settings').show();
 				$('#fl-builder-settings-section-product_info_style').show();
                 $('#fl-field-more_link_text').hide();
-                if ( $('#fl-builder-settings-section-query select[name="post_type"]').val() == 'download' ) {
+                if ( -1 !== $.inArray( 'download', value ) ) {
                     $('#fl-field-product_rating, #fl-field-product_rating_color').hide();
                 } else {
 					$('#fl-field-product_rating, #fl-field-product_rating_color').show();
@@ -115,7 +128,7 @@
 			}
 
 			// The Events Calendar
-			if ( 'tribe_events' !== field.val() && 'main_query' !== form.find( 'select[name="data_source"]' ).val() ) {
+			if ( -1 === $.inArray( 'tribe_events', value ) && 'main_query' !== form.find( 'select[name="data_source"]' ).val() ) {
 				$('#fl-builder-settings-section-events-calendar-settings').hide();
 				$('#fl-builder-settings-section-events_calendar_style').hide();
 			} else {

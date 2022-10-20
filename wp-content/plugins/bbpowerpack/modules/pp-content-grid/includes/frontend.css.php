@@ -656,6 +656,9 @@ FLBuilderCSS::dimension_field_rule( array(
 	background-color: <?php echo pp_get_color_value( $settings->post_bg_color ); ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?>.cg-static-grid .pp-content-post.pp-content-grid-post {
+	margin-right: <?php echo $spacing . $spacing_unit; ?>;
+}
 
 <?php
 // Border.

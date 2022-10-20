@@ -114,7 +114,7 @@
 					icon_url 	= this.markerImage[i];
 					icon_width 	= this.markerImageWidth[i];
 					icon_height = this.markerImageHeight[i];
-					link        = this.markerLinks[i];
+					link        = 'undefined' !== typeof this.markerLinks ? this.markerLinks[i] : [''];
 
 				if ( lat != '' && lng != '' ) {
 

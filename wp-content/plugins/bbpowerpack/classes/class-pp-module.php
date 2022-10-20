@@ -26,13 +26,18 @@ final class PPModuleExtend {
 	static public function init() {
 		// Filters.
 		if ( class_exists( 'FLThemeBuilderLoader' ) ) {
-			add_filter( 'fl_builder_register_settings_form',   	__CLASS__ . '::post_grid_settings', 10, 2 );
-			add_filter( 'fl_builder_render_css',               	__CLASS__ . '::post_grid_css', 10, 2 );
-			add_filter( 'pp_cg_module_layout_path', 			__CLASS__ . '::post_grid_layout_path', 10, 3 );
-			add_filter( 'pp_post_custom_layout_html', 			__CLASS__ . '::post_custom_html_parse_shortcodes', 1 );
+			add_filter( 'fl_builder_register_settings_form',   	    __CLASS__ . '::post_grid_settings', 10, 2 );
+			add_filter( 'fl_builder_register_settings_form',   	    __CLASS__ . '::category_grid_settings', 10, 2 );
+			add_filter( 'fl_builder_render_css',               	    __CLASS__ . '::grid_css', 10, 2 );
+			add_filter( 'pp_cg_module_layout_path', 			    __CLASS__ . '::post_grid_layout_path', 10, 3 );
+			add_filter( 'pp_category_grid_layout_path', 		    __CLASS__ . '::category_grid_layout_path', 10, 3 );
+			add_filter( 'pp_post_custom_layout_html', 			    __CLASS__ . '::custom_html_parse_shortcodes', 1 );
+			add_filter( 'pp_category_custom_layout_html', 		    __CLASS__ . '::custom_html_parse_shortcodes', 1 );
 
-			add_action( 'pp_post_custom_layout_before_content', __CLASS__ . '::post_custom_layout_before_content' );
-			add_action( 'pp_post_custom_layout_after_content',  __CLASS__ . '::post_custom_layout_after_content' );
+			add_action( 'pp_post_custom_layout_before_content',     __CLASS__ . '::post_custom_layout_before_content' );
+			add_action( 'pp_post_custom_layout_after_content',      __CLASS__ . '::post_custom_layout_after_content' );
+			add_action( 'pp_category_custom_layout_before_content', __CLASS__ . '::category_custom_layout_before_content' );
+			add_action( 'pp_category_custom_layout_after_content',  __CLASS__ . '::category_custom_layout_after_content' );
 		}
 
 		if ( function_exists( 'pods_beaver_loop_settings_before_form' ) ) {
@@ -258,6 +263,93 @@ final class PPModuleExtend {
 		return $form;
 	}
 
+	static public function category_grid_settings( $form, $slug ) {
+		if ( 'pp-category-grid' !== $slug ) {
+			return $form;
+		}
+
+		$structure_fields = $form['structure']['sections']['structure']['fields'];
+
+		$layout_fields = array(
+			'layout' => array(
+				'type'    => 'select',
+				'label'   => __( 'Layout', 'bb-powerpack' ),
+				'default' => 'default',
+				'options' => array(
+					'default' => __( 'Default', 'bb-powerpack' ),
+					'custom'  => __( 'Custom', 'bb-powerpack' ),
+				),
+				'toggle' => array(
+					'default' => array(
+						'sections' => array( 'content_setting' ),
+						'fields' => array( 'category_title_tag' ),
+					),
+					'custom' => array(
+						'fields' => array( 'custom_layout' ),
+					),
+				),
+			),
+			'custom_layout' => array(
+				'type'          => 'form',
+				'label'         => __( 'Custom Layout', 'bb-powerpack' ),
+				'form'          => 'pp_category_custom_layout',
+				'preview_text'  => null,
+				'multiple'		=> false,
+			),
+		);
+		
+		$form['structure']['sections']['structure']['fields'] = array_merge( $layout_fields, $structure_fields );
+
+		FLBuilder::register_settings_form( 'pp_category_custom_layout', array(
+			'title' => __( 'Customize Layout', 'bb-powerpack' ),
+			'tabs'  => array(
+				'html'          => array(
+					'title'         => __( 'HTML', 'bb-powerpack' ),
+					'sections'      => array(
+						'html'          => array(
+							'title'         => '',
+							'fields'        => array(
+								'html'          => array(
+									'type'          => 'code',
+									'editor'        => 'html',
+									'label'         => '',
+									'rows'          => '18',
+									'default'       => file_get_contents( BB_POWERPACK_DIR . 'includes/category-module-layout-html.php' ),
+									'preview'       => array(
+										'type'          => 'none',
+									),
+									'connections' => array( 'html', 'string', 'url' ),
+								),
+							),
+						),
+					),
+				),
+				'css' => array(
+					'title' => __( 'CSS', 'bb-powerpack' ),
+					'sections' => array(
+						'css'           => array(
+							'title'         => '',
+							'fields'        => array(
+								'css'       => array(
+									'type'     => 'code',
+									'editor'   => 'css',
+									'label'    => '',
+									'rows'     => '18',
+									'default'  => file_get_contents( BB_POWERPACK_DIR . 'includes/category-module-layout-css.php' ),
+									'preview'  => array(
+										'type'  => 'none',
+									),
+								),
+							),
+						),
+					),
+				),
+			),
+		));
+
+		return $form;
+	}
+
 	/**
 	 * Get content from Post module's HTML and CSS files.
 	 *
@@ -285,7 +377,13 @@ final class PPModuleExtend {
 	 * @param array  $nodes
 	 * @return string
 	 */
-	static public function post_grid_css( $css, $nodes ) {
+	static public function grid_css( $css, $nodes ) {
+		$valid_modules = array(
+			'pp-content-grid',
+			'pp-custom-grid',
+			'pp-category-grid'
+		);
+
 		if ( ! class_exists( 'lessc' ) && defined( 'FL_THEME_BUILDER_DIR' ) && file_exists( FL_THEME_BUILDER_DIR . 'classes/class-lessc.php' ) ) {
 
 			require_once FL_THEME_BUILDER_DIR . 'classes/class-lessc.php';
@@ -296,34 +394,44 @@ final class PPModuleExtend {
 					continue;
 				}
 
-				if ( 'pp-content-grid' != $module->settings->type && 'pp-custom-grid' != $module->settings->type ) {
+				if ( ! in_array( $module->settings->type, $valid_modules ) ) {
 					continue;
 				}
 
+				$settings   = $module->settings;
 				$module_css = '';
 
-				if ( 'pp-content-grid' == $module->settings->type ) {
-					if ( 'custom' != $module->settings->post_grid_style_select ) {
+				if ( 'pp-content-grid' == $settings->type ) {
+					if ( 'custom' != $settings->post_grid_style_select ) {
 						continue;
 					}
 
-					$module_css = $module->settings->custom_layout->css;
+					$module_css = $settings->custom_layout->css;
 					$module_css = is_object( $module_css ) && isset( $module_css->css ) ? $module_css->css : $module_css;
 				}
 
-				if ( 'pp-custom-grid' == $module->settings->type ) {
-					if ( ! isset( $module->settings->preset ) || empty( $module->settings->preset ) ) {
+				if ( 'pp-custom-grid' == $settings->type ) {
+					if ( ! isset( $settings->preset ) || empty( $settings->preset ) ) {
 						continue;
 					}
 
-					$preset = $module->settings->preset;
-					$preset_form = $module->settings->{$preset . '_preset'};
+					$preset = $settings->preset;
+					$preset_form = $settings->{$preset . '_preset'};
 
 					if ( ! isset( $preset_form->css ) ) {
 						continue;
 					}
 
 					$module_css = $preset_form->css;
+				}
+
+				if ( 'pp-category-grid' == $settings->type ) {
+					if ( ! isset( $settings->layout ) || 'custom' !== $settings->layout ) {
+						continue;
+					}
+
+					$module_css = $settings->custom_layout->css;
+					$module_css = is_object( $module_css ) && isset( $module_css->css ) ? $module_css->css : $module_css;
 				}
 
 				try {
@@ -350,34 +458,44 @@ final class PPModuleExtend {
 					continue;
 				}
 
-				if ( 'pp-content-grid' != $module->settings->type && 'pp-custom-grid' != $module->settings->type ) {
+				if ( ! in_array( $module->settings->type, $valid_modules ) ) {
 					continue;
 				}
 
+				$settings   = $module->settings;
 				$module_css = '';
 
-				if ( 'pp-content-grid' == $module->settings->type ) {
-					if ( 'custom' != $module->settings->post_grid_style_select ) {
+				if ( 'pp-content-grid' == $settings->type ) {
+					if ( 'custom' != $settings->post_grid_style_select ) {
 						continue;
 					}
 
-					$module_css = $module->settings->custom_layout->css;
+					$module_css = $settings->custom_layout->css;
 					$module_css = is_object( $module_css ) && isset( $module_css->css ) ? $module_css->css : $module_css;
 				}
 
-				if ( 'pp-custom-grid' == $module->settings->type ) {
-					if ( ! isset( $module->settings->preset ) || empty( $module->settings->preset ) ) {
+				if ( 'pp-custom-grid' == $settings->type ) {
+					if ( ! isset( $settings->preset ) || empty( $settings->preset ) ) {
 						continue;
 					}
 
-					$preset = $module->settings->preset;
-					$preset_form = $module->settings->{$preset . '_preset'};
+					$preset = $settings->preset;
+					$preset_form = $settings->{$preset . '_preset'};
 
 					if ( ! isset( $preset_form->css ) ) {
 						continue;
 					}
 
 					$module_css = $preset_form->css;
+				}
+
+				if ( 'pp-category-grid' == $settings->type ) {
+					if ( ! isset( $settings->layout ) || 'custom' !== $settings->layout ) {
+						continue;
+					}
+
+					$module_css = $settings->custom_layout->css;
+					$module_css = is_object( $module_css ) && isset( $module_css->css ) ? $module_css->css : $module_css;
 				}
 
 				try {
@@ -396,6 +514,8 @@ final class PPModuleExtend {
 			} // End foreach().
 		} // End if().
 
+		unset( $valid_modules );
+
 		return $css;
 	}
 
@@ -407,7 +527,15 @@ final class PPModuleExtend {
 		return $path;
 	}
 
-	static public function post_custom_html_parse_shortcodes( $content ) {
+	static public function category_grid_layout_path( $path, $category, $settings ) {
+		if ( 'custom' == $settings->layout ) {
+			$path = BB_POWERPACK_DIR . 'includes/category-module-layout.php';
+		}
+
+		return $path;
+	}
+
+	static public function custom_html_parse_shortcodes( $content ) {
 		return FLThemeBuilderFieldConnections::parse_shortcodes(
 			$content,
 			array(
@@ -428,6 +556,21 @@ final class PPModuleExtend {
 	static public function set_post_image_class( $attrs, $attachment, $size ) {
 		$class = $attrs['class'];
 		$attrs['class'] = $class . ' pp-post-img';
+
+		return $attrs;
+	}
+
+	static public function category_custom_layout_before_content() {
+		add_filter( 'wp_get_attachment_image_attributes', __CLASS__ . '::set_category_image_class', 10, 3 );
+	}
+
+	static public function category_custom_layout_after_content() {
+		remove_filter( 'wp_get_attachment_image_attributes', __CLASS__ . '::set_category_image_class', 10, 3 );
+	}
+
+	static public function set_category_image_class( $attrs, $attachment, $size ) {
+		$class = $attrs['class'];
+		$attrs['class'] = $class . ' category-img';
 
 		return $attrs;
 	}

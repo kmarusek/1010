@@ -468,10 +468,18 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 							'matrix'         => __('Matrix', 'bb-powerpack')
 						),
 						'toggle'	=> array(
+							'cards'     => array(
+								'fields'   => array( 'equal_heights' ),
+							),
 							'matrix'	=> array(
-								'tabs'	=> array('matrix_items')
+								'tabs'	=> array( 'matrix_items' )
 							)
 						),
+					),
+					'equal_heights' => array(
+						'type'  => 'pp-switch',
+						'label' => __( 'Equal Heights', 'bb-powerpack' ),
+						'default' => 'no',
 					),
 					'dual_pricing'	=> array(
 						'type'			=> 'pp-switch',
@@ -892,7 +900,7 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 						'responsive'	=> true,
 						'preview'   	=> array(
                             'type'  		=> 'css',
-                            'selector'  	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
+                            'selector'  	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight):not(.pp-pricing-table-matrix) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
                             'property'  	=> 'border',
                         ),
 					),
@@ -916,6 +924,25 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 				'title'	=> __( 'Featured Title', 'bb-powerpack' ),
 				'collapsed' => true,
 				'fields'	=> array(
+					'featured_title_ribbon' => array(
+						'type'    => 'pp-switch',
+						'label'   => __( 'Display as ribbon', 'bb-powerpack' ),
+						'default' => 'no',
+						'toggle'  => array(
+							'yes' => array(
+								'fields' => array( 'featured_title_ribbon_pos' ),
+							),
+						),
+					),
+					'featured_title_ribbon_pos' => array(
+						'type' => 'pp-switch',
+						'label' => __( 'Ribbon Position', 'bb-powerpack' ),
+						'default' => 'top-left',
+						'options' => array(
+							'top-left' => __( 'Top Left', 'bb-powerpack' ),
+							'top-right' => __( 'Top Right', 'bb-powerpack' ),
+						),
+					),
 					'featured_title_bg_color' => array(
 						'type'              => 'color',
 						'label'             => __('Background Color', 'bb-powerpack'),
@@ -1213,6 +1240,15 @@ BB_PowerPack::register_module('PPPricingTableModule', array(
 							'property'		=> 'font-size',
 							'unit'			=> 'px'
 						)
+					),
+					'tooltip_icon_placement' => array(
+						'type'  => 'select',
+						'label' => __( 'Tooltip Icon Placement', 'bb-powerpack' ),
+						'default' => 'item_title',
+						'options' => array(
+							'item_title' => __( 'Close to item text', 'bb-powerpack' ),
+							'box_edge'   => __( 'Close to box edge', 'bb-powerpack' ),
+						),
 					),
 					'tooltip_icon_color'   => array(
 						'type'      => 'color',
