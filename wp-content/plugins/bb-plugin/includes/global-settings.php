@@ -40,20 +40,49 @@ FLBuilder::register_settings_form('global', array(
 							'type'       => 'dimension',
 							'label'      => __( 'Margins', 'fl-builder' ),
 							'slider'     => true,
+							'default'    => '0',
 							'units'      => array(
 								'px',
 								'%',
 							),
 							'responsive' => array(
+								'default'      => array(
+									'default'    => '0',
+									'large'      => '',
+									'medium'     => '',
+									'responsive' => '',
+								),
 								'default_unit' => array(
 									'default'    => 'px',
+									'large'      => 'px',
 									'medium'     => 'px',
 									'responsive' => 'px',
 								),
 								'placeholder'  => array(
-									'default'    => '0',
-									'medium'     => '',
-									'responsive' => '',
+									'default'    => array(
+										'top'    => '0',
+										'right'  => '0',
+										'bottom' => '0',
+										'left'   => '0',
+									),
+									'large'      => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'medium'     => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'responsive' => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
 								),
 							),
 						),
@@ -61,6 +90,7 @@ FLBuilder::register_settings_form('global', array(
 							'type'       => 'dimension',
 							'label'      => __( 'Padding', 'fl-builder' ),
 							'slider'     => true,
+							'default'    => '20',
 							'units'      => array(
 								'px',
 								'em',
@@ -69,13 +99,41 @@ FLBuilder::register_settings_form('global', array(
 							'responsive' => array(
 								'default_unit' => array(
 									'default'    => 'px',
+									'large'      => 'px',
 									'medium'     => 'px',
 									'responsive' => 'px',
 								),
-								'placeholder'  => array(
+								'default'      => array(
 									'default'    => '20',
+									'large'      => '',
 									'medium'     => '',
 									'responsive' => '',
+								),
+								'placeholder'  => array(
+									'default'    => array(
+										'top'    => '0',
+										'right'  => '0',
+										'bottom' => '0',
+										'left'   => '0',
+									),
+									'large'      => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'medium'     => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'responsive' => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
 								),
 							),
 						),
@@ -131,15 +189,42 @@ FLBuilder::register_settings_form('global', array(
 								'%',
 							),
 							'responsive' => array(
+								'default'      => array(
+									'default'    => '',
+									'large'      => '',
+									'medium'     => '',
+									'responsive' => '',
+								),
 								'default_unit' => array(
 									'default'    => 'px',
 									'medium'     => 'px',
 									'responsive' => 'px',
 								),
 								'placeholder'  => array(
-									'default'    => '0',
-									'medium'     => '',
-									'responsive' => '',
+									'default'    => array(
+										'top'    => '0',
+										'right'  => '0',
+										'bottom' => '0',
+										'left'   => '0',
+									),
+									'large'      => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'medium'     => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'responsive' => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
 								),
 							),
 						),
@@ -157,12 +242,40 @@ FLBuilder::register_settings_form('global', array(
 								'default_unit' => array(
 									'default'    => 'px',
 									'medium'     => 'px',
+									'large'      => 'px',
 									'responsive' => 'px',
 								),
-								'placeholder'  => array(
-									'default'    => '0',
+								'default'      => array(
+									'default'    => '',
+									'large'      => '',
 									'medium'     => '',
 									'responsive' => '',
+								),
+								'placeholder'  => array(
+									'default'    => array(
+										'top'    => '0',
+										'right'  => '0',
+										'bottom' => '0',
+										'left'   => '0',
+									),
+									'large'      => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'medium'     => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'responsive' => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
 								),
 							),
 						),
@@ -183,13 +296,42 @@ FLBuilder::register_settings_form('global', array(
 							'responsive' => array(
 								'default_unit' => array(
 									'default'    => 'px',
+									'large'      => 'px',
 									'medium'     => 'px',
 									'responsive' => 'px',
 								),
-								'placeholder'  => array(
-									'default'    => '0',
+								'default'      => array(
+									'default'    => '20',
+									'large'      => '',
 									'medium'     => '',
 									'responsive' => '',
+								),
+								'placeholder'  => array(
+									'default'    => array(
+										'top'    => '0',
+										'right'  => '0',
+										'bottom' => '0',
+										'left'   => '0',
+									),
+
+									'large'      => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'medium'     => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
+									'responsive' => array(
+										'top'    => '',
+										'right'  => '',
+										'bottom' => '',
+										'left'   => '',
+									),
 								),
 							),
 						),

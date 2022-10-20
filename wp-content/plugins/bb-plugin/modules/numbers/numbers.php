@@ -120,6 +120,7 @@ class FLNumbersModule extends FLBuilderModule {
 			'start_number' => $start_num,
 			'number'       => $number,
 			'max'          => $max,
+			'locale'       => get_locale(),
 		) );
 
 		echo '<div class="fl-number-string">' . $prefix . '<span class="fl-number-int" ' . $number_data . '>' . $nojs . '</span>' . $suffix . '</div>';
@@ -145,34 +146,6 @@ class FLNumbersModule extends FLBuilderModule {
 
 		echo $html;
 	}
-
-	public function get_i18n_number_format() {
-		global $wp_locale;
-
-		$format_decimal   = '.';
-		$format_thousands = ',';
-
-		if ( $wp_locale ) {
-			$i18n_decimal = $wp_locale->number_format['decimal_point'];
-
-			// French and Norwegian uses SPACE (&nbsp;) as thousands separator. Deutsch(Schweiz) uses single quote.
-			$i18n_thousand = str_replace( array( '&nbsp;', "'" ), array( ' ', "\\'" ), $wp_locale->number_format['thousands_sep'] );
-
-			if ( ! empty( $i18n_decimal ) ) {
-				$format_decimal = $i18n_decimal;
-			}
-
-			if ( ! empty( $i18n_thousand ) ) {
-				$format_thousands = $i18n_thousand;
-			}
-		}
-
-		return array(
-			'decimal'   => $format_decimal,
-			'thousands' => $format_thousands,
-		);
-	}
-
 }
 
 /**
@@ -369,20 +342,6 @@ FLBuilder::register_module('FLNumbersModule', array(
 							'type'     => 'css',
 							'selector' => '.fl-number .fl-number-text .fl-number-string, .fl-number .fl-number-text .fl-number-string span',
 							'property' => 'color',
-						),
-					),
-					'number_size'       => array(
-						'type'       => 'unit',
-						'label'      => __( 'Number Size', 'fl-builder' ),
-						'default'    => '32',
-						'responsive' => true,
-						'units'      => array( 'px', 'em', 'rem' ),
-						'slider'     => true,
-						'preview'    => array(
-							'type'     => 'css',
-							'selector' => '.fl-number-string',
-							'property' => 'font-size',
-							'unit'     => 'px',
 						),
 					),
 					'number_typography' => array(

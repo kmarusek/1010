@@ -211,19 +211,16 @@
 				numberPosition = form.find("select[name=number_position]").val(),
 				numberPrefix = form.find("#fl-field-number_prefix"),
 				numberSuffix = form.find("#fl-field-number_suffix"),
-				numberColor = form.find("#fl-field-number_color"),
-				numberSize = form.find("#fl-field-number_size");
+				numberColor = form.find("#fl-field-number_color");
 
 			if ("bars" == layout && "hidden" == numberPosition) {
 				numberPrefix.hide();
 				numberSuffix.hide();
 				numberColor.hide();
-				numberSize.hide();
 			} else {
 				numberPrefix.show();
 				numberSuffix.show();
 				numberColor.show();
-				numberSize.show();
 			}
 		},
 

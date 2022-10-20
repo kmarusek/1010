@@ -3225,7 +3225,7 @@ final class FLBuilder {
 				$value = preg_replace( self::regex( 'css_unit' ), '', strtolower( $global_settings->{ $rules[0] . '_' . $dir } ) );
 				$unit  = $global_settings->{ $rules[0] . '_unit' };
 
-				if ( ! empty( $value ) && is_numeric( $value ) && ! empty( $unit ) ) {
+				if ( is_numeric( $value ) && ! empty( $unit ) ) {
 					$props .= "{$rules[2]}-{$dir}: {$value}{$unit};";
 				}
 			}
@@ -3246,16 +3246,25 @@ final class FLBuilder {
 
 			// Global node large css
 			foreach ( array(
-				array( 'row_margins_large', '.fl-row[data-node] > .fl-row-content-wrap { margin: ' ),
-				array( 'row_padding_large', '.fl-row[data-node] > .fl-row-content-wrap { padding: ' ),
-				array( 'column_margins_large', '.fl-col[data-node] > .fl-col-content { margin: ' ),
-				array( 'column_padding_large', '.fl-col[data-node] > .fl-col-content { padding: ' ),
-				array( 'module_margins_large', '.fl-module[data-node] > .fl-module-content { margin: ' ),
-			) as $data ) {
-				if ( isset( $global_settings->{ $data[0] } ) && '' !== $global_settings->{ $data[0] } ) {
-					$value = preg_replace( self::regex( 'css_unit' ), '', strtolower( $global_settings->{ $data[0] } ) );
-					$css  .= $data[1] . esc_attr( $value );
-					$css  .= ( is_numeric( $value ) ) ? ( $global_settings->{ $data[0] . '_unit' } . '; }' ) : ( '; }' );
+				array( 'row_margins', '.fl-row[data-node] > .fl-row-content-wrap', 'margin' ),
+				array( 'row_padding', '.fl-row[data-node] > .fl-row-content-wrap', 'padding' ),
+				array( 'column_margins', '.fl-col[data-node] > .fl-col-content', 'margin' ),
+				array( 'column_padding', '.fl-col[data-node] > .fl-col-content', 'padding' ),
+				array( 'module_margins', '.fl-module[data-node] > .fl-module-content', 'margin' ),
+			) as $rules ) {
+				$props = '';
+
+				foreach ( array( 'top', 'right', 'bottom', 'left' ) as $dir ) {
+					$value = preg_replace( self::regex( 'css_unit' ), '', strtolower( $global_settings->{ $rules[0] . '_' . $dir . '_large' } ) );
+					$unit  = $global_settings->{ $rules[0] . '_large_unit' };
+
+					if ( is_numeric( $value ) && ! empty( $unit ) ) {
+						$props .= "{$rules[2]}-{$dir}: {$value}{$unit};";
+					}
+				}
+
+				if ( ! empty( $props ) ) {
+					$css .= $rules[1] . '{' . $props . '}';
 				}
 			}
 
@@ -3281,7 +3290,7 @@ final class FLBuilder {
 					$value = preg_replace( self::regex( 'css_unit' ), '', strtolower( $global_settings->{ $rules[0] . '_' . $dir . '_medium' } ) );
 					$unit  = $global_settings->{ $rules[0] . '_medium_unit' };
 
-					if ( ! empty( $value ) && is_numeric( $value ) && ! empty( $unit ) ) {
+					if ( is_numeric( $value ) && ! empty( $unit ) ) {
 						$props .= "{$rules[2]}-{$dir}: {$value}{$unit};";
 					}
 				}
@@ -3318,7 +3327,7 @@ final class FLBuilder {
 					$value = preg_replace( self::regex( 'css_unit' ), '', strtolower( $global_settings->{ $rules[0] . '_' . $dir . '_responsive' } ) );
 					$unit  = $global_settings->{ $rules[0] . '_responsive_unit' };
 
-					if ( ! empty( $value ) && is_numeric( $value ) && ! empty( $unit ) ) {
+					if ( is_numeric( $value ) && ! empty( $unit ) ) {
 						$props .= "{$rules[2]}-{$dir}: {$value}{$unit};";
 					}
 				}
@@ -3603,8 +3612,8 @@ final class FLBuilder {
 					$value = $settings->$medium;
 				}
 
-				if ( '' != $value && ( $value > $default[ $direction ] || $value < 0 ) ) {
-					$margins .= 'margin-' . $direction . ':' . esc_attr( $default[ $direction ] );
+				if ( '' != $value && ( $value > intval( $default[ $direction ] ) || $value < 0 ) ) {
+					$margins .= 'margin-' . $direction . ':' . esc_attr( $default[ $direction ] ) . ";";
 				}
 			}
 		}

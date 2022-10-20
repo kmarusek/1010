@@ -8,7 +8,6 @@
 	$start_number = isset( $settings->start_number ) && is_numeric( $settings->start_number ) ? $settings->start_number : 0;
 	$number       = isset( $settings->number ) && is_numeric( $settings->number ) ? $settings->number : 100;
 	$max          = isset( $settings->max_number ) && is_numeric( $settings->max_number ) ? $settings->max_number : $number;
-	$format       = $module->get_i18n_number_format();
 
 ?>
 
@@ -26,12 +25,6 @@
 			max: parseFloat( ( 'undefined' !== typeof numModule ) ? numModule.max : <?php echo $max; ?> ),
 			speed: <?php echo $speed; ?>,
 			delay: <?php echo $delay; ?>,
-			format: {
-				decimal: '<?php echo $format['decimal']; ?>',
-				thousands_sep: '<?php echo $format['thousands']; ?>'
-			}
 		});
-
 	});
-
 })(jQuery);

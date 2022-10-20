@@ -5,12 +5,14 @@
 		init: function() {
 			var form = $( '.fl-builder-settings:visible' ),
 				bgColor = form.find( 'input[name=bg_color]' ),
+				customWidth = form.find( 'input[name=custom_width]' ),
 				text = form.find( 'input[name=text]' ),
 				icon = form.find( 'input[name=icon]' ),
 				iconPosition = form.find( 'select[name=icon_position]' ),
 				iconAnimation = form.find( 'select[name=icon_animation]' );
 
 			bgColor.on( 'change', this._previewBackground );
+			customWidth.on( 'input', this._previewCustomWidth );
 			text.on( 'keyup', this._previewIcon );
 			icon.on( 'change', this._previewIcon );
 			iconPosition.on( 'change', this._previewIcon );
@@ -30,6 +32,19 @@
 				$('#fl-field-duo_color1').hide();
 				$('#fl-field-duo_color2').hide();
 				$('#fl-builder-settings-section-icons').hide()
+			}
+		},
+
+		_previewCustomWidth: function( e ) {
+			var preview	        = FLBuilder.preview,
+				selector        = preview.classes.node + ' a.fl-button',
+				form            = $( '.fl-builder-settings:visible' ),
+				width           = form.find( 'select[name=width]' ).val()
+				customWidth     = form.find( 'input[name=custom_width]' ).val(),
+				customWidthUnit = form.find( 'select[name=custom_width_unit]' ).val();
+
+			if ( 'custom' === width && '' === customWidth.trim() ) {
+				preview.updateCSSRule( selector, 'width', '200' + customWidthUnit );
 			}
 		},
 

@@ -2724,7 +2724,8 @@
 		 */
 		_getDimensionValue: function( preview, field, dimension, e )
 		{
-			var value = $( e.target ).val(),
+			var input = $( e.target ),
+				value = input.val(),
 				unit  = '';
 
 			value = value.toLowerCase().replace( /[^a-z0-9%.\-]/g, '' );
@@ -2732,6 +2733,9 @@
 			if ( null !== value && '' !== value && ! isNaN( value ) ) {
 				unit = this._getPreviewCSSUnit( preview, field, e );
 				value = parseFloat( value ) + ( unit ? unit : 'px' );
+			} else if ( input.attr( 'placeholder' ) ) {
+				unit = this._getPreviewCSSUnit( preview, field, e );
+				value = parseFloat( input.attr( 'placeholder' ) ) + ( unit ? unit : 'px' );
 			}
 
 			return value;

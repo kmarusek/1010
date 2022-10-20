@@ -1,5 +1,14 @@
 <?php
 
+// Custom Width
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id a.fl-button",
+	'enabled'  => ! empty( $settings->width ) && 'custom' === $settings->width,
+	'props'    => array(
+		'width' => ( '' === trim( $settings->custom_width ) ? '200' : abs( $settings->custom_width ) ) . $settings->custom_width_unit,
+	),
+) );
+
 // Alignment
 FLBuilderCSS::responsive_rule( array(
 	'settings'     => $settings,
@@ -114,11 +123,6 @@ FLBuilderCSS::border_field_rule( array(
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited {
-
-	<?php if ( 'custom' == $settings->width ) : ?>
-	width: <?php echo $settings->custom_width . $settings->custom_width_unit; ?>;
-	<?php endif; ?>
-
 	<?php if ( ! empty( $settings->bg_color ) ) : ?>
 	background: <?php echo FLBuilderColor::hex_or_rgb( $settings->bg_color ); ?>;
 	<?php endif; ?>
