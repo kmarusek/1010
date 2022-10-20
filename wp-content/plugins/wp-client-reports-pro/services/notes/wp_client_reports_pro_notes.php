@@ -47,6 +47,8 @@ function wp_client_reports_pro_add_note_from_ajax() {
 
         $timezone = wp_timezone();
 
+        $date_format = get_option('date_format');
+
         $note_text = $_POST['note_text'];
         $note_action = sanitize_text_field($_POST['note_action']);
         $note_icon_type = sanitize_text_field($_POST['note_icon_type']);
@@ -54,7 +56,7 @@ function wp_client_reports_pro_add_note_from_ajax() {
         $note_id = intval($_POST['note_id']);
         $edit_type = 'new';
 
-        $note_date_object = new DateTime($note_date, $timezone);
+        $note_date_object = DateTime::createFromFormat($date_format, $note_date, $timezone);
         $note_date_object->setTime(00, 00, 00);
         $note_date_timestamp = $note_date_object->format('Y-m-d H:i:s');
         $note_date_object->setTimezone(new DateTimeZone('UTC'));
