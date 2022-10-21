@@ -89,6 +89,7 @@ class ACF_Rest_Request {
 	private function set_http_method() {
 		$this->http_method = strtoupper( $_SERVER['REQUEST_METHOD'] );
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Verified elsewhere.
 		// HTTP method override for clients that can't use PUT/PATCH/DELETE. This is identical to WordPress'
 		// handling in \WP_REST_Server::serve_request(). This block of code should always be identical to that
 		// in core.
@@ -97,13 +98,18 @@ class ACF_Rest_Request {
 		} elseif ( isset( $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] ) ) {
 			$this->http_method = strtoupper( $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
 	 * Get the current REST route as determined by WordPress.
 	 */
 	private function set_current_route( $request ) {
-		$this->current_route = $request->get_route();
+		if ( $request ) {
+			$this->current_route = $request->get_route();
+		} else {
+			$this->current_route = empty( $GLOBALS['wp']->query_vars['rest_route'] ) ? null : $GLOBALS['wp']->query_vars['rest_route'];
+		}
 	}
 
 	/**
@@ -141,6 +147,10 @@ class ACF_Rest_Request {
 		$this->supported_routes[] = '/wp/v2/(?P<rest_base>users)';
 		$this->supported_routes[] = '/wp/v2/(?P<rest_base>users)/(?P<id>[\d]+)';
 		$this->supported_routes[] = '/wp/v2/(?P<rest_base>users)/me';
+
+		// Add comment routes.
+		$this->supported_routes[] = '/wp/v2/(?P<rest_base>comments)';
+		$this->supported_routes[] = '/wp/v2/(?P<rest_base>comments)/(?P<id>[\d]+)';
 	}
 
 	/**
@@ -183,7 +193,8 @@ class ACF_Rest_Request {
 		// check post types then check taxonomies if a matching post type cannot be found.
 		if ( $base === 'users' ) {
 			$this->object_type = $this->object_sub_type = 'user';
-
+		} elseif ( $base === 'comments' ) {
+			$this->object_type = $this->object_sub_type = 'comment';
 		} elseif ( $post_type = $this->get_post_type_by_rest_base( $base ) ) {
 			$this->object_type     = 'post';
 			$this->object_sub_type = $post_type->name;
