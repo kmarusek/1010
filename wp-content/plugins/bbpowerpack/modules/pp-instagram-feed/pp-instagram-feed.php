@@ -127,6 +127,11 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			unset( $settings->image_hover_overlay_opacity );
 		}
 
+		if ( ! isset( $settings->feeds_by_tag ) || 'no' !== $settings->feeds_by_tag ) {
+			$settings->feeds_by_tag = 'no';
+			$settings->tag_name = '';
+		}
+
 		return $settings;
 	}
 
@@ -137,7 +142,7 @@ class PPInstagramFeedModule extends FLBuilderModule {
 	 * @return string
 	 */
 	public function get_tags_endpoint() {
-		return $this->instagram_url . 'explore/tags/%s';
+		return $this->instagram_url . 'graphql/query/?query_hash=298b92c8d7cad703f7565aa892ede943&variables={"tag_name":"%s","first":12,"after":"XXXXXXXX"}';
 	}
 
 	/**
@@ -338,10 +343,11 @@ class PPInstagramFeedModule extends FLBuilderModule {
 	 */
 	public function get_insta_tags_response_data( $response ) {
 		$settings = $this->settings;
-		$response_posts = $response['graphql']['hashtag']['edge_hashtag_to_media']['edges'];
+		$data = isset( $response['graphql'] ) ? $response['graphql'] : $response['data'];
+		$response_posts = $data['hashtag']['edge_hashtag_to_media']['edges'];
 
 		if ( empty( $response_posts ) ) {
-			$response_posts = $response['graphql']['hashtag']['edge_hashtag_to_top_posts']['edges'];
+			$response_posts = $data['hashtag']['edge_hashtag_to_top_posts']['edges'];
 		}
 
 		$return_data  = array();
@@ -643,26 +649,6 @@ BB_PowerPack::register_module('PPInstagramFeedModule', array(
 				'title'			=> '',
 				'collapsed'		=> false,
 				'fields'        => array(
-					'feed_by_tags'  => array(
-						'type'          => 'pp-switch',
-						'label'         => __( 'Feed by Hashtag', 'bb-powerpack' ),
-						'default'       => 'no',
-						'options'       => array(
-							'yes'			=> __( 'Yes', 'bb-powerpack' ),
-							'no'        	=> __( 'No', 'bb-powerpack' ),
-						),
-						'toggle'	=> array(
-							'yes'	=> array(
-								'fields'	=> array( 'tag_name' ),
-							),
-						),
-					),
-					'tag_name'     	=> array(
-						'type'          => 'text',
-						'label'         => __( 'Tag Name', 'bb-powerpack' ),
-						'default'       => '',
-						'connections'	=> array('string')
-					),
 					'images_count'		=> array(
 						'type'          => 'unit',
 						'label'         => __( 'Max Images Count', 'bb-powerpack' ),

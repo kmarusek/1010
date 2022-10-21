@@ -167,7 +167,9 @@ body.rtl .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-icon {
     font-weight: normal;
     z-index: 1000;
     border-radius: 4px;
-    right: 5px;
+    right: auto;
+	left: 50%;
+	transform: translateX(-50%);
 }
 .pp-pricing-table a.fl-button {
 	margin: 0 15px;

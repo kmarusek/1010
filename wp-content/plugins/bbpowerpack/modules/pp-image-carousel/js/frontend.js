@@ -53,6 +53,16 @@
 
             this.swipers.main = new Swiper(this.elements.mainSwiper, swiperOptions.main);
 
+			// Manual pause the autoplay on mouse hover.
+			if ( this.settings.pause_on_interaction && this.settings.autoplay_speed !== false ) {
+				var self = this;
+				$( this.swipers.main.el ).on( 'mouseenter', function() {
+					self.swipers.main.autoplay.stop();
+				} ).on( 'mouseleave', function() {
+					self.swipers.main.autoplay.start();
+				} );
+			}
+
             if (this._isSlideshow() && 1 < this._getSlidesCount()) {
                 this.swipers.main.controller.control = this.swipers.thumbs = new Swiper(this.elements.thumbSwiper, swiperOptions.thumbs);
                 this.swipers.thumbs.controller.control = this.swipers.main;

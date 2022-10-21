@@ -45,20 +45,65 @@ class FLBuilderUserSettings {
 	}
 
 	/**
-	 * Handle saving UI Skin type.
+	 * Handle ajax request for updating color scheme.
 	 *
 	 * @since 2.0
 	 * @param string $name
 	 * @return array
 	 */
 	static public function save_ui_skin( $name ) {
-		$settings         = self::get();
-		$settings['skin'] = $name;
-
 		return array(
-			'saved' => self::update( $settings ),
+			'saved' => self::save_color_scheme( $name ),
 			'name'  => $name,
 		);
+	}
+
+	/**
+	 * Get the default value for color scheme.
+	 * @since 2.6
+	 * @return string
+	 */
+	static public function get_default_color_scheme() {
+		return 'auto';
+	}
+
+	/**
+	 * Get array of supported color scheme values.
+	 * @since 2.6
+	 * @return array
+	 */
+	static public function get_valid_color_scheme_values() {
+		return array( 'auto', 'light', 'dark' );
+	}
+
+	/**
+	 * Update UI color scheme value
+	 *
+	 * @parama string $name
+	 * @return array
+	 */
+	static public function save_color_scheme( $name ) {
+		$settings = self::get();
+		$values   = self::get_valid_color_scheme_values();
+
+		// Reject if not a valid value
+		if ( ! in_array( $name, $values ) ) {
+			return $settings;
+		}
+
+		$settings['skin'] = $name;
+		return self::update( $settings );
+	}
+
+	/**
+	 * Getting for UI color scheme
+	 *
+	 * @since 2.6
+	 * @return string
+	 */
+	static public function get_color_scheme() {
+		$settings = self::get();
+		return isset( $settings['skin'] ) ? $settings['skin'] : self::get_default_color_scheme();
 	}
 
 	/**

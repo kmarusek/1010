@@ -1356,12 +1356,12 @@ class BB_PowerPack_WPML {
 						'editor_type' => 'LINE',
 					),
 					array(
-						'field'       => 'acf_repeater_question',
+						'field'       => 'acf_repeater_label',
 						'type'        => __( 'FAQ - ACF Repeater Question', 'bb-powerpack' ),
 						'editor_type' => 'LINE',
 					),
 					array(
-						'field'       => 'acf_repeater_answer',
+						'field'       => 'acf_repeater_content',
 						'type'        => __( 'FAQ - ACF Repeater Answer', 'bb-powerpack' ),
 						'editor_type' => 'LINE',
 					),
@@ -1371,12 +1371,12 @@ class BB_PowerPack_WPML {
 						'editor_type' => 'LINE',
 					),
 					array(
-						'field'       => 'acf_options_page_repeater_question',
+						'field'       => 'acf_options_page_repeater_label',
 						'type'        => __( 'FAQ - ACF Repeater Sub Field Name (Question)', 'bb-powerpack' ),
 						'editor_type' => 'LINE',
 					),
 					array(
-						'field'       => 'acf_options_page_repeater_answer',
+						'field'       => 'acf_options_page_repeater_content',
 						'type'        => __( 'FAQ - ACF Repeater Sub Field Name (Answer)', 'bb-powerpack' ),
 						'editor_type' => 'LINE',
 					),

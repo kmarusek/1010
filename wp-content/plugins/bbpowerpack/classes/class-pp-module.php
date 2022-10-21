@@ -34,6 +34,13 @@ final class PPModuleExtend {
 			add_action( 'pp_post_custom_layout_before_content', __CLASS__ . '::post_custom_layout_before_content' );
 			add_action( 'pp_post_custom_layout_after_content',  __CLASS__ . '::post_custom_layout_after_content' );
 		}
+
+		if ( function_exists( 'pods_beaver_loop_settings_before_form' ) ) {
+			add_action( 'fl_page_data_add_properties', function() {
+				add_action( 'pp_module_after_ui_setting_fields', 'pods_beaver_loop_settings_before_form', 10, 1 );
+			}, 10 );
+		}
+
 		add_action( 'wp_head', __CLASS__ . '::render_faq_schema' );
 		add_action( 'wp_footer', __CLASS__ . '::force_render_faq_schema' );
 	}
@@ -104,6 +111,10 @@ final class PPModuleExtend {
 				}
 
 				$items = $module->get_faq_items();
+
+				if ( ! is_array( $items ) || empty( $items ) ) {
+					continue;
+				}
 
 				for ( $i = 0; $i < count( $items ); $i++ ) {
 					if ( ! is_object( $items[ $i ] ) ) {

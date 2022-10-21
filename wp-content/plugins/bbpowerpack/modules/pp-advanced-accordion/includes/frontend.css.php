@@ -151,6 +151,9 @@ FLBuilderCSS::dimension_field_rule( array(
 	<?php if ( isset( $settings->label_text_color_default ) ) { ?>
 	color: <?php echo pp_get_color_value( $settings->label_text_color_default ); ?>;
 	<?php } ?>
+	<?php if ( isset( $settings->accordion_icon_custom_spacing ) && '' !== $settings->accordion_icon_custom_spacing ) { ?>
+	margin-right: <?php echo $settings->accordion_icon_custom_spacing; ?>px;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-accordion-item .pp-accordion-button:hover .pp-accordion-icon,

@@ -83,7 +83,19 @@ FLPageData::add_post_property( 'the_events_calendar_cost', array(
 	'label'  => __( 'Event Cost', 'bb-theme-builder' ),
 	'group'  => 'the-events-calendar',
 	'type'   => 'string',
-	'getter' => 'tribe_get_cost',
+	'getter' => 'FLPageDataTheEventsCalendar::event_cost',
+) );
+
+FLPageData::add_post_property_settings_fields( 'the_events_calendar_cost', array(
+	'show_currency' => array(
+		'type'    => 'select',
+		'label'   => __( 'Show Currency', 'bb-theme-builder' ),
+		'default' => '0',
+		'options' => array(
+			'0' => 'No',
+			'1' => 'Yes',
+		),
+	),
 ) );
 
 /**

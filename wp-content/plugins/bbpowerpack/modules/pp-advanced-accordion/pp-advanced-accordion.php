@@ -28,259 +28,40 @@ class PPAccordionModule extends FLBuilderModule {
 		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 
-	public static function get_general_fields() {
-		$fields = array(
-			'accordion_source' => array(
-				'type'    => 'select',
-				'label'   => __( 'Source', 'bb-powerpack' ),
-				'default' => 'manual',
-				'options' => array(
-					'manual' => __( 'Manual', 'bb-powerpack' ),
-					'post'   => __( 'Posts', 'bb-powerpack' ),
-				),
-				'toggle'  => array(
-					'manual' => array(
-						'fields' => array( 'items' ),
-					),
-					'post'   => array(
-						'sections' => array( 'post_content' ),
-					),
-				),
-			),
-			'items'            => array(
-				'type'         => 'form',
-				'label'        => __( 'Item', 'bb-powerpack' ),
-				'form'         => 'pp_accordion_items_form',
-				'preview_text' => 'label',
-				'multiple'     => true,
-			),
-		);
-
-		if ( class_exists( 'acf' ) ) {
-			$fields['accordion_source']['options']['acf']          = __( 'ACF Repeater Field', 'bb-powerpack' );
-			$fields['accordion_source']['toggle']['acf']['fields'] = array( 'acf_repeater_name', 'acf_repeater_label', 'acf_repeater_content' );
-
-			$fields['acf_repeater_name']    = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_repeater_label']   = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Label)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_repeater_content'] = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Content)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-
-			if ( class_exists( 'FLThemeBuilderLoader' ) ) {
-				$fields['accordion_source']['options']['acf_relationship'] = __( 'ACF Relationship Field', 'bb-powerpack' );
-				$fields['accordion_source']['toggle']['acf_relationship']['fields'] = array( 'acf_relational_type', 'acf_relational_key', 'acf_order', 'acf_order_by' );
-
-				$fields['acf_relational_type'] = array(
-					'type'		=> 'select',
-					'label'		=> __( 'Type', 'bb-powerpack' ),
-					'default'       => 'relationship',
-					'options'       => array(
-						'relationship'  => __( 'Relationship', 'bb-powerpack' ),
-						'user'          => __( 'User', 'bb-powerpack' ),
-					),
-				);
-
-				$fields['acf_relational_key'] = array(
-					'type'          => 'text',
-					'label'         => __( 'Key', 'bb-powerpack' ),
-				);
-
-				// Order
-				$fields['acf_order'] = array(
-					'type'    => 'select',
-					'label'   => __( 'Order', 'bb-powerpack' ),
-					'options' => array(
-						'DESC' => __( 'Descending', 'bb-powerpack' ),
-						'ASC'  => __( 'Ascending', 'bb-powerpack' ),
-					),
-				);
-
-				// Order by
-				$fields['acf_order_by'] = array(
-					'type'    => 'select',
-					'label'   => __( 'Order By', 'bb-powerpack' ),
-					'default' => 'post__in',
-					'options' => array(
-						'author'         => __( 'Author', 'bb-powerpack' ),
-						'comment_count'  => __( 'Comment Count', 'bb-powerpack' ),
-						'date'           => __( 'Date', 'bb-powerpack' ),
-						'modified'       => __( 'Date Last Modified', 'bb-powerpack' ),
-						'ID'             => __( 'ID', 'bb-powerpack' ),
-						'menu_order'     => __( 'Menu Order', 'bb-powerpack' ),
-						'meta_value'     => __( 'Meta Value (Alphabetical)', 'bb-powerpack' ),
-						'meta_value_num' => __( 'Meta Value (Numeric)', 'bb-powerpack' ),
-						'rand'           => __( 'Random', 'bb-powerpack' ),
-						'title'          => __( 'Title', 'bb-powerpack' ),
-						'name'          => __( 'Slug', 'bb-powerpack' ),
-						'post__in'       => __( 'Selection Order', 'bb-powerpack' ),
-					),
-					'toggle'  => array(
-						'meta_value'     => array(
-							'fields' => array( 'acf_order_by_meta_key' ),
-						),
-						'meta_value_num' => array(
-							'fields' => array( 'acf_order_by_meta_key' ),
-						),
-					),
-				);
-
-				// Meta Key
-				$fields['acf_order_by_meta_key'] = array(
-					'type'  => 'text',
-					'label' => __( 'Meta Key', 'bb-powerpack' ),
-				);
-			}
+	public function get_data_source() {
+		if ( ! isset( $this->settings->data_source ) || empty( $this->settings->data_source ) ) {
+			return 'manual';
 		}
 
-		if ( function_exists( 'acf_add_options_page' ) ) {
-			$fields['accordion_source']['options']['acf_options_page']          = __( 'ACF Option Page', 'bb-powerpack' );
-			$fields['accordion_source']['toggle']['acf_options_page']['fields'] = array( 'acf_options_page_repeater_name', 'acf_options_page_repeater_label', 'acf_options_page_repeater_content' );
-			$fields['accordion_source']['help']                                 = __( 'To make use of the <b>\'ACF Option Page\'</b> feature, you will need ACF PRO (ACF v5), or the options page add-on (ACF v4)', 'bb-powerpack' );
-
-			$fields['acf_options_page_repeater_name']    = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_options_page_repeater_label']   = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Label)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_options_page_repeater_content'] = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Content)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-		}
-		return $fields;
+		return $this->settings->data_source;
 	}
 
 	public function get_cpt_data() {
-		if ( ! isset( $this->settings->post_slug ) || empty( $this->settings->post_slug ) ) {
-			return;
-		}
 		$data = array();
 
-		$post_type   = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
-		$cpt_count 	 = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
-		$cpt_orderby = isset( $this->settings->post_order_by ) ? $this->settings->post_order_by : 'date';
-		$cpt_order   = isset( $this->settings->post_order ) ? $this->settings->post_order : 'DESC';
-
-		$var_tax_type     = 'posts_' . $post_type . '_tax_type';
-		$tax_type         = '';
-		$var_cat_matching = '';
-		$var_cat          = '';
-
-		if ( isset( $this->settings->$var_tax_type ) ) {
-			$tax_type         = $this->settings->$var_tax_type;
-			$var_cat          = 'tax_' . $post_type . '_' . $tax_type;
-			$var_cat_matching = $var_cat . '_matching';
+		if ( ! isset( $this->settings->post_type ) || empty( $this->settings->post_type ) ) {
+			return;
 		}
 
-		$cat_match = isset( $this->settings->$var_cat_matching ) ? $this->settings->$var_cat_matching : false;
-		$ids       = isset( $this->settings->$var_cat ) ? explode( ',', $this->settings->$var_cat ) : array();
-		$taxonomy  = isset( $tax_type ) ? $tax_type : '';
-		$tax_query = array();
+		$settings = $this->settings;
 
-		if ( isset( $ids[0] ) && ! empty( $ids[0] ) ) {
-			if ( $cat_match && 'related' !== $cat_match ) {
-				$tax_query = array(
-					'relation' => 'AND',
-					array(
-						'taxonomy' => $taxonomy,
-						'field'    => 'term_id',
-						'terms'    => $ids,
-					),
-				);
-			} elseif ( ! $cat_match || 'related' === $cat_match ) {
+		$settings->post_type  = ! empty( $this->settings->post_type ) ? $this->settings->post_type : 'post';
+		$settings->posts_per_page = ! empty( $this->settings->posts_per_page ) || '-1' !== $this->settings->posts_per_page ? $this->settings->posts_per_page : '-1';
+		$settings->order = ! empty( $this->settings->order ) ? $this->settings->order : 'DESC';
 
-				$tax_query = array(
-					'relation' => 'AND',
-					array(
-						'taxonomy'    => $taxonomy,
-						'field'       => 'term_id',
-						'terms'       => $ids,
-						'operator'    => 'NOT IN', // exclude
-						'post_parent' => 0, // top level only
-					),
-				);
-			}
-		}
-
-		$args = array(
-			'post_type'   => $post_type,
-			'post_status' => 'publish',
-			'numberposts' => $cpt_count,
-			'orderby'     => $cpt_orderby,
-			'order'       => $cpt_order,
-			'tax_query'   => $tax_query,
-		);
-
-		// Order by meta value arg.
-		if ( strstr( $cpt_orderby, 'meta_value' ) ) {
-			$args['meta_key'] = $this->settings->post_order_by_meta_key;
-		}
-
-		if ( isset( $this->settings->post_offset ) ) {
-			$args['offset'] = absint( $this->settings->post_offset );
-		}
-
-		$args['settings'] = $this->settings;
-
-		$args = apply_filters( 'pp_accordion_cpt_query_args', $args );
-
-		if ( isset( $args['settings'] ) ) {
-			unset( $args['settings'] );
-		}
-
-		$posts = get_posts( $args );
-
-		global $wp_embed;
+		$query = FLBuilderLoop::query( $settings );
+		$posts = $query->get_posts();
 
 		foreach ( $posts as $post ) {
 			$item 			= new stdClass;
 			$item->post_id 	= $post->ID;
 			$item->label   	= isset( $post->post_title ) ? $post->post_title : '';
-			$item->content 	= $this->get_post_content( $post );
+			$item->content 	= pp_get_post_content( $post );
 
 			$data[] = $item;
 		}
 
 		return $data;
-	}
-
-	public function get_post_content( $post ) {
-		ob_start();
-
-		if ( FLBuilderModel::is_builder_enabled( $post->ID ) ) {
-
-			// Enqueue styles and scripts for the post.
-			FLBuilder::enqueue_layout_styles_scripts_by_id( $post->ID );
-
-			// Print the styles if we are outside of the head tag.
-			if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {
-				wp_print_styles();
-			}
-
-			// Render the builder content.
-			FLBuilder::render_content_by_id( $post->ID );
-		} else {
-			// Render the WP editor content if the builder isn't enabled.
-			echo apply_filters( 'the_content', get_the_content( null, false, $post->ID ) );
-		}
-
-		return ob_get_clean();
 	}
 
 	public function get_acf_data( $post_id = false ) {
@@ -384,19 +165,19 @@ class PPAccordionModule extends FLBuilderModule {
 	}
 
 	public function get_accordion_items( $id ) {
-		$source = $this->settings->accordion_source;
 		$items = array();
+		$source = $this->get_data_source();
 
-		if ( 'acf' === $source ) {
+		if ( 'manual' === $source ) {
+			$items = $this->settings->items;
+		} elseif ( 'acf' === $source ) {
 			$items = $this->get_acf_data();
-		} elseif ( 'acf_options_page' === $source ) {
-			$items = $this->get_acf_options_page_data();
 		} elseif ( 'acf_relationship' === $source ) {
 			$items = $this->get_acf_relationship_data();
-		} elseif ( 'post' === $source ) {
+		} elseif ( 'acf_options_page' === $source ) {
+			$items = $this->get_acf_options_page_data();
+		} elseif ( 'post' === $source || 'pods_relationship' === $source ) {
 			$items = $this->get_cpt_data();
-		} else {
-			$items = $this->settings->items;
 		}
 
 		if ( ! empty( $items ) ) {
@@ -433,6 +214,10 @@ class PPAccordionModule extends FLBuilderModule {
 	 * @since 1.4
 	 */
 	public function render_content( $item ) {
+		if ( 'manual' !== $this->get_data_source() ) {
+			return $item->content;
+		}
+
 		$html = '';
 
 		switch ( $item->content_type ) {
@@ -454,13 +239,13 @@ class PPAccordionModule extends FLBuilderModule {
 				$html = $wp_embed->autoembed( $item->content_video );
 				break;
 			case 'module':
-				$html = '[fl_builder_insert_layout id="' . $item->content_module . '" type="fl-builder-template"]';
+				$html = pp_get_post_content( get_post( $item->content_module ) );
 				break;
 			case 'row':
-				$html = '[fl_builder_insert_layout id="' . $item->content_row . '" type="fl-builder-template"]';
+				$html = pp_get_post_content( get_post( $item->content_row ) );
 				break;
 			case 'layout':
-				$html = '[fl_builder_insert_layout id="' . $item->content_layout . '" type="fl-builder-template"]';
+				$html = pp_get_post_content( get_post( $item->content_layout ) );
 				break;
 			default:
 				break;
@@ -470,6 +255,35 @@ class PPAccordionModule extends FLBuilderModule {
 	}
 
 	public function filter_settings( $settings, $helper ) {
+		if ( isset( $settings->accordion_source ) ) {
+			$settings->data_source = $settings->accordion_source;
+			unset( $settings->accordion_source );
+		}
+		if ( isset( $settings->post_slug ) ) {
+			$settings->post_type = $settings->post_slug;
+			unset( $settings->post_slug );
+		}
+		if ( isset( $settings->post_count ) ) {
+			$settings->posts_per_page = $settings->post_count;
+			unset( $settings->post_count );
+		}
+		if ( isset( $settings->post_order_by ) ) {
+			$settings->order_by = $settings->post_order_by;
+			unset( $settings->post_order_by );
+		}
+		if ( isset( $settings->post_order_by_meta_key ) ) {
+			$settings->order_by_meta_key = $settings->post_order_by_meta_key;
+			unset( $settings->post_order_by_meta_key );
+		}
+		if ( isset( $settings->post_order ) ) {
+			$settings->order = $settings->post_order;
+			unset( $settings->post_order );
+		}
+		if ( isset( $settings->post_offset ) ) {
+			$settings->offset = $settings->post_offset;
+			unset( $settings->post_offset );
+		}
+
 		// Handle old label background dual color field.
 		$settings = PP_Module_Fields::handle_dual_color_field(
 			$settings,
@@ -608,12 +422,24 @@ BB_PowerPack::register_module(
 			'title'    => __( 'Items', 'bb-powerpack' ),
 			'sections' => array(
 				'general'      => array(
-					'title'  => '',
-					'fields' => PPAccordionModule::get_general_fields(),
+					'title' => '',
+					'file'  => BB_POWERPACK_DIR . 'includes/ui-setting-fields.php',
+				),
+				'items' => array(
+					'title' => __( 'Items', 'bb-powerpack' ),
+					'fields' => array(
+						'items'            => array(
+							'type'         => 'form',
+							'label'        => __( 'Item', 'bb-powerpack' ),
+							'form'         => 'pp_accordion_items_form',
+							'preview_text' => 'label',
+							'multiple'     => true,
+						),
+					),
 				),
 				'post_content' => array(
 					'title' => __( 'Content', 'bb-powerpack' ),
-					'file'  => BB_POWERPACK_DIR . 'modules/pp-advanced-accordion/includes/loop-settings.php',
+					'file'  => BB_POWERPACK_DIR . 'includes/ui-loop-settings-simple.php',
 				),
 			),
 		),
@@ -633,6 +459,18 @@ BB_PowerPack::register_module(
 								'type'      => 'css',
 								'selector'  => '.pp-accordion-item .pp-accordion-icon, .pp-accordion-item .pp-accordion-icon:before',
 								'property'  => 'font-size',
+								'unit'      => 'px'
+							)
+						),
+						'accordion_icon_custom_spacing'   => array(
+							'type'          => 'unit',
+							'label'         => __( 'Spacing', 'bb-powerpack' ),
+							'units'			=> array( 'px' ),
+							'slider'		=> true,
+							'preview'       => array(
+								'type'      => 'css',
+								'selector'  => '.pp-accordion-item .pp-accordion-icon',
+								'property'  => 'margin-right',
 								'unit'      => 'px'
 							)
 						),
@@ -724,7 +562,7 @@ BB_PowerPack::register_module(
 								'1'             => __( 'Yes', 'bb-powerpack' ),
 								'0'             => __( 'No', 'bb-powerpack' )
 							),
-							'help'          => __( 'Choosing yes will keep only one item open at a time. Choosing no will allow multiple items to be open at the same time.', 'bb-powerpack' ),
+							'help'          => __( 'Enabling this option will keep only one item open at a time. Or it will allow multiple items to be open at the same time.', 'bb-powerpack' ),
 							'preview'       => array(
 								'type'          => 'none'
 							)

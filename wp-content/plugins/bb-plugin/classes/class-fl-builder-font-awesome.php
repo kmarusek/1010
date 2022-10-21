@@ -60,6 +60,9 @@ final class FLBuilderFontAwesome {
 				case 'font-awesome-5-duotone':
 					$styles[] = 'duotone';
 					break;
+				case 'font-awesome-5-thin':
+					$styles[] = 'thin';
+					break;
 			}
 		}
 
@@ -67,7 +70,7 @@ final class FLBuilderFontAwesome {
 			$version    = fa()->version();
 			$membership = ( fa()->pro() ) ? '' : ',membership{free}';
 
-			$query = sprintf( '{search(version: "%s", query: "%s") { id,label,styles%s }}', fa()->version(), $text, $membership );
+			$query = sprintf( '{search(version: "%s", query: "%s", first: 100) { id,label,styles%s }}', fa()->version(), $text, $membership );
 
 			$result = json_decode( fa()->query( $query ) );
 
@@ -104,6 +107,7 @@ final class FLBuilderFontAwesome {
 			unset( $icon_sets['font-awesome-5-brands'] );
 			unset( $icon_sets['font-awesome-5-light'] );
 			unset( $icon_sets['font-awesome-5-duotone'] );
+			unset( $icon_sets['font-awesome-5-thin'] );
 		}
 
 		if ( ! in_array( 'font-awesome-kit', $enabled ) ) {
@@ -141,7 +145,6 @@ final class FLBuilderFontAwesome {
 	public static function register_plugin() {
 		$args = apply_filters( 'fl_builder_font_awesome_register_args', array(
 			'name'       => __( 'Beaver Builder', 'fl-builder' ),
-			'v4Compat'   => false,
 			'technology' => 'webfont',
 		) );
 		fa()->register( $args );

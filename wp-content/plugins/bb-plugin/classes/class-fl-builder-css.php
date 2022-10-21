@@ -56,7 +56,7 @@ final class FLBuilderCSS {
 		$props             = $args['props'];
 		$default_unit      = $args['unit'];
 		$enabled           = $args['enabled'];
-		$breakpoints       = array( '', 'medium', 'responsive' );
+		$breakpoints       = array( '', 'large', 'medium', 'responsive' );
 		$ignore            = $args['ignore'];
 
 		if ( ! $settings || empty( $setting_name ) || empty( $selector ) ) {
@@ -156,7 +156,7 @@ final class FLBuilderCSS {
 		$selector        = $args['selector'];
 		$settings        = $args['settings'];
 		$setting_name    = $args['setting_name'];
-		$breakpoints     = array( '', 'medium', 'responsive' );
+		$breakpoints     = array( '', 'large', 'medium', 'responsive' );
 
 		if ( empty( $type ) || empty( $selector ) || ! $settings || empty( $setting_name ) ) {
 			return;
@@ -229,16 +229,16 @@ final class FLBuilderCSS {
 			$props['border-color'] = $setting['color'];
 		}
 		if ( isset( $setting['width'] ) && is_array( $setting['width'] ) ) {
-			if ( '' !== $setting['width']['top'] ) {
+			if ( ! empty( $setting['width']['top'] ) ) {
 				$props['border-top-width'] = $setting['width']['top'] . 'px';
 			}
-			if ( '' !== $setting['width']['right'] ) {
+			if ( ! empty( $setting['width']['right'] ) ) {
 				$props['border-right-width'] = $setting['width']['right'] . 'px';
 			}
-			if ( '' !== $setting['width']['bottom'] ) {
+			if ( ! empty( $setting['width']['bottom'] ) ) {
 				$props['border-bottom-width'] = $setting['width']['bottom'] . 'px';
 			}
-			if ( '' !== $setting['width']['left'] ) {
+			if ( ! empty( $setting['width']['left'] ) ) {
 				$props['border-left-width'] = $setting['width']['left'] . 'px';
 			}
 		}
@@ -313,8 +313,8 @@ final class FLBuilderCSS {
 				$props['line-height'] .= $setting['line_height']['unit'];
 			}
 		}
-		if ( isset( $setting['letter_spacing'] ) && ! empty( $setting['letter_spacing']['length'] ) ) {
-			$props['letter-spacing'] = $setting['letter_spacing']['length'] . 'px';
+		if ( isset( $setting['letter_spacing'] ) && '' !== strval( $setting['letter_spacing']['length'] ) ) {
+			$props['letter-spacing'] = floatval( $setting['letter_spacing']['length'] ) . 'px';
 		}
 		if ( isset( $setting['text_align'] ) ) {
 			$props['text-align'] = $setting['text_align'];
@@ -347,7 +347,7 @@ final class FLBuilderCSS {
 	 */
 	static public function render() {
 		$rendered    = array();
-		$breakpoints = array( 'default', 'medium', 'responsive' );
+		$breakpoints = array( 'default', 'large', 'medium', 'responsive' );
 		$css         = '';
 
 		// Setup system breakpoints here to ensure proper order.
@@ -519,6 +519,8 @@ final class FLBuilderCSS {
 
 		if ( 'default' === $media ) {
 			$media = '';
+		} elseif ( 'large' === $media ) {
+			$media = "max-width: {$settings->large_breakpoint}px";
 		} elseif ( 'medium' === $media ) {
 			$media = "max-width: {$settings->medium_breakpoint}px";
 		} elseif ( 'responsive' === $media ) {

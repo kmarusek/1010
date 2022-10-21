@@ -46,6 +46,9 @@
 			} else if ( 'medium' == mode ) {
 				width = ( '1' !== settings.responsive_preview && settings.medium_breakpoint >= 769 ) ? 769 : settings.medium_breakpoint;
 				frame.width( width );
+			} else if ( 'large' == mode ) {
+				width = ( '1' !== settings.responsive_preview && settings.large_breakpoint >= 1200 ) ? 1200 : settings.large_breakpoint;
+				frame.width( width );
 			}
 
 			frame.width( width );
@@ -72,14 +75,23 @@
 
 		_showSize: function(mode) {
 				var show_size = $('.fl-builder--preview-actions .size' ),
+				large = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.large_breakpoint : 1200,
 				medium = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.medium_breakpoint : 769,
 				responsive = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.responsive_breakpoint : 360,
 				size_text = '';
 
 			if ( 'responsive' === mode ) {
-					size_text = FLBuilderStrings.mobile + ' ' + responsive + 'px';
+				size_text = FLBuilderStrings.mobile + ' ' + responsive + 'px';
 			} else if ( 'medium' === mode ) {
 				size_text = FLBuilderStrings.medium + ' ' + medium + 'px';
+			} else if ( 'large' === mode ) {
+				size_text = FLBuilderStrings.large + ' ' + large + 'px';
+			}
+
+			if ( ! size_text ) {
+				show_size.hide();
+			} else {
+				show_size.show();
 			}
 
 			show_size.html('').html(size_text)

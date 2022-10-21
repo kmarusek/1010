@@ -13,6 +13,6 @@ FLBuilder::register_module_alias( 'fl-the-events-calendar-cost', array(
 	'category'    => __( 'The Events Calendar', 'bb-theme-builder' ),
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 	'settings'    => array(
-		'text' => '[wpbb post:the_events_calendar_cost]',
+		'text' => '[wpbb post:the_events_calendar_cost show_currency="0"]',
 	),
 ) );

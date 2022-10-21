@@ -2,10 +2,11 @@
 
 $size_value               = array();
 $size_value['']           = empty( $settings->size ) ? 30 : $settings->size;
-$size_value['medium']     = empty( $settings->size_medium ) ? $size_value[''] : $settings->size_medium;
+$size_value['large']      = empty( $settings->size_large ) ? $size_value[''] : $settings->size_large;
+$size_value['medium']     = empty( $settings->size_medium ) ? $size_value['large'] : $settings->size_medium;
 $size_value['responsive'] = empty( $settings->size_responsive ) ? $size_value['medium'] : $settings->size_responsive;
 
-foreach ( array( '', 'medium', 'responsive' ) as $device ) {
+foreach ( array( '', 'large', 'medium', 'responsive' ) as $device ) {
 
 	$key      = empty( $device ) ? 'size' : "size_{$device}";
 	$unit_key = "{$key}_unit";

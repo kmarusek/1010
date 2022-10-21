@@ -314,6 +314,7 @@
             FLBuilder.addHook('toggleUISkin', this.toggleUISkin.bind(this));
             FLBuilder.addHook('clearLayoutCache', this.clearLayoutCache.bind(this));
             FLBuilder.addHook('launchThemerLayouts', this.launchThemerLayouts.bind(this));
+            FLBuilder.addHook('toggleOutlinePanel', this.toggleOutlinePanel.bind(this));
 
             // Show Keyboard Shortcuts
             if ( 'FL' in window && 'Builder' in FL ) {
@@ -389,34 +390,22 @@
         * @var Event
         * @return void
         */
-        toggleUISkin: function(e) {
-            var $item = $( 'a[data-event="toggleUISkin"]' ),
-				$body = $( 'body' );
+				toggleUISkin: function(e) {
+					const colorScheme = FL.Builder.data.getSystemState().colorScheme;
+					let newColorScheme = ''
 
-            if ( $body.hasClass('fl-builder-ui-skin--light') ) {
-                var fromSkin = 'light';
-                var toSkin = 'dark';
-            }
-            if ( $body.hasClass('fl-builder-ui-skin--dark') ) {
-                var fromSkin = 'dark';
-                var toSkin = 'light';
-            }
-            $body.removeClass( 'fl-builder-ui-skin--' + fromSkin ).addClass( 'fl-builder-ui-skin--' + toSkin );
+					// cycle modes...
+					if ( 'light' === colorScheme ) {
+						newColorScheme = 'dark';
+					} else if ( 'dark' === colorScheme ) {
+						newColorScheme = 'auto';
+					} else {
+						newColorScheme = 'light';
+					}
 
-			// FLUID color scheme classes
-			$body.removeClass( 'fluid-color-scheme-' + fromSkin ).addClass( 'fluid-color-scheme-' + toSkin );
-
-            if ( 'Builder' in FL && 'data' in FL.Builder ) {
-				var actions = FL.Builder.data.getSystemActions()
-				actions.setColorScheme( toSkin )
-			}
-
-			// ajax save
-			FLBuilder.ajax({
-				action: 'save_ui_skin',
-				skin_name: toSkin,
-			});
-        },
+					FL.Builder.data.getSystemActions().setColorScheme( newColorScheme );
+					$('.current-mode').html( '(' + newColorScheme + ')' );
+				},
 
         /**
         * @return void
@@ -428,8 +417,15 @@
 				window.open( FLBuilderConfig.themerLayoutsUrl );
 			}
 			MainMenuPanel.hide();
-        },
-    }
+		},
+
+		/**
+		 * @return void
+		 */
+		toggleOutlinePanel: function() {
+			FL.Builder.togglePanel('outline');
+		},
+	}
 
     var Help = {
 

@@ -35,3 +35,8 @@
 .tribe-list .tribe-item:after {
 	clear: both;
 }
+
+/* Remove loading icon since TEC 6.0 */
+.tribe-events-ajax-loading {
+	display: none;
+}

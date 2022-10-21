@@ -6,6 +6,7 @@
 		this.lightbox 	= settings.lightbox;
 		this.aspectRatio = settings.aspectRatioLightbox;
 		this.overlay	= settings.overlay;
+		this.triggerSelector = settings.triggerSelector;
 		this.node		= $('.fl-node-' + this.id);
 
 		this._init();
@@ -132,14 +133,26 @@
 
 			var wrapperClasses = 'pp-aspect-ratio-' + this.aspectRatio;
 
-			this.node.find('.pp-video-image-overlay').on('click keyup', $.proxy( function(e) {
+			var selector = '.fl-node-' + this.id + ' .pp-video-image-overlay';
+
+			if ( '' !== this.triggerSelector ) {
+				selector += ', ' + this.triggerSelector;
+			}
+
+			$( 'body' ).on('click keyup', selector, $.proxy( function(e) {
 				// Click or keyboard (enter or spacebar) input?
 				if ( ! this._validClick(e) ) {
 					return;
 				}
+
+				e.preventDefault();
 				e.stopPropagation();
-				$.fancybox.open($('<div class="'+wrapperClasses+'"></div>').html( $(e.target).parents('.pp-video-wrapper').find('.pp-video-lightbox-content').html() ), options);
-				$(e.target).parents('.pp-video-wrapper').find('.pp-video-play-icon').attr( 'tabindex', '-1' );
+
+				var lightboxContent = this.node.find('.pp-video-lightbox-content').html();
+
+				$.fancybox.open($( '<div class="'+wrapperClasses+'"></div>').html( lightboxContent ), options );
+
+				this.node.find('.pp-video-play-icon').attr( 'tabindex', '-1' );
 			}, this ));
 
 			$(document).on('keyup', function(e) {

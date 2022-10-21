@@ -273,9 +273,12 @@ var UABBBlogPosts;
                     }, 150);
                 }, this ) );
             }
-            $(window).scroll($.debounce( 25, function(){
-                jQuery( nodeClass + ' .uabb-blog-posts-grid' ).isotope('layout');
-            }));
+            $(window).scroll(function() {
+                clearTimeout($.data(this, 'scrollTimer'));
+                $.data(this, 'scrollTimer', setTimeout(function() {
+                    jQuery( nodeClass + ' .uabb-blog-posts-grid' ).isotope('layout');
+                }, 25));
+            });
         },
 
         _openOnLink : function() {

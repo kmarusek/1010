@@ -2,6 +2,9 @@
 /**
  * @package Pods\Global\Functions\Data
  */
+
+use Pods\Whatsit\Field;
+
 /**
  * Filter input and return sanitized output
  *
@@ -358,6 +361,7 @@ function pods_v( $var = null, $type = 'get', $default = null, $strict = false, $
 	$defaults = array(
 		'casting' => false,
 		'allowed' => null,
+		'source'  => null,
 	);
 
 	$params = (object) array_merge( $defaults, (array) $params );
@@ -376,6 +380,46 @@ function pods_v( $var = null, $type = 'get', $default = null, $strict = false, $
 		}
 	} else {
 		$type = strtolower( (string) $type );
+
+		if ( $params->source ) {
+			// Using keys for faster isset() checks instead of in_array().
+			$disallowed_types = [];
+
+			if ( 'magic-tag' === $params->source ) {
+				$disallowed_types = [
+					'server'              => false,
+					'session'             => false,
+					'global'              => false,
+					'globals'             => false,
+					'cookie'              => false,
+					'constant'            => false,
+					'option'              => false,
+					'site-option'         => false,
+					'transient'           => false,
+					'site-transient'      => false,
+					'cache'               => false,
+					'pods-transient'      => false,
+					'pods-site-transient' => false,
+					'pods-cache'          => false,
+					'pods-option-cache'   => false,
+				];
+			}
+
+			/**
+			 * Allow filtering the list of disallowed variable types for the source.
+			 *
+			 * @since 2.9.4
+			 *
+			 * @param array  $disallowed_types The list of disallowed variable types for the source.
+			 * @param string $source           The source calling pods_v().
+			 */
+			$disallowed_types = apply_filters( "pods_v_disallowed_types_for_source_{$params->source}", $disallowed_types, $params->source );
+
+			if ( isset( $disallowed_types[ $type ] ) ) {
+				return $default;
+			}
+		}
+
 		switch ( $type ) {
 			case 'get':
 				if ( isset( $_GET[ $var ] ) ) {
@@ -637,7 +681,9 @@ function pods_v( $var = null, $type = 'get', $default = null, $strict = false, $
 						$var = 'ID';
 					}
 
-					if ( isset( $user->{$var} ) ) {
+					if ( 'user_pass' === $var || 'user_activation_key' === $var ) {
+						$value = '';
+					} elseif ( isset( $user->{$var} ) ) {
 						$value = $user->{$var};
 					} elseif ( 'role' === $var ) {
 						$value = '';
@@ -1131,7 +1177,7 @@ function pods_query_arg( $array = null, $allowed = null, $excluded = null, $url 
 	$allowed  = array_unique( array_merge( $pods_query_args['allowed'], $allowed ) );
 	$excluded = array_unique( array_merge( $pods_query_args['excluded'], $excluded ) );
 
-	if ( ! isset( $_GET ) ) {
+	if ( ! isset( $_GET ) || $url ) {
 		$query_args = array();
 	} else {
 		$query_args = pods_unsanitize( $_GET );
@@ -1252,6 +1298,7 @@ function pods_cast( $value, $cast_from = null ) {
  * @since 1.8.9
  */
 function pods_create_slug( $orig, $strict = true ) {
+	$str = remove_accents( $orig );
 	$str = preg_replace( '/([_ \\/])/', '-', trim( $orig ) );
 
 	if ( $strict ) {
@@ -1352,6 +1399,7 @@ function pods_unique_slug( $slug, $column_name, $pod, $pod_id = 0, $id = 0, $obj
  */
 function pods_clean_name( $orig, $lower = true, $trim_underscores = false ) {
 	$str = trim( $orig );
+	$str = remove_accents( $str );
 	$str = preg_replace( '/([^0-9a-zA-Z\-_\s])/', '', $str );
 	$str = preg_replace( '/(\s_)/', '_', $str );
 	$str = preg_replace( '/(\s+)/', '_', $str );
@@ -1777,24 +1825,43 @@ function pods_evaluate_tag( $tag, $args = array() ) {
 		'prefix',
 	);
 
+	$pods_v_var  = '';
+	$pods_v_type = 'get';
+
 	if ( in_array( $tag[0], $single_supported, true ) ) {
-		$value = pods_v( '', $tag[0], null );
+		$pods_v_type = $tag[0];
 	} elseif ( 1 === count( $tag ) ) {
-		$value = pods_v( $tag[0], 'get', null );
+		$pods_v_var = $tag[0];
 	} elseif ( 2 === count( $tag ) ) {
-		$value = pods_v( $tag[1], $tag[0], null );
+		$pods_v_var  = $tag[1];
+		$pods_v_type = $tag[0];
 	} else {
 		// Some magic tags support traversal.
-		$value = pods_v( array_slice( $tag, 1 ), $tag[0], null );
+		$pods_v_var  = array_slice( $tag, 1 );
+		$pods_v_type = $tag[0];
 	}
+
+	$value = pods_v( $pods_v_var, $pods_v_type, null, false, [
+		'source' => 'magic-tag',
+	] );
 
 	if ( $helper ) {
 		if ( ! $pod instanceof Pods ) {
 			$pod = pods();
 		}
+
 		$value = $pod->helper( $helper, $value );
 	}
 
+	/**
+	 * Allow filtering the evaluated tag value.
+	 *
+	 * @since unknown
+	 *
+	 * @param mixed      $value    The evaluated tag value.
+	 * @param string     $tag      The evaluated tag name.
+	 * @param null|mixed $fallback The fallback value to use if not set, should already be sanitized.
+	 */
 	$value = apply_filters( 'pods_evaluate_tag', $value, $tag, $fallback );
 
 	if ( is_array( $value ) && 1 === count( $value ) ) {
@@ -1862,34 +1929,40 @@ function pods_serial_comma( $value, $field = null, $fields = null, $and = null, 
 	if ( ! empty( $params->fields ) && is_array( $params->fields ) && isset( $params->fields[ $params->field ] ) ) {
 		$params->field = $params->fields[ $params->field ];
 
-		$simple_tableless_objects = PodsForm::simple_tableless_objects();
+		if ( 1 === (int) pods_v( 'repeatable', $params->field, 0 ) ) {
+			$format = pods_v( 'repeatable_format', $params->field, 'default', true );
 
-		if ( ! empty( $params->field ) && ! is_string( $params->field ) && in_array( $params->field['type'], PodsForm::tableless_field_types(), true ) ) {
-			if ( in_array( $params->field['type'], PodsForm::file_field_types(), true ) ) {
+			if ( 'default' !== $format ) {
+				$params->serial = false;
+
+				if ( 'custom' === $format ) {
+					$separator = pods_v( 'repeatable_format_separator', $params->field );
+
+					// Default to comma separator.
+					if ( '' === $separator ) {
+						$separator = ', ';
+					}
+
+					$params->and       = $separator;
+					$params->separator = $separator;
+				}
+			}
+		}
+
+		$params->field = pods_config_for_field( $params->field );
+
+		if ( ! empty( $params->field ) && $params->field->is_relationship() ) {
+			if ( $params->field->is_file() ) {
 				if ( null === $params->field_index ) {
 					$params->field_index = 'guid';
 				}
-			} elseif ( in_array( $params->field['pick_object'], $simple_tableless_objects, true ) ) {
+			} elseif ( $params->field->is_simple_relationship() ) {
 				$simple = true;
-			} else {
-				$pick_object = pods_v( 'pick_object', $params->field );
-				$pick_val    = pods_v( 'pick_val', $params->field );
-				$table       = null;
-
-				if ( ! empty( $pick_object ) && ( ! empty( $pick_val ) || in_array( $pick_object, array( 'user', 'media', 'comment' ), true ) ) ) {
-					$table = pods_api()->get_table_info(
-						$pick_object,
-						$pick_val,
-						null,
-						null,
-						$params->field
-					);
-				}
+			} elseif ( empty( $params->field_index ) ) {
+				$table = $params->field->get_table_info();
 
 				if ( ! empty( $table ) ) {
-					if ( null === $params->field_index ) {
-						$params->field_index = $table['field_index'];
-					}
+					$params->field_index = $table['field_index'];
 				}
 			}
 		}
@@ -1897,8 +1970,8 @@ function pods_serial_comma( $value, $field = null, $fields = null, $and = null, 
 		$params->field = null;
 	}//end if
 
-	if ( $simple && ! is_array( $value ) && '' !== $value && null !== $value ) {
-		$value = PodsForm::field_method( 'pick', 'simple_value', $params->field['name'], $value, $params->field );
+	if ( $simple && $params->field && ! is_array( $value ) && '' !== $value && null !== $value ) {
+		$value = PodsForm::field_method( 'pick', 'simple_value', $params->field->get_name(), $value, $params->field );
 	}
 
 	if ( ! is_array( $value ) ) {
@@ -1916,6 +1989,14 @@ function pods_serial_comma( $value, $field = null, $fields = null, $and = null, 
 	}
 
 	$original_value = $value;
+
+	$basic_separator = $params->field && $params->field->is_separator_excluded();
+
+	if ( $basic_separator ) {
+		$params->separator = ' ';
+		$params->and       = ' ';
+		$params->serial    = false;
+	}
 
 	if ( in_array( $params->separator, array( '', null ), true ) ) {
 		$params->separator = ', ';
@@ -2572,4 +2653,29 @@ function pods_clean_memory( $sleep_time = 0 ) {
 	if ( is_callable( $wp_object_cache, '__remoteset' ) ) {
 		call_user_func( [ $wp_object_cache, '__remoteset' ] ); // important
 	}
+}
+
+/**
+ * Get the host from a URL.
+ *
+ * @since 2.9.0
+ *
+ * @param string $url The URL to get the host from.
+ *
+ * @return string The host if found, otherwise the URL.
+ */
+function pods_host_from_url( $url ) {
+	$url_parsed = wp_parse_url( $url );
+
+	// Check if we have a valid URL.
+	if ( empty( $url_parsed ) || count( $url_parsed ) < 2 ) {
+		return esc_html( $url );
+	}
+
+	// Check if we should remove the www from the host.
+	if ( 0 === strpos( $url_parsed['host'], 'www.' ) ) {
+		$url_parsed['host'] = substr( $url_parsed['host'], 4 );
+	}
+
+	return esc_html( $url_parsed['host'] );
 }

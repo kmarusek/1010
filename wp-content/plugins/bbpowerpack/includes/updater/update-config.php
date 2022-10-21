@@ -139,6 +139,7 @@ function bb_powerpack_activate_license() {
 	// $license_data->license will be either "valid" or "invalid"
 
 	bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
+	bb_powerpack_update( 'bb_powerpack_license_user_action', 'activated' );
 
 	wp_redirect( BEAVER_ADDONS_LICENSE_PAGE );
 	exit();
@@ -188,6 +189,8 @@ function bb_powerpack_deactivate_license() {
 			bb_powerpack_delete( 'bb_powerpack_license_status' );
 		}
 
+		bb_powerpack_update( 'bb_powerpack_license_user_action', 'deactivated' );
+
 		$redirect = add_query_arg( array(
 			'status' => $license_data->license,
 		), BEAVER_ADDONS_LICENSE_PAGE );
@@ -234,6 +237,26 @@ function bb_powerpack_check_license() {
 	}
 
 	$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+	$license_action = bb_powerpack_get( 'bb_powerpack_license_user_action' );
+
+	if ( 'activated' !== $license_action && 'valid' === $license_data->license ) {
+		$response = bb_powerpack_license( 'activate_license' );
+
+		if ( ! is_wp_error( $response ) ) {
+			// decode the license data
+			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+			if ( 'valid' === $license_data->license ) {
+				bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
+				bb_powerpack_update( 'bb_powerpack_license_user_action', 'activated' );
+			}
+		}
+	}
+	if ( 'activated' === $license_action && 'valid' !== $license_data->license ) {
+		bb_powerpack_delete( 'bb_powerpack_license_status' );
+		bb_powerpack_delete( 'bb_powerpack_license_user_action' );
+	}
 
 	// if ( 'valid' === $license_data->license ) {
 	// 	return 'valid';

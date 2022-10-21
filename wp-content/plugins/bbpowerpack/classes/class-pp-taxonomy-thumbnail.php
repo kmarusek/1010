@@ -337,7 +337,7 @@ final class BB_PowerPack_Taxonomy_Thumbnail {
 			'getter' => __CLASS__ . '::get_thumbnail_image_data',
 		) );
 
-		FLPageData::add_archive_property_settings_fields( 'pp_term_thumbnail_url', array(
+		$fields = apply_filters( 'pp_term_thumbnail_url_connection_fields', array(
 			'size'        => array(
 				'type'    => 'photo-sizes',
 				'label'   => __( 'Size', 'bb-powerpack' ),
@@ -348,17 +348,24 @@ final class BB_PowerPack_Taxonomy_Thumbnail {
 				'label' => __( 'Default Image', 'bb-powerpack' ),
 			),
 		) );
+
+		FLPageData::add_archive_property_settings_fields( 'pp_term_thumbnail_url', $fields );
 	}
 
 	static public function get_thumbnail_image_data( $settings ) {
-		$term_id        = 0;
-		$queried_object = get_queried_object();
+		$term_id  = 0;
+		$settings = apply_filters( 'pp_term_thumbnail_url_connection_settings', $settings );
 
-		if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
-			$term_id = $queried_object->term_id;
+		if ( isset( $settings->term_id ) && ! empty( $settings->term_id ) ) {
+			$term_id = $settings->term_id;
+		} else {
+			$queried_object = get_queried_object();
+			if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
+				$term_id = $queried_object->term_id;
+			}
 		}
 
-		$id = get_term_meta( $term_id, 'taxonomy_thumbnail_id', true );
+		$id  = get_term_meta( $term_id, 'taxonomy_thumbnail_id', true );
 		$url = '';
 
 		if ( empty( $id ) ) {
@@ -367,11 +374,11 @@ final class BB_PowerPack_Taxonomy_Thumbnail {
 			}
 		} else {
 			$image = wp_get_attachment_image_src( $id, $settings->size );
-			$url = ! empty( $image ) ? $image[0] : '';
+			$url   = ! empty( $image ) ? $image[0] : '';
 		}
 
 		return array(
-			'id' => $id,
+			'id'  => $id,
 			'url' => $url,
 		);
 	}

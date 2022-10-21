@@ -88,6 +88,35 @@ if ( ( Array.isArray( field.options ) && field.options.length === 1 ) || 'string
 	}
 }
 
+// Saved data
+if ( field.saved_data ) {
+	templates = FLBuilderConfig.contentItems.template;
+	var dataOption = [],
+		savedOpt = _.filter(templates, function(item) {
+			return field.saved_data === item.content && 'user' === item.type;
+		});
+
+	if ( savedOpt ) {
+		_.each(savedOpt, function(option){
+			dataOption[option.postId] = option.name;
+		});
+	}
+	if ( dataOption.length === 0 ) {
+		if ( 'row' === field.saved_data ) {
+			dataOption[''] = '<?php _e( 'No Rows Found', 'fl-builder' ); ?>';
+		}
+		if ( 'column' === field.saved_data ) {
+			dataOption[''] = '<?php _e( 'No Columns Found', 'fl-builder' ); ?>';
+		}
+		if ( 'module' === field.saved_data ) {
+			dataOption[''] = '<?php _e( 'No Modules Found', 'fl-builder' ); ?>';
+		}
+		if ( 'layout' === field.saved_data ) {
+			dataOption[''] = '<?php _e( 'No Layout Templates Found', 'fl-builder' ); ?>';
+		}
+	}
+	field.options = dataOption;
+}
 #>
 <select name="{{name}}"{{{atts}}}>
 	<# if ( data.device && 'default' !== data.device ) { #>

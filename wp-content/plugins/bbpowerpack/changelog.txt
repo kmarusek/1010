@@ -1,3 +1,77 @@
+== 2.25.2 ==
+Release date: September 20, 2022
+* Fix: Advanced Accordion - ACF Repeater source was not working after the recent update
+* Fix: Advanced Tabs - Tabs appearance issue on the breakpoint 768px
+* Fix: Modal Box - Saved templates layout issue due to BB's inline assets rendering
+* Fix: Off-Canvas Content - Saved templates layout issue due to BB's inline assets rendering
+* Fix: Pricing Table - Tooltip position issue when tooltip content is very less
+* Fix: Pricing Table - Raw HTML was not working in tooltip
+* Fix: Testimonials - PHP 8 error
+
+== 2.25.1 ==
+Release date: September 15, 2022
+* Fix: Modal Box - Top position was not getting adjusted in when height is not given after the recent update
+
+== 2.25.0 ==
+Release date: September 14, 2022
+* Enhancement: Table - Populate dynamic data by choosing Post as source (requires Beaver Themer plugin)
+* Enhancement: Advanced Accordion - Added orderby and offset options for post source
+* Enhancement: Advanced Accordion - Added Pods Relationship support (requires plugin - Pods Beaver Builder Themer Add-on)
+* Enhancement: Advanced Accordion - Added an option to provide spacing between icon and label
+* Enhancement: FAQ - Added orderby and offset options for post source
+* Enhancement: FAQ - Added Pods Relationship support (requires plugin - Pods Beaver Builder Themer Add-on)
+* Enhancement: Login From - Added an option to provide input placeholder text color
+* Enhancement: Content Grid - Added an option to enable URL hash for slide navigation in carousel
+* Enhancement: Hover Cards 2 - Added support for keyboard navigation
+* Enhancement: Testimonials - Added CSS class to the image element
+* Enhancement: Advanced Menu - Enabled alpha channel for link colors
+* Enhancement: Video - Added an option to provide custom selector to trigger the lightbox
+* Enhancement: Gravity Forms - Enabled responsive options for the button custom width field
+* Enhancement: Column Extension - Enabled responsive option for column separator position
+* Fix: Custom Grid - PHP 8 error when leaving the Post Width field empty
+* Fix: Photo Gallery - PHP 8 error when leaving the Spacing field empty
+* Fix: Photo Gallery - Caption line-height issue
+* Fix: Hotspot - Overlay color was not getting applied in some cases
+* Fix: Pricing Table - Matrix items were not displaying on the phone after in some cases
+* Fix: Advanced Accordion - Saved templates layout issue due to BB's inline assets rendering
+* Fix: Advanced Tabs - Saved templates layout issue due to BB's inline assets rendering
+* Fix: Advanced Tabs - Added missing alt tag on the image element when the content type is Photo
+* Fix: Advanced Tabs - Minor styling issues
+* Fix: Smart Banner - Added missing alt tag on the image element
+* Fix: Smart Banner - Image alignment issue
+* Fix: Smart Banner - Removed empty markup of title and description
+* Fix: Table - Themer singular layout break in some cases
+* Fix: Table - Table headers were not getting rendered when using ACF Repeater as source
+* Fix: Modal Box - Position issue in some cases
+* Fix: Content Grid - Search term getting cached in JS
+* Fix: Info Box - CSS hover target fixes
+* Fix: Background Effects - Content overlap issue
+* Fix: Background Animation - Background image size and repeat issue in the Infinite Background
+* Fix: Column Extension - Column separator was not letting Beaver Builder save changes in some cases
+* Development: Advanced Tabs - Added filter hook pp_tabs_items
+* Development: Advanced Accordion - Removed filter pp_accordion_cpt_query_args, now uses fl_builder_loop_query_args
+* Development: Info Box - Added filter hook pp_infobox_button_force_render
+* Development: Added filter hook pp_down_arrow_html
+
+== 2.24.3 ==
+Release date: July 21, 2022
+* Hotfix: Info Box - Box padding issue where default value for padding-right and padding-bottom was getting applied
+
+== 2.24.2 ==
+Release date: July 20, 2022
+* Enhancement: Author Box - Added social profile fields in the backend user settings to render their icons in the module
+* Fix: Info Box - Icon for button was not rendering in some cases
+* Fix: Info Box - PHP warning in some cases
+* Fix: Content Grid - Theme's CSS was overriding visited linked button's style
+* Fix: Advanced Menu - Menu was not visible on mobile in some cases when menu type is full-screen or off-canvas and mobile toggle breakpoint is none
+* Fix: Image - WP image editor error in some cases
+* Fix: Advanced Accordion - Row slideshow was getting paused when an accordion item is set to expanded by default
+* Fix: Advanced Accordion - Prevent scroll to expanded item when editing the page in builder
+* Fix: Table of Contents - JS error in some cases
+* Fix: Instagram Feed - Removed the option "Feed by Hashtag" as Instagram Basic Display API does not support it
+* Fix: Modal Box - Iframe aspect ratio issue when a video source is provided in the "URL" type and height is set to auto
+* Fix: Column Separator - Not using breakpoints from the global settings
+
 == 2.24.1 ==
 Release date: June 23, 2022
 * Fix: Smart Headings - Empty links were appearing after the recent update

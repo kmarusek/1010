@@ -112,13 +112,13 @@
                         this.element.find( '.pp-modal-content-inner img' ).css( 'max-width', '100%' );
                     }
 
-                    var topPos = ( $(window).height() - modalHeight ) / 2;
+                    var topPos = ( window.innerHeight - modalHeight ) / 2;
                     if ( topPos < 0 ) {
                         topPos = 0;
                     }
                     this.element.css( 'top', topPos + 'px' );
                 } else {
-                    var topPos = ( $(window).height() - this.settings.height ) / 2;
+                    var topPos = ( window.innerHeight - this.settings.height ) / 2;
 					if ( topPos < 0 ) {
                         topPos = 0;
                     }
@@ -171,6 +171,12 @@
 			this.setPosition();
 
 			var self = this;
+
+			if ( 'photo' === this.type ) {
+				this.element.find( '.pp-modal-content-inner img' ).css( 'max-width', '100%' );
+			}
+
+			//this.element.find( '.pp-modal-content' ).scrollTop(0);
 			
 			setTimeout( function() {
 				self.element.trigger('beforeload');
@@ -320,7 +326,7 @@
                     }
 				   
 					// Adjust iframe height.
-                    if ( 'url' === self.type ) {
+                    if ( 'url' === self.type && self.element.find( '.pp-modal-video-embed' ).length === 0 ) {
                         self.element.find('.pp-modal-iframe').css('height', self.element.find('.pp-modal-content-inner').outerHeight() + 'px');
                     }
                     if ( 'video' === self.type ) {

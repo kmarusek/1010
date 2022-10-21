@@ -7,7 +7,7 @@ function fl_welcome_utm( $campaign ) {
 		'utm_campaign' => $campaign,
 	);
 }
-$blog_post_url   = FLBuilderModel::get_store_url( 'beaver-builder-2-5-contra', fl_welcome_utm( 'settings-welcome-blog-post' ) );
+$blog_post_url   = FLBuilderModel::get_store_url( 'beaver-builder-2-6', fl_welcome_utm( 'settings-welcome-blog-post' ) );
 $change_logs_url = FLBuilderModel::get_store_url( 'change-logs', fl_welcome_utm( 'settings-welcome-change-logs' ) );
 $upgrade_url     = FLBuilderModel::get_upgrade_url( fl_welcome_utm( 'settings-welcome-upgrade' ) );
 $support_url     = FLBuilderModel::get_store_url( 'beaver-builder-support', fl_welcome_utm( 'settings-welcome-support' ) );
@@ -15,8 +15,8 @@ $faqs_url        = FLBuilderModel::get_store_url( 'frequently-asked-questions', 
 $forums_url      = FLBuilderModel::get_store_url( 'go/forum', fl_welcome_utm( 'settings-welcome-forums' ) );
 $docs_url        = FLBuilderModel::get_store_url( 'go/docs', fl_welcome_utm( 'settings-welcome-docs' ) );
 $fb_url          = 'https://www.facebook.com/groups/beaverbuilders/';
-$release_ver     = '2.5';
-$release_name    = '&#8220;Contra&#8221;';
+$release_ver     = '2.6';
+$release_name    = '&#8220;Calero&#8221;';
 ?>
 <div id="fl-welcome-form" class="fl-settings-form">
 
@@ -50,9 +50,10 @@ $release_name    = '&#8220;Contra&#8221;';
 				<p><?php _e( 'There\'s a wonderful community of "Beaver Builders" out there and we\'d love it if <em>you</em> joined us!', 'fl-builder' ); ?></p>
 
 				<ul>
-					<li><?php _e( '<a href="https://www.wpbeaverbuilder.com/go/bb-facebook" target="_blank">Join the Beaver Builder\'s Group on Facebook</a>', 'fl-builder' ); ?></li>
-					<li><?php _e( '<a href="https://www.wpbeaverbuilder.com/go/bb-slack" target="_blank">Join the Beaver Builder\'s Group on Slack</a>', 'fl-builder' ); ?></li>
-					<li><?php _e( '<a href="https://www.wpbeaverbuilder.com/go/forum" target="_blank">Join the Beaver Builder Forums</a>', 'fl-builder' ); ?></li>
+					<li><?php printf( '<a href="https://www.wpbeaverbuilder.com/go/bb-facebook" target="_blank">%s</a>', __( "Join the Beaver Builder's Group on Facebook", 'fl-builder' ) ); ?></li>
+					<li><?php printf( '<a href="https://www.wpbeaverbuilder.com/go/bb-slack" target="_blank">%s</a>', __( "Join the Beaver Builder's Group on Slack", 'fl-builder' ) ); ?></li>
+					<li><?php printf( '<a href="https://www.wpbeaverbuilder.com/go/forum" target="_blank">%s</a>', __( 'Join the Beaver Builder Forums', 'fl-builder' ) ); ?></li>
+					<li><?php printf( '<a href="https://www.wpbeaverbuilder.com/discord" target="_blank">%s</a>', __( 'Join the Beaver Builder Discord', 'fl-builder' ) ); ?></li>
 				</ul>
 
 				<p><?php _e( 'Come by and share a project, ask a question, or just say hi! For news about new features and updates, like our <a href="https://www.facebook.com/wpbeaverbuilder/" target="_blank">Facebook Page</a> or follow us <a href="https://twitter.com/beaverbuilder" target="_blank">on Twitter</a>.', 'fl-builder' ); ?></p>
@@ -91,10 +92,10 @@ $release_name    = '&#8220;Contra&#8221;';
 				<p><?php printf( __( 'We\'re thrilled to announce Beaver Builder %1$s %2$s. Beaver Builder %1$s brings a number of workflow enhancements.', 'fl-builder' ), $release_ver, $release_name ); ?></p>
 
 				<ul>
-					<li><?php _e( 'NEW: We\'ve added an Outline Panel where you can view and edit the structure of a page from a streamlined interface.', 'fl-builder' ); ?></li>
-					<li><?php _e( 'The Menu Module received new improvements: center logo, add search to the menu and more!', 'fl-builder' ); ?></li>
-					<li><?php _e( 'The Pricing Table Module now has the ability to show dual pricing, ribbons on the boxes and we\'ve added new styling options.', 'fl-builder' ); ?></li>
-					<li><?php _e( 'Icons: Add integration with the FontAwesome plugin.', 'fl-builder' ); ?></li>
+					<li><?php _e( 'NEW: Four new Micro Landing Page Templates were added.', 'fl-builder' ); ?></li>
+					<li><?php _e( 'NEW: We\'ve added a new breakpoint in Global Settings.', 'fl-builder' ); ?></li>
+					<li><?php _e( 'NEW: There is now a UI for adding row shapes.  ', 'fl-builder' ); ?></li>
+					<li><?php _e( 'NEW: New Advanced settings tab in the WP Admin as well as an Import/Export tab to export and import Beaver Builder settings!', 'fl-builder' ); ?></li>
 				</ul>
 				<?php /* translators: 1: blog post url: 2: changelog url */ ?>
 				<p><?php printf( __( 'There\'s a whole lot more, too! Read about everything else on our <a href="%1$s" target="_blank">update post</a> or <a href="%2$s" target="_blank">change logs</a>.', 'fl-builder' ), $blog_post_url, $change_logs_url ); ?></p>

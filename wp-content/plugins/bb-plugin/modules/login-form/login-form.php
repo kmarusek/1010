@@ -127,6 +127,28 @@ class FLLoginFormModule extends FLBuilderModule {
 		}
 		return $settings;
 	}
+
+	/**
+	 * Returns an array of settings used to render a icon module.
+	 *
+	 * @since 2.5
+	 * @return array
+	 */
+	public function get_icon_settings( $id ) {
+
+		$settings = array(
+			'icon_position'   => $this->settings->icon_position,
+			'exclude_wrapper' => true,
+		);
+
+		foreach ( $this->settings as $key => $value ) {
+			if ( strstr( $key, $id ) ) {
+				$key              = str_replace( $id, '', $key );
+				$settings[ $key ] = $value;
+			}
+		}
+		return $settings;
+	}
 }
 
 /**
@@ -139,7 +161,7 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 			'structure' => array(
 				'title'  => __( 'Structure', 'fl-builder' ),
 				'fields' => array(
-					'layout'              => array(
+					'layout'   => array(
 						'type'    => 'select',
 						'label'   => __( 'Layout', 'fl-builder' ),
 						'default' => 'stacked',
@@ -153,17 +175,7 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'inline'  => __( 'Inline', 'fl-builder' ),
 						),
 					),
-					'name_field_text'     => array(
-						'type'    => 'text',
-						'label'   => __( 'Name Field Text', 'fl-builder' ),
-						'default' => __( 'Username', 'fl-builder' ),
-					),
-					'password_field_text' => array(
-						'type'    => 'text',
-						'label'   => __( 'Password Field Text', 'fl-builder' ),
-						'default' => __( 'Password', 'fl-builder' ),
-					),
-					'remember'            => array(
+					'remember' => array(
 						'type'    => 'select',
 						'label'   => __( 'Show Remember Login', 'fl-builder' ),
 						'default' => 'yes',
@@ -172,7 +184,7 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'no'  => __( 'No', 'fl-builder' ),
 						),
 					),
-					'forget'              => array(
+					'forget'   => array(
 						'type'    => 'select',
 						'label'   => __( 'Show Forget Password Link', 'fl-builder' ),
 						'default' => 'yes',
@@ -181,7 +193,101 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'no'  => __( 'No', 'fl-builder' ),
 						),
 					),
-
+				),
+			),
+			'un_icon'   => array(
+				'title'  => __( 'Name Field', 'fl-builder' ),
+				'fields' => array(
+					'name_field_text' => array(
+						'type'    => 'text',
+						'label'   => __( 'Name Field Text', 'fl-builder' ),
+						'default' => __( 'Username', 'fl-builder' ),
+					),
+					'un_icon'         => array(
+						'type'        => 'icon',
+						'label'       => __( 'Icon', 'fl-builder' ),
+						'show_remove' => true,
+						'show'        => array(
+							'fields'   => array( 'un_color' ),
+							'sections' => array( 'icon' ),
+						),
+					),
+					'un_color'        => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Color', 'fl-builder' ),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type'      => 'css',
+							'selector'  => '.fl-form-name-wrap .fl-icon i',
+							'property'  => 'color',
+							'important' => true,
+						),
+					),
+				),
+			),
+			'pw_icon'   => array(
+				'title'  => __( 'Password Field', 'fl-builder' ),
+				'fields' => array(
+					'password_field_text' => array(
+						'type'    => 'text',
+						'label'   => __( 'Password Field Text', 'fl-builder' ),
+						'default' => __( 'Password', 'fl-builder' ),
+					),
+					'pw_icon'             => array(
+						'type'        => 'icon',
+						'label'       => __( 'Icon', 'fl-builder' ),
+						'show_remove' => true,
+						'show'        => array(
+							'fields' => array( 'pw_color' ),
+						),
+					),
+					'pw_color'            => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Color', 'fl-builder' ),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type'      => 'css',
+							'selector'  => '.fl-form-password-wrap .fl-icon i',
+							'property'  => 'color',
+							'important' => true,
+						),
+					),
+				),
+			),
+			'icon'      => array(
+				'title'  => __( 'Icon', 'fl-builder' ),
+				'fields' => array(
+					'icon_position' => array(
+						'type'    => 'select',
+						'label'   => __( 'Icon Position', 'fl-builder' ),
+						'options' => array(
+							'before' => __( 'Before', 'fl-builder' ),
+							'after'  => __( 'After', 'fl-builder' ),
+						),
+					),
+					'icon_size'     => array(
+						'type'    => 'unit',
+						'label'   => __( 'Size', 'fl-builder' ),
+						'default' => '16',
+						'units'   => array( 'px', 'em', 'rem' ),
+						'slider'  => true,
+					),
+					'top_spacing'   => array(
+						'type'    => 'unit',
+						'label'   => __( 'Top Spacing', 'fl-builder' ),
+						'slider'  => true,
+						'units'   => array( 'px' ),
+						'preview' => array(
+							'type'     => 'css',
+							'selector' => '.fl-login-form .fl-form-field .fl-icon',
+							'property' => 'top',
+							'unit'     => 'px',
+						),
+					),
 				),
 			),
 		),
@@ -343,6 +449,20 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'after'  => __( 'After Text', 'fl-builder' ),
 						),
 					),
+					'lo_btn_icon_animation' => array(
+						'type'    => 'select',
+						'label'   => __( 'Button Icon Visibility', 'fl-builder' ),
+						'default' => 'disable',
+						'options' => array(
+							'disable' => __( 'Always Visible', 'fl-builder' ),
+							'enable'  => __( 'Fade In On Hover', 'fl-builder' ),
+						),
+					),
+				),
+			),
+			'lo_btn_colors'  => array(
+				'title'  => __( 'Button Background', 'fl-builder' ),
+				'fields' => array(
 					'lo_btn_bg_color'       => array(
 						'type'        => 'color',
 						'connections' => array( 'color' ),
@@ -369,7 +489,6 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 			),
 		),
 	),
-
 	'style'         => array(
 		'title'    => __( 'Shared Styles', 'fl-builder' ),
 		'sections' => array(

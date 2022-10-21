@@ -43,7 +43,7 @@
 	<?php endif; ?>
 	<?php
 
-	foreach ( array( 'default', 'medium', 'responsive' ) as $device ) {
+	foreach ( array( 'default', 'large', 'medium', 'responsive' ) as $device ) {
 
 		if ( 'default' != $device && ! $responsive ) {
 			continue;

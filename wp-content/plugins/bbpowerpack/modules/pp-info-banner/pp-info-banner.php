@@ -381,10 +381,6 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'class'         => '',
                         'default'       => '',
                         'connections'   => array( 'string', 'html', 'url' ),
-                        'preview'       => array(
-                            'type'      => 'text',
-                            'selector'  => '.pp-info-banner-content .banner-title',
-                        )
                     ),
 					'banner_description'    => array(
                         'type'              => 'editor',
@@ -393,10 +389,6 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'placeholder'       => '',
                         'rows'              => '6',
                         'connections'       => array( 'string', 'html', 'url' ),
-                        'preview'           => array(
-                            'type'          => 'text',
-                            'selector'      => '.pp-info-banner-content .banner-description'
-                        )
                     ),
                     'banner_info_animation'     => array(
                        'type'      => 'select',
@@ -864,7 +856,7 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
 					'enable_responsive'	=> array(
 						'type'	=> 'pp-switch',
 						'label'	=> __( 'Enable Responsive Settings', 'bb-powerpack' ),
-						'default' => 'yes',
+						'default' => 'no',
 						'toggle'	=> array(
 							'yes'	=> array(
 								'sections'	=> array( 'banner_breakpoint1_style', 'banner_breakpoint2_style', 'banner_breakpoint3_style' ),
@@ -888,7 +880,6 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'label'         => __('Banner Height', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '300',
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-info-banner-content',
@@ -901,7 +892,6 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'label'         => __('Title Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '34',
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-info-banner-content .banner-title',
@@ -914,7 +904,6 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'label'         => __('Description Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '18',
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-info-banner-content .banner-description',
@@ -927,7 +916,6 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'label'         => __('Button Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '18',
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-info-banner-content .banner-button',
@@ -953,28 +941,24 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'label'         => __('Banner Height', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '250',
                     ),
                     'banner_bp2_title_font_size'   => array(
                         'type'          => 'unit',
                         'label'         => __('Title Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '30',
                     ),
                     'banner_bp2_desc_font_size'   => array(
                         'type'          => 'unit',
                         'label'         => __('Description Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '16',
                     ),
                     'banner_bp2_button_font_size'   => array(
                         'type'          => 'unit',
                         'label'         => __(' Button Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '16',
                     ),
                 )
             ),
@@ -994,28 +978,24 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'label'         => __('Banner Height', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '200',
                     ),
                     'banner_bp3_title_font_size'   => array(
                         'type'          => 'unit',
                         'label'         => __('Title Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '26',
                     ),
                     'banner_bp3_desc_font_size'   => array(
                         'type'          => 'unit',
                         'label'         => __('Description Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '14',
                     ),
                     'banner_bp3_button_font_size'   => array(
                         'type'          => 'unit',
                         'label'         => __('Button Font Size', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '14',
                     ),
                 )
             )

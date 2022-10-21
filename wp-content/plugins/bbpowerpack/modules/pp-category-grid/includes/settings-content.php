@@ -101,7 +101,7 @@
 						'default' => isset( $settings->on_tax_archive ) ? $settings->on_tax_archive : 'default',
 						'options' => array(
 							'default'       => __( 'Default', 'bb-powerpack' ),
-							'parent_only' => __( 'Parent of Current Category', 'bb-powerpack' ),
+							'parent_only'   => __( 'Parent of Current Category', 'bb-powerpack' ),
 							'children_only' => __( 'Children of Current Category', 'bb-powerpack' ),
 						),
 					),

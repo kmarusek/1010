@@ -176,7 +176,7 @@ FLBuilderCSS::border_field_rule(
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background: rgba(0, 0, 0, 0.5);
+	background: <?php echo ! empty( $settings->overlay_color ) ? pp_get_color_value( $settings->overlay_color ) : 'rgba(0, 0, 0, 0.5)'; ?>;
 	<?php if ( is_array( $settings->img_border ) && isset( $settings->img_border['radius'] ) ) { ?>
 	border-top-left-radius: <?php echo $settings->img_border['radius']['top_left']; ?>px;
 	border-top-right-radius:  <?php echo $settings->img_border['radius']['top_right']; ?>px;

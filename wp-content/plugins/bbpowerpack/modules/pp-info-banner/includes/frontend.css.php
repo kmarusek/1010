@@ -213,7 +213,7 @@ FLBuilderCSS::typography_field_rule( array(
         opacity: 0;
     <?php } ?>
 }
-.fl-node-<?php echo $id; ?> .pp-info-banner-content img.pp-info-banner-img.<?php echo $settings->banner_image_effect; ?> {
+.fl-node-<?php echo $id; ?> .pp-info-banner-content img.pp-info-banner-img[data-animation-class="<?php echo $settings->banner_image_effect; ?>"] {
     opacity: 1;
 }
 
@@ -231,40 +231,24 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content img.img-top-center {
-    left: 30%;
-    -webkit-transform: translateX(-30%);
-    -moz-transform: translateX(-30%);
-    -ms-transform: translateX(-30%);
-    -o-transform: translateX(-30%);
-    transform: translateX(-30%);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content img.img-center-left {
-    top: 30%;
-    -webkit-transform: translateY(-30%);
-    -moz-transform: translateY(-30%);
-    -ms-transform: translateY(-30%);
-    -o-transform: translateY(-30%);
-    transform: translateY(-30%);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content img.img-center {
-    top: 30%;
-    left: 30%;
-    -webkit-transform: translate(-30%,-30%);
-    -moz-transform: translate(-30%,-30%);
-    -ms-transform: translate(-30%,-30%);
-    -o-transform: translate(-30%,-30%);
-    transform: translate(-30%,-30%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content img.img-center-right {
-    top: 30%;
-    -webkit-transform: translateY(-30%);
-    -moz-transform: translateY(-30%);
-    -ms-transform: translateY(-30%);
-    -o-transform: translateY(-30%);
-    transform: translateY(-30%);
+    top: 50%;
+    transform: translateY(-50%);
     left: auto;
     right: 0;
 }
@@ -277,8 +261,8 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content img.img-bottom-center {
-    left: 30%;
-    transform: translateX(-30%);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content img.img-bottom-right {

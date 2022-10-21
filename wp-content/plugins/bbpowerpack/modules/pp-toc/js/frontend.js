@@ -135,7 +135,6 @@
 			var self = this;
 			var list = $( this.nodeClass + ' .pp-toc-list-wrapper' ),
 				stack = [list], // The upside-down stack keeps track of list elements
-				listTag = list.prop('tagName').toLowerCase(),
 				currentLevel = 0,
 				headingSelectors;
 
@@ -173,7 +172,7 @@
 					// In the upside-down stack, unshift = push, and stack[0] = the top.
 					var parentItem = stack[0].children( "li:last" )[0];
 					if (parentItem) {
-						stack.unshift( $( "<" + listTag + "/>" ).appendTo( parentItem ) );
+						stack.unshift( $( "<" + list.prop('tagName').toLowerCase() + "/>" ).appendTo( parentItem ) );
 					}
 				} else {
 					// Truncate the stack to the current level by chopping off the 'top' of the

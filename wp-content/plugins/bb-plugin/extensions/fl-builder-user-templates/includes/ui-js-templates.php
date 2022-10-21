@@ -23,7 +23,11 @@
 <!-- #tmpl-fl-node-template-block -->
 
 <script type="text/html" id="tmpl-fl-content-panel-saved-view">
-	<div>
+	<div class="fl-builder-panel-saved-search">
+		<input name="saved-search-term" class="saved-search-term" placeholder="<?php _e( 'Search Saved Items...', 'fl-builder' ); ?>">
+	</div>
+
+	<div class="fl-content-panel-saved-view-content">
 		<#
 		var templates = data.queryResults.library.template.items;
 		var rows = _.filter(templates, function(item) {

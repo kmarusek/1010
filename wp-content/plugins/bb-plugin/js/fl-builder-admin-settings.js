@@ -59,6 +59,8 @@
 			$('#uninstall-form').on('submit', FLBuilderAdminSettings._uninstallFormSubmit);
 			$( '.fl-settings-form .dashicons-editor-help' ).tipTip();
 			$( '.subscription-form .subscribe-button' ).on( 'click', FLBuilderAdminSettings._welcomeSubscribe);
+			$( '.advanced-group input[type=checkbox]').on('change', FLBuilderAdminSettings._advancedToggle );
+			$( '.advanced-group h3' ).on('click', FLBuilderAdminSettings._advancedShowHide );
 		},
 
 		_welcomeSubscribe: function()
@@ -103,6 +105,46 @@
 					$( error ).html(response.data.message).fadeIn()
 				}
 			});
+		},
+
+		_advancedToggle: function(event) {
+			checkbox = $(this);
+			data = {
+				'action'  : 'fl_advanced_submit',
+				'setting' : checkbox.attr('name'),
+				'value'   : checkbox.is(':checked'),
+				'_wpnonce': $('#fl-advanced-nonce').val()
+			}
+			$.post(ajaxurl, data, function(response) {
+				if ( response.success ) {
+				new Notify({
+					status: 'success',
+					title: 'Saved',
+					autoclose: true,
+					autotimeout: 1000,
+					distance: 20,
+				});
+			} else {
+				new Notify({
+					status: 'error',
+					title: 'Save Error',
+					autoclose: false,
+					distance: 20,
+				});
+			}
+			})
+			.fail( function(){
+				new Notify({
+					status: 'error',
+					title: 'Save Error',
+					autoclose: false,
+					distance: 20,
+				});
+			});
+		},
+
+		_advancedShowHide: function() {
+			$(this).parent().find('.advanced-option').toggle('fast');
 		},
 
 		/**
@@ -512,8 +554,7 @@
 
 				}
 			})
-		}
-
+		},
 	};
 
 	/* Initializes the builder's admin settings. */

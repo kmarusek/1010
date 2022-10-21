@@ -21,7 +21,22 @@ class Collection extends Storage {
 	/**
 	 * @var array
 	 */
+	protected static $compatible_types = [
+		'collection' => 'collection',
+		'file'       => 'file',
+	];
+
+	/**
+	 * @var array
+	 */
 	protected $secondary_args = [];
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_label() {
+		return __( 'Code', 'pods' );
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -77,7 +92,9 @@ class Collection extends Storage {
 		$objects = $object_collection->get_objects();
 
 		foreach ( $objects as $k => $object ) {
-			if ( self::$type === $object->get_object_storage_type() ) {
+			$current_object_storage_type = $object->get_object_storage_type();
+
+			if ( $current_object_storage_type && isset( static::$compatible_types[ $current_object_storage_type ] ) ) {
 				continue;
 			}
 
@@ -109,7 +126,6 @@ class Collection extends Storage {
 		}
 
 		$args['args'] = (array) $args['args'];
-
 
 		$secondary_object_args = [
 			'parent',
@@ -177,7 +193,13 @@ class Collection extends Storage {
 
 			if ( $value ) {
 				foreach ( $objects as $k => $object ) {
-					if ( in_array( (string) $object->get_arg( $arg ), $value, true ) ) {
+					$arg_value = $object->get_arg( $arg );
+
+					if ( null !== $arg_value && ! is_scalar( $arg_value ) ) {
+						$arg_value = serialize( $arg_value );
+					}
+
+					if ( in_array( (string) $arg_value, $value, true ) ) {
 						continue;
 					}
 

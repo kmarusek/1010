@@ -15,9 +15,11 @@
 				'image': {
 					titleSrc: function(item) {
 						<?php if ( 'below' == $settings->show_captions ) : ?>
-							return item.el.parent().next('.fl-photo-caption').text();
+							text = item.el.parent().next('.fl-photo-caption').text();
+							return FLBuilderLayout._string_to_slug( text );
 						<?php elseif ( 'hover' == $settings->show_captions ) : ?>
-							return item.el.next('.fl-photo-caption').text();
+							text = item.el.next('.fl-photo-caption').text();
+							return FLBuilderLayout._string_to_slug( text );
 						<?php endif; ?>
 					}
 				},
@@ -89,10 +91,11 @@
 		<?php endif; ?>
 	});
 
+	window._fl_string_to_slug_regex = '<?php echo apply_filters( 'fl_photocaptionregex', 'a-zA-Z0-9' ); ?>';
+
 	jQuery(document).ready(function(){
 		setTimeout(function(){
 			jQuery('.fl-node-<?php echo $id; ?> .fl-mosaicflow-content').trigger('resize');
 		},50);
 	});
-
 })(jQuery);

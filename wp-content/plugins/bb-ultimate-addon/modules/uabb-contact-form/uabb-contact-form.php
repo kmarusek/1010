@@ -113,6 +113,30 @@ class UABBContactFormModule extends FLBuilderModule {
 
 		$mailto = apply_filters( 'uabb_cf_change_admin_email', get_option( 'admin_email' ) );
 
+		if ( $node_id ) {
+			// Get the module settings.
+			if ( $template_id ) {
+				$post_id  = FLBuilderModel::get_node_template_post_id( $template_id );
+				$data     = FLBuilderModel::get_layout_data( 'published', $post_id );
+				$settings = $data[ $template_node_id ]->settings;
+			} else {
+				$module   = FLBuilderModel::get_module( $node_id );
+				$settings = $module->settings;
+			}
+
+			if ( isset( $settings->mailto_email ) && ! empty( $settings->mailto_email ) ) {
+				$mailto = $settings->mailto_email;
+			}
+
+			if ( ( isset( $settings->terms_checkbox ) && 'show' === $settings->terms_checkbox ) && ! $terms_checked ) {
+				$response = array(
+					'error'   => true,
+					'message' => __( 'Terms and Conditions is required!', 'uabb' ),
+				);
+				wp_send_json( $response );
+			}
+		}
+
 		if ( 'v3' === $settings->uabb_recaptcha_version ) {
 
 				$recaptcha_response = isset( $_POST['recaptcha_response'] ) ? sanitize_text_field( $_POST['recaptcha_response'] ) : false;
@@ -164,29 +188,6 @@ class UABBContactFormModule extends FLBuilderModule {
 				}
 		}
 
-		if ( $node_id ) {
-			// Get the module settings.
-			if ( $template_id ) {
-				$post_id  = FLBuilderModel::get_node_template_post_id( $template_id );
-				$data     = FLBuilderModel::get_layout_data( 'published', $post_id );
-				$settings = $data[ $template_node_id ]->settings;
-			} else {
-				$module   = FLBuilderModel::get_module( $node_id );
-				$settings = $module->settings;
-			}
-
-			if ( isset( $settings->mailto_email ) && ! empty( $settings->mailto_email ) ) {
-				$mailto = $settings->mailto_email;
-			}
-
-			if ( ( isset( $settings->terms_checkbox ) && 'show' === $settings->terms_checkbox ) && ! $terms_checked ) {
-				$response = array(
-					'error'   => true,
-					'message' => __( 'Terms and Conditions is required!', 'uabb' ),
-				);
-				wp_send_json( $response );
-			}
-		}
 		$subject = $settings->email_subject;
 		if ( '' !== $subject ) {
 

@@ -326,6 +326,8 @@
 		 */
 		_publishAndRemain: false,
 
+		_shapesEdited: false,
+
 		/**
 		 * Initializes the builder interface.
 		 *
@@ -354,6 +356,7 @@
 			FLBuilder._setupEmptyLayout();
 			FLBuilder._highlightEmptyCols();
 			FLBuilder._checkEnv();
+			FLBuilder._initColorScheme();
 
 			FLBuilder.addHook('didInitUI', FLBuilder._showTourOrTemplates.bind(FLBuilder) );
 			FLBuilder.addHook('endEditingSession', FLBuilder._doStats.bind(this) );
@@ -730,6 +733,8 @@
 
 			/* Submenus */
 			$('body').on( 'click touchend', '.fl-builder-has-submenu', FLBuilder._submenuParentClicked);
+			$('body').on( 'mouseenter', '.fl-builder-submenu-hover', FLBuilder._hoverMenuParentMouseEnter);
+			$('body').on( 'mouseleave', '.fl-builder-submenu-hover', FLBuilder._hoverMenuParentMouseLeave);
 			$('body').on( 'click touchend', '.fl-builder-has-submenu a', FLBuilder._submenuChildClicked);
 			$('body').on( 'mouseenter', '.fl-builder-submenu', FLBuilder._submenuMouseenter);
 			$('body').on( 'mouseleave', '.fl-builder-submenu', FLBuilder._submenuMouseleave);
@@ -791,6 +796,8 @@
 			$('body').on( 'mousedown', '.fl-row-overlay .fl-block-move', FLBuilder._rowDragInit);
 			$('body').on( 'touchstart', '.fl-row-overlay .fl-block-move', FLBuilder._rowDragInitTouch);
 			$('body').on( 'click touchend', '.fl-row-overlay .fl-block-settings', FLBuilder._rowSettingsClicked);
+			$('body').on( 'click touchend', '.fl-row-quick-copy', FLBuilder._rowCopySettingsClicked);
+			$('body').on( 'click touchend', '.fl-row-quick-paste', FLBuilder._rowPasteSettingsClicked);
 			$('body').on( 'click', '.fl-builder-row-settings .fl-builder-settings-save', FLBuilder._saveSettings);
 			// Row touch or mouse specific events.
 			if ( isTouch ) {
@@ -808,6 +815,8 @@
 			$('body').on( 'click touchend', '.fl-block-col-copy', FLBuilder._copyColClicked);
 			$('body').on( 'click touchend', '.fl-col-overlay .fl-block-remove', FLBuilder._deleteColClicked);
 			$('body').on( 'click touchend', '.fl-col-overlay .fl-block-settings', FLBuilder._colSettingsClicked);
+			$('body').on( 'click touchend', '.fl-col-quick-copy', FLBuilder._colCopySettingsClicked);
+			$('body').on( 'click touchend', '.fl-col-quick-paste', FLBuilder._colPasteSettingsClicked);
 			$('body').on( 'click', '.fl-builder-col-settings .fl-builder-settings-save', FLBuilder._saveSettings);
 
 			// Column touch or mouse specific events.
@@ -837,6 +846,8 @@
 			$('body').on( 'mousedown', '.fl-module-overlay .fl-block-move', FLBuilder._moduleDragInit);
 			$('body').on( 'touchstart', '.fl-module-overlay .fl-block-move', FLBuilder._moduleDragInitTouch);
 			$('body').on( 'click touchend', '.fl-module-overlay .fl-block-settings', FLBuilder._moduleSettingsClicked);
+			$('body').on( 'click touchend', '.fl-module-quick-copy', FLBuilder._moduleCopySettingsClicked);
+			$('body').on( 'click touchend', '.fl-module-quick-paste', FLBuilder._modulePasteSettingsClicked);
 			$('body').on( 'click', '.fl-builder-module-settings .fl-builder-settings-save', FLBuilder._saveModuleClicked);
 			$('body').on( 'click touchend', '.fl-module-overlay .fl-block-col-settings', FLBuilder._colSettingsClicked);
 
@@ -910,7 +921,7 @@
 
 			/* Loop Settings Fields */
 			$('body').on( 'change', '.fl-loop-data-source-select select[name=data_source]', FLBuilder._loopDataSourceChange);
-			$('body').on( 'change', '.fl-custom-query select[name=post_type]', FLBuilder._customQueryPostTypeChange);
+			$('body').on( 'change', '.fl-custom-query select[name="post_type[]"]', FLBuilder._customQueryPostTypeChange);
 
 			/* Text Fields - Add Predefined Value Selector */
 			$('body').on( 'change', '.fl-text-field-add-value', FLBuilder._textFieldAddValueSelectChange);
@@ -1193,17 +1204,15 @@
 		 */
 		_submenuParentClicked: function( e )
 		{
-			var body     = $( 'body' ),
-				parent 	 = $( this ),
-				submenu  = parent.find( '.fl-builder-submenu' );
+			var body    = $( 'body' ),
+				parent  = $( this ),
+				submenu = parent.find( '.fl-builder-submenu' );
 
 			if ( parent.hasClass( 'fl-builder-submenu-open' ) ) {
 				body.removeClass( 'fl-builder-submenu-open' );
 				parent.removeClass( 'fl-builder-submenu-open' );
 				parent.removeClass( 'fl-builder-submenu-right' );
-			}
-			else {
-
+			} else {
 				if( parent.offset().left + submenu.width() > $( window ).width() ) {
 					parent.addClass( 'fl-builder-submenu-right' );
 				}
@@ -1217,6 +1226,52 @@
 			FLBuilder._hideTipTips();
 			e.preventDefault();
 			e.stopPropagation();
+		},
+
+		/**
+		 * Callback for when the parent of a submenu is hovered.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _hoverMenuParentMouseEnter
+		 * @param {Object} e The event object.
+		 */
+		_hoverMenuParentMouseEnter: function (e) {
+			e.stopPropagation();
+
+			var body    = $('body'),
+				parent  = $(this),
+				submenu = parent.find('.fl-builder-submenu');
+
+			// remove classes first
+			$('.fl-builder-submenu-right').removeClass('fl-builder-submenu-right');
+			$('.fl-builder-submenu-open').removeClass('fl-builder-submenu-open');
+			$('.fl-row-menu-active').removeClass('fl-row-menu-active');
+
+			// determine align
+			if (parent.offset().left + submenu.width() > $(window).width()) {
+				parent.addClass('fl-builder-submenu-right');
+			}
+
+			// add classes
+			parent.closest('.fl-row-overlay').addClass('fl-row-menu-active');
+			body.addClass('fl-builder-submenu-open');
+			parent.addClass('fl-builder-submenu-open');
+		},
+
+		/**
+		 * Callback for when the parent of a submenu is unhovered.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _hoverMenuParentMouseLeave
+		 * @param {Object} e The event object.
+		 */
+		_hoverMenuParentMouseLeave: function (e) {
+			// remove classes
+			$('.fl-builder-submenu-right').removeClass('fl-builder-submenu-right');
+			$('.fl-builder-submenu-open').removeClass('fl-builder-submenu-open');
+			$('.fl-row-menu-active').removeClass('fl-row-menu-active');
 		},
 
 		/**
@@ -1248,6 +1303,10 @@
 		 */
 		_submenuMouseenter: function( e )
 		{
+			if ($(this).parent().hasClass('fl-builder-submenu-hover')) {
+				return;
+			}
+
 			var menu 	= $( this ),
 				timeout = menu.data( 'timeout' );
 
@@ -1266,6 +1325,10 @@
 		 */
 		_submenuMouseleave: function( e )
 		{
+			if ($(this).parent().hasClass('fl-builder-submenu-hover')) {
+				return;
+			}
+
 			var body    = $( 'body' ),
 				menu 	= $( this ),
 				timeout = setTimeout( function() {
@@ -1274,7 +1337,6 @@
 				}, 500 );
 
 			menu.closest('.fl-row-overlay').removeClass('fl-row-menu-active');
-
 			menu.data( 'timeout', timeout );
 		},
 
@@ -1776,12 +1838,17 @@
 		 */
 		_globalSettingsClicked: function()
 		{
+			const settings = FLBuilderSettingsConfig.settings.global
+			settings.color_scheme = FL.Builder.data.getSystemState().colorScheme
+
 			FLBuilderSettingsForms.render( {
 				id        : 'global',
 				className : 'fl-builder-global-settings',
-				settings  : FLBuilderSettingsConfig.settings.global
+				settings  : settings
 			}, function() {
 				FLBuilder._layoutSettingsInitCSS();
+				FLBuilder.original_shapes = FLBuilderSettingsConfig.settings.global.shape_form;
+
 			} );
 		},
 
@@ -1807,6 +1874,11 @@
 				actions.saveGlobalSettings( settings )
 
 				FLBuilder._lightbox.close();
+
+				// if number of global shapes has changed then refresh.
+				if ( 'undefined' != typeof FLBuilder.original_shapes && FLBuilder.original_shapes.length !== settings.shape_form.length ) {
+					FLBuilder._shapesEdited = true;
+				}
 			}
 		},
 
@@ -1821,7 +1893,12 @@
 		_saveGlobalSettingsComplete: function( response )
 		{
 			FLBuilder.triggerHook( 'didSaveGlobalSettingsComplete', FLBuilder._jsonParse( response ) );
+
 			FLBuilder._updateLayout();
+
+			if ( FLBuilder._shapesEdited === true ) {
+				window.location.reload(true);
+			}
 		},
 
 		/* Template Selector
@@ -2977,6 +3054,7 @@
 			var overlayPos 	= 0,
 				overlay 	= null,
 				isRow		= node.hasClass( 'fl-row' ),
+				nodeId = node.attr('data-node'),
 				content		= isRow ? node.find( '> .fl-row-content-wrap' ) : node.find( '> .fl-node-content' ),
 				margins 	= {
 					'top' 		: parseInt( content.css( 'margin-top' ), 10 ),
@@ -2988,6 +3066,8 @@
 
 			// Add the active class to the node.
 			node.addClass( 'fl-block-overlay-active' );
+
+			FL.Builder.data.getOutlinePanelActions().setFocusNode( nodeId );
 
 			// Init TipTips
 			FLBuilder._initTipTips();
@@ -3118,6 +3198,7 @@
 			$('.fl-module').removeClass('fl-module-adjust-height');
 			$('body').removeClass( 'fl-builder-row-resizing' );
 			FLBuilder._closeAllSubmenus();
+			FL.Builder.data.getOutlinePanelActions().setFocusNode( false );
 		},
 
 		/**
@@ -3193,13 +3274,17 @@
 		 */
 		_rowMouseenter: function()
 		{
+			if ( 'undefined' == typeof FLBuilderSettingsConfig.nodes ) {
+				return;
+			}
 			var row        	= $( this ),
 				id			= row.attr('data-node'),
                 rowTop     	= row.offset().top,
                 childTop   	= null,
                 overlay    	= null,
                 template   	= wp.template( 'fl-row-overlay' ),
-				mode 		= FLBuilderResponsiveEditing._mode;
+				mode 		= FLBuilderResponsiveEditing._mode,
+				settings 	= FLBuilderSettingsConfig.nodes[ id ];
 
 			if ( row.closest( '.fl-builder-node-loading' ).length ) {
 				return;
@@ -3208,7 +3293,6 @@
 
 				// Remove existing overlays.
 				FLBuilder._removeRowOverlays();
-
                 // Append the overlay.
                 overlay = FLBuilder._appendOverlay( row, template( {
                     node : id,
@@ -3216,6 +3300,7 @@
 					hasRules : row.hasClass( 'fl-node-has-rules' ),
 					rulesTextRow : row.attr('data-rules-text'),
 					rulesTypeRow : row.attr('data-rules-type'),
+					nodeLabel : settings?.node_label,
                 } ) );
 
                 // Adjust the overlay position if covered by negative margin content.
@@ -3579,6 +3664,45 @@
 		},
 
 		/**
+		 * Copy settings of a row.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _rowCopySettingsClicked
+		 */
+		_rowCopySettingsClicked: function () {
+			const menuEl = $(this);
+			const nodeId = menuEl.closest('.fl-row').data('node');
+
+			// bind copy to the el
+			FLBuilderSettingsCopyPaste._bindCopyToElement(menuEl, 'row', nodeId, true);
+		},
+
+		/**
+		 * Paste settings of a row.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _rowPasteSettingsClicked
+		 */
+		_rowPasteSettingsClicked: function () {
+			const menuEl   = $(this);
+			const menuText = menuEl.text();
+			const nodeId   = menuEl.closest('.fl-row').data('node');
+			const success  = FLBuilderSettingsCopyPaste._importFromClipboard('row', nodeId);
+
+			if (!success) {
+				// set button text
+				menuEl.text(FLBuilderStrings.module_import.error);
+
+				// restore button text
+				setTimeout(() => {
+					menuEl.text(menuText)
+				}, 1000);
+			}
+		},
+
+		/**
 		 * Duplicate a row.
 		 *
 		 * @since 2.5
@@ -3927,6 +4051,9 @@
 		 */
 		_colMouseenter: function( e )
 		{
+			if ( 'undefined' == typeof FLBuilderSettingsConfig.nodes ) {
+				return;
+			}
 			var col 	 	  	= $( this ),
 				group           = col.closest( '.fl-col-group' ),
 				id				= group.attr( 'data-node' ),
@@ -3953,7 +4080,9 @@
 				userCanResizeRows = FLBuilderConfig.rowResize.userCanResizeRows,
 				hasRules		= col.hasClass( 'fl-node-has-rules' ),
 				template 		= wp.template( 'fl-col-overlay' ),
-				overlay			= null;
+				overlay			= null,
+				colNode 		= col.attr( 'data-node' ),
+				settings 		= FLBuilderSettingsConfig.nodes[ colNode ];
 
 			if ( FLBuilderConfig.simpleUi && ! global ) {
 				return;
@@ -4001,6 +4130,7 @@
 					rowIsFixedWidth 	: rowIsFixedWidth,
 					userCanResizeRows 	: userCanResizeRows,
 					hasRules			: hasRules,
+					nodeLabel 			: settings?.node_label,
 				} ) );
 
 				// Build the overlay overflow menu if needed.
@@ -4024,7 +4154,6 @@
 		_colMouseleave: function(e)
 		{
 			var col             = $(this),
-				target			= $( e.target ),
 				toElement       = $(e.toElement) || $(e.relatedTarget),
 				hasModules      = col.find('.fl-module').length > 0,
 				global			= col.hasClass( 'fl-node-global' ),
@@ -4032,9 +4161,6 @@
 				isTipTip        = toElement.is('#tiptip_holder'),
 				isTipTipChild   = toElement.closest('#tiptip_holder').length > 0;
 
-			if ( target.closest( '.fl-block-col-resize' ).length ) {
-				return;
-			}
 			if( isTipTip || isTipTipChild ) {
 				return;
 			}
@@ -4062,6 +4188,7 @@
 			cols.find('.fl-col-overlay').remove();
 			$('body').removeClass('fl-block-overlay-muted');
 			FLBuilder._closeAllSubmenus();
+			FL.Builder.data.getOutlinePanelActions().setFocusNode( false );
 		},
 
 		/**
@@ -4293,21 +4420,15 @@
 		 */
 		_colSettingsClicked: function(e)
 		{
-			var button   	= $( this ),
-				col      	= button.closest('.fl-col'),
-				id          = col.attr( 'data-node' ),
-				hasSubmenu  = button.parent().find( 'ul.fl-builder-submenu' ).length > 0,
-				global   	= button.closest( '.fl-block-overlay-global' ).length > 0,
-				isGlobalCol	= button.closest( '.fl-block-overlay-global' ).hasClass( 'fl-col-overlay' ),
-				isColTemplate = 'column' != FLBuilderConfig.userTemplateType && 'undefined' !== typeof col.attr( 'data-template-url' );
+			var button = $( this ),
+				col    = button.closest('.fl-col'),
+				id     = col.attr( 'data-node' ),
+				global = button.closest( '.fl-block-overlay-global' ).length > 0;
 
 			if ( FLBuilder._colResizing ) {
 				return;
 			}
 			if ( global && ! FLBuilderConfig.userCanEditGlobalTemplates ) {
-				return;
-			}
-			if ( hasSubmenu && ! button.hasClass( 'fl-col-overlay' ) ) {
 				return;
 			}
 
@@ -4320,6 +4441,45 @@
 			actions.displaySettings( id )
 
 			e.stopPropagation();
+		},
+
+		/**
+		 * Copy settings of a column.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _colCopySettingsClicked
+		 */
+		_colCopySettingsClicked: function () {
+			const menuEl = $(this);
+			const nodeId = menuEl.closest('.fl-col').data('node');
+
+			// bind copy to the el
+			FLBuilderSettingsCopyPaste._bindCopyToElement(menuEl, 'column', nodeId);
+		},
+
+		/**
+		 * Paste settings of a column.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _colPasteSettingsClicked
+		 */
+		_colPasteSettingsClicked: function () {
+			const menuEl   = $(this);
+			const menuText = menuEl.text();
+			const nodeId   = menuEl.closest('.fl-col').data('node');
+			const success  = FLBuilderSettingsCopyPaste._importFromClipboard('column', nodeId);
+
+			if (!success) {
+				// set button text
+				menuEl.text(FLBuilderStrings.module_import.error);
+
+				// restore button text
+				setTimeout(() => {
+					menuEl.text(menuText)
+				}, 1000);
+			}
 		},
 
 		/**
@@ -4450,6 +4610,9 @@
 			actions.deleteNode( id );
 
 			e.stopPropagation();
+
+			// Trigger the col-deleted hook.
+			FLBuilder.triggerHook( 'col-deleted' );
 		},
 
 		/**
@@ -5000,8 +5163,13 @@
 		 */
 		_moduleMouseenter: function( e )
 		{
-			var module        = $( this ),
-				id            = module.attr( 'data-node' ),
+			if ( 'undefined' == typeof FLBuilderSettingsConfig.nodes ) {
+				return;
+			}
+			var module = $( this ),
+				id       = module.attr( 'data-node' ),
+				settings = FLBuilderSettingsConfig.nodes[ id ],
+				moduleType = module.attr( 'data-type' ),
 				moduleName    = module.attr( 'data-name' ),
 				global		  = module.hasClass( 'fl-node-global' ),
 				parentGlobal  = module.parents( '.fl-node-global' ).length > 0,
@@ -5010,6 +5178,8 @@
 				numCols		  = module.closest( '.fl-col-group' ).find( '> .fl-col' ).length,
 				col           = module.closest( '.fl-col' ),
 				colFirst      = 0 === col.index(),
+				colNode 	  = col.attr( 'data-node' ),
+				colSettings   = FLBuilderSettingsConfig.nodes[ colNode ],
 				colLast       = numCols === col.index() + 1,
 				parentCol     = col.parents( '.fl-col' ),
 				hasParentCol  = parentCol.length > 0,
@@ -5047,11 +5217,13 @@
 				// Remove existing overlays.
 				FLBuilder._removeColOverlays();
 				FLBuilder._removeModuleOverlays();
-
 				// Append the template.
 				overlay = FLBuilder._appendOverlay( module, template( {
 					global 		  		: global,
+					moduleType	  		: moduleType,
 					moduleName	  		: moduleName,
+					nodeLabel			: settings?.node_label,
+					colNodeLabel 		: colSettings?.node_label,
 					groupLoading  		: groupLoading,
 					numCols		  		: numCols,
 					colFirst      		: colFirst,
@@ -5092,14 +5264,10 @@
 		_moduleMouseleave: function(e)
 		{
 			var module          = $(this),
-				target			= $( e.target ),
 				toElement       = $(e.toElement) || $(e.relatedTarget),
 				isTipTip        = toElement.is('#tiptip_holder'),
 				isTipTipChild   = toElement.closest('#tiptip_holder').length > 0;
 
-			if ( target.closest( '.fl-block-col-resize' ).length ) {
-				return;
-			}
 			if(isTipTip || isTipTipChild) {
 				return;
 			}
@@ -5123,6 +5291,7 @@
 			modules.find('.fl-module-overlay').remove();
 			$('body').removeClass('fl-block-overlay-muted');
 			FLBuilder._closeAllSubmenus();
+			FL.Builder.data.getOutlinePanelActions().setFocusNode( false );
 		},
 
 		/**
@@ -5521,6 +5690,47 @@
 			// Show module settings
 			const actions = FL.Builder.getActions();
 			actions.openSettings( nodeId );
+		},
+
+		/**
+		 * Copy settings of a module.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _moduleCopySettingsClicked
+		 */
+		_moduleCopySettingsClicked: function () {
+			const menuEl = $(this);
+			const nodeId = menuEl.closest('.fl-module').data('node');
+			const type   = menuEl.closest('.fl-module').data('type');
+
+			// bind copy to the el
+			FLBuilderSettingsCopyPaste._bindCopyToElement(menuEl, type, nodeId);
+		},
+
+		/**
+		 * Copy settings of a module.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _modulePasteSettingsClicked
+		 */
+		_modulePasteSettingsClicked: function () {
+			const menuEl   = $(this);
+			const menuText = menuEl.text();
+			const nodeId   = menuEl.closest('.fl-module').data('node');
+			const type     = menuEl.closest('.fl-module').data('type');
+			const success  = FLBuilderSettingsCopyPaste._importFromClipboard(type, nodeId);
+
+			if (!success) {
+				// set button text
+				menuEl.text(FLBuilderStrings.module_import.error);
+
+				// restore button text
+				setTimeout(() => {
+					menuEl.text(menuText)
+				}, 1000);
+			}
 		},
 
 		/**
@@ -6143,6 +6353,7 @@
 			FLBuilder._initAutoSuggestFields();
 			FLBuilder._initLinkFields();
 			FLBuilder._initFontFields();
+			FLBuilder._initTypeFields();
 			FLBuilder._initOrderingFields();
 			FLBuilder._initTimezoneFields();
 			FLBuilder._initDimensionFields();
@@ -6813,6 +7024,7 @@
 
 			// Only proceed if the settings have changed.
 			if ( preview && ! preview._settingsHaveChanged() && FLBuilder.isUndefined( newModule ) ) {
+				preview.clear();
 				FLBuilder._lightbox.close();
 				return;
 			}
@@ -6906,8 +7118,8 @@
 					if (preview && data.layout.partial && data.layout.nodeId === preview.nodeId && !FLBuilder._publishAndRemain ) {
 						preview.clear();
 						preview = null;
-						FLBuilder._publishAndRemain = false;
 					}
+					FLBuilder._publishAndRemain = false;
 				};
 
 			if ( true === render ) {
@@ -7034,6 +7246,9 @@
 			} else {
 				FLBuilder.triggerHook( 'didTriggerSettingsSave' );
 			}
+
+			// Reset preview clearing
+			FLBuilder._publishAndRemain = false;
 
 			return valid;
 		},
@@ -7665,7 +7880,9 @@
 			row.after(clone);
 			FLBuilder._renumberFields(row.parent());
 			FLBuilder._initMultipleFields();
-			FLBuilder.preview.delayPreview();
+			if ( FLBuilder.preview ) {
+				FLBuilder.preview.delayPreview();
+			}
 		},
 
 		/**
@@ -7686,7 +7903,9 @@
 				row.remove();
 				FLBuilder._renumberFields(parent);
 				FLBuilder._initMultipleFields();
-				FLBuilder.preview.delayPreview();
+				if ( FLBuilder.preview ) {
+					FLBuilder.preview.delayPreview();
+				}
 			}
 		},
 
@@ -7752,7 +7971,9 @@
 		{
 			FLBuilder._renumberFields(ui.item.parent());
 
-			FLBuilder.preview.delayPreview();
+			if ( FLBuilder.preview ) {
+				FLBuilder.preview.delayPreview();
+			}
 		},
 
 		/* Select Fields
@@ -8364,8 +8585,8 @@
 		_initSingleVideoSelector: function()
 		{
 			if(FLBuilder._singleVideoSelector === null) {
-				var defaultFileExtensions = _wpPluploadSettings.defaults.filters.mime_types[0].extensions; 
-					
+				var defaultFileExtensions = _wpPluploadSettings.defaults.filters.mime_types[0].extensions;
+
 				_wpPluploadSettings['defaults']['multipart_params']['fl_upload_type'] = 'video';
 				_wpPluploadSettings.defaults.filters.mime_types[0].extensions         = FLBuilderConfig.uploadTypes.videoTypes;
 
@@ -8377,7 +8598,7 @@
 				});
 
 				FLBuilder._singleVideoSelector.on( 'open', FLBuilder._wpmedia_reset_errors );
-			
+
 				FLBuilder._singleVideoSelector.on( 'close', function () {
 					_wpPluploadSettings.defaults.filters.mime_types[0].extensions = defaultFileExtensions;
 				});
@@ -8743,8 +8964,21 @@
 			var fields = lightbox._node.find( '.fl-field' );
 			var editors = lightbox._node.find( 'textarea.wp-editor-area' );
 
+
 			fields.find( 'input:not([type=hidden]), textarea' ).on( 'input', FLBuilder._previewFormFieldSettings );
 			fields.find( 'input[type=hidden], select' ).on( 'change', FLBuilder._previewFormFieldSettings );
+
+			shapename = fields.find('input[name=shape_name]');
+			shapeorig = fields.find('input[name=shape_original]');
+			if ( shapename.length > 0 ) {
+				shapeorig.hide();
+				shapename.on( 'keyup', function() {
+					FLBuilder._shapesEdited = true;
+				});
+				if ( shapename.val().length > 0 && shapeorig.val().length < 1 ) {
+					shapeorig.val( shapename.val() );
+				}
+			}
 
 			if ( 'undefined' !== typeof tinyMCE ) {
 				editors.each( function ( i, editor ) {
@@ -8825,6 +9059,9 @@
 					else if ( previewText.length > 35 ) {
 						tmp.innerHTML = previewText;
 						previewText = ( tmp.textContent || tmp.innerText || '' ).replace( /^(.{35}[^\s]*).*/, "$1" ) + '...';
+					}
+					if( 'filter_meta_label' == preview && ! previewText ) {
+						previewText = settings[ 'filter_meta_key' ];
 					}
 					link.siblings( '.fl-form-field-preview-text' ).html( previewText );
 				}
@@ -9007,6 +9244,28 @@
 		},
 
 		/**
+		 * Initializes all post type fields in a settings form.
+		 *
+		 * @since  2.6
+		 * @access private
+		 * @method _initTypeFields
+		 */
+		_initTypeFields: function(){
+			$('.fl-builder-settings:visible #fl-field-post_type').each( FLBuilder._initTypeField );
+		},
+
+		/**
+		 * @since 2.6
+		 */
+		_initTypeField: function() {
+			var wrap   = $( this ),
+			postType = wrap.find('select');
+			if ( FLBuilderConfig.select2Enabled ) {
+				postType.select2({width:'50%'});
+			}
+		},
+
+		/**
 		 * Initializes a single font field in a settings form.
 		 *
 		 * @since  1.6.3
@@ -9026,13 +9285,61 @@
 					})
 			}
 
+			$('body').on({
+					mouseenter: function () {
+						var highlighted_item = jQuery(this).text(),
+						group = jQuery(this).parent().parent().attr("aria-label"),
+						head = jQuery("head"),
+						url = 'https://fonts.googleapis.com/css?family=' + highlighted_item,
+						link_id = highlighted_item.toLowerCase().replace( ' ', '-' ),
+						parent_id = $(this).parent().parent().parent().attr('id');
+						if ( ! parent_id ) {
+							return false;
+						}
+						if( parent_id.indexOf('select2-typographyfont_family') < 0 ) {
+							return false;
+						}
+						if ( 'Google' === group ) {
+							linkElement = "<link id='" + link_id + "' rel='stylesheet' href='" + url + "' type='text/css' media='screen'>";
+							jQuery(this).css('font-family', '"' + highlighted_item + '"' );
+							if ( jQuery( '#' + link_id ).length > 0 ) {
+								return false;
+							}
+							head.append(linkElement);
+						}
+					}
+				}, '.select2-results__option.select2-results__option--highlighted');
+
 			font.on( 'change', function(){
 				FLBuilder._getFontWeights( font );
 			} );
 
 			if ( value.indexOf( 'family' ) > -1 ) {
 
-				value = FLBuilder._jsonParse( value );
+				var value = FLBuilder._jsonParse( value );
+				var valid = false;
+
+				fonts = FLBuilderFontFamilies;
+
+				Object.keys(fonts.system).forEach(function(name){
+					if ( name === value.family ) {
+						valid = true
+					}
+				});
+
+				Object.keys(fonts.google).forEach(function(name){
+					if ( name === value.family ) {
+						valid = true
+					}
+				});
+
+				if ( ! valid && 'Default' !== value.family ) {
+					value = {
+						'family' : 'Default',
+						'weight' : '400'
+					};
+				}
+
 				font.val( value.family );
 				font.trigger( 'change' );
 
@@ -9065,7 +9372,7 @@
 					.filter(function (i, o) { return o.value === font; })
 					.length > 0;
 
-				if ( false === exists ) {
+				if ( false === exists && 'Default' !== font ) {
 						currentFont.closest( '.fl-font-field' ).find( '.recent-fonts' ).append( $('<option>', {
 							value: font,
 							text: font
@@ -9329,10 +9636,11 @@
 		 */
 		_customQueryPostTypeChange: function()
 		{
-			var val = $(this).val();
-
+			var postTypes = $(this).val();
 			$('.fl-custom-query-filter').hide();
-			$('.fl-custom-query-' + val + '-filter').show();
+			for ( val of postTypes ) {
+				$('.fl-custom-query-' + val + '-filter').show();
+			}
 		},
 
 		/* Ordering Fields
@@ -10269,6 +10577,7 @@
 		 */
 		_lightboxClosed: function()
 		{
+			FL.Builder.data.getOutlinePanelActions().setActiveNode( false );
 			FLBuilder.triggerHook( 'settings-lightbox-closed' );
 			FLBuilder._lightbox.empty();
 			clearTimeout( FLBuilder._lightboxScrollbarTimeout );
@@ -10330,13 +10639,18 @@
 				template  = wp.template( 'fl-crash-lightbox' ),
 				product   = window.crash_vars.product,
 				labeled   = window.crash_vars.white_label,
-				label_txt = window.crash_vars.labeled_txt;
+				label_txt = window.crash_vars.labeled_txt,
+				info      = '';
 
 
 
-				message  = product + " has detected a plugin conflict that is preventing the page from saving.<p>( In technical terms there’s probably a PHP error in Ajax. )</p>"
-				info     = "<p>If you contact Beaver Builder Support, we need to know what the error is in the JavaScript console in your browser.</p>"
+				message  = product + ' ' + window.crash_vars.strings.intro;
 
+				info    += "<h3 style='font-size:26px;line-height:26px;'>" + window.crash_vars.strings.try + "</h3>";
+				info    += "<p>" + window.crash_vars.strings.troubleshoot + "</p>";
+				info    += "<h3 style='font-size:22px;line-height:22px;padding-top:20px;border-top:1px solid black;'>" + window.crash_vars.strings.hand + "</h3>";
+				info    += "<h3 style='font-size:18px;line-height:18px;'>" + window.crash_vars.strings.step_one + "</h3>";
+				info    += "<p>" + window.crash_vars.strings.if_contact + "</p>";
 				info     +="<div><div style='width:49%;float:left;'>"
 				info     +="<p>MacOS Users:<br />Chrome: View > Developer > JavaScript Console<br />Firefox: Tools > Web Developer > Browser Console<br />Safari: Develop > Show JavaScript console</p>"
 				info     +="</div>"
@@ -10345,7 +10659,9 @@
 				info     +="<p>Windows Users:<br />Chrome: Settings > More Tools > Developer > Console<br />Firefox: Menu/Settings > Web Developer > Web Console<br />Edge: Settings and More > More Tools > Console</p>"
 				info     +="</div></div>"
 
-				info     +="<p style='display:inline-block;'>Copy the errors you find there and submit them with your Support ticket. It saves us having to ask you that as a second step.<br /><br />If you want to troubleshoot further, you can check our <a class='link' target='_blank' href='https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/debugging/known-beaver-builder-incompatibilities'>Knowledge Base</a> for plugins we know to be incompatible. Then deactivate your plugins one by one while you try to save the page in the Beaver Builder editor. When the page saves normally, you have identified the plugin causing the conflict. <a class='link' target='_blank' href='https://www.wpbeaverbuilder.com/beaver-builder-support/'>Contact Support</a> if you need further help.</p>"
+				info    += "<h3 style='font-size:18px;line-height:18px;display:inline-block'>" + window.crash_vars.strings.step_two + "</h3>";
+
+				info     +="<p style='display:inline-block;'>" + window.crash_vars.strings.contact + "</p>"
 
 				if ( FLBuilderConfig.MaxInputVars <= 3000 ) {
 					info += '<br /><br />The PHP config value max_input_vars is only set to ' + FLBuilderConfig.MaxInputVars + '. If you are using 3rd party addons this could very likely be the cause of this error. [<a class="link" href="https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/common-issues/exceeds-php-max-input-vars">doc link</a>].'
@@ -10572,6 +10888,89 @@
 		 */
 		isBoolean: function(value) {
 			return value === true || value === false
+		},
+
+		/**
+		 * Check if the operating system is set to dark mode.
+		 *
+		 * @since 2.6
+		 * @return bool
+		 */
+		_isSystemColorSchemeDark: function() {
+			return window.matchMedia && window.matchMedia( '( prefers-color-scheme: dark )' ).matches
+		},
+
+		/**
+		 * Get the static color scheme value even if matching the operating system.
+		 *
+		 * @since 2.6
+		 * @return string (light|dark)
+		 */
+		_getComputedColorScheme: function() {
+			const colorScheme = FL.Builder.data.getSystemState().colorScheme
+			if ( 'auto' === colorScheme ) {
+				return FLBuilder._isSystemColorSchemeDark() ? 'dark' : 'light'
+			}
+			return colorScheme
+		},
+
+		/**
+		 * Setup color scheme handling
+		 *
+		 * @since 2.6
+		 * @param {string} key
+		 * @param {any} data
+		 * @return void
+		 */
+		_initColorScheme: function() {
+			FLBuilder._setColorSchemeBodyClasses( FLBuilder._getComputedColorScheme() )
+
+			// Listen for system color scheme changes
+			window.matchMedia( '(prefers-color-scheme: dark)' )
+				.addEventListener( 'change', FLBuilder._systemColorSchemeChanged )
+		},
+
+		/**
+		 * Listen for changes to the operating system color scheme value.
+		 *
+		 * @since 2.6
+		 * @param MediaQueryListEvent e
+		 * @param {any} data
+		 * @return void
+		 */
+		_systemColorSchemeChanged: function( e ) {
+			const colorScheme = FL.Builder.data.getSystemState().colorScheme
+
+			if ( 'auto' !== colorScheme ) {
+				return
+			}
+			if ( e.matches ) {
+				FLBuilder._setColorSchemeBodyClasses( 'dark' )
+			} else {
+				FLBuilder._setColorSchemeBodyClasses( 'light' )
+			}
+		},
+
+		/**
+		 * Add/Remove appropriate color scheme body classes.
+		 *
+		 * @since 2.6
+		 * @param String name (light|dark|auto)
+		 * @return void
+		 */
+		_setColorSchemeBodyClasses: function( name ) {
+			const classes = document.body.classList
+			let add = name
+
+			// Handle 'auto' value
+			if ( 'auto' === name ) {
+				add = FLBuilder._getComputedColorScheme()
+			}
+
+			const remove = 'dark' === add ? 'light' : 'dark'
+
+			classes.remove( `fl-builder-ui-skin--${remove}`, `fluid-color-scheme-${remove}` );
+			classes.add( `fl-builder-ui-skin--${add}`, `fluid-color-scheme-${add}` );
 		},
 
 		/**

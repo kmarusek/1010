@@ -13,7 +13,7 @@
 				text = this.options[this.selectedIndex].text;
 				type = text.match( /\[(.*)\]$/ );
 				$('#fl-field-name input[name=name]').val(str)
-				$('select[name=type]').val(type[1]).trigger('change');
+				$('select[name=type]').val(type[1].replace(' ', '_')).trigger('change');
 			}
 		});
 		acffix = $('.fl-builder-settings[data-form-id$=-acf] select[name=type]').val();

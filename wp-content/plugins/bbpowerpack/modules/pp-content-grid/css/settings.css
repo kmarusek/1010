@@ -57,3 +57,10 @@ body.events-archive .fl-builder-settings:not(.pp-style-custom) #fl-builder-setti
 .fl-builder-settings select[name="post_spacing_responsive_unit"] {
 	display: none !important;
 }
+
+.fl-builder-settings:not([data-current-source="acf_relationship"]) #fl-field-data_source_acf_relational_type,
+.fl-builder-settings:not([data-current-source="acf_relationship"]) #fl-field-data_source_acf_relational_key,
+.fl-builder-settings:not([data-current-source="acf_relationship"]) #fl-field-data_source_acf_order,
+.fl-builder-settings:not([data-current-source="acf_relationship"]) #fl-field-data_source_acf_order_by {
+	display: none;
+}

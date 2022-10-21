@@ -23,7 +23,6 @@
 	FLLightbox.closeParent = function( child )
 	{
 		var instanceId = $( child ).closest( '.fl-lightbox-wrap' ).attr( 'data-instance-id' );
-
 		if ( ! _.isUndefined( instanceId ) ) {
 			FLLightbox._instances[ instanceId ].close();
 		}
@@ -723,6 +722,7 @@
 				return false;
 			}
 			var winHeight = window.innerHeight,
+				isRTL  = FLBuilderConfig.isRtl,
 				height = parseInt( settings.height ),
 				top    = parseInt( settings.top ),
 				wleft  = parseInt( settings.left ),
@@ -730,14 +730,20 @@
 				width  = parseInt( settings.width );
 
 			// settings are off the screen to the right
-			if( (wleft + width + 100) > screen.width ) {
+			if( ! isRTL && (wleft + width + 100) > screen.width ) {
 				settings.left = screen.width - width - 250;
 			}
 
 			// settings are off the screen to the left
-			if ( wleft < 0 ) {
+			if ( ! isRTL && wleft < 0 ) {
 				settings.left = 50;
 			}
+
+			wleft = parseInt( settings.left );
+			if ( isRTL && wleft > 0 ) {
+				settings.left = -25;
+			}
+
 			if ( ( height > winHeight && winHeight > 546 ) || top + height > winHeight ) {
 				if ( height > winHeight ) {
 					settings.height = winHeight - 50;

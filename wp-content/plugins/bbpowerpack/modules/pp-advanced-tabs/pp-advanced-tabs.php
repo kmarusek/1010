@@ -43,8 +43,10 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 				$html .= '</div>';
 				break;
 			case 'photo':
+				$alt  = ! empty( $item->content_photo ) ? get_post_meta( $item->content_photo , '_wp_attachment_image_alt', true ) : '';
+				$alt  =  empty( $alt ) ? htmlspecialchars( $item->label ) : htmlspecialchars( $alt );
 				$html = '<div itemprop="image">';
-				$html .= '<img src="'.$settings->content_photo_src.'" alt="" style="max-width: 100%;" />';
+				$html .= '<img src="' . $settings->content_photo_src . '" alt="' . $alt . '" style="max-width: 100%;" />';
 				$html .= '</div>';
 				break;
 			case 'video':
@@ -52,19 +54,32 @@ class PPAdvancedTabsModule extends FLBuilderModule {
                 $html = $wp_embed->autoembed( $settings->content_video );
             	break;
 			case 'module':
-				$html = '[fl_builder_insert_layout id="'.$settings->content_module.'" type="fl-builder-template"]';
+				$html = pp_get_post_content( get_post( $settings->content_module ) );
 				break;
 			case 'row':
-				$html = '[fl_builder_insert_layout id="'.$settings->content_row.'" type="fl-builder-template"]';
+				$html = pp_get_post_content( get_post( $settings->content_row ) );
 				break;
 			case 'layout':
-				$html = '[fl_builder_insert_layout id="'.$settings->content_layout.'" type="fl-builder-template"]';
+				$html = pp_get_post_content( get_post( $settings->content_layout ) );
 				break;
 			default:
 				break;
 		}
 
 		return $html;
+	}
+
+	public function get_tabs_items( $id ) {
+		$items = $this->settings->items;
+
+		if ( ! empty( $items ) ) {
+			for ( $i = 0; $i < count( $items ); $i++ ) {
+				$html_id = ( '' !== $this->settings->tab_id_prefix ) ? $this->settings->tab_id_prefix . '-' . ( $i + 1 ) : 'pp-tab-' . $id . '-' . ( $i + 1 );
+				$items[ $i ]->html_id = $html_id;
+			}
+		}
+
+		return apply_filters( 'pp_tabs_items', $items, $this->settings );
 	}
 
 	public function render_tab_item_icon( $item ) {

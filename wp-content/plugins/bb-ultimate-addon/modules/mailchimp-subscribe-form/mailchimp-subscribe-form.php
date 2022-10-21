@@ -7,6 +7,9 @@
  * @package UABB Subscribe Form Module
  */
 
+use function Groundhogg\after_form_submit_handler; //phpcs:ignore PHPCompatibility.UseDeclarations.NewUseConstFunction.Found
+use function Groundhogg\generate_contact_with_map; //phpcs:ignore PHPCompatibility.UseDeclarations.NewUseConstFunction.Found
+
 /**
  * Function that initializes Subscribe Form Module
  *
@@ -72,7 +75,33 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 
 			// Subscribe.
 			$instance = FLBuilderServices::get_service_instance( $settings->service );
-			$response = $instance->subscribe( $settings, $email, $name );
+
+			if ( 'groundhogg' === $settings->service ) {
+				if ( ! defined( 'GROUNDHOGG_VERSION' ) ) {
+					$response['error'] = __( 'There was an error subscribing. Groundhogg is not active.', 'uabb' );
+				}
+
+				$response = array(
+					'error' => false,
+				);
+
+				$field_map = array(
+					'email' => 'email',
+					'fname' => 'first_name',
+					'lname' => 'last_name',
+				);
+
+				$contact = generate_contact_with_map( $_POST, $field_map );
+
+				if ( ! $contact || is_wp_error( $contact ) ) {
+					$response['error'] = __( 'There was an error subscribing.', 'uabb' );
+				}
+
+				$contact->apply_tag( $settings->apply_tag );
+				after_form_submit_handler( $contact );
+			} else {
+				$response = $instance->subscribe( $settings, $email, $name );
+			}
 
 			// Check for an error from the service.
 			if ( $response['error'] ) {

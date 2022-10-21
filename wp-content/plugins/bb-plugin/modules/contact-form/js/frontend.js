@@ -85,7 +85,8 @@
 				layoutId      	= theForm.find( 'input[name=fl-layout-id]' ).val(),
 				templateId		= theForm.data( 'template-id' ),
 				templateNodeId	= theForm.data( 'template-node-id' ),
-				nodeId      	= theForm.closest( '.fl-module' ).data( 'node' );
+				nodeId      	= theForm.closest( '.fl-module' ).data( 'node' ),
+				nonce         = theForm.find('#fl-contact-form-nonce').val();
 
 			e.preventDefault();
 
@@ -213,7 +214,8 @@
 					layout_id			: layoutId,
 					template_id 		: templateId,
 					template_node_id 	: templateNodeId,
-					node_id 			: nodeId
+					node_id 			: nodeId,
+					nonce         : nonce
 				}
 
 				if ( reCaptchaValue ) {

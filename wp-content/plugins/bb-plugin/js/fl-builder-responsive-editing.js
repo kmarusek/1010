@@ -39,6 +39,10 @@
 					width = FLBuilderConfig.global.medium_breakpoint >= 769 ? 769 : FLBuilderConfig.global.medium_breakpoint;
 					FLBuilderSimulateMediaQuery.update( width, callback );
 				}
+				else if ( 'large' == this._mode ) {
+					width = FLBuilderConfig.global.large_breakpoint >= 1200 ? 1200 : FLBuilderConfig.global.large_breakpoint;
+					FLBuilderSimulateMediaQuery.update( width, callback );
+				}
 
 				FLBuilder._resizeLayout();
 
@@ -114,14 +118,17 @@
 
 		_showSize: function() {
 				var show_size = $('.fl-responsive-preview-message .size' ),
+				large = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.large_breakpoint : 1200,
 				medium = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.medium_breakpoint : 769,
 				responsive = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.responsive_breakpoint : 360,
 				size_text = '';
 
 			if ( $('.fl-responsive-preview').hasClass('fl-preview-responsive') ) {
-					size_text = FLBuilderStrings.mobile + ' ' + responsive + 'px';
+				size_text = FLBuilderStrings.mobile + ' ' + responsive + 'px';
 			} else if ( $('.fl-responsive-preview').hasClass('fl-preview-medium') ) {
 				size_text = FLBuilderStrings.medium + ' ' + medium + 'px';
+			} else if ( $('.fl-responsive-preview').hasClass('fl-preview-large') ) {
+				size_text = FLBuilderStrings.large + ' ' + large + 'px';
 			}
 
 			show_size.html('').html(size_text)
@@ -181,6 +188,12 @@
 			}
 			else if ( 'medium' == mode ) {
 				width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.medium_breakpoint >= 769 ) ? 769 : FLBuilderConfig.global.medium_breakpoint;
+				content.width( width );
+				FLBuilderSimulateMediaQuery.update( width, callback );
+				FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
+			}
+			else if ( 'large' == mode ) {
+				width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.large_breakpoint >= 1200 ) ? 1200 : FLBuilderConfig.global.large_breakpoint;
 				content.width( width );
 				FLBuilderSimulateMediaQuery.update( width, callback );
 				FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
@@ -275,13 +288,13 @@
 							'medium': row.data('parallax-image-medium'),
 							'responsive': row.data('parallax-image-responsive'),
 						};
-						
+
 					if ( undefined !== rowImages[mode] ) {
 						content.css('background-image', 'url(' + rowImages[mode] + ')');
 					}
 
 				});
-				
+
 			} );
 		},
 
@@ -296,13 +309,16 @@
 		 */
 		_switchAllSettingsTo: function( mode )
 		{
-			var className = 'dashicons-desktop dashicons-tablet dashicons-smartphone';
+			var className = 'dashicons-desktop dashicons-laptop dashicons-tablet dashicons-smartphone';
 
 			$( '.fl-field-responsive-toggle' ).removeClass( className );
 			$( '.fl-field-responsive-setting' ).hide();
 
 			if ( 'default' == mode ) {
 				className = 'dashicons-desktop';
+			}
+			else if ( 'large' == mode ) {
+				className = 'dashicons-laptop';
 			}
 			else if ( 'medium' == mode ) {
 				className = 'dashicons-tablet';
@@ -328,7 +344,9 @@
 			var self = FLBuilderResponsiveEditing;
 
 			self._switchAllSettingsTo( self._mode );
-
+			if( 'default' != self._mode ) {
+				self._setMarginPaddingPlaceholders();
+			}
 			FLBuilder.triggerHook( 'responsive-editing-switched', self._mode );
 		},
 
@@ -341,229 +359,161 @@
 		 */
 		_setMarginPaddingPlaceholders: function()
 		{
-			var paddingDefaultID    = '#fl-field-padding .fl-field-responsive-setting-default',
-				paddingDefault      = {
-					'values'        : {
-						'top'       : $( paddingDefaultID + ' input[ name="padding_top" ]').val(),
-						'right'     : $( paddingDefaultID + ' input[ name="padding_right" ]').val(),
-						'bottom'    : $( paddingDefaultID + ' input[ name="padding_bottom" ]').val(),
-						'left'      : $( paddingDefaultID + ' input[ name="padding_left" ]').val(),
-					},
-					'placeholders'  : {
-						'top'       : $( paddingDefaultID + ' input[ name="padding_top" ]').attr('placeholder'),
-						'right'     : $( paddingDefaultID + ' input[ name="padding_right" ]').attr('placeholder'),
-						'bottom'    : $( paddingDefaultID + ' input[ name="padding_bottom" ]').attr('placeholder'),
-						'left'      : $( paddingDefaultID + ' input[ name="padding_left" ]').attr('placeholder'),
-					}
-				},
-				paddingMediumID     = '#fl-field-padding .fl-field-responsive-setting-medium',
-				paddingMedium       = {
-					'values'        : {
-						'top'       : $( paddingMediumID + ' input[ name="padding_top_medium" ]').val(),
-						'right'     : $( paddingMediumID + ' input[ name="padding_right_medium" ]').val(),
-						'bottom'    : $( paddingMediumID + ' input[ name="padding_bottom_medium" ]').val(),
-						'left'      : $( paddingMediumID + ' input[ name="padding_left_medium" ]').val(),
-					},
-					'placeholders'  : {
-						'top'       : '',
-						'right'     : '',
-						'bottom'    : '',
-						'left'      : '',
-					}
-				},
-				paddingResponsiveID  = '#fl-field-padding .fl-field-responsive-setting-responsive',
-				paddingResponsive    = {
-					'values'        : {
-						'top'       : $( paddingMediumID + ' input[ name="padding_top_responsive" ]').val(),
-						'right'     : $( paddingMediumID + ' input[ name="padding_right_responsive" ]').val(),
-						'bottom'    : $( paddingMediumID + ' input[ name="padding_bottom_responsive" ]').val(),
-						'left'      : $( paddingMediumID + ' input[ name="padding_left_responsive" ]').val(),
-					},
-					'placeholders'  : {
-						'top'       : '',
-						'right'     : '',
-						'bottom'    : '',
-						'left'      : '',
-					}
-				},
-				marginDefaultID     = '#fl-field-margin .fl-field-responsive-setting-default',
-				marginDefault       = {
-					'values'        : {
-						'top'       : $( marginDefaultID + ' input[ name="margin_top" ]').val(),
-						'right'     : $( marginDefaultID + ' input[ name="margin_right" ]').val(),
-						'bottom'    : $( marginDefaultID + ' input[ name="margin_bottom" ]').val(),
-						'left'      : $( marginDefaultID + ' input[ name="margin_left" ]').val(),
-					},
-					'placeholders'  : {
-						'top'       : $( marginDefaultID + ' input[ name="margin_top" ]').attr('placeholder'),
-						'right'     : $( marginDefaultID + ' input[ name="margin_right" ]').attr('placeholder'),
-						'bottom'    : $( marginDefaultID + ' input[ name="margin_bottom" ]').attr('placeholder'),
-						'left'      : $( marginDefaultID + ' input[ name="margin_left" ]').attr('placeholder'),
-					}
-				},
-				marginMediumID      = '#fl-field-margin .fl-field-responsive-setting-medium',
-				marginMedium        = {
-					'values'        : {
-						'top'       : $( marginMediumID + ' input[ name="margin_top_medium" ]').val(),
-						'right'     : $( marginMediumID + ' input[ name="margin_right_medium" ]').val(),
-						'bottom'    : $( marginMediumID + ' input[ name="margin_bottom_medium" ]').val(),
-						'left'      : $( marginMediumID + ' input[ name="margin_left_medium" ]').val(),
-					},
-					'placeholders'	: {
-						'top'       : marginDefault.values.top ? marginDefault.values.top : marginDefault.placeholders.top,
-						'right'     : marginDefault.values.right ? marginDefault.values.right : marginDefault.placeholders.right,
-						'bottom'    : marginDefault.values.bottom ? marginDefault.values.bottom : marginDefault.placeholders.bottom,
-						'left'      : marginDefault.values.left ? marginDefault.values.left : marginDefault.placeholders.left,
-					}
-				},
-				marginResponsiveID  = '#fl-field-margin .fl-field-responsive-setting-responsive',
-				marginResponsive    = {
-					'values'        : {
-						'top'       : $( marginResponsiveID + ' input[ name="margin_top_responsive" ]').val(),
-						'right'     : $( marginResponsiveID + ' input[ name="margin_right_responsive" ]').val(),
-						'bottom'    : $( marginResponsiveID + ' input[ name="margin_bottom_responsive" ]').val(),
-						'left'      : $( marginResponsiveID + ' input[ name="margin_left_responsive" ]').val(),
-					},
-					'placeholders'  : {
-						'top'       : '',
-						'right'     : '',
-						'bottom'    : '',
-						'left'      : '',
-					}
+			var sides = ['top', 'left', 'bottom', 'right'];
+
+			// -- Initialize Padding Default
+			var paddingDefaultID = '#fl-field-padding .fl-field-responsive-setting-default',
+				paddingDefault   = {
+					values		 : { top: '',  right: '', bottom: '', left: '' },
+					placeholders : { top: '',  right: '', bottom: '', left: '' }
 				};
+			sides.forEach(function (side) {
+				paddingDefault.values[side]       = $( paddingDefaultID + ' input[ name="padding_' + side +  '" ]' ).val();
+				paddingDefault.placeholders[side] = $( paddingDefaultID + ' input[ name="padding_' + side + '" ]' ).attr( 'placeholder' );
+			});
 
-			// --- Set Padding Placeholders (Medium)---
-			// -- top --
-			if ( '' != paddingDefault.values.top ) {
-				$( paddingMediumID + ' input[ name="padding_top_medium"] ').attr( 'placeholder', paddingDefault.values.top );
-			} else {
-				$( paddingMediumID + ' input[ name="padding_top_medium"] ').attr( 'placeholder', paddingDefault.placeholders.top );
-			}
+			// -- Initialize Padding Large
+			var	paddingLargeID  = '#fl-field-padding .fl-field-responsive-setting-large',
+				paddingLarge    = {
+					values		 : { top: '',  right: '', bottom: '', left: '' },
+					placeholders : { top: '',  right: '', bottom: '', left: '' }
+				};
+			sides.forEach(function (side) {
+				paddingLarge.values[side]       = $( paddingLargeID + ' input[ name="padding_' + side +  '_large" ]' ).val();
+				paddingLarge.placeholders[side] = $( paddingLargeID + ' input[ name="padding_' + side + '_large" ]' ).attr( 'placeholder' );
+			});
 
-			// -- right --
-			if ( '' != paddingDefault.values.right ) {
-				$( paddingMediumID + ' input[ name="padding_right_medium"] ').attr( 'placeholder', paddingDefault.values.right );
-			} else {
-				$( paddingMediumID + ' input[ name="padding_right_medium"] ').attr( 'placeholder', paddingDefault.placeholders.right );
-			}
+			// -- Initialize Padding Medium
+			var	paddingMediumID  = '#fl-field-padding .fl-field-responsive-setting-medium',
+				paddingMedium    = {
+					values		 : { top: '',  right: '', bottom: '', left: '' },
+					placeholders : { top: '',  right: '', bottom: '', left: '' }
+				};
+			sides.forEach(function (side) {
+				paddingMedium.values[side]       = $( paddingMediumID + ' input[ name="padding_' + side +  '_medium" ]' ).val();
+				paddingMedium.placeholders[side] = $( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder' );
+			});
 
-			// -- bottom --
-			if ( '' != paddingDefault.values.bottom ) {
-				$( paddingMediumID + ' input[ name="padding_bottom_medium"] ').attr( 'placeholder', paddingDefault.values.bottom );
-			} else {
-				$( paddingMediumID + ' input[ name="padding_bottom_medium"] ').attr( 'placeholder', paddingDefault.placeholders.bottom );
-			}
+			// -- Initialize Padding Responsive
+			var	paddingResponsiveID = '#fl-field-padding .fl-field-responsive-setting-responsive',
+			    paddingResponsive   = {
+					values		    : { top: '',  right: '', bottom: '', left: '' },
+					placeholders	: { top: '',  right: '', bottom: '', left: '' }
+				};
+			sides.forEach(function (side) {
+				paddingResponsive.values[side]       = $( paddingResponsiveID + ' input[ name="padding_' + side +  '_responsive" ]' ).val();
+				paddingResponsive.placeholders[side] = $( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder' );
+			});
 
-			// -- left --
-			if ( '' != paddingDefault.values.left ) {
-				$( paddingMediumID + ' input[ name="padding_left_medium"] ').attr( 'placeholder', paddingDefault.values.left );
-			} else {
-				$( paddingMediumID + ' input[ name="padding_left_medium"] ').attr( 'placeholder', paddingDefault.placeholders.left );
-			}
+			// Initialize Margin Default
+			var	marginDefaultID  = '#fl-field-margin .fl-field-responsive-setting-default',
+				marginDefault    = {
+					values		 : { top: '',  right: '', bottom: '', left: '' },
+					placeholders : { top: '',  right: '', bottom: '', left: '' }
+				};
+			sides.forEach(function (side) {
+				marginDefault.values[side]       = $( marginDefaultID + ' input[ name="margin_' + side +  '" ]' ).val();
+				marginDefault.placeholders[side] = $( marginDefaultID + ' input[ name="margin_' + side + '" ]' ).attr( 'placeholder' );
+			});
 
-			// --- Set Padding Placeholders (Responsive) ---
-			// -- top --
-			if ( '' != paddingMedium.values.top ) {
-				$( paddingResponsiveID + ' input[ name="padding_top_responsive"] ').attr( 'placeholder', paddingMedium.values.top );
-			} else if ( '' != paddingDefault.values.top ) {
-				$( paddingResponsiveID + ' input[ name="padding_top_responsive"] ').attr( 'placeholder', paddingDefault.values.top );
-			} else {
-				$( paddingResponsiveID + ' input[ name="padding_top_responsive"] ').attr( 'placeholder', paddingDefault.placeholders.top );
-			}
+			// Initialize Margin Large
+			var marginLargeID   = '#fl-field-margin .fl-field-responsive-setting-large',
+				marginLarge   = {
+					values		 : { top: '',  right: '', bottom: '', left: '' },
+					placeholders : { top: '',  right: '', bottom: '', left: '' }
+				};
+			sides.forEach(function (side) {
+				marginLarge.values[side]       = $( marginLargeID + ' input[ name="margin_' + side +  '_large" ]' ).val();
+				marginLarge.placeholders[side] = $( marginLargeID + ' input[ name="margin_' + side + '_large" ]' ).attr( 'placeholder' );
+			});
 
-			// -- right --
-			if ( '' != paddingMedium.values.right ) {
-				$( paddingResponsiveID + ' input[ name="padding_right_responsive"] ').attr( 'placeholder', paddingMedium.values.right );
-			} else if ( '' != paddingDefault.values.right ) {
-				$( paddingResponsiveID + ' input[ name="padding_right_responsive"] ').attr( 'placeholder', paddingDefault.values.right );
-			} else {
-				$( paddingResponsiveID + ' input[ name="padding_right_responsive"] ').attr( 'placeholder', paddingDefault.placeholders.right );
-			}
+			// Initialize Margin Medium
+			var marginMediumID   = '#fl-field-margin .fl-field-responsive-setting-medium',
+				marginMedium     = {
+					values		 : { top: '',  right: '', bottom: '', left: '' },
+					placeholders : { top: '',  right: '', bottom: '', left: '' }
+				};
+			sides.forEach(function (side) {
+				marginMedium.values[side]       = $( marginMediumID + ' input[ name="margin_' + side +  '_medium" ]' ).val();
+				marginMedium.placeholders[side] = $( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder' );
+			});
 
-			// -- bottom --
-			if ( '' != paddingMedium.values.bottom ) {
-				$( paddingResponsiveID + ' input[ name="padding_bottom_responsive"] ').attr( 'placeholder', paddingMedium.values.bottom );
-			} else if ( '' != paddingDefault.values.bottom ) {
-				$( paddingResponsiveID + ' input[ name="padding_bottom_responsive"] ').attr( 'placeholder', paddingDefault.values.bottom );
-			} else {
-				$( paddingResponsiveID + ' input[ name="padding_bottom_responsive"] ').attr( 'placeholder', paddingDefault.placeholders.bottom );
-			}
+			// Initialize Margin Responsive
+			var marginResponsiveID = '#fl-field-margin .fl-field-responsive-setting-responsive',
+				marginResponsive   = {
+					values		   : { top: '',  right: '', bottom: '', left: '' },
+					placeholders   : { top: '',  right: '', bottom: '', left: '' }
+				};
+			sides.forEach(function (side) {
+				marginResponsive.values[side]       = $( marginResponsiveID + ' input[ name="margin_' + side +  '_responsive" ]' ).val();
+				marginResponsive.placeholders[side] = $( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder' );
+			});
 
-			// -- left --
-			if ( '' != paddingMedium.values.left ) {
-				$( paddingResponsiveID + ' input[ name="padding_left_responsive"] ').attr( 'placeholder', paddingMedium.values.left );
-			} else if ( '' != paddingDefault.values.left ) {
-				$( paddingResponsiveID + ' input[ name="padding_left_responsive"] ').attr( 'placeholder', paddingDefault.values.left );
-			} else {
-				$( paddingResponsiveID + ' input[ name="padding_left_responsive"] ').attr( 'placeholder', paddingDefault.placeholders.left );
-			}
+			// -- Large Padding Placeholders
+			sides.forEach(function(side) {
+				if ( '' != paddingDefault.values[side] ) {
+					$( paddingLargeID + ' input[ name="padding_' + side + '_large" ]' ).attr( 'placeholder', paddingDefault.values[ side ] );
+				} else {
+					$( paddingLargeID + ' input[ name="padding_' + side + '_large" ]' ).attr( 'placeholder', paddingLarge.placeholders[ side ] );
+				}
+			});
 
-			// --- Set Margin Placeholders (Medium) ---
-			// -- top --
-			if ( '' != marginDefault.values.top ) {
-				$( marginMediumID + ' input[ name="margin_top_medium" ]').attr( 'placeholder', marginDefault.values.top );
-			} else {
-				$( marginMediumID + ' input[ name="margin_top_medium" ]').attr( 'placeholder', marginDefault.placeholders.top );
-			}
+			// -- Medium Padding Placeholders
+			sides.forEach(function(side) {
+				if ( '' != paddingLarge.values[side] ) {
+					$( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder', paddingLarge.values[ side ] );
+				} else if ( '' != paddingDefault.values[side] ) {
+					$( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder', paddingDefault.values[ side ] );
+				} else {
+					$( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder', paddingMedium.placeholders[ side ] );
+				}
+			});
 
-			// -- right --
-			if ( '' != marginDefault.values.right ) {
-				$( marginMediumID + ' input[ name="margin_right_medium" ]').attr( 'placeholder', marginDefault.values.right );
-			} else {
-				$( marginMediumID + ' input[ name="margin_right_medium" ]').attr( 'placeholder', marginDefault.placeholders.right );
-			}
+			// -- Responsive Padding Placeholders
+			sides.forEach( function(side) {
+				if ( '' != paddingMedium.values[ side ] ) {
+					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingMedium.values[ side ] );
+				} else if ( '' != paddingLarge.values[ side ] ) {
+					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingLarge.values[ side ] );
+				} else if ( '' != paddingDefault.values[ side ] ) {
+					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingDefault.values[ side ] );
+				} else {
+					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingResponsive.placeholders[ side ] );
+				}
+			});
 
-			// -- bottom --
-			if ( '' != marginDefault.values.bottom ) {
-				$( marginMediumID + ' input[ name="margin_bottom_medium" ]').attr( 'placeholder', marginDefault.values.bottom );
-			} else {
-				$( marginMediumID + ' input[ name="margin_bottom_medium" ]').attr( 'placeholder', marginDefault.placeholders.bottom );
-			}
+			// -- Large Margin Placeholders
+			sides.forEach(function(side) {
+				if ( '' != marginDefault.values[side] ) {
+					$( marginLargeID + ' input[ name="margin_' + side + '_large" ]' ).attr( 'placeholder', marginDefault.values[ side ] );
+				} else {
+					$( marginLargeID + ' input[ name="margin_' + side + '_large" ]' ).attr( 'placeholder', marginLarge.placeholders[ side ] );
+				}
+			});
 
-			// -- left --
-			if ( '' != marginDefault.values.left ) {
-				$( marginMediumID + ' input[ name="margin_left_medium" ]').attr( 'placeholder', marginDefault.values.left );
-			} else {
-				$( marginMediumID + ' input[ name="margin_left_medium" ]').attr( 'placeholder', marginDefault.placeholders.left );
-			}
+			// -- Medium Margin Placeholders
+			sides.forEach(function(side) {
+				if ( '' != marginLarge.values[side] ) {
+					$( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder', marginLarge.values[ side ] );
+				} else if ( '' != marginDefault.values[side] ) {
+					$( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder', marginDefault.values[ side ] );
+				} else {
+					$( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder', marginMedium.placeholders[ side ] );
+				}
+			});
 
-			// --- Set Margin Placeholders (Responsive) ---
-			// -- top --
-			if ( '' != marginMedium.values.top ) {
-				$( marginResponsiveID + ' input[ name="margin_top_responsive" ]').attr( 'placeholder', marginMedium.values.top );
-			} else if ( '' != marginDefault.values.top ) {
-				$( marginResponsiveID + ' input[ name="margin_top_responsive" ]').attr( 'placeholder', marginDefault.values.top );
-			} else {
-				$( marginResponsiveID + ' input[ name="margin_top_responsive" ]').attr( 'placeholder', marginDefault.placeholders.top );
-			}
-
-			// -- right --
-			if ( '' != marginMedium.values.right ) {
-				$( marginResponsiveID + ' input[ name="margin_right_responsive" ]').attr( 'placeholder', marginMedium.values.right );
-			} else if ( '' != marginDefault.values.right ) {
-				$( marginResponsiveID + ' input[ name="margin_right_responsive" ]').attr( 'placeholder', marginDefault.values.right );
-			} else {
-				$( marginResponsiveID + ' input[ name="margin_right_responsive" ]').attr( 'placeholder', marginDefault.placeholders.right );
-			}
-
-			// -- bottom --
-			if ( '' != marginMedium.values.bottom ) {
-				$( marginResponsiveID + ' input[ name="margin_bottom_responsive" ]').attr( 'placeholder', marginMedium.values.bottom );
-			} else if ( '' != marginDefault.values.bottom ) {
-				$( marginResponsiveID + ' input[ name="margin_bottom_responsive" ]').attr( 'placeholder', marginDefault.values.bottom );
-			} else {
-				$( marginResponsiveID + ' input[ name="margin_bottom_responsive" ]').attr( 'placeholder', marginDefault.placeholders.bottom );
-			}
-
-			// -- left --
-			if ( '' != marginMedium.values.left ) {
-				$( marginResponsiveID + ' input[ name="margin_left_responsive" ]').attr( 'placeholder', marginMedium.values.left );
-			} else if ( '' != marginDefault.values.left ) {
-				$( marginResponsiveID + ' input[ name="margin_left_responsive" ]').attr( 'placeholder', marginDefault.values.left );
-			} else {
-				$( marginResponsiveID + ' input[ name="margin_left_responsive" ]').attr( 'placeholder', marginDefault.placeholders.left );
-			}
-
+			// -- Responsive Margin Placeholders
+			sides.forEach( function(side) {
+				if ( '' != marginMedium.values[ side ] ) {
+					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginMedium.values[ side ] );
+				} else if ( '' != marginLarge.values[ side ] ) {
+					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginLarge.values[ side ] );
+				} else if ( '' != marginDefault.values[ side ] ) {
+					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginDefault.values[ side ] );
+				} else {
+					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginResponsive.placeholders[ side ] );
+				}
+			});
 		},
 
 		/**
@@ -580,6 +530,9 @@
 				mode    = toggle.data( 'mode' );
 
 			if ( 'default' == mode ) {
+				mode  = 'large';
+			}
+			else if ( 'large' == mode ) {
 				mode  = 'medium';
 			}
 			else if ( 'medium' == mode ) {
@@ -607,6 +560,8 @@
 			var mode = FLBuilderResponsiveEditing._mode;
 
 			if ( 'default' == mode ) {
+				mode = 'large';
+			} else if ( 'large' == mode ) {
 				mode = 'medium';
 			} else if ( 'medium' == mode ) {
 				mode = 'responsive';

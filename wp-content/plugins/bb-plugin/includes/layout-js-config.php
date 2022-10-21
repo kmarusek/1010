@@ -10,7 +10,8 @@ var FLBuilderLayoutConfig = {
 	},
 	breakpoints : {
 		small  : <?php echo FLBuilderUtils::sanitize_number( $global_settings->responsive_breakpoint ); ?>,
-		medium : <?php echo FLBuilderUtils::sanitize_number( $global_settings->medium_breakpoint ); ?>
+		medium : <?php echo FLBuilderUtils::sanitize_number( $global_settings->medium_breakpoint ); ?>,
+		large : <?php echo FLBuilderUtils::sanitize_number( $global_settings->large_breakpoint ); ?>
 	},
 	waypoint: {
 		offset: 80

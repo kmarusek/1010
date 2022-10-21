@@ -13,7 +13,9 @@
 
 /* Horizontal menus */
 .fl-menu-horizontal {
-	text-align: left;
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
 }
 .fl-menu li{
 	position: relative;

@@ -16,6 +16,23 @@ final class FLBuilderAdminSettings {
 	 */
 	static public $errors = array();
 
+	private static $registered_settings = array();
+
+	private static $global_settings = array(
+		'_fl_builder_post_types',
+		'_fl_builder_enabled_modules',
+		'_fl_builder_enabled_templates',
+		'_fl_builder_enabled_icons',
+		'_fl_builder_user_access',
+		'_fl_builder_enable_fa_pro',
+		'_fl_builder_kit_fa_pro',
+		'_fl_builder_cache_plugins',
+		'_fl_builder_branding',
+		'_fl_builder_branding_icon',
+		'_fl_builder_theme_branding',
+		'_fl_builder_help_button',
+	);
+
 	/**
 	 * Initializes the admin settings.
 	 *
@@ -25,6 +42,31 @@ final class FLBuilderAdminSettings {
 	static public function init() {
 		add_action( 'init', __CLASS__ . '::init_hooks', 11 );
 		add_action( 'wp_ajax_fl_welcome_submit', array( 'FLBuilderAdminSettings', 'welcome_submit' ) );
+		// register global settings
+		self::register_settings();
+	}
+
+	/**
+	 * @since 2.6
+	 */
+	private static function register_settings() {
+		foreach ( self::$global_settings as $setting ) {
+			self::register_setting( $setting );
+		}
+	}
+
+	/**
+	 * @since 2.6
+	 */
+	public static function register_setting( $key ) {
+		self::$registered_settings[] = $key;
+	}
+
+	/**
+	 * @since 2.6
+	 */
+	public static function registered_settings() {
+		return self::$registered_settings;
 	}
 
 	/**
@@ -91,6 +133,7 @@ final class FLBuilderAdminSettings {
 		wp_enqueue_style( 'fl-builder-admin-settings', FL_BUILDER_URL . 'css/fl-builder-admin-settings.css', array(), FL_BUILDER_VERSION );
 		wp_enqueue_style( 'jquery-multiselect', FL_BUILDER_URL . 'css/jquery.multiselect.css', array(), FL_BUILDER_VERSION );
 		wp_enqueue_style( 'fl-jquery-tiptip', FL_BUILDER_URL . 'css/jquery.tiptip.css', array(), FL_BUILDER_VERSION );
+		wp_enqueue_style( 'fl-admin-notify', FL_BUILDER_URL . 'css/simple-notify.min.css', array(), FL_BUILDER_VERSION );
 
 		if ( FLBuilder::fa5_pro_enabled() ) {
 			if ( '' !== get_option( '_fl_builder_kit_fa_pro' ) ) {
@@ -105,7 +148,7 @@ final class FLBuilderAdminSettings {
 		wp_enqueue_script( 'jquery-actual', FL_BUILDER_URL . 'js/jquery.actual.min.js', array( 'jquery' ), FL_BUILDER_VERSION );
 		wp_enqueue_script( 'jquery-multiselect', FL_BUILDER_URL . 'js/jquery.multiselect.js', array( 'jquery' ), FL_BUILDER_VERSION );
 		wp_enqueue_script( 'fl-jquery-tiptip', FL_BUILDER_URL . 'js/jquery.tiptip.min.js', array( 'jquery' ), FL_BUILDER_VERSION, true );
-
+		wp_enqueue_script( 'fl-admin-notify', FL_BUILDER_URL . 'js/simple-notify.min.js', array(), FL_BUILDER_VERSION );
 		// Media Uploader
 		wp_enqueue_media();
 	}
@@ -198,45 +241,55 @@ final class FLBuilderAdminSettings {
 		 * @see fl_builder_admin_settings_nav_items
 		 */
 		$item_data = apply_filters( 'fl_builder_admin_settings_nav_items', array(
-			'welcome'     => array(
+			'welcome'       => array(
 				'title'    => __( 'Welcome', 'fl-builder' ),
 				'show'     => ! FLBuilderModel::is_white_labeled() && ( is_network_admin() || ! self::multisite_support() ),
 				'priority' => 50,
 			),
-			'license'     => array(
+			'license'       => array(
 				'title'    => __( 'License', 'fl-builder' ),
 				'show'     => ( is_network_admin() || ! self::multisite_support() ),
 				'priority' => 100,
 			),
-			'upgrade'     => array(
+			'upgrade'       => array(
 				'title'    => __( 'Upgrade', 'fl-builder' ),
 				'show'     => FL_BUILDER_LITE === true,
 				'priority' => 200,
 			),
-			'modules'     => array(
+			'modules'       => array(
 				'title'    => __( 'Modules', 'fl-builder' ),
 				'show'     => true,
 				'priority' => 300,
 			),
-			'post-types'  => array(
+			'post-types'    => array(
 				'title'    => __( 'Post Types', 'fl-builder' ),
 				'show'     => true,
 				'priority' => 400,
 			),
-			'user-access' => array(
+			'user-access'   => array(
 				'title'    => __( 'User Access', 'fl-builder' ),
 				'show'     => true,
 				'priority' => 500,
 			),
-			'icons'       => array(
+			'icons'         => array(
 				'title'    => __( 'Icons', 'fl-builder' ),
 				'show'     => FL_BUILDER_LITE !== true,
 				'priority' => 600,
 			),
-			'tools'       => array(
+			'tools'         => array(
 				'title'    => __( 'Tools', 'fl-builder' ),
 				'show'     => true,
 				'priority' => 700,
+			),
+			'advanced'      => array(
+				'title'    => __( 'Advanced', 'fl-builder' ),
+				'show'     => true,
+				'priority' => 750,
+			),
+			'import-export' => array(
+				'title'    => __( 'Import / Export', 'fl-builder' ),
+				'show'     => true,
+				'priority' => 800,
 			),
 		) );
 
@@ -292,6 +345,10 @@ final class FLBuilderAdminSettings {
 
 		// Tools
 		self::render_form( 'tools' );
+
+		self::render_form( 'advanced' );
+
+		self::render_form( 'import-export' );
 
 		/**
 		 * Let extensions hook into form rendering.

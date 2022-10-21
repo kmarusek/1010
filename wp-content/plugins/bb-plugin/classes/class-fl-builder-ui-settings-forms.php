@@ -311,7 +311,7 @@ class FLBuilderUISettingsForms {
 		}
 
 		// Select fields
-		if ( 'select' === $field['type'] ) {
+		if ( 'select' === $field['type'] && isset( $field['options'] ) ) {
 
 			if ( is_string( $field['options'] ) && is_callable( $field['options'] ) ) {
 				$field['options'] = call_user_func( $field['options'] );
@@ -695,6 +695,10 @@ class FLBuilderUISettingsForms {
 			$tabs = FLBuilderModel::$modules[ $form ]->form;
 		}
 
+		if ( empty( $tabs ) ) {
+			return $response;
+		}
+
 		// Get the form fields.
 		$fields = FLBuilderModel::get_settings_form_fields( $tabs );
 
@@ -785,7 +789,7 @@ class FLBuilderUISettingsForms {
 			foreach ( $data['tabs'] as $name ) {
 				$tab = $tabs[ $name ];
 				if ( FL_BUILDER_DIR . 'includes/loop-settings.php' === $tab['file'] ) {
-					$tab['file'] = FL_BUILDER_DIR . 'includes/ui-loop-settings.php';
+					$tab['file'] = FL_BUILDER_DIR . 'includes/ui-loop-settings-filter.php';
 				}
 				if ( file_exists( $tab['file'] ) ) {
 					ob_start();

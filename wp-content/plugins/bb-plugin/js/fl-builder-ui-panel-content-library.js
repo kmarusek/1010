@@ -516,7 +516,12 @@
         /**
         * The wp.template reference
         */
-        templateName: 'fl-content-panel-saved-view',
+        templateName: 'fl-content-panel-saved-view',        
+        
+        bindEvents: function() {
+            this.$savedSearchInput = $(this.$el[0]).find('input[name="saved-search-term"]');
+            this.$savedSearchInput.on('keyup', this.onSavedSearchTermChanged.bind(this) );
+        },
 
         /**
         * Filter the data before it's given to the template function
@@ -529,11 +534,46 @@
             data.queryResults = FLBuilder.Search.byQuery({
                 kind: "template",
                 type: "user",
-                content: ["module", "column", "row"]
+                content: ["module", "column", "row"],
             });
 
             return data;
         },
+
+        onSavedSearchTermChanged: function(e) {
+            var value = this.$savedSearchInput.val();
+            
+            this.showSearchResults( value );
+        },
+
+        showSearchResults: function( term ){
+            var html = '',
+                tempContent = '',
+                buttonContent = '',
+                noButtonContent = '',
+                qry = {
+                    kind: "template",
+                    type: "user",
+                    content: ["module", "column", "row"],
+                    searchTerm: '',
+                };
+
+            if ( term && term.length >= 2 ) {
+                qry.searchTerm = term;
+            } else {
+                qry.searchTerm = '';
+            }
+
+            this.queryResults = FLBuilder.Search.byQuery( qry );
+            html = this.template( this  );
+
+            tempContent = '<div class="temp-content">' + html + '</div>';
+            buttonContent = $(tempContent).find('.fl-builder-panel-saved-search').wrap('</p>').parent().html();
+            noButtonContent = $(tempContent.replace(buttonContent, '')).html();
+            
+            $(this.$el).parent().find('.fl-content-panel-saved-view-content').html( noButtonContent );
+        },
+
     });
 
     /**
@@ -782,7 +822,6 @@
             this.$tabs = this.$el.find('.fl-builder--tabs [data-tab]');
             this.$tabs.on('mouseup', this.onTabItemMouseUp.bind( this ));
             this.$tabs.on('click', this.onTabItemClick.bind( this ));
-
             this.$search = this.$el.find('.fl-builder-panel-search');
             this.$searchBtn = this.$search.find('.fl-builder-toggle-panel-search');
             this.$searchInput = this.$search.find('input[name="search-term"]');

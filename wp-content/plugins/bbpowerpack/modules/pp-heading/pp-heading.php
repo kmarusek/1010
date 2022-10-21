@@ -259,6 +259,38 @@ class PPHeadingModule extends FLBuilderModule {
 		return false;
 	}
 
+	public function has_text_padding() {
+		$has_padding = false;
+
+		$dimensions = array( 'top', 'right', 'bottom', 'left' );
+
+		foreach ( $dimensions as $dimension ) {
+			$padding_key = 'heading_padding_' . $dimension;
+			if ( isset( $settings->{$padding_key} ) && ! empty( $settings->{$padding_key} ) ) {
+				$has_padding = true;
+			}
+		}
+
+		if ( 'yes' == $this->settings->dual_heading && ! empty( $this->settings->heading_title2 ) ) {
+			foreach ( $dimensions as $dimension ) {
+				$padding_key = 'heading2_padding_' . $dimension;
+				if ( isset( $settings->{$padding_key} ) && ! empty( $settings->{$padding_key} ) ) {
+					$has_padding = true;
+				}
+			}
+		}
+
+		return $has_padding;
+	}
+
+	public function maybe_text_inline_block() {
+		if ( 'block' !== $this->settings->heading_style && ( $this->is_html_in_text() || $this->has_text_padding() ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public function render_separator() {
 		$settings  = $this->settings;
 		$separator = $settings->heading_separator;

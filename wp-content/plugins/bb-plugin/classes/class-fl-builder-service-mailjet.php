@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( '\Mailjet\Config' ) ) {
+if ( ! class_exists( '\Mailjet\Config' ) && ! defined( 'MAILJET_VERSION' ) ) {
 	/**
 	 * Autoloader is generated via Composer.
 	 *
@@ -54,7 +54,11 @@ final class FLBuilderServiceMailjet extends FLBuilderService {
 			return $this->api_instance;
 		}
 
-		$this->api_instance = new \Mailjet\Client( $api_key, $secret_key );
+		if ( class_exists( '\MailjetWp\Mailjet\Client' ) ) {
+			$this->api_instance = new \MailjetWp\Mailjet\Client( $api_key, $secret_key );
+		} else {
+			$this->api_instance = new \Mailjet\Client( $api_key, $secret_key );
+		}
 
 		return $this->api_instance;
 	}
@@ -86,13 +90,20 @@ final class FLBuilderServiceMailjet extends FLBuilderService {
 		try {
 
 			$api = $this->get_api( $fields['api_key'], $fields['secret_key'] );
-			// phpcs:disable
-			$mj_response = $api->get( \Mailjet\Resources::$Contactmetadata, array(
-				'filters' => array(
-					'Limit' => '1',
-				),
-			));
-			// phpcs:enable
+
+			if ( class_exists( '\MailjetWp\Mailjet\Client' ) ) {
+				$mj_response = $api->get( \MailjetWp\Mailjet\Resources::$Contactmetadata, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					'filters' => array(
+						'Limit' => '1',
+					),
+				));
+			} else {
+				$mj_response = $api->get( \Mailjet\Resources::$Contactmetadata, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					'filters' => array(
+						'Limit' => '1',
+					),
+				));
+			}
 
 			if ( $mj_response->success() ) {
 				$response['data'] = array(
@@ -134,7 +145,7 @@ final class FLBuilderServiceMailjet extends FLBuilderService {
 			'type'        => 'text',
 			'label'       => __( 'API Key', 'fl-builder' ),
 			'help'        => __( 'Found in your Mailjet account under Account Settings > Rest API > Master API Key & Sub API Key Management.', 'fl-builder' ),
-			'description' => sprintf( '<a target="_blank" href="https://app.mailjet.com/account/api_keys">%s</a>', __( 'Mailjet API settings', 'fl-builder' ) ),
+			'description' => sprintf( '<a target="_blank" href="https://app.mailjet.com/account/apikeys">%s</a>', __( 'Mailjet API settings', 'fl-builder' ) ),
 			'preview'     => array(
 				'type' => 'none',
 			),
@@ -171,13 +182,20 @@ final class FLBuilderServiceMailjet extends FLBuilderService {
 		try {
 			$account_data = $this->get_account_data( $account );
 			$api          = $this->get_api( $account_data['api_key'], $account_data['secret_key'] );
-			// phpcs:disable
-			$mj_response  = $api->get( \Mailjet\Resources::$Contactslist, array(
-				'filters' => array(
-					'Limit' => '100',
-				),
-			));
-			// phpcs:enable
+
+			if ( class_exists( '\MailjetWp\Mailjet\Client' ) ) {
+				$mj_response = $api->get( \MailjetWp\Mailjet\Resources::$Contactslist, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					'filters' => array(
+						'Limit' => '100',
+					),
+				));
+			} else {
+				$mj_response = $api->get( \Mailjet\Resources::$Contactslist, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					'filters' => array(
+						'Limit' => '100',
+					),
+				));
+			}
 
 			if ( $mj_response->success() ) {
 				$lists = $mj_response->getData();
@@ -217,9 +235,7 @@ final class FLBuilderServiceMailjet extends FLBuilderService {
 
 		if ( $lists ) {
 			foreach ( $lists as $list ) {
-				// phpcs:disable
-				$options[ $list->ID ] = esc_attr( $list->Name );
-				// phpcs:enable
+				$options[ $list->ID ] = esc_attr( $list->Name ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 		}
 
@@ -285,14 +301,21 @@ final class FLBuilderServiceMailjet extends FLBuilderService {
 				$exists            = false;
 				$exists_subscribed = false;
 
-				// phpcs:disable
-				$mj_response = $api->get(\Mailjet\Resources::$Listrecipient, array(
-					'filters' => array(
-						'ContactEmail' => $data['email'],
-						'ContactsList' => $data['list_id'],
-					),
-				));
-				// phpcs:enable
+				if ( class_exists( '\MailjetWp\Mailjet\Client' ) ) {
+					$mj_response = $api->get( \MailjetWp\Mailjet\Resources::$Listrecipient, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						'filters' => array(
+							'ContactEmail' => $data['email'],
+							'ContactsList' => $data['list_id'],
+						),
+					));
+				} else {
+					$mj_response = $api->get( \Mailjet\Resources::$Listrecipient, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						'filters' => array(
+							'ContactEmail' => $data['email'],
+							'ContactsList' => $data['list_id'],
+						),
+					));
+				}
 
 				if ( $mj_response->success() && $mj_response->getCount() > 0 ) {
 					$mj_data = $mj_response->getData();
@@ -308,17 +331,27 @@ final class FLBuilderServiceMailjet extends FLBuilderService {
 					$response['error'] = sprintf( __( 'Email address (%1$s) already exists and subscribed to the list (%2$s).', 'fl-builder' ), $data['email'], $data['list_id'] );
 				} else {
 
-					// phpcs:disable
-					$mj_response = $api->post(\Mailjet\Resources::$ContactslistManagecontact, array(
-						'id'   => $data['list_id'],
-						'body' => array(
-							'Name'       => $data['name'],
-							'Properties' => 'object',
-							'Action'     => 'addnoforce',
-							'Email'      => $data['email'],
-						),
-					));
-					// phpcs:enable
+					if ( class_exists( '\MailjetWp\Mailjet\Client' ) ) {
+						$mj_response = $api->post( \MailjetWp\Mailjet\Resources::$ContactslistManagecontact, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							'id'   => $data['list_id'],
+							'body' => array(
+								'Name'       => $data['name'],
+								'Properties' => 'object',
+								'Action'     => 'addnoforce',
+								'Email'      => $data['email'],
+							),
+						));
+					} else {
+						$mj_response = $api->post( \Mailjet\Resources::$ContactslistManagecontact, array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							'id'   => $data['list_id'],
+							'body' => array(
+								'Name'       => $data['name'],
+								'Properties' => 'object',
+								'Action'     => 'addnoforce',
+								'Email'      => $data['email'],
+							),
+						));
+					}
 
 					if ( ! $mj_response->success() ) {
 						/* translators: %1$s for email address %2$s for list_id */

@@ -151,6 +151,15 @@
 		_styleSheet         : null,
 
 		/**
+		 * An instance of FLStyleSheet for the large device preview.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @property {FLStyleSheet} _styleSheetLarge
+		 */
+		_styleSheetLarge   : null,
+
+		/**
 		 * An instance of FLStyleSheet for the medium device preview.
 		 *
 		 * @since 1.9
@@ -336,6 +345,13 @@
 					className : 'fl-builder-preview-style'
 				} );
 			}
+			if ( ! this._styleSheetLarge) {
+				this._styleSheetLarge = new FLStyleSheet( {
+					id : 'fl-builder-preview-large',
+					className : 'fl-builder-preview-style'
+				} );
+				this._styleSheetLarge.disable();
+			}
 			if ( ! this._styleSheetMedium ) {
 				this._styleSheetMedium = new FLStyleSheet( {
 					id : 'fl-builder-preview-medium',
@@ -364,6 +380,10 @@
 				this._styleSheet.destroy();
 				this._styleSheet = null;
 			}
+			if ( this._styleSheetLarge ) {
+				this._styleSheetLarge.destroy();
+				this._styleSheetLarge = null;
+			}
 			if ( this._styleSheetMedium ) {
 				this._styleSheetMedium.destroy();
 				this._styleSheetMedium = null;
@@ -372,6 +392,8 @@
 				this._styleSheetResponsive.destroy();
 				this._styleSheetResponsive = null;
 			}
+
+			$( '.fl-builder-preview-style' ).remove();
 		},
 
 		/**
@@ -390,10 +412,13 @@
 			if ( 'responsive' === mode ) {
 				FLBuilderSimulateMediaQuery.disableStyles( config.responsive_breakpoint );
 				this._styleSheetResponsive.disable();
+			} else if ( 'large' === mode ) {
+				FLBuilderSimulateMediaQuery.disableStyles( config.large_breakpoint );
+				this._styleSheetLarge.disable();
 			} else if ( 'medium' === mode ) {
 				FLBuilderSimulateMediaQuery.disableStyles( config.medium_breakpoint );
 				this._styleSheetMedium.disable();
-			} else {
+			}  else {
 				node.removeClass( function( i, className ) {
 					return ( className.match( /fl-node-[^\s]*/g ) || [] ).join( ' ' );
 				} );
@@ -418,6 +443,9 @@
 			} else if ( 'medium' === mode ) {
 				FLBuilderSimulateMediaQuery.enableStyles();
 				this._styleSheetMedium.enable();
+			} else if ( 'large' === mode ) {
+				FLBuilderSimulateMediaQuery.enableStyles();
+				this._styleSheetLarge.enable();
 			} else {
 				node.addClass( 'fl-node-' + node.data( 'node' ) );
 			}
@@ -599,14 +627,22 @@
 		_responsiveEditingSwitched: function( e, mode )
 		{
 			if ( 'default' == mode ) {
+				this._styleSheetLarge.disable();
+				this._styleSheetMedium.disable();
+				this._styleSheetResponsive.disable();
+			}
+			else if ( 'large' == mode ) {
+				this._styleSheetLarge.enable();
 				this._styleSheetMedium.disable();
 				this._styleSheetResponsive.disable();
 			}
 			else if ( 'medium' == mode ) {
+				this._styleSheetLarge.enable();
 				this._styleSheetMedium.enable();
 				this._styleSheetResponsive.disable();
 			}
 			else if ( 'responsive' == mode ) {
+				this._styleSheetLarge.enable();
 				this._styleSheetMedium.enable();
 				this._styleSheetResponsive.enable();
 			}
@@ -621,7 +657,7 @@
 		 */
 		_responsiveEditingPreviewFields: function( e, mode )
 		{
-			if ( 'medium' === mode ) {
+			if ( 'large' === mode || 'medium' === mode ) {
 				if ( 'col' === this.type && this.elements.node[0].style.width ) {
 					size = parseFloat( this.elements.node[0].style.width );
 					this.elements.size.val( size );
@@ -781,8 +817,13 @@
 				clearTimeout(this._loaderTimeout);
 			}
 
-			// Remove the loading graphic.
-			$('.fl-builder-preview-loader').remove();
+			/**
+			 * Remove the loading graphic
+			 * 2.6.0.2 added 500ms delay to fix #2234
+			 */
+			setTimeout( function() {
+				$('.fl-builder-preview-loader').remove();
+			}, 500 );
 
 			// Fire the preview rendered event.
 			$( FLBuilder._contentClass ).trigger( 'fl-builder.preview-rendered' );
@@ -1330,7 +1371,7 @@
 		{
 			var elements      = {},
 				dimensions    = [ 'Top', 'Bottom', 'Left', 'Right' ],
-				devices       = [ '', 'Medium', 'Responsive' ],
+				devices       = [ '', 'Large', 'Medium', 'Responsive' ],
 				settingsClass = this.classes.settings,
 				elementKey    = '',
 				inputName     = '',
@@ -1532,6 +1573,7 @@
 			// Elements
 			$.extend(this.elements, {
 				size         	: $(this.classes.settings + ' input[name=size]'),
+				sizeLarge       : $(this.classes.settings + ' input[name=size_large]'),
 				sizeMedium      : $(this.classes.settings + ' input[name=size_medium]'),
 				sizeResponsive  : $(this.classes.settings + ' input[name=size_responsive]'),
 				columnHeight 	: $(this.classes.settings + ' select[name=equal_height]'),
@@ -1541,6 +1583,7 @@
 
 			// Events
 			this.elements.size.on(   		   'input', $.proxy( this._colSizeChange, this ) );
+			this.elements.sizeLarge.on(   	   'input', $.proxy( this._colSizeChange, this ) );
 			this.elements.sizeMedium.on(   	   'input', $.proxy( this._colSizeChange, this ) );
 			this.elements.sizeResponsive.on(   'input', $.proxy( this._colSizeChange, this ) );
 			this.elements.columnHeight.on(     'change', $.proxy( this._colHeightChange, this ) );
@@ -1584,11 +1627,19 @@
 
 			// Find the fallback size if we don't have a number.
 			if ( isNaN( size ) ) {
-				if ( 'medium' === mode ) {
+				if ( 'large' === mode ) {
 					size = this.elements.size.val();
+				} else if ( 'medium' === mode ) {
+					if ( this.elements.sizeLarge.val() ) {
+						size = this.elements.sizeLarge.val();
+					} else {
+						size = this.elements.size.val();
+					}
 				} else if ( 'responsive' === mode ) {
 					if ( this.elements.sizeMedium.val() ) {
 						size = this.elements.sizeMedium.val();
+					} else if ( this.elements.sizeLarge.val() ) {
+						size = this.elements.sizeLarge.val();
 					} else {
 						size = 'auto';
 					}
@@ -3186,7 +3237,7 @@
 					break;
 			}
 
-			this.updateCSSRule( shapeSelector, 'height', shapeProps.height );
+			this.updateCSSRule( shapeSelector, 'height', shapeProps.height + ' !important' );
 			this.updateCSSRule( shapeSelector, 'top', shapeProps.top );
 			this.updateCSSRule( shapeSelector, 'bottom', shapeProps.bottom );
 

@@ -79,21 +79,39 @@ FLBuilderCSS::typography_field_rule( array(
 	'selector' 		=> ".fl-node-$id .pp-infobox-description",
 ) );
 ?>
-.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title {
-	<?php if ( !empty( $settings->title_color_h ) ) { ?>
-		color: #<?php echo $settings->title_color_h; ?>;
-	<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title a {
-	<?php if ( !empty( $settings->title_color_h ) ) { ?>
-		color: #<?php echo $settings->title_color_h; ?>;
-	<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-description {
-	<?php if ( !empty( $settings->text_color_h ) ) { ?>
-		color: #<?php echo $settings->text_color_h; ?>;
-	<?php } ?>
-}
+<?php if ( 'box' === $settings->pp_infobox_link_type ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-title a {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-description {
+		<?php if ( !empty( $settings->text_color_h ) ) { ?>
+			color: #<?php echo $settings->text_color_h; ?>;
+		<?php } ?>
+	}
+<?php } else { ?>
+	.fl-node-<?php echo $id; ?> .pp-infobox .pp-infobox-title:hover {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox .pp-infobox-title a:hover {
+		<?php if ( !empty( $settings->title_color_h ) ) { ?>
+			color: #<?php echo $settings->title_color_h; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox .pp-infobox-description:hover {
+		<?php if ( !empty( $settings->text_color_h ) ) { ?>
+			color: #<?php echo $settings->text_color_h; ?>;
+		<?php } ?>
+	}
+<?php } ?>
 <?php
 // Icon - Border
 FLBuilderCSS::border_field_rule( array(
@@ -134,20 +152,33 @@ FLBuilderCSS::responsive_rule( array(
 ?>
 <?php if( $settings->icon_type == 'icon' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-icon {
-		<?php if( $settings->icon_box_size ) { ?>padding: <?php echo $settings->icon_box_size; ?>px;<?php } ?>
-		<?php if( $settings->icon_background ) { ?>background: <?php echo pp_get_color_value( $settings->icon_background ); ?>;<?php } ?>
+		<?php if ( $settings->icon_box_size ) { ?>
+			padding: <?php echo $settings->icon_box_size; ?>px;
+		<?php } ?>
+		<?php if ( ! empty( $settings->icon_background ) ) { ?>
+			background: <?php echo pp_get_color_value( $settings->icon_background ); ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span.pp-icon {
-		<?php if( $settings->icon_color ) { ?>color: #<?php echo $settings->icon_color; ?>;<?php } ?>
+		<?php if ( ! empty( $settings->icon_color ) ) { ?>
+			color: #<?php echo $settings->icon_color; ?>;
+		<?php } ?>
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon {
+		<?php if ( ! empty( $settings->icon_border_color_hover ) ) { ?>
+			border-color: #<?php echo $settings->icon_border_color_hover; ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon {
-		<?php if( ! empty( $settings->icon_border_color_hover ) ) { ?>border-color: #<?php echo $settings->icon_border_color_hover; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon {
-		<?php if( $settings->icon_background_hover ) { ?>background: <?php echo pp_get_color_value( $settings->icon_background_hover ); ?>;<?php } ?>
+		<?php if ( ! empty( $settings->icon_background_hover ) ) { ?>
+			background: <?php echo pp_get_color_value( $settings->icon_background_hover ); ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-icon span.pp-icon {
-		<?php if( $settings->icon_color_hover ) { ?>color: #<?php echo $settings->icon_color_hover; ?>;<?php } ?>
+		<?php if ( ! empty( $settings->icon_color_hover ) ) { ?>
+			color: #<?php echo $settings->icon_color_hover; ?>;
+		<?php } ?>
 	}
 <?php } ?>
 <?php if( $settings->icon_type == 'image' ) { ?>
@@ -185,7 +216,7 @@ FLBuilderCSS::responsive_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span.pp-icon,
 .fl-node-<?php echo $id; ?> .pp-infobox-image img {
-	<?php if ( isset( $settings->icon_border ) && is_array( $settings->icon_border ) ) { ?>
+	<?php if ( isset( $settings->icon_border ) && is_array( $settings->icon_border ) && isset( $settings->icon_border['radius'] ) ) { ?>
 	border-top-left-radius: <?php echo $settings->icon_border['radius']['top_left']; ?>px;
 	border-top-right-radius: <?php echo $settings->icon_border['radius']['top_right']; ?>px;
 	border-bottom-left-radius: <?php echo $settings->icon_border['radius']['bottom_left']; ?>px;
@@ -347,11 +378,6 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php if( $settings->animation_duration ) { ?>animation-duration: <?php echo $settings->animation_duration; ?>ms;<?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
-.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
-	display: flex;
-}
-
 @media only screen and (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4-wrapper {
@@ -389,6 +415,12 @@ FLBuilderCSS::responsive_rule( array(
 ) );
 ?>
 
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+	display: flex;
+	align-items: center;
+}
+
 <?php if ( 'left' == $settings->alignment ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
@@ -408,6 +440,7 @@ FLBuilderCSS::responsive_rule( array(
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
 		margin: 0 auto;
 		float: none;
+		justify-content: center;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper,

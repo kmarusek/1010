@@ -69,12 +69,15 @@
 				<p>
 				<input style="width:300px;" placeholder="https://kit.fontawesome.com/nnnnnn.js" type="text" name="fl-fa-pro-kit" value="<?php echo esc_attr( get_option( '_fl_builder_kit_fa_pro' ) ); ?>" />
 				<br /><?php _e( 'For KIT support enter the kit URL here otherwise the Pro CDN will be used.', 'fl-builder' ); ?>
-				<br /><br /><strong><?php _e( 'Note: KIT must be set to Webfont and not SVG.', 'fl-builder' ); ?></strong>
+				<br /><br /><strong><?php _e( 'Note: This method is deprecated, we strongly suggest you install the official Font Awesome plugin to get access to your custom uploaded icons and all the Font Awesome 6 icon sets.', 'fl-builder' ); ?></strong>
 				</p>
 				<p>
-					<?php _e( 'If you do not see a colored star icon below there may be an issue with your KIT URL, or you have not added your sites domain to the CDN settings at fontawesome.com', 'fl-builder' ); ?>
+					<ul>
+						<li><?php printf( '<a target="_blank" href="https://wordpress.org/plugins/font-awesome/">%s <i class="dashicons dashicons-external"></i></a>', __( 'Official Font Awesome Plugin', 'fl-builder' ) ); ?></li>
+						<li><?php printf( '<a target="_blank" href="https://fontawesome.com/v6/docs/web/use-with/wordpress/">%s <i class="dashicons dashicons-external"></i></a>', __( 'Font Awesome Plugin Documentation', 'fl-builder' ) ); ?></li>
+					</ul>
+
 				</p>
-				<p><i class="fad fa-star fa-3x" style="--fa-primary-color:yellow;--fa-secondary-color:orange;--fa-secondary-opacity:1" ></i></p>
 				<?php endif; ?>
 				<hr />
 			<?php else : ?>

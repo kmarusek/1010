@@ -59,7 +59,7 @@ var color0 = wp.template( 'fl-builder-field-color' )( {
 	value: value.colors[ 0 ],
 	field: {
 		className: 'fl-gradient-picker-color',
-		show_reset: false,
+		show_reset: true,
 		show_alpha: true,
 	},
 } );
@@ -77,7 +77,7 @@ var color1 = wp.template( 'fl-builder-field-color' )( {
 	value: value.colors[ 1 ],
 	field: {
 		className: 'fl-gradient-picker-color',
-		show_reset: false,
+		show_reset: true,
 		show_alpha: true,
 	},
 } );

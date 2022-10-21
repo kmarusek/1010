@@ -34,8 +34,6 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 	text-align: <?php echo esc_attr( $settings->all_align ); ?>;
 }
 
-
-
 <?php
 if ( 'button' === $settings->modal_on ) {
 	if ( ! $version_bb_check ) {

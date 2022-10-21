@@ -1,3 +1,166 @@
+<h4>2.6.0.2 - 09/29/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Slideshow Module: Fix fatal error in PHP 8 if the Overlay Hide Delay settings is empty</li>
+	<li>Subscribe Form Module: Fix fatal error in PHP 8 if settings are not arrays & fix CSS error if input gap is left empty</li>
+	<li>Fix system-ui fonts being removed for UI by mistake</li>
+	<li>Fix live preview loading spinner not being removed after preview loads</li>
+	<li>Posts Module: Fix Column Count being wrong for Large breakpoint on upgrade</li>
+	<li>Posts Module: Make sure Filters that show in content tab are only relevant to the Post Types selected</li>
+	<li>Fix preview CSS not clearing properly</li>
+	<li>Move Duplicate link action showing Admin Bar to bottom if there are other items that show up in the dropdown</li>
+	<li>FontAwesome compatibility: Remove notice about a possible conflict with Beaver Builder as it is no longer needed with FontAwesome 6</li>
+</ul>
+
+<h4>2.6.0.1 - 09/22/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>UI: Fix Templates dropdown showing duplicate items when set to some languages</li>
+	<li>TEC: Fix pagination in Post Module not showing when it should</li>
+	<li>Fix PHP notices when using Phone App Micro Landing Page Template</li>
+	<li>Fix some JS notices when moving the mouse while refreshing</li>
+	<li>Prevent some unneeded debug info from outputting in the browser console</li>
+	<li>Subscribe Module: Fix Mailjet integration if using the Mailjet plugin and update the tooltip for the API key link</li>
+	<li>Fix issue with saving modules with the Advanced Settings Mod Security toggle enabled</li>
+	<li>Fix Post Module Post Spacing not rendering 0 when List Layout is used</li>
+</ul>
+
+<h4>2.6 "Calero" - 09/13/2022</h4>
+<p>Beaver Builder 2.6 is here! This is a major update and will be released as the official download on the My Account page first. Remote updates to all existing sites will begin soon.</p>
+
+<p>Please check out the <a href="https://www.wpbeaverbuilder.com/beaver-builder-2-6" target="_blank" rel="noopener">Release Post</a> for highlights of what's new or the <a href="https://docs.wpbeaverbuilder.com/beaver-builder/about-this-release" target="_blank" rel="noopener">"About this Release"</a> doc for all of the details.</p>
+
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>NEW Add a new breakpoint option to Global Settings</li>
+	<li>NEW: 4 New Micro Landing Page templates</li>
+	<li>Add new tabs to BB Settings Page in WP Admin: Advanced Settings & Import/Export</li>
+ 	<li>NEW Add UI for adding row shapes in global settings</li>
+ 	<li>NEW Add search to saved item tab in content panel</li>
+ 	<li>NEW You can now use WordPress reusable blocks in Beaver Builder layouts</li>
+ 	<li>Copy and Paste Improvements: Hover over the wrench for rows and modules and the columns icon for columns to see the new copy option. Paste only appears if there is data to paste</li>
+	<li>Outline Panel: Add keyboard shortcuts</li>
+	<li>Outline Panel: collapse/expand all items and persistent storage were added so that the panel remembers what sections you have expanded and collapsed</li>
+ 	<li>Outline Panel: Will now highlight the node that is open for editing</li>
+	<li>When hovering over a Google Font in font selector, show a preview of the font</li>
+	<li>Update Icons admin page to show FontAwesome Kit deprecation notice and recommendation to use Official FontAwesome plugin</li>
+	<li>Add Headings to the AJAX Crash Modal</li>
+	<li>Display value of Label field in Advanced section of node settings in a tooltip on the node settings icon, in the Settings modal and in the hover overlay</li>
+	<li>Add min-width to Alert Modal Pop-up to fix display issues when translated</li>
+ 	<li>Refine the feel of the overlay and highlight features in the canvas area</li>
+ 	<li>Global margins/paddings: now use a dimension field so you can control all 4 sides separately</li>
+ 	<li>UI Dark Mode/Light Mode can now be set to Auto so it changes with your OS</li>
+	<li>Accordion Module: Add support to display dynamic data or to select saved items for display in the content area</li>
+ 	<li>Tabs Module: Add support to display dynamic data or to select saved items for display in the content area</li>
+ 	<li>Columns: Add aspect ratio option</li>
+	<li>Add Advanced Gradient BG option for buttons in the Button, Button Group, Call to Action, Callout and Content Slider modules</li>
+ 	<li>Post Module: Add option to filter by custom fields</li>
+	<li>Post Module: Add ability to select multiple post types</li>
+	<li>Post Module: Add option to show/hide author link</li>
+	<li>Content Slider: Add typography for slides</li>
+	<li>Login Form Module: Add icon options for the fields and buttons & change cursor to pointer for Remember Me checkbox</li>
+	<li>Pricing Table: Add icon color options for individual features</li>
+	<li>Pricing Table: Add typography for the Ribbon option, add color option for the Price</li>
+	<li>Tabs Module: Add a setting for which tab is active on load</li>
+	<li>Add Pressidium support to the Cache Clearing Tool</li>
+	<li>Debug Mode: Show values of Advanced settings in debug output</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix Video Module select button being unclickable when Yith WooCommerce Affiliate plugin is active</li>
+	<li>Fix JS error with Photo module captions when new lines are used in the caption</li>
+	<li>Heading Module: Fixed letter spacing set to 0 was not rendering properly with the BB Theme</li>
+	<li>Pricing Table: Fix Button Hover Color not working if its rgba</li>
+	<li>Menu Module: Fix Undefined property PHP Warning</li>
+	<li>Fix resizing rows setting an invalid value with pixel unit and not being able to go back to the original width when resizing with drag handles</li>
+	<li>Fix shortcodes not working in Advanced tab class and ID fields if there are quotes used in attributes</li>
+	<li>Photo Module: Fix image going out of container on mobile</li>
+	<li>Fix <code>:empty</code> selector not working with columns</li>
+	<li>WooCommerce: Fix Posts module overriding margin-bottom css for post spacing</li>
+	<li>WooCommerce: Fix notices overlapping the content panel</li>
+	<li>Fix Settings modal not working if using a RTL language</li>
+	<li>Fix "Add menu item" displaying in menu module when it shouldn't if using one of the Header Themer layouts</li>
+	<li>Fix an issue where a button module is run through autop when it shouldn't be</li>
+	<li>Remove duplicative Row CSS</li>
+	<li>Fix reverse stacking not working with all container tags</li>
+	<li>Fix responsive editing not showing inherited values in some cases</li>
+	<li>Pricing Table: Fix Title color not rendering Title is highlighted</li>
+ 	<li>Pricing Table: Make sure Box Top Margin is only available when using Legacy settings</li>
+ 	<li>Pricing Table: Fix button border hover color not working</li>
+ 	<li>Pricing Table: Fix some colors not working if the Row text color is set</li>
+	<li>Posts Module: Fix fatal error in PHP 8 if 0 or blank value is saved for column option</li>
+</ul>
+
+<h4>2.5.5.5 - 09/06/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix JS error with Photo module captions when new lines are used in the caption</li>
+	<li>Add new filter <code>fl_photocaptionregex</code> so users can adjust the regex for allowed characters in captions when displayed in the lightbox</li>
+	<li>Fix Fatal PHP Error with Posts Module when using TEC 6</li>
+</ul>
+
+<h4>2.5.5.4 - 08/23/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+ 	<li>Gallery Module: Fix caption now showing with the below photo position</li>
+ 	<li>Fix live preview not working with Row Shapes height</li>
+ 	<li>Menu Module: Fix tabbing through items not working properly with a mega menu</li>
+ 	<li>Video Module: Fix videos not showing when using GoDaddy's CDN</li>
+ 	<li>Tweak sanitization of photo captions when used in lightboxes to allow quotes and preserve capitalization</li>
+ 	<li>Add new filter <code>fl_user_has_unfiltered_html</code>. Users using the <code>fl_builder_ui_js_config</code> filter to allow unfiltered HTML for other roles should switch to this new dedicated filter. (<a href="https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/common-issues/error-settings-not-saved/#filter-examples" target="_blank" rel="noopener">See our docs for how to use the new filter</a>)</li>
+</ul>
+
+<h4>2.5.5.3 - 08/09/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Sanitize photo captions when used in lightboxes</li>
+	<li>Fix glitch with drag resizing row width</li>
+	<li>Fix PHP warning with custom row shapes when downgrading from 2.6</li>
+</ul>
+
+<h4>2.5.5.2 - 07/28/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Security: Harden Contact and Subscribe Form modules</li>
+	<li>Security: Harden get_post_id function to ensure post ID is always an integer</li>
+	<li>Add a compatibility fix for the ConvertBox plugin</li>
+	<li>Fix various menu issues:  vertical alignment with the inline logo option, responsive toggle alignment and the menu background extending too far</li>
+</ul>
+
+<h4>2.5.5.1 - 07/22/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Security Related: Enhance checks to prevent malicious code from being entered into the UI</li>
+	<li>Fix font weight reverting to default</li>
+</ul>
+
+<h4>2.5.5 - 07/21/2022</h4>
+<p><strong>Security Related Fixes</strong></p>
+<ul>
+	<li>Prevent users from disabling the BB editor on a post using an AJAX request</li>
+</ul>
+
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Accessibility: Add missing form label on checkbox</li>
+	<li>Gradient Fields: Add option to clear colors, specify default values</li>
+	<li>Tweak UI relating to revisions</li>
+	<li>Font Awesome 6: Add support for thin set & adjust limit of returned icons on search to be higher than the default of 15</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix PHP Notice for $tabs undefined variable</li>
+	<li>Remove Google font from Recently Used list if that font is no longer available in the API</li>
+	<li>Content Slider: Fix slides not displaying styling properly when shuffle is enabled</li>
+	<li>Content Slider: Remove clicable areas if navigation is disabled</li>
+	<li>Menu Module: Fix alignment not working when using horizontal alignment and wrapping items</li>
+	<li>Testimonial Module: Fix partial second slide displaying during responsive editing</li>
+	<li>Style hardening for TwentyTwentyOne Theme</li>
+	<li>Video Module: Fix error when embedding a Facebook video and using the lightbox</li>
+</ul>
+
 <h4>2.5.4.3- 05/25/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
@@ -978,7 +1141,7 @@ Fixed default text still appearing even after being removed</li>
 <p><strong>Enhancements</strong></p>
 <ul>
 	<li>Accessibility: Added title attribute setting for iframe in Map module.</li>
-	<li>Accessibility: Added TAB functionaility to Menu module.</li>
+	<li>Accessibility: Added TAB functionality to Menu module.</li>
 	<li>Accessibility: Improved accessibility of Tabs and Accordion modules.</li>
 	<li>Accessibility: Added alt attribute to slideshow images.</li>
 	<li>Accessibility: Always show label setting as it is also used for aria attribute in Menu module.</li>

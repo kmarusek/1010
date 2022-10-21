@@ -10,6 +10,7 @@
 			postWidth: '<?php echo empty( $settings->post_width ) ? 300 : intval( $settings->post_width ); ?>',
 			matchHeight: {
 				default	   : '<?php echo $settings->match_height; ?>',
+				large 	   : '<?php echo $settings->match_height_large; ?>',
 				medium 	   : '<?php echo $settings->match_height_medium; ?>',
 				responsive : '<?php echo $settings->match_height_responsive; ?>'
 			},

@@ -4,7 +4,7 @@ $qus_tag       = isset( $settings->qus_tag ) ? $settings->qus_tag : 'h3';
 $items         = $module->get_faq_items();
 $icon_position = $settings->faq_toggle_icon_position;
 
-if ( empty( $items ) ) {
+if ( ! is_array( $items ) || empty( $items ) ) {
 	return;
 }
 
@@ -22,7 +22,7 @@ if ( ! empty( $settings->faq_close_icon ) ) {
 $module->render_schema( true );
 ?>
 
-<div class="pp-faq <?php echo ( 'all' !== $settings->expand_option && $settings->collapse ) ? 'pp-faq-collapse' : ''; ?>">
+<div class="pp-faq <?php echo ( 'yes' === $settings->collapse ) ? 'pp-faq-collapse' : ''; ?>">
 	<?php
 	for ( $i = 0; $i < count( $items ); $i++ ) :
 		if ( empty( $items[ $i ] ) ) {

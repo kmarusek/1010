@@ -285,6 +285,19 @@ class FLBuilderModule {
 	}
 
 	/**
+	 * Should be overridden by subclasses to work with raw settings data
+	 * _before defaults are merged in_. This is mainly used to ensure
+	 * backwards compatibility with old module settings.
+	 *
+	 * @since 2.6.0.1
+	 * @param object $settings A raw settings object.
+	 * @return object
+	 */
+	public function filter_raw_settings( $settings ) {
+		return $settings;
+	}
+
+	/**
 	 * Should be overridden by subclasses to
 	 * work with settings data _before it is used to display a module_.
 	 *

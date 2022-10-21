@@ -78,7 +78,7 @@ class FLVideoModule extends FLBuilderModule {
 			$video_sc = sprintf( '%s', __( 'Video not specified. Please select one to display.', 'fl-builder' ) );
 
 			if ( ! empty( $vid_data->url ) ) {
-				$video_sc = '[video ' . $vid_data->extension . '="' . $vid_data->url . '"' . $vid_data->video_webm . ' poster="' . $video_poster . '" ' . $vid_data->autoplay . $vid_data->loop . $preload . '][/video]';
+				$video_sc = '[video ' . $vid_data->extension . '="' . preg_replace( '/\/?\?.*/', '', $vid_data->url ) . '"' . $vid_data->video_webm . ' poster="' . $video_poster . '" ' . $vid_data->autoplay . $vid_data->loop . $preload . '][/video]';
 			}
 
 			if ( 'yes' === $this->settings->video_lightbox ) {
@@ -156,6 +156,8 @@ class FLVideoModule extends FLBuilderModule {
 				if ( strstr( $settings->embed_code, 'vimeo.com' ) ) {
 					$vid_id    = $this->get_video_id( 'vimeo', $settings->embed_code );
 					$video_url = 'https://vimeo.com/' . $vid_id;
+				} elseif ( strstr( $settings->embed_code, 'facebook.com' ) ) {
+					$video_url = $this->get_video_id( 'facebook', $settings->embed_code );
 				} elseif ( strstr( $settings->embed_code, 'youtube.com' ) || strstr( $settings->embed_code, 'youtu.be' ) ) {
 					$vid_id    = $this->get_video_id( 'youtube', $settings->embed_code );
 					$video_url = 'https://youtube.com/watch?v=' . $vid_id;
@@ -181,19 +183,22 @@ class FLVideoModule extends FLBuilderModule {
 		$id      = '';
 		$regex   = '';
 
-		$youtube_regex = '~(?:(?:<iframe [^>]*src=")?|(?:(?:<object .*>)?(?:<param .*</param>)*(?:<embed [^>]*src=")?)?)?(?:https?:\/\/(?:[\w]+\.)*(?:youtu\.be/| youtube\.com| youtube-nocookie\.com)(?:\S*[^\w\-\s])?([\w\-]{11})[^\s]*)"?(?:[^>]*>)?(?:</iframe>|</embed></object>)?~ix';
-		$vimeo_regex   = '~(?:<iframe [^>]*src=")?(?:https?:\/\/(?:[\w]+\.)*vimeo\.com(?:[\/\w]*\/videos?)?\/([0-9]+)[^\s]*)"?(?:[^>]*></iframe>)?(?:<p>.*</p>)?~ix';
+		$youtube_regex  = '~(?:(?:<iframe [^>]*src=")?|(?:(?:<object .*>)?(?:<param .*</param>)*(?:<embed [^>]*src=")?)?)?(?:https?:\/\/(?:[\w]+\.)*(?:youtu\.be/| youtube\.com| youtube-nocookie\.com)(?:\S*[^\w\-\s])?([\w\-]{11})[^\s]*)"?(?:[^>]*>)?(?:</iframe>|</embed></object>)?~ix';
+		$vimeo_regex    = '~(?:<iframe [^>]*src=")?(?:https?:\/\/(?:[\w]+\.)*vimeo\.com(?:[\/\w]*\/videos?)?\/([0-9]+)[^\s]*)"?(?:[^>]*></iframe>)?(?:<p>.*</p>)?~ix';
+		$facebook_regex = '/(?<=src=").*?(?=[\*"])/';
 
 		if ( 'vimeo' == $source ) {
 			$regex = $vimeo_regex;
 		} elseif ( 'youtube' == $source ) {
 			$regex = $youtube_regex;
+		} elseif ( 'facebook' == $source ) {
+			$regex = $facebook_regex;
 		}
 
 		preg_match( $regex, $embed_code, $matches );
 
 		if ( ! empty( $matches ) ) {
-			$id = $matches[1];
+			$id = $matches[ count( $matches ) - 1 ];
 		}
 
 		return $id;
@@ -245,7 +250,7 @@ class FLVideoModule extends FLBuilderModule {
 	 */
 	public function video_aspect_ratio() {
 		$data = $this->get_data();
-		if ( $data && function_exists( 'bcdiv' ) ) {
+		if ( $data && function_exists( 'bcdiv' ) && isset( $data->width ) && isset( $data->height ) ) {
 			$ratio = ( $data->height / $data->width ) * 100;
 			return bcdiv( $ratio, 1, 2 );
 		}

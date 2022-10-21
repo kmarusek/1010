@@ -50,6 +50,24 @@ class BlogPostsModule extends FLBuilderModule {
 		add_filter( 'wp_footer', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'fl_builder_loop_query_args', array( $this, 'uabb_loop_query_args' ) );
 		add_filter( 'uabb_custom_post_layout_html', array( $this, 'parse_shortcodes' ), 1 );
+		add_action( 'template_redirect', array( $this, 'uabb_posts_template_redirect' ), 0 );
+	}
+
+	/**
+	 * Handle redirection on single post pages when using pagination.
+	 *
+	 * @since x.x.x
+	 */
+	public function uabb_posts_template_redirect() {
+		if ( is_singular() ) {
+			global $wp_query;
+			$page = (int) $wp_query->get( 'page' );
+			if ( $page > 1 ) {
+				$query->set( 'page', 1 );
+				$query->set( 'paged', $page );
+			}
+			remove_action( 'template_redirect', 'redirect_canonical' );
+		}
 	}
 
 	/**
@@ -1305,7 +1323,6 @@ class BlogPostsModule extends FLBuilderModule {
 			$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array( 'jquery' ), '', true );
 		} else {
 			$this->add_js( 'imagesloaded' );
-			$this->add_js( 'jquery-throttle' );
 			$this->add_js( 'jquery-mosaicflow' );
 			$this->add_js( 'isotope', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-masonary.js', array( 'jquery' ), '', true );
 

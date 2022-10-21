@@ -91,25 +91,35 @@ class FLNumbersModule extends FLBuilderModule {
 			);
 		}
 
+		if ( 'default' !== $settings->layout && empty( $settings->max_number ) ) {
+			if ( 'percent' === $settings->number_type ) {
+				$settings->max_number = $settings->number <= 100 ? 100 : $settings->number;
+			} elseif ( 'standard' === $settings->number_type ) {
+				$settings->max_number = $settings->number;
+			}
+		}
+
 		return $settings;
 	}
 
 	public function render_number() {
 
+		$start_num   = isset( $this->settings->start_number ) && is_numeric( $this->settings->start_number ) ? $this->settings->start_number : 0;
 		$number      = isset( $this->settings->number ) && is_numeric( $this->settings->number ) ? $this->settings->number : 100;
 		$max         = isset( $this->settings->max_number ) && is_numeric( $this->settings->max_number ) ? $this->settings->max_number : $number;
 		$layout      = $this->settings->layout ? $this->settings->layout : 'default';
 		$type        = $this->settings->number_type ? $this->settings->number_type : 'percent';
 		$prefix      = 'percent' == $type ? '' : $this->settings->number_prefix;
 		$suffix      = 'percent' == $type ? '%' : $this->settings->number_suffix;
-		$start       = 'jQuery( ".fl-node-' . $this->node . ' .fl-number-int" ).html( "0" );';
+		$start       = 'jQuery( ".fl-node-' . $this->node . ' .fl-number-int" ).html( "' . $start_num . '" );';
 		$nojs        = '<noscript>' . number_format( $number ) . '</noscript>';
-		$number_data = 'data-number="' . $number . '" data-total="' . $max . '"';
+		$number_data = 'data-start-number="' . $start_num . '" data-number="' . $number . '" data-total="' . $max . '"';
 
 		wp_add_inline_script( 'jquery-waypoints', $start, 'after' );
 		wp_localize_script( 'jquery-waypoints', 'number_module_' . $this->node, array(
-			'number' => $number,
-			'max'    => $max,
+			'start_number' => $start_num,
+			'number'       => $number,
+			'max'          => $max,
 		) );
 
 		echo '<div class="fl-number-string">' . $prefix . '<span class="fl-number-int" ' . $number_data . '>' . $nojs . '</span>' . $suffix . '</div>';
@@ -127,7 +137,7 @@ class FLNumbersModule extends FLBuilderModule {
 					<circle class="fl-bar-bg" r="' . $radius . '" cx="' . $pos . '" cy="' . $pos . '" fill="transparent" stroke-dasharray="' . $dash . '" stroke-dashoffset="0"></circle>
 					';
 
-		if ( 0 != $this->settings->number ) {
+		if ( intval( $this->settings->number ) >= 0 ) {
 			$html .= '<circle class="fl-bar" r="' . $radius . '" cx="' . $pos . '" cy="' . $pos . '" fill="transparent" stroke-dasharray="' . $dash . '" stroke-dashoffset="' . $dash . '" transform="rotate(-90 ' . $pos . ' ' . $pos . ')" data-bbtest="sample-lang"></circle>';
 		}
 
@@ -220,26 +230,51 @@ FLBuilder::register_module('FLNumbersModule', array(
 							),
 						),
 					),
+					'start_number'       => array(
+						'type'        => 'unit',
+						'label'       => __( 'Start Counter', 'fl-builder' ),
+						'size'        => '5',
+						'default'     => '0',
+						'placeholder' => '0',
+						'connections' => array( 'custom_field' ),
+						'slider'      => array(
+							'min'  => 0,
+							'max'  => 1000,
+							'step' => 10,
+						),
+						'preview'     => array(
+							'type' => 'refresh',
+						),
+					),
 					'number'             => array(
 						'type'        => 'unit',
-						'label'       => __( 'Number', 'fl-builder' ),
+						'label'       => __( 'End Counter', 'fl-builder' ),
 						'size'        => '5',
 						'default'     => '100',
 						'placeholder' => '100',
 						'connections' => array( 'custom_field' ),
+						'slider'      => array(
+							'min'  => 0,
+							'max'  => 1000,
+							'step' => 10,
+						),
 						'preview'     => array(
 							'type' => 'refresh',
 						),
 					),
 					'max_number'         => array(
 						'type'        => 'unit',
-						'label'       => __( 'Total', 'fl-builder' ),
+						'label'       => __( 'Total Units', 'fl-builder' ),
 						'size'        => '5',
+						'default'     => '100',
+						'placeholder' => '100',
 						'connections' => array( 'custom_field' ),
-						'preview'     => array(
-							'type' => 'refresh',
+						'slider'      => array(
+							'min'  => 0,
+							'max'  => 1000,
+							'step' => 10,
 						),
-						'help'        => __( 'The total number of units for this counter. For example, if the Number is set to 250 and the Total is set to 500, the counter will animate to 50%.', 'fl-builder' ),
+						'help'        => __( 'The total number of units for this counter. For example, if the Number is set to 250 and the Total is set to 500, the counter will animate to 50%. Total should not be less than either Start Counter or End Counter.', 'fl-builder' ),
 					),
 					'before_number_text' => array(
 						'type'        => 'text',
@@ -334,6 +369,20 @@ FLBuilder::register_module('FLNumbersModule', array(
 							'type'     => 'css',
 							'selector' => '.fl-number .fl-number-text .fl-number-string, .fl-number .fl-number-text .fl-number-string span',
 							'property' => 'color',
+						),
+					),
+					'number_size'       => array(
+						'type'       => 'unit',
+						'label'      => __( 'Number Size', 'fl-builder' ),
+						'default'    => '32',
+						'responsive' => true,
+						'units'      => array( 'px', 'em', 'rem' ),
+						'slider'     => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '.fl-number-string',
+							'property' => 'font-size',
+							'unit'     => 'px',
 						),
 					),
 					'number_typography' => array(

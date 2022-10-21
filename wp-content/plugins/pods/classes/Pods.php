@@ -594,6 +594,7 @@ class Pods implements Iterator {
 			'pods_callback'                => 'pods',
 			'deprecated'                   => false,
 			'keyed'                        => false,
+			'bypass_map_field_values'      => false,
 			// extra data to send to field handlers.
 			'args'                         => [],
 		];
@@ -806,9 +807,10 @@ class Pods implements Iterator {
 		}
 
 		// Store field info.
-		$field_type         = pods_v( 'type', $field_data, '' );
-		$field_options      = $field_data;
-		$is_tableless_field = in_array( $field_type, $tableless_field_types, true );
+		$field_type          = pods_v( 'type', $field_data, '' );
+		$field_options       = $field_data;
+		$is_tableless_field  = in_array( $field_type, $tableless_field_types, true );
+		$is_repeatable_field = $field_data instanceof Field && $field_data->is_repeatable();
 
 		// Simple fields have no other output options.
 		if ( 'pick' === $field_type && in_array( $field_data['pick_object'], $simple_tableless_objects, true ) ) {
@@ -888,7 +890,7 @@ class Pods implements Iterator {
 				} else {
 					return null;
 				}
-			} else {
+			} elseif ( ! $params->bypass_map_field_values ) {
 				// Handle custom/supported value mappings.
 				$map_field_values = pods_container( Map_Field_Values::class );
 
@@ -949,9 +951,9 @@ class Pods implements Iterator {
 					}
 				}
 
-				if ( ! $is_traversal && ( $simple || ! $is_field_set || ! $is_tableless_field ) ) {
+				if ( ! $is_traversal && ( $simple || $is_repeatable_field || ! $is_field_set || ! $is_tableless_field ) ) {
 					if ( null === $params->single ) {
-						if ( $is_field_set && ! $is_tableless_field ) {
+						if ( $is_field_set && ! $is_tableless_field && ! $is_repeatable_field ) {
 							$params->single = true;
 						} else {
 							$params->single = false;
@@ -992,10 +994,14 @@ class Pods implements Iterator {
 						$single_multi = 'single';
 
 						if ( $is_field_set ) {
-							$single_multi = pods_v( $field_type . '_format_type', $field_data, $single_multi );
+							if ( $is_repeatable_field ) {
+								$single_multi = 'multi';
+							} else {
+								$single_multi = pods_v( $field_type . '_format_type', $field_data, $single_multi );
+							}
 						}
 
-						if ( $simple && ! is_array( $value ) && 'single' !== $single_multi ) {
+						if ( ( $simple || $is_repeatable_field ) && ! is_array( $value ) && 'single' !== $single_multi ) {
 							$value = get_metadata( $metadata_type, $id, $params->name );
 						}
 					} elseif ( 'settings' === $pod_type ) {
@@ -1050,11 +1056,12 @@ class Pods implements Iterator {
 						}
 					}//end if
 
-					$last_type           = '';
-					$last_object         = '';
-					$last_pick_val       = '';
-					$last_options        = [];
-					$last_object_options = [];
+					$last_type                = '';
+					$last_object              = '';
+					$last_pick_val            = '';
+					$last_options             = [];
+					$last_object_options      = [];
+					$last_is_repeatable_field = false;
 
 					$single_multi = pods_v( $field_type . '_format_type', $field_data, 'single' );
 
@@ -1074,8 +1081,8 @@ class Pods implements Iterator {
 
 						$field_exists = isset( $all_fields[ $pod ][ $field ] );
 
-						$current_field = null;
-						$simple        = false;
+						$current_field       = null;
+						$simple              = false;
 
 						if ( $field_exists ) {
 							/** @var \Pods\Whatsit\Field $current_field */
@@ -1086,6 +1093,16 @@ class Pods implements Iterator {
 
 								if ( 'pick' === $current_field['type'] && in_array( $current_field->get_related_object_type(), $simple_tableless_objects, true ) ) {
 									$simple = true;
+								}
+							}
+						} elseif ( $last_options ) {
+							$current_related_pod = $last_options->get_related_object();
+
+							if ( $current_related_pod ) {
+								$current_related_pod_field = $current_related_pod->get_field( $field );
+
+								if ( $current_related_pod_field ) {
+									$current_field = $current_related_pod_field;
 								}
 							}
 						}
@@ -1125,18 +1142,14 @@ class Pods implements Iterator {
 							$limit = $last_limit;
 
 							// Get related IDs.
-							if ( isset( $current_field['id'] ) ) {
-								$ids = $this->data->api->lookup_related_items( $current_field['id'], $current_field->get_parent_id(), $ids, $current_field );
-							}
+							$lookup_related_items_field = ! empty( $current_field['id'] ) ? $current_field['id'] : $current_field['name'];
+
+							$ids = $this->data->api->lookup_related_items( $lookup_related_items_field, $current_field->get_parent_id(), $ids, $current_field );
 
 							// No items found.
 							if ( empty( $ids ) ) {
-								// pods_debug( 'No related IDs found! ' . var_export( array( 'id' => $current_field['id'], 'pod_id' => $current_field->get_parent_id(), 'ids' => $ids, 'current_field' => empty( $current_field['id'] ) ? $current_field : 'has field id tho' ), true ) );
-
 								return false;
 							}
-
-							// pods_debug( 'Related IDs found! ' . var_export( array( 'id' => $current_field['id'], 'pod_id' => $current_field->get_parent_id(), 'ids' => $ids ), true ) );
 
 							if ( 0 < $last_limit ) {
 								// @todo This should return array() if not $params->single.
@@ -1188,6 +1201,8 @@ class Pods implements Iterator {
 								} else {
 									$table = $last_options->get_table_info();
 								}
+
+								$last_is_repeatable_field = $current_field instanceof Field && $current_field->is_repeatable();
 							}
 
 							$join  = array();
@@ -1196,8 +1211,6 @@ class Pods implements Iterator {
 							if ( ! empty( $table['join'] ) ) {
 								$join = (array) $table['join'];
 							}
-
-							// pods_debug( 'IDs found: ' . var_export( $ids, true ) );
 
 							if ( $table && ( ! empty( $ids ) || ! empty( $table['where'] ) ) ) {
 								foreach ( $ids as $id ) {
@@ -1558,7 +1571,7 @@ class Pods implements Iterator {
 											/** This filter is documented earlier in this method */
 											$metadata_object_id = apply_filters( 'pods_pods_field_get_metadata_object_id', $metadata_object_id, $metadata_type, $params, $this );
 
-											$meta_value = get_metadata( $metadata_type, $metadata_object_id, $field, true );
+											$meta_value = get_metadata( $metadata_type, $metadata_object_id, $field, ! $last_is_repeatable_field );
 
 											$value[] = pods_traverse( $traverse_fields, $meta_value );
 										} elseif ( 'settings' === $object_type ) {
@@ -1590,9 +1603,6 @@ class Pods implements Iterator {
 									$value = current( $value );
 								}
 							}//end if
-
-							// pods_debug( 'value' );
-							// pods_debug( compact( 'value', 'data' ) );
 
 							if ( $last_options ) {
 								$last_field_data = $last_options;
@@ -1679,15 +1689,27 @@ class Pods implements Iterator {
 					if ( $value_reset ) {
 						$value = reset( $value );
 					}
-				} elseif ( 1 === (int) pods_v( 'display_process', $field_data, 1 ) ) {
-					if ( ! is_array( $value ) || ! $params->display_process_individually ) {
-						// Do the normal display handling.
-						$value = PodsForm::display( $field_data['type'], $value, $params->name, $field_data, $this->pod_data, $this->id() );
-					} else {
+				} elseif ( $is_repeatable_field || 1 === (int) pods_v( 'display_process', $field_data, 1 ) ) {
+					if ( $is_repeatable_field && $value && ! is_array( $value ) ) {
+						$value = [
+							$value,
+						];
+					}
+
+					if (
+						is_array( $value )
+						&& (
+							$is_repeatable_field
+							|| $params->display_process_individually
+						)
+					) {
 						// Attempt to process each value independently.
 						foreach ( $value as $k => $val ) {
 							$value[ $k ] = PodsForm::display( $field_data['type'], $val, $params->name, $field_data, $this->pod_data, $this->id() );
 						}
+					} else {
+						// Do the normal display handling.
+						$value = PodsForm::display( $field_data['type'], $value, $params->name, $field_data, $this->pod_data, $this->id() );
 					}
 				}
 
@@ -3494,25 +3516,65 @@ class Pods implements Iterator {
 			}
 		}
 
-		$disallowed = array(
-			'system',
-			'exec',
-			'popen',
-			'eval',
+		$disallowed = [
+			// Regex related.
 			'preg_replace',
 			'preg_replace_array',
 			'preg_replace_callback',
 			'preg_replace_callback_array',
 			'preg_match',
 			'preg_match_all',
+			// Eval related.
+			'system',
+			'exec',
+			'eval',
 			'create_function',
+			// File related.
+			'popen',
 			'include',
 			'include_once',
 			'require',
 			'require_once',
-		);
+			'file_get_contents',
+			'file_put_contents',
+			'get_template_part',
+			// Nonce related.
+			'wp_nonce_url',
+			'wp_nonce_field',
+			'wp_create_nonce',
+			'check_admin_referer',
+			'check_ajax_referer',
+			'wp_verify_nonce',
+			// PHP related.
+			'constant',
+			'defined',
+			'get_current_user',
+			'get_defined_constants',
+			'get_defined_functions',
+			'get_defined_vars',
+			'get_extension_funcs',
+			'get_include_path',
+			'get_included_files',
+			'get_loaded_extensions',
+			'get_required_files',
+			'get_resources',
+			'getenv',
+			'getopt',
+			'ini_alter',
+			'ini_get',
+			'ini_get_all',
+			'ini_restore',
+			'ini_set',
+			'php_ini_loaded_file',
+			'php_ini_scanned_files',
+			'php_sapi_name',
+			'php_uname',
+			'phpinfo',
+			'phpversion',
+			'putenv',
+		];
 
-		$allowed = array();
+		$allowed = [];
 
 		/**
 		 * Allows adjusting the disallowed callbacks as needed.
@@ -3553,11 +3615,23 @@ class Pods implements Iterator {
 			return $value;
 		}
 
-		if ( $include_obj ) {
-			return call_user_func( $params['helper'], $value, $this );
+		try {
+			if ( $include_obj ) {
+				return call_user_func( $params['helper'], $value, $this );
+			}
+
+			return call_user_func( $params['helper'], $value );
+		} catch ( Throwable $error ) {
+			if ( pods_is_debug_display() ) {
+				throw $error;
+			}
+		} catch ( Exception $error ) {
+			if ( pods_is_debug_display() ) {
+				throw $error;
+			}
 		}
 
-		return call_user_func( $params['helper'], $value );
+		return '';
 	}
 
 	/**

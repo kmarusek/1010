@@ -188,7 +188,6 @@ class PodsForm {
 	 * @since 2.0.0
 	 */
 	public static function field( $name, $value, $type = 'text', $options = null, $pod = null, $id = null ) {
-
 		// Take a field array
 		if ( is_array( $name ) || is_object( $name ) ) {
 			$options = $name;
@@ -204,6 +203,10 @@ class PodsForm {
 
 		$options = self::options( $type, $options );
 		$options = apply_filters( "pods_form_ui_field_{$type}_options", $options, $value, $name, $pod, $id );
+
+		if ( empty( $options['type'] ) ) {
+			$options['type'] = $type;
+		}
 
 		if ( null === $value || ( '' === $value && 'boolean' === $type ) || ( ! empty( $pod ) && empty( $id ) ) ) {
 			$value = self::default_value( $value, $type, $name, $options, $pod, $id );
@@ -221,8 +224,6 @@ class PodsForm {
 		$value           = apply_filters( "pods_form_ui_field_{$type}_value", $value, $name, $options, $pod, $id );
 		$form_field_type = self::$field_type;
 
-		ob_start();
-
 		$helper = false;
 
 		/**
@@ -237,7 +238,7 @@ class PodsForm {
 		}
 
 		if ( empty( $type ) ) {
-			return pods_error( __( 'Invalid field configuration', 'pods' ) );
+			return;
 		}
 
 		// @todo Move into DFV field method or Pods\Whatsit later
@@ -245,6 +246,11 @@ class PodsForm {
 			$options['data'] = self::$loaded[ $type ]->data( $name, $value, $options, $pod, $id, true );
 			$data            = $options['data'];
 		}
+
+		$repeatable_field_types = self::repeatable_field_types();
+
+		// Start field render.
+		ob_start();
 
 		/**
 		 * pods_form_ui_field_{$type}_override filter leaves too much to be done by developer.
@@ -275,6 +281,11 @@ class PodsForm {
 			// @todo Move these custom field methods into real/faux field classes
 			echo call_user_func( array( get_class(), 'field_' . $type ), $name, $value, $options );
 		} elseif ( is_object( self::$loaded[ $type ] ) && method_exists( self::$loaded[ $type ], 'input' ) ) {
+			// Force non-repeatable field types to be non-repeatable even if option is set to 1.
+			if ( ! empty( $options['repeatable'] ) && ! in_array( $type, $repeatable_field_types, true ) ) {
+				$options['repeatable'] = 0;
+			}
+
 			self::$loaded[ $type ]->input( $name, $value, $options, $pod, $id );
 		} else {
 			/**
@@ -1008,8 +1019,27 @@ class PodsForm {
 
 		self::field_loader( $type );
 
-		if ( in_array( $type, self::repeatable_field_types() ) && 1 == pods_v( $type . '_repeatable', $options, 0 ) && ! is_array( $value ) ) {
-			if ( 0 < strlen( $value ) ) {
+		$is_repeatable_field = (
+			(
+				(
+					$options instanceof Field
+					|| $options instanceof Value_Field
+				)
+				&& $options->is_repeatable()
+			)
+			|| (
+				is_array( $options )
+				&& in_array( $type, self::repeatable_field_types(), true )
+				&& 1 === (int) pods_v( 'repeatable', $options )
+				&& (
+					'wysiwyg' !== $type
+					|| 'tinymce' !== pods_v( 'wysiwyg_editor', $options, 'tinymce', true )
+				)
+			)
+		);
+
+		if ( $is_repeatable_field && ! is_array( $value ) ) {
+			if ( is_string( $value ) && 0 < strlen( $value ) ) {
 				$simple = @json_decode( $value, true );
 
 				if ( is_array( $simple ) ) {
@@ -1018,7 +1048,7 @@ class PodsForm {
 					$value = (array) $value;
 				}
 			} else {
-				$value = array();
+				$value = [];
 			}
 		}
 
@@ -1345,7 +1375,7 @@ class PodsForm {
 			$value = $default;
 		}
 
-		if ( is_array( $value ) && 'multi' !== pods_v( $args->type . '_format_type' ) ) {
+		if ( is_array( $value ) && 'multi' !== pods_v( $type . '_format_type' ) ) {
 			$value = pods_serial_comma( $value, $name, [ $name => $options ] );
 		}
 
@@ -1734,14 +1764,15 @@ class PodsForm {
 
 		if ( null === $field_types ) {
 			$field_types = [
-				'code',
 				'color',
 				'currency',
 				'date',
 				'datetime',
 				'email',
 				'number',
+				'oembed',
 				'paragraph',
+				'password',
 				'phone',
 				'text',
 				'time',
@@ -1749,7 +1780,7 @@ class PodsForm {
 				'wysiwyg',
 			];
 
-			$field_types = apply_filters( 'pods_repeatable_field_types', $field_types );
+			$field_types = (array) apply_filters( 'pods_repeatable_field_types', $field_types );
 		}
 
 		return $field_types;
@@ -1894,6 +1925,40 @@ class PodsForm {
 			 * @param array $field_types The list of Non-Input field types.
 			 */
 			$field_types = apply_filters( 'pods_non_input_field_types', $field_types );
+		}
+
+		return $field_types;
+	}
+
+	/**
+	 * Get the list of field types that do not use serial comma separators.
+	 *
+	 * @since 2.9.4
+	 *
+	 * @return array The list of field types that do not use serial comma separators.
+	 */
+	public static function separator_excluded_field_types() {
+		static $field_types = null;
+
+		if ( null === $field_types ) {
+			$field_types = [
+				'avatar',
+				'code',
+				'link',
+				'oembed',
+				'paragraph',
+				'website',
+				'wysiwyg',
+			];
+
+			/**
+			 * Allow filtering of the list of field types that do not use serial comma separators.
+			 *
+			 * @since 2.8.0
+			 *
+			 * @param array $field_types The list of field types that do not use serial comma separators.
+			 */
+			$field_types = apply_filters( 'pods_separator_excluded_field_types', $field_types );
 		}
 
 		return $field_types;

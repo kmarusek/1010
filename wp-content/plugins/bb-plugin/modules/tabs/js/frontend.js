@@ -4,6 +4,7 @@
 	{
 		this.settings 	= settings;
 		this.nodeClass  = '.fl-node-' + settings.id;
+		this.tabsOnMobile = settings.tabsOnMobile;
 		this._init();
 	};
 
@@ -21,6 +22,8 @@
 			$(this.nodeClass + ' .fl-tabs-panels .fl-tabs-label').click($.proxy(this._responsiveLabelClick, this));
 			$(this.nodeClass + ' .fl-tabs-panels .fl-tabs-label').on('keypress', $.proxy(this._responsiveLabelClick, this));
 
+			win.on('resize', $.proxy( this._setupTabs, this));
+
 			if($(this.nodeClass + ' .fl-tabs-vertical').length > 0) {
 				this._resize();
 				win.off('resize' + this.nodeClass);
@@ -28,6 +31,7 @@
 			}
 
 			FLBuilderLayout.preloadAudio( this.nodeClass + ' .fl-tabs-panel-content' );
+			this._setupTabs();
 		},
 
 		_labelClick: function(e)
@@ -93,11 +97,7 @@
 				return;
 			}
 
-			// Should we proceed?
-			if(index == activeIndex) {
-				return;
-			}
-			if(wrap.hasClass('fl-tabs-animation')) {
+			if( label.hasClass( 'fl-tab-active' ) || wrap.hasClass( 'fl-tabs-animation' ) ) {
 				return;
 			}
 
@@ -156,7 +156,24 @@
 		_validClick: function(e)
 		{
 			return (e.which == 1 || e.which == 13 || e.which == 32) ? true : false;
-		}
+		},
+
+		_setupTabs: function() {
+			var winWidth = $(window).width(),
+				activeTabContent = $( this.nodeClass + ' .fl-tabs-panel-content.fl-tab-active' ),	
+				activeTabPanel = activeTabContent.parent(),
+				activeTabLabelIcon = activeTabPanel.find('i'),
+				smallBreakPoint = FLBuilderLayoutConfig.breakpoints.small,
+				mediumBreakPoint = FLBuilderLayoutConfig.breakpoints.medium;
+		
+			if ( winWidth <= smallBreakPoint && 'close-all' == this.tabsOnMobile ) {
+				activeTabContent.hide();
+				activeTabLabelIcon.addClass('fa-plus');
+			} else if ( winWidth >= mediumBreakPoint ) {
+				activeTabContent.show();
+				activeTabLabelIcon.removeClass('fa-plus');
+			} 
+		},
 	};
 
 })(jQuery);

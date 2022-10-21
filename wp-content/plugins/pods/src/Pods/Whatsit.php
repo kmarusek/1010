@@ -501,6 +501,37 @@ abstract class Whatsit implements \ArrayAccess, \JsonSerializable, \Iterator {
 			$this->set_arg( $arg, $value );
 		}
 
+		/**
+		 * Allow further adjustments after a Whatsit object is set up.
+		 *
+		 * @since 2.9.8
+		 *
+		 * @param Whatsit $object      Whatsit object.
+		 * @param string  $object_type The Whatsit object type.
+		 */
+		do_action( 'pods_whatsit_setup', $this, static::$type );
+
+		// Make a hook friendly name.
+		$class_hook = static::$type;
+
+		/**
+		 * Allow further adjustments after a Whatsit object is set up for a specific object class.
+		 *
+		 * Example hook names:
+		 * - pods_whatsit_setup_pod
+		 * - pods_whatsit_setup_group
+		 * - pods_whatsit_setup_object-field
+		 * - pods_whatsit_setup_field
+		 * - pods_whatsit_setup_template
+		 * - pods_whatsit_setup_page
+		 *
+		 * @since 2.9.8
+		 *
+		 * @param Whatsit $object     Whatsit object.
+		 * @param string  $object_type The Whatsit object type.
+		 */
+		do_action( "pods_whatsit_setup_{$class_hook}", $this, static::$type );
+
 		// If the type is a Pod or Group and types-only mode is enabled, force the groups/fields to be empty.
 		if (
 			(
@@ -1334,6 +1365,31 @@ abstract class Whatsit implements \ArrayAccess, \JsonSerializable, \Iterator {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get the object storage type label.
+	 *
+	 * @since 2.8.24
+	 *
+	 * @return string|null
+	 */
+	public function get_object_storage_type_label() {
+		$object_storage_type = $this->get_arg( 'object_storage_type', 'collection' );
+
+		if ( ! $object_storage_type ) {
+			return null;
+		}
+
+		$object_collection = Store::get_instance();
+
+		$storage_type_obj = $object_collection->get_storage_object( $object_storage_type );
+
+		if ( ! $storage_type_obj ) {
+			return null;
+		}
+
+		return $storage_type_obj->get_label();
 	}
 
 	/**

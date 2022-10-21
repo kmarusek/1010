@@ -364,10 +364,19 @@ FLBuilder::register_module(
 							'slider'     => true,
 							'units'      => array( 'px' ),
 							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ss-icon i',
-								'property' => 'font-size',
-								'unit'     => 'px',
+								'type'  => 'css',
+								'rules' => array(
+									array(
+										'selector' => '.uabb-ss-icon i',
+										'property' => 'font-size',
+										'unit'     => 'px',
+									),
+									array(
+										'selector' => '.uabb-ss-icon img',
+										'property' => 'width',
+										'unit'     => 'px',
+									),
+								),
 							),
 						),
 						'width_border'      => array(

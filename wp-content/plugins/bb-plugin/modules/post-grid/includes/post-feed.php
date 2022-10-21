@@ -21,10 +21,14 @@
 					<span class="fl-post-feed-author">
 						<?php
 
+						$author = '<span>' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '</span>';
+						if ( (bool) $settings->link_author ) {
+							$author = '<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '">' . $author . '</a>';
+						}
 						printf(
 							/* translators: %s: author name */
 							_x( 'By %s', '%s stands for author name.', 'fl-builder' ),
-							'<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '"><span>' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '</span></a>'
+							$author
 						);
 
 						?>

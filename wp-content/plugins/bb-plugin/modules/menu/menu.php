@@ -11,6 +11,11 @@ class FLMenuModule extends FLBuilderModule {
 	public static $fl_builder_page_id;
 
 	/**
+	 * @property $core_menus
+	 */
+	private $core_menus = null;
+
+	/**
 	 * @method __construct
 	 */
 	public function __construct() {
@@ -22,6 +27,8 @@ class FLMenuModule extends FLBuilderModule {
 			'editor_export'   => false,
 			'icon'            => 'menu.svg',
 		));
+
+		$this->core_menus = $this->get_core_menus();
 
 		// Actions
 		add_action( 'pre_get_posts', __CLASS__ . '::set_pre_get_posts_query', 10, 2 );
@@ -122,6 +129,12 @@ class FLMenuModule extends FLBuilderModule {
 			unset( $settings->submenu_spacing );
 		}
 
+		if ( ! empty( $this->core_menus ) ) {
+			if ( empty( $settings->menu ) || ! in_array( $settings->menu, $this->core_menus ) ) {
+				$settings->menu = $this->core_menus[0];
+			}
+		}
+
 		// Return the filtered settings.
 		return $settings;
 	}
@@ -147,7 +160,7 @@ class FLMenuModule extends FLBuilderModule {
 			foreach ( $get_menus as $key => $menu ) {
 
 				if ( 0 == $key ) {
-					$fields['default'] = $menu->name;
+					$fields['default'] = $menu->slug;
 				}
 
 				$menus[ $menu->slug ] = $menu->name;
@@ -256,7 +269,9 @@ class FLMenuModule extends FLBuilderModule {
 		$mobile_breakpoint = $this->settings->mobile_breakpoint;
 
 		if ( isset( $mobile_breakpoint ) && 'expanded' != $this->settings->mobile_toggle ) {
-			if ( 'medium-mobile' == $mobile_breakpoint ) {
+			if ( 'large-mobile' == $mobile_breakpoint ) {
+				$media_width = $global_settings->large_breakpoint;
+			} elseif ( 'medium-mobile' == $mobile_breakpoint ) {
 				$media_width = $global_settings->medium_breakpoint;
 			} elseif ( 'mobile' == $this->settings->mobile_breakpoint ) {
 				$media_width = $global_settings->responsive_breakpoint;
@@ -497,6 +512,27 @@ class FLMenuModule extends FLBuilderModule {
 
 		return $cart_contents_total;
 	}
+
+	/**
+	 * Get Core Menu slugs as an array.
+	 */
+	public function get_core_menus() {
+
+		if ( $this->core_menus ) {
+			return $this->core_menus;
+		}
+
+		$core_menus = array();
+		$nav_terms  = get_terms( 'nav_menu', array(
+			'hide_empty' => true,
+		) );
+
+		foreach ( $nav_terms as $key => $menu ) {
+			$core_menus[] = $menu->slug;
+		}
+
+		return $core_menus;
+	}
 }
 
 /**
@@ -702,6 +738,7 @@ FLBuilder::register_module('FLMenuModule', array(
 						'default' => 'mobile',
 						'options' => array(
 							'always'        => __( 'Always', 'fl-builder' ),
+							'large-mobile'  => __( 'Large, Medium &amp; Small Devices Only', 'fl-builder' ),
 							'medium-mobile' => __( 'Medium &amp; Small Devices Only', 'fl-builder' ),
 							'mobile'        => __( 'Small Devices Only', 'fl-builder' ),
 						),

@@ -3,7 +3,7 @@
 Plugin Name: WP Client Reports Pro
 Plugin URI: https://switchwp.com/wp-client-reports/
 Description: Send beautiful client maintenance reports with integrations from many popular plugins and services
-Version: 1.0.11
+Version: 1.0.12
 Author: SwitchWP
 Author URI: https://switchwp.com/
 Text Domain: wp-client-reports-pro
@@ -14,7 +14,7 @@ if( !defined( 'ABSPATH' ) )
 	exit;
 
 
-define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.11' );
+define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.12' );
 define( 'WP_CLIENT_REPORTS_PRO_STORE_URL', 'https://switchwp.com' );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_ID', 39 );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_NAME', 'WP Client Reports Pro' );
@@ -175,6 +175,11 @@ function wp_client_reports_pro_admin_init() {
         $stripe_enabled = get_option('wp_client_reports_pro_enable_stripe');
         if ($stripe_enabled == 'on' ) {
             require_once plugin_dir_path( __FILE__ ) . 'services/stripe/wp_client_reports_pro_stripe.php';
+        }
+
+        $wordfence_enabled = get_option('wp_client_reports_pro_enable_wordfence');
+        if ( class_exists( 'wordfence' ) && $wordfence_enabled == 'on' ) {
+            require_once plugin_dir_path( __FILE__ ) . 'services/wordfence/wp_client_reports_pro_wordfence.php';
         }
 
         $updraftplus_enabled = get_option('wp_client_reports_pro_enable_updraftplus');
@@ -569,6 +574,7 @@ function wp_client_reports_pro_options_init(  ) {
     register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_auto_send_time', 'wp_client_reports_pro_auto_send_time_save' );
     register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_auto_send_type', 'wp_client_reports_pro_auto_send_time_type' );
     register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_logo' );
+    register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_logo_width' );
     register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_color' );
 
     add_settings_field(
@@ -583,6 +589,14 @@ function wp_client_reports_pro_options_init(  ) {
 		'wp_client_reports_pro_logo',
 		__( 'Site Report Logo', 'wp-client-reports-pro' ),
 		'wp_client_reports_pro_logo_render',
+		'wp_client_reports_options_page',
+		'wp_client_reports_email_section'
+    );
+
+    add_settings_field(
+		'wp_client_reports_pro_logo_width',
+		__( 'Site Report Logo Width (px)', 'wp-client-reports-pro' ),
+		'wp_client_reports_pro_logo_width_render',
 		'wp_client_reports_options_page',
 		'wp_client_reports_email_section'
     );
@@ -916,6 +930,26 @@ function wp_client_reports_pro_options_init(  ) {
         'wp_client_reports_pro_enable_stripe_render',
         'wp_client_reports_options_page',
         'wp_client_reports_pro_stripe_section'
+    );
+
+
+    //Wordfence
+
+    register_setting( 'wp_client_reports_options_page', 'wp_client_reports_pro_enable_wordfence' );
+
+    add_settings_section(
+        'wp_client_reports_pro_wordfence_section',
+        __( 'Wordfence', 'wp-client-reports-pro' ),
+        'wp_client_reports_settings_section_callback',
+        'wp_client_reports_options_page'
+    );
+
+    add_settings_field(
+        'wp_client_reports_pro_enable_wordfence',
+        __( 'Enable Wordfence', 'wp-client-reports-pro' ),
+        'wp_client_reports_pro_enable_wordfence_render',
+        'wp_client_reports_options_page',
+        'wp_client_reports_pro_wordfence_section'
     );
     
 
@@ -1336,18 +1370,25 @@ add_action('wp_client_reports_stats_email_before', 'wp_client_reports_pro_stats_
 function wp_client_reports_pro_stats_email_add_logo() {
 
     $image_id = get_option( 'wp_client_reports_pro_logo' );
+    $image_width = get_option( 'wp_client_reports_pro_logo_width' );
     $image = '';
     if( intval( $image_id ) > 0 ) {
-        $image = wp_get_attachment_image( $image_id, 'medium', false );
+        if ($image_width && $image_width !== '' && $image_width > 0) {
+            $image_attributes = wp_get_attachment_image_src( $image_id, 'medium' );
+            if ( is_array($image_attributes) ) {
+                $new_height = round(($image_width * $image_attributes[2]) / $image_attributes[1]);
+                $image = "<img src='" . $image_attributes[0] . "' width='" . $image_width . "' height='" . $new_height . "'>";
+            } else {
+                $image = wp_get_attachment_image( $image_id, 'medium', false );
+            }
+        } else {
+            $image = wp_get_attachment_image( $image_id, 'medium', false );
+        }
     }
     if($image) { ?>
-            <!-- start copy -->
             <tr>
-                <td bgcolor="#ffffff" align="left" style="padding: 10px 40px 20px 40px; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif; font-size: 16px; line-height: 24px;text-align:center;">
-                    <?php echo $image; ?>
-                </td>
+                <td bgcolor="#ffffff" align="left" style="padding: 30px 40px 10px 40px; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif; font-size: 16px; line-height: 24px;text-align:center;"><?php echo $image; ?></td>
             </tr>
-            <!-- end copy -->
     <?php }
 }
 
@@ -1368,9 +1409,24 @@ function wp_client_reports_pro_logo_render(  ) {
     echo $image; ?>
     <div style="margin-top:5px;">
         <input type="hidden" name="wp_client_reports_pro_logo" id="wp_client_reports_pro_logo" value="<?php echo esc_attr( $image_id ); ?>" class="regular-text" />
-        <input type='button' class="button-primary" value="<?php esc_attr_e( 'Select image', 'wp-client-reports-pro' ); ?>" id="wp_client_reports_pro_logo_media_manager"/>
+        <div><input type='button' class="button-primary" value="<?php esc_attr_e( 'Select image', 'wp-client-reports-pro' ); ?>" id="wp_client_reports_pro_logo_media_manager"/></div>
+        <?php if( intval( $image_id ) > 0 ) : ?>
+            <div style="margin-top:6px;"><button type="button" id="wp-client-reports-pro-remove-logo" class="wp-client-reports-button-link-destructive">Remove logo</button></div>
+        <?php endif; ?>
     </div>
     <?php
+}
+
+
+/**
+ * Add logo upload field to the options page
+ */
+function wp_client_reports_pro_logo_width_render(  ) {
+    $option = get_option( 'wp_client_reports_pro_logo_width' );
+	?>
+	<input type='number' name='wp_client_reports_pro_logo_width' value='<?php echo esc_attr($option); ?>'class="regular-text">
+    <p class="description"><?php _e('Optional. If you wish to limit the width of the logo you can enter an amount of pixels here.'); ?></p>
+	<?php
 }
 
 
@@ -1654,6 +1710,23 @@ function wp_client_reports_pro_enable_stripe_render(  ) {
     </label>
     <div class="wp-client-reports-instructions">
         <div><a href="https://switchwp.com/plugins/wp-client-reports/stripe/?utm_source=wordpress&utm_medium=plugin_settings&utm_campaign=wpclientreports" target="_blank"><?php _e( 'Learn More', 'wp-client-reports-pro' ); ?></a></div>
+    </div>
+	<?php
+}
+
+
+/**
+ * Enable Wordfence Toggle Switch
+ */
+function wp_client_reports_pro_enable_wordfence_render(  ) {
+	$option = get_option( 'wp_client_reports_pro_enable_wordfence' );
+	?>
+    <label class="wp-client-reports-switch">
+        <input type="checkbox" name="wp_client_reports_pro_enable_wordfence" <?php if ($option == 'on') { echo "checked"; } ?>>
+        <span class="wp-client-reports-slider"></span>
+    </label>
+    <div class="wp-client-reports-instructions">
+        <div><a href="https://switchwp.com/plugins/wp-client-reports/wordfence/?utm_source=wordpress&utm_medium=plugin_settings&utm_campaign=wpclientreports" target="_blank"><?php _e( 'Learn More', 'wp-client-reports-pro' ); ?></a></div>
     </div>
 	<?php
 }

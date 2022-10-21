@@ -55,7 +55,7 @@
 }
 .fl-lightbox *:not(i) {
 	color: #333;
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-family: var(--fl-builder-font-family);
 	font-size: 12px;
 	line-height: 14px;
 	text-decoration: none;
@@ -170,7 +170,7 @@
 .fl-lightbox-header h1 {
 	color: #333 !important;
 	font-size: 16px !important;
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+	font-family: var(--fl-builder-font-family);
 	font-weight: 400 !important;
 	margin: 0 !important;
 	padding: 14px 28px 15px !important;

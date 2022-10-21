@@ -63,13 +63,58 @@ class FLContentSliderModule extends FLBuilderModule {
 				'btn_border_size'        => 'border_size',
 			) );
 
-		}
+			// Handle old text/title size
+			if ( isset( $settings->slides[ $i ]->title_size ) && 'custom' == $settings->slides[ $i ]->title_size && isset( $settings->slides[ $i ]->title_custom_size ) && ! empty( $settings->slides[ $i ]->title_custom_size ) ) {
+				$settings->slides[ $i ]->title_typography = array_merge(
+					is_array( $settings->slides[ $i ]->title_typography ) ? $settings->slides[ $i ]->title_typography : array(),
+					array(
+						'font_size' => array(
+							'unit'   => 'px',
+							'length' => $settings->slides[ $i ]->title_custom_size,
+						),
+					)
+				);
 
-		// shuffle the slide as earliest
-		if ( isset( $settings->shuffle ) && '1' === $settings->shuffle && ! FLBuilderModel::is_builder_active() ) {
-			shuffle( $settings->slides );
-		}
+				unset( $settings->slides[ $i ]->title_custom_size );
+			}
 
+			// Handle old text/title shadow
+			if ( isset( $settings->slides[ $i ]->text_shadow ) && '1' == $settings->slides[ $i ]->text_shadow ) {
+				$settings->slides[ $i ]->title_typography = array_merge(
+					is_array( $settings->slides[ $i ]->title_typography ) ? $settings->slides[ $i ]->title_typography : array(),
+					array(
+						'text_shadow' => array(
+							'color'      => 'rgba(0,0,0,0.3)',
+							'horizontal' => '0',
+							'vertical'   => '0',
+							'blur'       => '5',
+						),
+					)
+				);
+
+				$settings->slides[ $i ]->text_typography = array_merge(
+					is_array( $settings->slides[ $i ]->text_typography ) ? $settings->slides[ $i ]->text_typography : array(),
+					array(
+						'text_shadow' => array(
+							'color'      => 'rgba(0,0,0,0.3)',
+							'horizontal' => '0',
+							'vertical'   => '0',
+							'blur'       => '5',
+						),
+					)
+				);
+
+				unset( $settings->slides[ $i ]->text_shadow );
+			}
+
+			// Handle old text/title color
+			if ( isset( $settings->slides[ $i ]->title_size ) ) {
+				$settings->slides[ $i ]->title_color   = $settings->slides[ $i ]->text_color;
+				$settings->slides[ $i ]->r_title_color = $settings->slides[ $i ]->r_text_color;
+
+				unset( $settings->slides[ $i ]->title_size );
+			}
+		}
 		return $settings;
 	}
 
@@ -85,7 +130,7 @@ class FLContentSliderModule extends FLBuilderModule {
 		}
 
 		// Background link
-		if ( ! empty( $slide->link ) && ( 'photo' == $slide->bg_layout || 'color' == $slide->bg_layout ) ) {
+		if ( ! empty( $slide->link ) && ( 'photo' == $slide->bg_layout || 'color' == $slide->bg_layout ) && 'none' == $slide->cta_type ) {
 			echo '<a class="fl-slide-bg-link" href="' . esc_attr( $slide->link ) . '" target="' . $slide->link_target . '" aria-label="' . esc_attr( $slide->title ) . '"></a>';
 		}
 	}
@@ -93,24 +138,24 @@ class FLContentSliderModule extends FLBuilderModule {
 	/**
 	 * @method render_content
 	 */
-	public function render_content( $slide ) {
+	public function render_content( $slide, $slide_index = 0, $node_id = 0 ) {
 		global $wp_embed;
 
-		if ( 'none' == $slide->content_layout || 'video' == $slide->bg_layout ) {
+		if ( 'video' == $slide->bg_layout ) {
 			return;
 		}
 
 		echo '<div class="fl-slide-content-wrap">';
 		echo '<div class="fl-slide-content">';
 
-		if ( ! empty( $slide->title ) ) {
+		if ( ! empty( $slide->title ) && 'none' != $slide->content_layout ) {
 			echo '<' . $slide->title_tag . ' class="fl-slide-title">' . $slide->title . '</' . $slide->title_tag . '>';
 		}
-		if ( ! empty( $slide->text ) ) {
+		if ( ! empty( $slide->text ) && 'none' != $slide->content_layout ) {
 			echo '<div class="fl-slide-text">' . wpautop( $wp_embed->autoembed( $slide->text ) ) . $this->render_link( $slide ) . '</div>';
 		}
 
-		$this->render_button( $slide );
+		$this->render_button( $slide, $slide_index, $node_id );
 
 		echo '</div>';
 		echo '</div>';
@@ -251,9 +296,9 @@ class FLContentSliderModule extends FLBuilderModule {
 	/**
 	 * @method render_button
 	 */
-	public function render_button( $slide ) {
+	public function render_button( $slide, $slide_index = 0, $node_id = 0 ) {
 		if ( 'button' == $slide->cta_type ) {
-			echo '<div class="fl-slide-cta-button">';
+			echo '<div id="' . "fl-slide-cta-button-$node_id-$slide_index" . '" class="fl-slide-cta-button">';
 			FLBuilder::render_module_html( 'button', $this->get_button_settings( $slide ) );
 			echo '</div>';
 		}
@@ -615,10 +660,61 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 		'style'   => array( // Tab
 			'title'    => __( 'Style', 'fl-builder' ), // Tab title
 			'sections' => array( // Tab Sections
-				'title'         => array(
-					'title'  => __( 'Heading', 'fl-builder' ),
+				'text_position' => array(
+					'title'  => __( 'Content', 'fl-builder' ),
 					'fields' => array(
-						'title_tag'         => array(
+						'text_position'  => array(
+							'type'    => 'select',
+							'label'   => __( 'Position', 'fl-builder' ),
+							'default' => 'top-left',
+							'help'    => __( 'The position will move the content layout selections left, right or center over the background of the slide.', 'fl-builder' ),
+							'options' => array(
+								'left'   => __( 'Left', 'fl-builder' ),
+								'center' => __( 'Center', 'fl-builder' ),
+								'right'  => __( 'Right', 'fl-builder' ),
+							),
+						),
+						'text_width'     => array(
+							'type'    => 'unit',
+							'label'   => __( 'Width', 'fl-builder' ),
+							'default' => '50',
+							'units'   => array( '%' ),
+							'slider'  => true,
+						),
+						'text_bg_color'  => array(
+							'type'        => 'color',
+							'connections' => array( 'color' ),
+							'label'       => __( 'Background Color', 'fl-builder' ),
+							'help'        => __( 'The color applies to the overlay behind text over the background selections.', 'fl-builder' ),
+							'show_reset'  => true,
+							'show_alpha'  => true,
+						),
+						'text_bg_height' => array(
+							'type'    => 'select',
+							'label'   => __( 'Background Height', 'fl-builder' ),
+							'default' => 'auto',
+							'help'    => __( 'Auto will allow the overlay to fit however long the text content is. 100% will fit the overlay to the top and bottom of the slide.', 'fl-builder' ),
+							'options' => array(
+								'auto' => _x( 'Auto', 'Background height.', 'fl-builder' ),
+								'100%' => '100%',
+							),
+						),
+						'text_margin'    => array(
+							'type'    => 'dimension',
+							'label'   => __( 'Margins', 'fl-builder' ),
+							'default' => '60',
+						),
+						'text_padding'   => array(
+							'type'    => 'dimension',
+							'label'   => __( 'Padding', 'fl-builder' ),
+							'default' => '60',
+						),
+					),
+				),
+				'title_style'   => array(
+					'title'  => __( 'Title', 'fl-builder' ),
+					'fields' => array(
+						'title_tag'        => array(
 							'type'    => 'select',
 							'label'   => __( 'Heading Tag', 'fl-builder' ),
 							'default' => 'h2',
@@ -631,103 +727,41 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 								'h6' => 'h6',
 							),
 						),
-						'title_size'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Heading Size', 'fl-builder' ),
-							'default' => 'default',
-							'options' => array(
-								'default' => __( 'Default', 'fl-builder' ),
-								'custom'  => __( 'Custom', 'fl-builder' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'title_custom_size' ),
-								),
-							),
-						),
-						'title_custom_size' => array(
-							'type'    => 'unit',
-							'label'   => __( 'Heading Size', 'fl-builder' ),
-							'default' => '24',
-							'units'   => array( 'px' ),
-							'slider'  => true,
-						),
-					),
-				),
-				'text_position' => array(
-					'title'  => __( 'Text Position', 'fl-builder' ),
-					'fields' => array(
-						'text_position' => array(
-							'type'    => 'select',
-							'label'   => __( 'Position', 'fl-builder' ),
-							'default' => 'top-left',
-							'help'    => __( 'The position will move the content layout selections left, right or center over the background of the slide.', 'fl-builder' ),
-							'options' => array(
-								'left'   => __( 'Left', 'fl-builder' ),
-								'center' => __( 'Center', 'fl-builder' ),
-								'right'  => __( 'Right', 'fl-builder' ),
-							),
-						),
-						'text_width'    => array(
-							'type'    => 'unit',
-							'label'   => __( 'Width', 'fl-builder' ),
-							'default' => '50',
-							'units'   => array( '%' ),
-							'slider'  => true,
-						),
-					),
-				),
-				'text_margins'  => array(
-					'title'  => __( 'Text Spacing', 'fl-builder' ),
-					'fields' => array(
-						'text_margin'  => array(
-							'type'    => 'dimension',
-							'label'   => __( 'Margins', 'fl-builder' ),
-							'default' => '60',
-						),
-						'text_padding' => array(
-							'type'    => 'dimension',
-							'label'   => __( 'Padding', 'fl-builder' ),
-							'default' => '60',
-						),
-					),
-				),
-				'text_style'    => array(
-					'title'  => __( 'Text Colors', 'fl-builder' ),
-					'fields' => array(
-						'text_color'     => array(
+						'title_color'      => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
-							'label'       => __( 'Text Color', 'fl-builder' ),
+							'label'       => __( 'Color', 'fl-builder' ),
 							'default'     => 'ffffff',
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),
-						'text_shadow'    => array(
-							'type'    => 'select',
-							'label'   => __( 'Text Shadow', 'fl-builder' ),
-							'default' => '0',
-							'options' => array(
-								'0' => __( 'No', 'fl-builder' ),
-								'1' => __( 'Yes', 'fl-builder' ),
+						'title_typography' => array(
+							'type'       => 'typography',
+							'label'      => __( 'Typography', 'fl-builder' ),
+							'responsive' => true,
+							'preview'    => array(
+								'type' => 'none',
 							),
 						),
-						'text_bg_color'  => array(
+					),
+				),
+				'text_style'    => array(
+					'title'  => __( 'Text', 'fl-builder' ),
+					'fields' => array(
+						'text_color'      => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
-							'label'       => __( 'Text Background Color', 'fl-builder' ),
-							'help'        => __( 'The color applies to the overlay behind text over the background selections.', 'fl-builder' ),
+							'label'       => __( 'Color', 'fl-builder' ),
+							'default'     => 'ffffff',
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),
-						'text_bg_height' => array(
-							'type'    => 'select',
-							'label'   => __( 'Text Background Height', 'fl-builder' ),
-							'default' => 'auto',
-							'help'    => __( 'Auto will allow the overlay to fit however long the text content is. 100% will fit the overlay to the top and bottom of the slide.', 'fl-builder' ),
-							'options' => array(
-								'auto' => _x( 'Auto', 'Background height.', 'fl-builder' ),
-								'100%' => '100%',
+						'text_typography' => array(
+							'type'       => 'typography',
+							'label'      => __( 'Typography', 'fl-builder' ),
+							'responsive' => true,
+							'preview'    => array(
+								'type' => 'none',
 							),
 						),
 					),
@@ -897,6 +931,29 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 				'btn_colors' => array(
 					'title'  => __( 'Button Background', 'fl-builder' ),
 					'fields' => array(
+						'btn_style'             => array(
+							'type'    => 'select',
+							'label'   => __( 'Button Background Style', 'fl-builder' ),
+							'default' => 'flat',
+							'options' => array(
+								'flat'         => __( 'Flat', 'fl-builder' ),
+								'gradient'     => __( 'Auto Gradient', 'fl-builder' ),
+								'adv-gradient' => __( 'Advanced Gradient', 'fl-builder' ),
+							),
+							'toggle'  => array(
+								'flat'         => array(
+									'fields' => array( 'btn_button_transition' ),
+								),
+								'adv-gradient' => array(
+									'fields' => array( 'btn_bg_gradient', 'btn_bg_gradient_hover' ),
+								),
+							),
+							'hide'    => array(
+								'adv-gradient' => array(
+									'fields' => array( 'btn_bg_color', 'btn_bg_hover_color' ),
+								),
+							),
+						),
 						'btn_bg_color'          => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
@@ -919,15 +976,6 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 								'type' => 'none',
 							),
 						),
-						'btn_style'             => array(
-							'type'    => 'select',
-							'label'   => __( 'Button Background Style', 'fl-builder' ),
-							'default' => 'flat',
-							'options' => array(
-								'flat'     => __( 'Flat', 'fl-builder' ),
-								'gradient' => __( 'Gradient', 'fl-builder' ),
-							),
-						),
 						'btn_button_transition' => array(
 							'type'    => 'select',
 							'label'   => __( 'Button Background Animation', 'fl-builder' ),
@@ -938,6 +986,20 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 							),
 							'preview' => array(
 								'type' => 'none',
+							),
+						),
+						'btn_bg_gradient'       => array(
+							'type'    => 'gradient',
+							'label'   => __( 'Background Gradient', 'fl-builder' ),
+							'preview' => array(
+								'type' => 'refresh',
+							),
+						),
+						'btn_bg_gradient_hover' => array(
+							'type'    => 'gradient',
+							'label'   => __( 'Background Hover Gradient', 'fl-builder' ),
+							'preview' => array(
+								'type' => 'refresh',
 							),
 						),
 					),
@@ -1000,21 +1062,29 @@ FLBuilder::register_settings_form('content_slider_slide', array(
 					),
 				),
 				'r_text_style' => array(
-					'title'  => __( 'Mobile Text Colors', 'fl-builder' ),
+					'title'  => __( 'Mobile Colors', 'fl-builder' ),
 					'fields' => array(
+						'r_text_bg_color' => array(
+							'type'        => 'color',
+							'connections' => array( 'color' ),
+							'label'       => __( 'Content Background Color', 'fl-builder' ),
+							'default'     => '333333',
+							'show_reset'  => true,
+							'show_alpha'  => true,
+						),
+						'r_title_color'   => array(
+							'type'        => 'color',
+							'connections' => array( 'color' ),
+							'label'       => __( 'Title Color', 'fl-builder' ),
+							'default'     => 'ffffff',
+							'show_reset'  => true,
+							'show_alpha'  => true,
+						),
 						'r_text_color'    => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
 							'label'       => __( 'Text Color', 'fl-builder' ),
 							'default'     => 'ffffff',
-							'show_reset'  => true,
-							'show_alpha'  => true,
-						),
-						'r_text_bg_color' => array(
-							'type'        => 'color',
-							'connections' => array( 'color' ),
-							'label'       => __( 'Text Background Color', 'fl-builder' ),
-							'default'     => '333333',
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),

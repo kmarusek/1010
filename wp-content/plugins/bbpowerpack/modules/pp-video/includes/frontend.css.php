@@ -62,6 +62,15 @@ FLBuilderCSS::responsive_rule( array(
 	<?php } ?>
 }
 
+<?php if ( isset( $settings->custom_trigger_hide_video ) && 'yes' === $settings->custom_trigger_hide_video ) { ?>
+	body:not(.fl-builder-edit) .fl-node-<?php echo $id; ?> .fl-module-content {
+		margin: 0;
+	}
+	body:not(.fl-builder-edit) .fl-node-<?php echo $id; ?> .pp-video-wrapper {
+		display: none;
+	}
+<?php } ?>
+
 .fancybox-<?php echo $id; ?> .pp-aspect-ratio-<?php echo $settings->aspect_ratio; ?> {
 	background: none;
 	width: 100%;

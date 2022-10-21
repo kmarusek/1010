@@ -1,7 +1,10 @@
 <?php
 $items         = $module->get_accordion_items( $id );
-$source        = $settings->accordion_source;
 $icon_position = $settings->accordion_icon_position;
+
+if ( ! is_array( $items ) || empty( $items ) ) {
+	return;
+}
 
 if ( ! empty( $settings->accordion_open_icon ) ) {
 	$open_icon_class = 'pp-accordion-button-icon pp-accordion-open ' . $settings->accordion_open_icon . ' pp-accordion-icon-' . $icon_position;
@@ -42,17 +45,7 @@ if ( ! empty( $settings->accordion_close_icon ) ) {
 
 			<div class="pp-accordion-content fl-clearfix" id="pp-accordion-<?php echo $module->node; ?>-panel-<?php echo $i; ?>" aria-labelledby="pp-accordion-<?php echo $module->node; ?>-tab-<?php echo $i; ?>" aria-hidden="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'true' : 'false'; ?>" role="tabpanel" aria-live="polite">
 				<?php
-				if ( ! isset( $source ) || empty( $source ) ) {
-					echo $module->render_content( $items[ $i ] );
-				} else {
-					if ( 'manual' === $source ) {
-						echo $module->render_content( $items[ $i ] );
-					} else {
-						echo '<div itemprop="text">';
-						echo $items[ $i ]->content;
-						echo '</div>';
-					}
-				}
+				echo $module->render_content( $items[ $i ] );
 				?>
 			</div>
 		</div>

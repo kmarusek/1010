@@ -67,6 +67,13 @@ class FLCalloutModule extends FLBuilderModule {
 			'btn_border_size'        => 'border_size',
 		) );
 
+		// Check if Advanced Gradient is to be applied.
+		if ( ! empty( $settings->style ) && 'gradient' === $settings->style ) {
+			if ( ! empty( $settings->bg_gradient['colors'][0] ) || ! empty( $settings->bg_gradient['colors'][1] ) ) {
+				$settings->style = 'adv-gradient';
+			}
+		}
+
 		// Return the filtered settings.
 		return $settings;
 	}
@@ -946,6 +953,29 @@ FLBuilder::register_module('FLCalloutModule', array(
 			'btn_colors' => array(
 				'title'  => __( 'Button Background', 'fl-builder' ),
 				'fields' => array(
+					'btn_style'             => array(
+						'type'    => 'select',
+						'label'   => __( 'Button Background Style', 'fl-builder' ),
+						'default' => 'flat',
+						'options' => array(
+							'flat'         => __( 'Flat', 'fl-builder' ),
+							'gradient'     => __( 'Auto Gradient', 'fl-builder' ),
+							'adv-gradient' => __( 'Advanced Gradient', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'flat'         => array(
+								'fields' => array( 'btn_button_transition' ),
+							),
+							'adv-gradient' => array(
+								'fields' => array( 'btn_bg_gradient', 'btn_bg_gradient_hover' ),
+							),
+						),
+						'hide'    => array(
+							'adv-gradient' => array(
+								'fields' => array( 'btn_bg_color', 'btn_bg_hover_color' ),
+							),
+						),
+					),
 					'btn_bg_color'          => array(
 						'type'        => 'color',
 						'connections' => array( 'color' ),
@@ -968,13 +998,22 @@ FLBuilder::register_module('FLCalloutModule', array(
 							'type' => 'none',
 						),
 					),
-					'btn_style'             => array(
-						'type'    => 'select',
-						'label'   => __( 'Button Background Style', 'fl-builder' ),
-						'default' => 'flat',
-						'options' => array(
-							'flat'     => __( 'Flat', 'fl-builder' ),
-							'gradient' => __( 'Gradient', 'fl-builder' ),
+					'btn_bg_gradient'       => array(
+						'type'    => 'gradient',
+						'label'   => __( 'Background Gradient', 'fl-builder' ),
+						'preview' => array(
+							'type'     => 'css',
+							'selector' => 'a.fl-button',
+							'property' => 'background-image',
+						),
+					),
+					'btn_bg_gradient_hover' => array(
+						'type'    => 'gradient',
+						'label'   => __( 'Background Hover Gradient', 'fl-builder' ),
+						'preview' => array(
+							'type'     => 'css',
+							'selector' => 'a.fl-button:hover',
+							'property' => 'background-image',
 						),
 					),
 					'btn_button_transition' => array(

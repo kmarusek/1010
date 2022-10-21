@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.34.6\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.35.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2022-05-12 10:51:53+00:00\n"
+"POT-Creation-Date: 2022-09-07 10:07:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -752,7 +752,7 @@ msgstr ""
 #: modules/uabb-retina-image/uabb-retina-image-bb-2-2-compatibility.php:130
 #: modules/uabb-retina-image/uabb-retina-image-bb-less-than-2-2-compatibility.php:135
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:279
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:411
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:420
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:123
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:972
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1175
@@ -1488,7 +1488,6 @@ msgstr ""
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:25
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:40
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:211
-#: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:220
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:229
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:265
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:955
@@ -1749,7 +1748,7 @@ msgstr ""
 #: modules/uabb-retina-image/uabb-retina-image-bb-less-than-2-2-compatibility.php:210
 #: modules/uabb-search/uabb-search.php:395
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:322
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:484
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:493
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:166
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:141
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:157
@@ -2043,7 +2042,6 @@ msgstr ""
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:26
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:41
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:212
-#: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:221
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:230
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:266
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:956
@@ -2323,7 +2321,7 @@ msgstr ""
 #: modules/uabb-retina-image/uabb-retina-image-bb-less-than-2-2-compatibility.php:211
 #: modules/uabb-search/uabb-search.php:396
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:321
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:485
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:494
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:165
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:142
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:158
@@ -2685,6 +2683,11 @@ msgstr ""
 msgid "Social Login Settings"
 msgstr ""
 
+#: classes/class-uabb-admin-settings.php:391
+#: includes/admin-settings-rollback-version.php:11
+msgid "Rollback Version"
+msgstr ""
+
 #: classes/class-uabb-attachment.php:36
 msgid "Image Link"
 msgstr ""
@@ -2797,7 +2800,7 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form.php:616
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:26
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:73
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:402
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:411
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:80
 #: modules/uabb-star-rating/uabb-star-rating.php:117
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:699
@@ -2913,7 +2916,7 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:163
 #: modules/uabb-search/uabb-search.php:444
 #: modules/uabb-search/uabb-search.php:824
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:403
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:412
 #: modules/uabb-timeline/includes/loop-settings.php:109
 #: modules/uabb-timeline/uabb-timeline.php:791
 #: modules/uabb-timeline/uabb-timeline.php:1118
@@ -2993,8 +2996,8 @@ msgid "Refresh"
 msgstr ""
 
 #: classes/class-uabb-cloud-templates.php:586
-#: modules/blog-posts/blog-posts.php:1864
-#: modules/blog-posts/blog-posts.php:1888
+#: modules/blog-posts/blog-posts.php:1881
+#: modules/blog-posts/blog-posts.php:1905
 #: modules/blog-posts/includes/loop-settings.php:113
 #: modules/blog-posts/includes/loop-settings.php:293
 #: modules/blog-posts/includes/loop-settings.php:294
@@ -4258,7 +4261,7 @@ msgstr ""
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:70
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:183
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:328
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:603
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:612
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:31
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:240
 #: modules/uabb-star-rating/uabb-star-rating.php:140
@@ -4447,7 +4450,7 @@ msgstr ""
 #: modules/uabb-separator/uabb-separator-bb-2-2-compatibility.php:15
 #: modules/uabb-separator/uabb-separator-bb-less-than-2-2-compatibility.php:14
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:66
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:526
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:535
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:182
 #: modules/uabb-star-rating/uabb-star-rating.php:69
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:848
@@ -4477,7 +4480,7 @@ msgid "General"
 msgstr ""
 
 #: classes/uabb-global-settings-form.php:69
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:429
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:438
 msgid "Primary Color"
 msgstr ""
 
@@ -4725,7 +4728,7 @@ msgstr ""
 #: modules/uabb-search/uabb-search.php:510
 #: modules/uabb-search/uabb-search.php:582
 #: modules/uabb-search/uabb-search.php:697
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:629
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:638
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:262
 #: modules/uabb-table-of-contents/uabb-table-of-contents-bb-2-2-compatibility.php:247
 #: modules/uabb-table-of-contents/uabb-table-of-contents-bb-less-than-2-2-compatibility.php:229
@@ -4880,7 +4883,7 @@ msgstr ""
 #: modules/uabb-search/uabb-search.php:522
 #: modules/uabb-search/uabb-search.php:594
 #: modules/uabb-search/uabb-search.php:718
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:637
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:646
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:276
 #: modules/uabb-timeline/uabb-timeline.php:1387
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:284
@@ -6668,7 +6671,7 @@ msgstr ""
 #: modules/uabb-login-form/uabb-login-bb-less-than-2-2-compatibility.php:267
 #: modules/uabb-login-form/uabb-login-form.php:496
 #: modules/uabb-social-share/includes/frontend.php:64
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:536
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:545
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:192
 msgid "Facebook"
 msgstr ""
@@ -8262,7 +8265,7 @@ msgstr ""
 #: modules/uabb-button/uabb-button-bb-less-than-2-2-compatibility.php:163
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:447
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:445
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:566
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:575
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:208
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:969
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1172
@@ -8412,8 +8415,8 @@ msgstr ""
 #: modules/uabb-off-canvas/uabb-off-canvas-bb-less-than-2-2-compatibility.php:524
 #: modules/uabb-search/uabb-search.php:415
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:98
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:569
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:588
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:578
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:597
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:211
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:225
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:973
@@ -8547,8 +8550,8 @@ msgstr ""
 #: modules/uabb-photo/uabb-photo.php:40
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:693
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:889
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:570
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:594
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:579
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:603
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:212
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:231
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:974
@@ -9741,7 +9744,7 @@ msgstr ""
 #: modules/uabb-search/uabb-search.php:924
 #: modules/uabb-search/uabb-search.php:931
 #: modules/uabb-search/uabb-search.php:946
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:490
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:499
 #: modules/uabb-star-rating/uabb-star-rating.php:236
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:756
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:763
@@ -11042,7 +11045,7 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:1165
 #: modules/uabb-separator/uabb-separator-bb-2-2-compatibility.php:23
 #: modules/uabb-separator/uabb-separator-bb-less-than-2-2-compatibility.php:21
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:610
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:619
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:247
 #: modules/uabb-star-rating/uabb-star-rating.php:147
 #: modules/uabb-star-rating/uabb-star-rating.php:213
@@ -12096,7 +12099,7 @@ msgstr ""
 #: modules/uabb-devices/uabb-devices.php:1434
 #: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:465
 #: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:558
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:618
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:627
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:253
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:545
 #: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:435
@@ -13522,7 +13525,7 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:587
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:839
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:302
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:375
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:384
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:146
 #: modules/uabb-table-of-contents/uabb-table-of-contents-bb-less-than-2-2-compatibility.php:518
 #: modules/uabb-wp-forms-styler/uabb-wp-forms-styler-bb-2-2-compatibility.php:457
@@ -13645,7 +13648,7 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:761
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:857
 #: modules/uabb-off-canvas/uabb-off-canvas-bb-less-than-2-2-compatibility.php:539
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:606
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:615
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:243
 #: objects/fl-nested-form-button.php:168 objects/fl-nested-form-button.php:617
 msgid "Colors"
@@ -13821,7 +13824,7 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:506
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:601
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:853
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:650
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:659
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:294
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:679
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:590
@@ -13903,7 +13906,7 @@ msgstr ""
 #: modules/uabb-search/uabb-search.php:542
 #: modules/uabb-search/uabb-search.php:614
 #: modules/uabb-search/uabb-search.php:755
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:659
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:668
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:300
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:195
 #: modules/uabb-woo-mini-cart/uabb-woo-mini-cart.php:954
@@ -17132,7 +17135,7 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts-bb-2-2-compatibility.php:1091
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:950
-#: modules/blog-posts/blog-posts.php:2269
+#: modules/blog-posts/blog-posts.php:2286
 msgid "Comment"
 msgstr ""
 
@@ -17719,11 +17722,11 @@ msgstr ""
 msgid "Advanced Posts"
 msgstr ""
 
-#: modules/blog-posts/blog-posts.php:2134
+#: modules/blog-posts/blog-posts.php:2151
 msgid "By"
 msgstr ""
 
-#: modules/blog-posts/blog-posts.php:2269
+#: modules/blog-posts/blog-posts.php:2286
 msgid "Comments"
 msgstr ""
 
@@ -19220,7 +19223,7 @@ msgstr ""
 #: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:33
 #: modules/uabb-off-canvas/uabb-off-canvas-bb-2-2-compatibility.php:164
 #: modules/uabb-off-canvas/uabb-off-canvas-bb-less-than-2-2-compatibility.php:111
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:415
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:424
 msgid "Push"
 msgstr ""
 
@@ -22937,19 +22940,27 @@ msgstr ""
 msgid "Terms and Conditions Text"
 msgstr ""
 
-#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:25
+#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:28
 msgid "Subscription Form"
 msgstr ""
 
-#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:26
+#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:29
 msgid "Adds a simple subscribe form to your layout."
 msgstr ""
 
-#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:91
+#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:81
+msgid "There was an error subscribing. Groundhogg is not active."
+msgstr ""
+
+#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:97
+msgid "There was an error subscribing."
+msgstr ""
+
+#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:120
 msgid "There was an error subscribing. Please try again."
 msgstr ""
 
-#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:1166
+#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:1195
 msgid ""
 "Subscription Form requires Beaver Builder versions above 1.8.4. Make sure "
 "you use latest Beaver Builder to view best results."
@@ -23067,8 +23078,15 @@ msgid "4:3"
 msgstr ""
 
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:217
-#: modules/modal-popup/modal-popup-bb-less-than-2-2-compatibility.php:221
-msgid "Disable Related Videos"
+msgid "Related Videos From"
+msgstr ""
+
+#: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:220
+msgid "Current video channel"
+msgstr ""
+
+#: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:221
+msgid "Any random video"
 msgstr ""
 
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:226
@@ -23411,6 +23429,10 @@ msgstr ""
 msgid "Modal Appear On - Button Typography"
 msgstr ""
 
+#: modules/modal-popup/modal-popup-bb-less-than-2-2-compatibility.php:221
+msgid "Disable Related Videos"
+msgstr ""
+
 #: modules/modal-popup/modal-popup.php:22
 msgid "Modal Popup"
 msgstr ""
@@ -23424,7 +23446,7 @@ msgstr ""
 #. translators: %1$s: search term, %2$s: search term
 msgid ""
 "<div style=\"%2$s\"> The related CSS and JS scripts will load on "
-"request.</div>\n"
+"request.</div>\r\n"
 "\t\t<div style=\"%1$s\">A loader will appear during loading of the "
 "iFrame.</div>"
 msgstr ""
@@ -26743,7 +26765,7 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form-bb-2-2-compatibility.php:1385
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:893
 #: modules/uabb-social-share/includes/frontend.php:134
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:546
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:555
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:203
 msgid "Email"
 msgstr ""
@@ -27178,37 +27200,37 @@ msgstr ""
 msgid "A very simple contact form."
 msgstr ""
 
-#: modules/uabb-contact-form/uabb-contact-form.php:140
+#: modules/uabb-contact-form/uabb-contact-form.php:134
+msgid "Terms and Conditions is required!"
+msgstr ""
+
+#: modules/uabb-contact-form/uabb-contact-form.php:164
 #: modules/uabb-registration-form/uabb-registration-form.php:230
 #. translators: %d admin link
 msgid "Can not connect to the reCAPTCHA server (%d)."
 msgstr ""
 
-#: modules/uabb-contact-form/uabb-contact-form.php:149
+#: modules/uabb-contact-form/uabb-contact-form.php:173
 #: modules/uabb-registration-form/uabb-registration-form.php:239
 msgid "Invalid Form - reCAPTCHA validation failed"
 msgstr ""
 
-#: modules/uabb-contact-form/uabb-contact-form.php:185
-msgid "Terms and Conditions is required!"
-msgstr ""
-
-#: modules/uabb-contact-form/uabb-contact-form.php:209
+#: modules/uabb-contact-form/uabb-contact-form.php:210
 msgid "Contact Form Submission"
 msgstr ""
 
-#: modules/uabb-contact-form/uabb-contact-form.php:1182
+#: modules/uabb-contact-form/uabb-contact-form.php:1183
 #. translators: %1$s: search term, translators: %2$s: search term
 msgid ""
-"<strong>From:</strong> [NAME]\n"
-"<strong>Email:</strong> [EMAIL]\n"
-"<strong>Subject:</strong> [SUBJECT]\n"
-"\n"
-"<strong>Message Body:</strong>\n"
-"[MESSAGE]\n"
-"\n"
-"----\n"
-"You have received a new submission from %1$s\n"
+"<strong>From:</strong> [NAME]\r\n"
+"<strong>Email:</strong> [EMAIL]\r\n"
+"<strong>Subject:</strong> [SUBJECT]\r\n"
+"\r\n"
+"<strong>Message Body:</strong>\r\n"
+"[MESSAGE]\r\n"
+"\r\n"
+"----\r\n"
+"You have received a new submission from %1$s\r\n"
 "(%2$s)"
 msgstr ""
 
@@ -27780,7 +27802,7 @@ msgstr ""
 
 #: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:582
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:329
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:414
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:423
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:626
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:616
 msgid "Pulse"
@@ -29804,7 +29826,7 @@ msgstr ""
 #: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:277
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:334
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:344
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:408
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:417
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:555
 #: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:445
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:618
@@ -29816,7 +29838,7 @@ msgstr ""
 #: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:281
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:338
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:348
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:417
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:426
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:559
 #: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:449
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:623
@@ -29828,7 +29850,7 @@ msgstr ""
 #: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:282
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:339
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:349
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:418
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:427
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:560
 #: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:450
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:622
@@ -30817,12 +30839,12 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form-bb-less-than-2-2-compatibility.php:18
 #. translators: %1$s: search term, translators: %2$s: search term
 msgid ""
-"Thank you for registering with us! You can access your account at:\n"
-"\t\t<strong>User Name:</strong> [USERNAME]\n"
-"<strong>Password:</strong> [PASSWORD]\n"
-"\n"
-"----\n"
-"You have received a new submission from %1$s\n"
+"Thank you for registering with us! You can access your account at:\r\n"
+"\t\t<strong>User Name:</strong> [USERNAME]\r\n"
+"<strong>Password:</strong> [PASSWORD]\r\n"
+"\r\n"
+"----\r\n"
+"You have received a new submission from %1$s\r\n"
 "(%2$s)"
 msgstr ""
 
@@ -30916,18 +30938,18 @@ msgstr ""
 #: modules/uabb-registration-form/uabb-registration-form.php:639
 #. translators: %1$s: search term, translators: %2$s: search term
 msgid ""
-"Dear User,\n"
-"\n"
+"Dear User,\r\n"
+"\r\n"
 "You have successfully created your \"%1$s\" account. Thank you for "
-"registering with us!\n"
+"registering with us!\r\n"
 "Get the most of our service benefits with your registered account.Please "
-"click the link below to access your account.%2$s\n"
-"And here's the password [PASSWORD] to log in to the account.\n"
-"\n"
-"Regards,\n"
-"Team\n"
-"----\n"
-"You have received a new submission from %1$s\n"
+"click the link below to access your account.%2$s\r\n"
+"And here's the password [PASSWORD] to log in to the account.\r\n"
+"\r\n"
+"Regards,\r\n"
+"Team\r\n"
+"----\r\n"
+"You have received a new submission from %1$s\r\n"
 "\t\t\t(%2$s)"
 msgstr ""
 
@@ -31110,13 +31132,13 @@ msgid ""
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:70
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:537
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:546
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:193
 msgid "Twitter"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:87
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:538
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:547
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:195
 msgid "Pinterest"
 msgstr ""
@@ -31126,7 +31148,7 @@ msgid "Linkedin"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:99
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:540
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:549
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:197
 msgid "Digg"
 msgstr ""
@@ -31136,7 +31158,7 @@ msgid "blogger"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:111
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:542
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:551
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:199
 msgid "Reddit"
 msgstr ""
@@ -31146,7 +31168,7 @@ msgid "Stumbleupon"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:123
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:544
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:553
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:201
 msgid "Tumblr"
 msgstr ""
@@ -31156,22 +31178,22 @@ msgid "My Space"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:140
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:547
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:556
 msgid "WhatsApp"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:146
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:548
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:557
 msgid "Telegram"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:154
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:552
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:561
 msgid "VK"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:162
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:551
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:560
 msgid "OK"
 msgstr ""
 
@@ -31180,27 +31202,27 @@ msgid "Delicious"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:174
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:549
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:558
 msgid "Pocket"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:180
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:553
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:562
 msgid "Xing"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:186
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:555
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:564
 msgid "Skype"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:192
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:550
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:559
 msgid "Print"
 msgstr ""
 
 #: modules/uabb-social-share/includes/frontend.php:198
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:554
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:563
 msgid "Buffer"
 msgstr ""
 
@@ -31284,99 +31306,99 @@ msgstr ""
 msgid "Vertical Floating Position"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:386
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:395
 msgid "Button Height"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:399
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:408
 msgid "Color Style"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:412
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:421
 msgid "Grow"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:413
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:422
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:625
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:615
 msgid "Shrink"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:416
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:425
 msgid "Pop"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:419
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:428
 msgid "Float Shadow"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:425
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:434
 msgid "Color Skins"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:449
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:458
 msgid "Primary Hover Color"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:456
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:465
 msgid "Secondary Color"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:468
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:477
 msgid "Secondary Hover Color"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:476
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:485
 msgid "Social Share Text"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:481
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:490
 msgid "Hide on Mobile"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:499
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:508
 msgid "Padding Left"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:507
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:516
 msgid "Padding Right"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:523
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:532
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:179
 msgid "Add Social Icon/Image"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:533
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:542
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:189
 msgid "Social Share Type"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:539
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:548
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:196
 msgid "LinkedIn"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:541
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:550
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:198
 msgid "Blogger"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:543
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:552
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:200
 msgid "StumbleUpon"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:545
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:554
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:202
 msgid "Myspace"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:556
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:565
 msgid "delicious"
 msgstr ""
 
-#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:583
+#: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:592
 msgid "Pintrest Fallback Image"
 msgstr ""
 
@@ -33463,8 +33485,8 @@ msgstr ""
 
 #: modules/uabb-wp-forms-styler/uabb-wp-forms-styler-bb-2-2-compatibility.php:884
 msgid ""
-"Heading tag will be applied to a custom heading only.\n"
-"The default heading will inherit tag from WPForms plugin itself\n"
+"Heading tag will be applied to a custom heading only.\r\n"
+"The default heading will inherit tag from WPForms plugin itself\r\n"
 msgstr ""
 
 #: modules/uabb-wp-forms-styler/uabb-wp-forms-styler-bb-2-2-compatibility.php:1006
@@ -33482,8 +33504,8 @@ msgstr ""
 
 #: modules/uabb-wp-forms-styler/uabb-wp-forms-styler-bb-less-than-2-2-compatibility.php:1101
 msgid ""
-"Heading tag will be applied to a custom heading only.\n"
-"\tThe default heading will inherit tag from WPForms plugin itself\n"
+"Heading tag will be applied to a custom heading only.\r\n"
+"\tThe default heading will inherit tag from WPForms plugin itself\r\n"
 "\t"
 msgstr ""
 

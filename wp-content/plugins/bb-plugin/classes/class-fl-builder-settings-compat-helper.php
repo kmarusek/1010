@@ -137,7 +137,7 @@ class FLBuilderSettingsCompatHelper {
 			return;
 		}
 
-		foreach ( array( '', '_medium', '_responsive' ) as $breakpoint ) {
+		foreach ( array( '', '_large', '_medium', '_responsive' ) as $breakpoint ) {
 
 			if ( isset( $settings->{ "border_top$breakpoint" } ) ) {
 

@@ -454,7 +454,7 @@
             FLBuilder.addHook('didEnterRevisionPreview', this.hide.bind(this));
             FLBuilder.addHook('didExitRevisionPreview', this.show.bind(this));
             FLBuilder.addHook('didPublishLayout', this.onPublish.bind(this));
-			FLBuilder.addHook('didPublishLayout', this.onPublishCacheClear.bind(this));
+         // FLBuilder.addHook('didPublishLayout', this.onPublishCacheClear.bind(this));
         },
 
         /**
@@ -886,7 +886,7 @@
 
 				// Get unit.
 				if (unitField.length) {
-					unit =  unitField.length;
+					unit = unitField.val();
 				} else if ('undefined' !== typeof settings) {
 					unit = settings.max_content_width_unit;
 				}
@@ -1018,66 +1018,63 @@
                 minAllowedWidth = FLBuilderConfig.rowResize.minAllowedWidth,
                 maxAllowedWidth = FLBuilderConfig.rowResize.maxAllowedWidth;
 
-            if (originalPosition !== currentPosition) {
-
-                if ( FLBuilderConfig.isRtl ) {
-                    edge = ( 'w' == edge ) ? 'e' : 'w'; // Flip the direction
-                }
-
-                if (originalPosition > currentPosition) {
-                    if (edge === 'w') {
-                        this.drag.operation = '+';
-                    } else {
-                        this.drag.operation = '-';
-                    }
-                } else {
-                    if (edge === 'e') {
-                        this.drag.operation = '+';
-                    } else {
-                        this.drag.operation = '-';
-                    }
-                }
-
-                distance = Math.abs(originalPosition - currentPosition);
-
-                if (this.drag.operation === '+') {
-                    this.drag.calculatedWidth = originalWidth + (distance * 2);
-                } else {
-                    this.drag.calculatedWidth = originalWidth - (distance * 2);
-                }
-
-                if ( false !== minAllowedWidth && this.drag.calculatedWidth < minAllowedWidth ) {
-	                this.drag.calculatedWidth = minAllowedWidth;
-                }
-
-                if ( false !== maxAllowedWidth && this.drag.calculatedWidth > maxAllowedWidth ) {
-	                this.drag.calculatedWidth = maxAllowedWidth;
-                }
-
-                if (this.row.isFixedWidth) {
-                    this.$row.css('max-width', this.drag.calculatedWidth + 'px');
-                }
-
-                this.$rowContent.css('max-width', this.drag.calculatedWidth + 'px');
-
-				if ( 'px' !== this.row.unit ) {
-					this.drag.calculatedWidth = Math.round( this.drag.calculatedWidth / this.row.parentWidth * 100 );
-				}
-
-                if (!_.isUndefined(this.$feedback)) {
-                    this.$feedback.html(this.drag.calculatedWidth + this.row.unit).show();
-                }
-
-                if ( this.row.form.length ) {
-	                this.row.form.find( '[name=max_content_width]' ).val( this.drag.calculatedWidth );
-                }
-
-                // Dispatch update to store
-				requestAnimationFrame( () => {
-					const actions = FL.Builder.data.getLayoutActions()
-					actions.resizeRowContent( this.row.node, this.drag.calculatedWidth, false )
-				} )
+            if ( FLBuilderConfig.isRtl ) {
+                edge = ( 'w' == edge ) ? 'e' : 'w'; // Flip the direction
             }
+
+            if (originalPosition > currentPosition) {
+                if (edge === 'w') {
+                    this.drag.operation = '+';
+                } else {
+                    this.drag.operation = '-';
+                }
+            } else {
+                if (edge === 'e') {
+                    this.drag.operation = '+';
+                } else {
+                    this.drag.operation = '-';
+                }
+            }
+
+            distance = Math.abs(originalPosition - currentPosition);
+
+            if (this.drag.operation === '+') {
+                this.drag.calculatedWidth = originalWidth + (distance * 2);
+            } else {
+                this.drag.calculatedWidth = originalWidth - (distance * 2);
+            }
+
+            if ( false !== minAllowedWidth && this.drag.calculatedWidth < minAllowedWidth ) {
+                this.drag.calculatedWidth = minAllowedWidth;
+            }
+
+            if ( false !== maxAllowedWidth && this.drag.calculatedWidth > maxAllowedWidth ) {
+                this.drag.calculatedWidth = maxAllowedWidth;
+            }
+
+            if (this.row.isFixedWidth) {
+                this.$row.css('max-width', this.drag.calculatedWidth + 'px');
+            }
+
+            this.$rowContent.css('max-width', this.drag.calculatedWidth + 'px');
+
+            if ( 'px' !== this.row.unit ) {
+                this.drag.calculatedWidth = Math.round( this.drag.calculatedWidth / this.row.parentWidth * 100 );
+            }
+
+            if (!_.isUndefined(this.$feedback)) {
+                this.$feedback.html(this.drag.calculatedWidth + this.row.unit).show();
+            }
+
+            if ( this.row.form.length ) {
+                this.row.form.find( '[name=max_content_width]' ).val( this.drag.calculatedWidth );
+            }
+
+            // Dispatch update to store
+            requestAnimationFrame( () => {
+                const actions = FL.Builder.data.getLayoutActions()
+                actions.resizeRowContent( this.row.node, this.drag.calculatedWidth, false )
+            } )
         },
 
         /**

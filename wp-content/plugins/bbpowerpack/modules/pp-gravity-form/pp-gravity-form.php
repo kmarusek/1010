@@ -1101,6 +1101,7 @@ BB_PowerPack::register_module(
 							'label'   => __( 'Custom Width', 'bb-powerpack' ),
 							'default' => '',
 							'slider'  => true,
+							'responsive'  => true,
 							'units'   => array( 'px' ),
 						),
 						'button_alignment'    => array(

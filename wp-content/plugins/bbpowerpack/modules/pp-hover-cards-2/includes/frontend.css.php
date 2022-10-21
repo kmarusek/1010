@@ -84,7 +84,9 @@ FLBuilderCSS::typography_field_rule( array(
 	transition: transform 0.5s ease;
 }
 .fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style:hover .pp-hover-card-title-wrap,
-.fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style:hover .pp-hover-card-icon-wrap {
+.fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style:hover .pp-hover-card-icon-wrap,
+.fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style.focus .pp-hover-card-title-wrap,
+.fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style.focus .pp-hover-card-icon-wrap {
 	-webkit-transform: translateY(0px);
 	-moz-transform: translateY(0px);
 	-ms-transform: translateY(0px);
@@ -106,7 +108,8 @@ FLBuilderCSS::typography_field_rule( array(
 	-ms-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 }
-.fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style:hover .pp-hover-card-description {
+.fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style:hover .pp-hover-card-description,
+.fl-node-<?php echo $id; ?> .pp-hover-card.powerpack-style.focus .pp-hover-card-description {
 	opacity: 1;
 	visibility: visible;
 	-webkit-transform: translateY(0px);
@@ -174,14 +177,16 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		transition: all 0.3s ease-in;
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-inner {
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-inner,
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>.focus .pp-hover-card-inner {
 		<?php if ( $card->hover_card_bg_type == 'color' && ! empty( $card->hover_card_bg_hover ) ) { ?>
 		background: <?php echo pp_get_color_value($card->hover_card_bg_hover); ?>;
 		<?php } ?>
 		transition: all 0.3s ease-in;
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-overlay {
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-overlay,
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>.focus .pp-hover-card-overlay {
 		<?php if ( $card->hover_card_bg_type != 'color' ) { ?>
 		background: #<?php echo $card->hover_card_overlay; ?>;
 		opacity: <?php echo $card->hover_card_overlay_opacity; ?>
@@ -211,10 +216,12 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-content .pp-hover-card-description {
 		color: #<?php echo $card->hover_card_description_color; ?>;
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-title {
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-title,
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>.focus .pp-hover-card-content .pp-hover-card-title {
 		color: #<?php echo $card->hover_card_title_color_h; ?>;
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-description {
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-description,
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>.focus .pp-hover-card-content .pp-hover-card-description {
 		color: #<?php echo $card->hover_card_description_color_h; ?>;
 	}
 <?php } ?>

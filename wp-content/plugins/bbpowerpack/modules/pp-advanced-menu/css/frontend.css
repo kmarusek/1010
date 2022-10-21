@@ -579,6 +579,13 @@ ul.pp-advanced-menu-horizontal li.mega-menu > ul.sub-menu ul.sub-menu {
 	visibility: visible;
 }
 
+/* Remove colors when there is no link set */
+.pp-advanced-menu ul li.mega-menu a:not([href]) {
+    color: unset;
+    background: none;
+    background-color: unset;
+}
+
 .rtl .pp-advanced-menu:not(.full-screen) .menu .pp-has-submenu .sub-menu {
 	text-align: inherit;
 	right: 0; 

@@ -10,7 +10,7 @@ jQuery(function($) {
 			image: {
 					titleSrc: function(item) {
 						<?php if ( 'below' == $settings->show_caption || 'hover' == $settings->show_caption ) : ?>
-							return $( item.el ).closest( '.fl-photo' ).find( '.fl-photo-caption' ).text();
+							return FLBuilderLayout._string_to_slug( '<?php echo str_replace( array( "\r", "\n" ), array( '', ' ' ), trim( addslashes( $module->get_caption() ) ) ); ?>' );
 						<?php endif; ?>
 					}
 			},
@@ -34,4 +34,5 @@ jQuery(function($) {
 			} );
 	});
 	<?php endif; ?>
+	window._fl_string_to_slug_regex = '<?php echo apply_filters( 'fl_photocaptionregex', 'a-zA-Z0-9' ); ?>';
 });

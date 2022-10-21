@@ -146,6 +146,16 @@ final class FLPageDataTheEventsCalendar {
 	static public function back_link() {
 		return '<a href="' . tribe_get_events_link() . '">' . __( '&laquo; All Events', 'bb-theme-builder' ) . '</a>';
 	}
+
+	/**
+	 * @since TBD
+	 * @return string
+	 */
+	static public function event_cost( $settings ) {
+		$show_currency = empty( $settings->show_currency ) ? false : wp_validate_boolean( $settings->show_currency );
+
+		return tribe_get_cost( null, $show_currency );
+	}
 }
 
 FLPageDataTheEventsCalendar::init();

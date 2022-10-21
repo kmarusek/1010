@@ -3,116 +3,298 @@
 	FLBuilderSettingsCopyPaste = {
 
 		init: function() {
+			// window.addEventListener( 'storage', this._storageListener );
 			FLBuilder.addHook( 'settings-form-init', this.initExportButton );
 			FLBuilder.addHook( 'settings-form-init', this.initImportButton );
 		},
 
-		initExportButton: function() {
+		_getClipboard: function () {
+			return window.localStorage.getItem('clipboard') || '';
+		},
 
-			new ClipboardJS( 'button.module-export-all', {
-				text: function( trigger ) {
-					var nodeId    = $( '.fl-builder-module-settings' ).data( 'node' ),
-						form      = $( '.fl-builder-module-settings[data-node=' + nodeId + ']' ),
-						type      = $( '.fl-builder-module-settings' ).data( 'type' ),
-						settings  = FLBuilder._getSettings( form ),
-						d         = new Date(),
-						date      = d.toDateString(),
-						wrap      = '/// {type:' + type + '} ' + date + ' ///',
-						btn		  = $( 'button.module-export-all' ),
-						btnText	  = btn.attr( 'title' );
+		_getClipboardType: function(e) {
+			const clipboard = this._getClipboard();
+			const type = clipboard.match(/{type:([_a-z0-9-]+)}/);
 
-					btn.text( FLBuilderStrings.module_import.copied );
-					setTimeout( function() { btn.text( btnText ) }, 1000 );
+			if (null !== type && 'undefined' !== type[1]) {
+				return type[1];
+			}
+			
+			return '';
+		},
+		
+		_setClipboard: function (data, win = false) {
+			// set to localStorage.
+			window.localStorage.setItem('clipboard', data);
 
-					return wrap + "\n" + JSON.stringify( settings );
+			// set to clipboard.
+			if (win) {
+				this._copyToClipboard(data);
+			}
+		},
+
+		_copyToClipboard: function (data) {
+			if (0 === data.length) {
+				return;
+			}
+
+			if ('undefined' === typeof navigator.clipboard) {
+				// create temp el
+				const tempEl = document.createElement('textarea');
+	
+				// hide temp el
+				tempEl.style.position = 'absolute';
+				tempEl.style.left = '-100%';
+	
+				// set content of temp el
+				tempEl.value = data;
+	
+				// insert temp el in page
+				document.body.appendChild(tempEl);
+	
+				// select temp el
+				tempEl.select();
+	
+				// copy temp el content
+				document.execCommand('copy');
+	
+				// remove temp el
+				document.body.removeChild(tempEl);
+			} else {
+				navigator.clipboard.writeText(data);
+			}
+		},
+
+		_copySettings: function (type, nodeId, win = false, filterStyle = false) {
+			let settings   = {};
+			let selector   = type;
+			const form     = $('.fl-builder-settings[data-node=' + nodeId + ']');
+			const date     = new Date().toDateString();
+			const wrap     = '/// {type:' + type + '} ' + date + ' ///';
+
+			if ('row' !== selector) {
+				if ('column' === selector) {
+					selector = 'col';
+				} else {
+					selector = 'module';
 				}
-			});
+			}
 
-			new ClipboardJS( 'button.module-export-style', {
-				text: function( trigger ) {
-					var nodeId    = $( '.fl-builder-module-settings' ).data( 'node' ),
-						form      = $( '.fl-builder-module-settings[data-node=' + nodeId + ']' ),
-						type      = $( '.fl-builder-module-settings' ).data( 'type' ),
-						settings  = FLBuilder._getSettings( form ),
-						d         = new Date(),
-						date      = d.toDateString(),
-						wrap      = '/// {type:' + type + '} ' + date + ' ///',
-						btn		  = $( 'button.module-export-style' ),
-						btnText	  = btn.attr( 'title' ),
-						styles	  = {};
+			if (form.length > 0) {
+				// settings panel is open
+				settings = FLBuilder._getSettings(form)
+			} else {
+				// settings panel is closed
+				settings = FLBuilderSettingsConfig.nodes[nodeId];
+			}
 
-					for ( var key in settings ) {
-						var singleInput = form.find( '[name="' + key + '"]' ),
-							arrayInput = form.find( '[name*="' + key + '["]' ),
-							isStyle = false;
+			// filter style
+			if (form.length > 0 && filterStyle) {
+				for (let key in settings) {
+					let isStyle = false;
+					const singleInput = form.find('[name="' + key + '"]');
+					const arrayInput = form.find('[name*="' + key + '["]');
 
-						if ( singleInput.length ) {
-							isStyle = singleInput.closest( '.fl-field' ).data( 'is-style' );
-						} else if ( arrayInput.length ) {
-							isStyle = arrayInput.closest( '.fl-field' ).data( 'is-style' );
+					if (singleInput.length) {
+						isStyle = singleInput.closest('.fl-field').data('is-style');
+					} else if (arrayInput.length) {
+						isStyle = arrayInput.closest('.fl-field').data('is-style');
+					}
+
+					if (!isStyle) {
+						delete settings[key];
+					}
+				}
+			}
+
+			// copy data to fl-builder clipboard
+			this._setClipboard(wrap + "\n" + JSON.stringify(settings), win);
+
+			// set body attr
+			$('body').attr('data-clipboard', type);
+
+			// remove active class
+			$('.fl-quick-paste-active').removeClass('fl-quick-paste-active');
+
+			// add active class
+			$('[data-node="' + nodeId + '"]')
+				.find('.fl-' + selector + '-quick-paste')
+				.addClass('fl-quick-paste-active');
+
+			return this._getClipboard();
+		},
+
+		_importSettings: function (type, nodeId, data) {
+			const dataType = data.match(/{type:([_a-z0-9-]+)}/);
+
+			if ('undefined' !== dataType[1] && type === dataType[1]) {
+				try {
+					const jsonData = JSON.parse(data.replace(/\/\/\/.+\/\/\//, ''));
+
+					// remove width settings from column
+					if ('column' === type) {
+						if ('size' in jsonData) {
+							delete jsonData.size;
 						}
-
-						if ( isStyle ) {
-							styles[ key ] = settings[ key ];
+						if ('size_large' in jsonData) {
+							delete jsonData.size_large;
+						}
+						if ('size_medium' in jsonData) {
+							delete jsonData.size_medium;
+						}
+						if ('size_responsive' in jsonData) {
+							delete jsonData.size_responsive;
 						}
 					}
 
-					btn.text( FLBuilderStrings.module_import.copied );
-					setTimeout( function() { btn.text( btnText ) }, 1000 );
+					// merge copied data with existing node
+					const mergedData = $.extend({}, FLBuilderSettingsConfig.nodes[nodeId], jsonData);
 
-					return wrap + "\n" + JSON.stringify( styles );
+					// set node data
+					FLBuilderSettingsConfig.nodes[nodeId] = mergedData;
+
+					// dispatch to store
+					FL.Builder.data
+						.getLayoutActions()
+						.updateNodeSettings(
+							nodeId,
+							mergedData,
+							FLBuilder._saveSettingsComplete.bind(this, true, null)
+						);
+
+					// trigger hook
+					FLBuilder.triggerHook('didSaveNodeSettings', {
+						nodeId: nodeId,
+						settings: mergedData
+					});
+
+					// close panel
+					FLBuilder._lightbox.close();
+
+					return true;
+				} catch {
+					return false;
 				}
+			}
+
+			return false;
+		},
+
+		_importFromClipboard: function (type, nodeId) {
+			if (0 < this._getClipboard().length) {
+				return FLBuilderSettingsCopyPaste._importSettings(type, nodeId, this._getClipboard());
+			}
+
+			return false;
+		},
+
+		_importFromJSON: function (type, nodeId, data) {
+			if ('undefined' !== typeof data && null !== data && 0 < data.length) {
+				return FLBuilderSettingsCopyPaste._importSettings(type, nodeId, data);
+			}
+
+			return false;
+		},
+
+		_bindCopyToElement: function ($el, type, nodeId, win = false, filterStyle = false) {
+			const text = $el.text();
+
+			// copy data to clipboard
+			FLBuilderSettingsCopyPaste._copySettings(type, nodeId, win, filterStyle);
+
+			// set button text
+			$el.text(FLBuilderStrings.module_import.copied);
+
+			// restore button text
+			setTimeout(() => {
+				$el.text(text);
+			}, 1000);
+		},
+
+		initExportButton: function() {
+			// row - all
+			$('button.row-export-all').on('click', function () {
+				const nodeId = $('.fl-builder-row-settings').data('node');
+
+				// bind copy to the el
+				FLBuilderSettingsCopyPaste._bindCopyToElement($(this), 'row', nodeId, true);
+			});
+
+			// row - style
+			$('button.row-export-style').on('click', function () {
+				const nodeId = $('.fl-builder-row-settings').data('node');
+
+				// bind copy to the el
+				FLBuilderSettingsCopyPaste._bindCopyToElement($(this), 'row', nodeId, true, true);
+			});
+
+			// col - all
+			$('button.col-export-all').on('click', function () {
+				const nodeId = $('.fl-builder-col-settings').data('node');
+
+				// bind copy to the el
+				FLBuilderSettingsCopyPaste._bindCopyToElement($(this), 'column', nodeId, true);
+			});
+
+			// col - style
+			$('button.col-export-style').on('click', function () {
+				const nodeId = $('.fl-builder-col-settings').data('node');
+
+				// bind copy to the el
+				FLBuilderSettingsCopyPaste._bindCopyToElement($(this), 'column', nodeId, true, true);
+			});
+
+			// module - all
+			$('button.module-export-all').on('click', function () {
+				const nodeId = $('.fl-builder-module-settings').data('node');
+				const type   = $('.fl-builder-module-settings').data('type');
+
+				// bind copy to the el
+				FLBuilderSettingsCopyPaste._bindCopyToElement($(this), type, nodeId, true);
+			});
+
+			// module - style
+			$('button.module-export-style').on('click', function () {
+				const nodeId = $('.fl-builder-module-settings').data('node');
+				const type   = $('.fl-builder-module-settings').data('type');
+
+				// bind copy to the el
+				FLBuilderSettingsCopyPaste._bindCopyToElement($(this), type, nodeId, true, true);
 			});
 		},
 
 		initImportButton: function() {
+			// row
+			$('button.row-import-apply').on('click', function () {
+				const nodeId  = $('.fl-builder-row-settings').data('node');
+				const data    = $('.row-import-input').val();
+				const success = FLBuilderSettingsCopyPaste._importFromJSON('row', nodeId, data);
 
-			$( 'button.module-import-apply' ).click( function() {
-				var form        = $( '.fl-builder-settings-lightbox .fl-builder-settings' ),
-					data        = $( '.module-import-input' ).val(),
-					t           = data.match( /\/\/\/\s\{type:([_a-z0-9-]+)/i ),
-					type        = false,
-					moduleType  = $( '.fl-builder-module-settings' ).data( 'type' ),
-					errorDiv    = $( '.fl-builder-settings-lightbox .module-import-error' );
-
-				errorDiv.hide();
-
-				if( t && typeof t[1] !== 'undefined' ) {
-					type = t[1];
+				if (!success) {
+					$('.row-import-error').html(FLBuilderStrings.module_import.error).show();
 				}
+			});
 
-				if ( type && type === moduleType ) {
-					var cleandata = data.replace( /\/\/\/.+\/\/\//, '' );
-					try {
-						var importedSettings = JSON.parse( cleandata );
-					} catch ( err ) {
-						var importedSettings = false;
-						errorDiv.html( FLBuilderStrings.module_import.error ).show();
-						return false;
-					}
-				} else {
-					errorDiv.html( FLBuilderStrings.module_import.type ).show();
-					return false;
+			// col
+			$('button.col-import-apply').on('click', function () {
+				const nodeId  = $('.fl-builder-col-settings').data('node');
+				const data    = $('.col-import-input').val();
+				const success = FLBuilderSettingsCopyPaste._importFromJSON('column', nodeId, data);
+
+				if (!success) {
+					$('.col-import-error').html(FLBuilderStrings.module_import.error).show();
 				}
+			});
 
-				if ( importedSettings ) {
-					var nodeId = form.attr( 'data-node' );
+			// module
+			$('button.module-import-apply').on('click', function () {
+				const type    = $('.fl-builder-module-settings').data('type');
+				const nodeId  = $('.fl-builder-module-settings').data('node');
+				const data    = $('.module-import-input').val();
+				const success = FLBuilderSettingsCopyPaste._importFromJSON(type, nodeId, data);
 
-					var merged = $.extend( {}, FLBuilderSettingsConfig.nodes[ nodeId ], importedSettings );
-
-					FLBuilderSettingsConfig.nodes[ nodeId ] = merged;
-
-					// Dispatch to store
-					const actions = FL.Builder.data.getLayoutActions()
-					const callback = FLBuilder._saveSettingsComplete.bind( this, true, null )
-					actions.updateNodeSettings( nodeId, merged, callback )
-
-					FLBuilder.triggerHook( 'didSaveNodeSettings', {
-						nodeId   : nodeId,
-						settings : merged
-					} );
-
-					FLBuilder._lightbox.close();
+				if (!success) {
+					$('.module-import-error').html(FLBuilderStrings.module_import.error).show();
 				}
 			});
 		},

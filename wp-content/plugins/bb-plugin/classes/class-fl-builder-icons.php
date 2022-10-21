@@ -164,6 +164,13 @@ final class FLBuilderIcons {
 			),
 		) );
 
+		if ( FLBuilder::fa5_pro_enabled() && FLBuilderFontAwesome::is_installed() ) {
+			$core_sets['font-awesome-5-thin'] = array(
+				'name'   => 'Font Awesome Thin (pro only)',
+				'prefix' => 'fat',
+			);
+		}
+
 		if ( ! FLBuilder::fa5_pro_enabled() ) {
 			unset( $core_sets['font-awesome-5-light'] );
 			unset( $core_sets['font-awesome-5-duotone'] );
@@ -187,6 +194,9 @@ final class FLBuilderIcons {
 
 		// Loop through core sets and add icons.
 		foreach ( self::$sets as $set_key => $set_data ) {
+			if ( 'font-awesome-5-thin' == $set_key ) {
+				continue;
+			}
 			if ( 'core' == $set_data['type'] && 'font-awesome-kit' !== $set_key ) {
 
 				$key = $set_key;
@@ -485,7 +495,7 @@ final class FLBuilderIcons {
 
 		$sets = self::get_sets();
 		foreach ( (array) $sets as $key => $data ) {
-			if ( in_array( $icon, $data['icons'] ) ) {
+			if ( isset( $data['icons'] ) && is_array( $data['icons'] ) && in_array( $icon, $data['icons'] ) ) {
 				self::enqueue_custom_styles_by_key( $key );
 				return;
 			}

@@ -190,7 +190,6 @@
 }
 .fl-color-picker {
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.12);
-	background:white;
 	background-image: url('../img/transp_bg.png');
 	border-radius: 4px;
 	width: 120px;

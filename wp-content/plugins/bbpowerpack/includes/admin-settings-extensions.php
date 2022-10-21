@@ -119,6 +119,23 @@ $enabled_extensions = self::get_enabled_extensions();
 </table>
 
 <hr>
+<h3><?php _e('Author Social Profile URLs', 'bb-powerpack'); ?></h3>
+<table class="form-table">
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_user_social_profile_urls"><?php esc_html_e('Enable Social Profile URLs', 'bb-powerpack'); ?></label>
+			<p class="description"><?php echo __( 'Enabling this option will add controls to add social media URLs under the user profile.', 'bb-powerpack' ); ?></p>
+		</th>
+		<td>
+			<label class="pp-admin-field-toggle">
+				<input id="bb_powerpack_user_social_profile_urls" name="bb_powerpack_user_social_profile_urls" type="checkbox" value="yes"<?php echo 'yes' === get_option( 'bb_powerpack_user_social_profile_urls' ) ? ' checked="checked"' : '' ?> />
+				<span class="pp-admin-field-toggle-slider"></span>
+			</label>
+		</td>
+	</tr>
+</table>
+
+<hr>
 <h3><?php _e('Toggle Lazy Load', 'bb-powerpack'); ?></h3>
 <table class="form-table">
 	<tr align="top">

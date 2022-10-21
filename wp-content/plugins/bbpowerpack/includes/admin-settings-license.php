@@ -13,10 +13,18 @@ if ( is_array( $license_status ) && isset( $license_status['message'] ) ) {
 	echo '<p style="color: red; background: #fff3f3; padding: 10px;">' . self::parse_error( $license_status['message'] ) . '</p>';
 	$license_status = $status;
 } else {
-	if ( ! is_array( $license_status ) && 'invalid' === $license_status ) {
-		$status = '';
+	if ( ! is_array( $license_status ) && $status !== $license_status ) {
+		if ( 'site_inactive' === $license_status || 'invalid' === $license_status || 'expired' === $license_status ) {
+			$status = '';
+		}
+		if ( 'valid' === $license_status ) {
+			$status = 'valid';
+		}
+
+		if ( ! isset( $_GET['status'] ) ) {
+			bb_powerpack_update( 'bb_powerpack_license_status', $status );
+		}
 	}
-	//bb_powerpack_update( 'bb_powerpack_license_status', $license_status );
 }
 ?>
 

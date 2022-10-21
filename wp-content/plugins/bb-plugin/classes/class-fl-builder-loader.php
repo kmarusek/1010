@@ -48,7 +48,7 @@ if ( ! class_exists( 'FLBuilderLoader' ) ) {
 		 * @return void
 		 */
 		static private function define_constants() {
-			define( 'FL_BUILDER_VERSION', '2.5.4.3' );
+			define( 'FL_BUILDER_VERSION', '2.6.0.2' );
 			define( 'FL_BUILDER_FILE', trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'fl-builder.php' );
 			define( 'FL_BUILDER_DIR', plugin_dir_path( FL_BUILDER_FILE ) );
 			define( 'FL_BUILDER_URL', esc_url( plugins_url( '/', FL_BUILDER_FILE ) ) );
@@ -94,6 +94,7 @@ if ( ! class_exists( 'FLBuilderLoader' ) ) {
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-import.php';
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-loop.php';
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-model.php';
+			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-admin-advanced.php';
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-module.php';
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-photo.php';
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-revisions.php';
@@ -114,6 +115,7 @@ if ( ! class_exists( 'FLBuilderLoader' ) ) {
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-settings-presets.php';
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-compatibility.php';
 			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-font-awesome.php';
+			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-global-import-export.php';
 
 			/* WP CLI Commands */
 			if ( defined( 'WP_CLI' ) ) {
@@ -130,6 +132,9 @@ if ( ! class_exists( 'FLBuilderLoader' ) ) {
 			if ( file_exists( FL_BUILDER_DIR . 'includes/updater/updater.php' ) ) {
 				require_once FL_BUILDER_DIR . 'includes/updater/updater.php';
 			}
+
+			/* notices */
+			require_once FL_BUILDER_DIR . 'classes/class-fl-builder-admin-notices.php';
 		}
 
 		/**

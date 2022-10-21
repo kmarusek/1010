@@ -34,7 +34,7 @@
 		<# if ( data.responsive ) { #>
 		<i class="fl-field-responsive-toggle dashicons dashicons-desktop" data-mode="default"></i>
 		<# } #>
-		<# var devices = [ 'default', 'medium', 'responsive' ];
+		<# var devices = [ 'default', 'large', 'medium', 'responsive' ];
 
 		for ( var i = 0; i < devices.length; i++ ) {
 

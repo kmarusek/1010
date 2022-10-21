@@ -66,11 +66,6 @@ $schema = $module->get_structured_data( $settings );
 					is_object( $attachment_data ) ? $attachment_data->title : '',
 					is_object( $attachment_data ) ? $attachment_data->alt : ''
 				);
-				echo '<script type="text/html" class="pp-video-lightbox-content">';
-				echo '<div class="pp-video-container"><div class="pp-fit-aspect-ratio">';
-				echo $video_html;
-				echo '</div></div>';
-				echo '</script>';
 			} ?>
 			<?php if ( 'show' === $settings->play_icon ) { ?>
 				<div class="pp-video-play-icon" role="button" tabindex="0">
@@ -82,3 +77,12 @@ $schema = $module->get_structured_data( $settings );
 	<?php } ?>
 	</div>
 </div>
+<?php if ( $lightbox ) { ?>
+	<script type="text/html" class="pp-video-lightbox-content">
+		<div class="pp-video-container">
+			<div class="pp-fit-aspect-ratio">
+			<?php echo $video_html; ?>
+			</div>
+		</div>
+	</script>
+<?php } ?>

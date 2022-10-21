@@ -425,6 +425,28 @@
     });
 
     $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
+        if ($('#wp-client-reports-pro-wordfence').length) {
+            $('#wp-client-reports-pro-wordfence').addClass('loading');
+            var dataString = 'action=wp_client_reports_pro_wordfence_data&start=' + start_date_utc + '&end=' + end_date_utc;
+            var js_date_format = getDateFormat();
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                data: dataString,
+                dataType: 'json',
+                success: function(data, err) {
+                    $("#wp-client-reports-pro-wordfence-complex-blocks").text(data.complex_blocks);
+                    $("#wp-client-reports-pro-wordfence-brute-force").text(data.brute_force_blocks);
+                    if (data.wordfence_is_paid) {
+                        $("#wp-client-reports-pro-wordfence-blacklist").text(data.blacklist);
+                    }
+                    $('#wp-client-reports-pro-wordfence').removeClass('loading');
+                }
+            });
+        }
+    });
+
+    $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
         if ($('#wp-client-reports-pro-updraftplus').length) {
             $('#wp-client-reports-pro-updraftplus').addClass('loading');
             var dataString = 'action=wp_client_reports_pro_updraftplus_data&start=' + start_date_utc + '&end=' + end_date_utc;

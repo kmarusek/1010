@@ -11,6 +11,8 @@ FLBuilder::render_module_css('icon', $id, array(
 	'link_target'          => '',
 	'size'                 => $settings->size,
 	'size_unit'            => $settings->size_unit,
+	'size_large'           => $settings->size_large,
+	'size_large_unit'      => $settings->size_large_unit,
 	'size_medium'          => $settings->size_medium,
 	'size_medium_unit'     => $settings->size_medium_unit,
 	'size_responsive'      => $settings->size_responsive,
@@ -40,7 +42,7 @@ foreach ( $settings->icons as $i => $icon ) :
 
 	if ( ! empty( $icon->bg_color ) ) {
 
-		foreach ( array( '', 'medium', 'responsive' ) as $device ) {
+		foreach ( array( '', 'large', 'medium', 'responsive' ) as $device ) {
 
 			$key      = empty( $device ) ? 'size' : "size_{$device}";
 			$unit_key = "{$key}_unit";

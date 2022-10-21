@@ -114,15 +114,15 @@ FLBuilderCSS::rule( array(
 
 // Background Photo - Desktop
 if ( 'photo' == $row->settings->bg_type ) :
-	$row_bg_image_lg = '';
+	$row_bg_image_xl = '';
 
 	if ( 'library' == $row->settings->bg_image_source ) {
-		$row_bg_image_lg = $row->settings->bg_image_src;
+		$row_bg_image_xl = $row->settings->bg_image_src;
 	} elseif ( 'url' == $row->settings->bg_image_source && ! empty( $row->settings->bg_image_url ) ) {
 		if ( 'array' == gettype( $row->settings->bg_image_url ) ) {
-			$row_bg_image_lg = do_shortcode( $row->settings->bg_image_url['url'] );
+			$row_bg_image_xl = do_shortcode( $row->settings->bg_image_url['url'] );
 		} else {
-			$row_bg_image_lg = (string) do_shortcode( $row->settings->bg_image_url );
+			$row_bg_image_xl = (string) do_shortcode( $row->settings->bg_image_url );
 		}
 	}
 	if ( 'custom_pos' == $row->settings->bg_position ) {
@@ -140,11 +140,44 @@ if ( 'photo' == $row->settings->bg_type ) :
 		'selector' => ".fl-node-$id > .fl-row-content-wrap",
 		'enabled'  => 'photo' === $settings->bg_type,
 		'props'    => array(
-			'background-image'      => $row_bg_image_lg,
+			'background-image'      => $row_bg_image_xl,
 			'background-repeat'     => $settings->bg_repeat,
 			'background-position'   => $row_bg_position_lg,
 			'background-attachment' => $settings->bg_attachment,
 			'background-size'       => $settings->bg_size,
+		),
+	) );
+endif;
+
+// Background Photo - Large
+if ( 'photo' == $row->settings->bg_type ) :
+	$row_bg_image_lg = '';
+
+	if ( 'library' == $row->settings->bg_image_source ) {
+		$row_bg_image_lg = $row->settings->bg_image_large_src;
+	} elseif ( 'url' == $row->settings->bg_image_source && ! empty( $row->settings->bg_image_url ) ) {
+		$row_bg_image_lg = $row_bg_image_xl;
+	}
+	if ( 'custom_pos' == $row->settings->bg_position_large ) {
+		$row_bg_position_lg  = empty( $row->settings->bg_x_position_large ) ? '0' : $row->settings->bg_x_position_large;
+		$row_bg_position_lg .= $row->settings->bg_x_position_large_unit;
+		$row_bg_position_lg .= ' ';
+		$row_bg_position_lg .= empty( $row->settings->bg_y_position_large ) ? '0' : $row->settings->bg_y_position_large;
+		$row_bg_position_lg .= $row->settings->bg_y_position_large_unit;
+	} else {
+		$row_bg_position_lg = $row->settings->bg_position_large;
+	}
+
+	FLBuilderCSS::rule( array(
+		'media'    => 'large',
+		'selector' => ".fl-node-$id > .fl-row-content-wrap",
+		'enabled'  => 'photo' === $settings->bg_type,
+		'props'    => array(
+			'background-image'      => $row_bg_image_lg,
+			'background-repeat'     => $settings->bg_repeat_large,
+			'background-position'   => $row_bg_position_lg,
+			'background-attachment' => $settings->bg_attachment_large,
+			'background-size'       => $settings->bg_size_large,
 		),
 	) );
 endif;
@@ -156,7 +189,7 @@ if ( 'photo' == $row->settings->bg_type ) :
 	if ( 'library' == $row->settings->bg_image_source ) {
 		$row_bg_image_md = $row->settings->bg_image_medium_src;
 	} elseif ( 'url' == $row->settings->bg_image_source && ! empty( $row->settings->bg_image_url ) ) {
-		$row_bg_image_md = $row_bg_image_lg;
+		$row_bg_image_md = $row_bg_image_xl;
 	}
 	if ( 'custom_pos' == $row->settings->bg_position_medium ) {
 		$row_bg_position_md  = empty( $row->settings->bg_x_position_medium ) ? '0' : $row->settings->bg_x_position_medium;
@@ -190,7 +223,7 @@ if ( 'photo' == $row->settings->bg_type ) :
 	if ( 'library' == $row->settings->bg_image_source ) {
 		$row_bg_image_sm = $row->settings->bg_image_responsive_src;
 	} elseif ( 'url' == $row->settings->bg_image_source && ! empty( $row->settings->bg_image_url ) ) {
-		$row_bg_image_sm = $row_bg_image_lg;
+		$row_bg_image_sm = $row_bg_image_xl;
 	}
 
 	if ( 'custom_pos' == $row->settings->bg_position_responsive ) {
@@ -280,6 +313,14 @@ FLBuilderCSS::responsive_rule( array(
 	'enabled'      => 'custom' === $settings->full_height,
 ) );
 
+// Aspect Ratio
+FLBuilderCSS::responsive_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'aspect_ratio',
+	'selector'     => ".fl-node-$id > .fl-row-content-wrap",
+	'prop'         => 'aspect-ratio',
+) );
+
 // Row Resize - Max Width
 if ( isset( $settings->max_content_width ) ) {
 	$has_max_width        = ! FLBuilderCSS::is_empty( $settings->max_content_width );
@@ -310,8 +351,9 @@ FLBuilderArt::render_shape_layers_css( $row );
 
 ?>
 
+<?php if ( ! empty( $settings->full_height ) && ( 'full' == $settings->full_height || 'custom' == $row->settings->full_height ) ) : ?>
 /* Full Height Rows */
-.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap, 
+.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap,
 .fl-node-<?php echo $id; ?>.fl-row-custom-height > .fl-row-content-wrap {
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -347,3 +389,4 @@ FLBuilderArt::render_shape_layers_css( $row );
 		min-height: 500px;
 	}
 }
+<?php endif; ?>

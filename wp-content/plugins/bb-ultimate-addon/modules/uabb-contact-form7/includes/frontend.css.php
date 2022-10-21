@@ -318,6 +318,23 @@ if ( 'true' === $settings->radio_check_custom_option ) {
 		text-align: center;
 	}
 
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before {
+		width: <?php echo esc_attr( $settings->radio_check_size ); ?>px;
+		height: <?php echo esc_attr( $settings->radio_check_size ); ?>px;
+		background-color: #<?php echo esc_attr( $settings->radio_check_bgcolor ); ?>;
+	}
+
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"]:checked + span:before {
+		font-size: calc( <?php echo esc_attr( $settings->radio_check_size ); ?>px / 1.2 );
+		color: #<?php echo esc_attr( $settings->radio_check_selected_color ); ?>;
+	}
+
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"]:checked + span:before, .fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before {
+		border-width: <?php echo esc_attr( $settings->radio_check_border_width ); ?>px;
+		border-style: solid;
+		border-color: #<?php echo esc_attr( $settings->radio_check_border_color ); ?>;
+	}
+
 	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox']:checked + span:before {
 		content: "\2714";
 		font-weight: bold;
@@ -327,7 +344,8 @@ if ( 'true' === $settings->radio_check_custom_option ) {
 		line-height: 1.3;
 	}
 
-	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span:before {
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span:before,
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-acceptance input[type="checkbox"] + span:before {
 		border-radius: <?php echo esc_attr( $settings->checkbox_border_radius ); ?>px;
 	}
 
@@ -344,6 +362,7 @@ if ( 'true' === $settings->radio_check_custom_option ) {
 ?>
 
 .fl-builder-content .fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span,
+.fl-builder-content .fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-acceptance input[type='checkbox'] + span,
 .fl-builder-content .fl-node-<?php echo esc_attr( $id ); ?> .uabb-cf7-style .wpcf7-radio input[type='radio'] + span {
 	<?php
 	if ( 'true' === $settings->radio_check_custom_option ) {
@@ -388,7 +407,7 @@ if ( 'true' === $settings->radio_check_custom_option ) {
 			array(
 				'settings'     => $settings,
 				'setting_name' => 'form_radio_typo',
-				'selector'     => ".fl-node-$id .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span, .fl-node-$id .uabb-cf7-style .wpcf7-radio input[type='radio'] + span",
+				'selector'     => ".fl-node-$id .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span, .fl-node-$id .uabb-cf7-style .wpcf7-radio input[type='radio'] + span, .fl-node-$id .uabb-cf7-style input[type='checkbox'] + span",
 			)
 		);
 	}

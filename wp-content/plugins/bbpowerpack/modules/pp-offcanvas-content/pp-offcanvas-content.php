@@ -57,6 +57,14 @@ class PPOffcanvasContent extends FLBuilderModule {
 		return $settings;
 	}
 
+	public function get_shortcode_content( $post_id ) {
+		if ( isset( $_GET['fl_builder'] ) ) {
+			return '[fl_builder_insert_layout id="' . $post_id . '" type="fl-builder-template"]';
+		}
+		
+		return pp_get_post_content( get_post( $post_id ) );
+	}
+
 	/**
 	 * Render content output on the frontend.
 	 *
@@ -80,13 +88,13 @@ class PPOffcanvasContent extends FLBuilderModule {
 				}
 				break;
 			case 'module':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_module . '" type="fl-builder-template"]';
+				$html = $this->get_shortcode_content( $settings->content_module );
 				break;
 			case 'row':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_row . '" type="fl-builder-template"]';
+				$html = $this->get_shortcode_content( $settings->content_row );
 				break;
 			case 'layout':
-				$html = '[fl_builder_insert_layout id="' . $settings->content_layout . '" type="fl-builder-template"]';
+				$html = $this->get_shortcode_content( $settings->content_layout );
 				break;
 			case 'sidebar':
 				$sidebar = $settings->content_sidebar;

@@ -61,23 +61,27 @@ $form = array(
 			'link'             => __( 'Link', 'bb-theme-builder' ),
 			'page_link'        => __( 'Page Link', 'bb-theme-builder' ),
 			'google_map'       => __( 'Google Map', 'bb-theme-builder' ),
+			'color_picker'     => __( 'Color Picker', 'bb-theme-builder' ),
 			'date_picker'      => __( 'Date Picker', 'bb-theme-builder' ),
 			'date_time_picker' => __( 'Date Time Picker', 'bb-theme-builder' ),
 			'time_picker'      => __( 'Time Picker', 'bb-theme-builder' ),
 			'true_false'       => __( 'True/False', 'bb-theme-builder' ),
 		),
 		'toggle'  => array(
-			'image'    => array(
+			'image'        => array(
 				'fields' => array( 'image_size', 'display' ),
 			),
-			'file'     => array(
+			'file'         => array(
 				'fields' => array( 'file_display' ),
 			),
-			'checkbox' => array(
+			'checkbox'     => array(
 				'fields' => array( 'checkbox_format' ),
 			),
-			'select'   => array(
+			'select'       => array(
 				'fields' => array( 'select_format' ),
+			),
+			'color_picker' => array(
+				'fields' => array( 'prefix' ),
 			),
 		),
 	),
@@ -150,6 +154,15 @@ $form = array(
 			'text' => __( 'Text', 'bb-theme-builder' ),
 			'ol'   => __( 'Ordered List', 'bb-theme-builder' ),
 			'ul'   => __( 'Unordered List', 'bb-theme-builder' ),
+		),
+	),
+	'prefix'          => array(
+		'type'    => 'select',
+		'label'   => __( 'Add Hex Color Prefix', 'bb-theme-builder' ),
+		'default' => '0',
+		'options' => array(
+			'0' => __( 'No', 'bb-theme-builder' ),
+			'1' => __( 'Yes', 'bb-theme-builder' ),
 		),
 	),
 );
@@ -425,9 +438,18 @@ FLPageData::add_site_property( 'acf_option_color', array(
 ) );
 
 $form = array(
-	'name' => array(
+	'name'   => array(
 		'type'  => 'text',
 		'label' => __( 'Field Name', 'bb-theme-builder' ),
+	),
+	'prefix' => array(
+		'type'    => 'select',
+		'label'   => __( 'Add Hex Color Prefix', 'bb-theme-builder' ),
+		'default' => '0',
+		'options' => array(
+			'0' => __( 'No', 'bb-theme-builder' ),
+			'1' => __( 'Yes', 'bb-theme-builder' ),
+		),
 	),
 );
 

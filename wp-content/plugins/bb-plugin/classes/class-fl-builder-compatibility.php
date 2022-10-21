@@ -48,7 +48,6 @@ final class FLBuilderCompatibility {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'ee_remove_stylesheet' ), 99999 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_woocommerce_products_filter' ), 12 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'fix_woo_archive_loop' ), 99 );
-		add_action( 'pre_get_posts', array( __CLASS__, 'fix_tribe_events_hide_from_listings_archive' ) );
 		add_action( 'fl_builder_menu_module_before_render', array( __CLASS__, 'fix_menu_module_before_render' ) );
 		add_action( 'fl_builder_menu_module_after_render', array( __CLASS__, 'fix_menu_module_after_render' ) );
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'fix_dulicate_page' ), 11 );
@@ -56,6 +55,8 @@ final class FLBuilderCompatibility {
 		add_action( 'rest_api_init', array( __CLASS__, 'fix_rest_content' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_signify_theme_media' ), 11 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'hide_tribe_child_recurring_events' ) );
+		add_action( 'wp_print_scripts', array( __CLASS__, 'convert_box_bb' ), 20 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'yith_woocommerce_affiliates' ), 20 );
 
 		// Filters
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'bp_pages_support' ), 11, 2 );
@@ -80,7 +81,6 @@ final class FLBuilderCompatibility {
 		add_filter( 'fl_builder_loop_rewrite_rules', array( __CLASS__, 'fix_wpseo_category_pagination_rule' ) );
 		add_filter( 'fl_builder_loop_rewrite_rules', array( __CLASS__, 'fix_seopress_category_pagination_rule' ) );
 		add_filter( 'fl_builder_loop_rewrite_rules', array( __CLASS__, 'fix_polylang_pagination_rule' ) );
-		add_filter( 'fl_builder_loop_query_args', array( __CLASS__, 'fix_tribe_events_hide_from_listings' ) );
 		add_filter( 'tribe_events_rewrite_rules_custom', array( __CLASS__, 'fix_tribe_events_pagination_rule' ), 10, 3 );
 		add_filter( 'woocommerce_product_tabs', array( __CLASS__, 'fix_builder_on_empty_product_description' ) );
 		add_filter( 'aioseo_conflicting_shortcodes', array( __CLASS__, 'aioseo_conflicting_shortcodes' ) );
@@ -92,8 +92,9 @@ final class FLBuilderCompatibility {
 		add_filter( 'get_the_excerpt', array( __CLASS__, 'fix_rest_excerpt_filter' ), 10, 2 );
 		add_filter( 'woocommerce_tab_manager_tab_panel_content', array( __CLASS__, 'fix_woo_tab_manager_missing_content' ), 10, 3 );
 		add_filter( 'fl_builder_loop_query_args', array( __CLASS__, 'hide_tribe_child_recurring_events_custom_query' ) );
-		add_filter( 'fl_builder_render_assets_inline', array( __CLASS__, 'fix_ultimate_dashboard_pro' ), 11 );
+		add_filter( 'fl_builder_render_assets_inline', array( __CLASS__, 'fix_ultimate_dashboard_pro' ), 1001 );
 		add_filter( 'the_content', __CLASS__ . '::render_tribe_event_template', 11 );
+		add_filter( 'fl_builder_loop_query', array( __CLASS__, 'fix_tribe_events_pagination' ), 20, 2 );
 	}
 
 	/**
@@ -996,52 +997,6 @@ final class FLBuilderCompatibility {
 
 		return $rules;
 	}
-	/**
-	 * Fix 'Hide From Event Listings' from the Event Options under the Event Edit Screen
-	 * not being picked up by the Posts Grid module such as when used in a Themer Archive Layout.
-	 *
-	 * @since 2.4.1
-	 */
-	public static function fix_tribe_events_hide_from_listings_archive( $query ) {
-		if ( ! class_exists( 'Tribe__Events__Query' ) || ! class_exists( 'FLThemeBuilder' ) || is_admin() ) {
-			return;
-		}
-
-		if ( ( $query->is_main_query() && is_post_type_archive( 'tribe_events' ) ) || ( 'fl-theme-layout' === get_post_type() ) ) {
-			$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
-			$current_post_not_in  = $query->get( 'post__not_in' );
-			$query->set( 'post__not_in', array_merge( $current_post_not_in, $hide_upcoming_events ) );
-		}
-	}
-
-	/**
-	 * Fix 'Hide From Event Listings' from the Event Options under the Event Edit Screen
-	 * not being picked up by the Posts Grid module set to 'custom_query'.
-	 *
-	 * @since 2.4.1
-	 */
-	public static function fix_tribe_events_hide_from_listings( $args ) {
-		if ( ! class_exists( 'Tribe__Events__Query' ) || is_admin() ) {
-			return $args;
-		}
-
-		if ( empty( $args['settings']->post_type ) || empty( $args['settings']->data_source ) ) {
-			return $args;
-		}
-
-		if ( 'tribe_events' !== $args['settings']->post_type || 'custom_query' !== $args['settings']->data_source ) {
-			return $args;
-		}
-
-		$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
-		if ( isset( $args['post__not_in'] ) ) {
-			$args['post__not_in'] = array_merge( $args['post__not_in'], $hide_upcoming_events );
-		} else {
-			$args['post__not_in'] = $hide_upcoming_events;
-		}
-
-		return $args;
-	}
 
 	/**
 	 * Only show the first instance of recurring TEC Events.
@@ -1272,7 +1227,7 @@ final class FLBuilderCompatibility {
 			return $args;
 		}
 
-		if ( 'tribe_events' !== $args['settings']->post_type || 'custom_query' !== $args['settings']->data_source ) {
+		if ( ! FLBuilderUtils::post_type_contains( 'tribe_events', $args['settings']->post_type ) || 'custom_query' !== $args['settings']->data_source ) {
 			return $args;
 		}
 
@@ -1295,5 +1250,53 @@ final class FLBuilderCompatibility {
 		}
 		return $enabled;
 	}
+
+	/**
+	 * @since 2.5.5
+	 */
+	public static function convert_box_bb() {
+		if ( class_exists( 'FLBuilderModel' ) && ( FLBuilderModel::is_builder_active() ) ) {
+			remove_action( 'wp_head', 'convbox_head_script' );
+		}
+	}
+
+	/**
+	 * @since 2.6
+	 */
+
+	public static function yith_woocommerce_affiliates() {
+		if ( class_exists( 'FLBuilderModel' ) && ( FLBuilderModel::is_builder_active() ) ) {
+			wp_dequeue_script( 'yith-wcaf-shortcodes' );
+		}
+	}
+
+	/**
+	 * Fixes TEC 6 pagination.
+	 *
+	 * @since 2.6
+	 */
+	public static function fix_tribe_events_pagination( $query, $settings ) {
+		if ( ! class_exists( 'TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Only_Modifier' ) ) {
+			return $query;
+		}
+
+		if ( empty( $settings->data_source ) || $query->post_count < 1 ) {
+			return $query;
+		}
+
+		if ( 'main_query' === $settings->data_source && ! is_post_type_archive( 'tribe_events' ) ) {
+			return $query;
+		}
+
+		if ( 'custom_query' === $settings->data_source && ! FLBuilderUtils::post_type_contains( 'tribe_events', $settings->post_type ) ) {
+			return $query;
+		}
+
+		$query->max_num_pages = ceil( $query->found_posts / $query->query_vars['posts_per_page'] );
+
+		return $query;
+	}
+
+
 }
 FLBuilderCompatibility::init();

@@ -45,6 +45,66 @@ class FLSubscribeFormModule extends FLBuilderModule {
 	 * @return object
 	 */
 	public function filter_settings( $settings, $helper ) {
+		if ( empty( $settings->input_typography ) && ! empty( $settings->btn_typography ) ) {
+			// typography.
+			$settings->input_typography            = $settings->btn_typography;
+			$settings->input_typography_medium     = $settings->btn_typography_medium;
+			$settings->input_typography_responsive = $settings->btn_typography_responsive;
+
+			// border.
+			$settings->input_border            = $settings->btn_border;
+			$settings->input_border_medium     = $settings->btn_border_medium;
+			$settings->input_border_responsive = $settings->btn_border_responsive;
+
+			// padding.
+			$settings->input_padding_top               = $settings->btn_padding_top;
+			$settings->input_padding_top_medium        = $settings->btn_padding_top_medium;
+			$settings->input_padding_top_responsive    = $settings->btn_padding_top_responsive;
+			$settings->input_padding_right             = $settings->btn_padding_right;
+			$settings->input_padding_right_medium      = $settings->btn_padding_right_medium;
+			$settings->input_padding_right_responsive  = $settings->btn_padding_right_responsive;
+			$settings->input_padding_bottom            = $settings->btn_padding_bottom;
+			$settings->input_padding_bottom_medium     = $settings->btn_padding_bottom_medium;
+			$settings->input_padding_bottom_responsive = $settings->btn_padding_bottom_responsive;
+			$settings->input_padding_left              = $settings->btn_padding_left;
+			$settings->input_padding_left_medium       = $settings->btn_padding_left_medium;
+			$settings->input_padding_left_responsive   = $settings->btn_padding_left_responsive;
+
+			// make sure some default values remain unchanged.
+			if ( ! is_array( $settings->input_border ) ) {
+				$settings->input_border = array();
+			}
+			$settings->input_border['style']  = '';
+			$settings->input_border['color']  = '';
+			$settings->input_border['shadow'] = array(
+				'top'    => '',
+				'right'  => '',
+				'bottom' => '',
+				'left'   => '',
+			);
+			if ( ! is_array( $settings->input_border_medium ) ) {
+				$settings->input_border_medium = array();
+			}
+			$settings->input_border_medium['style']  = '';
+			$settings->input_border_medium['color']  = '';
+			$settings->input_border_medium['shadow'] = array(
+				'top'    => '',
+				'right'  => '',
+				'bottom' => '',
+				'left'   => '',
+			);
+			if ( ! is_array( $settings->input_border_responsive ) ) {
+				$settings->input_border_responsive = array();
+			}
+			$settings->input_border_responsive['style']  = '';
+			$settings->input_border_responsive['color']  = '';
+			$settings->input_border_responsive['shadow'] = array(
+				'top'    => '',
+				'right'  => '',
+				'bottom' => '',
+				'left'   => '',
+			);
+		}
 
 		// Handle old button module settings.
 		$helper->filter_child_module_settings( 'button', $settings, array(
@@ -161,7 +221,7 @@ class FLSubscribeFormModule extends FLBuilderModule {
 			'url'     => false,
 		);
 
-		if ( $email && $node_id ) {
+		if ( $email && $node_id && check_admin_referer( 'fl-subscribe-form-nonce', 'nonce' ) ) {
 
 			// Get the module settings.
 			if ( $template_id ) {
@@ -486,7 +546,7 @@ FLBuilder::register_module( 'FLSubscribeFormModule', array(
 						'units'      => array( 'px' ),
 						'preview'    => array(
 							'type'     => 'css',
-							'selector' => 'a.fl-button, .fl-form-field input, .fl-form-field input[type=text]',
+							'selector' => 'a.fl-button',
 							'property' => 'padding',
 						),
 					),
@@ -529,7 +589,7 @@ FLBuilder::register_module( 'FLSubscribeFormModule', array(
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
-							'selector' => 'a.fl-button, .fl-form-field input, .fl-form-field input[type=text]',
+							'selector' => 'a.fl-button',
 						),
 					),
 				),
@@ -599,6 +659,138 @@ FLBuilder::register_module( 'FLSubscribeFormModule', array(
 						'type'        => 'color',
 						'connections' => array( 'color' ),
 						'label'       => __( 'Button Border Hover Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type' => 'none',
+						),
+					),
+				),
+			),
+		),
+	),
+	'input'     => array(
+		'title'    => __( 'Input', 'fl-builder' ),
+		'sections' => array(
+			'input_general' => array(
+				'title'  => '',
+				'fields' => array(
+					'input_gap' => array(
+						'type'    => 'unit',
+						'label'   => __( 'Gap', 'fl-builder' ),
+						'help'    => __( 'Gap between each fields', 'fl-builder' ),
+						'units'   => array( 'px' ),
+						'slider'  => true,
+						// 'default' => '15',
+						'preview' => array(
+							'type'     => 'css',
+							'selector' => '.fl-form-field',
+							'property' => 'margin-bottom',
+						),
+					),
+				),
+			),
+			'input_style'   => array(
+				'title'  => __( 'Style', 'fl-builder' ),
+				'fields' => array(
+					'input_padding' => array(
+						'type'       => 'dimension',
+						'label'      => __( 'Padding', 'fl-builder' ),
+						'responsive' => true,
+						'slider'     => true,
+						'units'      => array( 'px' ),
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '.fl-form-field input',
+							'property' => 'padding',
+						),
+					),
+				),
+			),
+			'input_text'    => array(
+				'title'  => __( 'Text', 'fl-builder' ),
+				'fields' => array(
+					'input_text_color'       => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type'     => 'css',
+							'selector' => '.fl-form-field input',
+							'property' => 'color',
+						),
+					),
+					'input_text_hover_color' => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Hover Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type' => 'none',
+						),
+					),
+					'input_typography'       => array(
+						'type'       => 'typography',
+						'label'      => __( 'Typography', 'fl-builder' ),
+						'responsive' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '.fl-form-field input',
+						),
+					),
+				),
+			),
+			'input_colors'  => array(
+				'title'  => __( 'Background', 'fl-builder' ),
+				'fields' => array(
+					'input_bg_color'       => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Background Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type'     => 'css',
+							'selector' => '.fl-form-field input',
+							'property' => 'background-color',
+						),
+					),
+					'input_bg_hover_color' => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Background Hover Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type' => 'none',
+						),
+					),
+				),
+			),
+			'input_border'  => array(
+				'title'  => __( 'Border', 'fl-builder' ),
+				'fields' => array(
+					'input_border'             => array(
+						'type'       => 'border',
+						'label'      => __( 'Border', 'fl-builder' ),
+						'responsive' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '.fl-form-field input',
+						),
+					),
+					'input_border_hover_color' => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Border Hover Color', 'fl-builder' ),
 						'default'     => '',
 						'show_reset'  => true,
 						'show_alpha'  => true,

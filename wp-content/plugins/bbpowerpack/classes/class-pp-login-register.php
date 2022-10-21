@@ -124,11 +124,15 @@ final class BB_PowerPack_Login_Register {
 	}
 
 	static public function get_login_page_id() {
-		return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+		$id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+
+		return absint( $id );
 	}
 
 	static public function get_register_page_id() {
-		return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_register_page', true );
+		$id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_register_page', true );
+
+		return absint( $id );
 	}
 
 	/**

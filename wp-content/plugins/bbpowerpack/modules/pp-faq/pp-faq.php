@@ -51,7 +51,188 @@ class PPFAQModule extends FLBuilderModule {
 			}
 		}
 
+		if ( isset( $settings->faq_source ) ) {
+			$settings->data_source = $settings->faq_source;
+			unset( $settings->faq_source );
+		}
+		if ( isset( $settings->post_slug ) ) {
+			$settings->post_type = $settings->post_slug;
+			unset( $settings->post_slug );
+		}
+		if ( isset( $settings->post_count ) ) {
+			$settings->posts_per_page = $settings->post_count;
+			unset( $settings->post_count );
+		}
+		if ( isset( $settings->post_order ) ) {
+			$settings->order = $settings->post_order;
+			unset( $settings->post_order );
+		}
+
+		if ( isset( $settings->acf_repeater_question ) ) {
+			$settings->acf_repeater_label = $settings->acf_repeater_question;
+			unset( $settings->acf_repeater_question );
+		}
+		if ( isset( $settings->acf_repeater_answer ) ) {
+			$settings->acf_repeater_content = $settings->acf_repeater_answer;
+			unset( $settings->acf_repeater_answer );
+		}
+
+		if ( isset( $settings->acf_options_page_repeater_question ) ) {
+			$settings->acf_options_page_repeater_label = $settings->acf_options_page_repeater_question;
+			unset( $settings->acf_options_page_repeater_question );
+		}
+		if ( isset( $settings->acf_options_page_repeater_answer ) ) {
+			$settings->acf_options_page_repeater_content = $settings->acf_options_page_repeater_answer;
+			unset( $settings->acf_options_page_repeater_answer );
+		}		
+
 		return $settings;
+	}
+
+	public function get_data_source() {
+		if ( ! isset( $this->settings->data_source ) || empty( $this->settings->data_source ) ) {
+			return 'manual';
+		}
+
+		return $this->settings->data_source;
+	}
+
+	public function get_acf_data( $post_id = false ) {
+		if ( ! isset( $this->settings->acf_repeater_name ) || empty( $this->settings->acf_repeater_name ) ) {
+			return;
+		}
+
+		$data    = array();
+		$post_id = apply_filters( 'pp_faq_acf_post_id', $post_id );
+
+		$repeater_name = $this->settings->acf_repeater_name;
+		$question_name = $this->settings->acf_repeater_label;
+		$answer_name   = $this->settings->acf_repeater_content;
+
+		$repeater_rows = get_field( $repeater_name, $post_id );
+
+		if ( ! $repeater_rows ) {
+			return;
+		}
+
+		foreach ( $repeater_rows as $row ) {
+			$item               = new stdClass;
+			$item->faq_question = isset( $row[ $question_name ] ) ? $row[ $question_name ] : '';
+			$item->answer       = isset( $row[ $answer_name ] ) ? $row[ $answer_name ] : '';
+
+			$data[] = $item;
+		}
+
+		return $data;
+	}
+
+	public function get_acf_relationship_data() {
+		if ( ! isset( $this->settings->acf_relational_key ) || empty( $this->settings->acf_relational_key ) ) {
+			return;
+		}
+
+		$data = array();
+		$settings = new stdClass;
+
+		$settings->data_source = 'acf_relationship';
+		$settings->data_source_acf_relational_key = $this->settings->acf_relational_key;
+		$settings->data_source_acf_relational_type = $this->settings->acf_relational_type;
+		$settings->data_source_acf_order_by = $this->settings->acf_order_by;
+		$settings->data_source_acf_order = $this->settings->acf_order;
+		$settings->data_source_acf_order_by_meta_key = $this->settings->acf_order_by_meta_key;
+		$settings->posts_per_page = '-1';
+		$settings->id = $this->settings->id;
+		$settings->class = $this->settings->class;
+
+		$settings = apply_filters( 'pp_faq_acf_relationship_data_settings', $settings, $this->settings );
+
+		$query = FLBuilderLoop::query( $settings );
+
+		if ( $query->have_posts() ) {
+			$posts = $query->get_posts();
+			foreach ( $posts as $post ) {
+				$item               = new stdClass;
+				$item->faq_question = isset( $post->post_title ) ? $post->post_title : '';
+				$item->answer       = isset( $post->post_content ) ? $post->post_content : '';
+	
+				$data[] = $item;
+			}
+		}
+
+		return $data;
+	}
+
+	public function get_acf_options_page_data( $post_id = false ) {
+		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
+			return;
+		}
+
+		$data    = array();
+		$post_id = apply_filters( 'pp_faq_acf_options_page_post_id', $post_id );
+
+		$repeater_name = $this->settings->acf_options_page_repeater_name;
+		$question_name = $this->settings->acf_options_page_repeater_label;
+		$answer_name   = $this->settings->acf_options_page_repeater_content;
+
+		$repeater_rows = get_field( $repeater_name, 'option' );
+		if ( ! $repeater_rows ) {
+			return;
+		}
+
+		foreach ( $repeater_rows as $row ) {
+			$item               = new stdClass;
+			$item->faq_question = isset( $row[ $question_name ] ) ? $row[ $question_name ] : '';
+			$item->answer       = isset( $row[ $answer_name ] ) ? $row[ $answer_name ] : '';
+
+			$data[] = $item;
+		}
+		return $data;
+	}
+
+	public function get_cpt_data() {
+		$data = array();
+
+		if ( ! isset( $this->settings->post_type ) || empty( $this->settings->post_type ) ) {
+			return $data;
+		}
+
+		$settings = $this->settings;
+
+		$settings->post_type  = ! empty( $this->settings->post_type ) ? $this->settings->post_type : 'post';
+		$settings->posts_per_page = ! empty( $this->settings->posts_per_page ) || '-1' !== $this->settings->posts_per_page ? $this->settings->posts_per_page : '-1';
+		$settings->order = ! empty( $this->settings->order ) ? $this->settings->order : 'DESC';
+
+		$query = FLBuilderLoop::query( $settings );
+		$posts = $query->get_posts();
+
+		foreach ( $posts as $post ) {
+			$item               = new stdClass;
+			$item->faq_question = isset( $post->post_title ) ? $post->post_title : '';
+			$item->answer       = pp_get_post_content( $post );
+
+			$data[] = $item;
+		}
+
+		return $data;
+	}
+
+	public function get_faq_items() {
+		$items = array();
+		$source = $this->get_data_source();
+
+		if ( 'manual' === $source ) {
+			$items = $this->settings->items;
+		} elseif ( 'acf' === $source ) {
+			$items = $this->get_acf_data();
+		} elseif ( 'acf_relationship' === $source ) {
+			$items = $this->get_acf_relationship_data();
+		} elseif ( 'acf_options_page' === $source ) {
+			$items = $this->get_acf_options_page_data();
+		} elseif ( 'post' === $source || 'pods_relationship' === $source ) {
+			$items = $this->get_cpt_data();
+		}
+
+		return apply_filters( 'pp_faq_items', $items, $this->settings );
 	}
 
 	/**
@@ -140,355 +321,6 @@ class PPFAQModule extends FLBuilderModule {
 		$this->_schema_rendered = true;
 	}
 
-	public static function get_general_fields() {
-		$fields = array(
-			'faq_source' => array(
-				'type'    => 'select',
-				'label'   => __( 'Source', 'bb-powerpack' ),
-				'default' => '',
-				'options' => array(
-					'manual' => __( 'Manual', 'bb-powerpack' ),
-					'post'   => __( 'Post', 'bb-powerpack' ),
-				),
-				'toggle'  => array(
-					'manual' => array(
-						'fields' => array( 'items' ),
-					),
-					'post'   => array(
-						'sections' => array( 'post_content' ),
-					),
-				),
-			),
-			'items'      => array(
-				'type'         => 'form',
-				'label'        => __( 'FAQ', 'bb-powerpack' ),
-				'form'         => 'pp_faq_items_form', // ID from registered form below
-				'preview_text' => 'faq_question', // Name of a field to use for the preview text
-				'multiple'     => true,
-			),
-		);
-
-		if ( class_exists( 'acf' ) ) {
-			$fields['faq_source']['options']['acf']          = __( 'ACF Repeater Field', 'bb-powerpack' );
-			$fields['faq_source']['toggle']['acf']['fields'] = array( 'acf_repeater_name', 'acf_repeater_question', 'acf_repeater_answer' );
-
-			$fields['acf_repeater_name']     = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_repeater_question'] = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Question)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_repeater_answer']   = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Answer)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-
-			if ( class_exists( 'FLThemeBuilderLoader' ) ) {
-				$fields['faq_source']['options']['acf_relationship'] = __( 'ACF Relationship Field', 'bb-powerpack' );
-				$fields['faq_source']['toggle']['acf_relationship']['fields'] = array( 'acf_relational_type', 'acf_relational_key', 'acf_order', 'acf_order_by' );
-
-				$fields['acf_relational_type'] = array(
-					'type'		=> 'select',
-					'label'		=> __( 'Type', 'bb-powerpack' ),
-					'default'       => 'relationship',
-					'options'       => array(
-						'relationship'  => __( 'Relationship', 'bb-powerpack' ),
-						'user'          => __( 'User', 'bb-powerpack' ),
-					),
-				);
-
-				$fields['acf_relational_key'] = array(
-					'type'          => 'text',
-					'label'         => __( 'Key', 'bb-powerpack' ),
-				);
-
-				// Order
-				$fields['acf_order'] = array(
-					'type'    => 'select',
-					'label'   => __( 'Order', 'bb-powerpack' ),
-					'options' => array(
-						'DESC' => __( 'Descending', 'bb-powerpack' ),
-						'ASC'  => __( 'Ascending', 'bb-powerpack' ),
-					),
-				);
-
-				// Order by
-				$fields['acf_order_by'] = array(
-					'type'    => 'select',
-					'label'   => __( 'Order By', 'bb-powerpack' ),
-					'default' => 'post__in',
-					'options' => array(
-						'author'         => __( 'Author', 'bb-powerpack' ),
-						'comment_count'  => __( 'Comment Count', 'bb-powerpack' ),
-						'date'           => __( 'Date', 'bb-powerpack' ),
-						'modified'       => __( 'Date Last Modified', 'bb-powerpack' ),
-						'ID'             => __( 'ID', 'bb-powerpack' ),
-						'menu_order'     => __( 'Menu Order', 'bb-powerpack' ),
-						'meta_value'     => __( 'Meta Value (Alphabetical)', 'bb-powerpack' ),
-						'meta_value_num' => __( 'Meta Value (Numeric)', 'bb-powerpack' ),
-						'rand'           => __( 'Random', 'bb-powerpack' ),
-						'title'          => __( 'Title', 'bb-powerpack' ),
-						'name'          => __( 'Slug', 'bb-powerpack' ),
-						'post__in'       => __( 'Selection Order', 'bb-powerpack' ),
-					),
-					'toggle'  => array(
-						'meta_value'     => array(
-							'fields' => array( 'acf_order_by_meta_key' ),
-						),
-						'meta_value_num' => array(
-							'fields' => array( 'acf_order_by_meta_key' ),
-						),
-					),
-				);
-
-				// Meta Key
-				$fields['acf_order_by_meta_key'] = array(
-					'type'  => 'text',
-					'label' => __( 'Meta Key', 'bb-powerpack' ),
-				);
-			}
-		}
-		if ( function_exists( 'acf_add_options_page' ) ) {
-			$fields['faq_source']['options']['acf_options_page']          = __( 'ACF Option Page', 'bb-powerpack' );
-			$fields['faq_source']['toggle']['acf_options_page']['fields'] = array( 'acf_options_page_repeater_name', 'acf_options_page_repeater_question', 'acf_options_page_repeater_answer' );
-			$fields['faq_source']['help']                                 = __( 'To make use of the \'ACF Option Page\' feature, you will need ACF PRO (ACF v5), or the options page add-on (ACF v4)', 'bb-powerpack' );
-
-			$fields['acf_options_page_repeater_name']     = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_options_page_repeater_question'] = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Question)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-			$fields['acf_options_page_repeater_answer']   = array(
-				'type'        => 'text',
-				'label'       => __( 'ACF Repeater Sub Field Name (Answer)', 'bb-powerpack' ),
-				'connections' => array( 'string' ),
-			);
-		}
-
-		return $fields;
-	}
-
-	public function get_acf_data( $post_id = false ) {
-		if ( ! isset( $this->settings->acf_repeater_name ) || empty( $this->settings->acf_repeater_name ) ) {
-			return;
-		}
-
-		$data    = array();
-		$post_id = apply_filters( 'pp_faq_acf_post_id', $post_id );
-
-		$repeater_name = $this->settings->acf_repeater_name;
-		$question_name = $this->settings->acf_repeater_question;
-		$answer_name   = $this->settings->acf_repeater_answer;
-
-		$repeater_rows = get_field( $repeater_name, $post_id );
-
-		if ( ! $repeater_rows ) {
-			return;
-		}
-
-		foreach ( $repeater_rows as $row ) {
-			$item               = new stdClass;
-			$item->faq_question = isset( $row[ $question_name ] ) ? $row[ $question_name ] : '';
-			$item->answer       = isset( $row[ $answer_name ] ) ? $row[ $answer_name ] : '';
-
-			$data[] = $item;
-		}
-
-		return $data;
-	}
-
-	public function get_acf_relationship_data() {
-		if ( ! isset( $this->settings->acf_relational_key ) || empty( $this->settings->acf_relational_key ) ) {
-			return;
-		}
-
-		$data = array();
-		$settings = new stdClass;
-
-		$settings->data_source = 'acf_relationship';
-		$settings->data_source_acf_relational_key = $this->settings->acf_relational_key;
-		$settings->data_source_acf_relational_type = $this->settings->acf_relational_type;
-		$settings->data_source_acf_order_by = $this->settings->acf_order_by;
-		$settings->data_source_acf_order = $this->settings->acf_order;
-		$settings->data_source_acf_order_by_meta_key = $this->settings->acf_order_by_meta_key;
-		$settings->posts_per_page = '-1';
-		$settings->id = $this->settings->id;
-		$settings->class = $this->settings->class;
-
-		$settings = apply_filters( 'pp_faq_acf_relationship_data_settings', $settings, $this->settings );
-
-		$query = FLBuilderLoop::query( $settings );
-
-		if ( $query->have_posts() ) {
-			$posts = $query->get_posts();
-			foreach ( $posts as $post ) {
-				$item               = new stdClass;
-				$item->faq_question = isset( $post->post_title ) ? $post->post_title : '';
-				$item->answer       = isset( $post->post_content ) ? $post->post_content : '';
-	
-				$data[] = $item;
-			}
-		}
-
-		return $data;
-	}
-
-	public function get_acf_options_page_data( $post_id = false ) {
-		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
-			return;
-		}
-
-		$data    = array();
-		$post_id = apply_filters( 'pp_faq_acf_options_page_post_id', $post_id );
-
-		$repeater_name = $this->settings->acf_options_page_repeater_name;
-		$question_name = $this->settings->acf_options_page_repeater_question;
-		$answer_name   = $this->settings->acf_options_page_repeater_answer;
-
-		$repeater_rows = get_field( $repeater_name, 'option' );
-		if ( ! $repeater_rows ) {
-			return;
-		}
-
-		foreach ( $repeater_rows as $row ) {
-			$item               = new stdClass;
-			$item->faq_question = isset( $row[ $question_name ] ) ? $row[ $question_name ] : '';
-			$item->answer       = isset( $row[ $answer_name ] ) ? $row[ $answer_name ] : '';
-
-			$data[] = $item;
-		}
-		return $data;
-	}
-
-	public function get_cpt_data() {
-		if ( ! isset( $this->settings->post_slug ) || empty( $this->settings->post_slug ) ) {
-			return;
-		}
-		$data = array();
-
-		$post_type = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
-		$cpt_count = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
-		$cpt_order = ! empty( $this->settings->post_order ) ? $this->settings->post_order : 'ASC';
-
-		$var_tax_type     = 'posts_' . $post_type . '_tax_type';
-		$tax_type         = '';
-		$var_cat_matching = '';
-		$var_cat          = '';
-
-		if ( isset( $this->settings->$var_tax_type ) ) {
-			$tax_type         = $this->settings->$var_tax_type;
-			$var_cat          = 'tax_' . $post_type . '_' . $tax_type;
-			$var_cat_matching = $var_cat . '_matching';
-		}
-
-		$cat_match = isset( $this->settings->$var_cat_matching ) ? $this->settings->$var_cat_matching : false;
-		$ids       = isset( $this->settings->$var_cat ) ? explode( ',', $this->settings->$var_cat ) : array();
-		$taxonomy  = isset( $tax_type ) ? $tax_type : '';
-		$tax_query = array();
-
-		if ( isset( $ids[0] ) && ! empty( $ids[0] ) ) {
-			if ( $cat_match && 'related' !== $cat_match ) {
-				$tax_query = array(
-					'relation' => 'AND',
-					array(
-						'taxonomy' => $taxonomy,
-						'field'    => 'term_id',
-						'terms'    => $ids,
-					),
-				);
-			} elseif ( ! $cat_match || 'related' === $cat_match ) {
-
-				$tax_query = array(
-					'relation' => 'AND',
-					array(
-						'taxonomy'    => $taxonomy,
-						'field'       => 'term_id',
-						'terms'       => $ids,
-						'operator'    => 'NOT IN', // exclude
-						'post_parent' => 0, // top level only
-					),
-				);
-			}
-		}
-		$posts = get_posts(
-			array(
-				'post_type'   => $post_type,
-				'post_status' => 'publish',
-				'numberposts' => $cpt_count,
-				'order'       => $cpt_order,
-				'tax_query'   => $tax_query,
-			)
-		);
-		foreach ( $posts as $post ) {
-			$item               = new stdClass;
-			$item->faq_question = isset( $post->post_title ) ? $post->post_title : '';
-			$item->answer       = $this->get_post_content( $post );
-
-			$data[] = $item;
-		}
-
-		return $data;
-	}
-
-	public function get_post_content( $post ) {
-		ob_start();
-
-		if ( FLBuilderModel::is_builder_enabled( $post->ID ) ) {
-
-			// Enqueue styles and scripts for the post.
-			FLBuilder::enqueue_layout_styles_scripts_by_id( $post->ID );
-
-			// Print the styles if we are outside of the head tag.
-			if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {
-				wp_print_styles();
-			}
-
-			// Render the builder content.
-			FLBuilder::render_content_by_id( $post->ID );
-		} else {
-			// Render the WP editor content if the builder isn't enabled.
-			echo apply_filters( 'the_content', get_the_content( null, false, $post->ID ) );
-		}
-
-		return ob_get_clean();
-	}
-
-	public function get_faq_items() {
-		$items = '';
-
-		if ( ! isset( $this->settings->faq_source ) || empty( $this->settings->faq_source ) || 'manual' === $this->settings->faq_source ) {
-			$items = $this->settings->items;
-		}
-
-		if ( 'acf' === $this->settings->faq_source ) {
-			$items = $this->get_acf_data();
-		}
-
-		if ( 'acf_relationship' === $this->settings->faq_source ) {
-			$items = $this->get_acf_relationship_data();
-		}
-
-		if ( 'acf_options_page' === $this->settings->faq_source ) {
-			$items = $this->get_acf_options_page_data();
-		}
-
-		if ( 'post' === $this->settings->faq_source ) {
-			$items = $this->get_cpt_data();
-		}
-
-		return apply_filters( 'pp_faq_items', $items, $this->settings );
-	}
-
 }
 
 /**
@@ -515,17 +347,28 @@ BB_PowerPack::register_module(
 						),
 					),
 				),
-				'faq_general'   => array(
-					'title'  => __( 'FAQ Items', 'bb-powerpack' ),
-					'fields' => PPFAQModule::get_general_fields(),
+				'faq_general' => array(
+					'title' => __( 'FAQ Items', 'bb-powerpack' ),
+					'file'  => BB_POWERPACK_DIR . 'includes/ui-setting-fields.php',
 				),
+				'items' => array(
+					'title' => __( 'Items', 'bb-powerpack' ),
+					'fields' => array(
+						'items'      => array(
+							'type'         => 'form',
+							'label'        => __( 'FAQ', 'bb-powerpack' ),
+							'form'         => 'pp_faq_items_form', // ID from registered form below
+							'preview_text' => 'faq_question', // Name of a field to use for the preview text
+							'multiple'     => true,
+						),
+					),
+				), 
 				'post_content'  => array(
 					'title' => __( 'Content', 'bb-powerpack' ),
-					'file'  => BB_POWERPACK_DIR . 'modules/pp-faq/includes/loop-settings.php',
+					'file'  => BB_POWERPACK_DIR . 'includes/ui-loop-settings-simple.php',
 				),
 				'faq_settings'  => array(
 					'title'     => __( 'Settings', 'bb-powerpack' ),
-					'collapsed' => true,
 					'fields'    => array(
 						'expand_option'       => array(
 							'type'    => 'select',
@@ -538,11 +381,8 @@ BB_PowerPack::register_module(
 								'none'   => __( 'None', 'bb-powerpack' ),
 							),
 							'toggle'  => array(
-								'first'  => array(
-									'fields' => array( 'collapse' ),
-								),
 								'custom' => array(
-									'fields' => array( 'open_custom', 'collapse' ),
+									'fields' => array( 'open_custom' ),
 								),
 							),
 						),

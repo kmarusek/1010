@@ -59,6 +59,10 @@
                 "search",
                 "solr"
             ],
+            "support": {
+                "issues": "https://github.com/solariumphp/solarium/issues",
+                "source": "https://github.com/solariumphp/solarium/tree/master"
+            },
             "install-path": "../solarium/solarium"
         },
         {
