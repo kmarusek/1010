@@ -44,16 +44,27 @@ final class BB_PowerPack_Taxonomy_Thumbnail {
 	static public function init() {
 
 		add_action( 'pp_admin_settings_save', __CLASS__ . '::save_settings' );
+
 		self::$taxonomy_thumbnail_enable = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_taxonomy_thumbnail_enable' );
 
 		self::$taxonomies = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_taxonomy_thumbnail_taxonomies' );
 
-		if ( 'disabled' === self::$taxonomy_thumbnail_enable ) {
-			return;
+		if ( 'disabled' !== self::$taxonomy_thumbnail_enable ) {
+			add_action( 'admin_init', __CLASS__ . '::taxonomy_thumbnail_hooks' );
+			add_action( 'admin_print_scripts', __CLASS__ . '::taxonomy_admin_scripts' );
+			add_action( 'admin_print_styles', __CLASS__ . '::taxonomy_admin_styles' );
 		}
-		add_action( 'admin_init', __CLASS__ . '::taxonomy_thumbnail_hooks' );
-		add_action( 'admin_print_scripts', __CLASS__ . '::taxonomy_admin_scripts' );
-		add_action( 'admin_print_styles', __CLASS__ . '::taxonomy_admin_styles' );
+
+		add_action( 'plugins_loaded', __CLASS__ . '::init_field_connections', 99 );
+	}
+
+	static public function init_field_connections() {
+		if ( class_exists( 'FLPageData' ) ) {
+			FLPageData::add_group( 'powerpack', array(
+				'label' => pp_get_admin_label(),
+			) );
+		}
+
 		add_action( 'fl_page_data_add_properties', __CLASS__ . '::add_field_connection' );
 	}
 
@@ -350,37 +361,249 @@ final class BB_PowerPack_Taxonomy_Thumbnail {
 		) );
 
 		FLPageData::add_archive_property_settings_fields( 'pp_term_thumbnail_url', $fields );
+
+		// Term Thumbnail.
+		FLPageData::add_archive_property( 'pp_term_thumbnail', array(
+			'label'  => __( 'Term Thumbnail', 'bb-powerpack' ),
+			'group'  => 'powerpack',
+			'type'   => 'html',
+			'getter' => __CLASS__ . '::get_thumbnail_image_data',
+		) );
+
+		FLPageData::add_archive_property_settings_fields( 'pp_term_thumbnail', array(
+			'size'        => array(
+				'type'    => 'photo-sizes',
+				'label'   => __( 'Size', 'bb-powerpack' ),
+				'default' => 'thumbnail',
+			),
+			'default_img' => array(
+				'type'  => 'photo',
+				'label' => __( 'Default Image', 'bb-powerpack' ),
+			),
+			'display' => array(
+				'type'   => 'select',
+				'label'  => __( 'Display as', 'bb-powerpack' ),
+				'default' => 'tag',
+				'options' => array(
+					'tag'  => __( 'Tag', 'bb-powerpack' ),
+					'url'  => __( 'URL', 'bb-powerpack' ),
+				),
+			),
+		) );
+
+		// Term Title.
+		FLPageData::add_archive_property( 'pp_term_title', array(
+			'label'  => __( 'Term Title', 'bb-powerpack' ),
+			'group'  => 'powerpack',
+			'type'   => 'html',
+			'getter' => __CLASS__ . '::get_term_title',
+		) );
+
+		// Term Description.
+		FLPageData::add_archive_property( 'pp_term_desc', array(
+			'label'  => __( 'Term Description', 'bb-powerpack' ),
+			'group'  => 'powerpack',
+			'type'   => 'html',
+			'getter' => __CLASS__ . '::get_term_description',
+		) );
+
+		// Term URL.
+		FLPageData::add_archive_property( 'pp_term_url', array(
+			'label'  => __( 'Term URL', 'bb-powerpack' ),
+			'group'  => 'powerpack',
+			'type'   => 'html',
+			'getter' => __CLASS__ . '::get_term_url',
+		) );
+
+		// Term Posts Count.
+		FLPageData::add_archive_property( 'pp_term_posts_count', array(
+			'label'  => __( 'Term Posts Count', 'bb-powerpack' ),
+			'group'  => 'powerpack',
+			'type'   => 'html',
+			'getter' => __CLASS__ . '::get_term_posts_count',
+		) );
+
+		FLPageData::add_archive_property_settings_fields( 'pp_term_posts_count', array(
+			'label_singular' => array(
+				'type'    => 'text',
+				'label'   => __( 'Label Singular', 'bb-powerpack' ),
+				'default' => 'post',
+			),
+			'label_plural' => array(
+				'type'    => 'text',
+				'label'   => __( 'Label Singular', 'bb-powerpack' ),
+				'default' => 'posts',
+			),
+		) );
+
+		// Term Meta.
+		FLPageData::add_archive_property( 'pp_term_meta', array(
+			'label'  => __( 'Term Meta', 'bb-powerpack' ),
+			'group'  => 'powerpack',
+			'type'   => 'html',
+			'getter' => __CLASS__ . '::get_term_meta',
+		) );
+
+		FLPageData::add_archive_property_settings_fields( 'pp_term_meta', array(
+			'meta_key' => array(
+				'type'    => 'text',
+				'label'   => __( 'Meta Key', 'bb-powerpack' ),
+				'default' => '',
+			),
+		) );
 	}
 
 	static public function get_thumbnail_image_data( $settings ) {
-		$term_id  = 0;
+		$term     = null;
 		$settings = apply_filters( 'pp_term_thumbnail_url_connection_settings', $settings );
 
-		if ( isset( $settings->term_id ) && ! empty( $settings->term_id ) ) {
+		if ( isset( $GLOBALS['pp_category'] ) ) {
+			$term = $GLOBALS['pp_category'];
+		} elseif ( isset( $settings->term_id ) && ! empty( $settings->term_id ) ) {
 			$term_id = $settings->term_id;
+			$term    = get_term( $term_id );
 		} else {
 			$queried_object = get_queried_object();
 			if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
-				$term_id = $queried_object->term_id;
+				$term = $queried_object;
 			}
 		}
 
-		$id  = get_term_meta( $term_id, 'taxonomy_thumbnail_id', true );
-		$url = '';
+		if ( empty( $term ) || is_wp_error( $term ) ) {
+			return;
+		}
 
-		if ( empty( $id ) ) {
+		$term_id       = $term->term_id;
+		$meta_key      = 'product_cat' === $term->taxonomy ? 'thumbnail_id' : 'taxonomy_thumbnail_id';
+		$thumbnail_id  = get_term_meta( $term_id, $meta_key, true );
+		$thumbnail_url = '';
+
+		if ( empty( $thumbnail_id ) ) {
 			if ( isset( $settings->default_img_src ) ) {
-				$url = $settings->default_img_src;
+				$thumbnail_url = $settings->default_img_src;
 			}
 		} else {
-			$image = wp_get_attachment_image_src( $id, $settings->size );
-			$url   = ! empty( $image ) ? $image[0] : '';
+			$image = wp_get_attachment_image_src( $thumbnail_id, $settings->size );
+			$thumbnail_url = ! empty( $image ) ? $image[0] : '';
+		}
+
+		if ( isset( $settings->display ) && 'tag' === $settings->display ) {
+			if ( empty( $thumbnail_id ) && ! empty( $thumbnail_url ) ) {
+				return sprintf( '<img src="%s" alt="%s" />', $thumbnail_url, htmlspecialchars( $term->name ) );
+			}
+			return wp_get_attachment_image( $thumbnail_id, $settings->size );
+		}
+		if ( isset( $settings->display ) && 'url' === $settings->display ) {
+			return $thumbnail_url;
 		}
 
 		return array(
-			'id'  => $id,
-			'url' => $url,
+			'id'  => $thumbnail_id,
+			'url' => $thumbnail_url,
 		);
+	}
+
+	static public function get_term_title( $settings = null ) {
+		$term = null;
+
+		if ( isset( $GLOBALS['pp_category'] ) ) {
+			$term = $GLOBALS['pp_category'];
+		} elseif ( is_object( $settings ) && isset( $settings->term_id ) ) {
+			$term = get_term_by( 'id', $settings->term_id );
+		} else {
+			$queried_object = get_queried_object();
+			if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
+				$term = $queried_object;
+			}
+		}
+
+		if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
+			return $term->name;
+		}
+	}
+
+	static public function get_term_description( $settings = null ) {
+		$term = null;
+
+		if ( isset( $GLOBALS['pp_category'] ) ) {
+			$term = $GLOBALS['pp_category'];
+		} elseif ( is_object( $settings ) && isset( $settings->term_id ) ) {
+			$term = get_term( $settings->term_id );
+		} else {
+			$queried_object = get_queried_object();
+			if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
+				$term = $queried_object;
+			}
+		}
+
+		if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
+			return get_term_field( 'description', $term );
+		}
+	}
+
+	static public function get_term_url( $settings = null ) {
+		$term = null;
+
+		if ( isset( $GLOBALS['pp_category'] ) ) {
+			$term = $GLOBALS['pp_category'];
+		} elseif ( is_object( $settings ) && isset( $settings->term_id ) ) {
+			$term = get_term( $settings->term_id );
+		} else {
+			$queried_object = get_queried_object();
+			if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
+				$term = $queried_object;
+			}
+		}
+
+		if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
+			return get_term_link( $term->term_id );
+		}
+	}
+
+	static public function get_term_posts_count( $settings = null ) {
+		$term = null;
+
+		if ( isset( $GLOBALS['pp_category'] ) ) {
+			$term = $GLOBALS['pp_category'];
+		} elseif ( is_object( $settings ) && isset( $settings->term_id ) ) {
+			$term = get_term( $settings->term_id );
+		} else {
+			$queried_object = get_queried_object();
+			if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
+				$term = $queried_object;
+			}
+		}
+
+		if ( empty( $term ) || is_wp_error( $term ) ) {
+			return;
+		}
+
+		$label_singular = is_object( $settings ) && isset( $settings->label_singular ) ? $settings->label_singular : '';
+		$label_plural   = is_object( $settings ) && isset( $settings->label_plural ) ? $settings->label_plural : '';
+		$count_text     = 1 === $term->count ? $label_singular : $label_plural;
+
+		return sprintf( '%d %s', $term->count, $count_text );
+	}
+
+	static public function get_term_meta( $settings ) {
+		$term = null;
+
+		if ( isset( $GLOBALS['pp_category'] ) ) {
+			$term = $GLOBALS['pp_category'];
+		} elseif ( is_object( $settings ) && isset( $settings->term_id ) ) {
+			$term = get_term( $settings->term_id );
+		} else {
+			$queried_object = get_queried_object();
+			if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
+				$term = $queried_object;
+			}
+		}
+
+		if ( empty( $term ) || is_wp_error( $term ) ) {
+			return;
+		}
+
+		return get_term_meta( $term->term_id, $settings->meta_key, true );
 	}
 }
 

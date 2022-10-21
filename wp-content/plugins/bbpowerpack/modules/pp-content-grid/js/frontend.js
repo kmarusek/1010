@@ -917,20 +917,11 @@
 			});
 		},
 
-		_reLayout: function()
-		{
+		_reLayout: function() {
 			var self = this;
 			var wrap = $(this.wrapperClass);
 
-			$(document).on('sf:ajaxfinish', '.searchandfilter', function(){
-				self._gridLayout();
-			});
-
-			$(document).on('facetwp-loaded', function() {
-				if ( 'undefined' !== typeof FWPBB && 'undefined' !== typeof FWPBB.modules ) {
-					FWPBB.modules[ self.settings.id ] = self.settings;
-				}
-
+			var refreshLayout = function() {
 				wrap.imagesLoaded(function() {
 					if ( $('body').hasClass('fl-builder-active') ) {
 						return;
@@ -944,12 +935,40 @@
 							wrap.isotope('destroy');
 						}
 						//wrap.isotope( self.filterData );
-						self.facetWPLoaded = true;
+						self.layoutRefreshed = true;
 						self._gridLayout();
 						self._initPagination();
 					}, 500);
 				});
-			});
+			};
+
+			// Search and Filter.
+			$(document).on( 'sf:ajaxfinish', '.searchandfilter', refreshLayout );
+
+			// FacetWP.
+			$(document).on( 'facetwp-loaded', function() {
+				if ( 'undefined' !== typeof FWPBB && 'undefined' !== typeof FWPBB.modules ) {
+					FWPBB.modules[ self.settings.id ] = self.settings;
+				}
+
+				refreshLayout();
+			} );
+
+			// WP Grid Builder.
+			$(window).on( 'wpgb.loaded', function() {
+				if ( 'undefined' === typeof WP_Grid_Builder ) {
+					return;
+				}
+				if ( 'undefined' === typeof WP_Grid_Builder['on'] ) {
+					return;
+				}
+
+				WP_Grid_Builder.on( 'init', function( wpgb ) {
+					if ( wpgb.facets && 'undefined' !== typeof wpgb.facets['on'] ) {
+						wpgb.facets.on( 'appended', refreshLayout );
+					}
+				} );
+			} );
 		}
 	};
 

@@ -360,6 +360,16 @@ FLBuilderCSS::responsive_rule( array(
 	'unit'			=> 'px',
 ) );
 ?>
+<?php if ( isset( $settings->tooltip_icon_placement ) && 'box_edge' === $settings->tooltip_icon_placement ) { ?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip {
+	margin-left: auto;
+}
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-text {
+	right: 8px;
+	left: auto;
+	transform: none;
+}
+<?php } ?>
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features .pp-pricing-item-tooltip-icon {
 	<?php if ( isset( $settings->tooltip_icon_color ) && ! empty( $settings->tooltip_icon_color ) ) { ?>
 		color: #<?php echo $settings->tooltip_icon_color; ?>;
@@ -496,6 +506,12 @@ for ( $i = 0; $i < count( $settings->pricing_columns ); $i++ ) :
 <?php } ?>
 	margin-top: <?php echo $pricing_column->margin; ?>px;
 }
+
+<?php if ( 0 === $i && ! empty( $pricing_column->margin ) ) { // set top margin for matrix items column. ?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column {
+	margin-top: <?php echo $pricing_column->margin; ?>px;
+}
+<?php } ?>
 
 <?php if ( isset( $pricing_column->package_bg_color ) && ! empty( $pricing_column->package_bg_color ) ) { ?>
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column-<?php echo $i; ?> {

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2022-09-28 17:16:50+00:00\n"
+"POT-Creation-Date: 2022-10-18 17:21:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Builder CSS/JS"
 msgstr ""
 
-#: classes/class-fl-builder-admin-posts.php:76 includes/global-settings.php:291
+#: classes/class-fl-builder-admin-posts.php:76 includes/global-settings.php:433
 #: includes/layout-settings.php:7
 msgid "CSS"
 msgstr ""
@@ -223,7 +223,7 @@ msgstr ""
 #: classes/class-fl-builder-admin-settings.php:260
 #: classes/class-fl-builder-ui-content-panel.php:32
 #: extensions/fl-builder-template-data-exporter/includes/template-data-exporter.php:76
-#: includes/global-settings.php:172
+#: includes/global-settings.php:285
 msgid "Modules"
 msgstr ""
 
@@ -250,7 +250,7 @@ msgid "Tools"
 msgstr ""
 
 #: classes/class-fl-builder-admin-settings.php:285
-#: classes/class-fl-builder-model.php:3259
+#: classes/class-fl-builder-model.php:3296
 #: classes/class-fl-builder-module.php:379 includes/column-settings.php:388
 #: includes/module-settings.php:6 includes/row-settings.php:754
 msgid "Advanced"
@@ -642,7 +642,7 @@ msgstr ""
 #: modules/icon-group/icon-group.php:157 modules/list/list.php:146
 #: modules/list/list.php:552 modules/login-form/login-form.php:159
 #: modules/map/map.php:27 modules/menu/menu.php:543
-#: modules/numbers/numbers.php:183 modules/photo/photo.php:542
+#: modules/numbers/numbers.php:156 modules/photo/photo.php:542
 #: modules/pricing-table/pricing-table.php:814
 #: modules/reusable-block/reusable-block.php:60
 #: modules/rich-text/rich-text.php:27 modules/separator/separator.php:65
@@ -668,32 +668,32 @@ msgid "Description"
 msgstr ""
 
 #: classes/class-fl-builder-font-awesome.php:147
-#: classes/class-fl-builder-model.php:6865
+#: classes/class-fl-builder-model.php:6902
 #: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-post-type.php:36
 #: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:139
 msgid "Beaver Builder"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:223
+#: classes/class-fl-builder-font-awesome.php:222
 msgid ""
 "You appear to have the font awesome plugin configured to use svg icons, "
 "this currently is incompatible with Beaver Builder. You must switch to a "
 "webfont set/kit."
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:278
+#: classes/class-fl-builder-font-awesome.php:277
 msgid "Pro Icons"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:279
-#: classes/class-fl-builder-font-awesome.php:298
+#: classes/class-fl-builder-font-awesome.php:278
+#: classes/class-fl-builder-font-awesome.php:297
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates-edit.php:24
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates.php:82
 #: extensions/fl-builder-core-templates-admin/includes/core-template-settings.php:36
 #: extensions/fl-builder-user-templates/includes/node-template-settings.php:22
 #: includes/column-settings.php:54 includes/global-settings.php:19
-#: includes/global-settings.php:207 includes/global-settings.php:222
-#: includes/global-settings.php:262 includes/global-settings.php:272
+#: includes/global-settings.php:349 includes/global-settings.php:364
+#: includes/global-settings.php:404 includes/global-settings.php:414
 #: includes/row-settings.php:476 includes/row-settings.php:489
 #: includes/row-settings.php:598 includes/ui-loop-settings-filter.php:136
 #: includes/ui-loop-settings.php:131 modules/accordion/accordion.php:128
@@ -753,14 +753,14 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:279
+#: classes/class-fl-builder-font-awesome.php:278
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates-edit.php:23
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates.php:82
 #: extensions/fl-builder-core-templates-admin/includes/core-template-settings.php:35
 #: extensions/fl-builder-user-templates/includes/node-template-settings.php:21
 #: includes/column-settings.php:53 includes/global-settings.php:18
-#: includes/global-settings.php:206 includes/global-settings.php:221
-#: includes/global-settings.php:261 includes/global-settings.php:271
+#: includes/global-settings.php:348 includes/global-settings.php:363
+#: includes/global-settings.php:403 includes/global-settings.php:413
 #: includes/row-settings.php:475 includes/row-settings.php:488
 #: includes/row-settings.php:597 includes/ui-loop-settings-filter.php:137
 #: includes/ui-loop-settings.php:132 modules/accordion/accordion.php:129
@@ -820,19 +820,19 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:282
+#: classes/class-fl-builder-font-awesome.php:281
 msgid "Technology"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:286
+#: classes/class-fl-builder-font-awesome.php:285
 msgid "Version"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:290
+#: classes/class-fl-builder-font-awesome.php:289
 msgid "V4 Compatibility Mode"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:291 modules/button/button.php:515
+#: classes/class-fl-builder-font-awesome.php:290 modules/button/button.php:515
 #: modules/button-group/button-group.php:384
 #: modules/button-group/button-group.php:669 modules/callout/callout.php:1025
 #: modules/contact-form/contact-form.php:727
@@ -843,7 +843,7 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:291 modules/button/button.php:514
+#: classes/class-fl-builder-font-awesome.php:290 modules/button/button.php:514
 #: modules/button-group/button-group.php:383
 #: modules/button-group/button-group.php:668 modules/callout/callout.php:1024
 #: modules/contact-form/contact-form.php:726
@@ -854,37 +854,37 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:297
+#: classes/class-fl-builder-font-awesome.php:296
 msgid "Using CDN"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:302
+#: classes/class-fl-builder-font-awesome.php:301
 msgid "Using Kit"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:307
+#: classes/class-fl-builder-font-awesome.php:306
 #. translators: %s, number of icons
 msgid "%s custom icon"
 msgid_plural "%s custom icons"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/class-fl-builder-font-awesome.php:309
+#: classes/class-fl-builder-font-awesome.php:308
 msgid "Custom Icons"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:325
+#: classes/class-fl-builder-font-awesome.php:324
 msgid "Issue Detected"
 msgstr ""
 
-#: classes/class-fl-builder-font-awesome.php:327
+#: classes/class-fl-builder-font-awesome.php:326
 #. translators: %s: kit name
 msgid "This domain appears to be blocked for kit %s"
 msgstr ""
 
 #: classes/class-fl-builder-fonts.php:123
 #: classes/class-fl-builder-fonts.php:158
-#: classes/class-fl-builder-fonts.php:199 includes/column-settings.php:519
+#: classes/class-fl-builder-fonts.php:199 includes/column-settings.php:503
 #: includes/row-settings.php:72 includes/ui-field-border.php:78
 #: includes/ui-field-typography.php:141 includes/ui-field-typography.php:155
 #: includes/ui-field-typography.php:168
@@ -1134,7 +1134,7 @@ msgid ""
 "Please <a href=\"%s\">deactivate one</a> before continuing."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3253
+#: classes/class-fl-builder-model.php:3290
 #: classes/class-fl-builder-module.php:377 modules/audio/audio.php:20
 #: modules/button/button.php:15 modules/button-group/button-group.php:15
 #: modules/heading/heading.php:16 modules/html/html.php:15
@@ -1144,7 +1144,7 @@ msgstr ""
 msgid "Basic"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3254
+#: classes/class-fl-builder-model.php:3291
 #: modules/content-slider/content-slider.php:15 modules/gallery/gallery.php:15
 #: modules/icon/icon.php:15 modules/icon-group/icon-group.php:15
 #: modules/map/map.php:15 modules/slideshow/slideshow.php:15
@@ -1152,7 +1152,7 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3255 modules/callout/callout.php:15
+#: classes/class-fl-builder-model.php:3292 modules/callout/callout.php:15
 #: modules/contact-form/contact-form.php:24 modules/cta/cta.php:15
 #: modules/login-form/login-form.php:18 modules/menu/menu.php:25
 #: modules/search/search.php:17 modules/social-buttons/social-buttons.php:15
@@ -1160,12 +1160,12 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3256
+#: classes/class-fl-builder-model.php:3293
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates.php:8
 #: modules/accordion/accordion.php:15 modules/button-group/button-group.php:220
 #: modules/countdown/countdown.php:260 modules/cta/cta.php:198
 #: modules/gallery/gallery.php:229 modules/login-form/login-form.php:166
-#: modules/menu/menu.php:551 modules/numbers/numbers.php:190
+#: modules/menu/menu.php:551 modules/numbers/numbers.php:163
 #: modules/post-carousel/post-carousel.php:215
 #: modules/post-carousel/post-carousel.php:313
 #: modules/post-grid/post-grid.php:628 modules/post-grid/post-grid.php:635
@@ -1178,12 +1178,12 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3257 modules/countdown/countdown.php:15
+#: classes/class-fl-builder-model.php:3294 modules/countdown/countdown.php:15
 #: modules/numbers/numbers.php:15
 msgid "Info"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3258
+#: classes/class-fl-builder-model.php:3295
 #: modules/post-carousel/post-carousel.php:15
 #: modules/post-carousel/post-carousel.php:316
 #: modules/post-grid/post-grid.php:13 modules/post-grid/post-grid.php:15
@@ -1192,77 +1192,77 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3260
-#: classes/class-fl-builder-model.php:3276
+#: classes/class-fl-builder-model.php:3297
+#: classes/class-fl-builder-model.php:3313
 msgid "Other"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3277
-#: classes/class-fl-builder-model.php:3412
-#: classes/class-fl-builder-model.php:3840
+#: classes/class-fl-builder-model.php:3314
+#: classes/class-fl-builder-model.php:3449
+#: classes/class-fl-builder-model.php:3877
 #: extensions/fl-builder-user-templates/includes/admin-add-new-form.php:43
 #: includes/admin-settings-modules.php:78 includes/ui-js-config.php:286
 #: modules/widget/widget.php:15 modules/widget/widget.php:16
 msgid "WordPress Widgets"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3878
+#: classes/class-fl-builder-model.php:3915
 msgid "1 Column"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3883
+#: classes/class-fl-builder-model.php:3920
 msgid "2 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3888
+#: classes/class-fl-builder-model.php:3925
 msgid "3 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3893
+#: classes/class-fl-builder-model.php:3930
 msgid "4 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3898
+#: classes/class-fl-builder-model.php:3935
 msgid "5 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3903
+#: classes/class-fl-builder-model.php:3940
 msgid "6 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3908
+#: classes/class-fl-builder-model.php:3945
 msgid "Left Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3913
+#: classes/class-fl-builder-model.php:3950
 msgid "Right Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3918
+#: classes/class-fl-builder-model.php:3955
 msgid "Left & Right Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5225
-#: classes/class-fl-builder-model.php:5266
-#: classes/class-fl-builder-model.php:5348
-#: classes/class-fl-builder-model.php:6634 includes/ui-js-config.php:287
+#: classes/class-fl-builder-model.php:5262
+#: classes/class-fl-builder-model.php:5303
+#: classes/class-fl-builder-model.php:5385
+#: classes/class-fl-builder-model.php:6671 includes/ui-js-config.php:287
 msgid "Uncategorized"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5654
+#: classes/class-fl-builder-model.php:5691
 msgid "Logged In"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5658
+#: classes/class-fl-builder-model.php:5695
 msgid "Logged Out"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5662
+#: classes/class-fl-builder-model.php:5699
 msgid "Logic"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5666 includes/column-settings.php:497
-#: includes/module-settings.php:66 includes/row-settings.php:867
+#: classes/class-fl-builder-model.php:5703 includes/column-settings.php:481
+#: includes/module-settings.php:51 includes/row-settings.php:837
 msgid "Breakpoint"
 msgstr ""
 
@@ -2358,7 +2358,7 @@ msgstr ""
 
 #: classes/class-fl-builder-ui-content-panel.php:139
 #: extensions/fl-builder-template-data-exporter/includes/template-data-exporter.php:60
-#: includes/global-settings.php:122 modules/post-grid/post-grid.php:638
+#: includes/global-settings.php:180 modules/post-grid/post-grid.php:638
 #: modules/post-grid/post-grid.php:690 modules/woocommerce/woocommerce.php:144
 #: modules/woocommerce/woocommerce.php:225
 msgid "Columns"
@@ -2704,12 +2704,12 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: classes/class-fl-builder.php:4020
+#: classes/class-fl-builder.php:4029
 #. translators: %s: extension type
 msgid "The uploaded file is not a valid %s extension."
 msgstr ""
 
-#: classes/class-fl-builder.php:4176
+#: classes/class-fl-builder.php:4185
 msgid ""
 "You must call the_content in the current theme template in order for Beaver "
 "Builder to work on this layout."
@@ -3817,7 +3817,7 @@ msgstr ""
 #: modules/icon/icon.php:111 modules/icon-group/icon-group.php:45
 #: modules/icon-group/icon-group.php:182 modules/list/list.php:270
 #: modules/list/list.php:587 modules/menu/menu.php:821
-#: modules/numbers/numbers.php:337 modules/photo/photo.php:678
+#: modules/numbers/numbers.php:310 modules/photo/photo.php:678
 #: modules/post-carousel/post-carousel.php:533
 #: modules/post-grid/post-grid.php:1054 modules/post-slider/post-slider.php:725
 #: modules/pricing-table/pricing-table.php:502
@@ -3982,8 +3982,8 @@ msgstr ""
 msgid "Scroll"
 msgstr ""
 
-#: includes/column-settings.php:272 includes/global-settings.php:101
-#: includes/global-settings.php:115 includes/row-settings.php:20
+#: includes/column-settings.php:272 includes/global-settings.php:159
+#: includes/global-settings.php:173 includes/row-settings.php:20
 #: includes/row-settings.php:38 includes/row-settings.php:372
 msgid "Fixed"
 msgstr ""
@@ -4065,14 +4065,14 @@ msgid "Spacing"
 msgstr ""
 
 #: includes/column-settings.php:395 includes/global-settings.php:41
-#: includes/global-settings.php:126 includes/global-settings.php:176
+#: includes/global-settings.php:184 includes/global-settings.php:289
 #: includes/module-settings.php:13 includes/row-settings.php:761
 #: modules/content-slider/content-slider.php:704
 msgid "Margins"
 msgstr ""
 
-#: includes/column-settings.php:443 includes/global-settings.php:62
-#: includes/global-settings.php:148 includes/row-settings.php:811
+#: includes/column-settings.php:435 includes/global-settings.php:91
+#: includes/global-settings.php:233 includes/row-settings.php:796
 #: modules/accordion/accordion.php:233 modules/accordion/accordion.php:336
 #: modules/button/button.php:376 modules/button-group/button-group.php:581
 #: modules/callout/callout.php:407
@@ -4083,178 +4083,178 @@ msgstr ""
 msgid "Padding"
 msgstr ""
 
-#: includes/column-settings.php:493 includes/module-settings.php:62
-#: includes/row-settings.php:863
+#: includes/column-settings.php:477 includes/module-settings.php:47
+#: includes/row-settings.php:833
 msgid "Visibility"
 msgstr ""
 
-#: includes/column-settings.php:499 includes/module-settings.php:68
-#: includes/row-settings.php:869
+#: includes/column-settings.php:483 includes/module-settings.php:53
+#: includes/row-settings.php:839
 msgid "All"
 msgstr ""
 
-#: includes/column-settings.php:500 includes/module-settings.php:69
-#: includes/row-settings.php:870
+#: includes/column-settings.php:484 includes/module-settings.php:54
+#: includes/row-settings.php:840
 msgid "Extra Large Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:501 includes/module-settings.php:70
-#: includes/row-settings.php:871
+#: includes/column-settings.php:485 includes/module-settings.php:55
+#: includes/row-settings.php:841
 msgid "Extra Large &amp; Large Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:502 includes/module-settings.php:71
-#: includes/row-settings.php:872
+#: includes/column-settings.php:486 includes/module-settings.php:56
+#: includes/row-settings.php:842
 msgid "Extra Large, Large &amp; Medium Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:503 includes/module-settings.php:72
-#: includes/row-settings.php:873
+#: includes/column-settings.php:487 includes/module-settings.php:57
+#: includes/row-settings.php:843
 msgid "Large Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:504 includes/module-settings.php:73
-#: includes/row-settings.php:874
+#: includes/column-settings.php:488 includes/module-settings.php:58
+#: includes/row-settings.php:844
 msgid "Large &amp; Medium Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:505 includes/module-settings.php:74
-#: includes/row-settings.php:875
+#: includes/column-settings.php:489 includes/module-settings.php:59
+#: includes/row-settings.php:845
 msgid "Medium Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:506 includes/module-settings.php:75
-#: includes/row-settings.php:876 modules/menu/menu.php:742
+#: includes/column-settings.php:490 includes/module-settings.php:60
+#: includes/row-settings.php:846 modules/menu/menu.php:742
 msgid "Medium &amp; Small Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:507 includes/module-settings.php:76
-#: includes/row-settings.php:877 modules/menu/menu.php:743
+#: includes/column-settings.php:491 includes/module-settings.php:61
+#: includes/row-settings.php:847 modules/menu/menu.php:743
 msgid "Small Devices Only"
 msgstr ""
 
-#: includes/column-settings.php:515
+#: includes/column-settings.php:499
 msgid "Stacking Order"
 msgstr ""
 
-#: includes/column-settings.php:516
+#: includes/column-settings.php:500
 msgid ""
 "The order of the columns in this group when they are stacked for small "
 "devices."
 msgstr ""
 
-#: includes/column-settings.php:520
+#: includes/column-settings.php:504
 msgid "Reversed"
 msgstr ""
 
-#: includes/column-settings.php:528 includes/module-settings.php:84
-#: includes/row-settings.php:885 modules/accordion/accordion.php:121
+#: includes/column-settings.php:512 includes/module-settings.php:69
+#: includes/row-settings.php:855 modules/accordion/accordion.php:121
 #: modules/list/list.php:161 modules/slideshow/slideshow.php:288
 msgid "Display"
 msgstr ""
 
-#: includes/column-settings.php:530 includes/module-settings.php:86
-#: includes/row-settings.php:887 modules/menu/menu.php:740
+#: includes/column-settings.php:514 includes/module-settings.php:71
+#: includes/row-settings.php:857 modules/menu/menu.php:740
 msgid "Always"
 msgstr ""
 
-#: includes/column-settings.php:531 includes/module-settings.php:87
-#: includes/row-settings.php:888
+#: includes/column-settings.php:515 includes/module-settings.php:72
+#: includes/row-settings.php:858
 msgid "Logged Out User"
 msgstr ""
 
-#: includes/column-settings.php:532 includes/module-settings.php:88
-#: includes/row-settings.php:889
+#: includes/column-settings.php:516 includes/module-settings.php:73
+#: includes/row-settings.php:859
 msgid "Logged In User"
 msgstr ""
 
-#: includes/column-settings.php:533 includes/module-settings.php:89
-#: includes/row-settings.php:890 modules/gallery/gallery.php:284
+#: includes/column-settings.php:517 includes/module-settings.php:74
+#: includes/row-settings.php:860 modules/gallery/gallery.php:284
 #: modules/photo/photo.php:609
 msgid "Never"
 msgstr ""
 
-#: includes/column-settings.php:546 includes/module-settings.php:102
-#: includes/row-settings.php:903
+#: includes/column-settings.php:530 includes/module-settings.php:87
+#: includes/row-settings.php:873
 msgid "User Capability"
 msgstr ""
 
-#: includes/column-settings.php:548
+#: includes/column-settings.php:532
 #. translators: %s: wporg docs link
 msgid ""
 "Optional. Set the <a%s>capability</a> required for users to view this "
 "column."
 msgstr ""
 
-#: includes/column-settings.php:556 includes/column-settings.php:560
-#: includes/module-settings.php:112 includes/module-settings.php:116
-#: includes/row-settings.php:913 includes/row-settings.php:917
+#: includes/column-settings.php:540 includes/column-settings.php:544
+#: includes/module-settings.php:97 includes/module-settings.php:101
+#: includes/row-settings.php:883 includes/row-settings.php:887
 msgid "Animation"
 msgstr ""
 
-#: includes/column-settings.php:569 includes/module-settings.php:125
-#: includes/row-settings.php:926
+#: includes/column-settings.php:553 includes/module-settings.php:110
+#: includes/row-settings.php:896
 msgid "HTML Element"
 msgstr ""
 
-#: includes/column-settings.php:573 includes/module-settings.php:129
-#: includes/row-settings.php:930
+#: includes/column-settings.php:557 includes/module-settings.php:114
+#: includes/row-settings.php:900
 msgid "Container Element"
 msgstr ""
 
-#: includes/column-settings.php:588
+#: includes/column-settings.php:572
 msgid ""
 "Optional. Choose an appropriate HTML5 content sectioning element to use for "
 "this column to improve accessibility and machine-readability."
 msgstr ""
 
-#: includes/column-settings.php:595 includes/module-settings.php:151
-#: includes/row-settings.php:952 includes/ui-loop-settings-filter.php:91
+#: includes/column-settings.php:579 includes/module-settings.php:136
+#: includes/row-settings.php:922 includes/ui-loop-settings-filter.php:91
 #: includes/ui-loop-settings.php:86 includes/ui-simple-loop.php:63
 msgid "ID"
 msgstr ""
 
-#: includes/column-settings.php:596
+#: includes/column-settings.php:580
 msgid ""
 "A unique ID that will be applied to this column's HTML. Must start with a "
 "letter and only contain dashes, underscores, letters or numbers. No spaces."
 msgstr ""
 
-#: includes/column-settings.php:603
+#: includes/column-settings.php:587
 msgid "CSS Class"
 msgstr ""
 
-#: includes/column-settings.php:604
+#: includes/column-settings.php:588
 msgid ""
 "A class that will be applied to this column's HTML. Must start with a "
 "letter and only contain dashes, underscores, letters or numbers. Separate "
 "multiple classes with spaces."
 msgstr ""
 
-#: includes/column-settings.php:611 includes/loop-settings-filter.php:15
-#: includes/module-settings.php:167 includes/row-settings.php:968
+#: includes/column-settings.php:595 includes/loop-settings-filter.php:15
+#: includes/module-settings.php:152 includes/row-settings.php:938
 #: modules/accordion/accordion.php:205 modules/accordion/accordion.php:380
 #: modules/tabs/tabs.php:190 modules/tabs/tabs.php:330
 msgid "Label"
 msgstr ""
 
-#: includes/column-settings.php:612 includes/module-settings.php:168
-#: includes/row-settings.php:969
+#: includes/column-settings.php:596 includes/module-settings.php:153
+#: includes/row-settings.php:939
 msgid "A label that will applied and used in the UI for easy identification."
 msgstr ""
 
-#: includes/column-settings.php:621 includes/module-settings.php:177
-#: includes/row-settings.php:978
+#: includes/column-settings.php:605 includes/module-settings.php:162
+#: includes/row-settings.php:948
 msgid "Export/Import"
 msgstr ""
 
-#: includes/column-settings.php:625 includes/module-settings.php:181
-#: includes/row-settings.php:982
+#: includes/column-settings.php:609 includes/module-settings.php:166
+#: includes/row-settings.php:952
 msgid "Export"
 msgstr ""
 
-#: includes/column-settings.php:631 includes/module-settings.php:187
-#: includes/row-settings.php:988
+#: includes/column-settings.php:615 includes/module-settings.php:172
+#: includes/row-settings.php:958
 msgid "Import"
 msgstr ""
 
@@ -4289,21 +4289,21 @@ msgstr ""
 msgid "Enter a CSS selector for the default page heading to hide it."
 msgstr ""
 
-#: includes/global-settings.php:84
+#: includes/global-settings.php:142
 msgid "Max Width"
 msgstr ""
 
-#: includes/global-settings.php:89
+#: includes/global-settings.php:147
 msgid ""
 "All rows will default to this width. You can override this and make a row "
 "full width in the settings for each row."
 msgstr ""
 
-#: includes/global-settings.php:98
+#: includes/global-settings.php:156
 msgid "Default Row Width"
 msgstr ""
 
-#: includes/global-settings.php:102 includes/global-settings.php:116
+#: includes/global-settings.php:160 includes/global-settings.php:174
 #: includes/row-settings.php:21 includes/row-settings.php:39
 #: modules/button/button.php:328 modules/callout/callout.php:878
 #: modules/contact-form/contact-form.php:612
@@ -4313,78 +4313,78 @@ msgstr ""
 msgid "Full Width"
 msgstr ""
 
-#: includes/global-settings.php:112
+#: includes/global-settings.php:170
 msgid "Default Row Content Width"
 msgstr ""
 
-#: includes/global-settings.php:199
+#: includes/global-settings.php:341
 msgid "Responsive Layout"
 msgstr ""
 
-#: includes/global-settings.php:224
+#: includes/global-settings.php:366
 msgid ""
 "When auto spacing is enabled, the builder will automatically adjust the "
 "margins and padding in your layout once the small device breakpoint is "
 "reached. Most users will want to leave this enabled."
 msgstr ""
 
-#: includes/global-settings.php:228
+#: includes/global-settings.php:370
 msgid "Large Device Breakpoint"
 msgstr ""
 
-#: includes/global-settings.php:234
+#: includes/global-settings.php:376
 msgid "The browser width at which the layout will adjust for large devices."
 msgstr ""
 
-#: includes/global-settings.php:238
+#: includes/global-settings.php:380
 msgid "Medium Device Breakpoint"
 msgstr ""
 
-#: includes/global-settings.php:244
+#: includes/global-settings.php:386
 msgid ""
 "The browser width at which the layout will adjust for medium devices such "
 "as tablets."
 msgstr ""
 
-#: includes/global-settings.php:248
+#: includes/global-settings.php:390
 msgid "Small Device Breakpoint"
 msgstr ""
 
-#: includes/global-settings.php:254
+#: includes/global-settings.php:396
 msgid ""
 "The browser width at which the layout will adjust for small devices such as "
 "phones."
 msgstr ""
 
-#: includes/global-settings.php:258
+#: includes/global-settings.php:400
 msgid "Use responsive settings in previews?"
 msgstr ""
 
-#: includes/global-settings.php:264
+#: includes/global-settings.php:406
 msgid "Preview and responsive editing will use these values when enabled."
 msgstr ""
 
-#: includes/global-settings.php:268
+#: includes/global-settings.php:410
 msgid "Enable Column Max Width"
 msgstr ""
 
-#: includes/global-settings.php:274
+#: includes/global-settings.php:416
 msgid ""
 "When enabled, columns assigned 50% width or less are limited to max width "
 "400px when screen width reaches or goes below the small device breakpoint."
 msgstr ""
 
-#: includes/global-settings.php:278
+#: includes/global-settings.php:420
 msgid "Base Font Size"
 msgstr ""
 
-#: includes/global-settings.php:284
+#: includes/global-settings.php:426
 msgid ""
 "When typography unit is set to vh/vw this unit will be used to calculate "
 "the font size."
 msgstr ""
 
-#: includes/global-settings.php:310 includes/layout-settings.php:26
+#: includes/global-settings.php:452 includes/layout-settings.php:26
 msgid "JavaScript"
 msgstr ""
 
@@ -4519,30 +4519,30 @@ msgstr ""
 msgid "Not Exists"
 msgstr ""
 
-#: includes/module-settings.php:104
+#: includes/module-settings.php:89
 #. translators: %s: wporg docs link
 msgid ""
 "Optional. Set the <a%s>capability</a> required for users to view this "
 "module."
 msgstr ""
 
-#: includes/module-settings.php:144
+#: includes/module-settings.php:129
 msgid ""
 "Optional. Choose an appropriate HTML5 content sectioning element to use for "
 "this module to improve accessibility and machine-readability."
 msgstr ""
 
-#: includes/module-settings.php:152
+#: includes/module-settings.php:137
 msgid ""
 "A unique ID that will be applied to this module's HTML. Must start with a "
 "letter and only contain dashes, underscores, letters or numbers. No spaces."
 msgstr ""
 
-#: includes/module-settings.php:159 includes/row-settings.php:960
+#: includes/module-settings.php:144 includes/row-settings.php:930
 msgid "Class"
 msgstr ""
 
-#: includes/module-settings.php:160
+#: includes/module-settings.php:145
 msgid ""
 "A class that will be applied to this module's HTML. Must start with a "
 "letter and only contain dashes, underscores, letters or numbers. Separate "
@@ -4594,7 +4594,7 @@ msgstr ""
 #: modules/button-group/button-group.php:594 modules/callout/callout.php:456
 #: modules/content-slider/content-slider.php:1086
 #: modules/countdown/countdown.php:321 modules/cta/cta.php:299
-#: modules/icon/icon.php:243 modules/numbers/numbers.php:344
+#: modules/icon/icon.php:243 modules/numbers/numbers.php:317
 #: modules/search/search.php:714 modules/tabs/tabs.php:275
 #: modules/testimonials/testimonials.php:174
 msgid "Text Color"
@@ -4809,24 +4809,24 @@ msgstr ""
 msgid "Background Embedded Code"
 msgstr ""
 
-#: includes/row-settings.php:905
+#: includes/row-settings.php:875
 #. translators: %s: wporg docs link
 msgid "Optional. Set the <a%s>capability</a> required for users to view this row."
 msgstr ""
 
-#: includes/row-settings.php:945
+#: includes/row-settings.php:915
 msgid ""
 "Optional. Choose an appropriate HTML5 content sectioning element to use for "
 "this row to improve accessibility and machine-readability."
 msgstr ""
 
-#: includes/row-settings.php:953
+#: includes/row-settings.php:923
 msgid ""
 "A unique ID that will be applied to this row's HTML. Must start with a "
 "letter and only contain dashes, underscores, letters or numbers. No spaces."
 msgstr ""
 
-#: includes/row-settings.php:961
+#: includes/row-settings.php:931
 msgid ""
 "A class that will be applied to this row's HTML. Must start with a letter "
 "and only contain dashes, underscores, letters or numbers. Separate multiple "
@@ -6666,7 +6666,7 @@ msgstr ""
 
 #: modules/callout/callout.php:467 modules/countdown/countdown.php:332
 #: modules/cta/cta.php:312 modules/icon/icon.php:255
-#: modules/numbers/numbers.php:355 modules/testimonials/testimonials.php:186
+#: modules/numbers/numbers.php:328 modules/testimonials/testimonials.php:186
 msgid "Text Typography"
 msgstr ""
 
@@ -7551,11 +7551,11 @@ msgstr ""
 msgid "Numbers and Text"
 msgstr ""
 
-#: modules/countdown/countdown.php:294 modules/numbers/numbers.php:365
+#: modules/countdown/countdown.php:294 modules/numbers/numbers.php:338
 msgid "Number Color"
 msgstr ""
 
-#: modules/countdown/countdown.php:305 modules/numbers/numbers.php:390
+#: modules/countdown/countdown.php:305 modules/numbers/numbers.php:349
 msgid "Number Typography"
 msgstr ""
 
@@ -7616,19 +7616,19 @@ msgstr ""
 msgid "Circle Styles"
 msgstr ""
 
-#: modules/countdown/countdown.php:496 modules/numbers/numbers.php:449
+#: modules/countdown/countdown.php:496 modules/numbers/numbers.php:408
 msgid "Circle Foreground Color"
 msgstr ""
 
-#: modules/countdown/countdown.php:509 modules/numbers/numbers.php:462
+#: modules/countdown/countdown.php:509 modules/numbers/numbers.php:421
 msgid "Circle Background Color"
 msgstr ""
 
-#: modules/countdown/countdown.php:521 modules/numbers/numbers.php:410
+#: modules/countdown/countdown.php:521 modules/numbers/numbers.php:369
 msgid "Circle Size"
 msgstr ""
 
-#: modules/countdown/countdown.php:556 modules/numbers/numbers.php:435
+#: modules/countdown/countdown.php:556 modules/numbers/numbers.php:394
 msgid "Circle Stroke Size"
 msgstr ""
 
@@ -8485,138 +8485,134 @@ msgstr ""
 msgid "Renders an animated number counter."
 msgstr ""
 
-#: modules/numbers/numbers.php:193
+#: modules/numbers/numbers.php:166
 msgid "Only Numbers"
 msgstr ""
 
-#: modules/numbers/numbers.php:194
+#: modules/numbers/numbers.php:167
 msgid "Circle Counter"
 msgstr ""
 
-#: modules/numbers/numbers.php:195
+#: modules/numbers/numbers.php:168
 msgid "Bars Counter"
 msgstr ""
 
-#: modules/numbers/numbers.php:209
+#: modules/numbers/numbers.php:182
 msgid "Number Position"
 msgstr ""
 
-#: modules/numbers/numbers.php:211
+#: modules/numbers/numbers.php:184
 msgid "Where to display the number in relation to the bar."
 msgstr ""
 
-#: modules/numbers/numbers.php:213
+#: modules/numbers/numbers.php:186
 msgid "Inside Bar"
 msgstr ""
 
-#: modules/numbers/numbers.php:214
+#: modules/numbers/numbers.php:187
 msgid "Above Bar"
 msgstr ""
 
-#: modules/numbers/numbers.php:215
+#: modules/numbers/numbers.php:188
 msgid "Below Bar"
 msgstr ""
 
-#: modules/numbers/numbers.php:216
+#: modules/numbers/numbers.php:189
 msgid "Hidden"
 msgstr ""
 
-#: modules/numbers/numbers.php:221
+#: modules/numbers/numbers.php:194
 msgid "Number Type"
 msgstr ""
 
-#: modules/numbers/numbers.php:224
+#: modules/numbers/numbers.php:197
 msgid "Percent"
 msgstr ""
 
-#: modules/numbers/numbers.php:225 modules/pricing-table/pricing-table.php:574
+#: modules/numbers/numbers.php:198 modules/pricing-table/pricing-table.php:574
 msgid "Standard"
 msgstr ""
 
-#: modules/numbers/numbers.php:235
+#: modules/numbers/numbers.php:208
 msgid "Start Counter"
 msgstr ""
 
-#: modules/numbers/numbers.php:251
+#: modules/numbers/numbers.php:224
 msgid "End Counter"
 msgstr ""
 
-#: modules/numbers/numbers.php:267
+#: modules/numbers/numbers.php:240
 msgid "Total Units"
 msgstr ""
 
-#: modules/numbers/numbers.php:277
+#: modules/numbers/numbers.php:250
 msgid ""
 "The total number of units for this counter. For example, if the Number is "
 "set to 250 and the Total is set to 500, the counter will animate to 50%. "
 "Total should not be less than either Start Counter or End Counter."
 msgstr ""
 
-#: modules/numbers/numbers.php:281
+#: modules/numbers/numbers.php:254
 msgid "Text Before Number"
 msgstr ""
 
-#: modules/numbers/numbers.php:282
+#: modules/numbers/numbers.php:255
 msgid "Text to appear above the number. Leave it empty for none."
 msgstr ""
 
-#: modules/numbers/numbers.php:291
+#: modules/numbers/numbers.php:264
 msgid "Text After Number"
 msgstr ""
 
-#: modules/numbers/numbers.php:292
+#: modules/numbers/numbers.php:265
 msgid "Text to appear after the number. Leave it empty for none."
 msgstr ""
 
-#: modules/numbers/numbers.php:301
+#: modules/numbers/numbers.php:274
 msgid "Number Prefix"
 msgstr ""
 
-#: modules/numbers/numbers.php:302
+#: modules/numbers/numbers.php:275
 msgid "For example, if your number is US$ 10, your prefix would be \"US$ \"."
 msgstr ""
 
-#: modules/numbers/numbers.php:306
+#: modules/numbers/numbers.php:279
 msgid "Number Suffix"
 msgstr ""
 
-#: modules/numbers/numbers.php:307
+#: modules/numbers/numbers.php:280
 msgid "For example, if your number is 10%, your suffix would be \"%\"."
 msgstr ""
 
-#: modules/numbers/numbers.php:311
+#: modules/numbers/numbers.php:284
 msgid "Animation Speed"
 msgstr ""
 
-#: modules/numbers/numbers.php:319
+#: modules/numbers/numbers.php:292
 msgid "Number of seconds to complete the animation."
 msgstr ""
 
-#: modules/numbers/numbers.php:323
+#: modules/numbers/numbers.php:296
 msgid "Animation Delay"
 msgstr ""
 
-#: modules/numbers/numbers.php:376
-msgid "Number Size"
-msgstr ""
-
-#: modules/numbers/numbers.php:406
+#: modules/numbers/numbers.php:365
 msgid "Circle Bar Styles"
 msgstr ""
 
-#: modules/numbers/numbers.php:475
+#: modules/numbers/numbers.php:434
 msgid "Bar Styles"
 msgstr ""
 
-#: modules/numbers/numbers.php:480
+#: modules/numbers/numbers.php:439
 msgid "Bar Foreground Color"
 msgstr ""
 
-#: modules/numbers/numbers.php:493
+#: modules/numbers/numbers.php:452
 msgid "Bar Background Color"
 msgstr ""
 
-#: modules/numbers/numbers.php:505
+#: modules/numbers/numbers.php:464
 msgid "Bar Height"
 msgstr ""
 
@@ -10240,7 +10236,7 @@ msgctxt "Module name"
 msgid "%s Moved"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3024
+#: classes/class-fl-builder-model.php:3061
 #. translators: %s: module filename
 msgctxt "%s stands for the module filename"
 msgid ""
@@ -10248,7 +10244,7 @@ msgid ""
 "module filenames to ensure compatibility with Beaver Builder."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3060
+#: classes/class-fl-builder-model.php:3097
 #. translators: %s: module alias key
 msgctxt "%s stands for the module alias key"
 msgid ""
@@ -10256,13 +10252,13 @@ msgid ""
 "ensure compatibility with Beaver Builder."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:4499
+#: classes/class-fl-builder-model.php:4536
 #. translators: %s: post/page title
 msgctxt "%s stands for post/page title."
 msgid "Copy of %s"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5287
+#: classes/class-fl-builder-model.php:5324
 msgctxt "Default user template category."
 msgid "Uncategorized"
 msgstr ""
@@ -10909,14 +10905,14 @@ msgctxt "General settings form field label. Intended meaning: \"Show page headin
 msgid "Show"
 msgstr ""
 
-#: includes/global-settings.php:203
+#: includes/global-settings.php:345
 msgctxt ""
 "General settings form field label. Intended meaning: \"Responsive layout "
 "enabled?\""
 msgid "Enabled"
 msgstr ""
 
-#: includes/global-settings.php:218
+#: includes/global-settings.php:360
 msgctxt ""
 "General settings form field label. Intended meaning: \"Enable auto spacing "
 "for responsive layouts?\""

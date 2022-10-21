@@ -531,8 +531,8 @@ if ( isset( $settings->success_message_size ) && 'custom' == $settings->success_
 	text-transform: <?php echo $settings->placeholder_text_transform; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-name],
-.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-email] {
+.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-name-<?php echo $id; ?>],
+.fl-node-<?php echo $id; ?> .pp-form-field label[for=pp-subscribe-form-email-<?php echo $id; ?>] {
 	<?php
 	if ( isset( $settings->label_color ) ) { ?>
 		color: #<?php echo $settings->label_color; ?>;
@@ -545,8 +545,8 @@ FLBuilder::render_module_css('fl-button', $id, array(
 	'align'             => '',
 	'bg_color'          => $settings->btn_bg_color,
 	'bg_hover_color'    => $settings->btn_bg_hover_color,
-	'bg_opacity'        => $settings->btn_bg_opacity,
-	'bg_hover_opacity'  => $settings->btn_bg_hover_opacity,
+	'bg_opacity'        => 100,
+	'bg_hover_opacity'  => 100,
 	'icon'              => $settings->btn_icon,
 	'icon_position'     => $settings->btn_icon_position,
 	'icon_animation'    => $settings->btn_icon_animation,

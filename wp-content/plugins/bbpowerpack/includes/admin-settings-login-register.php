@@ -17,6 +17,7 @@
 			<select id="bb_powerpack_login_page" name="bb_powerpack_login_page" style="min-width: 200px;">
 				<?php echo BB_PowerPack_Login_Register::get_pages( $selected ); ?>
 			</select>
+			<p class="description"><?php _e( 'It will replace native login page with the custom one. Please make sure that you have login form on the selected page.', 'bb-powerpack' ); ?></p>
 		</td>
 	</tr>
 	<tr align="top">
@@ -28,6 +29,7 @@
 			<select id="bb_powerpack_register_page" name="bb_powerpack_register_page" style="min-width: 200px;">
 				<?php echo BB_PowerPack_Login_Register::get_pages( $selected ); ?>
 			</select>
+			<p class="description"><?php _e( 'It will replace native registration page with the custom one. Please make sure that you have registration form on the selected page.', 'bb-powerpack' ); ?></p>
 		</td>
 	</tr>
 </table>

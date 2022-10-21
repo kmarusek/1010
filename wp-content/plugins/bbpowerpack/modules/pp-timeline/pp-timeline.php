@@ -206,6 +206,46 @@ class PPTimelineModule extends FLBuilderModule {
 
 		return $settings;
 	}
+
+	public function get_timeline_items() {
+		$settings = $this->settings;
+		$items    = array();
+
+		$timeline_items = $settings->timeline;
+		$items_count    = count( $timeline_items );
+
+		for ( $i = 0; $i < $items_count; $i++ ) {
+
+			if ( ! is_object( $timeline_items[ $i ] ) ) {
+				continue;
+			}
+
+			$timeline = $timeline_items[ $i ];
+
+			$item = array(
+				'title'       => isset( $timeline->title ) ? $timeline->title : '',
+				'content'     => isset( $timeline->content ) ? $timeline->content : '',
+				'icon_markup' => isset( $timeline->timeline_icon ) ? '<span class="pp-icon ' . $timeline->timeline_icon . '" aria-hidden="true"></span>' : '',
+			);
+
+			if ( isset( $timeline->button_text ) && ! empty( $timeline->button_text ) ) {
+				$button_text   = $timeline->button_text;
+				$link          = isset( $timeline->button_link ) ? $timeline->button_link : '';
+				$link_target   = isset( $timeline->button_link_target ) ? $timeline->button_link_target : '';
+				$link_nofollow = isset( $timeline->button_link_nofollow ) ? $timeline->button_link_nofollow : 'no';
+				$attrs         = '' !== $link_target ? ' target="' . $link_target . '"' : '';
+				$attrs         .= 'yes' === $link_nofollow ? ' rel="nofollow noopener"' : '';
+
+				$item['button_markup'] = sprintf( '<a href="%1$s" class="pp-timeline-button"%2$s>%3$s</a>', $link, $attrs, $button_text );
+			}
+
+			$items[] = $item;
+		}
+
+		$items = apply_filters( 'pp_timeline_items', $items, $settings );
+
+		return $items;
+	}
 }
 
 /**
@@ -456,12 +496,14 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
                         'button_text'   => array(
                             'type'  => 'text',
                             'label' => __('Text', 'bb-powerpack'),
+							'connections' => array( 'string' ),
                         ),
                         'button_link'  => array(
 							'type'          => 'link',
 							'label'         => __('Link', 'bb-powerpack'),
 							'placeholder'   => 'http://www.example.com',
 							'show_target'	=> true,
+							'show_nofollow'	=> true,
 							'connections'   => array( 'url' ),
 							'preview'       => array(
 								'type'          => 'none'

@@ -23,7 +23,7 @@ FLBuilder::register_module(
 							'type'        => 'text',
 							'label'       => __( 'Title', 'uabb' ),
 							'connections' => array( 'string', 'html' ),
-							'default'     => 'How to configure HowTo Schema in UABB ?',
+							'default'     => 'How to configure HowTo Schema?',
 						),
 						'description'       => array(
 							'type'        => 'editor',
@@ -114,7 +114,7 @@ The How-to module can basically be used on How-to pages which contains a How-to 
 						'uabb_supply'         => array(
 							'type'        => 'text',
 							'label'       => __( 'Supply', 'uabb' ),
-							'default'     => array( ' - A WordPress Website.', ' - Beaver builder plugin.', ' - UABB Plugin' ),
+							'default'     => array( ' - A WordPress Website.', ' - Beaver builder plugin.' ),
 							'multiple'    => true,
 							'connections' => array( 'string', 'html' ),
 						),

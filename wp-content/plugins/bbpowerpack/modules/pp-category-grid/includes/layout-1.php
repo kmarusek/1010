@@ -1,8 +1,19 @@
 <?php
-	$style       = 'style-0';
-	$category_id = $cat->term_id;
+	$style        = 'style-0';
+	$category_id  = $cat->term_id;
+	$cat_thumb_id = 0;
+	if ( 'enabled' === $taxonomy_thumbnail_enable && ! empty( $taxonomy_thumbnail_taxonomies ) && in_array( $tax_type, (array) $taxonomy_thumbnail_taxonomies ) ) {
+		$taxonomy_thumbnail_id = get_term_meta( $cat->term_id, 'taxonomy_thumbnail_id', true );
+		if ( empty( $cat_thumb_id ) ) {
+			$cat_thumb_id = $taxonomy_thumbnail_id;
+		}
+	} else {
+		$cat_thumb_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+	}
+	$category_image = wp_get_attachment_image_src( $cat_thumb_id, $settings->category_image_size );
+	$term_link      = get_term_link( $cat, $taxonomy );
 ?>
-<div class="pp-category pp-category-<?php echo $category_id; ?><?php echo 'yes' === $settings->category_grid_slider ? ' swiper-slide' : ''; ?> pp-clear<?php echo $hide_img ? ' pp-category__no-image' : ''; ?>" title="<?php echo $cat->name; ?>">
+<div class="pp-category pp-category-<?php echo $category_id; ?><?php echo 'yes' === $settings->category_grid_slider ? ' swiper-slide' : ''; ?> pp-clear<?php echo $hide_img ? ' pp-category__no-image' : ''; ?> layout-<?php echo $layout; ?>" title="<?php echo $cat->name; ?>">
 	<div class="category-inner category-<?php echo $style; ?>">
 		<a href="<?php echo $term_link; ?>" target="<?php echo $settings->category_link_target; ?>" class="pp-category__link">
 			<?php if ( ! $hide_img ) { ?>

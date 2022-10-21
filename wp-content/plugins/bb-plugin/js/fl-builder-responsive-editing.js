@@ -98,10 +98,12 @@
 					FLBuilderConfig.pluginUrl,
 					FLBuilderConfig.relativePluginUrl
 				]
-			)
-			ignorelist = $.map(FLBuilderConfig.responsiveIgnore, function(value, index) {
-				return [value];
-			});
+			);
+
+			var ignorelist = $.map( FLBuilderConfig.responsiveIgnore, function( value, index ) {
+				return [ value ];
+			} );
+
 			FLBuilderSimulateMediaQuery.ignore( ignorelist );
 
 			// Reparse stylesheets that match these paths on each update.
@@ -359,161 +361,69 @@
 		 */
 		_setMarginPaddingPlaceholders: function()
 		{
+			var self = FLBuilderResponsiveEditing;
+			var sizes = [ 'default', 'large', 'medium', 'responsive' ];
 			var sides = ['top', 'left', 'bottom', 'right'];
+			var inputs = {
+				padding: {},
+				margin: {}
+			};
 
-			// -- Initialize Padding Default
-			var paddingDefaultID = '#fl-field-padding .fl-field-responsive-setting-default',
-				paddingDefault   = {
-					values		 : { top: '',  right: '', bottom: '', left: '' },
-					placeholders : { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				paddingDefault.values[side]       = $( paddingDefaultID + ' input[ name="padding_' + side +  '" ]' ).val();
-				paddingDefault.placeholders[side] = $( paddingDefaultID + ' input[ name="padding_' + side + '" ]' ).attr( 'placeholder' );
-			});
+			sizes.forEach( function ( size ) {
+				inputs.padding[ size ] = {};
+				inputs.margin[ size ] = {};
 
-			// -- Initialize Padding Large
-			var	paddingLargeID  = '#fl-field-padding .fl-field-responsive-setting-large',
-				paddingLarge    = {
-					values		 : { top: '',  right: '', bottom: '', left: '' },
-					placeholders : { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				paddingLarge.values[side]       = $( paddingLargeID + ' input[ name="padding_' + side +  '_large" ]' ).val();
-				paddingLarge.placeholders[side] = $( paddingLargeID + ' input[ name="padding_' + side + '_large" ]' ).attr( 'placeholder' );
-			});
+				sides.forEach( function ( side ) {
+					var name = 'default' === size ? side : side + '_' + size;
+					inputs.padding[ size ][ side ] = $( '#fl-field-padding .fl-field-responsive-setting-' + size + ' input[name="padding_' + name + '"]' );
+					inputs.margin[ size ][ side ] = $( '#fl-field-margin .fl-field-responsive-setting-' + size + ' input[name="margin_' + name + '"]' );
+				} );
+			} );
 
-			// -- Initialize Padding Medium
-			var	paddingMediumID  = '#fl-field-padding .fl-field-responsive-setting-medium',
-				paddingMedium    = {
-					values		 : { top: '',  right: '', bottom: '', left: '' },
-					placeholders : { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				paddingMedium.values[side]       = $( paddingMediumID + ' input[ name="padding_' + side +  '_medium" ]' ).val();
-				paddingMedium.placeholders[side] = $( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder' );
-			});
+			sides.forEach( function( side ) {
+				self._setSpacingInputPlaceholder( inputs, 'padding', 'large', 'default', side )
+				self._setSpacingInputPlaceholder( inputs, 'padding', 'medium', 'large', side )
+				self._setSpacingInputPlaceholder( inputs, 'padding', 'responsive', 'medium', side )
+				self._setSpacingInputPlaceholder( inputs, 'margin', 'large', 'default', side )
+				self._setSpacingInputPlaceholder( inputs, 'margin', 'medium', 'large', side )
+				self._setSpacingInputPlaceholder( inputs, 'margin', 'responsive', 'medium', side )
+			} );
 
-			// -- Initialize Padding Responsive
-			var	paddingResponsiveID = '#fl-field-padding .fl-field-responsive-setting-responsive',
-			    paddingResponsive   = {
-					values		    : { top: '',  right: '', bottom: '', left: '' },
-					placeholders	: { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				paddingResponsive.values[side]       = $( paddingResponsiveID + ' input[ name="padding_' + side +  '_responsive" ]' ).val();
-				paddingResponsive.placeholders[side] = $( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder' );
-			});
+			var isAuto = '1' === FLBuilderConfig.global.auto_spacing;
+			var isRow = !! $( '.fl-builder-row-settings' ).length;
+			var isCol = !! $( '.fl-builder-col-settings' ).length;
 
-			// Initialize Margin Default
-			var	marginDefaultID  = '#fl-field-margin .fl-field-responsive-setting-default',
-				marginDefault    = {
-					values		 : { top: '',  right: '', bottom: '', left: '' },
-					placeholders : { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				marginDefault.values[side]       = $( marginDefaultID + ' input[ name="margin_' + side +  '" ]' ).val();
-				marginDefault.placeholders[side] = $( marginDefaultID + ' input[ name="margin_' + side + '" ]' ).attr( 'placeholder' );
-			});
+			if ( isAuto && ( isRow || isCol ) ) {
+				inputs.margin.responsive.top.attr( 'placeholder', '0' );
+				inputs.margin.responsive.right.attr( 'placeholder', '0' );
+				inputs.margin.responsive.bottom.attr( 'placeholder', '0' );
+				inputs.margin.responsive.left.attr( 'placeholder', '0' );
+				inputs.padding.responsive.right.attr( 'placeholder', '0' );
+				inputs.padding.responsive.left.attr( 'placeholder', '0' );
+			}
+		},
 
-			// Initialize Margin Large
-			var marginLargeID   = '#fl-field-margin .fl-field-responsive-setting-large',
-				marginLarge   = {
-					values		 : { top: '',  right: '', bottom: '', left: '' },
-					placeholders : { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				marginLarge.values[side]       = $( marginLargeID + ' input[ name="margin_' + side +  '_large" ]' ).val();
-				marginLarge.placeholders[side] = $( marginLargeID + ' input[ name="margin_' + side + '_large" ]' ).attr( 'placeholder' );
-			});
+		/**
+		 * Sets the placeholder for a single spacing input.
+		 *
+		 * @since 2.6
+		 * @access private
+		 * @method _setSpacingInputPlaceholder
+		 */
+		_setSpacingInputPlaceholder: function( inputs, property, size, fallbackSize, side )
+		{
+			var input = inputs[ property ][ size ][ side ];
+			var fallback = inputs[ property ][ fallbackSize ][ side ];
 
-			// Initialize Margin Medium
-			var marginMediumID   = '#fl-field-margin .fl-field-responsive-setting-medium',
-				marginMedium     = {
-					values		 : { top: '',  right: '', bottom: '', left: '' },
-					placeholders : { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				marginMedium.values[side]       = $( marginMediumID + ' input[ name="margin_' + side +  '_medium" ]' ).val();
-				marginMedium.placeholders[side] = $( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder' );
-			});
+			if ( ! input.attr( 'placeholder' ) || input.data( 'has-custom-placeholder' ) ) {
+				input.data( 'has-custom-placeholder', true );
 
-			// Initialize Margin Responsive
-			var marginResponsiveID = '#fl-field-margin .fl-field-responsive-setting-responsive',
-				marginResponsive   = {
-					values		   : { top: '',  right: '', bottom: '', left: '' },
-					placeholders   : { top: '',  right: '', bottom: '', left: '' }
-				};
-			sides.forEach(function (side) {
-				marginResponsive.values[side]       = $( marginResponsiveID + ' input[ name="margin_' + side +  '_responsive" ]' ).val();
-				marginResponsive.placeholders[side] = $( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder' );
-			});
-
-			// -- Large Padding Placeholders
-			sides.forEach(function(side) {
-				if ( '' != paddingDefault.values[side] ) {
-					$( paddingLargeID + ' input[ name="padding_' + side + '_large" ]' ).attr( 'placeholder', paddingDefault.values[ side ] );
-				} else {
-					$( paddingLargeID + ' input[ name="padding_' + side + '_large" ]' ).attr( 'placeholder', paddingLarge.placeholders[ side ] );
+				if ( '' !== fallback.val() ) {
+					input.attr( 'placeholder', fallback.val() );
+				} else if ( fallback.attr( 'placeholder' ) ) {
+					input.attr( 'placeholder', fallback.attr( 'placeholder' ) );
 				}
-			});
-
-			// -- Medium Padding Placeholders
-			sides.forEach(function(side) {
-				if ( '' != paddingLarge.values[side] ) {
-					$( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder', paddingLarge.values[ side ] );
-				} else if ( '' != paddingDefault.values[side] ) {
-					$( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder', paddingDefault.values[ side ] );
-				} else {
-					$( paddingMediumID + ' input[ name="padding_' + side + '_medium" ]' ).attr( 'placeholder', paddingMedium.placeholders[ side ] );
-				}
-			});
-
-			// -- Responsive Padding Placeholders
-			sides.forEach( function(side) {
-				if ( '' != paddingMedium.values[ side ] ) {
-					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingMedium.values[ side ] );
-				} else if ( '' != paddingLarge.values[ side ] ) {
-					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingLarge.values[ side ] );
-				} else if ( '' != paddingDefault.values[ side ] ) {
-					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingDefault.values[ side ] );
-				} else {
-					$( paddingResponsiveID + ' input[ name="padding_' + side + '_responsive" ]' ).attr( 'placeholder', paddingResponsive.placeholders[ side ] );
-				}
-			});
-
-			// -- Large Margin Placeholders
-			sides.forEach(function(side) {
-				if ( '' != marginDefault.values[side] ) {
-					$( marginLargeID + ' input[ name="margin_' + side + '_large" ]' ).attr( 'placeholder', marginDefault.values[ side ] );
-				} else {
-					$( marginLargeID + ' input[ name="margin_' + side + '_large" ]' ).attr( 'placeholder', marginLarge.placeholders[ side ] );
-				}
-			});
-
-			// -- Medium Margin Placeholders
-			sides.forEach(function(side) {
-				if ( '' != marginLarge.values[side] ) {
-					$( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder', marginLarge.values[ side ] );
-				} else if ( '' != marginDefault.values[side] ) {
-					$( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder', marginDefault.values[ side ] );
-				} else {
-					$( marginMediumID + ' input[ name="margin_' + side + '_medium" ]' ).attr( 'placeholder', marginMedium.placeholders[ side ] );
-				}
-			});
-
-			// -- Responsive Margin Placeholders
-			sides.forEach( function(side) {
-				if ( '' != marginMedium.values[ side ] ) {
-					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginMedium.values[ side ] );
-				} else if ( '' != marginLarge.values[ side ] ) {
-					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginLarge.values[ side ] );
-				} else if ( '' != marginDefault.values[ side ] ) {
-					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginDefault.values[ side ] );
-				} else {
-					$( marginResponsiveID + ' input[ name="margin_' + side + '_responsive" ]' ).attr( 'placeholder', marginResponsive.placeholders[ side ] );
-				}
-			});
+			}
 		},
 
 		/**

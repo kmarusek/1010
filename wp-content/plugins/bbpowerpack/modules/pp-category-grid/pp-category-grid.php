@@ -97,7 +97,7 @@ BB_PowerPack::register_module(
 		'structure'  => array(
 			'title'    => __( 'Structure', 'bb-powerpack' ),
 			'sections' => array(
-				'config'          => array(
+				'structure' => array(
 					'title'  => __( 'Structure', 'bb-powerpack' ),
 					'fields' => array(
 						'category_grid_slider' => array(
@@ -614,7 +614,7 @@ BB_PowerPack::register_module(
 						'category_bg_color'       => array(
 							'type'       => 'color',
 							'label'      => __( 'Background Color', 'bb-powerpack' ),
-							'default'    => 'fff192',
+							'default'    => 'f2faff',
 							'show_reset' => true,
 							'show_alpha' => true,
 						),
@@ -1031,7 +1031,7 @@ BB_PowerPack::register_module(
 					),
 				),
 				'button_font'                => array(
-					'title'     => __( 'Typography', 'bb-powerpack' ),
+					'title'     => __( 'Button', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields'    => array(
 						'button_typography' => array(

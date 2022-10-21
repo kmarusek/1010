@@ -5,6 +5,10 @@
  *  @package UABBWooMiniCartModule
  */
 
+if ( null === WC()->cart ) {
+	return;
+}
+
 $style          = $settings->cart_style;
 $floating_class = ( ( 'floating' === $settings->display_position && 'dropdown' !== $style ) ? 'uabb-mini-cart-style-floating uabb-mini-cart-floating-' . $settings->floating_align : '' );
 $offcanvas_pos  = ( 'off-canvas' === $settings->cart_style && isset( $settings->offcanvas_position ) ) ? 'uabb-offcanvas-position-at-' . $settings->offcanvas_position : '';

@@ -1,3 +1,6 @@
+.pp-admin-settings-wrap {
+	padding: 20px;
+}
 .pp-admin-settings-wrap,
 .pp-admin-settings-topbar,
 .pp-admin-settings-header h3 {
@@ -42,53 +45,66 @@
 .pp-admin-settings-topbar-nav-item a:hover {
     background: #ecf8ff;
 }
+.pp-admin-settings-header {
+	background: #F9FAFB;
+	padding-bottom: 0;
+	box-shadow: 0px 1px 2px rgb(0 0 0 / 10%);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.pp-admin-settings-header .pp-admin-settings-head {
+	padding: 20px;
+	background: #fff;
+	border-bottom: 1px solid #eee;
+}
 .pp-admin-settings-header h3 {
 	font-size: 18px;
 	font-weight: 400;
 	margin-top: 0;
 	display: inline-block;
 }
-.pp-admin-settings-header {
-	background: #fff;
-	padding: 20px;
-	padding-bottom: 0;
-	box-shadow: 0 0 5px 0 rgba(0,0,0,.1);
-}
 .pp-admin-settings-tabs {
 	margin: 0;
-    padding-top: 18px;
-    padding-bottom: 0;
+    padding: 0 20px;
     line-height: inherit;
     float: left;
 }
 .pp-admin-settings-tabs .nav-tab {
 	border: 0;
-	border-bottom: 2px solid transparent;
+	border-top: 2px solid transparent;
     background: none;
     font-weight: 400;
 	margin-left: 0;
 	margin-right: 35px;
-	padding: 5px 0;
+	padding: 8px 0;
 	color: #656565;
 	box-shadow: none !important;
 }
-.pp-admin-settings-tabs .nav-tab.nav-tab-active {
-	border-bottom: 2px solid #3085ba;
-	color: #333;
+.pp-admin-settings-tabs .nav-tab.nav-tab-active,
+.pp-admin-settings-tabs .nav-tab:focus {
+	background: #F9FAFB;
+	border-top: 2px solid #3085ba;
+	color: #1d2327;
 }
-.pp-admin-settings-tabs .nav-tab:hover {
-	color: #333;
+.pp-admin-settings-tabs .nav-tab:hover,
+.pp-admin-settings-tabs .nav-tab:focus {
+	color: #1d2327;
 }
 .pp-admin-settings-wrap form {
 	background: #fff;
     padding: 20px 50px;
-    box-shadow: 0 0 5px 0 rgba(0,0,0,.1);
+	box-shadow: 0px 1px 2px rgba(0,0,0,.1);
+    border-radius: 8px;
+    overflow: hidden;
+	/* width: max-content; */
+	max-width: 100%;
 }
 .pp-admin-settings-wrap .pp-admin-settings-templates form {
 	padding: 0;
+	width: 100%;
 }
 .pp-admin-settings-wrap .pp-admin-settings-content {
-	padding: 20px;
+	padding: 20px 0;
 }
 .pp-admin-settings-wrap form .pp-template-filter {
 	margin: 0;
@@ -103,7 +119,7 @@
 }
 .pp-admin-settings-wrap .pp-admin-settings-templates .pp-page-templates-grid {
 	padding: 20px;
-	background: #f6f6f7;
+	background: #F9FAFB;
 }
 .pp-admin-settings-wrap .form-table th {
 	width: 300px;
@@ -126,6 +142,8 @@
     display: inline-block;
     width: 42px;
     height: 18px;
+	border: 2px solid transparent;
+	border-radius: 10px;
 }
 .pp-admin-field-toggle .pp-admin-field-toggle-slider {
 	position: absolute;
@@ -152,10 +170,16 @@
     -webkit-transition: .4s;
     transition: .4s;
 }
+.pp-admin-field-toggle.focus {
+	outline: 1px solid #2a73aa;
+}
 .pp-admin-field-toggle input {
 	opacity: 0;
     width: 0;
     height: 0;
+}
+.pp-admin-field-toggle input:checked:before {
+	content: none !important;
 }
 .pp-admin-field-toggle input:checked + .pp-admin-field-toggle-slider:before {
 	background-color: #0073aa;
@@ -201,6 +225,9 @@
 	min-height: inherit;
     border-radius: 3px;
 }
+.pp-admin-settings-wrap input[type=checkbox]:focus {
+    outline: 1px solid;
+}
 .pp-admin-settings-wrap label {
 	font-weight: 500;
 }
@@ -224,7 +251,7 @@
 }
 .pp-admin-settings-wrap .pp-flex-table th {
 	padding-top: 15px;
-	position: relative;
+	position: static;
 }
 .pp-admin-settings-wrap .pp-modules-manager .pp-flex-table tr th label {
 	position: relative;
@@ -284,7 +311,9 @@
 }
 .pp-admin-settings-wrap .pp-modules-manager .pp-modules-manager-section {
 	margin-top: 20px;
-	box-shadow: 0 0 3px 0 rgba(0,0,0,.1);
+	box-shadow: 0px 1px 2px rgba(0,0,0,.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 .pp-admin-settings-wrap .pp-modules-manager .pp-modules-manager-section-header {
 	padding: 15px 30px;
@@ -302,7 +331,7 @@
 }
 .pp-admin-settings-wrap .pp-modules-manager .pp-modules-manager-section-content {
 	padding: 15px;
-	background: #f6f6f7;
+	background: #f9fafb;
 }
 .pp-admin-settings-wrap .pp-modules-manager .pp-flex-table {
 	max-width: 100%;
@@ -314,6 +343,7 @@
 	border-radius: 5px;
 	max-width: 100%;
 	transition: all 0.2s;
+	overflow: hidden;
 }
 .pp-admin-settings-wrap .pp-modules-manager .pp-flex-table svg {
 	width: 20px;
@@ -769,6 +799,7 @@
 }
 .pp-templates-grid .filter-sublinks .filter-dropdown {
     border: 1px solid #ddd;
+	border-radius: 4px;
     width: 70%;
 	float: right;
 	margin-left: 5px;
@@ -791,6 +822,9 @@
     height: 18px;
     display: block;
 }
+.pp-templates-grid .filter-sublinks[aria-expanded="true"] .filter-dropdown:after {
+	transform: rotate(180deg);
+}
 .pp-templates-grid .filter-sublinks .filter-dropdown * {
 	user-select: none;
 }
@@ -798,13 +832,15 @@
 	position: absolute;
     background: #fff;
     z-index: 2;
-    top: 30px;
+    top: 35px;
     left: -1px;
     margin: 0;
     border: 1px solid #ddd;
+	border-radius: 4px;
 	width: 100%;
 	opacity: 0;
 	visibility: hidden;
+	overflow: hidden;
 }
 .pp-templates-grid .filter-sublinks .filter-dropdown ul.filter-page-templates.is-active {
 	opacity: 1;
@@ -818,10 +854,12 @@
 	line-height: 1.2;
     padding: 8px 10px;
     box-shadow: none;
+	transition: all 0.2s ease-in-out;
 }
 .pp-templates-grid .filter-sublinks .filter-dropdown li a:hover,
 .pp-templates-grid .filter-sublinks .filter-dropdown li a:focus {
-	background: #eee;
+	background: #ecf8ff;
+	padding-left: 15px;
 }
 .pp-templates-grid .filter-sublinks .filter-dropdown .filter-label {
 	display: none;

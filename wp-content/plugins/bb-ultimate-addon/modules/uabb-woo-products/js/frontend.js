@@ -49,6 +49,10 @@ var key_array = new Array();
 		.off( 'click', '.uabb-woocommerce-pagination a.page-numbers' )
 		.on( 'click', '.uabb-woocommerce-pagination a.page-numbers',  function( e ) {
 
+			if ( $scope.find( '.uabb-woocommerce' ).hasClass( 'uabb-woo-main_query' ) ) {
+				return;
+			}
+
 			e.preventDefault();
 
 			$scope = $( this ).closest( '.fl-module-uabb-woo-products' );
@@ -382,7 +386,7 @@ var key_array = new Array();
 					variation_id = $('input[name="variation_id"]').val() || '';
 
 				// Set Quantity.
-				// 
+				//
 				// For grouped product quantity should be array instead of single value
 				// For that set the quantity as array for grouped product.
 				var quantity = $('input[name="quantity"]').val();

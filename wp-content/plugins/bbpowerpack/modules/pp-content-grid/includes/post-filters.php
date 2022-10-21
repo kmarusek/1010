@@ -2,9 +2,11 @@
 if ( empty( $settings->post_grid_filters ) || 'none' === $settings->post_grid_filters ) {
 	return;
 }
+if ( ! in_array( $settings->data_source, array( 'main_query', 'custom_query' ) ) ) {
+	return;
+}
 
 $all_label			= empty( $settings->all_filter_label ) ? __('All', 'bb-powerpack') : $settings->all_filter_label;
-$post_type_slug 	= $settings->post_type;
 $post_filter_tax 	= $settings->post_grid_filters;
 $default_filter		= isset( $settings->post_grid_filters_default ) ? $settings->post_grid_filters_default : '';
 $terms_to_show		= isset( $settings->post_grid_filters_terms ) ? $settings->post_grid_filters_terms : '';
@@ -19,39 +21,47 @@ if ( $terms_children_on_archive ) {
 	$terms_to_show = $terms_to_show_archive;
 }
 
-$post_filter_field 	= 'tax_' . $post_type_slug . '_' . $post_filter_tax;
-$post_filter_terms	= array();
-$taxonomy 			= get_taxonomy( $post_filter_tax );
+$taxonomy = get_taxonomy( $post_filter_tax );
 
 $post_filter_args = array(
 	'taxonomy' => $post_filter_tax,
+	'orderby'  => $order_by,
+	'order'    => $order,
 );
-$post_filter_args['orderby'] = $order_by;
 
 if ( 'meta_value' === $order_by || 'meta_value_num' === $order_by ) {
 	$post_filter_args['meta_key'] = $order_by_meta_key;
 }
 
-$post_filter_args['order'] = $order;
+$post_filter_terms = array();
 
-if ( isset( $settings->{$post_filter_field} ) && 'main_query' !== $settings->data_source ) :
+if ( 'custom_query' === $settings->data_source ) {
+	$post_type = (array) $post_type;
 
-	$post_filter_value	= $settings->{$post_filter_field};
-	$post_filter_matching = $settings->{$post_filter_field . '_matching'};
+	foreach ( $post_type as $type ) {
 
-	if ( $post_filter_value ) {
-		$post_filter_term_ids = explode( ",", $post_filter_value );
-		if ( ! $post_filter_matching ) {
-			$post_filter_args['exclude'] = $post_filter_term_ids;
-			$post_filter_terms = get_terms( $post_filter_args );
-		} else {
-			foreach ( $post_filter_term_ids as $post_filter_term_id ) {
-				$post_filter_terms[] = get_term_by('id', $post_filter_term_id, $post_filter_tax);
+		$post_filter_field = 'tax_' . $type . '_' . $post_filter_tax;
+
+		if ( isset( $settings->{$post_filter_field} ) ) :
+
+			$post_filter_value	= $settings->{$post_filter_field};
+			$post_filter_matching = $settings->{$post_filter_field . '_matching'};
+
+			if ( $post_filter_value ) {
+				$post_filter_term_ids = explode( ",", $post_filter_value );
+				if ( ! $post_filter_matching ) {
+					$post_filter_args['exclude'] = $post_filter_term_ids;
+					$post_filter_terms = get_terms( $post_filter_args );
+				} else {
+					foreach ( $post_filter_term_ids as $post_filter_term_id ) {
+						$post_filter_terms[] = get_term_by('id', $post_filter_term_id, $post_filter_tax);
+					}
+				}
 			}
-		}
-	}
 
-endif;
+		endif;
+	}
+}
 
 if ( 'main_query' === $settings->data_source && $terms_children_on_archive ) {
 	$current_term = get_queried_object();

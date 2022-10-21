@@ -390,7 +390,7 @@ final class UABBBuilderAdminSettings {
 		$items['uabb-rollback-version'] = array(
 			'title'    => __( 'Rollback Version', 'uabb' ),
 			'show'     => ( is_network_admin() || ! FLBuilderAdminSettings::multisite_support() ) && bsf_display_rollback_version_form( 'uabb' ),
-			'priority' => 511,
+			'priority' => 512,
 		);
 
 		$item_data = apply_filters( 'uabb_builder_admin_settings_nav_items', $items );

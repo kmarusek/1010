@@ -1418,7 +1418,7 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.gform_wrapper h2.gsection_title',
+								'selector' => '.gform_wrapper h2.gsection_title, .gform_wrapper h3.gsection_title',
 							),
 						),
 						'section_text_color' => array(
@@ -1429,7 +1429,7 @@ BB_PowerPack::register_module(
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => '.gform_wrapper h2.gsection_title',
+								'selector' => '.gform_wrapper h2.gsection_title, .gform_wrapper h3.gsection_title',
 								'property' => 'color',
 							),
 						),

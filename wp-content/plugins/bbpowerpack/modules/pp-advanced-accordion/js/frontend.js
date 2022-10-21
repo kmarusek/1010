@@ -49,7 +49,7 @@
 			$(window).on('scroll', function() {
 				scrollPos = $(window).scrollTop();
 			});
-			if( location.hash && $(location.hash).length > 0 ) {
+			if( location.hash && '!' !== location.hash.substr(1,1) && $(location.hash).length > 0 ) {
 				var self = this;
 				var element = $(location.hash + '.pp-accordion-item');
 				if ( element && element.length > 0 ) {

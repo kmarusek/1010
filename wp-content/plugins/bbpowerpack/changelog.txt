@@ -1,3 +1,29 @@
+== 2.26.0 ==
+Relase date: October 20, 2022
+* Enhancement: Category Grid - Added custom layout option based on Beaver Themer
+* Enhancement: Pricing Table - Added equal heights option
+* Enhancement: Pricing Table - Added ribbon option under Style > Featured Title
+* Enhancement: Pricing Table - Added tooltip icon position option
+* Enhancement: Content Grid - Added support for multiple post types
+* Enhancement: Content Grid - Added custom fields filter options
+* Enhancement: Video Gallery - Added integration for Wistia videos
+* Enhancement: Testimonial Slider - Added focus on pressing tab key and keyboard navigation support
+* Enhancement: Admin settings - Keyboard navigation and minor UI improvements
+* Fix: Pricing Table - Minor CSS fixes
+* Fix: Advanced Tabs - 1px left margin issue for the first tab in style 3 vertical layout
+* Fix: Advanced Tabs - PHP warning when choosing Photo as content type in some cases
+* Fix: Subscribe Form - Removed background opacity additional fields from the Button tab
+* Fix: Subscribe Form - Input label color was not working
+* Fix: Gravity Forms - Section title styling issue with the latest version of Gravity Forms
+* Fix: Gravity Forms - PHP warnings when input margin field is empty
+* Fix: Logo Carousel - Images were not displaying on Arabic sites
+* Fix: Category Grid - Adding 0 in the Spacing field was not working
+* Fix: Content Tiles - Taxonomy meta setting was not working with multiple post types
+* Fix: Google Map - JavaScript error when using ACF repeater field
+* Fix: Modal Box - Removed Default CSS class option to avoid confusion with custom Class/ID field
+* Fix: Modal Box - Renamed Trigger type "Other" to "Custom Element Click" to make it more clear to understand
+* Development: Timeline - Added filter hook pp_timeline_items
+
 == 2.25.2 ==
 Release date: September 20, 2022
 * Fix: Advanced Accordion - ACF Repeater source was not working after the recent update

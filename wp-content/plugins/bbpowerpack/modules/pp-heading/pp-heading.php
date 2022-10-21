@@ -414,6 +414,10 @@ BB_PowerPack::register_module(
 							'class'         => '',
 							'default'       => __('Title', 'bb-powerpack'),
 							'connections'   => array( 'string', 'html', 'url' ),
+							'preview'       => array(
+								'type'     => 'text',
+								'selector' => '.pp-primary-title'
+							),
 						),
 						'dual_heading'  => array(
 							'type'          => 'pp-switch',
@@ -437,6 +441,10 @@ BB_PowerPack::register_module(
 							'class'         => '',
 							'default'       => __('Secondary Title', 'bb-powerpack'),
 							'connections'   => array( 'string', 'html', 'url' ),
+							'preview'       => array(
+								'type'     => 'text',
+								'selector' => '.pp-secondary-title'
+							),
 						),
 						'heading_style'     => array(
 							'type'              => 'pp-switch',

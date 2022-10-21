@@ -1670,6 +1670,43 @@ final class FLBuilderModel {
 	}
 
 	/**
+	 * Get the placeholder data for node spacing breakpoint fields.
+	 *
+	 * @since 2.6
+	 * @param string $type The type of node.
+	 * @param string $property Either padding or margins.
+	 * @param string $size The breakpoint size key.
+	 * @return object
+	 */
+	static public function get_node_spacing_breakpoint_placeholders( $type, $property, $size ) {
+		$global_settings = self::get_global_settings();
+		$sizes           = array( 'large', 'medium', 'responsive' );
+		$fallbacks       = array_reverse( array_slice( $sizes, 0, array_search( $size, $sizes ) ) );
+		$sides           = array( 'top', 'right', 'bottom', 'left' );
+		$placeholders    = array();
+
+		foreach ( $sides as $side ) {
+			$key                   = $type . '_' . $property . '_' . $side . '_' . $size;
+			$placeholders[ $side ] = '';
+
+			if ( '' === $global_settings->{ $key } ) {
+				foreach ( $fallbacks as $fallback ) {
+					$fallback_key = $type . '_' . $property . '_' . $side . '_' . $fallback;
+
+					if ( '' !== $global_settings->{ $fallback_key } ) {
+						$placeholders[ $side ] = $global_settings->{ $fallback_key };
+						break;
+					}
+				}
+			} else {
+				$placeholders[ $side ] = $global_settings->{ $key };
+			}
+		}
+
+		return $placeholders;
+	}
+
+	/**
 	 * Callback for the uasort function.
 	 *
 	 * @since 1.0

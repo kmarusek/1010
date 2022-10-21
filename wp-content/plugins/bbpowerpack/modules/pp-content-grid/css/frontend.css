@@ -817,6 +817,16 @@ body .pp-post-feed-meta {
 	margin: 0 auto;
 }
 
+.cg-static-grid .pp-content-post.pp-content-grid-post {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    margin-right: 2%;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
 @media only screen and (max-width: 768px) {
 	.pp-content-post-carousel .owl-theme .owl-controls .owl-buttons div.owl-prev {
 	    left: 0;

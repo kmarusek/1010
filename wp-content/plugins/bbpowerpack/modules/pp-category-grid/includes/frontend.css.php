@@ -5,9 +5,9 @@ $column_desktop    = empty( $settings->category_columns ) ? 3 : $settings->categ
 $column_medium     = empty( $settings->category_columns_medium ) ? $column_desktop : $settings->category_columns_medium;
 $column_responsive = empty( $settings->category_columns_responsive ) ? $column_medium : $settings->category_columns_responsive;
 
-$spacing_desktop    = empty( $settings->category_spacing ) ? 2 : $settings->category_spacing;
-$spacing_medium     = empty( $settings->category_spacing_medium ) ? $spacing_desktop : $settings->category_spacing_medium;
-$spacing_responsive = empty( $settings->category_spacing_responsive ) ? $spacing_medium : $settings->category_spacing_responsive;
+$spacing_desktop    = '' === $settings->category_spacing ? 2 : $settings->category_spacing;
+$spacing_medium     = '' === $settings->category_spacing_medium ? $spacing_desktop : $settings->category_spacing_medium;
+$spacing_responsive = '' === $settings->category_spacing_responsive ? $spacing_medium : $settings->category_spacing_responsive;
 
 $width_desktop    = ( 100 - ( $spacing_desktop * ( $column_desktop - 1 ) ) ) / $column_desktop;
 $width_medium     = ( 100 - ( $spacing_medium * ( $column_medium - 1 ) ) ) / $column_medium;
@@ -506,30 +506,30 @@ FLBuilderCSS::responsive_rule(
 
 if ( 'style-0' === $category_style ) {
 	?>
-	.fl-node-<?php echo $id; ?> .pp-category .category-style-0 .pp-category__link {
+	.fl-node-<?php echo $id; ?> .pp-category .category-inner .pp-category__link {
 		background-color: transparent;
 	}
 
 	<?php if ( '' !== $settings->category_bg_color ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-category .category-style-0 .pp-category__content {
+	.fl-node-<?php echo $id; ?> .pp-category .category-inner .pp-category__content {
 		background-color: <?php echo pp_get_color_value( $settings->category_bg_color ); ?>;
 	}
 	<?php } ?>
 
 	<?php if ( '' !== $settings->category_bg_color_hover ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-category .category-style-0:hover .pp-category__content {
+	.fl-node-<?php echo $id; ?> .pp-category .category-inner:hover .pp-category__content {
 		background-color: <?php echo pp_get_color_value( $settings->category_bg_color_hover ); ?>;
 	}
 	<?php } ?>
 
 	<?php if ( '' !== $settings->category_count_color ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-category .category-style-0 .pp-category__title_wrapper span {
+	.fl-node-<?php echo $id; ?> .pp-category .category-inner .pp-category__title_wrapper span {
 		color: <?php echo pp_get_color_value( $settings->category_count_color ); ?>;
 	}
 	<?php } ?>
 
-	.fl-node-<?php echo $id; ?> .pp-category .category-style-0 .pp-category__img img,
-	.fl-node-<?php echo $id; ?> .pp-category .category-style-0:hover .pp-category__img img {
+	.fl-node-<?php echo $id; ?> .pp-category .category-inner .pp-category__img img,
+	.fl-node-<?php echo $id; ?> .pp-category .category-inner:hover .pp-category__img img {
 		opacity: 1;
 	}
 

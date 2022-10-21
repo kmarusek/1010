@@ -921,7 +921,8 @@
 
 			/* Loop Settings Fields */
 			$('body').on( 'change', '.fl-loop-data-source-select select[name=data_source]', FLBuilder._loopDataSourceChange);
-			$('body').on( 'change', '.fl-custom-query select[name="post_type[]"]', FLBuilder._customQueryPostTypeChange);
+			$('body').on( 'change', '.fl-custom-query select[name=post_type]', FLBuilder._customQueryPostTypeChange);
+			$('body').on( 'change', '.fl-custom-query select[name="post_type[]"]', FLBuilder._customQueryPostTypesChange);
 
 			/* Text Fields - Add Predefined Value Selector */
 			$('body').on( 'change', '.fl-text-field-add-value', FLBuilder._textFieldAddValueSelectChange);
@@ -9628,6 +9629,22 @@
 		},
 
 		/**
+		 * Callback for when the post types of a custom query changes.
+		 *
+		 * @since 2.6.2
+		 * @access private
+		 * @method _customQueryPostTypesChange
+		 */
+		_customQueryPostTypesChange: function()
+		{
+			var postTypes = $(this).val();
+			$('.fl-custom-query-filter').hide();
+			for ( val of postTypes ) {
+				$('.fl-custom-query-' + val + '-filter').show();
+			}
+		},
+
+		/**
 		 * Callback for when the post type of a custom query changes.
 		 *
 		 * @since 1.2.3
@@ -9636,11 +9653,9 @@
 		 */
 		_customQueryPostTypeChange: function()
 		{
-			var postTypes = $(this).val();
+			var val = $(this).val();
 			$('.fl-custom-query-filter').hide();
-			for ( val of postTypes ) {
-				$('.fl-custom-query-' + val + '-filter').show();
-			}
+			$('.fl-custom-query-' + val + '-filter').show();
 		},
 
 		/* Ordering Fields

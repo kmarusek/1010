@@ -1,3 +1,13 @@
+<h4>2.6.0.3 - 10/19/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix row margin and padding being incorrect in some cases when upgrading from 2.5 to 2.6</li>
+	<li>Fix filtering being missing from Accordion and Tab modules when displaying dynamic content</li>
+	<li>Number Counter: Fix separator missing and remove separate number size field that is no longer needed or used</li>
+	<li>Button Module: Fix custom width not working if using a gradient background</li>
+	<li>Fix slashes being stripped from captions</li>
+</ul>
+
 <h4>2.6.0.2 - 09/29/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

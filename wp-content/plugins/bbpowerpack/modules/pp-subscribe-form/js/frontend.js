@@ -170,6 +170,14 @@
 				}
 			}
 
+			var ajaxData = {
+				name       : name.val(),
+				email      : email.val(),
+				acceptance : acceptance.is(':checked') ? '1' : '0',
+			};
+
+			this.form.trigger( 'pp_form_before_process', [ajaxData, valid] );
+
 			if ( valid ) {
 
 				this.form.find( '> .pp-form-error-message' ).hide();
@@ -177,16 +185,10 @@
 				this.button.data( 'original-text', buttonText );
 				this.button.addClass( 'pp-form-button-disabled' );
 
-				var ajaxData = {
-					action  			: 'pp_subscribe_form_submit',
-					name    			: name.val(),
-					email   			: email.val(),
-					acceptance			: acceptance.is(':checked') ? '1' : '0',
-					post_id 			: postId,
-					template_id 		: templateId,
-					template_node_id 	: templateNodeId,
-					node_id 			: nodeId
-				};
+				ajaxData.action      = 'pp_subscribe_form_submit';
+				ajaxData.post_id     = postId;
+				ajaxData.node_id     = nodeId;
+				ajaxData.template_id = templateNodeId;
 
 				if (reCaptchaValue) {
 					ajaxData.recaptcha_response = reCaptchaValue;

@@ -1405,8 +1405,7 @@
 				regex = new RegExp('[^' + window._fl_string_to_slug_regex + '\'":\(\) !.,-_|]', 'g');
 			}
 			str = str.replace(regex, '') // remove invalid chars
-				.replace(/\s+/g, ' ') // collapse whitespace and replace by a space
-				.replace( /\//g, '' ); // collapse all forward-slashes
+				.replace(/\s+/g, ' '); // collapse whitespace and replace by a space
 			return str;
 		},
 		_reorderMenu: function() {

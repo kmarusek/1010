@@ -193,6 +193,26 @@
     });
 
     $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
+        if ($('#wp-client-reports-pro-happyforms').length) {
+            $('#wp-client-reports-pro-happyforms').addClass('loading');
+            var dataString = 'action=wp_client_reports_pro_happyforms_data&start=' + start_date_utc + '&end=' + end_date_utc;
+            var js_date_format = getDateFormat();
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                data: dataString,
+                dataType: 'json',
+                success: function(data, err) {
+                    $("#wp-client-reports-pro-happyforms-views-count").text(data.views);
+                    $("#wp-client-reports-pro-happyforms-entries-count").text(data.entries);
+                    $("#wp-client-reports-pro-happyforms-conversion").text(data.conversion + '%');
+                    $('#wp-client-reports-pro-happyforms').removeClass('loading');
+                }
+            });
+        }
+    });
+
+    $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
         if ($('#wp-client-reports-pro-caldera-forms').length) {
             $('#wp-client-reports-pro-caldera-forms').addClass('loading');
             var dataString = 'action=wp_client_reports_pro_caldera_forms_data&start=' + start_date_utc + '&end=' + end_date_utc;
@@ -338,6 +358,31 @@
                         $("#wp-client-reports-pro-mailchimp-warning").hide();
                     }
                     $('#wp-client-reports-pro-mailchimp').removeClass('loading');
+                }
+            });
+        }
+    });
+
+    $(document).on('wp_client_reports_js_get_data', function(event, start_date_utc, end_date_utc){
+        if ($('#wp-client-reports-pro-mailpoet').length) {
+            $('#wp-client-reports-pro-mailpoet').addClass('loading');
+            var dataString = 'action=wp_client_reports_pro_mailpoet_data&start=' + start_date_utc + '&end=' + end_date_utc;
+            var js_date_format = getDateFormat();
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                data: dataString,
+                dataType: 'json',
+                success: function(data, err) {
+                    $("#wp-client-reports-pro-mailpoet-subscribes").text(data.subscribes);
+                    $("#wp-client-reports-pro-mailpoet-unsubscribes").text(data.unsubscribes);
+                    $("#wp-client-reports-pro-mailpoet-total").text(data.total);
+                    if (data.warning) {
+                        $("#wp-client-reports-pro-mailpoet-warning").show().find('p').text(data.warning);
+                    } else {
+                        $("#wp-client-reports-pro-mailpoet-warning").hide();
+                    }
+                    $('#wp-client-reports-pro-mailpoet').removeClass('loading');
                 }
             });
         }

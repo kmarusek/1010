@@ -80,7 +80,8 @@
 				bb_powerpack.ajaxurl,
 				{
 					action: 'pp_get_saved_templates',
-					type: type
+					type: type,
+					currentPost: FLBuilderConfig ? FLBuilderConfig.postId : 0
 				},
 				function( response ) {
 					callback(response);

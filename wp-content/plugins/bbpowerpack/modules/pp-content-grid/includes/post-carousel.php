@@ -20,7 +20,7 @@
 ));
 
 $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_target_new ? ' target="_blank" rel="noopener bookmark"' : '';
-
+$is_product = in_array( 'product', (array) $post_type ) || in_array( 'download', (array) $post_type );
 ?>
 <div class="pp-content-post pp-content-carousel-post pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . PPContentGridModule::schema_itemtype() . '"' ); ?> data-hash="pp-post-<?php echo $post_id; ?>">
 
@@ -30,7 +30,7 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 		include $module_dir . 'includes/post-tile.php';
 	} else { ?>
 
-	<?php if ( $settings->more_link_type == 'box' && ( 'product' != $settings->post_type || 'download' != $settings->post_type ) ) { ?>
+	<?php if ( $settings->more_link_type == 'box' && ! $is_product ) { ?>
 		<a class="pp-post-link" href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>></a>
 	<?php } ?>
 
@@ -146,11 +146,11 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 			</div>
 			<?php endif; ?>
 
-			<?php if( $settings->post_type == 'product' && $settings->product_rating == 'yes' && class_exists( 'WooCommerce' ) ) { ?>
+			<?php if( in_array( 'product', (array) $post_type ) && $settings->product_rating == 'yes' && class_exists( 'WooCommerce' ) ) { ?>
 				<?php include $module->dir . 'includes/templates/product-rating.php'; ?>
 			<?php } ?>
 
-			<?php if ( 'tribe_events' == $settings->post_type && ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'FLThemeBuilderLoader' ) ) ) { ?>
+			<?php if ( in_array( 'tribe_events', (array) $post_type ) && ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'FLThemeBuilderLoader' ) ) ) { ?>
 				<?php include $module_dir . 'includes/templates/event-content.php'; ?>
 			<?php } ?>
 
@@ -162,16 +162,16 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 
 			<?php do_action( 'pp_cg_after_post_content', $post_id, $settings ); ?>
 
-			<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && 'product' != $settings->post_type && 'download' != $settings->post_type ) :
+			<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && ! in_array( 'product', (array) $post_type ) && ! in_array( 'download', (array) $post_type ) ) :
 				include $module->dir . 'includes/templates/custom-button.php';
 			endif; ?>
 
-			<?php if( ( $settings->post_type == 'product' || $settings->post_type == 'download' ) && ( $settings->product_price == 'yes' || $settings->product_button == 'yes' ) ) { ?>
+			<?php if( $is_product && ( $settings->product_price == 'yes' || $settings->product_button == 'yes' ) ) { ?>
 				<?php if( $settings->product_price == 'yes' ) { ?>
 					<?php include $module->dir . 'includes/templates/product-price.php'; ?>
 				<?php } ?>
 
-				<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && ( 'product' == $settings->post_type || 'download' == $settings->post_type ) ) : ?>
+				<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && $is_product ) : ?>
 					<?php if ( 'no' == $settings->product_button ) :
 						include $module->dir . 'includes/templates/custom-button.php';
 					endif; ?>
@@ -182,7 +182,7 @@ $link_target = isset( $settings->link_target_new ) && 'yes' === $settings->link_
 				<?php } ?>
 			<?php } ?>
 
-			<?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' != $settings->post_grid_style_select && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select) ) : ?>
+			<?php if(($settings->show_categories == 'yes' && !empty($terms_list)) && ('style-3' != $settings->post_grid_style_select && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select) ) : ?>
 				<?php include $module->dir . 'includes/templates/post-terms.php'; ?>
 			<?php endif; ?>
 		</div>

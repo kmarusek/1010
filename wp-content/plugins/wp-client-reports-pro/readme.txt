@@ -3,8 +3,8 @@ Contributors: thejester12
 Donate link: https://switchwp.com/wp-client-reports/
 Tags:  reports, client reports, analytics, maintenance, updates, plugin updates, theme updates
 Requires at least: 5.3.0
-Tested up to: 5.8
-Stable tag: 1.0.12
+Tested up to: 6.0.2
+Stable tag: 1.0.13
 Requires PHP: 5.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,6 +30,11 @@ Send an HTML email with update statistics whenever you complete updates to show 
 
 
 == Changelog ==
+
+= 1.0.13 =
+* Fix issue with Client Report Notes saving incorrect dates
+* New Service: MailPoet
+* New Service: Happyforms
 
 = 1.0.12 =
 * New Service: Wordfence

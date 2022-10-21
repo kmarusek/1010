@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.35.0\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.35.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2022-09-07 10:07:24+00:00\n"
+"POT-Creation-Date: 2022-10-08 04:20:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6616,7 +6616,7 @@ msgstr ""
 #: includes/admin-settings-social.php:34
 #: modules/uabb-login-form/uabb-login-bb-2-2-compatibility.php:345
 #: modules/uabb-login-form/uabb-login-bb-less-than-2-2-compatibility.php:247
-#: modules/uabb-login-form/uabb-login-form.php:494
+#: modules/uabb-login-form/uabb-login-form.php:545
 msgid "Google"
 msgstr ""
 
@@ -6669,7 +6669,7 @@ msgstr ""
 #: includes/admin-settings-social.php:63
 #: modules/uabb-login-form/uabb-login-bb-2-2-compatibility.php:365
 #: modules/uabb-login-form/uabb-login-bb-less-than-2-2-compatibility.php:267
-#: modules/uabb-login-form/uabb-login-form.php:496
+#: modules/uabb-login-form/uabb-login-form.php:547
 #: modules/uabb-social-share/includes/frontend.php:64
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:545
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:192
@@ -29776,31 +29776,32 @@ msgstr ""
 msgid "Login Module"
 msgstr ""
 
-#: modules/uabb-login-form/uabb-login-form.php:116
-#: modules/uabb-login-form/uabb-login-form.php:208
-#: modules/uabb-login-form/uabb-login-form.php:343
-#: modules/uabb-login-form/uabb-login-form.php:412
+#: modules/uabb-login-form/uabb-login-form.php:106
+#: modules/uabb-login-form/uabb-login-form.php:148
+#: modules/uabb-login-form/uabb-login-form.php:259
+#: modules/uabb-login-form/uabb-login-form.php:394
+#: modules/uabb-login-form/uabb-login-form.php:463
 msgid "Unauthorized access"
 msgstr ""
 
-#: modules/uabb-login-form/uabb-login-form.php:486
+#: modules/uabb-login-form/uabb-login-form.php:537
 msgid "Log In with Google"
 msgstr ""
 
-#: modules/uabb-login-form/uabb-login-form.php:488
+#: modules/uabb-login-form/uabb-login-form.php:539
 msgid "Log In with Facebook"
 msgstr ""
 
-#: modules/uabb-login-form/uabb-login-form.php:532
+#: modules/uabb-login-form/uabb-login-form.php:604
 msgid "Please configure the Google Client ID from"
 msgstr ""
 
-#: modules/uabb-login-form/uabb-login-form.php:535
-#: modules/uabb-login-form/uabb-login-form.php:567
+#: modules/uabb-login-form/uabb-login-form.php:607
+#: modules/uabb-login-form/uabb-login-form.php:639
 msgid "Dashboard > Settings > UABB > Social Login Settings"
 msgstr ""
 
-#: modules/uabb-login-form/uabb-login-form.php:563
+#: modules/uabb-login-form/uabb-login-form.php:635
 msgid "Please configure the Facebook App ID and Facebook App Secret from"
 msgstr ""
 
@@ -33067,11 +33068,11 @@ msgstr ""
 msgid "Display WooCommerce Categories."
 msgstr ""
 
-#: modules/uabb-woo-mini-cart/includes/frontend.php:16
+#: modules/uabb-woo-mini-cart/includes/frontend.php:20
 msgid "UABB Woo - Mini Cart - "
 msgstr ""
 
-#: modules/uabb-woo-mini-cart/includes/frontend.php:17
+#: modules/uabb-woo-mini-cart/includes/frontend.php:21
 msgid ""
 "Click here to edit the \"Floating Woo - Mini Cart Button\" settings. This "
 "text will not be visible on frontend."

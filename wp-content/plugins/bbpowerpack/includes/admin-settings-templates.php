@@ -329,6 +329,14 @@
 				renderTemplates();
 			});
 
+			$(document).on( 'click', function(e) {
+				if ( $(e.target).is( '.filter-sublinks' ) || $(e.target).closest( '.filter-sublinks' ).length > 0 ) {
+					return;
+				}
+				$('.pp-templates-actions .filter-sublinks').attr( 'aria-expanded', 'false' );
+				$('.pp-templates-actions .filter-page-templates').removeClass( 'is-active' );
+			} );
+
 			/* Search */
 			$('body').on('keyup', '#wp-filter-search-input', function(e) {
 				var keyCode = e.which || e.keyCode;
