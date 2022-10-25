@@ -226,34 +226,22 @@ class PPModalBoxModule extends FLBuilderModule {
 					$content .= '</div>';
 				}
             	break;
-			case 'templates':
-				global $post;
-				$is_current = false;
-				if ( is_object( $post ) && isset( $post->ID ) ) {
-					if ( $post->ID == $settings->modal_type_templates ) {
-						$content = __( 'You cannot use the current page as template.', 'bb-powerpack' );
-						$is_current = true;
-					}
-				}
-				if ( ! $is_current ) {
-					if ( isset( $_GET['fl_builder'] ) ) {
-                		$content = '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
-					} else {
-						if ( isset( $this->cached_content[ $settings->modal_type_templates ] ) ) {
-							$content = $this->cached_content[ $settings->modal_type_templates ];
-						} else {
-							$content = pp_get_post_content( get_post( $settings->modal_type_templates ) );
-							$this->cached_content[ $settings->modal_type_templates ] = $content;
-						}
-					}
-				}
-         		break;
             default:
             	break;
         }
 
 		return apply_filters( 'pp_modal_box_content', $content, $settings );
     }
+
+	public function render_post_content( $post_id ) {
+		global $post;
+
+		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
+			echo esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
+		}
+
+		pp_render_post_content( $post_id );
+	}
 
 	public function is_video_url( $url ) {
 		$regex = '/^.*((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be|vimeo\.com|dailymotion\.com|wistia\.com|wistia\.net))(\S+)?$/';

@@ -45,7 +45,7 @@ if ( ! empty( $settings->accordion_close_icon ) ) {
 
 			<div class="pp-accordion-content fl-clearfix" id="pp-accordion-<?php echo $module->node; ?>-panel-<?php echo $i; ?>" aria-labelledby="pp-accordion-<?php echo $module->node; ?>-tab-<?php echo $i; ?>" aria-hidden="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'true' : 'false'; ?>" role="tabpanel" aria-live="polite">
 				<?php
-				echo $module->render_content( $items[ $i ] );
+				$module->render_content( $items[ $i ] );
 				?>
 			</div>
 		</div>

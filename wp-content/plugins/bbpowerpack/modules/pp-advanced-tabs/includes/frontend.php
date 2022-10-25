@@ -84,7 +84,7 @@ $items          = $module->get_tabs_items( $id );
 				</div>
 			</div>
 			<div id="<?php echo $item->html_id; ?>-content" class="pp-tabs-panel-content pp-clearfix<?php if ( $i == $activeTabIndex ) { echo ' pp-tab-active';} ?>" data-index="<?php echo $i; ?>" role="tabpanel" aria-labelledby="<?php echo $item->html_id; ?>">
-				<?php echo $module->render_content( $item ); ?>
+				<?php $module->render_content( $item ); ?>
 			</div>
 		</div>
 		<?php endfor; ?>

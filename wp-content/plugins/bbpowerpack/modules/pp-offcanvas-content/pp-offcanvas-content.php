@@ -59,23 +59,14 @@ class PPOffcanvasContent extends FLBuilderModule {
 		return $settings;
 	}
 
-	public function get_post_content( $post_id ) {
+	public function render_post_content( $post_id ) {
 		global $post;
-		if ( is_object( $post ) && isset( $post->ID ) ) {
-			if ( $post->ID == $post_id ) {
-				return esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
-			}
+
+		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
+			echo esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
 		}
 
-		if ( isset( $_GET['fl_builder'] ) ) {
-			return '[fl_builder_insert_layout id="' . $post_id . '" type="fl-builder-template"]';
-		}
-
-		if ( ! isset( $this->cached_content[ $post_id ] ) ) {
-			$this->cached_content[ $post_id ] = pp_get_post_content( get_post( $post_id ) );
-		}
-		
-		return $this->cached_content[ $post_id ];
+		pp_render_post_content( $post_id );
 	}
 
 	/**
@@ -85,7 +76,6 @@ class PPOffcanvasContent extends FLBuilderModule {
 	 * @access public
 	 */
 	public function render_content( $settings ) {
-		$html = '';
 
 		switch ( $settings->content_type ) {
 			case 'content':
@@ -99,30 +89,27 @@ class PPOffcanvasContent extends FLBuilderModule {
 					$html .= '</div>';
 					$html .= '</div>';
 				}
+				echo $html;
 				break;
 			case 'module':
-				$html = $this->get_post_content( $settings->content_module );
+				$this->render_post_content( $settings->content_module );
 				break;
 			case 'row':
-				$html = $this->get_post_content( $settings->content_row );
+				$this->render_post_content( $settings->content_row );
 				break;
 			case 'layout':
-				$html = $this->get_post_content( $settings->content_layout );
+				$this->render_post_content( $settings->content_layout );
 				break;
 			case 'sidebar':
 				$sidebar = $settings->content_sidebar;
 				if ( empty( $sidebar ) ) {
 					return;
 				}
-				ob_start();
 				dynamic_sidebar( $sidebar );
-				$html = ob_get_clean();
 				break;
 			default:
 				break;
 		}
-
-		return $html;
 	}
 
 	/**

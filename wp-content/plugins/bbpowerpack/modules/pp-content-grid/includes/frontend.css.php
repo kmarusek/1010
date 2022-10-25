@@ -660,6 +660,13 @@ FLBuilderCSS::dimension_field_rule( array(
 	margin-right: <?php echo $spacing . $spacing_unit; ?>;
 }
 
+@media only screen and (min-width: 768px) {
+	.fl-node-<?php echo $id; ?>.cg-css-grid .pp-content-post-grid.pp-equal-height {
+		grid-column-gap: <?php echo $spacing . $spacing_unit; ?>;
+		grid-row-gap: <?php echo $spacing; ?>ch;
+	}
+}
+
 <?php
 // Border.
 FLBuilderCSS::border_field_rule( array(

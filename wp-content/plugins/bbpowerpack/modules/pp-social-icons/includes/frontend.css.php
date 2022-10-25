@@ -1,36 +1,45 @@
-.fl-node-<?php echo $id; ?> .fl-module-content .pp-social-icon {
-	<?php if ( isset( $settings->direction ) && $settings->direction == 'vertical' ) { ?>
-		display: block;
-	<?php } ?>
-}
 <?php
 	// Icon - Spacing
 	FLBuilderCSS::responsive_rule( array(
 		'settings'		=> $settings,
 		'setting_name'	=> 'spacing',
-		'selector'		=> ".fl-node-$id .fl-module-content .pp-social-icon",
+		'selector'		=> ".fl-node-$id .pp-social-icons-vertical .pp-social-icon",
 		'prop'			=> 'margin-bottom',
 		'unit'			=> 'px',
-		'enabled'		=> ( isset( $settings->direction ) && $settings->direction == 'vertical' )
 	) );
-?>
 
-<?php
-	// Icon - Size
+	// Icon - Spacing - Horizontal left aligned
 	FLBuilderCSS::responsive_rule( array(
 		'settings'		=> $settings,
-		'setting_name'	=> 'box_size',
-		'selector'		=> ".fl-node-$id .fl-module-content .pp-social-icon a",
-		'prop'			=> 'width',
+		'setting_name'	=> 'spacing',
+		'selector'		=> ".fl-node-$id .pp-social-icons-horizontal .pp-social-icon",
+		'prop'			=> 'margin-right',
 		'unit'			=> 'px',
 	) );
 
+	$breakpoints = array( '', 'large', 'medium', 'responsive' );
+	$alignments  = array(
+		'left'   => 'flex-start',
+		'center' => 'center',
+		'right'  => 'flex-end',
+	);
+
+	$align_settings = new stdClass;
+
+	foreach ( $breakpoints as $breakpoint ) {
+		$suffix       = empty( $breakpoint ) ? '' : "_{$breakpoint}";
+		$setting_name = 'align' . $suffix;
+		if ( isset( $settings->{$setting_name} ) && ! empty( $settings->{$setting_name} ) ) {
+			$align_settings->{$setting_name} = $alignments[ $settings->{$setting_name} ];
+		}
+	}
+
+	// Icon - Align
 	FLBuilderCSS::responsive_rule( array(
-		'settings'		=> $settings,
-		'setting_name'	=> 'box_size',
-		'selector'		=> ".fl-node-$id .fl-module-content .pp-social-icon a",
-		'prop'			=> 'height',
-		'unit'			=> 'px',
+		'settings'     => $align_settings,
+		'setting_name' => 'align',
+		'selector'     => ".fl-node-$id .pp-social-icons",
+		'prop'         => $settings->direction == 'horizontal' ? 'justify-content' : 'align-items'
 	) );
 ?>
 
@@ -106,7 +115,7 @@
 ?>
 
 <?php foreach ( $settings->icons as $i => $icon ) : ?>
-	<?php if ( $icon->border_width >= 0 ) : ?>
+	<?php if ( $icon->border_width !== '' ) : ?>
 		.fl-node-<?php echo $id; ?> .fl-module-content .pp-social-icon:nth-child(<?php echo $i + 1; ?>) a {
 			<?php if ( '' !== $icon->border_width ) { ?>
 				border: <?php echo $icon->border_width; ?>px solid #<?php echo $icon->border_color; ?>;
@@ -140,72 +149,3 @@
 		}
 	<?php endif; ?>
 <?php endforeach; ?>
-
-<?php
-	// Icon - Spacing
-	FLBuilderCSS::responsive_rule( array(
-		'settings'		=> $settings,
-		'setting_name'	=> 'spacing',
-		'selector'		=> ".fl-node-$id .pp-social-icons-left .pp-social-icon",
-		'prop'			=> 'margin-right',
-		'unit'			=> 'px',
-		'enabled'		=> ( isset( $settings->direction ) && $settings->direction == 'horizontal' )
-	) );
-
-	FLBuilderCSS::responsive_rule( array(
-		'settings'		=> $settings,
-		'setting_name'	=> 'spacing',
-		'selector'		=> ".fl-node-$id .pp-social-icons-center .pp-social-icon",
-		'prop'			=> 'margin-left',
-		'unit'			=> 'px',
-		'enabled'		=> ( isset( $settings->direction ) && $settings->direction == 'horizontal' )
-	) );
-
-	FLBuilderCSS::responsive_rule( array(
-		'settings'		=> $settings,
-		'setting_name'	=> 'spacing',
-		'selector'		=> ".fl-node-$id .pp-social-icons-center .pp-social-icon",
-		'prop'			=> 'margin-right',
-		'unit'			=> 'px',
-		'enabled'		=> ( isset( $settings->direction ) && $settings->direction == 'horizontal' )
-	) );
-
-	FLBuilderCSS::responsive_rule( array(
-		'settings'		=> $settings,
-		'setting_name'	=> 'spacing',
-		'selector'		=> ".fl-node-$id .pp-social-icons-right .pp-social-icon",
-		'prop'			=> 'margin-left',
-		'unit'			=> 'px',
-		'enabled'		=> ( isset( $settings->direction ) && $settings->direction == 'horizontal' )
-	) );
-?>
-
-@media only screen and (max-width: <?php echo $settings->breakpoint; ?>px) {
-	.fl-node-<?php echo $id; ?> .pp-responsive-left {
-		text-align: left;
-	}
-
-	.fl-node-<?php echo $id; ?> .pp-responsive-center {
-		text-align: center;
-	}
-
-	.fl-node-<?php echo $id; ?> .pp-responsive-right {
-		text-align: right;
-	}
-
-	/* Left */
-	.fl-node-<?php echo $id; ?> .pp-responsive-left .pp-social-icon {
-		margin-right: <?php echo $settings->spacing; ?>px;
-	}
-
-	/* Center */
-	.fl-node-<?php echo $id; ?> .pp-responsive-center .pp-social-icon {
-		margin-left: <?php echo $settings->spacing; ?>px;
-		margin-right: <?php echo $settings->spacing; ?>px;
-	}
-
-	/* Right */
-	.fl-node-<?php echo $id; ?> .pp-responsive-center .pp-social-icon {
-		margin-left: <?php echo $settings->spacing; ?>px;
-	}
-}

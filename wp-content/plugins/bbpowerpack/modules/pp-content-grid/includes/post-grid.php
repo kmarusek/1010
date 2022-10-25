@@ -51,7 +51,7 @@ $html_classes .= " $post_classes";
 		include $module_dir . 'includes/post-tile.php';
 	} else { ?>
 
-		<?php if ( $settings->more_link_type == 'box' && ! $is_product ) { ?>
+		<?php if ( $settings->more_link_type == 'box' ) { ?>
 			<a class="pp-post-link" href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"<?php echo $link_target; ?>></a>
 		<?php } ?>
 

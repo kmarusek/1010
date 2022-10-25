@@ -192,24 +192,6 @@ class PPAccordionModule extends FLBuilderModule {
 		return apply_filters( 'pp_accordion_items', $items, $this->settings );
 	}
 
-	public function get_post_content( $post_id ) {
-		global $post;
-
-		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
-			return esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
-		}
-
-		if ( isset( $_GET['fl_builder'] ) ) {
-			return '[fl_builder_insert_layout id="' . $post_id . '" type="fl-builder-template"]';
-		}
-
-		if ( ! isset( $this->cached_content[ $post_id ] ) ) {
-			$this->cached_content[ $post_id ] = pp_get_post_content( get_post( $post_id ) );
-		}
-
-		return $this->cached_content[ $post_id ];
-	}
-
 	public function render_accordion_item_icon( $item ) {
 		$icon_type = isset( $item->accordion_icon_type ) ? $item->accordion_icon_type : 'icon';
 
@@ -226,6 +208,16 @@ class PPAccordionModule extends FLBuilderModule {
 			<span class="pp-accordion-icon"><?php echo $image; ?></span>
 			<?php
 		}
+	}
+
+	public function render_post_content( $post_id ) {
+		global $post;
+
+		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
+			echo esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
+		}
+
+		pp_render_post_content( $post_id );
 	}
 
 	/**
@@ -246,6 +238,7 @@ class PPAccordionModule extends FLBuilderModule {
 				$html  = '<div itemprop="text">';
 				$html .= wpautop( $wp_embed->autoembed( $item->content ) );
 				$html .= '</div>';
+				echo $html;
 				break;
 			case 'photo':
 				$alt   = ! empty( $item->content_photo ) ? get_post_meta( $item->content_photo , '_wp_attachment_image_alt', true ) : '';
@@ -253,25 +246,24 @@ class PPAccordionModule extends FLBuilderModule {
 				$html  = '<div itemprop="image">';
 				$html .= '<img src="' . $item->content_photo_src . '" alt="' . $alt . '" style="max-width: 100%;" />';
 				$html .= '</div>';
+				echo $html;
 				break;
 			case 'video':
 				global $wp_embed;
-				$html = $wp_embed->autoembed( $item->content_video );
+				echo $wp_embed->autoembed( $item->content_video );
 				break;
 			case 'module':
-				$html = $this->get_post_content( $item->content_module );
+				$this->render_post_content( $item->content_module );
 				break;
 			case 'row':
-				$html = $this->get_post_content( $item->content_row );
+				$this->render_post_content( $item->content_row );
 				break;
 			case 'layout':
-				$html = $this->get_post_content( $item->content_layout );
+				$this->render_post_content( $item->content_layout );
 				break;
 			default:
 				break;
 		}
-
-		return $html;
 	}
 
 	public function filter_settings( $settings, $helper ) {
