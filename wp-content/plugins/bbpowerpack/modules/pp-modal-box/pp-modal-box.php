@@ -238,6 +238,7 @@ class PPModalBoxModule extends FLBuilderModule {
 
 		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
 			echo esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
+			return;
 		}
 
 		pp_render_post_content( $post_id );

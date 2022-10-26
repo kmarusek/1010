@@ -1,3 +1,7 @@
+== 2.26.2 ==
+Release date: October 26, 2022
+* Fix: Advanced Tabs - Saved templates were not rendering after the recent update
+
 == 2.26.1 ==
 Release date: October 25, 2022
 * Fix: Content Grid - Link Type Box was not working for product or download post type
