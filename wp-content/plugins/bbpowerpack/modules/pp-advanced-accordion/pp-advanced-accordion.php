@@ -228,7 +228,8 @@ class PPAccordionModule extends FLBuilderModule {
 	 */
 	public function render_content( $item ) {
 		if ( 'manual' !== $this->get_data_source() ) {
-			return $item->content;
+			echo $item->content;
+			return;
 		}
 
 		$html = '';

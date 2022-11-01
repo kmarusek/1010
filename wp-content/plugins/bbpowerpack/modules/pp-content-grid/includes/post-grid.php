@@ -148,13 +148,13 @@ $html_classes .= " $post_classes";
 						?>
 					<?php endif; ?>
 
-					<?php if( 'style-6' == $settings->post_grid_style_select || 'style-5' == $settings->post_grid_style_select ) : ?>
-						<?php if($settings->show_author == 'yes' && $settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list) ) : ?>
+					<?php if ( 'style-6' == $settings->post_grid_style_select || 'style-5' == $settings->post_grid_style_select ) : ?>
+						<?php if ( $settings->show_author == 'yes' && $settings->show_categories == 'yes' && ! empty( $terms_list ) ) : ?>
 							<span> <?php echo $settings->meta_separator; ?> </span>
 						<?php endif; ?>
-						<?php if($settings->show_categories == 'yes') { ?>
+						<?php if ( $settings->show_categories == 'yes' ) { ?>
 						<span class="pp-content-post-category">
-							<?php if(taxonomy_exists($settings->post_taxonomies)) { ?>
+							<?php if ( ! empty( $terms_list ) ) { ?>
 								<?php $i = 1;
 								foreach ($terms_list as $term):
 									?>
