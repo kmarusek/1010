@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-theme-builder\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2022-08-16 16:45:03+00:00\n"
+"POT-Creation-Date: 2022-10-25 16:23:57+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -746,7 +746,7 @@ msgstr ""
 #: classes/class-fl-theme-builder-logic-i18n.php:148
 #: extensions/woocommerce/classes/class-fl-page-data-woocommerce.php:16
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:301
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:364
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:373
 #: extensions/woocommerce/modules/fl-woo-breadcrumb/fl-woo-breadcrumb.php:18
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:18
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:18
@@ -922,7 +922,7 @@ msgid "Save"
 msgstr ""
 
 #: classes/class-fl-theme-builder-logic-i18n.php:190
-#: extensions/bb-logic/editors/beaver-builder/classes/class-bb-logic-editor-beaver-builder.php:121
+#: extensions/bb-logic/editors/beaver-builder/classes/class-bb-logic-editor-beaver-builder.php:122
 msgid "Conditional Logic Settings"
 msgstr ""
 
@@ -981,9 +981,9 @@ msgid "Post Layout"
 msgstr ""
 
 #: classes/class-fl-theme-builder-post-modules.php:58
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:328
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:349
 #: includes/layout-admin-edit-settings.php:73
-#: includes/layout-admin-edit-settings.php:117 includes/page-data-post.php:165
+#: includes/layout-admin-edit-settings.php:120 includes/page-data-post.php:165
 #: includes/page-data-post.php:194 includes/page-data-post.php:250
 #: modules/fl-post-info/fl-post-info.php:99
 #: modules/fl-post-info/fl-post-info.php:134
@@ -1089,12 +1089,12 @@ msgid "Order"
 msgstr ""
 
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:191
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:340
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:361
 msgid "Descending"
 msgstr ""
 
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:192
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:339
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:360
 msgid "Ascending"
 msgstr ""
 
@@ -1338,13 +1338,13 @@ msgstr ""
 #: extensions/acf/includes/page-data-acf.php:575
 #: extensions/acf/includes/page-data-acf.php:584
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-countdown/fl-the-events-calendar-countdown.php:49
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:359
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:368
 #: extensions/woocommerce/includes/page-data-woocommerce.php:75
 #: extensions/woocommerce/modules/fl-woo-product-upsells/fl-woo-product-upsells.php:39
 #: extensions/woocommerce/modules/fl-woo-related-products/fl-woo-related-products.php:39
 #: includes/layout-admin-edit-settings.php:57
-#: includes/layout-admin-edit-settings.php:91
-#: includes/layout-admin-edit-settings.php:104 includes/page-data-post.php:261
+#: includes/layout-admin-edit-settings.php:94
+#: includes/layout-admin-edit-settings.php:107 includes/page-data-post.php:261
 #: includes/page-data-post.php:359 includes/page-data-post.php:382
 #: includes/page-data-post.php:444 includes/page-data-post.php:513
 #: includes/page-data-site.php:63 includes/page-data-site.php:134
@@ -1361,13 +1361,13 @@ msgstr ""
 #: extensions/acf/includes/page-data-acf.php:576
 #: extensions/acf/includes/page-data-acf.php:585
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-countdown/fl-the-events-calendar-countdown.php:50
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:358
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:367
 #: extensions/woocommerce/includes/page-data-woocommerce.php:76
 #: extensions/woocommerce/modules/fl-woo-product-upsells/fl-woo-product-upsells.php:40
 #: extensions/woocommerce/modules/fl-woo-related-products/fl-woo-related-products.php:40
 #: includes/layout-admin-edit-settings.php:58
-#: includes/layout-admin-edit-settings.php:92
-#: includes/layout-admin-edit-settings.php:105 includes/page-data-post.php:262
+#: includes/layout-admin-edit-settings.php:95
+#: includes/layout-admin-edit-settings.php:108 includes/page-data-post.php:262
 #: includes/page-data-post.php:360 includes/page-data-post.php:383
 #: includes/page-data-post.php:445 includes/page-data-post.php:514
 #: includes/page-data-site.php:64 includes/page-data-site.php:135
@@ -1603,7 +1603,7 @@ msgid ""
 "PHP version</a> before continuing."
 msgstr ""
 
-#: extensions/bb-logic/editors/beaver-builder/classes/class-bb-logic-editor-beaver-builder.php:111
+#: extensions/bb-logic/editors/beaver-builder/classes/class-bb-logic-editor-beaver-builder.php:112
 msgid "Conditional Logic"
 msgstr ""
 
@@ -1725,15 +1725,16 @@ msgstr ""
 #: extensions/bigcommerce/modules/fl-bc-product-reviews/fl-bc-product-reviews.php:74
 #: extensions/bigcommerce/settings/refinery.php:9
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:151
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:292
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:301
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:310
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:319
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:313
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:322
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:331
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:340
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:308
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:317
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:326
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:335
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:344
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:353
 #: extensions/woocommerce/modules/fl-woo-product-images/fl-woo-product-images.php:52
 #: modules/fl-post-info/fl-post-info.php:90
 #: modules/fl-post-info/fl-post-info.php:125
@@ -1753,15 +1754,16 @@ msgstr ""
 #: extensions/bigcommerce/settings/refinery.php:10
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:152
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:162
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:293
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:302
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:311
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:320
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:314
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:323
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:332
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:341
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:309
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:318
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:327
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:336
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:345
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:354
 #: extensions/woocommerce/modules/fl-woo-product-images/fl-woo-product-images.php:53
 #: modules/fl-post-info/fl-post-info.php:91
 #: modules/fl-post-info/fl-post-info.php:126
@@ -2232,13 +2234,13 @@ msgstr ""
 #: extensions/bigcommerce/settings/sale-badge.php:5
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:192
 #: extensions/edd/modules/fl-edd-cart-button/fl-edd-cart-button.php:36
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:363
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:384
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-archive-view/fl-the-events-calendar-archive-view.php:42
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-archive-view/fl-the-events-calendar-archive-view.php:61
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:61
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-notices/fl-the-events-calendar-notices.php:46
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-tickets/fl-the-events-calendar-tickets.php:36
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:421
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:430
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:63
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:42
 #: modules/fl-author-bio/fl-author-bio.php:43
@@ -2272,12 +2274,12 @@ msgstr ""
 #: extensions/edd/modules/fl-edd-cart-button/fl-edd-cart-button.php:41
 #: extensions/edd/modules/fl-edd-product-price/fl-edd-product-price.php:64
 #: extensions/edd/modules/fl-edd-product-title/fl-edd-product-title.php:76
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:369
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:390
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-archive-view/fl-the-events-calendar-archive-view.php:53
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:51
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-notices/fl-the-events-calendar-notices.php:36
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-tickets/fl-the-events-calendar-tickets.php:46
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:430
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:439
 #: extensions/woocommerce/modules/fl-woo-breadcrumb/fl-woo-breadcrumb.php:74
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:36
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:36
@@ -2394,7 +2396,7 @@ msgstr ""
 msgid "Easy Digital Downloads"
 msgstr ""
 
-#: extensions/edd/classes/class-fl-page-data-edd.php:37
+#: extensions/edd/classes/class-fl-page-data-edd.php:36
 msgid "Free"
 msgstr ""
 
@@ -2473,7 +2475,7 @@ msgid "Font"
 msgstr ""
 
 #: extensions/the-events-calendar/classes/class-fl-page-data-the-events-calendar.php:16
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:285
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:306
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-archive-view/fl-the-events-calendar-archive-view.php:18
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-back-link/fl-the-events-calendar-link.php:13
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-cost/fl-the-events-calendar-cost.php:13
@@ -2499,72 +2501,72 @@ msgstr ""
 msgid "&laquo; All Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:289
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:310
 msgid "Event Date"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:298
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:319
 #: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:215
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-venue/fl-the-events-calendar-venue.php:15
 msgid "Event Venue"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:307
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:328
 #: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:155
 msgid "Event Address"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:316
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:337
 #: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:83
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-cost/fl-the-events-calendar-cost.php:10
 msgid "Event Cost"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:325
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:346
 msgid "Events Order By"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:329
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:350
 msgid "Start Date"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:330
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:351
 msgid "End Date"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:332
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:353
 msgid "Selecting \"Default\" will use the default sorting under Content tab."
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:336
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:357
 msgid "Events Order"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:345
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:366
 msgid "Show Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:348
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:369
 msgid "Future Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:349
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:370
 msgid "Past Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:350
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:371
 msgid "Todays Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:351
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:372
 msgid "All Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:352
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:373
 msgid "Featured Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:359
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:380
 msgid "The Events Calendar Cart Button"
 msgstr ""
 
@@ -2782,12 +2784,12 @@ msgid "Displays links to export the current event to your calendar."
 msgstr ""
 
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:71
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:448
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:457
 msgid "Hover Text Color"
 msgstr ""
 
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:79
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:439
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:448
 msgid "Hover Background Color"
 msgstr ""
 
@@ -3304,43 +3306,47 @@ msgstr ""
 msgid "Product Ordering"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:354
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:350
+msgid "Show Hidden Products"
+msgstr ""
+
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:363
 msgid "WooCommerce Classes"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:355
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:364
 msgid "Add woocommerce and woocommerce-page classes to module wrapper."
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:368
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:377
 msgid "Product Sale Background"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:376
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:385
 msgid "Product Sale Text Color"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:384
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:393
 msgid "Product Rating Foreground"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:389
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:398
 msgid "Product Rating Background"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:394
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:403
 msgid "Product Rating Font Size"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:402
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:411
 msgid "Product Price Text Color"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:407
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:416
 msgid "Product Price Font Size"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:417
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:426
 msgid "WooCommerce Cart Button"
 msgstr ""
 
@@ -3625,54 +3631,66 @@ msgid "All screen sizes"
 msgstr ""
 
 #: includes/layout-admin-edit-settings.php:75
-msgid "Large Devices Only"
+msgid "Extra Large Devices Only"
 msgstr ""
 
 #: includes/layout-admin-edit-settings.php:76
-msgid "Large &amp; Medium Devices Only"
+msgid "Extra Large &amp; Large Devices Only"
 msgstr ""
 
 #: includes/layout-admin-edit-settings.php:77
-msgid "Medium Devices Only"
+msgid "Extra Large, Large &amp; Medium Devices Only"
 msgstr ""
 
 #: includes/layout-admin-edit-settings.php:78
-msgid "Medium &amp; Small Devices Only"
+msgid "Large Devices Only"
 msgstr ""
 
 #: includes/layout-admin-edit-settings.php:79
+msgid "Large &amp; Medium Devices Only"
+msgstr ""
+
+#: includes/layout-admin-edit-settings.php:80
+msgid "Medium Devices Only"
+msgstr ""
+
+#: includes/layout-admin-edit-settings.php:81
+msgid "Medium &amp; Small Devices Only"
+msgstr ""
+
+#: includes/layout-admin-edit-settings.php:82
 msgid "Small Devices Only"
 msgstr ""
 
-#: includes/layout-admin-edit-settings.php:86
+#: includes/layout-admin-edit-settings.php:89
 msgid "Shrink"
 msgstr ""
 
-#: includes/layout-admin-edit-settings.php:87
+#: includes/layout-admin-edit-settings.php:90
 msgid "Shrink this header when the page is scrolled."
 msgstr ""
 
-#: includes/layout-admin-edit-settings.php:99
+#: includes/layout-admin-edit-settings.php:102
 msgid "Overlay"
 msgstr ""
 
-#: includes/layout-admin-edit-settings.php:100
+#: includes/layout-admin-edit-settings.php:103
 msgid ""
 "Overlay this header on top of the page content with a transparent "
 "background."
 msgstr ""
 
-#: includes/layout-admin-edit-settings.php:112
+#: includes/layout-admin-edit-settings.php:115
 msgid "Background"
 msgstr ""
 
-#: includes/layout-admin-edit-settings.php:113
+#: includes/layout-admin-edit-settings.php:116
 msgid ""
 "Use either the default background color or a transparent background color "
 "until the page is scrolled."
 msgstr ""
 
-#: includes/layout-admin-edit-settings.php:118
+#: includes/layout-admin-edit-settings.php:121
 msgid "Transparent"
 msgstr ""
 

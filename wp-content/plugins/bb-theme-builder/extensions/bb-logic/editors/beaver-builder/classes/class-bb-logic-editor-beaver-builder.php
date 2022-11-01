@@ -21,6 +21,7 @@ final class BB_Logic_Editor_Beaver_Builder {
 		}
 
 		// Actions
+		add_action( 'fl_builder_ui_enqueue_scripts', __CLASS__ . '::enqueue_assets', 11 ); // Iframe UI
 		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_assets', 11 );
 		add_action( 'wp_footer', __CLASS__ . '::render_react_root' );
 

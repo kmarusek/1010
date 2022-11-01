@@ -151,7 +151,7 @@ final class FLPageDataACF {
 				} else {
 					if ( isset( $settings->format ) && '' !== $settings->format && isset( $value ) ) {
 						$date    = str_replace( '/', '-', $value );
-						$content = date( $settings->format, strtotime( $date ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+						$content = date_i18n( $settings->format, strtotime( $date ) );
 					} else {
 						$content = isset( $value ) ? $value : '';
 					}

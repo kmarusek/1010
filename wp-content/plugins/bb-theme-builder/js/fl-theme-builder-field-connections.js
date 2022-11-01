@@ -40,15 +40,15 @@
 		{
 			FLBuilder.addHook( 'settings-form-init', this._initSettingsForms );
 
-			$( 'body' ).on( 'click', this._closeMenus );
-			$( 'body' ).delegate( '.fl-field-connections-toggle .fas', 'click', this._menuToggleClicked );
-			$( 'body' ).delegate( '.fl-field-connections-property', 'click', this._menuItemClicked );
-			$( 'body' ).delegate( '.fl-field-connections-property-token', 'click', this._menuItemTokenClicked );
-			$( 'body' ).delegate( '.fl-field-connections-search', 'keyup', this._menuSearchKeyup );
-			$( 'body' ).delegate( '.fl-field-connection-remove', 'click', this._removeConnectionClicked );
-			$( 'body' ).delegate( '.fl-field-connection-edit', 'click', this._editConnectionClicked );
-			$( 'body' ).delegate( '.fl-field-connection-settings .fl-builder-settings-save', 'click', this._saveSettingsFormClicked );
-			$( 'body' ).delegate( '.fl-field-connection-settings .fl-builder-settings-cancel', 'click', this._cancelSettingsFormClicked );
+			$( 'body', window.parent.document ).on( 'click', this._closeMenus );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connections-toggle .fas', 'click', this._menuToggleClicked );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connections-property', 'click', this._menuItemClicked );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connections-property-token', 'click', this._menuItemTokenClicked );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connections-search', 'keyup', this._menuSearchKeyup );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connection-remove', 'click', this._removeConnectionClicked );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connection-edit', 'click', this._editConnectionClicked );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connection-settings .fl-builder-settings-save', 'click', this._saveSettingsFormClicked );
+			$( 'body', window.parent.document ).delegate( '.fl-field-connection-settings .fl-builder-settings-cancel', 'click', this._cancelSettingsFormClicked );
 		},
 
 		/**
@@ -127,7 +127,7 @@
 
 				if ( ! menu.length ) {
 
-					$( 'body' ).append( template( {
+					$( 'body', window.parent.document ).append( template( {
 						fieldId   : fieldId,
 						fieldType : field.attr( 'data-type' ),
 						menuData  : menuData

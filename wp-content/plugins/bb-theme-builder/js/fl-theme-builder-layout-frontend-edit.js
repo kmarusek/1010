@@ -83,7 +83,7 @@
 						location: item.attr( 'data-location' )
 						}, function() {
 							FLBuilder.showAjaxLoader();
-							window.location.reload( true );
+							window.parent.location.reload( true );
 						} );
 				} else if ( '0' == loaded ) {
 
@@ -182,7 +182,7 @@
 				location: child.attr( 'data-location' )
 				}, function() {
 					FLBuilder.showAjaxLoader();
-					window.location.reload( true );
+					window.parent.location.reload( true );
 				} );
 
 			e.stopPropagation();
