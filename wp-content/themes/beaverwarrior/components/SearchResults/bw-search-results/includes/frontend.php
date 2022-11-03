@@ -2,11 +2,13 @@
 $s=get_search_query();
 $args = array(
     's' =>$s,
-    'posts_per_page' => 16
+    'posts_per_page' => 16,
+    'post_type' => array( 'post', 'page', 'content_library', 'event', 'career' )
 );
     // The Query
 $the_query = new WP_Query( $args );
 
+// var_dump($the_query);
 
 if ( $the_query->have_posts() ) {
     ?>
