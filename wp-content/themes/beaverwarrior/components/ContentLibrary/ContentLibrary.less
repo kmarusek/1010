@@ -3,7 +3,7 @@
 **/
 .ContentLibrary-menu-wrap{
     background-color: #120C17;
-    margin-bottom: 80px;
+    margin-bottom: 76px;
     position: relative;
     display: flex;
     align-items: center;
@@ -76,16 +76,22 @@
 .ContentLibrary-radio-inline label {
     font-family: "Hauora", Verdana, Arial, sans-serif;
     font-weight: 500;
+    font-size: 14px;
     padding: 30px 20px;
     color: #B5B1B1;
     text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 0;
+    border: none;
     cursor: pointer;
    &:hover, &:active {
         color: #ffffff;
+        font-weight: 600;
    }
 }
 .ContentLibrary-input:checked ~ label {
     color: #ffffff;
+    font-weight: 600;
   }
 input.filter,.filter-all {
     visibility: hidden;

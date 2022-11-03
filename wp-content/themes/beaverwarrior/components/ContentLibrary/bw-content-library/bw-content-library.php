@@ -118,11 +118,6 @@ FLBuilder::register_module(
             'sections' => array(
                 'general' => array(
                     'fields' => array(
-                        'feature_posts_background_image' => array(
-                            'type'      => 'photo',
-                            'label'     => __('Feature Post Background Image', 'fl-builder'),
-                            'show_remove' => true,
-                        ),
                         'webinars_posts_background_image' => array(
                             'type'      => 'photo',
                             'label'     => __('Webinars Background Image', 'fl-builder'),
