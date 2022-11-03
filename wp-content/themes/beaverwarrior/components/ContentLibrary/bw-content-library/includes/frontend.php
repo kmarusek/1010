@@ -13,7 +13,7 @@ $posts_per_page = $module->getPostsPerPage();
 //Gather all Catergories for CPT 
 if( !function_exists('get_terms_by_post_type') ){
 
-    function get_terms_by_post_type( $postType = 'post', $taxonomy = 'content_categories'){
+    function get_terms_by_post_type( $postType = 'content_library', $taxonomy = 'content_categories'){
 
         /**
          * 
@@ -36,7 +36,7 @@ if( !function_exists('get_terms_by_post_type') ){
 
         //1. Get all posts by post type
         $get_all_posts = get_posts( array(
-            'post_type'     => esc_attr( $postType ),
+            'post_type'     => $postType,
             'post_status'   => 'publish',
             'numberposts'   => -1
         ) );
@@ -90,7 +90,7 @@ if( !function_exists('get_terms_by_post_type') ){
 
 }//
 
-$postCats = get_terms_by_post_type($settings->post_type);
+$postCats = get_terms_by_post_type();
 
 
 if( !empty( $postCats ) ){
@@ -122,7 +122,9 @@ foreach( $postCats as $cat ){
                 </div>
             
 <?php   
-} } 
+} } else{
+    echo "something didnt work";
+}
 ?>  
             </div>
         </div>
