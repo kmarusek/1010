@@ -231,8 +231,8 @@ li.ContentLibrary-post {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 100px;
-    margin-bottom: 6vw;
+    margin-top: 80px;
+    margin-bottom: 10.556vw;
     #ContentLibrary-prev {
         i {
             margin: 11px 0;
@@ -314,8 +314,9 @@ li.ContentLibrary-post {
 }
 @media only screen and (max-width: 820px){
     .ContentLibrary-menu-wrap{
-        padding: 20px;
+        padding: 5px 20px;
         margin-top: 40px;
+        max-height: 58px;
     }
     ul.ContentLibrary-post-grid{
         grid-template-columns: repeat(2, 1fr);
@@ -334,5 +335,9 @@ li.ContentLibrary-post {
     }
     ul.ContentLibrary-post-grid{
         grid-template-columns: repeat(1, 1fr);
+    }
+    .ContentLibrary-pagination {
+        margin-top: 63px;
+        margin-bottom: 142px;
     }
 }
