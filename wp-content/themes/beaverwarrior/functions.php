@@ -727,3 +727,28 @@ function ThreePostsGrid_pre_get_posts( $query ) {
 
 }
 add_action( 'pre_get_posts', 'ThreePostsGrid_pre_get_posts' );
+
+/**
+ * Change text string for reset password confirmation message.
+ *
+ * @link http://codex.wordpress.org/Plugin_API/Filter_Reference/gettext
+ */
+function email_confirm_text_strings( $translated_text, $text, $domain ) {
+	switch ( $translated_text ) {
+		case 'Check your email for the confirmation link, then visit the <a href="%s">login page</a>.' :
+			$translated_text = __( 'Email was sent', 'wp-login' );
+			break;
+	}
+	return $translated_text;
+}
+add_filter( 'gettext', 'email_confirm_text_strings', 20, 3 );
+
+/**
+ * Change text string for reset password confirmation message.
+ *
+ * @link https://developer.wordpress.org/reference/hooks/login_errors/
+ */
+function custom_login_errors(){
+    return 'Invalid username or password.';
+}
+add_filter( 'login_errors', 'custom_login_errors' );
