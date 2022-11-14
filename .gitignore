@@ -15,6 +15,7 @@ wp-content/wp-cache-config.php
 wp-content/wp-rocket-config/
 sitemap.xml
 sitemap.xml.gz
+readme.txt
 
 # @TODO writable paths
 wp-content/cache/
@@ -64,3 +65,6 @@ Thumbs.db
 .idea/
 .idea/workspace.xml
 .htaccess
+
+
+
