@@ -1,7 +1,10 @@
 <?php
 global $post;
 
+$post_id = ( $post instanceof WP_Post ) ? $post->ID : 0;
+
 $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h3';
+
 if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptcha_key_source ) {
 	$recaptcha_site_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_site_key' );
 	$recaptcha_secret_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_secret_key' );
@@ -15,7 +18,7 @@ $messages = $module->get_strings_i18n();
 ?>
 
 <form class="pp-contact-form pp-form-<?php echo $settings->form_layout; ?>" <?php if ( isset( $module->template_id ) ) echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"'; ?>>
-	<input type="hidden" name="fl-layout-id" value="<?php echo $post->ID; ?>" />
+	<input type="hidden" name="fl-layout-id" value="<?php echo $post_id; ?>" />
 	<?php if ( ! empty( $settings->custom_title ) ) { ?>
     	<<?php echo $title_tag; ?> class="pp-form-title"><?php echo $settings->custom_title; ?></<?php echo $title_tag; ?>>
 	<?php } ?>

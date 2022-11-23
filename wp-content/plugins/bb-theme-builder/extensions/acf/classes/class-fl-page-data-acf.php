@@ -96,7 +96,12 @@ final class FLPageDataACF {
 			case 'oembed':
 			case 'date_time_picker':
 			case 'time_picker':
-				$content = $value;
+				$content      = isset( $value ) ? $value : '';
+				$is_date_time = 'date_time_picker' === $object['type'] || 'time_picker' === $object['type'];
+				if ( $is_date_time && ! empty( $settings->format ) && ! empty( $content ) ) {
+					$date    = str_replace( '/', '-', $content );
+					$content = date( $settings->format, strtotime( $date ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+				}
 				break;
 			case 'checkbox':
 				$values = array();
@@ -112,7 +117,8 @@ final class FLPageDataACF {
 				}
 
 				if ( 'text' === $settings->checkbox_format ) {
-					$content = implode( ', ', $values );
+					$text_separator = isset( $settings->checkbox_separator ) ? $settings->checkbox_separator : ', ';
+					$content        = implode( $text_separator, $values );
 				} else {
 					$content .= '<li>' . implode( '</li><li>', $values ) . '</li>';
 					$content .= '</' . $settings->checkbox_format . '>';
@@ -845,7 +851,15 @@ final class FLPageDataACF {
 					if ( $field_data ) {
 						if ( isset( $field_data['sub_fields'] ) && count( $field_data['sub_fields'] ) > 0 ) {
 							foreach ( $field_data['sub_fields'] as $subfield ) {
-								$sub_fields[ $subfield['ID'] ] = $field_key . '_' . $subfield['name'];
+
+								if ( 'group' !== $subfield['type'] && ! isset( $sub_fields[ $subfield['ID'] ] ) ) {
+									$sub_fields[ $subfield['ID'] ] = $field_key . '_' . $subfield['name'];
+								}
+								if ( isset( $subfield['sub_fields'] ) && count( $subfield['sub_fields'] ) > 0 ) {
+									foreach ( $subfield['sub_fields'] as $sub_subfield ) {
+										$sub_fields[ $sub_subfield['ID'] ] = $field_key . '_' . $subfield['name'] . '_' . $sub_subfield['name'];
+									}
+								}
 							}
 						}
 					}

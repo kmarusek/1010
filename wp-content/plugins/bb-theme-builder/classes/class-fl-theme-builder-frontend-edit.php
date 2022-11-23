@@ -169,7 +169,7 @@ final class FLThemeBuilderFrontendEdit {
 	}
 
 	static public function unset_content( $post_id, $new_post ) {
-		if ( ! get_post_meta( $post_id, '_fl_builder_enabled', true ) ) {
+		if ( ! get_post_meta( $post_id, '_fl_builder_enabled', true ) && ! wp_is_post_revision( $post_id ) ) {
 			delete_post_meta( $post_id, '_fl_theme_builder_edit_mode', '' );
 		}
 	}

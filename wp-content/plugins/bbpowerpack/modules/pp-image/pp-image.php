@@ -699,7 +699,7 @@ BB_PowerPack::register_module('PPImageModule', array(
 								'fields'        => array('photo', 'rollover_photo')
 							),
 							'url'           => array(
-								'fields'        => array('photo_url', 'caption'),
+								'fields'        => array('photo_url', 'caption', 'url_title'),
 							)
 						)
 					),
@@ -720,6 +720,12 @@ BB_PowerPack::register_module('PPImageModule', array(
 						'label'         => __('Image URL', 'bb-powerpack'),
 						'placeholder'   => __( 'http://www.example.com/my-photo.jpg', 'bb-powerpack' ),
 						'connections'   => array( 'url' ),
+					),
+					'url_title'    => array(
+						'type'        => 'text',
+						'label'       => __( 'Image title attribute', 'bb-powerpack' ),
+						'default'     => '',
+						'placeholder' => __( 'Use image filename if left blank', 'bb-powerpack' ),
 					),
 					'photo_size'	=> array(
 						'type'			=> 'unit',

@@ -1,3 +1,13 @@
+== 2.26.4 ==
+Release date: November 10, 2022
+* Fix: Photo Gallery - PHP 8.1 compatiblity fixes
+* Fix: Content Grid - PHP 8.1 minor fixes
+* Fix: Contact Form - JS error when using it in the admin dashboard
+* Fix: Image - Added missing URL title field
+* Fix: Sitemap - Taxonomy dropdown was not showing any taxonomies
+* Fix: Pricing Table - Columns were not stacking on responsive breakpoint when equal height is enabled
+* Fix: BB 2.7 compatibility fixes
+
 == 2.26.3 ==
 Release date: October 26, 2022
 * Fix: Advanced Accordion - ACF Repeater content rendering issue after the recent update

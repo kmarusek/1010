@@ -1,4 +1,4 @@
-<div class="pp-content-grid-content pp-post-content">
+<div class="pp-content-grid-content pp-post-content content-type-<?php echo 'content' == $settings->content_type ? 'limited' : $settings->content_type; ?>">
     <?php
 	if ( $settings->show_content == 'custom' && isset( $settings->custom_content ) ) {
 		$themer_parse_shortcodes = apply_filters( 'pp_cg_beaver_themer_parse_shortcodes', true, $settings );

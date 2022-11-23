@@ -1,3 +1,19 @@
+<h4>1.4.4 - 11/07/2022</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>ACF: Add date/time format option for Date, DateTime and Time Picker fields</li>
+	<li>ACF: Add option for a separator when using a checkbox field</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>TEC: Fix Add To Calendar Button Style in edit mode</li>
+	<li>ACF: Fix detected fields dropdown not using group field prefix when using a group field as a sub-field of a group field</li>
+	<li>TEC: Fix Event Navigation module database error when editing a Singular layout</li>
+	<li>WooCommerce: Fix Product odering showing even if Post Type is not a product</li>
+	<li>Fix preview button in Classic Editor plugin breaking the Themer layout when overriding the content area</li>
+</ul>
+
 <h4>1.4.3.3 - 10/27/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

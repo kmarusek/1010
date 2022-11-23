@@ -3,7 +3,7 @@
 Plugin Name: WP Client Reports Pro
 Plugin URI: https://switchwp.com/wp-client-reports/
 Description: Send beautiful client maintenance reports with integrations from many popular plugins and services
-Version: 1.0.13
+Version: 1.0.14
 Author: SwitchWP
 Author URI: https://switchwp.com/
 Text Domain: wp-client-reports-pro
@@ -14,7 +14,7 @@ if( !defined( 'ABSPATH' ) )
 	exit;
 
 
-define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.13' );
+define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.14' );
 define( 'WP_CLIENT_REPORTS_PRO_STORE_URL', 'https://switchwp.com' );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_ID', 39 );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_NAME', 'WP Client Reports Pro' );
@@ -79,7 +79,7 @@ function wp_client_reports_scripts_pro() {
     }
 
 }
-add_action( 'admin_print_scripts', 'wp_client_reports_scripts_pro', 11 );
+add_action( 'admin_enqueue_scripts', 'wp_client_reports_scripts_pro', 11 );
 
 
 

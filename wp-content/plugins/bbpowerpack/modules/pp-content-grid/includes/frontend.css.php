@@ -32,6 +32,7 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 .fl-node-<?php echo $id; ?> ul.pp-post-filters {
 	text-align: <?php echo $settings->filter_alignment; ?>;
 }
+<?php $filter_margin = (float) $settings->filter_margin; ?>
 .fl-node-<?php echo $id; ?> ul.pp-post-filters li {
 	<?php if ( isset( $settings->filter_bg_color ) && ! empty( $settings->filter_bg_color ) ) { ?>
 		background: <?php echo pp_get_color_value( $settings->filter_bg_color ); ?>;
@@ -41,11 +42,11 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 	<?php } ?>
 	border-color: transparent;
 
-	margin-right: <?php echo $settings->filter_margin; ?>px;
-	margin-bottom: <?php echo ($settings->filter_margin / 2); ?>px;
+	margin-right: <?php echo $filter_margin; ?>px;
+	margin-bottom: <?php echo ($filter_margin / 2); ?>px;
 }
 .rtl .fl-node-<?php echo $id; ?> ul.pp-post-filters li {
-	margin-left: <?php echo $settings->filter_margin; ?>px;
+	margin-left: <?php echo $filter_margin; ?>px;
 	margin-right: 0;
 }
 <?php

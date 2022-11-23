@@ -380,7 +380,7 @@ class PPAdvancedMenu extends FLBuilderModule {
 	}
 
 	public function menu_woo_cart_content() {
-		$cart_count   = WC()->cart->cart_contents_count;
+		$cart_count   = WC()->cart->get_cart_contents_count();
 		$settings     = null;
 		$item_content = '';
 

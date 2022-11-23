@@ -63,6 +63,12 @@ final class FLThemeBuilderTheEventsCalendarSingular {
 			add_filter( 'body_class', __CLASS__ . '::body_class' );
 			add_filter( 'fl_theme_builder_content_attrs', __CLASS__ . '::content_attrs' );
 			add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_classes', 10, 2 );
+
+			if ( $is_single_event ) {
+				add_filter( 'tribe_events_views_v2_assets_should_enqueue_frontend', '__return_true' );
+			}
+		} elseif ( 'general:none' === $location ) {
+			tribe_asset_enqueue( 'tribe-events-views-v2-full' );
 		}
 
 		$themer_location = FLThemeBuilderLayoutData::get_current_page_layouts();

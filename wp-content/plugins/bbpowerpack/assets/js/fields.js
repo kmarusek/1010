@@ -47,6 +47,16 @@
 			$('body').on('change', '.fl-builder-settings-fields .pp-field-switch', PPFields._settingsSwitchChanged);
 			$('body').on('click', '.fl-builder-settings-fields .pp-field-media-upload', PPFields._settingsMediaUploadClick);
 			$('body').on('click', '.fl-builder-settings-fields .pp-field-media-remove', PPFields._settingsMediaRemoveClick);
+			$('body', window.parent.document).on('change', '.fl-builder-settings-fields .pp-field-radio', PPFields._settingsRadioChanged);
+			$('body', window.parent.document).on('change', '.fl-builder-settings-fields .pp-field-checkbox', PPFields._settingsCheckboxChanged);
+			$('body', window.parent.document).on('change', '.fl-builder-settings-fields .pp-field-toggle', PPFields._settingsToggleChanged);
+			$('body', window.parent.document).on('keyup', '.fl-builder-settings-fields .pp-field-multitext', PPFields._settingsMultitextChanged);
+			$('body', window.parent.document).on('click', '.fl-builder-settings-fields .pp-multitext.fa-desktop', PPFields._settingsMultitextToggle);
+			$('body', window.parent.document).on('click', '.fl-builder-settings-fields .pp-multitext-wrap .pp-multitext-responsive-toggle span', PPFields._settingsMultitextToggleResponsive);
+			$('body', window.parent.document).on('click', '.fl-builder-settings-fields .pp-switch-button', PPFields._settingsSwitchClick);
+			$('body', window.parent.document).on('change', '.fl-builder-settings-fields .pp-field-switch', PPFields._settingsSwitchChanged);
+			$('body', window.parent.document).on('click', '.fl-builder-settings-fields .pp-field-media-upload', PPFields._settingsMediaUploadClick);
+			$('body', window.parent.document).on('click', '.fl-builder-settings-fields .pp-field-media-remove', PPFields._settingsMediaRemoveClick);
         },
 
         /* Radio Input Fields
@@ -605,7 +615,7 @@
 		 */
         _initDatepickerFields: function()
         {
-            $('body').on('click', '.pp-field-datepicker', function(){
+            $('body', window.parent.document).on('click', '.pp-field-datepicker', function(){
                 var dateFormat = $(this).data('format');
                 if (!$(this).hasClass("hasDatepicker")) {
                     $(this).datepicker({
@@ -623,7 +633,7 @@
 
 		_initGroupFields: function() {
 			$('.fl-builder-settings .pp-group-fields').closest( 'tr[data-field]' ).addClass( 'pp-group-fieldset' );
-			$('body').off('click.pp-group-fieldset').on( 'click.pp-group-fieldset', '.fl-builder-settings .pp-group-fieldset > .fl-field-label', function(e) {
+			$('body', window.parent.document).off('click.pp-group-fieldset').on( 'click.pp-group-fieldset', '.fl-builder-settings .pp-group-fieldset > .fl-field-label', function(e) {
 				e.stopPropagation();
 				$(this).closest( '.pp-group-fieldset' ).toggleClass( 'expanded' );
 			} );

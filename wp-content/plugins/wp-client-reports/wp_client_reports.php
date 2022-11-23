@@ -3,7 +3,7 @@
 Plugin Name: WP Client Reports
 Plugin URI: https://switchwp.com/wp-client-reports/
 Description: Send beautiful client maintenance reports with plugin and theme update tracking and more
-Version: 1.0.15
+Version: 1.0.16
 Author: SwitchWP
 Author URI: https://switchwp.com/
 Text Domain: wp-client-reports
@@ -14,7 +14,7 @@ if( !defined( 'ABSPATH' ) )
 	exit;
 
 
-define( 'WP_CLIENT_REPORTS_VERSION', '1.0.15' );
+define( 'WP_CLIENT_REPORTS_VERSION', '1.0.16' );
 
 
 /**
@@ -29,7 +29,7 @@ function wp_client_reports_scripts() {
     if($screen && ($screen->id == 'dashboard_page_wp_client_reports' || $screen->id == 'settings_page_wp_client_reports')) {
 
         wp_enqueue_script( 'jquery-ui-datepicker' );
-        wp_enqueue_script( 'moment-js', plugin_dir_url( __FILE__ ) . 'js/moment.js', array(), '2.29.2', true );
+        wp_enqueue_script( 'moment-js', plugin_dir_url( __FILE__ ) . 'js/moment.js', array(), '2.29.4', true );
         wp_enqueue_script('thickbox');
         wp_enqueue_style( 'thickbox' );
         wp_register_script( 'wp-client-reports-js', plugin_dir_url( __FILE__ ) . 'js/wp-client-reports.js', array('jquery','jquery-ui-datepicker'), WP_CLIENT_REPORTS_VERSION, true );
@@ -46,7 +46,7 @@ function wp_client_reports_scripts() {
     }
 
 }
-add_action( 'admin_print_scripts', 'wp_client_reports_scripts' );
+add_action( 'admin_enqueue_scripts', 'wp_client_reports_scripts' );
 
 
 /**
