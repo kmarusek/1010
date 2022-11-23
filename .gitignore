@@ -13,6 +13,7 @@ wp-content/managewp/backups/
 wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
 wp-content/wp-rocket-config/
+wp-content/wflogs/
 sitemap.xml
 sitemap.xml.gz
 readme.txt
