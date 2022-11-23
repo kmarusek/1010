@@ -552,6 +552,13 @@ class BB_PowerPack_Ajax {
 			if ( isset( $args['tax_query'] ) ) {
 				$query->set( 'tax_query', array_merge( $tax_query, $args['tax_query'] ) );
 			}
+
+			// if ( isset( $args['orderby'] ) ) {
+			// 	$query->set( 'orderby', $args['orderby'] );
+			// }
+			// if ( isset( $args['order'] ) ) {
+			// 	$query->set( 'order', $args['order'] );
+			// }
 	
 			if ( isset( $_POST['paged'] ) ) {
 				$query->set('paged', absint( wp_unslash( $_POST['paged'] ) ) );
@@ -819,7 +826,12 @@ class BB_PowerPack_Ajax {
 		$html      = '';
 
 		if ( 'all' === $post_type[0] ) {
-			$post_type = FLBuilderLoop::post_types();
+			$post_types = FLBuilderLoop::post_types();
+			$post_type  = array();
+
+			foreach ( $post_types as $type ) {
+				$post_type[] = $type->name;
+			}
 		}
 
 		foreach ( $post_type as $type ) {

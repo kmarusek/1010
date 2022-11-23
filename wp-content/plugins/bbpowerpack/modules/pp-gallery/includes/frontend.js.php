@@ -22,7 +22,7 @@ var pp_gallery_<?php echo $id; ?>;
 		<?php } ?>
 		lastRow: '<?php echo $settings->last_row; ?>',
 		lightbox: <?php echo 'lightbox' == $settings->click_action ? 'true' : 'false'; ?>,
-		lightboxToolbarButtons:	'<?php echo isset( $settings->toolbar_buttons ) ? implode( ',', $settings->toolbar_buttons ) : 'zoom,slideShow,fullScreen,close'; ?>',
+		lightboxToolbarButtons:	'<?php echo isset( $settings->toolbar_buttons ) && ! empty( $settings->toolbar_buttons ) ? implode( ',', $settings->toolbar_buttons ) : 'zoom,slideShow,fullScreen,close'; ?>',
 		lightboxThumbs: <?php echo 'yes' == $settings->show_lightbox_thumb ? 'true' : 'false'; ?>,
 		lightboxThumbsPosition:	'<?php echo isset( $settings->thumbs_position ) ? $settings->thumbs_position : 'default'; ?>',
 		lightboxCaption: <?php echo ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) ? 'true' : 'false'; ?>,

@@ -10,3 +10,7 @@
 	float: none;
 	margin: 35px auto;
 }
+
+.pp-pricing-table-eq-heights .pp-pricing-table-colset {
+	flex-direction: column;
+}
