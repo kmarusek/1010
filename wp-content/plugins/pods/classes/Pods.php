@@ -121,12 +121,14 @@ class Pods implements Iterator {
 	/**
 	 * Constructor - Pods Framework core.
 	 *
-	 * @param string $pod The pod name.
-	 * @param mixed  $id  (optional) The ID or slug, to load a single record; Provide array of $params to run 'find'.
-	 *
-	 * @license http://www.gnu.org/licenses/gpl-2.0.html
 	 * @since   1.0.0
+	 *
+	 * @param string $pod The pod name, leave null to auto-detect from The Loop.
+	 * @param mixed  $id  (optional) The ID or slug, to load a single record; Provide array of $params to run 'find';
+	 *                    Or leave null to auto-detect from The Loop.
+	 *
 	 * @link    https://docs.pods.io/code/pods/
+	 * @license http://www.gnu.org/licenses/gpl-2.0.html
 	 */
 	public function __construct( $pod = null, $id = null ) {
 		if ( null === $pod ) {
@@ -1587,6 +1589,11 @@ class Pods implements Iterator {
 									pods_no_conflict_off( $object_type );
 								}
 
+								if ( isset( $related_obj->fields[ $field ] ) ) {
+									// Set the last field options for formatting.
+									$last_options = $related_obj->fields[ $field ];
+								}
+
 								// Handle Simple Relationships.
 								if ( $simple ) {
 									if ( null === $params->single ) {
@@ -1606,7 +1613,7 @@ class Pods implements Iterator {
 
 							if ( $last_options ) {
 								$last_field_data = $last_options;
-							} elseif ( isset( $related_obj, $related_obj->fields, $related_obj->fields[ $field ] ) ) {
+							} elseif ( isset( $related_obj->fields[ $field ] ) ) {
 								// Save related field data for later to be used for display formatting
 								$last_field_data = $related_obj->fields[ $field ];
 							}
@@ -1634,6 +1641,19 @@ class Pods implements Iterator {
 
 		if ( ! empty( $last_field_data ) ) {
 			$field_data = $last_field_data;
+
+			if ( isset( $last_is_repeatable_field ) ) {
+				$is_repeatable_field = $last_is_repeatable_field;
+			}
+		}
+
+		if (
+			$is_repeatable_field
+			&& is_array( $value )
+			&& ! empty( $value )
+			&& is_array( current( $value ) )
+		) {
+			$value = array_merge( ...$value );
 		}
 
 		if ( ! empty( $field_data ) && ( $params->display || ! $params->raw ) && ! $params->in_form && ! $params->raw_display ) {

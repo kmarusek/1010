@@ -827,6 +827,36 @@ body .pp-post-feed-meta {
     transform: none !important;
 }
 
+@media only screen and (min-width: 768px) {
+	.cg-css-grid .pp-content-post-grid.pp-equal-height {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: min-content;
+		grid-column-gap: 2%;
+		grid-row-gap: 2ch;
+		height: auto !important;
+	}
+	.cg-css-grid .pp-content-post-grid.pp-equal-height:before,
+	.cg-css-grid .pp-content-post-grid.pp-equal-height:after {
+		content: none;
+		display: none;
+	}
+	.cg-css-grid .pp-content-post-grid.pp-equal-height .pp-content-post {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		position: static !important;
+		overflow: visible;
+		width: auto;
+		height: auto !important;
+		margin-bottom: 0 !important;
+		transform: none !important;
+	}
+	.cg-css-grid .pp-content-post-grid.pp-equal-height .pp-grid-space {
+		display: none;
+	}
+}
+
 @media only screen and (max-width: 768px) {
 	.pp-content-post-carousel .owl-theme .owl-controls .owl-buttons div.owl-prev {
 	    left: 0;

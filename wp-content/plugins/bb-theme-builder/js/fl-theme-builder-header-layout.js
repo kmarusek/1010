@@ -95,7 +95,7 @@
 						}
 						else {
 							this.breakpointWidth = FLBuilderLayoutConfig.breakpoints.medium;
-						}						
+						}
 					}
 
 					if ( Number( header.attr( 'data-sticky' ) ) ) {
@@ -127,14 +127,14 @@
 			if ( makeSticky || ( this.breakpointWidth > 0 && windowSize >= this.breakpointWidth ) ) {
 				this.win.on( 'scroll.fl-theme-builder-header-sticky', $.proxy( this._doSticky, this ) );
 				//
-				// Check if Event Type is 'resize' then invoke this._doSticky() 
+				// Check if Event Type is 'resize' then invoke this._doSticky()
 				// only if the 'fl-theme-builder-header-sticky' class is already present.
-				// 
+				//
 				if ( e && 'resize' === e.type ) {
 					if ( this.header.hasClass( 'fl-theme-builder-header-sticky' ) ) {
 						this._doSticky( e );
 					}
-					this._adjustStickyHeaderWidth(); 
+					this._adjustStickyHeaderWidth();
 				}
 
 				if ( Number( header.attr( 'data-shrink' ) ) ) {
@@ -147,7 +147,7 @@
 			} else {
 				this.win.off( 'scroll.fl-theme-builder-header-sticky' );
 				this.win.off( 'resize.fl-theme-builder-header-sticky' );
-				
+
 				this.header.removeClass( 'fl-theme-builder-header-sticky' );
 				this.header.removeAttr( 'style' );
 				this.header.parent().css( 'padding-top', '0' );
@@ -167,12 +167,21 @@
 			var makeSticky = false;
 
 			switch (this.stickyOn) {
-				case '':
+				case 'xl':
+					makeSticky = windowSize > FLBuilderLayoutConfig.breakpoints['large'];
+					break;
+				case '': // Default
 				case 'desktop':
 					makeSticky = windowSize >= FLBuilderLayoutConfig.breakpoints['medium'];
 					break;
 				case 'desktop-medium':
 					makeSticky = windowSize > FLBuilderLayoutConfig.breakpoints['small'];
+					break;
+				case 'large':
+					makeSticky = windowSize > FLBuilderLayoutConfig.breakpoints['medium'] && windowSize <= FLBuilderLayoutConfig.breakpoints['large'];
+					break;
+				case 'large-medium':
+					makeSticky = windowSize > FLBuilderLayoutConfig.breakpoints['small'] && windowSize <= FLBuilderLayoutConfig.breakpoints['large'];
 					break;
 				case 'medium':
 					makeSticky = ( windowSize <= FLBuilderLayoutConfig.breakpoints['medium'] && windowSize > FLBuilderLayoutConfig.breakpoints['small'] );
@@ -212,7 +221,7 @@
 			if ( isNaN( bodyTopPadding ) ) {
 				bodyTopPadding = 0;
 			}
-			
+
 			if ( this.hasAdminBar && this.win.width() > 600 ) {
 				winTop += Math.floor( winBarHeight );
 			}
@@ -236,7 +245,7 @@
 				this.header.removeAttr( 'style' );
 				this.header.parent().css( 'padding-top', '0' );
 			}
-			
+
 			this._adjustStickyHeaderWidth();
 
 			if ( winTop > headerTop ) {
@@ -395,7 +404,7 @@
 			if ( e && menuModule.is('.fl-menu-responsive-flyout-overlay') && $.infinitescroll ) {
 				e.stopImmediatePropagation();
 			}
-			
+
 			if( menuOpacity.length ) {
 				if ( header.hasClass( 'fl-theme-builder-header-sticky' ) ) {
 					if ( '0px' === menuOpacity.css( 'left' ) ) {
@@ -450,7 +459,7 @@
 				bodyTopPadding = parseInt( $( 'body' ).css( 'padding-top' ) ),
 				wpAdminBarHeight = 0,
 				totalHeaderHeight = 0;
-			
+
 			if ( isNaN( bodyTopPadding ) ) {
 				bodyTopPadding = 0;
 			}
@@ -481,7 +490,7 @@
 				}
 
 				$( headerParent ).css( 'padding-top',  ( headerParentTopPadding - beforeHeaderFix ) + 'px' );
-				
+
 				this.header.css({
 					'-webkit-transform': 'translate(0px, -' + totalHeaderHeight + 'px)',
 					'-ms-transform': 'translate(0px, -' + totalHeaderHeight + 'px)',
@@ -534,7 +543,7 @@
 				makeSticky   	  = this._makeWindowSticky( windowSize ),
 				hasClass     	  = this.header.hasClass( 'fl-theme-builder-header-shrink' );
 
-				
+
 			if ( this.hasAdminBar ) {
 				winTop += 32;
 			}
@@ -556,7 +565,7 @@
 						}
 
 					});
-										
+
 					this.header.find( '.fl-row-content-wrap' ).each( function() {
 
 						var row = $( this );

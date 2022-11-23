@@ -15,7 +15,7 @@ $offcanvas_class .= ' pp-offcanvas-' . $settings->content_transition;
 		<?php } ?>
 		<div class="pp-offcanvas-body">
 			<div class="pp-offcanvas-content-inner">
-				<?php echo $module->render_content( $settings ); ?>
+				<?php $module->render_content( $settings ); ?>
 			</div>
 		</div>
 	</div>

@@ -5184,12 +5184,7 @@ class PodsAPI {
 					}
 
 					if ( 'custom-simple' === pods_v( 'pick_object', $field_data ) ) {
-						$custom = pods_v( 'pick_custom', $options, '' );
-
-						$custom = apply_filters( 'pods_form_ui_field_pick_custom_values', $custom, $field_data['name'], $value, $field_data, $pod, $params->id );
-
-						// Input values are unslashed. Unslash database values as well to ensure correct comparison.
-						$custom = pods_unslash( $custom );
+						$custom = PodsForm::field_method( $field_data['type'], 'data', $field_data['name'], $value, $field_data, $pod, $params->id, false );
 
 						if ( empty( $value ) || empty( $custom ) ) {
 							$value = '';
@@ -10879,6 +10874,10 @@ class PodsAPI {
 		} else {
 			pods_transient_clear( 'pods_wp_cpt_ct' );
 		}
+
+		pods_cache_clear( true, 'pods_post_type_storage_pod' );
+		pods_cache_clear( true, 'pods_post_type_storage_group' );
+		pods_cache_clear( true, 'pods_post_type_storage_field' );
 
 		pods_static_cache_clear( true, __CLASS__ );
 		pods_static_cache_clear( true, __CLASS__ . '/table_info_cache' );

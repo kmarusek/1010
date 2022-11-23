@@ -261,7 +261,7 @@ class PPAdvancedMenu extends FLBuilderModule {
 			} elseif ( 'always' == $this->settings->mobile_breakpoint ) {
 				$media_width = 'always';
 			} elseif ( 'custom' == $this->settings->mobile_breakpoint ) {
-				$media_width = $this->settings->custom_breakpoint;
+				$media_width = (int) $this->settings->custom_breakpoint;
 			}
 		}
 

@@ -1,5 +1,22 @@
+== 2.26.3 ==
+Release date: October 26, 2022
+* Fix: Advanced Accordion - ACF Repeater content rendering issue after the recent update
+* Fix: Content Grid - Multiple post types issue with Style 5 and 6
+
+== 2.26.2 ==
+Release date: October 26, 2022
+* Fix: Advanced Tabs - Saved templates were not rendering after the recent update
+
+== 2.26.1 ==
+Release date: October 25, 2022
+* Fix: Content Grid - Link Type Box was not working for product or download post type
+* Fix: Content Grid - Price and rating were not showing for product or download post type
+* Fix: Social Icons - Vertical alignment was not working in some cases
+* Fix: Social Icons - Removed Responsive alignment extra option
+* Fix: Advanced Accordion - Saved templates rendering causes error 500 on shared hosting in some cases
+
 == 2.26.0 ==
-Relase date: October 20, 2022
+Release date: October 20, 2022
 * Enhancement: Category Grid - Added custom layout option based on Beaver Themer
 * Enhancement: Pricing Table - Added equal heights option
 * Enhancement: Pricing Table - Added ribbon option under Style > Featured Title
@@ -1238,7 +1255,7 @@ Release date: October 25, 2019
 * Hotfix: Video - Module settings were not being saved due to structured data fields validation
 
 == 2.7.7.1 ==
-Release date: Ocotober 24, 2019
+Release date: October 24, 2019
 * Enhancement: Coupon - Added link icon position option
 * Fix: Coupon - Added missing alpha channel for background color fields
 * Fix: Coupon - Minor CSS issues
@@ -1272,7 +1289,7 @@ Release date: October 11, 2019
 * Fix: FAQ - Added CSS preview to color fields
 
 == 2.7.6.1 ==
-Release date: Ocotober 10, 2019
+Release date: October 10, 2019
 * Enhancement: Category Grid - Added an option to toggle empty categories
 * Enhancement: Breadcrumbs - Added SEOPress integration
 * Enhancement: Sitemap - Added hover color option for list item
@@ -1280,7 +1297,7 @@ Release date: Ocotober 10, 2019
 * Fix: Category Grid - Counter Text can be singular or plural based on posts count
 
 == 2.7.6 ==
-Release date: Ocotober 9, 2019
+Release date: October 9, 2019
 * New: Category Grid module
 * New: Sitemap module
 * New: Breadcrumbs module

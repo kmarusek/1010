@@ -72,8 +72,11 @@
 			<select name="fl-theme-layout-settings[sticky-on]">
 				<option value="" <?php selected( $sticky_on, '' ); ?>><?php _e( 'Default', 'bb-theme-builder' ); ?></option>
 				<option value="all" <?php selected( $sticky_on, 'all' ); ?>><?php _e( 'All screen sizes', 'bb-theme-builder' ); ?></option>
-				<option value="desktop" <?php selected( $sticky_on, 'desktop' ); ?>><?php _e( 'Large Devices Only', 'bb-theme-builder' ); ?></option>
-				<option value="desktop-medium" <?php selected( $sticky_on, 'desktop-medium' ); ?>><?php _e( 'Large &amp; Medium Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="xl" <?php selected( $sticky_on, 'xl' ); ?>><?php _e( 'Extra Large Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="desktop" <?php selected( $sticky_on, 'desktop' ); ?>><?php _e( 'Extra Large &amp; Large Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="desktop-medium" <?php selected( $sticky_on, 'desktop-medium' ); ?>><?php _e( 'Extra Large, Large &amp; Medium Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="large" <?php selected( $sticky_on, 'large' ); ?>><?php _e( 'Large Devices Only', 'bb-theme-builder' ); ?></option>
+				<option value="large-medium" <?php selected( $sticky_on, 'large-medium' ); ?>><?php _e( 'Large &amp; Medium Devices Only', 'bb-theme-builder' ); ?></option>
 				<option value="medium" <?php selected( $sticky_on, 'medium' ); ?>><?php _e( 'Medium Devices Only', 'bb-theme-builder' ); ?></option>
 				<option value="medium-mobile" <?php selected( $sticky_on, 'medium-mobile' ); ?>><?php _e( 'Medium &amp; Small Devices Only', 'bb-theme-builder' ); ?></option>
 				<option value="mobile" <?php selected( $sticky_on, 'mobile' ); ?>><?php _e( 'Small Devices Only', 'bb-theme-builder' ); ?></option>

@@ -1,5 +1,5 @@
 <div class="pp-product-price">
-    <?php if( $settings->post_type == 'product' ) {
+    <?php if ( in_array( 'product', (array) $post_type ) ) {
 		global $product;
 		?>
         <p>
@@ -12,13 +12,13 @@
             ?>
         </p>
     <?php } ?>
-    <?php if( $settings->post_type == 'download' && class_exists( 'Easy_Digital_Downloads' ) ) {
-           if (edd_has_variable_prices(get_the_ID())) {
+    <?php if ( in_array( 'download', (array) $post_type ) && function_exists( 'edd_price' ) ) {
+           if ( edd_has_variable_prices( get_the_ID() ) ) {
                // if the download has variable prices, show the first one as a starting price
                 _e('Starting at: ','bb-powerpack');
-                edd_price(get_the_ID());
+                edd_price( get_the_ID() );
            } else {
-               edd_price(get_the_ID());
+            	edd_price( get_the_ID() );
            }
         }
    ?>

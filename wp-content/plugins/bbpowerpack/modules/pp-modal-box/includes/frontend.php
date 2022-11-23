@@ -94,7 +94,11 @@ $ariaLabelledby = ( 'yes' == $settings->modal_title_toggle ) ? ' aria-labelledby
 							if ( ! $load_in_builder && pp_is_builder_active() ) {
 								_e( 'Content will be displayed on front-end.', 'bb-powerpack' );
 							} else {
-								echo $module->get_modal_content( $settings );
+								if ( 'templates' === $settings->modal_type && ! empty( $settings->modal_type_templates ) ) {
+									$module->render_post_content( $settings->modal_type_templates );
+								} else {
+									echo $module->get_modal_content( $settings );
+								}
 							}
 						?>
 					</div>

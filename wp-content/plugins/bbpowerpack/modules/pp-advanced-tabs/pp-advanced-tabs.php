@@ -29,24 +29,6 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 		$this->add_css( BB_POWERPACK()->fa_css );
 	}
 
-	public function get_post_content( $post_id ) {
-		global $post;
-
-		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
-			return esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
-		}
-
-		if ( isset( $_GET['fl_builder'] ) ) {
-			return '[fl_builder_insert_layout id="' . $post_id . '" type="fl-builder-template"]';
-		}
-
-		if ( ! isset( $this->cached_content[ $post_id ] ) ) {
-			$this->cached_content[ $post_id ] = pp_get_post_content( get_post( $post_id ) );
-		}
-
-		return $this->cached_content[ $post_id ];
-	}
-
 	public function get_tabs_items( $id ) {
 		$items = $this->settings->items;
 
@@ -60,46 +42,56 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 		return apply_filters( 'pp_tabs_items', $items, $this->settings );
 	}
 
+	public function render_post_content( $post_id ) {
+		global $post;
+
+		if ( $post instanceof WP_Post && $post->ID == $post_id && isset( $_GET['fl_builder'] ) ) {
+			echo esc_html__( 'You cannot use the current page as template.', 'bb-powerpack' );
+			return;
+		}
+
+		pp_render_post_content( $post_id );
+	}
+
 	/**
 	 * Render content.
 	 *
 	 * @since 1.4
 	 */
-	public function render_content( $settings ) {
-		$html = '';
+	public function render_content( $item ) {
 
-		switch ( $settings->content_type ) {
+		switch ( $item->content_type ) {
 			case 'content':
 				global $wp_embed;
 				$html = '<div itemprop="text">';
-				$html .= wpautop( $wp_embed->autoembed( $settings->content ) );
+				$html .= wpautop( $wp_embed->autoembed( $item->content ) );
 				$html .= '</div>';
+				echo $html;
 				break;
 			case 'photo':
-				$alt  = ! empty( $settings->content_photo ) ? get_post_meta( $settings->content_photo , '_wp_attachment_image_alt', true ) : '';
-				$alt  =  empty( $alt ) ? htmlspecialchars( $settings->label ) : htmlspecialchars( $alt );
+				$alt  = ! empty( $item->content_photo ) ? get_post_meta( $item->content_photo , '_wp_attachment_image_alt', true ) : '';
+				$alt  =  empty( $alt ) ? htmlspecialchars( $item->label ) : htmlspecialchars( $alt );
 				$html = '<div itemprop="image">';
-				$html .= '<img src="' . $settings->content_photo_src . '" alt="' . $alt . '" style="max-width: 100%;" />';
+				$html .= '<img src="' . $item->content_photo_src . '" alt="' . $alt . '" style="max-width: 100%;" />';
 				$html .= '</div>';
+				echo $html;
 				break;
 			case 'video':
                 global $wp_embed;
-                $html = $wp_embed->autoembed( $settings->content_video );
+                echo $wp_embed->autoembed( $item->content_video );
             	break;
 			case 'module':
-				$html = $this->get_post_content( $settings->content_module );
+				$this->render_post_content( $item->content_module );
 				break;
 			case 'row':
-				$html = $this->get_post_content( $settings->content_row );
+				$this->render_post_content( $item->content_row );
 				break;
 			case 'layout':
-				$html = $this->get_post_content( $settings->content_layout );
+				$this->render_post_content( $item->content_layout );
 				break;
 			default:
 				break;
 		}
-
-		return $html;
 	}
 
 	public function render_tab_item_icon( $item ) {

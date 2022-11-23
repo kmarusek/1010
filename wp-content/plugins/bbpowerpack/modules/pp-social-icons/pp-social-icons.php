@@ -42,6 +42,11 @@ class PPSocialIconsModule extends FLBuilderModule {
 			),
 		), 'link' );
 
+		if ( isset( $settings->responsive_align ) ) {
+			$settings->align_responsive = $settings->responsive_align;
+			unset( $settings->responsive_align );
+		}
+
 		return $settings;
 	}
 
@@ -214,32 +219,12 @@ BB_PowerPack::register_module('PPSocialIconsModule', array(
 					),
 					'align'         => array(
 						'type'          => 'align',
-						'label'         => __('Desktop Alignment', 'bb-powerpack'),
+						'label'         => __('Alignment', 'bb-powerpack'),
 						'default'       => 'left',
+						'responsive'    => true
 					),
 				)
 			),
-			'responsive'	=> array(
-				'title'			=> __('Responsive', 'bb-powerpack'),
-				'collapsed'			=> true,
-				'fields'		=> array(
-					'breakpoint'	=> array(
-						'type'			=> 'unit',
-						'label'			=> __('Breakpoint', 'bb-powerpack'),
-						'default'		=> 768,
-						'units'   		=> array('px'),
-						'slider'		=> true,
-						'preview'		=> array(
-							'type'			=> 'none'
-						)
-					),
-					'responsive_align' => array(
-						'type'          => 'align',
-						'label'         => __('Alignment', 'bb-powerpack'),
-						'default'       => 'center',
-					)
-				)
-			)
 		)
 	)
 ));

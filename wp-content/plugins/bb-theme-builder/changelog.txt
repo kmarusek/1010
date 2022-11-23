@@ -1,3 +1,11 @@
+<h4>1.4.3.3 - 10/27/2022</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Header layouts: Add support for the new breakpoint in the Sticky header breakpoint options</li>
+	<li>Fixes to support the new iFrame responsive editing experience in BB 2.7</li>
+	<li>ACF: date picker field is now internationalized using <code>date_i18n</code></li>
+</ul>
+
 <h4>1.4.3.2 - 09/06/2022</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

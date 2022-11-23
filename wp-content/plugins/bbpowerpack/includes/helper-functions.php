@@ -1027,10 +1027,16 @@ function pp_get_post_content( $post ) {
 
 	ob_start();
 
-	if ( FLBuilderModel::is_builder_enabled( $post->ID ) ) {
+	pp_render_post_content( $post->ID );
+
+	return ob_get_clean();
+}
+
+function pp_render_post_content( $post_id ) {
+	if ( FLBuilderModel::is_builder_enabled( $post_id ) ) {
 
 		// Enqueue styles and scripts for the post.
-		FLBuilder::enqueue_layout_styles_scripts_by_id( $post->ID );
+		FLBuilder::enqueue_layout_styles_scripts_by_id( $post_id );
 
 		// Print the styles if we are outside of the head tag.
 		if ( did_action( 'wp_enqueue_scripts' ) && ! doing_filter( 'wp_enqueue_scripts' ) ) {
@@ -1038,11 +1044,9 @@ function pp_get_post_content( $post ) {
 		}
 
 		// Render the builder content.
-		FLBuilder::render_content_by_id( $post->ID );
+		FLBuilder::render_content_by_id( $post_id );
 	} else {
 		// Render the WP editor content if the builder isn't enabled.
-		echo apply_filters( 'the_content', get_the_content( null, false, $post->ID ) );
+		echo apply_filters( 'the_content', get_the_content( null, false, $post_id ) );
 	}
-
-	return ob_get_clean();
 }

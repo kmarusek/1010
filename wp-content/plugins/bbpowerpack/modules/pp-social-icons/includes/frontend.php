@@ -1,15 +1,13 @@
-<div class="pp-social-icons pp-social-icons-<?php echo $settings->align; ?> pp-social-icons-<?php echo $settings->direction; ?> pp-responsive-<?php echo $settings->responsive_align; ?>">
+<div class="pp-social-icons pp-social-icons-<?php echo $settings->direction; ?>">
 <?php
-$icon_prefix = 'fa';
-$email_icon_prefix = 'fa';
-$rss_icon_prefix = 'fa';
+$icon_prefix   = $email_icon_prefix = $rss_icon_prefix = 'fa';
 $enabled_icons = $module->_enabled_icons;
 
 if ( in_array( 'font-awesome-5-brands', $enabled_icons ) ) {
 	$icon_prefix = 'fab';
 }
 if ( in_array( 'font-awesome-5-solid', $enabled_icons ) ) {
-	$rss_icon_prefix = 'fas';
+	$rss_icon_prefix   = 'fas';
 	$email_icon_prefix = 'fas';
 }
 
@@ -20,6 +18,7 @@ foreach ( $settings->icons as $icon ) {
 	if ( ! is_object( $icon ) ) {
 		continue;
 	}
+
 	$title = '';
 	
 	if ( isset( $labels[ $icon->icon ] ) ) {

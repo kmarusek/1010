@@ -519,6 +519,7 @@ BB_PowerPack::register_module('PPVideoGalleryModule', array(
 					'autoplay'		=> array(
 						'type'			=> 'pp-switch',
 						'label'			=> __( 'Auto Play', 'bb-powerpack' ),
+						'description'	=> '<span style="font-style: normal !important; line-height: 1.5;">' . __( 'Please note that browsers do not support autoplaying a video that has sound so make sure to enable the Mute option below.', 'bb-powerpack' ) . '</span>',
 						'default'		=> 'no',
 						'options'		=> array(
 							'yes'			=> __( 'Yes', 'bb-powerpack' ),
