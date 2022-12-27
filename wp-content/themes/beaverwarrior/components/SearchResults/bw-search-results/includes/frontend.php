@@ -1,8 +1,10 @@
 <?php
 $s=get_search_query();
+$exclude_ids = array(1183, 882, 887, 2793, 2815, 2809, 2798, 1525, 1848, 2666, 2675, 1436, 918, 1860);
 $args = array(
     's' =>$s,
     'posts_per_page' => 16,
+    'post__not_in' => $exclude_ids,
     'post_type' => array( 'post', 'page', 'content_library', 'event', 'career' )
 );
     // The Query
