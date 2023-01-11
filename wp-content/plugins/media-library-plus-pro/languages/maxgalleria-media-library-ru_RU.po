@@ -1,0 +1,1153 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: maxgalleria-media-library\n"
+"POT-Creation-Date: 2018-02-19 10:08+0800\n"
+"PO-Revision-Date: 2018-02-26 01:45+0400\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"Last-Translator: \n"
+"Language: ru_RU\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../EDD_SL_Plugin_Updater.php:189
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr "Доступна новая версия %1$s. %2$sПосмотрите %3$s детали%4$s."
+
+#: ../EDD_SL_Plugin_Updater.php:197
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"Доступна новая версия %1$s. %2$sПосмотрите %3$s детали%4$s или %5$sобновите "
+"сейчас%6$s."
+
+#: ../EDD_SL_Plugin_Updater.php:340
+msgid "You do not have permission to install plugin updates"
+msgstr "У Вас недостаточно прав на установку обновлений"
+
+#: ../EDD_SL_Plugin_Updater.php:340
+msgid "Error"
+msgstr "Ошибка"
+
+#: ../includes/max_sync_contents.php:16 ../maxgalleria-media-library.php:911
+#: ../maxgalleria-media-library.php:1408 ../maxgalleria-media-library.php:1464
+#: ../maxgalleria-media-library.php:1493 ../maxgalleria-media-library.php:1527
+#: ../maxgalleria-media-library.php:1559 ../maxgalleria-media-library.php:2315
+#: ../maxgalleria-media-library.php:2488 ../maxgalleria-media-library.php:2601
+#: ../maxgalleria-media-library.php:2849 ../maxgalleria-media-library.php:2933
+#: ../maxgalleria-media-library.php:3104 ../maxgalleria-media-library.php:3232
+#: ../maxgalleria-media-library.php:3272 ../maxgalleria-media-library.php:3298
+#: ../maxgalleria-media-library.php:3693 ../maxgalleria-media-library.php:3755
+#: ../maxgalleria-media-library.php:3831 ../maxgalleria-media-library.php:3853
+#: ../maxgalleria-media-library.php:3909 ../maxgalleria-media-library.php:3997
+#: ../maxgalleria-media-library.php:4028 ../maxgalleria-media-library.php:4248
+#: ../maxgalleria-media-library.php:4265 ../maxgalleria-media-library.php:4317
+#: ../maxgalleria-media-library.php:4411 ../maxgalleria-media-library.php:4555
+#: ../maxgalleria-media-library.php:4968 ../maxgalleria-media-library.php:5210
+#: ../maxgalleria-media-library.php:5698 ../maxgalleria-media-library.php:5725
+#: ../maxgalleria-media-library.php:5761 ../maxgalleria-media-library.php:5900
+#: ../maxgalleria-media-library.php:5927 ../maxgalleria-media-library.php:6050
+#: ../maxgalleria-media-library.php:6161 ../maxgalleria-media-library.php:6173
+#: ../maxgalleria-media-library.php:6215 ../maxgalleria-media-library.php:6270
+msgid "missing nonce!"
+msgstr "отсутствует nonce!"
+
+#: ../includes/media_library.php:79 ../maxgalleria-media-library.php:1235
+msgid "Media Library Folders Pro"
+msgstr "Media Library Folders Pro"
+
+#: ../includes/media_library.php:84 ../maxgalleria-media-library.php:4627
+#: ../maxgalleria-media-library.php:4898 ../maxgalleria-media-library.php:5099
+msgid "Makers of"
+msgstr "От создателей"
+
+#: ../includes/media_library.php:84 ../maxgalleria-media-library.php:4114
+#: ../maxgalleria-media-library.php:4115 ../maxgalleria-media-library.php:4627
+#: ../maxgalleria-media-library.php:4898 ../maxgalleria-media-library.php:5099
+msgid "and"
+msgstr "и"
+
+#: ../includes/media_library.php:85 ../maxgalleria-media-library.php:574
+#: ../maxgalleria-media-library.php:4628 ../maxgalleria-media-library.php:4899
+#: ../maxgalleria-media-library.php:5100
+msgid "Click here to"
+msgstr "Нажмите сюда для"
+
+#: ../includes/media_library.php:85 ../maxgalleria-media-library.php:574
+#: ../maxgalleria-media-library.php:4628 ../maxgalleria-media-library.php:4899
+#: ../maxgalleria-media-library.php:5100
+msgid "Fix Common Problems"
+msgstr "Исправить Общие неполадки"
+
+#: ../includes/media_library.php:86 ../maxgalleria-media-library.php:575
+#: ../maxgalleria-media-library.php:4629 ../maxgalleria-media-library.php:4900
+#: ../maxgalleria-media-library.php:5101
+msgid "Need help? Click here for"
+msgstr "Нужна помощь? Вам сюда"
+
+#: ../includes/media_library.php:86 ../maxgalleria-media-library.php:575
+#: ../maxgalleria-media-library.php:4629 ../maxgalleria-media-library.php:4900
+#: ../maxgalleria-media-library.php:5101
+msgid "Awesome Support!"
+msgstr "Наилучшая техподдержка!"
+
+#: ../includes/media_library.php:87 ../maxgalleria-media-library.php:576
+#: ../maxgalleria-media-library.php:4630 ../maxgalleria-media-library.php:4901
+#: ../maxgalleria-media-library.php:5102
+msgid "Or Email Us at"
+msgstr "Или напишите нам на"
+
+#: ../includes/media_library.php:92 ../maxgalleria-media-library.php:4119
+msgid "Click here to learn about the Media Library Folders Pro"
+msgstr "Нажмите здесь чтобы узнать про Media Library Folders Pro"
+
+#: ../includes/media_library.php:104
+msgid "Current PHP version, "
+msgstr "Текущая версия PHP, "
+
+#: ../includes/media_library.php:104
+msgid ", is outdated. Please upgrade to version 5.6."
+msgstr ", устарела. Пожалуйста, обновите до версии 5.6."
+
+#: ../includes/media_library.php:126 ../maxgalleria-media-library.php:1365
+#: ../maxgalleria-media-library.php:3733 ../maxgalleria-media-library.php:4142
+msgid "Location:"
+msgstr "Путь:"
+
+#: ../includes/media_library.php:141
+msgid "Upload new files."
+msgstr "Загрузить новые файлы."
+
+#: ../includes/media_library.php:141
+msgid "Add File"
+msgstr "Добавить файл"
+
+#: ../includes/media_library.php:143
+msgid ""
+"Create a new folder. Type in a folder name (do not use spaces, single or "
+"double quote marks) and click Create Folder."
+msgstr ""
+"Создать новую папку. Введите имя папки (без пробелов, двойных или одинарных "
+"кавычек) и нажмите Создать Папку."
+
+#: ../includes/media_library.php:143
+msgid "Add Folder"
+msgstr "Создать Папку"
+
+#: ../includes/media_library.php:156
+msgid ""
+"When moving/copying to a new folder place your pointer, not the image, on "
+"the folder where you want the file(s) to go."
+msgstr ""
+"При перемещении/копировании в новую папку, просто перетащите изображение в "
+"нужную папку, указывая на неё мышью (а не картинкой)."
+
+#: ../includes/media_library.php:157
+msgid ""
+"To drag multiple images, check the box under the files you want to move and "
+"then drag one of the images to the desired folder."
+msgstr ""
+"Чтобы перенести несколько изображений, отметьте их галочками и перетащите "
+"любую из них в нужную папку."
+
+#: ../includes/media_library.php:158
+msgid ""
+"To move/copy to a folder nested under the top level folder click the "
+"triangle to the left of the folder to show the nested folder that is your "
+"target."
+msgstr ""
+"Чтобы перенести в подпапку, нажмите на треугольник слева от папки, чтобы "
+"увидеть нужную подпапку."
+
+#: ../includes/media_library.php:159
+msgid ""
+"To delete a folder, right click on the folder and a popup menu will appear. "
+"Click on the option, \"Delete this folder?\" If the folder is empty, it will "
+"be deleted."
+msgstr ""
+"Чтобы удалить папку, нажмите правой кнопкой мыши на папке и выберите в "
+"выпадающем меню. \"Удалить папку?\". Папка удалится, если она пуста."
+
+#: ../includes/media_library.php:160
+msgid ""
+"To hide a folder and all its sub folders and files, right click on a folder, "
+"On the popup menu that appears, click \"Hide this folder?\" and those "
+"folders and files will be removed from the Media Library, but not from the "
+"server."
+msgstr ""
+"Чтобы скрыть папку с подпапками и файлами, нажмите правой кнопкой мыши на "
+"папке и выберите в выпадающем меню \"Скрыть папку?\". Папка удалится из "
+"Media Library, но останется на сервере."
+
+#: ../includes/media_library.php:174
+msgid ""
+"Move/Copy Toggle. Move or copy selected files to a different folder. When "
+"move is selected, images links in posts and pages will be updated. <span "
+"class='mlp-warning'>Images IDs used in Jetpack Gallery shortcodes will not "
+"be updated.</span>"
+msgstr ""
+"Перенести(Move)/Скопировать(Copy). Перенести или скропировать выбранные "
+"файлы в другую папку. Когда выбрано Move, ссылки на изображения в постах и "
+"на страницах обновятся. <span class='mlp-warning'>ID картинок, используемые "
+"в шорткодах Jetpack Gallery не изменятся.</span>"
+
+#: ../includes/media_library.php:183
+msgid "Inserts an image file into a post or page."
+msgstr "Вставить файл картинки в пост или страницу."
+
+#: ../includes/media_library.php:183
+msgid "Insert Media"
+msgstr "Вставить медиа"
+
+#: ../includes/media_library.php:186
+msgid "Creates a JetPack WP Gallery"
+msgstr "Создает галерею JetPack WP"
+
+#: ../includes/media_library.php:186
+msgid "JetPack WP Gallery"
+msgstr "Галерея JetPack WP"
+
+#: ../includes/media_library.php:199
+msgid ""
+"Rename a file; select only one file. Folders cannot be renamed. Type in a "
+"new name with no spaces and without the extention and click Rename."
+msgstr ""
+"Переименовать файл; выберите только один файл. Папки нельзя переименовать. "
+"Введите новое имя без пробелов и без расширения и нажмите Переименовать."
+
+#: ../includes/media_library.php:199 ../includes/media_library.php:268
+msgid "Rename"
+msgstr "Переименовать"
+
+#: ../includes/media_library.php:201
+msgid "Delete selected files."
+msgstr "Удалить выбранные файлы."
+
+#: ../includes/media_library.php:201
+msgid "Delete"
+msgstr "Удалить"
+
+#: ../includes/media_library.php:203
+msgid "Select or unselect all files in the folder."
+msgstr "Выбрать все файлы в папке."
+
+#: ../includes/media_library.php:203
+msgid "Select/Unselect All"
+msgstr "Выбрать все/снять выделение"
+
+#: ../includes/media_library.php:205
+msgid "View or Select categories for images and files."
+msgstr "Посмотреть или выбрать категории для изображений и файлов."
+
+#: ../includes/media_library.php:205
+msgid "Categories"
+msgstr "Категории"
+
+#: ../includes/media_library.php:208 ../includes/media_library.php:281
+msgid "Sort by Name"
+msgstr "по Имени"
+
+#: ../includes/media_library.php:209 ../includes/media_library.php:282
+msgid "Sort by Date"
+msgstr "по Дате"
+
+#: ../includes/media_library.php:213
+msgid "Search"
+msgstr "Поиск"
+
+#: ../includes/media_library.php:216
+msgid ""
+"Sync the contents of the current folder and its subfolders with the server"
+msgstr "Синхронизировать содержимое текущей папки и её подпапок с сервером"
+
+#: ../includes/media_library.php:216
+msgid "Sync"
+msgstr "Синхронизировать"
+
+#: ../includes/media_library.php:220
+msgid "Regenerates the thumbnails of selected images"
+msgstr "Пересоздать эскизы выбранных изображений"
+
+#: ../includes/media_library.php:220 ../maxgalleria-media-library.php:1241
+#: ../maxgalleria-media-library.php:4622
+msgid "Regenerate Thumbnails"
+msgstr "Пересоздать Эскизы"
+
+#: ../includes/media_library.php:223
+msgid ""
+"Add images to an existing MaxGalleria gallery. Folders can not be added to a "
+"gallery. Images already in the gallery will not be added. "
+msgstr ""
+"Добавить изображения в существующую галерею MaxGalleria. Папки нельзя "
+"добавить в галерею. Изображения уже имеющиеся в галерее не добавятся. "
+
+#: ../includes/media_library.php:223
+msgid "Add to MaxGalleria Gallery"
+msgstr "Добавить в галерею MaxGalleria"
+
+#: ../includes/media_library.php:227
+msgid "Create a new NextGEN Gallery"
+msgstr "Создать NextGEN галерею"
+
+#: ../includes/media_library.php:227
+msgid "New NextGen Gallery"
+msgstr "Новая NextGEN галерея"
+
+#: ../includes/media_library.php:229
+msgid "Add images to a NextGEN Gallery"
+msgstr "Добавить изображения в NextGEN галерею"
+
+#: ../includes/media_library.php:229
+msgid "Add Images to NextGen Gallery"
+msgstr "Добавить изображения в NextGEN галерею"
+
+#: ../includes/media_library.php:250
+msgid "Drag & Drop Files Here"
+msgstr "Перетащите файлы сюда"
+
+#: ../includes/media_library.php:251
+msgid "or select an image to upload:"
+msgstr "или выберите изображение для загрузки:"
+
+#: ../includes/media_library.php:254
+msgid "Upload Image"
+msgstr "Загрузить Изображение"
+
+#: ../includes/media_library.php:257
+msgid "Image Title Text:"
+msgstr "Текст Image Title:"
+
+#: ../includes/media_library.php:258
+msgid "Image ALT Text:"
+msgstr "Текст Image ALT:"
+
+#: ../includes/media_library.php:266
+msgid "File Name: "
+msgstr "Имя файла: "
+
+#: ../includes/media_library.php:275
+msgid "Add a new category\"."
+msgstr "Добавить новую категорию\"."
+
+#: ../includes/media_library.php:275
+msgid "Add New Category"
+msgstr "Добавить Новую Категорию"
+
+#: ../includes/media_library.php:276
+msgid ""
+"Check the checkbox of one or multiple files and check the categories you "
+"wish to assign to them and click Set Categories. Any existing categoires "
+"will be removed."
+msgstr ""
+"Отметьте галочкой одно или несколько изображений и выберите категории, "
+"которыми хотите их пометить, и нажмите Установить Категории. Все "
+"существующие категории будут удалены."
+
+#: ../includes/media_library.php:276
+msgid "Set Categories"
+msgstr "Установить Категории"
+
+#: ../includes/media_library.php:277
+msgid ""
+"Check the checkbox a single file and click \"Get Categories\" to view the "
+"media catagories for the select file."
+msgstr ""
+"Отметьте галочкой один файл и нажмите \"Выгрузить Категории\", чтобы увидеть "
+"категории для выбранного файла."
+
+#: ../includes/media_library.php:277
+msgid "Get Categories"
+msgstr "Выгрузить Категории"
+
+#: ../includes/media_library.php:278
+msgid "View images of the selected category."
+msgstr "Просмотреть изображения выбранной категории."
+
+#: ../includes/media_library.php:278
+msgid "View by Category"
+msgstr "Просмотр по категории"
+
+#: ../includes/media_library.php:290
+msgid "Category Name: "
+msgstr "Имя категории: "
+
+#: ../includes/media_library.php:292
+msgid "Add Category"
+msgstr "Добавить Категорию"
+
+#: ../includes/media_library.php:308 ../includes/mlp-media-button.php:656
+msgid "Title"
+msgstr "Title"
+
+#: ../includes/media_library.php:309 ../includes/mlp-media-button.php:657
+msgid "Caption"
+msgstr "Подпись"
+
+#: ../includes/media_library.php:310 ../includes/mlp-media-button.php:658
+msgid "Alt"
+msgstr "Alt"
+
+#: ../includes/media_library.php:313 ../includes/mlp-media-button.php:661
+msgid "Description"
+msgstr "Описание"
+
+#: ../includes/media_library.php:314 ../includes/mlp-media-button.php:662
+msgid "Alignment"
+msgstr "Выравнивание"
+
+#: ../includes/media_library.php:316 ../includes/mlp-media-button.php:664
+msgid "Left"
+msgstr "Слева"
+
+#: ../includes/media_library.php:317 ../includes/mlp-media-button.php:665
+msgid "Center"
+msgstr "По центру"
+
+#: ../includes/media_library.php:318 ../includes/mlp-media-button.php:666
+msgid "Right"
+msgstr "Справа"
+
+#: ../includes/media_library.php:319 ../includes/media_library.php:328
+#: ../includes/mlp-media-button.php:667 ../includes/mlp-media-button.php:676
+msgid "None"
+msgstr "Пусто"
+
+#: ../includes/media_library.php:326 ../includes/mlp-media-button.php:674
+msgid "Link To"
+msgstr "Ссылка На"
+
+#: ../includes/media_library.php:329 ../includes/mlp-media-button.php:677
+msgid "Media File"
+msgstr "Медиафайл"
+
+#: ../includes/media_library.php:330 ../includes/mlp-media-button.php:678
+msgid "Attachment Page"
+msgstr "Страница Вложения"
+
+#: ../includes/media_library.php:331 ../includes/mlp-media-button.php:679
+msgid "Custom URL"
+msgstr "Пользовательский URL"
+
+#: ../includes/media_library.php:333 ../includes/mlp-media-button.php:681
+msgid "Custom Link"
+msgstr "Пользовательская ссылка"
+
+#: ../includes/media_library.php:339 ../includes/mlp-media-button.php:688
+#: ../includes/mlp-media-button.php:689
+msgid "Insert"
+msgstr "Вставить"
+
+#: ../includes/media_library.php:428
+msgid "Adds selected images to the gallery box"
+msgstr "Добавить выбранные изображения в область галереи"
+
+#: ../includes/media_library.php:428
+msgid "Add"
+msgstr "Добавить"
+
+#: ../includes/media_library.php:429
+msgid "Remove selected images from the gallery box"
+msgstr "Удалить выбранные изображения из области галереи"
+
+#: ../includes/media_library.php:429
+msgid "Remove"
+msgstr "Удалить"
+
+#: ../includes/media_library.php:430
+msgid "Remove all images from the gallery box"
+msgstr "Удалить все изображения из области галереи"
+
+#: ../includes/media_library.php:430
+msgid "Clear"
+msgstr "Очистить"
+
+#: ../includes/media_library.php:432
+msgid "Generates and inserts the gallery shortcode into the post."
+msgstr "Генерирует и вставляет шорткод галереи в пост."
+
+#: ../includes/media_library.php:432
+msgid "Insert Gallery Shortcode"
+msgstr "Вставить Шорткод Галереи"
+
+#: ../includes/media_library.php:474 ../includes/media_library.php:520
+msgid "Add Images"
+msgstr "Добавить изображения"
+
+#: ../includes/media_library.php:486
+msgid "Folder Name: "
+msgstr "Имя папки: "
+
+#: ../includes/media_library.php:488
+msgid "Create Folder"
+msgstr "Создать Папку"
+
+#: ../includes/media_library.php:497
+msgid "Gallery Name: "
+msgstr "Имя галереи: "
+
+#: ../includes/media_library.php:498
+msgid "Create NG Gallery"
+msgstr "Создать NG галерею"
+
+#: ../includes/media_library.php:516
+msgid "NextGen Galleries: "
+msgstr "Галереи NextGen: "
+
+#: ../includes/mlfp-categories.php:6
+msgid "Media Categories"
+msgstr "Медиа Категории"
+
+#: ../includes/mlfp-categories.php:7
+msgid "All Media Categories"
+msgstr "Все Медиа Категории"
+
+#: ../includes/mlfp-categories.php:8
+msgid "Parent Media Category"
+msgstr "Родительская Медиа Категория"
+
+#: ../includes/mlfp-categories.php:9
+msgid "Parent Media Category:"
+msgstr "Родительская Медиа Категория:"
+
+#: ../includes/mlfp-categories.php:10
+msgid "New Media Category Name"
+msgstr "Новое имя Медиа Категории"
+
+#: ../includes/mlfp-categories.php:11
+msgid "Add New Media Category"
+msgstr "Добавить Медиа Категорию"
+
+#: ../includes/mlfp-categories.php:12
+msgid "Edit Media Category"
+msgstr "Изменить Медиа Категорию"
+
+#: ../includes/mlfp-categories.php:13
+msgid "Update Media Category"
+msgstr "Обновить Медиа Категорию"
+
+#: ../includes/mlfp-categories.php:14
+msgid "View Media Category"
+msgstr "Просмотр Медиа Категории"
+
+#: ../includes/mlfp-categories.php:15
+msgid "Separate items with commas"
+msgstr "Элементы отдельно через запятую"
+
+#: ../includes/mlfp-categories.php:16
+msgid "Add or remove items"
+msgstr "Добавить или удалить элементы"
+
+#: ../includes/mlfp-categories.php:17
+msgid "Choose from the most used"
+msgstr "Выбрать из часто используемых"
+
+#: ../includes/mlfp-categories.php:18
+msgid "Popular Items"
+msgstr "Популярные товары"
+
+#: ../includes/mlfp-categories.php:19
+msgid "Search Media Categories"
+msgstr "Поиск Медиа Категорий"
+
+#: ../includes/mlfp-categories.php:20
+msgid "Not Found"
+msgstr "Не Найдено"
+
+#: ../includes/mlfp-categories.php:21
+msgid "No items"
+msgstr "Товаров нет"
+
+#: ../includes/mlfp-categories.php:22
+msgid "Items list"
+msgstr "Список товаров"
+
+#: ../includes/mlfp-categories.php:23
+msgid "Items list navigation"
+msgstr "Навигация"
+
+#: ../includes/mlp-media-button.php:693
+msgid "Set Product Image"
+msgstr "Установить картинку продукта"
+
+#: ../includes/mlp-media-button.php:694
+msgid "Insert into Product Gallery"
+msgstr "Вставить в галерею продукта"
+
+#: ../includes/mlp-media-button.php:697
+msgid "Cancel"
+msgstr "Отмена"
+
+#: ../maxgalleria-media-library.php:107
+msgid ""
+"This multisite was create with a version earlier than Wordpress 3.5 an is "
+"not compatible with Media Library Folders Pro. To continue, click the Back "
+"Arrow."
+msgstr ""
+"Этот многосайтовая конфигурация была создана в версии Wordpress 3.5 или ниже "
+"и не совместима с Media Library Folders Pro. Чтобы продолжить нажмите на "
+"стрелку назад."
+
+#: ../maxgalleria-media-library.php:608
+msgid ""
+"Please deactivate Media Library Folders. It should not running when Media "
+"Library Folders Pro is activated"
+msgstr ""
+"Пожалуйста, деактивируйте плагин Media Library Folders. Он не совместим с "
+"Media Library Folders Pro"
+
+#: ../maxgalleria-media-library.php:739
+msgid "Set Woo Product Image &amp; Product Gallery Images"
+msgstr "Установить изображение Woo Product"
+
+#: ../maxgalleria-media-library.php:789
+msgid "JetPack / WP Gallery"
+msgstr "JetPack / WP галерея"
+
+#: ../maxgalleria-media-library.php:1236 ../maxgalleria-media-library.php:1238
+msgid "Check For New Folders"
+msgstr "Поиск новых папок"
+
+#: ../maxgalleria-media-library.php:1237
+msgid "Search Library"
+msgstr "Поиск в библиотеке"
+
+#: ../maxgalleria-media-library.php:1242 ../maxgalleria-media-library.php:4893
+msgid "Image SEO"
+msgstr "SEO изображений"
+
+#: ../maxgalleria-media-library.php:1243
+msgid "Support"
+msgstr "Поддержка"
+
+#: ../maxgalleria-media-library.php:1245 ../maxgalleria-media-library.php:4929
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../maxgalleria-media-library.php:1802
+msgid "You cannot hide the currently open folder."
+msgstr "Нельзя скрыть папку, когда она открыта."
+
+#: ../maxgalleria-media-library.php:2032
+msgid "files were found. Choose to display the images or just the file names?"
+msgstr ""
+"файлов найдено. Выберите, показать изображения или только имена файлов?"
+
+#: ../maxgalleria-media-library.php:2034
+msgid "Display images"
+msgstr "Показать изображения"
+
+#: ../maxgalleria-media-library.php:2035
+msgid "Display image file names only"
+msgstr "Показать только имена файлов изображений"
+
+#: ../maxgalleria-media-library.php:2036
+msgid "Or you can turn on pagination in Settings."
+msgstr "Или вы можете включить пагинацию в настройках."
+
+#: ../maxgalleria-media-library.php:2194 ../maxgalleria-media-library.php:4205
+#: ../maxgalleria-media-library.php:5887 ../maxgalleria-media-library.php:6034
+msgid "No files were found."
+msgstr "Файлов не найдено."
+
+#: ../maxgalleria-media-library.php:2201
+msgid "Previous"
+msgstr "Назад"
+
+#: ../maxgalleria-media-library.php:2203
+msgid "Next"
+msgstr "Далее"
+
+#: ../maxgalleria-media-library.php:2366
+msgid "The folder was created."
+msgstr "Папка создана."
+
+#: ../maxgalleria-media-library.php:2372
+msgid "There was a problem creating the folder."
+msgstr "Возникла проблема про создании папки."
+
+#: ../maxgalleria-media-library.php:2379
+msgid "The folder already exists."
+msgstr "Папка уже существует."
+
+#: ../maxgalleria-media-library.php:2532
+msgid "The folder, "
+msgstr "Папка, "
+
+#: ../maxgalleria-media-library.php:2532
+msgid ", is not empty. Please delete or move files from the folder"
+msgstr ", не пуста. Пожауйста, удалите или переместите содержимое папки"
+
+#: ../maxgalleria-media-library.php:2548 ../maxgalleria-media-library.php:2561
+msgid "The folder was deleted."
+msgstr "Папка удалена."
+
+#: ../maxgalleria-media-library.php:2550
+msgid "The folder could not be deleted."
+msgstr "Папку нельзя удалить."
+
+#: ../maxgalleria-media-library.php:2571
+msgid "The file(s) were deleted"
+msgstr "Файл(ы) удален(ы)"
+
+#: ../maxgalleria-media-library.php:2573
+msgid "The file(s) were not deleted"
+msgstr "Файл(ы) не удален(ы)"
+
+#: ../maxgalleria-media-library.php:2675
+msgid "Unable to copy the file; please check the folder and file permissions."
+msgstr ""
+"Не удаётся скопировать файл. Пожауйста, проверьте права на папку или файл."
+
+#: ../maxgalleria-media-library.php:2767
+msgid "Updating attachment links, please wait..."
+msgstr "Обновление ссылок, пожалуйста подождите..."
+
+#: ../maxgalleria-media-library.php:2772
+msgid ""
+"Unable to move the file(s); please check the folder and file permissions."
+msgstr ""
+"Не удаётся переместить файл(ы). Пожауйста, проверьте права на папку или файл."
+
+#: ../maxgalleria-media-library.php:2779
+msgid "The destination is not a folder: "
+msgstr "Назначение не является папкой: "
+
+#: ../maxgalleria-media-library.php:2785
+msgid "Cannot find destination folder: "
+msgstr "Указанная папка не найдена: "
+
+#: ../maxgalleria-media-library.php:2791
+msgid "Coping or moving a folder is not allowed."
+msgstr "Копирование или перемещение папки запрещено."
+
+#: ../maxgalleria-media-library.php:2797
+msgid "Cannot find the file: "
+msgstr "Файл не найден: "
+
+#: ../maxgalleria-media-library.php:2804
+msgid "The file(s) were copied to "
+msgstr "Файл(ы) скопирован(ы) в "
+
+#: ../maxgalleria-media-library.php:2806
+msgid "The file(s) were not copied."
+msgstr "Файл(ы) не скопирован(ы)."
+
+#: ../maxgalleria-media-library.php:2810
+msgid "The file(s) were moved to "
+msgstr "Файл(ы) перемещен(ы) в "
+
+#: ../maxgalleria-media-library.php:2812
+msgid "The file(s) were not moved."
+msgstr "Файл(ы) не перемещен(ы)."
+
+#: ../maxgalleria-media-library.php:2922
+msgid "The images were added."
+msgstr "Изображения добавлены."
+
+#: ../maxgalleria-media-library.php:2974 ../maxgalleria-media-library.php:3074
+msgid "No files were found matching that name."
+msgstr "Файлов с таким именем не найдено."
+
+#: ../maxgalleria-media-library.php:3221
+msgid "Updating attachment links, please wait...The file was renamed"
+msgstr "Обновление ссылок"
+
+#: ../maxgalleria-media-library.php:3249
+msgid "Sorting by date."
+msgstr "Сортировка по дате."
+
+#: ../maxgalleria-media-library.php:3253
+msgid "Sorting by name."
+msgstr "Сортировка по имени."
+
+#: ../maxgalleria-media-library.php:3340
+msgid "Scaning for new folders in "
+msgstr "Поиск новых папок в "
+
+#: ../maxgalleria-media-library.php:3367 ../maxgalleria-media-library.php:3396
+#: ../maxgalleria-media-library.php:3426 ../maxgalleria-media-library.php:3466
+msgid "Adding"
+msgstr "Добавление"
+
+#: ../maxgalleria-media-library.php:3444
+msgid "No new folders were found."
+msgstr "Новых папок не найдено."
+
+#: ../maxgalleria-media-library.php:3564
+msgid "Rate us Please!"
+msgstr "Оцените нас, пожалуйста!"
+
+#: ../maxgalleria-media-library.php:3565
+msgid ""
+"Your rating is the simplest way to support Media Library Folders. We really "
+"appreciate it!"
+msgstr ""
+"Ваша оценка - простейший способ поддержать Media Library Folders. Будем вам "
+"искренне благодарны!"
+
+#: ../maxgalleria-media-library.php:3568
+msgid "I've already left a review"
+msgstr "Я уже оставил отзыв"
+
+#: ../maxgalleria-media-library.php:3569
+msgid "Maybe Later"
+msgstr "Возможно, позже"
+
+#: ../maxgalleria-media-library.php:3570
+msgid "Sure! I'd love to!"
+msgstr "Конечно, с удовольствием!"
+
+#: ../maxgalleria-media-library.php:3729
+msgid ""
+"Click on the image you want to use as the product image. After its data is "
+"loaded you can click the \"Set Product Image\" button at the bottom of this "
+"window. To add images to the product gallery, check the images' checkboxs "
+"and click the Insert into Product Gallery button."
+msgstr ""
+"Нажмите на изображение, которое вы хотите использовать в качестве картинки "
+"продукта. После того как его данные загрузятся, вы сможете нажать на кнопку "
+"\"Установить картинку продукта\" внизу этого окна. Чтобы добавить "
+"изображения в галерею продукта, отметьте их галочками и нажмите кнопку "
+"\"Добавить в Галерею Продукта\"."
+
+#: ../maxgalleria-media-library.php:3730
+msgid ""
+"Click on the image you want to use as the featured image. After its data is "
+"loaded you can click the \"Set Featured Image\" button at the bottom of this "
+"window."
+msgstr ""
+"Нажмите на изображение, которое вы хотите использовать в качестве избранной "
+"картинки. После того как его данные загрузятся, вы сможете нажать на кнопку "
+"\"Set Featured Image\" внизу этого окна."
+
+#: ../maxgalleria-media-library.php:4112
+msgid "NextGen Gallery Viewer"
+msgstr "NextGen Gallery Viewer"
+
+#: ../maxgalleria-media-library.php:4114 ../maxgalleria-media-library.php:4115
+msgid "Brought to you by"
+msgstr "Сделано для Вас"
+
+#: ../maxgalleria-media-library.php:4114 ../maxgalleria-media-library.php:4115
+msgid "makers of"
+msgstr "создателями"
+
+#: ../maxgalleria-media-library.php:4293
+msgid "The gallery already exists."
+msgstr "Галерея уже существует."
+
+#: ../maxgalleria-media-library.php:4299
+msgid "The gallery was created."
+msgstr "Галерея создана."
+
+#: ../maxgalleria-media-library.php:4303
+msgid "The gallery could not be created."
+msgstr "Галерею нельзя создать."
+
+#: ../maxgalleria-media-library.php:4388
+msgid " image(s) were added."
+msgstr " изображения добавлены."
+
+#: ../maxgalleria-media-library.php:4456
+msgid "Plugin License Options"
+msgstr "Настройки лицензии плагина"
+
+#: ../maxgalleria-media-library.php:4465
+msgid "License Key"
+msgstr "Лицензионный Ключ"
+
+#: ../maxgalleria-media-library.php:4469
+msgid "Enter your license key"
+msgstr "Введите лицензионный ключ"
+
+#: ../maxgalleria-media-library.php:4479
+msgid "active"
+msgstr "активна"
+
+#: ../maxgalleria-media-library.php:4481
+msgid "Deactivate License"
+msgstr "Деактивировать лицензию"
+
+#: ../maxgalleria-media-library.php:4484
+msgid "Activate License"
+msgstr "Активировать лицензию"
+
+#: ../maxgalleria-media-library.php:4503
+msgid "Disable floating file tree"
+msgstr "Отключить плавающее дерево файлов"
+
+#: ../maxgalleria-media-library.php:4507
+msgid ""
+"Enable Pagination (allows one to page through files in a folder rather than "
+"lot them all at one time.)"
+msgstr "Включить пагинацию"
+
+#: ../maxgalleria-media-library.php:4510
+msgid "Number of images to display per page:"
+msgstr "Показывать изображений на странице:"
+
+#: ../maxgalleria-media-library.php:4514 ../maxgalleria-media-library.php:4949
+msgid "Update Settings"
+msgstr "Применить настройки"
+
+#: ../maxgalleria-media-library.php:4643
+msgid "Cheatin&#8217; uh?"
+msgstr "Хакер, да?"
+
+#: ../maxgalleria-media-library.php:4654
+#, php-format
+msgid "Unable to find any images. Are you sure <a href='%s'>some exist</a>?"
+msgstr ""
+"Не найдено ни одной картинки. Вы уверены, что <a href='%s'>они есть</a>?"
+
+#: ../maxgalleria-media-library.php:4665
+msgid ""
+"Please wait while the thumbnails are regenerated. This may take a while."
+msgstr "Подождите, пока эскизы пересоздадутся. Это займет некоторое время."
+
+#: ../maxgalleria-media-library.php:4669
+#, php-format
+msgid "To go back to the previous page, <a href=\"%s\">click here</a>."
+msgstr ""
+"Чтобы вернуться к предыдущей странице, <a href=\"%s\">нажмите здесь</a>."
+
+#: ../maxgalleria-media-library.php:4670
+#, php-format
+msgid ""
+"All done! %1$s image(s) were successfully resized in %2$s seconds and there "
+"were %3$s failure(s). To try regenerating the failed images again, <a href="
+"\"%4$s\">click here</a>. %5$s"
+msgstr ""
+"Готово! %1$s изображений(я) успешно отмасштабированы(о) за %2$s сек.; число "
+"ошибок: %3$s . Чтобы пересоздать неудавшиеся изображения, <a href=\"%4$s"
+"\">нажмите здесь</a>. %5$s"
+
+#: ../maxgalleria-media-library.php:4671
+#, php-format
+msgid ""
+"All done! %1$s image(s) were successfully resized in %2$s seconds and there "
+"were 0 failures. %3$s"
+msgstr ""
+"Готово! %1$s изображений(я) успешно отмасштабированы(о) за %2$s сек. без "
+"ошибок. %3$s"
+
+#: ../maxgalleria-media-library.php:4675 ../maxgalleria-media-library.php:4821
+msgid "You must enable Javascript in order to proceed!"
+msgstr "Чтобы продолжить, включите JavaScript!"
+
+#: ../maxgalleria-media-library.php:4681
+msgid "Abort Resizing Images"
+msgstr "Отменить масштабирование изображений"
+
+#: ../maxgalleria-media-library.php:4683
+msgid "Debugging Information"
+msgstr "Информация для отладки"
+
+#: ../maxgalleria-media-library.php:4686
+#, php-format
+msgid "Total Images: %s"
+msgstr "Всего изображений: %s"
+
+#: ../maxgalleria-media-library.php:4687
+#, php-format
+msgid "Images Resized: %s"
+msgstr "Изображений отмасштабировано: %s"
+
+#: ../maxgalleria-media-library.php:4688
+#, php-format
+msgid "Resize Failures: %s"
+msgstr "Масштабирование не удалось: %s"
+
+#: ../maxgalleria-media-library.php:4719
+msgid "Stopping..."
+msgstr "Остановка..."
+
+#: ../maxgalleria-media-library.php:4771
+#, php-format
+msgid ""
+"The resize request was abnormally terminated (ID %s). This is likely due to "
+"the image exceeding available memory or some other type of fatal error."
+msgstr ""
+"Масштабирование было экстренно завершено (ID %s). Возможно изображение не "
+"уместилось в памяти или возникла другая критическая ошибка."
+
+#: ../maxgalleria-media-library.php:4814
+msgid ""
+"Click the button below to regenerate thumbnails for all images in the Media "
+"Library. This is helpful if you have added new thumbnail sizes to your site. "
+"Existing thumbnails will not be removed to prevent breaking any links."
+msgstr ""
+"Нажмите на кнопку внизу, чтобы пересоздать эскизы для всех изображений в "
+"Библиотеке Медиафайлов. Это удобно, когда вы добавили новый размер эскизов "
+"на Ваш сайт. Существующие эскизы не удалятся, чтобы не сломать существующие "
+"ссылки."
+
+#: ../maxgalleria-media-library.php:4816
+msgid ""
+"You can regenerate thumbnails for individual images from the Media Library "
+"Folders Pro page by checking the box below one or more images and clicking "
+"the Regenerate Thumbnails button. The regenerate operation is not reversible "
+"but you can always generate the sizes you need by adding additional "
+"thumbnail sizes to your theme."
+msgstr ""
+"Вы можете пересоздать эскизы отдельно для каждого изображения, просто "
+"отметьте нужные галочкой и нажмите кнопку Пересоздать Эскизы. Операция "
+"пересоздания необратима, но вы всегда можете добавить нужные размеры, "
+"добавив дополнительные размеры эскизов в Вашей теме."
+
+#: ../maxgalleria-media-library.php:4819
+msgid "Regenerate All Thumbnails"
+msgstr "Пересоздать Все Эскизы"
+
+#: ../maxgalleria-media-library.php:4845
+#, php-format
+msgid "Failed resize: %s is an invalid image ID."
+msgstr "Масштабирование не удалось: %s - некорректный ID изображения."
+
+#: ../maxgalleria-media-library.php:4848
+msgid "Your user account doesn't have permission to resize images"
+msgstr "Ваш аккаунт не имеет прав на масштабирование изображений"
+
+#: ../maxgalleria-media-library.php:4853
+#, php-format
+msgid "The originally uploaded image file cannot be found at %s"
+msgstr "Исходный файл не найден в %s"
+
+#: ../maxgalleria-media-library.php:4862
+msgid "Unknown failure reason."
+msgstr "Неизвестная ошибка."
+
+#: ../maxgalleria-media-library.php:4867
+#, php-format
+msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
+msgstr "&quot;%1$s&quot; (ID %2$s) успешно отмасштабировано за %3$s сек."
+
+#: ../maxgalleria-media-library.php:4873
+#, php-format
+msgid ""
+"&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
+msgstr ""
+"&quot;%1$s&quot; (ID %2$s) не удалось отмасштабировать. Текст ошибки: %3$s"
+
+#: ../maxgalleria-media-library.php:4908
+msgid ""
+"When Image SEO is enabled Media Library Folders Pro automatically adds  ALT "
+"and Title attributes with the default settings defined below to all your "
+"images as they are uploaded."
+msgstr ""
+"Когда SEO изображений включено Media Library Folders Pro автоматически "
+"добавит атрибуты ALT и Title с заданными ниже настройками по умолчанию ко "
+"всем изображениям, которые вы загрузите."
+
+#: ../maxgalleria-media-library.php:4909
+msgid ""
+"You can easily override the Image SEO default settings when you  are "
+"uploading new images. When Image SEO is enabled you will see two fields  "
+"under the Upload Box when you add a file - Image Title Text and Image ALT "
+"Text.  Whatever you type into these fields overrides the default settings "
+"for the  current upload or sync operations."
+msgstr ""
+"Вы можете легко переопределить настройки по умолчанию, когда вы загружаете "
+"новые изображения. Когда SEO изображений включено, вы увидите два поля под "
+"окном загрузки изображения - Image Title Text и Image ALT Text. То что Вы "
+"напишете в эти поля, переопределит настройки по умолчанию для текущих "
+"операций загрузки или синхронизации."
+
+#: ../maxgalleria-media-library.php:4910
+msgid ""
+"To change the settings on an individual image simply click on  the image and "
+"change the settings on the far right.  Save and then back click to return to "
+"Media  Library Plus or MLPP."
+msgstr ""
+"Чтобы изменить настройки для конкретного изображения, просто нажмите на "
+"изображение и измените настройки на панели справа. Сохраните и вернитесь "
+"назад к Media Library Folders."
+
+#: ../maxgalleria-media-library.php:4911
+msgid "Image SEO supports two special tags:"
+msgstr "SEO изображений поддерживает два специальных тэга:"
+
+#: ../maxgalleria-media-library.php:4912
+#, php-format
+msgid "%filename - replaces image file name ( without extension )"
+msgstr "%filename - заменяет имя файла (без расширения)"
+
+#: ../maxgalleria-media-library.php:4913
+#, php-format
+msgid "%foldername - replaces image folder name"
+msgstr "%foldername - заменяет имя папки"
+
+#: ../maxgalleria-media-library.php:4934
+msgid "Turn on Image SEO:"
+msgstr "Включить SEO изображений:"
+
+#: ../maxgalleria-media-library.php:4939
+msgid "Image ALT attribute:"
+msgstr "ALT атрибут изображения:"
+
+#: ../maxgalleria-media-library.php:4941 ../maxgalleria-media-library.php:4946
+msgid "example"
+msgstr "пример"
+
+#: ../maxgalleria-media-library.php:4944
+msgid "Image Title attribute:"
+msgstr "TITLE атрибут изображения:"
+
+#: ../maxgalleria-media-library.php:4992
+msgid "The Image SEO setting have been updated "
+msgstr "Настройки SEO изображений были успешно обновлены "
+
+#: ../maxgalleria-media-library.php:5094
+msgid "Support - System Information"
+msgstr "Поддержка - Системная информация"
+
+#: ../maxgalleria-media-library.php:5108
+msgid ""
+"You may be asked to provide the information below to help troubleshoot your "
+"issue."
+msgstr ""
+"Вас могут попросить предоставить следующую информацию, чтобы помочь решить "
+"Вашу проблему."
+
+#: ../maxgalleria-media-library.php:5244
+msgid "The selected folder, subfolders and thier files have been hidden."
+msgstr "Выбранная папка, её подпапки и файлы успешно скрыты."
+
+#: ../maxgalleria-media-library.php:5594
+msgid ""
+"Click on the image you want to select. After its data is loaded you can "
+"click the \"Insert\" button at the bottom of this window."
+msgstr ""
+"Нажмите на изображение, которую хотите выбрать. После того как его данные "
+"загрузятся, вы сможете нажать на кнопку \"Вставить\" внизу этого окна."
+
+#: ../maxgalleria-media-library.php:5634
+msgid ""
+"Click on the file you want to select. After its data is loaded you can click "
+"the \"Insert\" button at the bottom of this window."
+msgstr ""
+"Нажмите на файл, которую хотите выбрать. После того как его данные "
+"загрузятся, вы сможете нажать на кнопку \"Вставить\" внизу этого окна."
+
+#: ../maxgalleria-media-library.php:5750
+msgid "The media categories were updated."
+msgstr "Категории медиа были обновлены."
+
+#: ../maxgalleria-media-library.php:5897
+msgid "The category was not added."
+msgstr "Категория не добавлена."
+
+#: ../maxgalleria-media-library.php:6205
+msgid "The settings were updated."
+msgstr "Настройки успешно изменены."

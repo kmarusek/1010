@@ -1,0 +1,3904 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: maxgalleria-media-library\n"
+"POT-Creation-Date: 2022-10-03 10:39-0300\n"
+"PO-Revision-Date: 2022-10-03 19:36+0200\n"
+"Last-Translator: Peter Smits <peter@psmits.com>\n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../EDD_SL_Plugin_Updater.php:189
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+"Er is een nieuwe versie van %1$s beschikbaar; %2$sbekijk de versie%3$s "
+"details%4$s."
+
+#: ../EDD_SL_Plugin_Updater.php:197
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"Er is een nieuwe versie van %1$s beschikbaar; %2$sbekijk versie%3$s details"
+"%4$s of %5$supdate nu%6$s."
+
+#: ../EDD_SL_Plugin_Updater.php:340
+msgid "You do not have permission to install plugin updates"
+msgstr "Je hebt geen toestemming om de plugin updates te installeren"
+
+#: ../EDD_SL_Plugin_Updater.php:340
+msgid "Error"
+msgstr "Fout"
+
+#: ../includes/media-folders.php:16 ../media-library-plus-pro.php:305
+msgid "Folders & Files"
+msgstr "Mappen & bestanden"
+
+#: ../includes/media-folders.php:71
+msgid "Library"
+msgstr "Bibliotheek"
+
+#: ../includes/media-library.php:67
+msgid ""
+"Media Library Folders has detected that Javascript has been turned off in "
+"this browser. It is necessary for Javascript to be running in order for "
+"Media Library Folders to function."
+msgstr ""
+"Media Library Folders heeft ontdekt dat Javascript is uitgeschakeld in deze "
+"browser. Het is noodzakelijk dat Javascript wordt uitgevoerd om Media "
+"Library Folders te laten functioneren."
+
+#: ../includes/media-library.php:73
+msgid "Current PHP version, "
+msgstr "Huidige PHP versie, "
+
+#: ../includes/media-library.php:73
+msgid ", is outdated. Please upgrade to version 7.4."
+msgstr ", is verouderd. Voer een upgrade uit naar versie 7.4."
+
+#: ../includes/media-library.php:77
+msgid ""
+"Folder data not found. Please run Media Library Folders Pro database reset"
+msgstr ""
+"Mapgegevens niet gevonden. Voer het opnieuw instellen van de Database "
+"Folders Pro database uit"
+
+#: ../includes/media-library.php:113 ../media-library-plus-pro.php:3386
+#: ../media-library-plus-pro.php:7518
+msgid "Location:"
+msgstr "Locatie:"
+
+#: ../includes/media-library.php:135
+msgid "Add Folder"
+msgstr "Map toevoegen"
+
+#: ../includes/media-library.php:146 ../includes/media-library.php:662
+msgid "Refresh Folders"
+msgstr "Mappen vernieuwen"
+
+#: ../includes/media-library.php:171
+msgid "Icon Descriptions"
+msgstr "Beschrijvingen van pictogrammen"
+
+#: ../includes/media-library.php:177 ../includes/media-library.php:663
+msgid "Grid View"
+msgstr "Rasterweergave"
+
+#: ../includes/media-library.php:183 ../includes/media-library.php:664
+msgid "List View"
+msgstr "Lijstweergave"
+
+#: ../includes/media-library.php:193
+msgid "Move Files"
+msgstr "Bestanden verplaatsen"
+
+#: ../includes/media-library.php:199
+msgid "Copy Files"
+msgstr "Bestanden kopiëren"
+
+#: ../includes/media-library.php:208
+msgid "Sort by date"
+msgstr "Sorteren op datum"
+
+#: ../includes/media-library.php:214
+msgid "Sort by title"
+msgstr "Sorteren op titel"
+
+#: ../includes/media-library.php:219 ../includes/media-library.php:673
+msgid "Reverse Order"
+msgstr "Omgekeerde volgorde"
+
+#: ../includes/media-library.php:290
+msgid "Filter Current Folder"
+msgstr "Filter huidige map"
+
+#: ../includes/media-library.php:291
+msgid "Search All Media"
+msgstr "Zoeken in alle media"
+
+#: ../includes/media-library.php:295
+msgid "Filter or Search"
+msgstr "Filteren of zoeken"
+
+#: ../includes/media-library.php:299 ../media-library-plus-pro.php:5621
+#: ../media-library-plus-pro.php:5750
+msgid "Search"
+msgstr "Zoeken"
+
+#: ../includes/media-library.php:306
+msgid "Find"
+msgstr "Zoek"
+
+#: ../includes/media-library.php:332 ../media-library-plus-pro.php:14239
+msgid "Bulk Move"
+msgstr "Bulkverplaatsing"
+
+#: ../includes/media-library.php:344
+msgid "Reselect Destination Folder"
+msgstr "Doelmap opnieuw selecteren"
+
+#: ../includes/media-library.php:345
+msgid "Move Selected Files"
+msgstr "Geselecteerde bestanden verplaatsen"
+
+#: ../includes/media-library.php:346
+msgid "Stop Moving Files"
+msgstr "Stop met het verplaatsen van bestanden"
+
+#: ../includes/media-library.php:355
+msgid "Playlist Shortcode Generator"
+msgstr "Afspeellijst shortcode generator"
+
+#: ../includes/media-library.php:358 ../includes/media-library.php:575
+msgid "Type: "
+msgstr "Type: "
+
+#: ../includes/media-library.php:364
+msgid "File IDs: "
+msgstr "Bestands ID's: "
+
+#: ../includes/media-library.php:372 ../includes/media-library.php:614
+msgid "Generate Shortcode"
+msgstr "Genereer Shortcode"
+
+#: ../includes/media-library.php:468
+msgid "Adds selected images to the gallery box"
+msgstr "Voegt geselecteerde afbeeldingen toe aan galerij box"
+
+#: ../includes/media-library.php:468
+msgid "Add Selected Images"
+msgstr "Geselecteerde afbeeldingen toevoegen"
+
+#: ../includes/media-library.php:469
+msgid "Remove selected images from the gallery box"
+msgstr "Geselecteerde afbeeldingen verwijderen uit de galerij box"
+
+#: ../includes/media-library.php:469
+msgid "Remove Selected Images"
+msgstr "Verwijder geselecteerde afbeeldingen"
+
+#: ../includes/media-library.php:470
+msgid "Remove all images from the gallery box"
+msgstr "Verwijder alle afbeeldingen uit de galerij box"
+
+#: ../includes/media-library.php:470
+msgid "Remove All Images"
+msgstr "Alle afbeeldingen verwijderen"
+
+#: ../includes/media-library.php:498
+msgid "Replace an Existing File"
+msgstr "Een bestaand bestand vervangen"
+
+#: ../includes/media-library.php:500
+msgid "Click here to view Replace File Instructions"
+msgstr ""
+"Klik hier om de instructies voor het vervangen van bestanden te bekijken"
+
+#: ../includes/media-library.php:501
+msgid "Click here to close the insturctions"
+msgstr "Klik hier om de instructions te sluiten"
+
+#: ../includes/media-library.php:504
+msgid "To replace an image:"
+msgstr "Om een afbeelding te vervangen:"
+
+#: ../includes/media-library.php:506
+msgid "1. Select a file to replace by checking it's checkbox."
+msgstr ""
+"1. Selecteer een bestand dat je wil vervangen door het selectievakje aan te "
+"vinken."
+
+#: ../includes/media-library.php:507
+msgid "2. Click the Replace File button."
+msgstr "2. Klik op de knop Bestand vervangen."
+
+#: ../includes/media-library.php:508
+msgid ""
+"3. Select the type of replacement to preform: only replace the file (without "
+"changing the file name or embedded links) or replace and update with new "
+"file (includes changing the file name in the media library and in any links "
+"embedded in posts and pages. ) <span class=\"mlp-warning\">Note updated "
+"embedded links may not point to actual file names due to variations in "
+"thumbnail file sizes. After replacing a file it will be necessary to verify "
+"that the links are working.<span>"
+msgstr ""
+"3. Selecteer het type vervanging dat je wil doen: vervang het bestand alleen "
+"(zonder de bestandsnaam of ingesloten links te wijzigen) of vervang en werk "
+"bij door een nieuw bestand (inclusief het wijzigen van de bestandsnaam in de "
+"mediabibliotheek en in links die zijn ingesloten in berichten en pagina's. ) "
+"<span class=\"mlp-warning\">Bijgewerkte ingesloten links wijzen mogelijk "
+"niet naar werkelijke bestandsnamen vanwege variaties in "
+"miniatuurbestandsgrootten. Na het vervangen van een bestand moet worden "
+"gecontroleerd <span> of de links werken.</span>"
+
+#: ../includes/media-library.php:509
+msgid ""
+"4. Select whether to keep the original date (that the file was add to the "
+"media library or update using the current date or enter a custom date)."
+msgstr ""
+"4. Selecteer of je de oorspronkelijke datum wil behouden (dat het bestand is "
+"toegevoegd aan de mediabibliotheek of is bijgewerkt met behulp van de "
+"huidige datum of een aangepaste datum wilt invoeren)."
+
+#: ../includes/media-library.php:510
+msgid ""
+"5. Upload a replacement file. Either drag and drop a single file or click "
+"the Browse button to find and select a file and click the Upload Replacement "
+"button. Once a file is uploaded, the old file will be replaced and Replace "
+"File area will automatically close."
+msgstr ""
+"5. Upload een vervangend bestand. Sleep een enkel bestand of klik op de knop "
+"Bladeren om een bestand te zoeken en te selecteren en klik op de knop "
+"Vervanging uploaden. Zodra een bestand is geüpload, wordt het oude bestand "
+"vervangen en wordt het gebied Bestand vervangen automatisch gesloten."
+
+#: ../includes/media-library.php:526
+msgid "Drag & Drop a Replacement File Here"
+msgstr "Versleep naar hier een vervangend bestand"
+
+#: ../includes/media-library.php:527
+msgid "or select a file or image to upload:"
+msgstr "of selecteer een bestand of afbeelding om te uploaden:"
+
+#: ../includes/media-library.php:529
+msgid "Upload Replacement"
+msgstr "Vervanging uploaden"
+
+#: ../includes/media-library.php:536
+msgid "Options:"
+msgstr "Opties:"
+
+#: ../includes/media-library.php:537
+msgid "Only replace the file"
+msgstr "Vervang alleen het bestand"
+
+#: ../includes/media-library.php:538
+msgid "Replace and update with new file"
+msgstr "Vervangen en updaten met nieuw bestand"
+
+#: ../includes/media-library.php:540
+msgid "A replacement file must be the same file type as the original file."
+msgstr ""
+"Een vervangend bestand moet hetzelfde bestandstype hebben als het "
+"oorspronkelijke bestand."
+
+#: ../includes/media-library.php:543
+msgid "Keep the current file date"
+msgstr "De huidige bestandsdatum behouden"
+
+#: ../includes/media-library.php:544
+msgid "Update the date"
+msgstr "De datum updaten"
+
+#: ../includes/media-library.php:545
+msgid "Use custom date"
+msgstr "Aangepaste datum gebruiken"
+
+#: ../includes/media-library.php:546
+msgid "Custom Date:"
+msgstr "Aangepaste datum:"
+
+#: ../includes/media-library.php:548
+msgid ""
+"After replacing an image, it may be necessary to clear your broswer cache to "
+"view the new image."
+msgstr ""
+"Nadat je een afbeelding hebt vervangen, moet je mogelijk je browser-cache "
+"wissen om de nieuwe afbeelding te bekijken."
+
+#: ../includes/media-library.php:560
+msgid "Embed PDF/Audio/Video Shortcode Generator: "
+msgstr "Pdf/Audio/Video Shortcode Generator insluiten: "
+
+#: ../includes/media-library.php:563
+msgid "Embed File: "
+msgstr "Bestand insluiten: "
+
+#: ../includes/media-library.php:569
+msgid "Ogg File Type: "
+msgstr "Ogg bestandstype: "
+
+#: ../includes/media-library.php:580
+msgid "Width (px or %): "
+msgstr "Breedte (px of %): "
+
+#: ../includes/media-library.php:582
+msgid "Height (px): "
+msgstr "Hoogte (px): "
+
+#: ../includes/media-library.php:584
+msgid "Align: "
+msgstr "Uitlijnen: "
+
+#: ../includes/media-library.php:586 ../includes/media-library.php:600
+#: ../includes/settings.php:100
+msgid "None"
+msgstr "Geen"
+
+#: ../includes/media-library.php:587
+msgid "Left"
+msgstr "Links"
+
+#: ../includes/media-library.php:588
+msgid "Right"
+msgstr "Rechts"
+
+#: ../includes/media-library.php:593
+msgid "Autoplay"
+msgstr "Automatisch afspelen"
+
+#: ../includes/media-library.php:594
+msgid "Controls"
+msgstr "Besturing"
+
+#: ../includes/media-library.php:595
+msgid "Loop"
+msgstr "Herhalen"
+
+#: ../includes/media-library.php:596
+msgid "Muted"
+msgstr "Gedempt"
+
+#: ../includes/media-library.php:597
+msgid "Preload"
+msgstr "Vooraf laden"
+
+#: ../includes/media-library.php:598
+msgid "Auto"
+msgstr "Automatisch"
+
+#: ../includes/media-library.php:599
+msgid "Metadata"
+msgstr "Metadata"
+
+#: ../includes/media-library.php:605
+msgid "Poster (optional)"
+msgstr "Poster (optioneel)"
+
+#: ../includes/media-library.php:629
+msgid "Add Images to NextGen Gallery"
+msgstr "Afbeeldingen toevoegen aan NextGen Gallery"
+
+#: ../includes/media-library.php:642
+msgid "Galleries: "
+msgstr "Galerijen: "
+
+#: ../includes/media-library.php:649
+msgid "Add Images"
+msgstr "Afbeeldingen toevoegen"
+
+#: ../includes/media-library.php:660
+msgid "New Folder"
+msgstr "Nieuwe map"
+
+#: ../includes/media-library.php:661
+msgid "New File"
+msgstr "Nieuw bestand"
+
+#: ../includes/media-library.php:669
+msgid "Move File Mode"
+msgstr "Modus bestand verplaatsen"
+
+#: ../includes/media-library.php:670
+msgid "Copy File Mode"
+msgstr "Bestandsmodus kopiëren"
+
+#: ../includes/media-library.php:671 ../includes/media-library.php:706
+msgid "Sort by Date"
+msgstr "Sorteren op datum"
+
+#: ../includes/media-library.php:672 ../includes/media-library.php:705
+msgid "Sort by Title"
+msgstr "Sorteren op titel"
+
+#: ../includes/media-library.php:678
+msgid "Rename File"
+msgstr "Bestand hernoemen"
+
+#: ../includes/media-library.php:679
+msgid "Sync Files"
+msgstr "Bestanden synchroniseren"
+
+#: ../includes/media-library.php:680 ../media-library-plus-pro.php:3133
+msgid "Regenerate Thumbnails"
+msgstr "Thumbnails opnieuw genereren"
+
+#: ../includes/media-library.php:681
+msgid "Delete Files"
+msgstr "Verwijder bestanden"
+
+#: ../includes/media-library.php:682
+msgid "Create a NextGen Gallery"
+msgstr "Maak een nieuwe NextGEN galerij"
+
+#: ../includes/media-library.php:687
+msgid "Replace a File"
+msgstr "Vervang een bestand"
+
+#: ../includes/media-library.php:688
+msgid "Display the Categories Box"
+msgstr "Toon de box categorieën"
+
+#: ../includes/media-library.php:689
+msgid "Display the Help Panel"
+msgstr "Toon het hulppaneel"
+
+#: ../includes/media-library.php:699
+msgid "Add New Category"
+msgstr "Voeg een nieuwe categorie toe"
+
+#: ../includes/media-library.php:700
+msgid "Set Categories"
+msgstr "Categorieën instellen"
+
+#: ../includes/media-library.php:701
+msgid "Get Categories"
+msgstr "Categorieën ophalen"
+
+#: ../includes/media-library.php:702
+msgid "View by Category"
+msgstr "Bekijk op categorie"
+
+#: ../includes/media-library.php:714
+msgid "Category Name: "
+msgstr "Categorie naam: "
+
+#: ../includes/media-library.php:716
+msgid "Add Category"
+msgstr "Categorie toevoegen"
+
+#: ../includes/media-library.php:802
+msgid "Gallery Name: "
+msgstr "Galerij naam: "
+
+#: ../includes/media-library.php:803
+msgid "Create NG Gallery"
+msgstr "NG Galerij maken"
+
+#: ../includes/media-library.php:2717
+msgid "Searching for scaled images..."
+msgstr "Zoeken naar geschaalde afbeeldingen..."
+
+#: ../includes/mlfp-categories.php:6 ../media-library-plus-pro.php:14385
+msgid "Media Categories"
+msgstr "Media categorieën"
+
+#: ../includes/mlfp-categories.php:7
+msgid "All Media Categories"
+msgstr "Alle mediacategorieën"
+
+#: ../includes/mlfp-categories.php:8
+msgid "Parent Media Category"
+msgstr "Hoofd mediacategorie"
+
+#: ../includes/mlfp-categories.php:9
+msgid "Parent Media Category:"
+msgstr "Hoofd mediacategorie:"
+
+#: ../includes/mlfp-categories.php:10
+msgid "New Media Category Name"
+msgstr "Naam nieuwe mediacategorie"
+
+#: ../includes/mlfp-categories.php:11
+msgid "Add New Media Category"
+msgstr "Nieuwe mediacategorie toevoegen"
+
+#: ../includes/mlfp-categories.php:12
+msgid "Edit Media Category"
+msgstr "Mediacategorie bewerken"
+
+#: ../includes/mlfp-categories.php:13
+msgid "Update Media Category"
+msgstr "Mediacategorie updaten"
+
+#: ../includes/mlfp-categories.php:14
+msgid "View Media Category"
+msgstr "Mediacategorie bekijken"
+
+#: ../includes/mlfp-categories.php:15
+msgid "Separate items with commas"
+msgstr "Scheid items met komma's"
+
+#: ../includes/mlfp-categories.php:16
+msgid "Add or remove items"
+msgstr "Items toevoegen of verwijderen"
+
+#: ../includes/mlfp-categories.php:17
+msgid "Choose from the most used"
+msgstr "Kies uit de meest gebruikte"
+
+#: ../includes/mlfp-categories.php:18
+msgid "Popular Items"
+msgstr "Populaire items"
+
+#: ../includes/mlfp-categories.php:19
+msgid "Search Media Categories"
+msgstr "Mediacategorieën zoeken"
+
+#: ../includes/mlfp-categories.php:20
+msgid "Not Found"
+msgstr "Niet gevonden"
+
+#: ../includes/mlfp-categories.php:21
+msgid "No items"
+msgstr "Geen items"
+
+#: ../includes/mlfp-categories.php:22
+msgid "Items list"
+msgstr "Items lijst"
+
+#: ../includes/mlfp-categories.php:23
+msgid "Items list navigation"
+msgstr "Items lijst navigatie"
+
+#: ../includes/mlfp-cloud.php:8 ../media-library-plus-pro.php:313
+msgid "Cloud Storage"
+msgstr "Cloud Storage"
+
+#: ../includes/mlfp-folder-access.php:29
+msgid "Save Access"
+msgstr "Toegang opslaan"
+
+#: ../includes/mlfp-folder-access.php:123
+msgid "No folders selected."
+msgstr "Geen mappen geselecteerd."
+
+#: ../includes/mlfp-folder-access.php:128
+msgid "No user role selected."
+msgstr "Geen gebruikersrol geselecteerd."
+
+#: ../includes/mlfp-image-seo.php:8 ../media-library-plus-pro.php:309
+#: ../media-library-plus-pro.php:3135
+msgid "Image SEO"
+msgstr "Afbeelding SEO"
+
+#: ../includes/mlfp-import-export.php:2 ../media-library-plus-pro.php:13676
+#: ../media-library-plus-pro.php:13761
+msgid "Import"
+msgstr "Importeren"
+
+#: ../includes/mlfp-import-export.php:3
+msgid "Upload media that was exported from Media Library Folders Pro"
+msgstr "Media uploaden die zijn geëxporteerd vanuit Media Library Folders Pro"
+
+#: ../includes/mlfp-import-export.php:5
+msgid "Upload a Media Export File"
+msgstr "Een media exportbestand uploaden"
+
+#: ../includes/mlfp-import-export.php:6
+msgid "Stop Import"
+msgstr "Import stoppen"
+
+#: ../includes/mlfp-import-export.php:10
+msgid "Export"
+msgstr "Exporteren"
+
+#: ../includes/mlfp-import-export.php:12
+msgid "Generate a new export from the contents of the media library"
+msgstr ""
+"Een nieuwe export genereren op basis van de inhoud van de mediabibliotheek"
+
+#: ../includes/mlfp-import-export.php:15
+msgid "Create a New Media Export File"
+msgstr "Een nieuw media exportbestand maken"
+
+#: ../includes/mlfp-import-export.php:31
+msgid "Export Name"
+msgstr "Export naam"
+
+#: ../includes/mlfp-import-export.php:32
+msgid "Export Date"
+msgstr "Exportdatum"
+
+#: ../includes/mlfp-import-export.php:33
+msgid "Actions"
+msgstr "Acties"
+
+#: ../includes/mlfp-import-export.php:42
+msgid "Export File Name"
+msgstr "Export Bestandsnaam"
+
+#: ../includes/mlfp-import-export.php:43
+msgid ""
+"Enter the name of the export file. This will be the name of the folder where "
+"media files will be stored"
+msgstr ""
+"Voer de naam van het exportbestand in. Dit is de naam van de map waarin "
+"mediabestanden worden opgeslagen"
+
+#: ../includes/mlfp-import-export.php:46
+msgid "Import Media Library Export File"
+msgstr "Importeer mediabibliotheek exportbestand"
+
+#: ../includes/mlfp-import-export.php:47
+msgid "Select a Media Library Export File to Upload"
+msgstr "Selecteer een mediabibliotheek exportbestand om te uploaden"
+
+#: ../includes/mlfp-import-export.php:50
+msgid "Upload Export File"
+msgstr "Exportbestand uploaden"
+
+#: ../includes/mlfp-import-export.php:87 ../includes/mlfp-import-export.php:110
+msgid "Checking for exisiting exports..."
+msgstr "Controleren op bestaande exporten..."
+
+#: ../includes/mlfp-import-export.php:99 ../includes/mlfp-import-export.php:122
+msgid "The export file name cannot be blank."
+msgstr "De naam van het exportbestand mag niet leeg zijn."
+
+#: ../includes/mlfp-import-export.php:185
+msgid "Import cancelled."
+msgstr "Import geannuleerd."
+
+#: ../includes/mlfp-import-export.php:191
+msgid "Creating export zip file. Please wait."
+msgstr "Export zip bestand maken. Een ogenblik geduld."
+
+#: ../includes/mlfp-import-export.php:218
+msgid "Delete the selected export file?"
+msgstr "Het geselecteerde exportbestand verwijderen?"
+
+#: ../includes/mlfp-import-export.php:244
+msgid "Loading export data..."
+msgstr "Exportgegevens laden..."
+
+#: ../includes/mlfp-options.php:34 ../media-library-plus-pro.php:14576
+msgid "Remove folder tree from Media page & popups"
+msgstr "Mappenboom van mediapagina en pop-ups verwijderen"
+
+#: ../includes/mlfp-options.php:38 ../media-library-plus-pro.php:14577
+msgid "Enable loading folder tree on the front end media popups"
+msgstr "Activeer het laden van de mappenboom op de front-end media pop-ups"
+
+#: ../includes/mlfp-options.php:42
+msgid ""
+"Enable Pagination (allows one to page through files in a folder rather than "
+"lot them all at one time.)"
+msgstr ""
+"Schakel paginering in(toont een enkele pagina met bestanden vanuit een map "
+"in plaats ze allemaal in een keer te tonen.)"
+
+#: ../includes/mlfp-options.php:46
+msgid "Number of images to display per page:"
+msgstr "Aantal afbeeldingen dat per pagina moet worden weergegeven:"
+
+#: ../includes/mlfp-options.php:52 ../media-library-plus-pro.php:14579
+msgid "Enable Front End Upload"
+msgstr "Front End upload inschakelen"
+
+#: ../includes/mlfp-options.php:57 ../media-library-plus-pro.php:14580
+msgid ""
+"Disable file delete, folder hide, folder add, folder delete and sync for non "
+"Administrators"
+msgstr ""
+"Bestand verwijderen uitschakelen, map verbergen, map toevoegen, map "
+"verwijderen en synchroniseren voor niet-beheerders uitschakelen"
+
+#: ../includes/mlfp-options.php:61 ../media-library-plus-pro.php:14581
+msgid "Enable folder access by user role"
+msgstr "Maptoegang op gebruikersrol inschakelen"
+
+#: ../includes/mlfp-options.php:65
+msgid "Disable large image scaling"
+msgstr "Schalen van grote afbeeldingen uitschakelen"
+
+#: ../includes/mlfp-options.php:69 ../media-library-plus-pro.php:14582
+msgid "Enable scaled image rollback"
+msgstr "Geschaalde afbeeldingen terugdraaien inschakelen"
+
+#: ../includes/mlfp-options.php:73 ../media-library-plus-pro.php:14583
+msgid "Disable media library list view"
+msgstr "Lijstweergave mediabibliotheek uitschakelen"
+
+#: ../includes/mlfp-options.php:78 ../media-library-plus-pro.php:14584
+msgid "Enable MLFP Query Display"
+msgstr "Weergave van MLFP query's inschakelen"
+
+#: ../includes/mlfp-options.php:83 ../media-library-plus-pro.php:14585
+msgid "Disable import of captions from images"
+msgstr "Importeren van bijschriften uit afbeeldingen uitschakelen"
+
+#: ../includes/mlfp-options.php:88
+msgid ""
+"Add an index to the postmeta table. <em>Recommend for sites with a high "
+"number of media files. Uncheck to remove the index.</em>"
+msgstr ""
+"Voeg een index toe aan de postmeta tabel. <em>Aanbevolen voor sites met een "
+"groot aantal mediabestanden. Verwijder het vinkje om de index te verwijderen."
+"</em>"
+
+#: ../includes/mlfp-options.php:93
+msgid ""
+"For users with non Latin character sets, check this option and enter the "
+"proper locale code below to fix issues with moving files"
+msgstr ""
+"Voor gebruikers met niet-Latijnse tekensets, vink je deze optie aan en voer "
+"je de juiste landinstellingscode hieronder in om problemen met het "
+"verplaatsen van bestanden op te lossen"
+
+#: ../includes/mlfp-options.php:96
+msgid "Locale"
+msgstr "Landinstelling"
+
+#: ../includes/mlfp-options.php:101 ../media-library-plus-pro.php:8437
+msgid "Update Settings"
+msgstr "Update instellingen"
+
+#: ../includes/mlfp-options.php:107
+msgid "WP Media Folder Integration"
+msgstr "Integratie van WP Media Folder"
+
+#: ../includes/mlfp-options.php:122
+msgid "Enable compatibility with WP Media Folder plugin"
+msgstr "Compatibiliteit met WP Media Folder plugin inschakelen"
+
+#: ../includes/mlfp-options.php:129
+msgid ""
+"This option will enable compatibility with WP Media Folder plugin and will "
+"create matching folders in WPMF. <strong>To upload files to their desired "
+"folders only use Media Library Folders Pro. Folders in WPMF should not be "
+"moved as Media Library Folders Pro does not have a corresponding action as "
+"it would break image links in posts and pages.</strong>"
+msgstr ""
+"Deze optie maakt compatibiliteit met de WP Media Folder plugin mogelijk en "
+"maakt overeenkomende mappen in WPMF. <strong>Als je bestanden naar de "
+"gewenste mappen wil uploaden, gebruik je alleen Mediabibliotheekmappen Pro. "
+"Mappen in WPMF mogen niet worden verplaatst omdat Media Library Folder Pro "
+"geen overeenkomstige actie heeft, omdat hiermee afbeeldingskoppelingen in "
+"berichten en pagina's worden verbroken.</strong>"
+
+#: ../includes/mlfp-options.php:134
+msgid "Import folders from WP Media Folder"
+msgstr "Mappen importeren uit WP Media Folder"
+
+#: ../includes/mlfp-options.php:141
+msgid ""
+"This option will create actual folders from the WPMF data in the media "
+"library. Files remain in their original folders and are not copied to the "
+"imported folders. Use Media Library Folders Pro to manually copy files to "
+"their desired folders."
+msgstr ""
+"Met deze optie worden werkelijke mappen gemaakt van de WPMF gegevens in de "
+"mediabibliotheek. Bestanden blijven in hun oorspronkelijke mappen staan en "
+"worden niet gekopieerd naar de geïmporteerde mappen. Gebruik Media Library "
+"Folders Pro om bestanden handmatig naar de gewenste mappen te kopiëren."
+
+#: ../includes/mlfp-options.php:146
+msgid "Clear and Update WP Media Folder Data"
+msgstr "Gegevens van WP Media Folder Data wissen en updaten"
+
+#: ../includes/mlfp-options.php:152
+msgid ""
+"This option will clear the existing WPMF data and import Media Library "
+"Folders Pro folders and files into WPMF."
+msgstr ""
+"Met deze optie worden de bestaande WPMF gegevens gewist en de Media Library "
+"Folders Pro mappen geïmporteerd in WPMF."
+
+#: ../includes/mlfp-options.php:328
+msgid "Adding files. Please wait."
+msgstr "Bestanden toevoegen. Een ogenblik geduld."
+
+#: ../includes/mlfp-options.php:375
+msgid "Adding folders. Please wait."
+msgstr "Mappen toevoegen. Een ogenblik geduld."
+
+#: ../includes/mlfp-options.php:401
+msgid "Clearing WPMF terms. Please wait."
+msgstr "WPMF termen wissen. Een ogenblik geduld."
+
+#: ../includes/mlfp-settings.php:8 ../media-library-plus-pro.php:310
+#: ../media-library-plus-pro.php:3138 ../media-library-plus-pro.php:8417
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../includes/mlfp-settings.php:20
+msgid "Options"
+msgstr "Opties"
+
+#: ../includes/mlfp-settings.php:21
+msgid "License"
+msgstr "Licentie"
+
+#: ../includes/mlfp-support-articles.php:2
+msgid "Media Library Folders Pro Installation"
+msgstr "Media Library Folders Pro installatie"
+
+#: ../includes/mlfp-support-articles.php:3
+msgid "Media Library Folders for Wordpress"
+msgstr "Media Library Folders for WordPress"
+
+#: ../includes/mlfp-support-articles.php:4
+msgid "Organize your WordPress Media Library"
+msgstr "Organiseer je WordPress media bibliotheek"
+
+#: ../includes/mlfp-support-articles.php:5
+msgid ""
+"How to Move, Rename, and Delete Files and Folders Using WordPress Media "
+"Library Folders"
+msgstr ""
+"Hoe bestanden en mappen verplaatsen, hernoemen en verwijderen met behulp van "
+"WordPress Media Library Folders"
+
+#: ../includes/mlfp-support-articles.php:6
+msgid "How to Add and Organize Folders in the WordPress Media Library"
+msgstr ""
+"Hoe mappen toe te voegen, organiseren in de WordPress media bibliotheek"
+
+#: ../includes/mlfp-support-articles.php:7
+msgid "How to Sync Your WordPress Media Library With FTP Folders"
+msgstr "Hoe je WordPress media bibliotheek synchroniseren met FTP mappen"
+
+#: ../includes/mlfp-support-articles.php:8
+msgid "Using Media Categories with WordPress Media Library Folders Pro"
+msgstr "Media categorieën gebruiken met WordPress Media Library Folders Pro"
+
+#: ../includes/mlfp-support-articles.php:9
+msgid ""
+"The Ultimate Guide to Jetpack Galleries: Tiled Galleries, Widgets, and "
+"Carousels"
+msgstr ""
+"De ultieme gids voor Jetpack galerijen: getegelde galerijen, widgets en "
+"carrousels"
+
+#: ../includes/mlfp-support-sys-info.php:7
+msgid ""
+"You may be asked to provide the information below to help troubleshoot your "
+"issue."
+msgstr ""
+"Je zal mogelijk worden gevraagd om de volgende informatie aan te reiken om "
+"je probleem te onderzoeken."
+
+#: ../includes/mlfp-support.php:8 ../media-library-plus-pro.php:316
+#: ../media-library-plus-pro.php:3137
+msgid "Support"
+msgstr "Ondersteuning"
+
+#: ../includes/mlfp-support.php:20
+msgid "Troubleshooting Tips"
+msgstr "Tips voor probleemoplossing"
+
+#: ../includes/mlfp-support.php:21
+msgid "Helpful Articles"
+msgstr "Behulpzame atikelen"
+
+#: ../includes/mlfp-support.php:22
+msgid "System Info"
+msgstr "Systeem Info"
+
+#: ../includes/mlfp-thumbnails.php:8 ../media-library-plus-pro.php:307
+msgid "Thumbnails"
+msgstr "Miniaturen"
+
+#: ../includes/mlfp-thumbnails.php:20
+msgid "Size Management"
+msgstr "Beheer van de grootte"
+
+#: ../includes/mlfp-thumbnails.php:21
+msgid "Regenerate"
+msgstr "Regenereren"
+
+#: ../includes/mlfp-thumbnails.php:47
+msgid ""
+"If you would like to remove thumbnails from your site, we recommend that "
+"your first backup the files in your uploads folder. If Media Library Folders "
+"Pro is deactivated, any deactivated thumbnail sizes will become activate "
+"again and will be automatically generated when new images are uploaded. Any "
+"links to thumbnail image that are deleted are not removed from your posts or "
+"pages."
+msgstr ""
+"Als je thumbnails van je site wil verwijderen, raden we je aan eerst een "
+"back-up te maken van de bestanden in je uploads map. Als Media Library "
+"Folders Pro is gedeactiveerd, worden alle gedeactiveerde thumbnail formats "
+"opnieuw geactiveerd en worden ze automatisch gegenereerd wanneer nieuwe "
+"afbeeldingen worden geüpload. Links naar thumbnail afbeeldingen die worden "
+"verwijderd, worden niet verwijderd uit je berichten of pagina's."
+
+#: ../includes/mlfp_maintenance.php:6
+msgid ""
+"If you would like to remove the uncateloged files from your media library, "
+"we recommend that you first backup up the files in your uploads folder."
+msgstr ""
+"Als je de niet-gecatalogiseerde bestanden uit je mediabibliotheek wilt "
+"verwijderen, raden we je aan eerst een back-up te maken van de bestanden in "
+"je uploadmap."
+
+#: ../includes/mlfp_maintenance.php:31
+msgid ""
+"Scan the media library for files not recorded in the Wordpress database."
+msgstr ""
+"Scan de mediabibliotheek op bestanden die niet zijn opgenomen in de "
+"WordPress database."
+
+#: ../includes/mlfp_maintenance.php:31
+msgid "Search For Uncataloged Files"
+msgstr "Zoeken naar niet-gecatalogiseerde bestanden"
+
+#: ../includes/mlfp_maintenance.php:32
+msgid "Stop a currently running search."
+msgstr "Een actieve zoekopdracht stoppen."
+
+#: ../includes/mlfp_maintenance.php:32
+msgid "Stop Search"
+msgstr "Zoekopdracht stoppen"
+
+#: ../includes/mlfp_maintenance.php:33
+msgid "Resume a stopped search."
+msgstr "Een gestopte zoekopdracht hervatten."
+
+#: ../includes/mlfp_maintenance.php:33
+msgid "Resume Search"
+msgstr "Zoekopdracht hervatten"
+
+#: ../includes/mlfp_maintenance.php:34
+msgid ""
+"Processes all uncataloged files according to their currently set options."
+msgstr ""
+"Verwerkt alle niet-gecatalogiseerde bestanden volgens hun momenteel "
+"ingestelde opties."
+
+#: ../includes/mlfp_maintenance.php:34
+msgid "Process Files"
+msgstr "Bestanden verwerken"
+
+#: ../includes/mlfp_maintenance.php:38
+msgid "Automatically remove file size from imported thumbnail images names"
+msgstr ""
+"Automatisch bestandgrootte verwijderen van geïmporteerde afbeeldingsnamen"
+
+#: ../includes/mlfp_maintenance.php:56
+msgid "Please wait while folders are scanned"
+msgstr "Even geduld terwijl mappen worden gescand"
+
+#: ../includes/mlfp_maintenance.php:57
+msgid "Please wait while files are processed"
+msgstr "Even geduld terwijl bestanden worden verwerkt"
+
+#: ../includes/settings.php:51
+msgid "License Key"
+msgstr "Licentiesleutel"
+
+#: ../includes/settings.php:55
+msgid ""
+"Enter your license key, click Save Changes and then click the Activate button"
+msgstr ""
+"Voer je licentiesleutel in, klik op wijzigingen opslaan en klik vervolgens "
+"op de knop Activeren"
+
+#: ../includes/settings.php:64
+msgid "Save Changes"
+msgstr "Wijzigingen opslaan"
+
+#: ../includes/settings.php:67
+msgid "Deactivate License"
+msgstr "Licentie deactiveren"
+
+#: ../includes/settings.php:68
+msgid "Status:"
+msgstr "Status:"
+
+#: ../includes/settings.php:68
+msgid "active"
+msgstr "actief"
+
+#: ../includes/settings.php:71
+msgid "Activate License"
+msgstr "Activeer licentie"
+
+#: ../includes/settings.php:76
+msgid "Renew License"
+msgstr "Licentie vernieuwen"
+
+#: ../includes/settings.php:78
+msgid "Enter New License Key"
+msgstr "Voer nieuwe licentiesleutel in"
+
+#: ../includes/settings.php:85
+msgid "Activate License on All Network Sites"
+msgstr "Activeer licentie op alle netwerksites"
+
+#: ../includes/settings.php:87
+msgid "Dectivate License on All Network Sites"
+msgstr "Licentie deactiveren op alle netwerksites"
+
+#: ../includes/settings.php:96
+msgid "Expiration Date: "
+msgstr "Vervaldatum: "
+
+#: ../media-library-plus-pro.php:14
+msgid ""
+"You must deactivate Media Library Folders before activating Media Library "
+"Folders Pro"
+msgstr ""
+"Je moet Media Library Folders deactiveren voordat je Media Library Folders "
+"Pro activeert"
+
+#: ../media-library-plus-pro.php:248
+msgid ""
+"This multisite was create with a version earlier than Wordpress 3.5 an is "
+"not compatible with Media Library Folders Pro. To continue, click the Back "
+"Arrow."
+msgstr ""
+"Deze Multisite is gemaakt met een versie eerder dan WordPress 3,5 en is niet "
+"compatibel met Media Library Folders Pro. Om verder te gaan klik op de "
+"terugpijl."
+
+#: ../media-library-plus-pro.php:304 ../media-library-plus-pro.php:3126
+msgid "Media Library Folders Pro"
+msgstr "Media Library Folders Pro"
+
+#: ../media-library-plus-pro.php:314 ../media-library-plus-pro.php:3152
+msgid "View Sync Log"
+msgstr "Synchronisatielog bekijken"
+
+#: ../media-library-plus-pro.php:317 ../media-library-plus-pro.php:3128
+msgid "Search Library"
+msgstr "Zoeken in bibliotheek"
+
+#: ../media-library-plus-pro.php:408
+msgid "Brought to you by "
+msgstr "Gebracht aan je door "
+
+#: ../media-library-plus-pro.php:409 ../media-library-plus-pro.php:7490
+#: ../media-library-plus-pro.php:7491
+msgid "Makers of"
+msgstr "Makers van"
+
+#: ../media-library-plus-pro.php:409 ../media-library-plus-pro.php:7490
+#: ../media-library-plus-pro.php:7491
+msgid "and"
+msgstr "en"
+
+#: ../media-library-plus-pro.php:413
+msgid "Quick Support"
+msgstr "Snelle ondersteuning"
+
+#: ../media-library-plus-pro.php:414
+msgid "Click here to"
+msgstr "Klik hier om"
+
+#: ../media-library-plus-pro.php:414
+msgid "Fix Common Problems"
+msgstr "Veelvoorkomende problemen oplossen"
+
+#: ../media-library-plus-pro.php:415
+msgid "Need more help? Check out our "
+msgstr "Meer hulp nodig? Bekijk onze "
+
+#: ../media-library-plus-pro.php:415
+msgid "Support Forums"
+msgstr "Ondersteuning forums"
+
+#: ../media-library-plus-pro.php:416
+msgid "Or Email Us at"
+msgstr "Of stuur een e-mail naar"
+
+#: ../media-library-plus-pro.php:621
+msgid "Are you sure you want to delete the selected files?"
+msgstr "Weet je zeker dat je de geselecteerde bestanden wil verwijderen?"
+
+#: ../media-library-plus-pro.php:622
+msgid "Are you sure you want to process the selected items?"
+msgstr "Weet je zeker dat je de geselecteerde items wil verwerken?"
+
+#: ../media-library-plus-pro.php:623 ../mlf-pro-reset.php:431
+msgid "No items were selected."
+msgstr "Er zijn geen items geselecteerd."
+
+#: ../media-library-plus-pro.php:624
+msgid "No images were selected."
+msgstr "Er zijn geen afbeeldingen geselecteerd."
+
+#: ../media-library-plus-pro.php:625
+msgid "Folder names cannot contain single or double quotes."
+msgstr "Mapnamen mogen geen enkele of dubbele aanhalingstekens bevatten."
+
+#: ../media-library-plus-pro.php:626
+msgid "The folder name cannot be blank."
+msgstr "De mapnaam mag niet leeg zijn."
+
+#: ../media-library-plus-pro.php:627
+msgid "The new file name cannot be blank."
+msgstr "De nieuwe bestandsnaam mag niet leeg zijn."
+
+#: ../media-library-plus-pro.php:628
+msgid "Folder names cannot contain spaces."
+msgstr "Mapnamen mogen geen spaties bevatten."
+
+#: ../media-library-plus-pro.php:629
+msgid "Please enter a valid file name with no spaces."
+msgstr "Voer een geldige bestandsnaam in zonder spaties."
+
+#: ../media-library-plus-pro.php:630
+msgid "A category name cannot be blank."
+msgstr "Een categorienaam mag niet leeg zijn."
+
+#: ../media-library-plus-pro.php:631
+msgid "No categories were selected."
+msgstr "Er zijn geen categorieën geselecteerd."
+
+#: ../media-library-plus-pro.php:632
+msgid "Select only one file to view its categories and press 'Get Categories'"
+msgstr ""
+"Selecteer slechts één bestand om de categorieën te bekijken en druk op "
+"'Categorieën ophalen'"
+
+#: ../media-library-plus-pro.php:633
+msgid "The shortcode was copied to the clipboard."
+msgstr "De shortcode is naar het klembord gekopieerd."
+
+#: ../media-library-plus-pro.php:634
+msgid "Please select a file before clicking the Embed Shortcode button."
+msgstr "Selecteer een bestand voordat je op de knop Shortcode insluiten klikt."
+
+#: ../media-library-plus-pro.php:635
+msgid "Please select a file before clicking the Replace File button."
+msgstr "Selecteer een bestand voordat je op de knop Bestand vervangen klikt."
+
+#: ../media-library-plus-pro.php:636
+msgid ""
+"The replacment file type does not match to selected file type. A file needs "
+"to be replaced with the same type (.jpg for .jpg, .png for .png or .pdf for ."
+"pdf). Please choose another file."
+msgstr ""
+"Het vervangende bestandstype komt niet overeen met het geselecteerde "
+"bestandstype. Een bestand moet worden vervangen door hetzelfde type (.jpg "
+"voor .jpg, .png voor .png of .pdf voor .pdf). Kies een ander bestand."
+
+#: ../media-library-plus-pro.php:637
+msgid " files found"
+msgstr " gevonden bestanden"
+
+#: ../media-library-plus-pro.php:638
+msgid "No uncataloged files found"
+msgstr "Geen niet-gecatalogiseerde bestanden gevonden"
+
+#: ../media-library-plus-pro.php:639
+msgid "No file IDs have been selected."
+msgstr "Er zijn geen bestand ID's geselecteerd."
+
+#: ../media-library-plus-pro.php:641
+msgid "Select a destination folder in the folder tree"
+msgstr "Selecteer een doelmap in de mappenstructuur"
+
+#: ../media-library-plus-pro.php:642
+msgid "File moving stopped."
+msgstr "Het verplaatsen van bestanden is gestopt."
+
+#: ../media-library-plus-pro.php:643
+msgid ""
+"The source and destination folders are the same. Please select a different "
+"destination folder."
+msgstr "De bron- en doelmappen zijn hetzelfde. Selecteer een andere doelmap."
+
+#: ../media-library-plus-pro.php:644
+msgid "Destination Folder: "
+msgstr "Doel map: "
+
+#: ../media-library-plus-pro.php:645
+msgid "Please wait while files are moved..."
+msgstr "Even geduld terwijl bestanden worden verplaatst..."
+
+#: ../media-library-plus-pro.php:646
+msgid ""
+" is not an allowed embed file type. Only pdf, mpeg, mp3, oga, wav, mp4, "
+"webm, ogg and ogv can be embedded."
+msgstr ""
+" is geen toegestaan insluitbestandstype. Alleen pdf, mpeg, mp3, oga, wav, "
+"mp4, webm, ogg en ogv kunnen worden ingesloten."
+
+#: ../media-library-plus-pro.php:736 ../media-library-plus-pro.php:755
+msgid "Select the folder where you wish to view or upload files."
+msgstr "Selecteer de map waar je bestanden wil bekijken of uploaden."
+
+#: ../media-library-plus-pro.php:1407
+msgid ""
+"Please deactivate Media Library Folders. It should not running when Media "
+"Library Folders Pro is activated"
+msgstr ""
+"Schakel Media Library Folders uit. Het mag niet actief zijn wanneer Media "
+"Library Folders Pro wordt geactiveerd"
+
+#: ../media-library-plus-pro.php:1963 ../media-library-plus-pro.php:2138
+#: ../media-library-plus-pro.php:2247 ../media-library-plus-pro.php:3602
+#: ../media-library-plus-pro.php:3641 ../media-library-plus-pro.php:3784
+#: ../media-library-plus-pro.php:4205 ../media-library-plus-pro.php:4751
+#: ../media-library-plus-pro.php:4889 ../media-library-plus-pro.php:5134
+#: ../media-library-plus-pro.php:5442 ../media-library-plus-pro.php:5540
+#: ../media-library-plus-pro.php:5916 ../media-library-plus-pro.php:6058
+#: ../media-library-plus-pro.php:6382 ../media-library-plus-pro.php:6419
+#: ../media-library-plus-pro.php:6446 ../media-library-plus-pro.php:6473
+#: ../media-library-plus-pro.php:6507 ../media-library-plus-pro.php:6528
+#: ../media-library-plus-pro.php:7130 ../media-library-plus-pro.php:7206
+#: ../media-library-plus-pro.php:7228 ../media-library-plus-pro.php:7284
+#: ../media-library-plus-pro.php:7404 ../media-library-plus-pro.php:7624
+#: ../media-library-plus-pro.php:7642 ../media-library-plus-pro.php:7702
+#: ../media-library-plus-pro.php:7812 ../media-library-plus-pro.php:7863
+#: ../media-library-plus-pro.php:7892 ../media-library-plus-pro.php:7920
+#: ../media-library-plus-pro.php:8453 ../media-library-plus-pro.php:8622
+#: ../media-library-plus-pro.php:8922 ../media-library-plus-pro.php:8949
+#: ../media-library-plus-pro.php:8987 ../media-library-plus-pro.php:9158
+#: ../media-library-plus-pro.php:9368 ../media-library-plus-pro.php:9399
+#: ../media-library-plus-pro.php:9524 ../media-library-plus-pro.php:9536
+#: ../media-library-plus-pro.php:9782 ../media-library-plus-pro.php:10047
+#: ../media-library-plus-pro.php:10215 ../media-library-plus-pro.php:10253
+#: ../media-library-plus-pro.php:10652 ../media-library-plus-pro.php:11480
+#: ../media-library-plus-pro.php:11562 ../media-library-plus-pro.php:11988
+#: ../media-library-plus-pro.php:12106 ../media-library-plus-pro.php:12189
+#: ../media-library-plus-pro.php:12213 ../media-library-plus-pro.php:12652
+#: ../media-library-plus-pro.php:12691 ../media-library-plus-pro.php:12712
+#: ../media-library-plus-pro.php:12770 ../media-library-plus-pro.php:12865
+#: ../media-library-plus-pro.php:13056 ../media-library-plus-pro.php:13094
+#: ../media-library-plus-pro.php:13203 ../media-library-plus-pro.php:13259
+#: ../media-library-plus-pro.php:13302 ../media-library-plus-pro.php:13405
+#: ../media-library-plus-pro.php:13431 ../media-library-plus-pro.php:13628
+#: ../media-library-plus-pro.php:13825 ../media-library-plus-pro.php:13872
+#: ../media-library-plus-pro.php:14033
+msgid "missing nonce!"
+msgstr "ontbrekende nonce!"
+
+#: ../media-library-plus-pro.php:2012 ../media-library-plus-pro.php:2171
+#: ../media-library-plus-pro.php:2324
+msgid " file's type is invalid."
+msgstr " bestandstype is ongeldig."
+
+#: ../media-library-plus-pro.php:2097 ../media-library-plus-pro.php:2226
+#: ../media-library-plus-pro.php:2627
+msgid ""
+" Unable to move the file to the destination folder; the folder may not exist."
+msgstr ""
+" Kan het bestand niet verplaatsen naar de doelmap; de map bestaat mogelijk "
+"niet."
+
+#: ../media-library-plus-pro.php:2115
+msgid "New file submitted at "
+msgstr "Nieuw bestand ingediend op "
+
+#: ../media-library-plus-pro.php:2119
+msgid "A new file has been uploaded at "
+msgstr "Er is een nieuw bestand geüpload op "
+
+#: ../media-library-plus-pro.php:2119
+msgid " by "
+msgstr " door "
+
+#: ../media-library-plus-pro.php:2665
+msgid "An unequal number of items were sent to update_links function."
+msgstr "Een ongelijk aantal items werd naar update_links functie gestuurd."
+
+#: ../media-library-plus-pro.php:3127 ../media-library-plus-pro.php:3129
+msgid "Check For New Folders"
+msgstr "Controleer op nieuwe mappen"
+
+#: ../media-library-plus-pro.php:3134
+msgid "Thumbnail Management"
+msgstr "Thumbnail beheer"
+
+#: ../media-library-plus-pro.php:3136
+msgid "Media Library Maintenance"
+msgstr "Media Library Maintenance"
+
+#: ../media-library-plus-pro.php:3142
+msgid "Set User Access"
+msgstr "Gebruikerstoegang instellen"
+
+#: ../media-library-plus-pro.php:3147
+msgid "S3 & Spaces Settings"
+msgstr "S3 & Spaces instellingen"
+
+#: ../media-library-plus-pro.php:3151
+msgid "Cloud Sync"
+msgstr "Cloud Sync"
+
+#: ../media-library-plus-pro.php:3432 ../media-library-plus-pro.php:3499
+#: ../media-library-plus-pro.php:3528 ../media-library-plus-pro.php:3564
+#: ../media-library-plus-pro.php:14081 ../media-library-plus-pro.php:14210
+#: ../media-library-plus-pro.php:15060 ../media-library-plus-pro.php:15099
+msgid "Missing nonce! Please refresh this page."
+msgstr "Ontbrekende nonce! Vernieuw deze pagina."
+
+#: ../media-library-plus-pro.php:3883
+msgid "Delete this folder?"
+msgstr "Deze map verwijderen?"
+
+#: ../media-library-plus-pro.php:3897
+msgid "Are you sure you want to delete the selected folder?"
+msgstr "Weet je zeker dat je de geselecteerde map wil verwijderen?"
+
+#: ../media-library-plus-pro.php:3931
+msgid ""
+"Hide this folder? This will remove the folder contents from the media "
+"library database."
+msgstr ""
+"Deze map verbergen? Hiermee wordt de mapinhoud uit de "
+"mediabibliotheekdatabase verwijderd."
+
+#: ../media-library-plus-pro.php:3937
+msgid "You cannot hide the currently open folder."
+msgstr "Je kunt de momenteel geopende map niet verbergen."
+
+#: ../media-library-plus-pro.php:3941
+msgid ""
+"Are you sure you want to hide the selected folder and all its sub folders "
+"and files?"
+msgstr ""
+"Weet je zeker dat je de geselecteerde map en al zijn sub-mappen en bestanden "
+"wil verbergen?"
+
+#: ../media-library-plus-pro.php:4290
+msgid " files were found. Choose to display the images or just the file names?"
+msgstr ""
+" bestanden zijn gevonden. Kies je ervoor om de afbeeldingen of alleen de "
+"bestandsnamen weer te geven?"
+
+#: ../media-library-plus-pro.php:4292
+msgid "Display images"
+msgstr "Afbeeldingen weergeven"
+
+#: ../media-library-plus-pro.php:4293
+msgid "Display image file names only"
+msgstr "Alleen bestandsnamen van afbeeldingen weergeven"
+
+#: ../media-library-plus-pro.php:4294
+msgid "Or you can turn on pagination in Settings."
+msgstr "Of je kan paginering inschakelen in instellingen."
+
+#: ../media-library-plus-pro.php:4467 ../media-library-plus-pro.php:4613
+#: ../media-library-plus-pro.php:7581 ../media-library-plus-pro.php:9138
+#: ../media-library-plus-pro.php:9333 ../media-library-plus-pro.php:9507
+#: ../media-library-plus-pro.php:12448 ../media-library-plus-pro.php:12628
+msgid "No files were found."
+msgstr "Er zijn geen bestanden gevonden."
+
+#: ../media-library-plus-pro.php:4734 ../media-library-plus-pro.php:5809
+msgid "Title"
+msgstr "Titel"
+
+#: ../media-library-plus-pro.php:4735 ../media-library-plus-pro.php:5810
+msgid "File"
+msgstr "Bestand"
+
+#: ../media-library-plus-pro.php:4736 ../media-library-plus-pro.php:5811
+msgid "Author"
+msgstr "Auteur"
+
+#: ../media-library-plus-pro.php:4737 ../media-library-plus-pro.php:5812
+msgid "Categories"
+msgstr "Categorieën"
+
+#: ../media-library-plus-pro.php:4738 ../media-library-plus-pro.php:5813
+msgid "Date"
+msgstr "Datum"
+
+#: ../media-library-plus-pro.php:4914
+msgid "Cannot create folder, missing parent folder ID."
+msgstr "Kan geen map maken, ontbrekende hoofdmap-id."
+
+#: ../media-library-plus-pro.php:4976
+msgid "The folder was created."
+msgstr "De map is gemaakt."
+
+#: ../media-library-plus-pro.php:4985
+msgid "There was a problem creating the folder."
+msgstr "Er is een probleem opgetreden bij het maken van de map."
+
+#: ../media-library-plus-pro.php:4993
+msgid "The folder already exists."
+msgstr "De map bestaat al."
+
+#: ../media-library-plus-pro.php:5182
+msgid "The uploads folder cannot be deleted."
+msgstr "De map uploads kan niet worden verwijderd."
+
+#: ../media-library-plus-pro.php:5255 ../media-library-plus-pro.php:5290
+msgid "The file(s) were deleted"
+msgstr "De bestanden zijn verwijderd"
+
+#: ../media-library-plus-pro.php:5275 ../media-library-plus-pro.php:5292
+msgid "The file(s) were not deleted"
+msgstr "De bestanden zijn niet verwijderd"
+
+#: ../media-library-plus-pro.php:5321
+msgid "The folder, "
+msgstr "De map, "
+
+#: ../media-library-plus-pro.php:5321
+msgid ", is not empty. Please delete or move files from the folder"
+msgstr ", is niet leeg. Verwijder of verplaats bestanden uit de map"
+
+#: ../media-library-plus-pro.php:5338
+msgid "The folder could not be deleted."
+msgstr "De map kan niet worden verwijderd."
+
+#: ../media-library-plus-pro.php:5341
+msgid "The folder is not empty and could not be deleted."
+msgstr "De map is niet leeg en kan niet worden verwijderd."
+
+#: ../media-library-plus-pro.php:5370
+msgid "The folder was deleted."
+msgstr "De map is verwijderd."
+
+#: ../media-library-plus-pro.php:5465
+msgid "The images were added."
+msgstr "De afbeeldingen zijn toegevoegd."
+
+#: ../media-library-plus-pro.php:5581 ../media-library-plus-pro.php:6034
+msgid "No files were found matching that name."
+msgstr "Er zijn geen bestanden gevonden die overeenkomen met die naam."
+
+#: ../media-library-plus-pro.php:5618 ../media-library-plus-pro.php:5747
+msgid "Media Library Folders Pro Search Results"
+msgstr "Media Library Folders Pro zoekresultaten"
+
+#: ../media-library-plus-pro.php:5625 ../media-library-plus-pro.php:5794
+msgid ""
+"Click on an image to go to its folder or a on folder to view its contents."
+msgstr ""
+"Klik op een afbeelding om naar de map te gaan, of op een map om de inhoud te "
+"tonen."
+
+#: ../media-library-plus-pro.php:5627 ../media-library-plus-pro.php:5797
+msgid "Search results for: "
+msgstr "Zoekresultaten voor: "
+
+#: ../media-library-plus-pro.php:5827 ../media-library-plus-pro.php:6042
+#: ../media-library-plus-pro.php:13661 ../media-library-plus-pro.php:13781
+msgid "Previous"
+msgstr "Vorige"
+
+#: ../media-library-plus-pro.php:5829 ../media-library-plus-pro.php:6044
+#: ../media-library-plus-pro.php:13665 ../media-library-plus-pro.php:13785
+msgid "Next"
+msgstr "Volgende"
+
+#: ../media-library-plus-pro.php:6366
+msgid "Updating attachment links, please wait...The file was renamed"
+msgstr "Bijlagelinks bijwerken, even geduld ... Het bestand is hernoemd"
+
+#: ../media-library-plus-pro.php:6399
+msgid "Sorting by date."
+msgstr "Sorteren op datum."
+
+#: ../media-library-plus-pro.php:6403
+msgid "Sorting by name."
+msgstr "Sorteren op naam."
+
+#: ../media-library-plus-pro.php:6570
+msgid "Scanning for new folders in "
+msgstr "Scannen op nieuwe mappen in "
+
+#: ../media-library-plus-pro.php:6597 ../media-library-plus-pro.php:6626
+#: ../media-library-plus-pro.php:6654 ../media-library-plus-pro.php:6696
+msgid "Adding"
+msgstr "Aan het toevoegen"
+
+#: ../media-library-plus-pro.php:6672
+msgid "No new folders were found."
+msgstr "Er zijn geen nieuwe mappen gevonden."
+
+#: ../media-library-plus-pro.php:6806
+msgid ""
+"Is there a feature you would like for us to add to Media Library Folders "
+"Pro? Let us know."
+msgstr ""
+"Is er een functie die je ons wil laten toevoegen aan<br>Media Library "
+"Folders Pro? Laat het ons weten."
+
+#: ../media-library-plus-pro.php:6807
+msgid ""
+"Send your suggestions to <a href=\"mailto:support@maxfoundry.com"
+"\">support@maxfoundry.com</a>."
+msgstr ""
+"Stuur je suggesties naar <a href=\"mailto:support@maxfoundry.com"
+"\">support@maxfoundry.com</a>."
+
+#: ../media-library-plus-pro.php:6819
+msgid "Rate us Please!"
+msgstr "Waardeer ons alsjeblieft!"
+
+#: ../media-library-plus-pro.php:6820
+msgid ""
+"Your rating is the simplest way to support Media Library Folders Pro. We "
+"really appreciate it!"
+msgstr ""
+"Je beoordeling is de eenvoudigste manier om Media Library Folders Pro te "
+"ondersteunen. We stellen het erg op prijs!"
+
+#: ../media-library-plus-pro.php:6823
+msgid "I've already left a review"
+msgstr "Ik heb al een beoordeling achtergelaten"
+
+#: ../media-library-plus-pro.php:6824
+msgid "Maybe Later"
+msgstr "Misschien later"
+
+#: ../media-library-plus-pro.php:6825
+msgid "Sure! I'd love to!"
+msgstr "Zeker! Ik zou graag!"
+
+#: ../media-library-plus-pro.php:7488
+msgid "NextGen Gallery Viewer"
+msgstr "NextGen galerij viewer"
+
+#: ../media-library-plus-pro.php:7490 ../media-library-plus-pro.php:7491
+msgid "Brought to you by"
+msgstr "Gebracht aan je door"
+
+#: ../media-library-plus-pro.php:7684
+msgid "The gallery was created."
+msgstr "De galerij is gemaakt."
+
+#: ../media-library-plus-pro.php:7688
+msgid "The gallery could not be created."
+msgstr "De galerij kan niet worden gemaakt."
+
+#: ../media-library-plus-pro.php:7789
+msgid " image(s) were added."
+msgstr " afbeelding(en) zijn toegevoegd."
+
+#: ../media-library-plus-pro.php:7883
+msgid "Network site licenses were activated;"
+msgstr "Netwerksite licenties zijn geactiveerd;"
+
+#: ../media-library-plus-pro.php:7911
+msgid "Network site licenses were deactivated;"
+msgstr "Netwerksite licenties zijn gedeactiveerd;"
+
+#: ../media-library-plus-pro.php:8029
+#, php-format
+msgid "Thumbnails have been regenerated for %d image(s)"
+msgstr "Thumbnails zijn opnieuw aangemaakt voor %d afbeelding(en)"
+
+#: ../media-library-plus-pro.php:8090
+msgid "Cheatin&#8217; uh?"
+msgstr "Valsspelen hè?"
+
+#: ../media-library-plus-pro.php:8101
+#, php-format
+msgid "Unable to find any images. Are you sure <a href='%s'>some exist</a>?"
+msgstr ""
+"Kan geen afbeeldingen vinden. Weet je zeker dat <a href='%s'> er sommige "
+"bestaan ​​</a>?"
+
+#: ../media-library-plus-pro.php:8112
+msgid ""
+"Please wait while the thumbnails are regenerated. This may take a while."
+msgstr ""
+"Wacht even terwijl de thumbnails worden geregenereerd. Dit kan een tijdje "
+"duren."
+
+#: ../media-library-plus-pro.php:8116
+#, php-format
+msgid "To go back to the previous page, <a href=\"%s\">click here</a>."
+msgstr "<a href=\"%s\"> Klik hier </a> om terug te gaan naar de vorige pagina."
+
+#: ../media-library-plus-pro.php:8117
+#, php-format
+msgid ""
+"All done! %1$s image(s) were successfully resized in %2$s seconds and there "
+"were %3$s failure(s). To try regenerating the failed images again, <a href="
+"\"%4$s\">click here</a>. %5$s"
+msgstr ""
+"Helemaal klaar! %1$s afbeelding(en) zijn opnieuw geschaald in %2$s seconden "
+"en er waren %3$s mislukking(en). Om te proberen de grootte van mislukte "
+"afbeeldingen opnieuw te wijzigen, <a href=\"%4$s\">klik hier</a>. %5$s"
+
+#: ../media-library-plus-pro.php:8118
+#, php-format
+msgid ""
+"All done! %1$s image(s) were successfully resized in %2$s seconds and there "
+"were 0 failures. %3$s"
+msgstr ""
+"Helemaal klaar! %1$s afbeelding(en) zijn met succes herschaald in %2$s "
+"seconden en er waren 0 mislukkingen. %3$s"
+
+#: ../media-library-plus-pro.php:8122 ../media-library-plus-pro.php:8274
+msgid "You must enable Javascript in order to proceed!"
+msgstr "Je moet Javascript inschakelen om door te gaan!"
+
+#: ../media-library-plus-pro.php:8128
+msgid "Abort Resizing Images"
+msgstr "Afbreken wijzigen formaat afbeeldingen"
+
+#: ../media-library-plus-pro.php:8130
+msgid "Debugging Information"
+msgstr "Informatie over foutopsporing"
+
+#: ../media-library-plus-pro.php:8133
+#, php-format
+msgid "Total Images: %s"
+msgstr "Totaal aantal afbeeldingen: %s"
+
+#: ../media-library-plus-pro.php:8134
+#, php-format
+msgid "Images Resized: %s"
+msgstr "Formaat afbeeldingen gewijzigd: %s"
+
+#: ../media-library-plus-pro.php:8135
+#, php-format
+msgid "Resize Failures: %s"
+msgstr "Formaat wijzigen mislukkingen: %s"
+
+#: ../media-library-plus-pro.php:8167
+msgid "Stopping..."
+msgstr "Stoppen ..."
+
+#: ../media-library-plus-pro.php:8220
+#, php-format
+msgid ""
+"The resize request was abnormally terminated (ID %s). This is likely due to "
+"the image exceeding available memory or some other type of fatal error."
+msgstr ""
+"De herschaling werd abnormaal beëindigd (ID %s). Dit komt waarschijnlijk "
+"doordat omvang van de afbeelding het beschikbare geheugen overschrijdt of "
+"door een ander type fatale fout."
+
+#: ../media-library-plus-pro.php:8264 ../media-library-plus-pro.php:8267
+#: ../media-library-plus-pro.php:8269
+msgid "Regenerate All Thumbnails"
+msgstr "Alle thumbnails opnieuw genereren"
+
+#: ../media-library-plus-pro.php:8299
+#, php-format
+msgid "Failed resize: %s is an invalid image ID."
+msgstr "Afmeting wijzigen: %s is een ongeldige afbeeldings-ID."
+
+#: ../media-library-plus-pro.php:8302
+msgid "Your user account doesn't have permission to resize images"
+msgstr ""
+"Je gebruikersaccount heeft geen toestemming om afmetingen van afbeeldingen "
+"te wijzigen"
+
+#: ../media-library-plus-pro.php:8323
+#, php-format
+msgid "The originally uploaded image file cannot be found at %s"
+msgstr ""
+"Het oorspronkelijk geüploade afbeeldingsbestand kan niet worden gevonden op "
+"%s"
+
+#: ../media-library-plus-pro.php:8340
+msgid "Unknown failure reason."
+msgstr "Onbekende reden voor mislukking."
+
+#: ../media-library-plus-pro.php:8381
+#, php-format
+msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
+msgstr "&quot;%1$s&quot; (ID %2$s) was met succes herschaald in %3$s seconden."
+
+#: ../media-library-plus-pro.php:8386
+#, php-format
+msgid ""
+"&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
+msgstr ""
+"&quot;%1$s&quot; (ID %2$s) kon niet herschaald worden. Het foutbericht was: "
+"%3$s"
+
+#: ../media-library-plus-pro.php:8422
+msgid "Turn on Image SEO:"
+msgstr "Schakel SEO voor afbeeldingen in:"
+
+#: ../media-library-plus-pro.php:8427
+msgid "Image ALT attribute:"
+msgstr "Afbeelding ALT attribuut:"
+
+#: ../media-library-plus-pro.php:8429 ../media-library-plus-pro.php:8434
+msgid "example"
+msgstr "voorbeeld"
+
+#: ../media-library-plus-pro.php:8432
+msgid "Image Title attribute:"
+msgstr "Afbeeldingstitel attribuut:"
+
+#: ../media-library-plus-pro.php:8479
+msgid "The Image SEO settings have been updated "
+msgstr "De SEO instellingen voor afbeeldingen zijn bijgewerkt "
+
+#: ../media-library-plus-pro.php:8580
+#, php-format
+msgid ""
+"Media Library Maintenance requires PHP version 7.4 or greater. This site "
+"uses version %s."
+msgstr ""
+"Media Library Maintenance vereist PHP versie 7.4 of hoger. Deze site "
+"gebruikt versie %s."
+
+#: ../media-library-plus-pro.php:8632
+msgid "The uploads folder cannot be hidden."
+msgstr "De map uploads kan niet worden verborgen."
+
+#: ../media-library-plus-pro.php:8672
+msgid "The selected folder, subfolders and thier files have been hidden."
+msgstr "De geselecteerde map, submappen en hun bestanden zijn verborgen."
+
+#: ../media-library-plus-pro.php:8974
+msgid "The media categories were updated."
+msgstr "De mediacategorieën zijn bijgewerkt."
+
+#: ../media-library-plus-pro.php:9365
+msgid "The category was not added."
+msgstr "De categorie is niet toegevoegd."
+
+#: ../media-library-plus-pro.php:9693
+msgid "The settings were updated."
+msgstr "De instellingen zijn bijgewerkt."
+
+#: ../media-library-plus-pro.php:10092
+msgid "Scanning for new files and folders...please wait."
+msgstr "Zoeken naar nieuwe bestanden en mappen ... even geduld."
+
+#: ../media-library-plus-pro.php:10097
+msgid "Syncing finished."
+msgstr "Synchronisatie voltooid."
+
+#: ../media-library-plus-pro.php:10122
+msgid "Adding "
+msgstr "Aan het toevoegen "
+
+#: ../media-library-plus-pro.php:10125 ../media-library-plus-pro.php:13987
+msgid " is not an allowed file type. It was not added."
+msgstr " is geen toegestaan ​​bestandstype. Het is niet toegevoegd."
+
+#: ../media-library-plus-pro.php:10326 ../media-library-plus-pro.php:10693
+msgid "Finished copying files. "
+msgstr "Klaar met het kopiëren van bestanden. "
+
+#: ../media-library-plus-pro.php:10328 ../media-library-plus-pro.php:10695
+msgid "Finished moving files. "
+msgstr "Klaar met het verplaatsen van bestanden. "
+
+#: ../media-library-plus-pro.php:10422 ../media-library-plus-pro.php:11035
+msgid "Unable to copy the file; please check the folder and file permissions."
+msgstr "Kan het bestand niet kopiëren; controleer de map en bestandsrechten."
+
+#: ../media-library-plus-pro.php:10598 ../media-library-plus-pro.php:11232
+msgid "Updating attachment links, please wait..."
+msgstr "Bijlagelinks bijwerken, even geduld ..."
+
+#: ../media-library-plus-pro.php:10603
+msgid "Unable to move "
+msgstr "Kan niet verplaatsen "
+
+#: ../media-library-plus-pro.php:10603
+msgid "; please check the folder and file permissions."
+msgstr "; controleer de map en bestandsrechten."
+
+#: ../media-library-plus-pro.php:10609 ../media-library-plus-pro.php:11243
+msgid "The destination is not a folder: "
+msgstr "De bestemming is geen map: "
+
+#: ../media-library-plus-pro.php:10614 ../media-library-plus-pro.php:11248
+msgid "Cannot find destination folder: "
+msgstr "Kan doelmap niet vinden: "
+
+#: ../media-library-plus-pro.php:10619
+msgid "Copying or moving a folder is not allowed."
+msgstr "Een map kopiëren of verplaatsen is niet toegestaan."
+
+#: ../media-library-plus-pro.php:10624 ../media-library-plus-pro.php:11258
+msgid "Cannot find the file: "
+msgstr "Kan het bestand niet vinden: "
+
+#: ../media-library-plus-pro.php:10631 ../media-library-plus-pro.php:11265
+msgid " was copied to "
+msgstr " is gekopieerd naar "
+
+#: ../media-library-plus-pro.php:10633 ../media-library-plus-pro.php:11267
+msgid " was not copied."
+msgstr " is niet gekopieerd."
+
+#: ../media-library-plus-pro.php:10637 ../media-library-plus-pro.php:11271
+msgid " was moved to "
+msgstr " is verplaatst naar "
+
+#: ../media-library-plus-pro.php:10639 ../media-library-plus-pro.php:11273
+msgid " was not moved."
+msgstr " werd niet verplaatst."
+
+#: ../media-library-plus-pro.php:11237
+msgid ""
+"Unable to move the file(s); please check the folder and file permissions."
+msgstr ""
+"Kan de bestand(en) niet verplaatsen; Controleer de map-en bestandsrechten."
+
+#: ../media-library-plus-pro.php:11253
+msgid "Coping or moving a folder is not allowed."
+msgstr "Het kopiëren of verplaatsen van een map is niet toegestaan."
+
+#: ../media-library-plus-pro.php:11354
+msgid "No License Found! "
+msgstr "Geen licentie gevonden! "
+
+#: ../media-library-plus-pro.php:11355
+msgid ""
+"Media Library Folders PRO requires a license. Activate or renew your license "
+"to access pro features, get updates and new features plus support!"
+msgstr ""
+"Voor Media Library-mappen PRO is een licentie vereist. Activeer of Verleng "
+"je licentie voor toegang tot Pro-functies, ontvang updates en nieuwe "
+"functies plus ondersteuning!"
+
+#: ../media-library-plus-pro.php:11356
+msgid "Click to enter license."
+msgstr "Klik om de licentie in te voeren."
+
+#: ../media-library-plus-pro.php:11357
+msgid "Your license is in your purchase email or in the "
+msgstr "Je licentie staat in je aankoopmail of in de "
+
+#: ../media-library-plus-pro.php:11357
+msgid "Account"
+msgstr "Account"
+
+#: ../media-library-plus-pro.php:11357
+msgid "section of our website."
+msgstr "gedeelte van onze site."
+
+#: ../media-library-plus-pro.php:11362
+msgid "License Expired"
+msgstr "Licentie verlopen"
+
+#: ../media-library-plus-pro.php:11363
+#, php-format
+msgid ""
+"Your license expired on %s. Renew your license to access pro features, get "
+"updates and new features plus support!"
+msgstr ""
+"Je licentie is verlopen op %s. Verleng je licentie voor toegang tot Pro "
+"functies, ontvang updates en nieuwe functies plus ondersteuning!"
+
+#: ../media-library-plus-pro.php:11364
+#, php-format
+msgid ""
+"Renew your license for a discount via  %s Your Account %s on our website.</p>"
+msgstr ""
+"Verleng je licentie voor een korting via %s je account %s op onze site. </p>"
+
+#: ../media-library-plus-pro.php:11366
+#, php-format
+msgid ""
+"Already renewed your license, <a href=\"%s\">click here to update your "
+"license information.</a></p>"
+msgstr ""
+"Als je je licentie al hebt verlengd, <a href=\"%s\">klik je hier om je "
+"licentiegegevens te updaten.</a></p>"
+
+#: ../media-library-plus-pro.php:11547
+msgid "The role setting were saved."
+msgstr "De rolinstelling is opgeslagen."
+
+#: ../media-library-plus-pro.php:11794
+msgid ""
+"Please wait while thumbnail files are removed from the site. This may take a "
+"few minutes, depending on the number of files."
+msgstr ""
+"Wacht terwijl  thumbnail bestanden van de site worden verwijderd. Dit kan "
+"enkele minuten duren, afhankelijk van het aantal bestanden."
+
+#: ../media-library-plus-pro.php:11812
+msgid "Save Thumbnail Settings"
+msgstr "Thumbnail instellingen opslaan"
+
+#: ../media-library-plus-pro.php:11818
+msgid "Remove Unselected Thumbnail Sizes"
+msgstr "Niet geselecteerde thumbnails groottes verwijderen"
+
+#: ../media-library-plus-pro.php:11824
+msgid "Reset Defaults"
+msgstr "Standaardwaarden resetten"
+
+#: ../media-library-plus-pro.php:11876
+msgid "Thumbnail settings saved."
+msgstr "Thumbnail instellingen opgeslagen."
+
+#: ../media-library-plus-pro.php:11903
+msgid "Removing selected thumbnails. Please wait."
+msgstr "Geselecteerde thumbnails verwijderen. Even wachten."
+
+#: ../media-library-plus-pro.php:11914
+msgid "Are you sure you want reset thumbnail data?"
+msgstr "Weet je zeker dat je thumbnail gegevens wil resetten?"
+
+#: ../media-library-plus-pro.php:11959
+msgid "Thumbnail removal complete."
+msgstr "Verwijderen van thumbnail afgerond."
+
+#: ../media-library-plus-pro.php:12091
+msgid "Removeing unselected thumbnail sizes for "
+msgstr "Niet-geselecteerde thumbnail grootten verwijderen voor "
+
+#: ../media-library-plus-pro.php:12093
+msgid "The unselected thumbnails sizes were removed."
+msgstr "De niet-geselecteerde thumbnails zijn verwijderd."
+
+#: ../media-library-plus-pro.php:12812 ../media-library-plus-pro.php:13139
+#: ../media-library-plus-pro.php:15448 ../media-library-plus-pro.php:15587
+msgid " already exists"
+msgstr " bestaat al"
+
+#: ../media-library-plus-pro.php:12851 ../media-library-plus-pro.php:13151
+#: ../media-library-plus-pro.php:15469
+msgid "Folders added."
+msgstr "Mappen toegevoegd."
+
+#: ../media-library-plus-pro.php:12925
+msgid "Files added."
+msgstr "Bestanden toegevoegd."
+
+#: ../media-library-plus-pro.php:13286
+msgid "The selected file is not an audio file"
+msgstr "Het geselecteerde bestand is geen audiobestand"
+
+#: ../media-library-plus-pro.php:13288
+msgid "The selected file is not a video file"
+msgstr "Het geselecteerde bestand is geen videobestand"
+
+#: ../media-library-plus-pro.php:13480
+msgid "Folders scanned."
+msgstr "Mappen gescand."
+
+#: ../media-library-plus-pro.php:13657
+msgid "Page"
+msgstr "Pagina"
+
+#: ../media-library-plus-pro.php:13657
+msgid "of"
+msgstr "van"
+
+#: ../media-library-plus-pro.php:13660 ../media-library-plus-pro.php:13780
+msgid "First Page"
+msgstr "Eerste pagina"
+
+#: ../media-library-plus-pro.php:13664 ../media-library-plus-pro.php:13784
+msgid "Last"
+msgstr "Laatste"
+
+#: ../media-library-plus-pro.php:13673
+msgid "Image"
+msgstr "Afbeelding"
+
+#: ../media-library-plus-pro.php:13674
+msgid "File Name"
+msgstr "Bestandsnaam"
+
+#: ../media-library-plus-pro.php:13675
+msgid "Folder"
+msgstr "Map"
+
+#: ../media-library-plus-pro.php:13676 ../media-library-plus-pro.php:13750
+msgid "Leave"
+msgstr "Behouden"
+
+#: ../media-library-plus-pro.php:13676 ../media-library-plus-pro.php:13753
+#: ../media-library-plus-pro.php:13755
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: ../media-library-plus-pro.php:13743
+msgid "File type not allowed"
+msgstr "Bestandstype niet toegestaan"
+
+#: ../media-library-plus-pro.php:13758
+msgid "Create"
+msgstr "Aanmaken"
+
+#: ../media-library-plus-pro.php:13789
+msgid "Go to page top"
+msgstr "Ga naar bovenkant pagina"
+
+#: ../media-library-plus-pro.php:13932 ../media-library-plus-pro.php:13946
+#: ../media-library-plus-pro.php:13948
+msgid "Folder "
+msgstr "Map "
+
+#: ../media-library-plus-pro.php:13932
+msgid " was deleted"
+msgstr " is verwijderd"
+
+#: ../media-library-plus-pro.php:13946
+msgid " was added"
+msgstr " is toegevoegd"
+
+#: ../media-library-plus-pro.php:13948
+msgid " could not be added"
+msgstr " kon niet toegevoegd worden"
+
+#: ../media-library-plus-pro.php:13982
+msgid " added"
+msgstr " toegevoegd"
+
+#: ../media-library-plus-pro.php:13999
+msgid " deleted"
+msgstr " verwijderd"
+
+#: ../media-library-plus-pro.php:14004
+msgid " skipped."
+msgstr " overgeslagen."
+
+#: ../media-library-plus-pro.php:14020
+msgid "Processing complete."
+msgstr "Verwerking voltooid."
+
+#: ../media-library-plus-pro.php:14127
+msgid "Updating "
+msgstr "Aan het updaten "
+
+#: ../media-library-plus-pro.php:14127 ../media-library-plus-pro.php:14174
+#, php-format
+msgid "% complete"
+msgstr "% afgerond!"
+
+#: ../media-library-plus-pro.php:14174
+msgid "Checking "
+msgstr "Aan het controleren "
+
+#: ../media-library-plus-pro.php:14183
+msgid "Done scanning files."
+msgstr "Klaar met het scannen van bestanden."
+
+#: ../media-library-plus-pro.php:14236 ../media-library-plus-pro.php:14402
+msgid "Bulk Actions"
+msgstr "Acties"
+
+#: ../media-library-plus-pro.php:14240
+msgid "Playlist Shortcode"
+msgstr "Afspeellijst shortcode"
+
+#: ../media-library-plus-pro.php:14241
+msgid "Jetpack Gallery"
+msgstr "Jetpack galerij"
+
+#: ../media-library-plus-pro.php:14242
+msgid "Embed PDF/Audio/Video"
+msgstr "PDF/audio/video insluiten"
+
+#: ../media-library-plus-pro.php:14243
+msgid "Add Images to NextGen Galleries"
+msgstr "Afbeeldingen toevoegen aan NextGen galerijen"
+
+#: ../media-library-plus-pro.php:14246
+msgid "Upload selected files to S3"
+msgstr "Upload geselecteerde bestanden naar S3"
+
+#: ../media-library-plus-pro.php:14247
+msgid "Downloads selected files from S3"
+msgstr "Download geselecteerde bestanden van S3"
+
+#: ../media-library-plus-pro.php:14250
+msgid "Roll Back Scaled Images"
+msgstr "Geschaalde afbeeldingen terugdraaien"
+
+#: ../media-library-plus-pro.php:14253
+msgid "Apply"
+msgstr "Uitvoeren"
+
+#: ../media-library-plus-pro.php:14304
+msgid "Back to top of file contents"
+msgstr "Terug naar de bovenkant van de bestandsinhoud"
+
+#: ../media-library-plus-pro.php:14305
+msgid "items"
+msgstr "items"
+
+#: ../media-library-plus-pro.php:14307 ../media-library-plus-pro.php:14309
+msgid "First page"
+msgstr "Eerste pagina"
+
+#: ../media-library-plus-pro.php:14311 ../media-library-plus-pro.php:14313
+msgid "Previous page"
+msgstr "Vorige pagina"
+
+#: ../media-library-plus-pro.php:14318
+msgid "of "
+msgstr "of "
+
+#: ../media-library-plus-pro.php:14320 ../media-library-plus-pro.php:14322
+msgid "Next page"
+msgstr "Volgende pagina"
+
+#: ../media-library-plus-pro.php:14324 ../media-library-plus-pro.php:14326
+msgid "Last page"
+msgstr "Laatste pagina"
+
+#: ../media-library-plus-pro.php:14345
+msgid "License Key Help"
+msgstr "Hulp bij licentiesleutel"
+
+#: ../media-library-plus-pro.php:14346
+msgid ""
+"The license key must be activated to access all the pro features of Media "
+"Library Folders Pro."
+msgstr ""
+"De licentiesleutel moet worden geactiveerd om toegang te krijgen tot alle "
+"pro functies van Media Library Folders Pro."
+
+#: ../media-library-plus-pro.php:14347
+msgid ""
+"To activate, paste in the license key you received after purchasing the "
+"plugin. Click the Save Changes button to save the license key and then click "
+"the Activate License button to activate the license."
+msgstr ""
+"Om te activeren, plak je de licentiesleutel in die je hebt ontvangen na "
+"aankoop van de plugin. Klik op de knop Wijzigingen opslaan om de "
+"licentiesleutel op te slaan en klik vervolgens op de knop Licentie activeren "
+"om de licentie te activeren."
+
+#: ../media-library-plus-pro.php:14348
+msgid ""
+"If the license key expires, Media Library Folders Pro will display a notice "
+"that the license needs to be renewed. After renewing the license, it is "
+"necessary to visit the Media Library Folders Pro Settings Page, License tab, "
+"which will cause the plugin to update its license information."
+msgstr ""
+"Als de licentiesleutel verloopt, wordt in Media Library Folders Pro een "
+"melding weergegeven dat de licentie moet worden verlengd. Na het verlengen "
+"van de licentie is het noodzakelijk om naar de pagina Media Library Folders "
+"Pro Settings Page, License (Licentie) te gaan, waardoor de plugin zijn "
+"licentiegegevens update."
+
+#: ../media-library-plus-pro.php:14356
+msgid "Library Help"
+msgstr "Bibliotheek hulp"
+
+#: ../media-library-plus-pro.php:14358
+msgid ""
+"Media Library Folders provides additional functionality to the standard "
+"Wordpress media library. The media library is basically a database of files "
+"that have been imported into Wordpress. It is not a live picture of files on "
+"your server. Before files can be viewed in the media library they have to be "
+"process and added to the database. New folders created manually on the "
+"server also have to be added to the database before that can be used by "
+"Media Library Folders."
+msgstr ""
+"Media Library Folders biedt extra functionaliteit aan de standaard Wordpress "
+"mediabibliotheek. De mediabibliotheek is in feite een database van bestanden "
+"die zijn geïmporteerd in Wordpress. Het is geen live beeld van bestanden op "
+"je server. Voordat bestanden in de mediabibliotheek kunnen worden bekeken, "
+"moeten ze worden verwerkt en aan de database worden toegevoegd. Nieuwe "
+"mappen die handmatig op de server zijn gemaakt, moeten ook aan de database "
+"worden toegevoegd voordat ze door mediabibliotheekmappen kunnen worden "
+"gebruikt."
+
+#: ../media-library-plus-pro.php:14360
+msgid "Basic Operations"
+msgstr "Basisbewerkingen"
+
+#: ../media-library-plus-pro.php:14362
+msgid "Add Folder, Creates a new folder. Folder names cannot contain spaces."
+msgstr ""
+"Map toevoegen, Maakt een nieuwe map. Mapnamen mogen geen spaties bevatten."
+
+#: ../media-library-plus-pro.php:14363
+msgid ""
+"Upload Files, Opens the file upload area. Here you can upload individual "
+"files using the browse button to find and select a file on your computer. "
+"Multiple files can be uploaded using drag and drop; open your file manger, "
+"select highlight multiple files, drag them to the Drag and Drop box on this "
+"page and release them. The files will be uploaded to the currently selected "
+"folder. To close the file upload area, click the Upload Files icon."
+msgstr ""
+"Bestanden uploaden, Hiermee open je het uploadgebied van het bestand. Hier "
+"kun je afzonderlijke bestanden uploaden met behulp van de bladerknop om een "
+"bestand op je computer te zoeken en te selecteren. Meerdere bestanden kunnen "
+"worden geüpload met behulp van slepen en neerzetten; open je bestandsbeheer, "
+"selecteer en markeer meerdere bestanden, sleep ze naar het vak Slepen en "
+"neerzetten op deze pagina en laat ze los. De bestanden worden geüpload naar "
+"de momenteel geselecteerde map. Als je het uploadgebied voor bestanden wil "
+"sluiten, klik je op het pictogram Bestanden uploaden."
+
+#: ../media-library-plus-pro.php:14364
+msgid ""
+"Refresh Folders, Media Library Folders periodically checks for new folders. "
+"Clicking this icon will immediate check and add new folders to the folder "
+"tree."
+msgstr ""
+"Mappen vernieuwen, Mediabibliotheekmappen controleert regelmatig op nieuwe "
+"mappen. Als je op dit pictogram klikt, worden onmiddellijk nieuwe mappen "
+"gecontroleerd en toegevoegd aan de mappenstructuur."
+
+#: ../media-library-plus-pro.php:14365
+msgid ""
+"Move Files, By default, files can be moved from one folder to another by "
+"dragging a file to a folder. Note that the mouse pointer is slightly offset "
+"so be sure to place the mouse, not the image, over the destination folder "
+"before releasing. Media files that are embedded in standard posts and pages "
+"will be updated when a file is moved. However this some themes and page "
+"builders may store embedded links in a non standard format. Media Library "
+"Folders has attentional code for handling such non standard formats but it "
+"is a good practices on a new install of Media Library Folders to test the "
+"updating of embedded links by move a file and checking the page where the "
+"files is embedded to see that it was correctly update to the new link."
+msgstr ""
+"Bestanden verplaatsen, Standaard kunnen bestanden van de ene map naar de "
+"andere worden verplaatst door een bestand naar een map te slepen. Houd er "
+"rekening mee dat de muisaanwijzer enigszins is verschoven, dus zorg ervoor "
+"dat je de muis, niet de afbeelding, boven de doelmap plaatst voordat u deze "
+"loslaat. Mediabestanden die zijn ingesloten in standaardberichten en -"
+"pagina's worden bijgewerkt wanneer een bestand wordt verplaatst. Sommige "
+"thema's en paginabouwers kunnen echter ingesloten links opslaan in een niet-"
+"standaardindeling. Media Library Folders  heeft extra code voor het "
+"verwerken van dergelijke niet-standaardindelingen, maar het is een goede "
+"gewoonte om bij een nieuwe installatie van Media Library Folders het updaten "
+"van ingesloten links te testen door een bestand te verplaatsen en de pagina "
+"te controleren waarop de bestanden zijn ingesloten om te zien of deze "
+"correct is geupdatet naar de nieuwe link."
+
+#: ../media-library-plus-pro.php:14366
+msgid ""
+"Copy Files, It possible to switch the drag and drop operation from moving "
+"files to copying files but clicking on the copy icon. To switch back to "
+"moving files, click the move icon."
+msgstr ""
+"Kopieer bestanden, Het is mogelijk om de slepen en neerzetten bewerking over "
+"te schakelen van het verplaatsen van bestanden naar het kopiëren van "
+"bestanden, maar door op het kopieerpictogram te klikken. Als je wil "
+"terugschakelen naar het verplaatsen van bestanden, klik je op het pictogram "
+"Verplaatsen."
+
+#: ../media-library-plus-pro.php:14367
+msgid ""
+"Order by Date, Files can be sorted by the date they were added to Wordpress "
+"or by their title. Clicking on the Calendar icon will order the files by "
+"date."
+msgstr ""
+"Sorteer op datum, Bestanden kunnen worden gesorteerd op de datum waarop ze "
+"zijn toegevoegd aan WordPress of op hun titel. Als je op het "
+"kalenderpictogram klikt, worden de bestanden op datum gesorteerd."
+
+#: ../media-library-plus-pro.php:14368
+msgid ""
+"Sort by Title, Order files by their title. The title of a file can be "
+"changed by clicking on an image which will open the file's edit media page "
+"in a new tab."
+msgstr ""
+"Sorteer op titel, soretter bestanden op titel. De titel van een bestand kan "
+"worden gewijzigd door op een afbeelding te klikken die de pagina met "
+"bewerkingsmedia van het bestand in een nieuwe tab opent."
+
+#: ../media-library-plus-pro.php:14369
+msgid "Reverse Order, Reverses the order of files displayed."
+msgstr ""
+"Omgekeerde sortering, keert de sortering van de weergegeven bestanden om."
+
+#: ../media-library-plus-pro.php:14370
+msgid ""
+"Sync, The sync function scans the current folder and adds any new files or "
+"folders it finds. Files uploaded to a folder by FTP can be added to the "
+"media library using this feature."
+msgstr ""
+"Synchroniseren, De synchronisatiefunctie scant de huidige map en voegt "
+"eventuele nieuwe bestanden of mappen toe. Bestanden die via FTP naar een map "
+"zijn geüpload, kunnen met deze functie aan de mediabibliotheek worden "
+"toegevoegd."
+
+#: ../media-library-plus-pro.php:14371
+msgid ""
+"Rename a File, To rename a file, check the check box of the file to be "
+"renamed and click the Rename icon. This action will display the Rename The "
+"Selected File box where you can enter a new name for the file. After "
+"entering the new file name, click the Rename File button. Note the the "
+"file's extension cannot be changes and if multiple files are selected, only "
+"the name of the first file selected can be changed. Folders cannot be "
+"renamed as that would break embedded links in posts and page; instead "
+"renaming a folder, create a new folder with the desired name and move the "
+"files to the new folder which will update any embedded links to the new "
+"location."
+msgstr ""
+"De naam van een bestand wijzigen, Als je de naam van een bestand wil "
+"wijzigen, schakel je het selectievakje in van het bestand waarvan de naam "
+"moet worden gewijzigd en klik je op het pictogram Naam wijzigen. Met deze "
+"actie wordt het vak Naam van het geselecteerde bestand wijzigen weergegeven, "
+"waarin je een nieuwe naam voor het bestand kunt invoeren. Nadat je de nieuwe "
+"bestandsnaam hebt ingevoerd, klik je op de knop Bestand hernoemen. Merk op "
+"dat de extensie van het bestand niet kan worden gewijzigd en als er meerdere "
+"bestanden zijn geselecteerd, kan alleen de naam van het eerste geselecteerde "
+"bestand worden gewijzigd. Mappen kunnen niet worden hernoemd omdat dat "
+"ingesloten links in berichten en pagina's zou verbreken. in plaats van een "
+"map te hernoemen, een nieuwe map te maken met de gewenste naam en de "
+"bestanden naar de nieuwe map te verplaatsen, waardoor eventuele ingesloten "
+"links naar de nieuwe locatie worden bijgewerkt."
+
+#: ../media-library-plus-pro.php:14372
+msgid ""
+"Add Images to MaxGalleria Gallery, The icon for adding images to a "
+"MaxGalleria gallery is only visible when MaxGalleria or MaxGalleria Pro is "
+"installed and activated. This feature allows one to select one or more "
+"images in a folder and add them to an existing MaxGalleria gallery. To add "
+"images, select the images to add by checking their checkboxes Then click the "
+"image gallery icon. In the Add images to MaxGalleria Gallery box the "
+"appears, select the name of the gallery where to add the images and click "
+"the Add Images button. This function only works for images and not videos."
+msgstr ""
+"Afbeeldingen toevoegen aan MaxGalleria Gallery, Het pictogram voor het "
+"toevoegen van afbeeldingen aan een MaxGalleria-galerij is alleen zichtbaar "
+"wanneer MaxGalleria of MaxGalleria Pro is geïnstalleerd en geactiveerd. Met "
+"deze functie kan men een of meer afbeeldingen in een map selecteren en deze "
+"toevoegen aan een bestaande MaxGalleria-galerij. Als je afbeeldingen wil "
+"toevoegen, selecteer je de afbeeldingen die je wil toevoegen door hun "
+"selectievakjes aan te vinken Klik vervolgens op het pictogram van de "
+"afbeeldingengalerij. In het vak Afbeeldingen toevoegen aan MaxGalleria "
+"Gallery wordt weergegeven, selecteer je de naam van de galerij waar je de "
+"afbeeldingen wilt toevoegen en klik je op de knop Afbeeldingen toevoegen. "
+"Deze functie werkt alleen voor afbeeldingen en niet voor video's."
+
+#: ../media-library-plus-pro.php:14373
+msgid ""
+"Regenerate Thumbnails, To regenerate thumbnails for one or more files, check "
+"the check boxes of the images to regenerate and then click the regenerate "
+"thumbnails icon."
+msgstr ""
+"Thumbnails opnieuw genereren, Als je thumbnails voor een of meer bestanden "
+"opnieuw wil genereren, schakel je de selectievakjes in van de afbeeldingen "
+"die je opnieuw wil genereren en klik je vervolgens op het pictogram voor het "
+"opnieuw genereren van thumbnails."
+
+#: ../media-library-plus-pro.php:14374
+msgid ""
+"Delete Files, To delete one or more files, check the check boxes of the "
+"files to delete and then click the delete files icon."
+msgstr ""
+"Bestanden verwijderen, Als je een of meer bestanden wil verwijderen, schakel "
+"je de selectievakjes in van de bestanden die je wil verwijderen en klik je "
+"vervolgens op het pictogram Bestanden verwijderen."
+
+#: ../media-library-plus-pro.php:14375
+msgid ""
+"Create a NextGen Gallery, This option is available for sites where the "
+"NextGen plugin is installed and allows one to create a new NextGen gallery. "
+"Once a new gallery has been created, media library images can be added using "
+"the Add Images to NextGen Gallery feature."
+msgstr ""
+"Maak een NextGen Gallery, Deze optie is beschikbaar voor sites waar de "
+"NextGen plugin is geïnstalleerd en stelt iemand in staat om een nieuwe "
+"NextGen gallery te maken. Zodra een nieuwe galerij is gemaakt, kunnen media "
+"bibliotheekafbeeldingen worden toegevoegd met de functie Afbeeldingen "
+"toevoegen aan NextGen galerij."
+
+#: ../media-library-plus-pro.php:14376
+msgid "Replace a file, An existing file can be replaced using this feature."
+msgstr ""
+"Een bestand vervangen, Een bestaand bestand kan met deze functie worden "
+"vervangen."
+
+#: ../media-library-plus-pro.php:14377
+msgid ""
+"Search/Find, To find a particular file or folder by typing in a file or "
+"folder name and pressing Enter, or by clicking the Find button. The search "
+"results page will display files that match the search text and clicking on "
+"an item on the search results page will open the related folder and display "
+"its contents."
+msgstr ""
+"Zoek/Zoeken, Een bepaald bestand of een bepaalde map zoeken door een "
+"bestands- of mapnaam in te voeren en op Enter te drukken of door op de knop "
+"Zoeken te klikken. Op de pagina met zoekresultaten worden bestanden "
+"weergegeven die overeenkomen met de zoektekst en als je op een item op de "
+"pagina met zoekresultaten klikt, wordt de gerelateerde map geopend en wordt "
+"de inhoud ervan weergegeven."
+
+#: ../media-library-plus-pro.php:14378
+msgid ""
+"Edit a file, To edit a media file's data, such as it title, alt text, "
+"caption or description, click on an image and the file's edit media page "
+"will open in a new browser tab. "
+msgstr ""
+"Een bestand bewerken, Als je de gegevens van een mediabestand wil bewerken, "
+"zoals de titel, alt-tekst, bijschrift of beschrijving, klik je op een "
+"afbeelding en wordt de pagina voor het bewerken van media van het bestand "
+"geopend in een nieuwe browsertab. "
+
+#: ../media-library-plus-pro.php:14379
+msgid "Folder Operations"
+msgstr "Mapbewerkingen"
+
+#: ../media-library-plus-pro.php:14380
+msgid ""
+"Hide a Folder,  To hide a folder, that is to remove it from the folder tree "
+"and the database but not from the server, right click on a folder you want "
+"to hide (CTRL-click on a Mac). Choose the option “Hide this folder?”. "
+"Clicking on this option will remove the folder, its sub folders and files "
+"from the Media Library but not from your server. This action will also write "
+"a file to the folder with the name “mlpp-hidden”. As long as that file is "
+"present, Media Library Plus will skip over this folder when checking for "
+"folders and files to add to the Media Library."
+msgstr ""
+"Verberg een map, Om een map te verbergen, dat wil zeggen om deze uit de "
+"mappenstructuur en de database te verwijderen, maar niet van de server, klik "
+"je met de rechtermuisknop op een map die je wil verbergen (CTRL-klik op een "
+"Mac). Kies de optie \"Verberg deze map?\". Als je op deze optie klikt, "
+"worden de map, de submappen en bestanden uit de mediabibliotheek verwijderd, "
+"maar niet van je server. Deze actie schrijft ook een bestand naar de map met "
+"de naam \"mlpp-hidden\". Zolang dat bestand aanwezig is, slaat Media Library "
+"Plus deze map over wanneer wordt gecontroleerd of mappen en bestanden aan de "
+"mediabibliotheek moeten worden toegevoegd."
+
+#: ../media-library-plus-pro.php:14381
+msgid ""
+"Delete a Folder, Right click on a folder you want to delete (CTRL-click on a "
+"Mac). This action will display a popup menu. Click “Delete this Folder?” and "
+"if the folder is empty, then it will be removed. If you get a message that "
+"the folder is not empty, view that folder and click the Sync button to add "
+"any files on the server that are not in the media library. Then you can "
+"remove the files and delete the folder as explained above."
+msgstr ""
+"Een map verwijderen, klik met de rechtermuisknop op een map die je wil "
+"verwijderen (CTRL-klik op een Mac). Deze actie geeft een pop-up menu weer. "
+"Klik op \"Deze map verwijderen?\" en als de map leeg is, wordt deze "
+"verwijderd. Als je een bericht krijgt dat de map niet leeg is, bekijkt je "
+"die map en klik je op de knop Synchroniseren om bestanden op de server toe "
+"te voegen die zich niet in de mediabibliotheek bevinden. Vervolgens kunt je "
+"de bestanden verwijderen en de map verwijderen zoals hierboven uitgelegd."
+
+#: ../media-library-plus-pro.php:14382
+msgid ""
+"Select/Deselect All Files, to select or deselect at the files currently "
+"displayed, check the Select All Files checkbox."
+msgstr ""
+"Scelecteer/deselecteer alle bestanden, als je de selectie wil in- of "
+"uitschakelen bij de bestanden die momenteel worden weergegeven, schakel je "
+"het selectievakje Alle bestanden selecteren in."
+
+#: ../media-library-plus-pro.php:14383
+msgid ""
+"Select a Group of Files, To select a group of adjacent files, check the "
+"checkbox of the first file in the group and the while holding down the Shift "
+"key, click the last file in the group."
+msgstr ""
+"Selecteer een groep bestanden, Als je een groep aangrenzende bestanden wilt "
+"selecteren, vink je het selectievakje van het eerste bestand in de groep aan "
+"en klik je terwijl je de Shift-toets ingedrukt houdt op het laatste bestand "
+"in de groep."
+
+#: ../media-library-plus-pro.php:14386
+msgid "Media Library Folder Pro adds media categories to your Wordpress site. "
+msgstr ""
+"Media Library Folder Pro voegt media categorieën toe aan je Wordpress site. "
+
+#: ../media-library-plus-pro.php:14387
+msgid "To assign or view categories, click the category icon"
+msgstr ""
+"Als je categorieën wil toewijzen of weergeven, klik je op het "
+"categoriepictogram"
+
+#: ../media-library-plus-pro.php:14387
+msgid "to reveal the category area. From this area you can:"
+msgstr "om het categoriegebied te onthullen. Vanuit dit gebied kun je:"
+
+#: ../media-library-plus-pro.php:14389
+msgid "Add a new category"
+msgstr "Een nieuwe categorie toevoegen"
+
+#: ../media-library-plus-pro.php:14390
+msgid "Set the category of items in the media library"
+msgstr "De categorie items in de mediabibliotheek instellen"
+
+#: ../media-library-plus-pro.php:14391
+msgid "View the categories of a single item"
+msgstr "De categorieën van één item bekijken"
+
+#: ../media-library-plus-pro.php:14392
+msgid "Display items by categories"
+msgstr "Toon items op categorie"
+
+#: ../media-library-plus-pro.php:14393
+msgid "Change the sort order of items in categories"
+msgstr "De sorteervolgorde van artikelen in categorieën wijzigen"
+
+#: ../media-library-plus-pro.php:14395
+msgid ""
+"Add a new category by clicking the Add New Category button. Once added, the "
+"new category is automatically displayed the category list."
+msgstr ""
+"Voeg een nieuwe categorie toe door op de knop Nieuwe categorie toevoegen te "
+"klikken. Eenmaal toegevoegd, wordt de nieuwe categorie automatisch "
+"weergegeven in de categorielijst."
+
+#: ../media-library-plus-pro.php:14396
+msgid ""
+"To set the category of one or more images in Media Library Folders Pro, "
+"click the checkboxes of the desired images, click the check box of a single "
+"category and press the Set Categories button."
+msgstr ""
+"Als je de categorie van een of meer afbeeldingen in Media library folders "
+"Pro wil instellen, klik je op de selectievakjes van de gewenste "
+"afbeeldingen, klik je op het selectievakje van één categorie en druk je op "
+"de knop Categorieën instellen."
+
+#: ../media-library-plus-pro.php:14397
+msgid ""
+"If you want to see what categories have been assigned to a particular image, "
+"check an image you and then click the Get Categories button."
+msgstr ""
+"Als je wil zien welke categorieën aan een bepaalde afbeelding zijn "
+"toegewezen, vink je een afbeelding aan en klik je vervolgens op de knop "
+"Categorieën ophalen."
+
+#: ../media-library-plus-pro.php:14398
+msgid ""
+"One can do the same even when the Categories Area is not displayed. Just "
+"click on an image and click the Categories button. When it loads the "
+"categories, the category associated with the check image will be checked"
+msgstr ""
+"Men kan hetzelfde doen, zelfs wanneer het categoriegebied niet wordt "
+"weergegeven. Klik gewoon op een afbeelding en klik op de knop Categorieën. "
+"Wanneer de categorieën worden geladen, wordt de categorie die aan de "
+"controle afbeelding is gekoppeld, gecontroleerd"
+
+#: ../media-library-plus-pro.php:14399
+msgid ""
+"To view all the images in one or more categories, check the checkboxes of "
+"the categories you want to view and press the View Categories button. If "
+"there are more than 40 items to display (in grid view) you will be prompted "
+"to view either the images of the titles of the images or files."
+msgstr ""
+"Als je alle afbeeldingen in een of meer categorieën wilt weergeven, vink je "
+"de selectievakjes aan van de categorieën die je wil weergeven en druk je op "
+"de knop Categorieën weergeven. Als er meer dan 40 items moeten worden "
+"weergegeven (in de rasterweergave), wordt je gevraagd de afbeeldingen van de "
+"titels van de afbeeldingen of bestanden te bekijken."
+
+#: ../media-library-plus-pro.php:14400
+msgid ""
+"When viewing items by category you can specify the sorting order, either "
+"order by title or order by date."
+msgstr ""
+"Wanneer je artikelen per categorie bekijkt, kun je de sorteervolgorde "
+"opgeven, hetzij volgorde op titel of volgorde op datum."
+
+#: ../media-library-plus-pro.php:14401
+msgid ""
+"With the items displayed by categories, you can select items from the list "
+"to perform move, copy, regenerate thumbnails or add to a MaxGalleria gallery "
+"operations."
+msgstr ""
+"Met de items die per categorie worden weergegeven, kun je items uit de lijst "
+"selecteren om te verplaatsen, te kopiëren, thumnails opnieuw te genereren of "
+"toe te voegen aan een MaxGalleria galerijbewerking."
+
+#: ../media-library-plus-pro.php:14403
+msgid ""
+"To use a bulk action, select an action from the dropdown list and click the "
+"Apply button."
+msgstr ""
+"Als je een bulkactie wil gebruiken, selecteer je een actie in de dropdown "
+"lijst en klik je op de knop Toepassen."
+
+#: ../media-library-plus-pro.php:14404
+msgid ""
+"Bulk Move, The bulk move function allows one to move a larger number of "
+"files than can be moved by the drag and drop method. Detailed instructions "
+"for using bulk move are available when the bulk move box is visible."
+msgstr ""
+"Bulk verplaatsen, Met de bulkverplaatsing functie kan men een groter aantal "
+"bestanden verplaatsen dan kan worden verplaatst door de methode slepen en "
+"neerzetten. Gedetailleerde instructies voor het gebruik van bulkverplaatsing "
+"zijn beschikbaar wanneer de bulkverplaatsing box zichtbaar is."
+
+#: ../media-library-plus-pro.php:14405
+msgid ""
+"Playlist Shortcode - This shortcode generator lets one create an audio or "
+"video playlist that can be displayed in a post or page."
+msgstr ""
+"Afspeellijst shortcode - Met deze shortcodegenerator kun je een audio- of "
+"video-afspeellijst maken die in een bericht of pagina kan worden weergegeven."
+
+#: ../media-library-plus-pro.php:14406
+msgid ""
+"Jetpack Gallery, Allows the creation of image gallery shortcodes. Additional "
+"gallery features are available when the Jetpack plugin is installed."
+msgstr ""
+"Jetpack Gallery, Maakt het mogelijk om shortcodes voor afbeeldingengalerijen "
+"te maken. Extra galerijfuncties zijn beschikbaar wanneer de Jetpack plugin "
+"is geïnstalleerd."
+
+#: ../media-library-plus-pro.php:14407
+msgid ""
+"Embed PDF/Audio/video, Enables the creation of shortcodes to embed PDFs, "
+"audio or video files into a page or post."
+msgstr ""
+"PDF/audio/video insluiten, Hiermee kun je shortcodes maken om PDF's, audio- "
+"of videobestanden in een pagina of bericht in te sluiten."
+
+#: ../media-library-plus-pro.php:14408
+msgid ""
+"Add Images to NextGen Galleries, For sites where the NextGen plugin is "
+"installed, Media Library Folders can add images NextGen galleries."
+msgstr ""
+"Afbeeldingen toevoegen aan NextGen galerijen, Voor sites waar de NextGen "
+"plugin is geïnstalleerd, kunnen mediabibliotheekmappen NextGen galerijen "
+"afbeeldingen toevoegen."
+
+#: ../media-library-plus-pro.php:14409
+msgid ""
+"Rollback Scaled Images - Since Wordpress 5.3, the media library scales very "
+"large images. For those you want to undo the image scaling, this can be "
+"undone by first enabling image scaling rollback in Media Library Folders Pro "
+"Settings. Then, this option will be available in the Bulk Actions dropdown. "
+"To use, visit a folder containing scaled images, select Roll back scaled "
+"images from the bulk actions dropdown list and click the apply button. The "
+"plugin will search the current folder for scaled images and attempt to "
+"replace them in the media library database with the full site image if it is "
+"still available on the server."
+msgstr ""
+"Rollback Scaled Images - Sinds Wordpress 5.3 schaalt de mediabibliotheek "
+"zeer grote afbeeldingen. Voor degenen die de afbeelding schaling ongedaan "
+"wil maken, kan dit ongedaan worden gemaakt door eerst het terugdraaien van "
+"afbeeldingen in te schakelen in Media library folders Pro instellingen. "
+"Vervolgens is deze optie beschikbaar in de bulkacties dropdown lijst. Om te "
+"gebruiken, ga naar een map met geschaalde afbeeldingen, selecteer Geschaalde "
+"afbeeldingen terugdraaien in de bulkacties dropdown en klik je op de knop "
+"Toepassen. De plugin zoekt in de huidige map naar geschaalde afbeeldingen en "
+"probeert deze in de mediabibliotheek database te vervangen door de volledige "
+"site afbeelding als deze nog beschikbaar is op de server."
+
+#: ../media-library-plus-pro.php:14417
+msgid "Folder Access Instructions"
+msgstr "Instructies voor maptoegang"
+
+#: ../media-library-plus-pro.php:14418
+msgid ""
+"Only roles that are allowed to upload files appear in the Role dropdown "
+"list. Note that each of the roles have full access until any folder access "
+"is set for a role."
+msgstr ""
+"Alleen rollen die bestanden mogen uploaden, worden weergegeven in de rollen "
+"vervolgkeuzelijst. Houd er rekening mee dat elk van de rollen volledige "
+"toegang heeft totdat de toegang tot de map is ingesteld voor een rol."
+
+#: ../media-library-plus-pro.php:14419
+msgid ""
+"When viewing the access folder permissions for a role, no checked check "
+"boxes means full access to all folders. Once one or more folder boxes are "
+"checked and saved, users of the current role are restricted to only access "
+"the checked folders and their parent folders. In this case, the check boxes "
+"of parent folders do not need to be checked, access to these parent folders "
+"is automatically granted by the plugin."
+msgstr ""
+"Wanneer je de machtigingen voor de toegangsmap voor een rol bekijkt, "
+"betekent geen selectievakjes volledige toegang tot alle mappen. Zodra een of "
+"meer map vakken zijn aangevinkt en opgeslagen, zijn gebruikers van de "
+"huidige rol beperkt tot alleen toegang tot de aangevinkte mappen en hun "
+"bovenliggende mappen. In dit geval hoeven de selectievakjes van "
+"bovenliggende mappen niet te worden gecontroleerd, de toegang tot deze "
+"bovenliggende mappen worden automatisch verleend door de plugin."
+
+#: ../media-library-plus-pro.php:14420
+msgid ""
+"Note that checking the check box of a parent folder will add checkmarks to "
+"all its sub folders. And unchecking a checkbox for a parent folder will "
+"uncheck all it sub folders."
+msgstr ""
+"Houd er rekening mee dat als je het selectievakje van een bovenliggende map "
+"inschakelt,  alle vinkjes van de bijbehorende sub mappen zullen worden "
+"toegevoegd. En het uitvinken van een selectievakje voor een bovenliggende "
+"map zal alle sub mappen uitschakelen."
+
+#: ../media-library-plus-pro.php:14421
+msgid ""
+"To remove all restrictions on a role, check and uncheck the top most folder "
+"to remove all checkbox checks and click Save Access."
+msgstr ""
+"Als je alle beperkingen voor een rol wilt verwijderen, schakel je de "
+"bovenste map in en schakel je de belangrijkste map uit om alle "
+"selectievakjes te verwijderen en klik je op Toegang opslaan."
+
+#: ../media-library-plus-pro.php:14422
+msgid ""
+"Note that folder access restrictions only affect logged in user from adding, "
+"modifying or removing files from the restricted folder; it does not prevent "
+"files from being viewed or downloaded."
+msgstr ""
+"Houd er rekening mee dat beperkingen voor toegang tot mappen alleen van "
+"invloed zijn op ingelogde gebruikers om bestanden uit de beperkte map toe te "
+"voegen, te wijzigen of te verwijderen. het voorkomt niet dat bestanden "
+"worden bekeken of gedownload."
+
+#: ../media-library-plus-pro.php:14423
+msgid ""
+"On the Wordpress media page, users can still access files through the list "
+"view. Access to the list view can be turn of in Media Library Folders Pro "
+"Settings"
+msgstr ""
+"Op de WordPress mediapagina hebben gebruikers nog steeds toegang tot "
+"bestanden via de lijstweergave. Toegang tot de lijstweergave kan worden "
+"gewijzigd in Pro-instellingen voor mediabibliotheekmappen"
+
+#: ../media-library-plus-pro.php:14431
+msgid "Bulk Move Instructions"
+msgstr "Instructies voor bulkverplaatsingen"
+
+#: ../media-library-plus-pro.php:14432
+msgid ""
+"1. After opening the bulk move window, select a destination folder from the "
+"folder tree."
+msgstr ""
+"1. Nadat je het venster bulkverplaatsing hebt geopend, selecteer je een "
+"doelmap in de mappenstructuur."
+
+#: ../media-library-plus-pro.php:14433
+msgid ""
+"2. Select the files to be moved by checking their check boxes. Use the "
+"Select All Files checkbox to select all the displayed files."
+msgstr ""
+"2. Selecteer de bestanden die je wil verplaatsen door de selectievakjes aan "
+"te vinken. Gebruik het selectievakje Alle bestanden selecteren om alle "
+"weergegeven bestanden te selecteren."
+
+#: ../media-library-plus-pro.php:14434
+msgid ""
+"3. Click the Move Selected Files to begin the moving files. The button will "
+"change to a Stop Moving Files button which may allow one to interrupt the "
+"file moving process, but because the process goes very quickly, it cannot "
+"halt processing immediately."
+msgstr ""
+"3. Klik op de Verplaats geselecteerde bestanden om de bewegende bestanden te "
+"starten. De knop verandert in een knop Stoppen met het verplaatsen van "
+"bestanden, waardoor men het verplaatsingsproces van het bestand kan "
+"onderbreken, maar omdat het proces zeer snel gaat, kan het de verwerking "
+"niet onmiddellijk stoppen."
+
+#: ../media-library-plus-pro.php:14435
+msgid ""
+"4. To change to a different destination folder, click the Reselect "
+"Destination Folder and then click the new destination folder in the folder "
+"tree."
+msgstr ""
+"4. Als je naar een andere doelmap wilt overschakelen, klik je op De doelmap "
+"opnieuw selecteren en klik je vervolgens op de nieuwe doelmap in de "
+"mappenstructuur."
+
+#: ../media-library-plus-pro.php:14436
+msgid ""
+"5. To close the Bulk Move window click the 'x' in the right cornor of the "
+"bulk move area.</p>"
+msgstr ""
+"5. Om het venster Bulk verplaatsen te sluiten, klik je op de 'x' in de "
+"rechtermijl van het bulk verhuizingsgebied.</p>"
+
+#: ../media-library-plus-pro.php:14445
+msgid "Playlist Shortcode Instructions"
+msgstr "Klik hier om Insluiten shortcode instructies te bekijken"
+
+#: ../media-library-plus-pro.php:14446
+msgid "To generate a audio or video playlist shortcode:"
+msgstr "Een shortcode voor audio- of video afspeellijsten genereren:"
+
+#: ../media-library-plus-pro.php:14447
+msgid "1. Select the type of playlist to create, audio or video."
+msgstr "1. Selecteer het type afspeellijst dat je wil maken, audio of video."
+
+#: ../media-library-plus-pro.php:14448
+msgid ""
+"2. Navigate to the folders containing the files that you want to include in "
+"the playlist and click on the files to be included in the playlist. Before "
+"the new file's ID is added to the list of IDs, it type will be checked. An "
+"error message will be displayed if the file does not match the selected "
+"playlist type."
+msgstr ""
+"2. Navigeer naar de mappen met de bestanden die je in de afspeellijst wil "
+"opnemen en klik op de bestanden die in de afspeellijst moeten worden "
+"opgenomen. Voordat de ID van het nieuwe bestand wordt toegevoegd aan de "
+"lijst met ID's, wordt het type gecontroleerd. Er wordt een foutbericht "
+"weergegeven als het bestand niet overeenkomt met het geselecteerde "
+"afspeellijsttype."
+
+#: ../media-library-plus-pro.php:14449
+msgid ""
+"3. After adding files click on the Generate Shortcode button to create the "
+"shortcode."
+msgstr ""
+"3. Klik na het toevoegen van bestanden op de knop Shortcode genereren om de "
+"shortcode te maken."
+
+#: ../media-library-plus-pro.php:14450
+msgid ""
+"4. Click on Copy to Clipboard button to copy the shortcode and then insert "
+"it into a page or post."
+msgstr ""
+"5. Klik op de knop Kopiëren naar klembord om de shortcode te kopiëren die je "
+"in een bericht of pagina wil plakken."
+
+#: ../media-library-plus-pro.php:14458
+msgid "Embed Shortcode Instructions"
+msgstr "Instructies voor shortcode insluiten"
+
+#: ../media-library-plus-pro.php:14459
+msgid "To generate an embed shortcode:"
+msgstr "Een insluit shortcode genereren:"
+
+#: ../media-library-plus-pro.php:14460
+msgid ""
+"1. Select one file from the current folder and click the Embed Shortcode "
+"button."
+msgstr ""
+"1. Selecteer één bestand in de huidige map en klik op de knop Shortcode "
+"insluiten."
+
+#: ../media-library-plus-pro.php:14461
+msgid ""
+"2. For PDF or Video files, enter a width in either pixels (\"px\") or "
+"percent (\"%\") and a height in pixels (‘px’)."
+msgstr ""
+"2. Voer voor PDF- of videobestanden een breedte in in pixels (\"px\") of "
+"percentage (\"%\") en een hoogte in pixels ('px')."
+
+#: ../media-library-plus-pro.php:14462
+msgid "3. Select other options as needed."
+msgstr "3. Selecteer indien nodig andere opties."
+
+#: ../media-library-plus-pro.php:14463
+msgid "4. Click the Generate Shortcode button to create the shortcode."
+msgstr "4. Klik op de knop Shortcode genereren om de shortcode te maken."
+
+#: ../media-library-plus-pro.php:14464
+msgid ""
+"5. Click the Copy to Clipboard button to copy the shortcode to paste into a "
+"post or page."
+msgstr ""
+"5. Klik op de knop Kopiëren naar klembord om de shortcode te kopiëren die je "
+"in een bericht of pagina wil plakken."
+
+#: ../media-library-plus-pro.php:14465
+msgid ""
+"6. To generate another shortcode, click the Embed Shortcode button to close "
+"the embed shortcode generator, select a new file and click the Embed "
+"Shortcode button again."
+msgstr ""
+"6. Als je nog een shortcode wil genereren, klik je op de knop Shortcode "
+"insluiten om de insluit-shortcodegenerator te sluiten, selecteer je een "
+"nieuw bestand en klik je nogmaals op de knop Shortcode insluiten."
+
+#: ../media-library-plus-pro.php:14473
+msgid "Gallery Shortcode Generator Instructions"
+msgstr "Galerij shortcode generator instructies"
+
+#: ../media-library-plus-pro.php:14474
+msgid "To generate a gallery shortcode:"
+msgstr "Een galerij shortcode genereren:"
+
+#: ../media-library-plus-pro.php:14475
+msgid ""
+"1. Select images by clicking their checkboxes and then clicking the Add "
+"Selected Images button. The selected images will appear in the selected "
+"image list directly below the gallery options. Images can be added to the "
+"selected image list from multiple folders. Or instead of selecting "
+"individual images enter a post or page ID number to display all embedded "
+"images in a post or page. To find the post or page ID, edit a post or page "
+"and looked at the link in the browser address bar. The number the comes "
+"after 'post=' is the post or page ID. Note if a post or page ID is used, "
+"this will override displaying any selected images."
+msgstr ""
+"1. Selecteer afbeeldingen door op hun selectievakjes te klikken en klik "
+"vervolgens op geselecteerde afbeeldingen toevoegen knop. De geselecteerde "
+"afbeeldingen worden weergegeven in de lijst met geselecteerde afbeeldingen "
+"direct onder de galerijopties. Afbeeldingen kunnen vanuit meerdere mappen "
+"aan de lijst met geselecteerde afbeeldingen worden toegevoegd. Of voer in "
+"plaats van afzonderlijke afbeeldingen te selecteren een bericht- of pagina-"
+"ID-nummer in om alle ingesloten afbeeldingen in een bericht of pagina weer "
+"te geven. Als je het bericht- of pagina-ID wilt vinden, bewerk je een "
+"bericht of pagina en bekijk je de link in de adresbalk van de browser. Het "
+"nummer dat na 'post=' komt, is het bericht- of pagina-ID. Als een bericht- "
+"of pagina-ID wordt gebruikt, overschrijft dit het weergeven van "
+"geselecteerde afbeeldingen."
+
+#: ../media-library-plus-pro.php:14476
+msgid ""
+"2. Individual images can be removed from the selected images list by "
+"checking their checkboxes and clicking the Remove Selected Images button. "
+"All the images in the selected image list can be removed by clicking the "
+"Remove All Images button."
+msgstr ""
+"2. Afzonderlijke afbeeldingen kunnen uit de lijst met geselecteerde "
+"afbeeldingen worden verwijderd door hun selectievakjes aan te vinken en op "
+"de knop Geselecteerde afbeeldingen verwijderen te klikken. Alle afbeeldingen "
+"in de geselecteerde lijst met afbeeldingen kunnen worden verwijderd door op "
+"de knop Alle afbeeldingen verwijderen te klikken."
+
+#: ../media-library-plus-pro.php:14477
+msgid ""
+"3. Select the options for displaying the images. Note the shortcode that is "
+"generated by Media Library Folders Pro is one of Wordpress' builtin "
+"shortcodes and not all available options may be supported by the current "
+"version of Wordpress installed."
+msgstr ""
+"3. Selecteer de opties voor het weergeven van de afbeeldingen. Merk op dat "
+"de shortcode die wordt gegenereerd door Media Library Folders Pro een van de "
+"ingebouwde shortcodes van WordPress is en niet alle beschikbare opties "
+"kunnen worden ondersteund door de huidige versie van WordPress geïnstalleerd."
+
+#: ../media-library-plus-pro.php:14478
+msgid ""
+"4. After selecting the desired options click the Generate Shortcode button "
+"to create the shortcode which will appear in the text area below the "
+"selected image list. Click the Copy to Clipboard button to copy the "
+"shortcode to insert into a post or Gutenberg shortcode widget."
+msgstr ""
+"4. Na het selecteren van de gewenste opties klik je op de Shortcode "
+"genereren knop om de shortcode te maken die zal verschijnen in het tekst "
+"gebied onder de geselecteerde afbeeldingslijst. Klik op de knop Kopiëren "
+"naar klembord om de shortcode te kopiëren die je in een bericht of Gutenberg "
+"shortcode widget wil invoegen."
+
+#: ../media-library-plus-pro.php:14486
+msgid "Media LIbrary Maintenance Instructions"
+msgstr "Media Library onderhoud instructies"
+
+#: ../media-library-plus-pro.php:14487
+msgid ""
+"1. Before searching for files, check your folder tree for any folders that "
+"do not contain media files which may have been added by other plugins. "
+"Special use folders such as ones for backup files, cache files etc, can be "
+"hidden and then Media Library Maintenance will not scan those folders when "
+"searching for uncateloged files."
+msgstr ""
+"1. Voordat je naar bestanden zoekt, controleer je je mappenstructuur op "
+"mappen die geen mediabestanden bevatten die mogelijk door andere plugins "
+"zijn toegevoegd. Mappen voor speciaal gebruik, zoals mappen voor back-up "
+"bestanden, cachebestanden enz., kunnen worden verborgen en vervolgens scant "
+"Media Library Maintenance die mappen niet bij het zoeken naar niet-"
+"gecatalogiseerde bestanden."
+
+#: ../media-library-plus-pro.php:14488
+msgid ""
+"2. When the Media Library Maintenance page opens, it will display the "
+"results of any previous search for files. Click the Search for Uncataloged "
+"Files button to start a new search of your media library files."
+msgstr ""
+"2. Wanneer de pagina Media Library Maintenance wordt geopend, worden de "
+"resultaten van eerdere zoekopdrachten naar bestanden weergegeven. Klik op de "
+"knop Zoeken naar niet-gecatalogiseerde bestanden om een nieuwe zoekopdracht "
+"naar je mediabibliotheekbestanden te starten."
+
+#: ../media-library-plus-pro.php:14489
+msgid ""
+"3. Once the search is complete, choose which files to delete or import into "
+"the media library."
+msgstr ""
+"3. Zodra de zoekopdracht is voltooid, kies je welke bestanden je wil "
+"verwijderen of importeren in de mediabibliotheek."
+
+#: ../media-library-plus-pro.php:14490
+msgid ""
+"4. Any uncataloged thumbnail images that are selected for import will have "
+"the file dimensions part of the file name (width x height) removed when "
+"imported. To prevent the removal of the file dimensions, uncheck the "
+"'Automatically remove file size from imported thumbnail images names' option."
+msgstr ""
+"4. Bij niet-gecatalogiseerde miniatuurafbeeldingen die zijn geselecteerd "
+"voor importeren, wordt het bestandsdimensiegedeelte van de bestandsnaam "
+"(breedte x hoogte) verwijderd wanneer deze wordt geïmporteerd. Om te "
+"voorkomen dat de bestandsdimensies worden verwijderd, schakelt u de optie "
+"'Bestandsgrootte automatisch verwijderen uit geïmporteerde "
+"miniatuurafbeeldingen namen' uit."
+
+#: ../media-library-plus-pro.php:14491
+msgid ""
+"5. If there is a full size image to be imported and it also has thumbnail "
+"images, select import for the full size image and mark all the thumbnails "
+"for deletion as they will be automatically regenerated for the full size "
+"image."
+msgstr ""
+"5. Als er een afbeelding op ware grootte moet worden geïmporteerd en deze "
+"ook miniatuurafbeeldingen heeft, selecteer je importeren voor de afbeelding "
+"op ware grootte en markeer je alle miniaturen voor verwijdering, omdat deze "
+"automatisch opnieuw worden gegenereerd voor de afbeelding op ware grootte."
+
+#: ../media-library-plus-pro.php:14492
+msgid ""
+"6. One does not have to review all the files in the uncateloged file list to "
+"process that ones that have been selected for deletion or import. The plugin "
+"will only process that one that have been marked for deletion or import."
+msgstr ""
+"6. Men hoeft niet alle bestanden in de niet-gecatalogiseerde bestandslijst "
+"te controleren om die te verwerken die zijn geselecteerd voor verwijdering "
+"of import. De plugin verwerkt alleen die welke zijn gemarkeerd voor "
+"verwijdering of import."
+
+#: ../media-library-plus-pro.php:14493
+msgid ""
+"7. Folders that are recorded in the database but which do not exist on the "
+"server will also be displayed in the list and can be selected for removal "
+"from the database or to be recreated on the server."
+msgstr ""
+"7. Mappen die in de database zijn opgenomen, maar die niet op de server "
+"bestaan, worden ook weergegeven in de lijst en kunnen worden geselecteerd "
+"voor verwijdering uit de database of om opnieuw te worden gemaakt op de "
+"server."
+
+#: ../media-library-plus-pro.php:14494
+msgid ""
+"8. Files that are not allowed by Wordpress will not be imported and will be "
+"denoted as 'File type now allowed'."
+msgstr ""
+"8. Bestanden die niet zijn toegestaan door WordPress worden niet "
+"geïmporteerd en worden aangeduid als 'Bestandstype nu toegestaan'."
+
+#: ../media-library-plus-pro.php:14495
+msgid ""
+"<strong>Media Library Maintenance can also be used for the bulk importing of "
+"files to the media library.</strong>"
+msgstr ""
+"<strong>Media Library Maintenance kan ook worden gebruikt voor het bulk "
+"importeren van bestanden naar de mediabibliotheek.</strong>"
+
+#: ../media-library-plus-pro.php:14496
+msgid ""
+"1. Upload your files to the the site and place them in new or existing "
+"folders under the site's uploads folder."
+msgstr ""
+"1. Upload je bestanden naar de site en plaats ze in nieuwe of bestaande "
+"mappen onder de uploadmap van de site."
+
+#: ../media-library-plus-pro.php:14497
+msgid ""
+"2. Go to the Media Library Folders Pro Media Library Maintenance page and "
+"click the Search for Uncataloged Files. Media Library Folder Pro will check "
+"for new files and folders and will list all the files it finds."
+msgstr ""
+"2. Ga naar de pagina Media Library Folders Pro Media Library Maintenance "
+"pagina en klik op Zoeken naar niet-gecatalogiseerde bestanden. Media Library "
+"Folder Pro controleert op nieuwe bestanden en mappen en vermeldt alle "
+"bestanden die het vindt."
+
+#: ../media-library-plus-pro.php:14498
+msgid ""
+"3. Once searching is finished, select the files to import into the media "
+"library and then click the Process Files button."
+msgstr ""
+"3. Zodra het zoeken is voltooid, selecteer je de bestanden die je in de "
+"mediabibliotheek wil importeren en klik je vervolgens op de knop Bestanden "
+"verwerken."
+
+#: ../media-library-plus-pro.php:14506
+msgid "Export/Import Instructions"
+msgstr "Instructies voor exporteren/importeren"
+
+#: ../media-library-plus-pro.php:14507
+msgid ""
+"The Import/Export feature allows an administrator to export a site's media "
+"library from one site to another. With this feature: "
+msgstr ""
+"Met de functie Importeren/exporteren kan een beheerder de mediabibliotheek "
+"van een site van de ene site naar de andere exporteren. Met deze functie: "
+
+#: ../media-library-plus-pro.php:14509
+msgid ""
+"You can export and download the contents of your media library from one "
+"WordPress site and then upload and import it into the media library of "
+"another WordPress site."
+msgstr ""
+"Je kunt de inhoud van je mediabibliotheek exporteren en downloaden van de "
+"ene WordPress-site en deze vervolgens uploaden en importeren in de "
+"mediabibliotheek van een andere WordPress site."
+
+#: ../media-library-plus-pro.php:14510
+msgid ""
+"The feature will also work for media libraries on multi-sites, either multi-"
+"site library to single site library or single site library to multi-site "
+"library."
+msgstr ""
+"De functie werkt ook voor mediabibliotheken op meerdere sites, ofwel multi-"
+"site bibliotheek naar enkele site bibliotheek of enkele site bibliotheek "
+"naar multi-site bibliotheek."
+
+#: ../media-library-plus-pro.php:14511
+msgid ""
+"You can also import files to an AWS S3 bucket when connected to a site "
+"through Media Library Folders Pro S3."
+msgstr ""
+"Je kunt ook bestanden importeren in een AWS S3 bucket wanneer deze is "
+"verbonden met een site via Media Library Folders Pro S3."
+
+#: ../media-library-plus-pro.php:14512
+msgid ""
+"It can even be used to simply create a back-up of your media library files."
+msgstr ""
+"Het kan zelfs worden gebruikt om eenvoudig een back-up van je "
+"mediabibliotheekbestanden te maken."
+
+#: ../media-library-plus-pro.php:14514
+msgid ""
+"Please note: Backups do not include thumbnail images. These will be "
+"generated when the images are imported into the destination site. The only "
+"files and folders included in the backup will be those that are listed in "
+"the media library database."
+msgstr ""
+"Let op: back-ups bevatten geen thumbnail afbeeldingen. Deze worden "
+"gegenereerd wanneer de afbeeldingen worden geïmporteerd in de "
+"bestemmingssite. De enige bestanden en mappen die in de back-up zijn "
+"opgenomen, zijn de bestanden en mappen die worden vermeld in de "
+"mediabibliotheekdatabase."
+
+#: ../media-library-plus-pro.php:14515
+msgid ""
+"If media files are stored on a cloud server, such as AWS Spaces, it will be "
+"necessary to move the files from the cloud server to the local media library "
+"in order to create an export file."
+msgstr ""
+"Als mediabestanden worden opgeslagen op een cloudserver, zoals AWS Spaces, "
+"moet je de bestanden van de cloudserver naar de lokale mediabibliotheek "
+"verplaatsen om een exportbestand te maken."
+
+#: ../media-library-plus-pro.php:14516
+msgid ""
+"To create a new export file, click on the Create a New Media Export File "
+"button, enter a name for the export and press the OK button.  Media Library "
+"Folders will generate a new export file and add it the export file list."
+msgstr ""
+"Om een nieuw exportbestand te maken, klik je op de knop Een nieuw media "
+"exportbestand maken, voer je een naam in voor de export en druk je op de "
+"knop OK.  Mediabibliotheekmappen genereren een nieuw exportbestand en voegen "
+"dit toe aan de lijst met exportbestanden."
+
+#: ../media-library-plus-pro.php:14517
+msgid ""
+"Once created, an export file can be download by clicking on the file's "
+"download icon"
+msgstr ""
+"Eenmaal gemaakt, kan een exportbestand worden gedownload door op het "
+"download pictogram van het bestand te klikken"
+
+#: ../media-library-plus-pro.php:14517
+msgid ""
+"The zip file downloaded can then be uploaded to a different site where Media "
+"Library Folders Pro is installed. There is also a delete icon"
+msgstr ""
+"Het gedownloade zip bestand kan geüpload worden naar een andere site waar "
+"Media Library Folders Pro is geïnstalleerd"
+
+#: ../media-library-plus-pro.php:14517
+msgid " if you don’t need to or just prefer not to keep a copy on your site."
+msgstr ""
+" als je het niet nodig hebt of prefereert om geen kopie op je site te "
+"bewaren."
+
+#: ../media-library-plus-pro.php:14518
+msgid ""
+"To upload an export file, click on the Upload a Media Export File button to "
+"display the Import Media Library Export File window. Click the browse button "
+"and choose the export file to upload and then the Upload Export File. Once "
+"the file is finished uploading it will appear in the list of the export "
+"files and you can then click the import icon"
+msgstr ""
+"Als je een exportbestand wil uploaden, klik je op de knop Upload een media "
+"exportbestand, om het venster Media bibliotheek exportbestand importeren "
+"weer te geven. Klik op de bladerknop en kies het exportbestand dat je wil "
+"uploaden en vervolgens het exportbestand uploaden. Zodra het bestand klaar "
+"is met uploaden, verschijnt het in de lijst met exportbestanden en kun je "
+"vervolgens op het importpictogram klikken"
+
+#: ../media-library-plus-pro.php:14518
+msgid " to import the files and folders into the site’s media library."
+msgstr ""
+" om de bestanden en mappen te importeren in de media bibliotheek van de site."
+
+#: ../media-library-plus-pro.php:14519
+msgid ""
+"This will begin a two-part process. First up, folders are added to the site. "
+"If one of the imported folder names already exist, Media Library Folders Pro "
+"won’t create a duplicate, instead it will use the existing folder during the "
+"file import."
+msgstr ""
+"Hiermee wordt een tweedelig proces gestart. Eerst worden mappen aan de site "
+"toegevoegd. Als een van de geïmporteerde mapnamen al bestaat, maakt Media "
+"Library Folders Pro geen duplicaat, maar gebruikt het de bestaande map "
+"tijdens het importeren van het bestand."
+
+#: ../media-library-plus-pro.php:14520
+msgid ""
+"Once the folders are created, then second part of the import process will "
+"begin, adding files to the appropriate folders. If a folder already contains "
+"a file with the same name as one being imported, it won’t replace it, but "
+"instead will simply skip that file and continue importing."
+msgstr ""
+"Zodra de mappen zijn gemaakt, begint het tweede deel van het importproces, "
+"waarbij bestanden aan de juiste mappen worden toegevoegd. Als een map al een "
+"bestand bevat met dezelfde naam als een bestand dat wordt geïmporteerd, "
+"wordt het bestand niet vervangen, maar wordt dat bestand gewoon overgeslagen "
+"en wordt het importeren voortgezet."
+
+#: ../media-library-plus-pro.php:14521
+msgid ""
+"If for whatever reason, you need to abort the import, simply click "
+"Stop Import button and the import process will be halted. You can restart "
+"the process at any time and any folders and files not already copied across "
+"will then be imported. The import will attempt a full import but since files "
+"are not overwritten, it will just skip past them."
+msgstr ""
+"Als je om welke reden dan ook de import moet afbreken, klik je gewoon op de "
+"knop Import stoppen en wordt het importproces gestopt. Je kunt het proces op "
+"elk gewenst moment opnieuw starten en alle mappen en bestanden die nog niet "
+"zijn gekopieerd, worden vervolgens geïmporteerd. De import zal een volledige "
+"import proberen, maar omdat bestanden niet worden overschreven, worden ze "
+"gewoon overgeslagen."
+
+#: ../media-library-plus-pro.php:14529
+msgid ""
+"Click the Regenerate All Thumbnails button to regenerate thumbnails for all "
+"images in the Media Library. This is helpful if you have added new thumbnail "
+"sizes to your site. Existing thumbnails will not be removed to prevent "
+"breaking any links."
+msgstr ""
+"Klik op de knop Alle thumbnails opnieuw genereren om thumbnails opnieuw te "
+"genereren voor alle afbeeldingen in de mediabibliotheek. Dit is handig als "
+"je nieuwe thumnailformaten aan je site hebt toegevoegd. Bestaande thumnails "
+"worden niet verwijderd om te voorkomen dat links worden verbroken."
+
+#: ../media-library-plus-pro.php:14531
+msgid ""
+"You can regenerate thumbnails for individual images from the Media Library "
+"Folders Pro page by checking the box below one or more images and clicking "
+"the Regenerate Thumbnails button. The regenerate operation is not reversible "
+"but you can always generate the sizes you need by adding additional "
+"thumbnail sizes to your theme."
+msgstr ""
+"Je kunt opnieuw thumbnails genereren voor afzonderlijke afbeeldingen van de "
+"Media Library Folders Pro pagina door het vakje onder een of meer "
+"afbeeldingen aan te vinken en op de knop Regenereer thumbnails te klikken. "
+"De regeneratiebewerking is niet omkeerbaar, maar je kan altijd de gewenste "
+"formaten genereren door extra thumbnail formaten toe te voegen voor je thema."
+
+#: ../media-library-plus-pro.php:14537
+msgid "Instructions"
+msgstr "Instructies"
+
+#: ../media-library-plus-pro.php:14538
+msgid ""
+"To start, uncheck the boxes of the thumbnail sizes you wish\n"
+"      to not generate and click Save Thumbnail Settings. Default Wordpress\n"
+"      thumbnails sizes, ‘thumbnail’, ‘medium’, ‘large’, cannot be removed "
+"as\n"
+"      Wordpress requires that these sizes be present. After saving the "
+"thumbnail\n"
+"      settings click the Remove Unselected Thumbnail Sizes button to start "
+"the \n"
+"      removal process."
+msgstr ""
+"Schakel om te beginnen de selectievakjes uit van de gewenste tumbnail "
+"formaten\n"
+"      om niet te genereren en klik op Thumbnail instellingen opslaan. "
+"Standaard WordPress\n"
+"      thumbnail formaten, 'thumbnail', 'medium', 'large', kunnen niet worden "
+"verwijderd als\n"
+"      WordPress vereist dat deze maten aanwezig zijn. Na het opslaan van de "
+"thumbnail\n"
+"      instellingen klik op de knop Niet-geselecteerde thumbnail grootten "
+"verwijderen om het \n"
+"      verwijderingsproces te starten."
+
+#: ../media-library-plus-pro.php:14545
+msgid ""
+"To add thumbnail sizes or undo the removal \n"
+"      of thumbnail sizes, check the boxes of the thumbnails \n"
+"      desired and save the thumbnail settings. Then go to the"
+msgstr ""
+"Om de thumbnail grootten toe te voegen of de verwijdering van thumbnail "
+"formaten\n"
+"                  ongedaan te maken, vink dan de gewenste thumbnails aan, en "
+"bewaar de instellingen \n"
+"                  Ga dan naar de"
+
+#: ../media-library-plus-pro.php:14549
+msgid "Media Library Folders Pro Regenerate Thumbnails page"
+msgstr "Mediabibliotheek Mappen Pro regenereren thumbnails-pagina"
+
+#: ../media-library-plus-pro.php:14550
+msgid "and regenerate thumbnails images for the whole site."
+msgstr "en regenereert thumbnail afbeeldingen voor de hele site."
+
+#: ../media-library-plus-pro.php:14552
+msgid ""
+"Some thumbnail sizes may no longer be active if the theme or plugin \n"
+"      that added the sizes has been removed from the site. To delete the "
+"inactive sizes \n"
+"      from the thumbnail management list, click the ‘Reset Defaults’ button "
+"to reset the \n"
+"      list of sizes registered on your site. Then uncheck the thumbnail "
+"sizes that should \n"
+"      not be generated and resave the thumbnail settings."
+msgstr ""
+"Sommige thumbnail formaten zijn mogelijk niet meer actief als het thema of "
+"de plugin \n"
+"                  die de maten heeft toegevoegd wordt verwijderd van de "
+"site. Om de inactieve maten te verwijderen \n"
+"                  van de thumbnail beheer lijst klik op de knop "
+"Standaardinstellingen opnieuw instellen om de \n"
+"                  lijst van geregistreerde formaten te resetten. Schakel "
+"vervolgens de thumbnail formaten uit die \n"
+"                  niet moeten worden gegenereerd en bewaar de thumbnail "
+"instellingen opnieuw."
+
+#: ../media-library-plus-pro.php:14563
+msgid "Image SEO Instruction"
+msgstr "Afbeelding SEO instructie"
+
+#: ../media-library-plus-pro.php:14564
+msgid ""
+"When Image SEO is enabled Media Library Folders Pro automatically adds ALT "
+"and Title attributes with the default settings defined below to all your "
+"images as they are uploaded."
+msgstr ""
+"Wanneer Image SEO is ingeschakeld, voegt Media Library Folders tijdens het "
+"uploaden automatisch ALT en Titel kenmerken toe met de standaardinstellingen "
+"zoals hieronder voor al je afbeeldingen gedefinieerd."
+
+#: ../media-library-plus-pro.php:14565
+msgid ""
+"You can easily override the Image SEO default settings when you are "
+"uploading new images. When Image SEO is enabled you will see two fields "
+"under the Upload Box when you add a file - Image Title Text and Image ALT "
+"Text. Whatever you type into these fields overrides the default settings for "
+"the current upload or sync operations."
+msgstr ""
+"Je kunt de standaardinstellingen voor Image SEO gemakkelijk overschrijven "
+"tijdens het uploaden van nieuwe afbeeldingen. Wanneer Image SEO is "
+"ingeschakeld, zie je twee velden onder het upload kader wanneer je een "
+"bestand toevoegt - Afbeelding Titel Tekst en Afbeelding ALT Tekst. Wat je in "
+"deze velden typt overschrijft de standaard instellingen voor de huidige "
+"upload of sync bewerkingen."
+
+#: ../media-library-plus-pro.php:14566
+msgid ""
+"To change the settings on an individual image simply click on the image and "
+"change the settings on the far right. Save and then back click to return to "
+"Media Library Folders or MLFP."
+msgstr ""
+"Klik op een afzonderlijke afbeelding om haar instellingen te wijzigen en "
+"verander de instellingen helemaal rechts. Sla op en klik op terug om terug "
+"te keren naar Media Library Plus of MLPP."
+
+#: ../media-library-plus-pro.php:14567
+#, php-format
+msgid ""
+"Image SEO supports two special tags:<br>\n"
+"%filename - replaces image file name ( without extension )</br>\n"
+"%foldername - replaces image folder name"
+msgstr ""
+"Afbeelding SEO ondersteunt twee speciale tags:<br>\n"
+"%filename - vervangt de bestandsnaam van de afbeelding ( zonder extensie )</"
+"br>\n"
+"%foldername - vervangt de naam van de afbeeldingsmap"
+
+#: ../media-library-plus-pro.php:14575
+msgid "Media Library Folders Pro Options Instructions"
+msgstr "Instructies voor Media Library Folders Pro options"
+
+#: ../media-library-plus-pro.php:14576
+msgid ""
+"removes the folder tree from the standard Wordpress media library. This is "
+"useful if you are having an issue with displaying the folder tree."
+msgstr ""
+"verwijdert de mappenboom uit de standaard WordPress mediabibliotheek. Dit is "
+"handig als je een probleem ondervindt met het weergeven van de "
+"mappenstructuur."
+
+#: ../media-library-plus-pro.php:14577
+msgid ""
+"by default, the folder tree will not appear in media popups on the front end "
+"of the site. If you are using a front end theme editor, you would need to "
+"check this option to allow the folder tree to be displayed."
+msgstr ""
+"standaard wordt de mappenstructuur niet weergegeven in media pop-ups aan de "
+"voorkant van de site. Als je een front-end thema-editor gebruikt, moet je "
+"deze optie aanvinken om toe te staan dat de mappenstructuur wordt "
+"weergegeven."
+
+#: ../media-library-plus-pro.php:14578
+msgid "Enable Pagination"
+msgstr "Paginering inschakelen"
+
+#: ../media-library-plus-pro.php:14578
+msgid ""
+"checking this option turns on pagination on the Library tab of the Folders "
+"and Files page. To set the number of files to display, enter the number in "
+"Number of images to display per page option."
+msgstr ""
+"als je deze optie inschakelt, wordt paginering ingeschakeld op de tab "
+"Bibliotheek van de pagina Mappen en bestanden. Als je het aantal bestanden "
+"wil instellen dat moet worden weergegeven, voer je het aantal in bij De "
+"optie Aantal afbeeldingen dat per pagina moet worden weergegeven."
+
+#: ../media-library-plus-pro.php:14579
+msgid ""
+"Media Library Folders Pro includes a shortcode for upload files to a "
+"selected folder. To use this feature, check this option."
+msgstr ""
+"Media Library Folders Pro bevat een shortcode voor het uploaden van "
+"bestanden naar een geselecteerde map. Als je deze functie wilt gebruiken, "
+"vink je deze optie aan."
+
+#: ../media-library-plus-pro.php:14580
+msgid "this option remove these functions for non administrators."
+msgstr "deze optie verwijdert deze functies voor niet-beheerders."
+
+#: ../media-library-plus-pro.php:14581
+msgid ""
+"check this option to turn on the user role folder access limit feature for "
+"non administrators. You can then set with folders different user roles can "
+"access in the Folder Access tab on the Folders and Files page. Note, "
+"limiting folder access by user roles does not prevent internet access to "
+"your media files."
+msgstr ""
+"vink deze optie aan om de functie voor toegangslimieten voor "
+"gebruikersrollenmappen in te schakelen voor niet-beheerders. Vervolgens kun "
+"je met mappen instellen waartoe verschillende gebruikersrollen toegang "
+"hebben op de tab Map toegang op de pagina Mappen en bestanden. Houd er "
+"rekening mee dat het beperken van map toegang door gebruikersrollen de "
+"internettoegang tot je mediabestanden niet verhindert."
+
+#: ../media-library-plus-pro.php:14582
+msgid ""
+"this option was added to undo the Wordpress images scaling. With this option "
+"is checked, a Roll Back Scaled Images option is added to the Bulk Actions "
+"dropdown list on the Library tab of the Folders and Files page, which when "
+"selected, will search the current folder for previously scaled images and "
+"covert them to non scaled."
+msgstr ""
+"deze optie is toegevoegd om het schalen van WordPress afbeeldingen ongedaan "
+"te maken. Als deze optie is ingeschakeld, wordt een optie Geschaalde "
+"afbeeldingen terugdraaien toegevoegd aan de vervolgkeuzelijst Bulkacties op "
+"het tabblad Bibliotheek van de pagina Mappen en bestanden, die, indien "
+"geselecteerd, in de huidige map zoekt naar eerder geschaalde afbeeldingen en "
+"deze verbergt naar niet-geschaald."
+
+#: ../media-library-plus-pro.php:14583
+msgid ""
+"when checked, this option prevents users from switching the the media "
+"library from a grid to list view of the media files."
+msgstr ""
+"als deze optie is ingeschakeld, voorkom je dat gebruikers de "
+"mediabibliotheek van een raster naar de lijstweergave van de mediabestanden "
+"verplaatsen."
+
+#: ../media-library-plus-pro.php:14584
+msgid ""
+"This option is only for debugging purposes and should not normally be "
+"checked. It will display the SQL query for displaying folder contents on the "
+"Library page."
+msgstr ""
+"Deze optie is alleen voor fout opsporingsdoeleinden en mag normaal gesproken "
+"niet worden aangevinkt. De SQL-query wordt weergegeven voor het weergeven "
+"van map inhoud op de pagina Bibliotheek."
+
+#: ../media-library-plus-pro.php:14585
+msgid ""
+"this option disables caption text importing from JEPG images when they are "
+"added to the media library."
+msgstr ""
+"met deze optie wordt het importeren van bijschrift tekst uit JEPG "
+"afbeeldingen uitgeschakeld wanneer deze aan de mediabibliotheek worden "
+"toegevoegd."
+
+#: ../media-library-plus-pro.php:14586
+msgid "Add an index to the postmeta table"
+msgstr "Een index toevoegen aan de postmeta tabel"
+
+#: ../media-library-plus-pro.php:14586
+msgid ""
+"For sites with a large number of media files, check this option to create a "
+"new index fro the postmeta table to speed by the loading of the Media "
+"Library Folders Pro page."
+msgstr ""
+"Voor sites met een groot aantal mediabestanden, vink je deze optie aan om "
+"een nieuwe index te maken voor de postmeta tabel, om sneller te laden door "
+"de pagina Media Library Folders Pro te laden."
+
+#: ../media-library-plus-pro.php:14587
+msgid "For language local issues, use this option:"
+msgstr "Voor lokale taalproblemen gebruikt je deze optie:"
+
+#: ../media-library-plus-pro.php:14587
+msgid ""
+"For users with non Latin character sets, check this option and enter the "
+"proper locale code below to fix issues with moving files."
+msgstr ""
+"Voor gebruikers met niet-Latijnse tekensets vink je deze optie aan en voer "
+"je de juiste land instellingscode hieronder in om problemen met het "
+"verplaatsen van bestanden op te lossen."
+
+#: ../media-library-plus-pro.php:14695 ../media-library-plus-pro.php:14777
+#: ../media-library-plus-pro.php:14848 ../media-library-plus-pro.php:15025
+#: ../media-library-plus-pro.php:15156 ../media-library-plus-pro.php:15385
+#: ../media-library-plus-pro.php:15488
+msgid "missing nonce! Please refresh the page."
+msgstr "ontbrekende nonce! Vernieuw de pagina."
+
+#: ../media-library-plus-pro.php:14709
+msgid ""
+"Currently Media Library Folders Pro S3 is set to store media library files "
+"only on the Cloud Server. Please go to Cloud Storage, Cloud Files tab and "
+"click the <strong>Download Media Files from Cloud Storage</strong> button to "
+"move all your files to the local media library before creating an export "
+"file."
+msgstr ""
+"Momenteel is Media Library Folders Pro S3 ingesteld om "
+"mediabibliotheekbestanden alleen in de Cloud op te slaan. Ga naar Cloud "
+"Storage, tab Cloud Files en klik op de knop <strong> Download Media Files "
+"from Cloud Storage</strong> om al je bestanden naar de lokale "
+"mediabibliotheek te verplaatsen voordat je een exportbestand aanmaakt."
+
+#: ../media-library-plus-pro.php:14720
+msgid "Creating backup "
+msgstr "Backup maken "
+
+#: ../media-library-plus-pro.php:14720
+msgid ""
+". This may take a few minutes. The list of backups will refresh once the "
+"process is complete. "
+msgstr ""
+". Dit kan enkele minuten duren. De lijst met backups wordt vernieuwd zodra "
+"het proces is voltooid. "
+
+#: ../media-library-plus-pro.php:14737
+msgid " could not be created. Try another backup name."
+msgstr " kan niet worden gemaakt. Probeer een andere back-up naam."
+
+#: ../media-library-plus-pro.php:14747
+msgid " already exists."
+msgstr " bestaat al."
+
+#: ../media-library-plus-pro.php:14878
+msgid "Download Export File"
+msgstr "Download export bestand"
+
+#: ../media-library-plus-pro.php:14879
+msgid "Import Export File"
+msgstr "Exportbestand importeren"
+
+#: ../media-library-plus-pro.php:14880
+msgid "Delete Export File"
+msgstr "Exportbestand verwijderen"
+
+#: ../media-library-plus-pro.php:15119
+msgid "The backup already exists."
+msgstr "De backup bestaat al."
+
+#: ../media-library-plus-pro.php:15136
+msgid "The backup uploaded successfully."
+msgstr "De backup is succesvol geüpload."
+
+#: ../media-library-plus-pro.php:15138
+msgid "The backup file could not be opened after uploading."
+msgstr "Het backup bestand kan na het uploaden niet worden geopend."
+
+#: ../media-library-plus-pro.php:15142
+msgid "The upload failed."
+msgstr "Het uploaden is mislukt."
+
+#: ../media-library-plus-pro.php:15434
+msgid "Adding folder: "
+msgstr "Map toevoegen: "
+
+#: ../media-library-plus-pro.php:15439
+msgid "Could not import "
+msgstr "Kon niet importeren "
+
+#: ../media-library-plus-pro.php:15456
+msgid "Uploads folder found"
+msgstr "Map voor uploads gevonden"
+
+#: ../media-library-plus-pro.php:15542
+msgid "Importing: "
+msgstr "Importeren: "
+
+#: ../media-library-plus-pro.php:15595
+msgid "Files imported."
+msgstr "Bestanden geïmporteerd."
+
+#: ../media-library-plus-pro.php:15718
+msgid "Your browser does not support the audio element."
+msgstr "Je browser ondersteunt het audio-element niet."
+
+#: ../media-library-plus-pro.php:15729
+msgid "Your browser does not support the video element."
+msgstr "Je browser ondersteunt het video-element niet."
+
+#: ../media-library-plus-pro.php:15843
+msgid ""
+"The destination folder does not exist. Please verify the correct folder ID."
+msgstr "De doelmap bestaat niet. Controleer de juiste map ID."
+
+#: ../media-library-plus-pro.php:15895
+msgid "No file was selected."
+msgstr "Geen bestand geselecteerd."
+
+#: ../media-library-plus-pro.php:15906
+msgid "This shortcde requires a folder ID."
+msgstr "Voor deze shortcode is een map ID vereist."
+
+#: ../media-library-plus-pro.php:15943
+msgid " was uploaded successfully."
+msgstr " de backup is succesvol geüpload."
+
+#: ../media-library-plus-pro.php:15950
+msgid "The file could not be uploaded."
+msgstr "Dit bestand kan niet geüpload worden."
+
+#: ../media-library-plus-pro.php:15960
+msgid ""
+"Please enable front end uploading in Media Library Folders Pro Settings to "
+"use the front end upload shortcode."
+msgstr ""
+"Schakel front-end uploaden in de pro-instellingen voor "
+"mediabibliotheekmappen in om de shortcode voor het uploaden  op de front-end "
+"te gebruiken."
+
+#: ../mlf-pro-reset.php:46
+msgid "Media Library Folders Pro Reset"
+msgstr "Media Library Folders Pro Reset"
+
+#: ../mlf-pro-reset.php:47
+msgid "Display Attachment URLs"
+msgstr "URL's voor bijlagen weergeven"
+
+#: ../mlf-pro-reset.php:48
+msgid "Display Folder Data"
+msgstr "Mapgegevens weergeven"
+
+#: ../mlf-pro-reset.php:49
+msgid "Check for Folders Without Parent IDs"
+msgstr "Controleer op mappen zonder hoofd ID's"
+
+#: ../mlf-pro-reset.php:51
+msgid "Add MLFP Database Tables"
+msgstr "MLFP databasetabellen toevoegen"
+
+#: ../mlf-pro-reset.php:52
+msgid "Remove Other MLFP Database Tables"
+msgstr "Andere MLFP databasetabellen verwijderen"
+
+#: ../mlf-pro-reset.php:54
+msgid "Reset Media Library Folders Data"
+msgstr "Gegevens van Media Library Folders opnieuw instellen"
+
+#: ../mlf-pro-reset.php:72
+msgid "WordPress Media Library Folders Pro Reset Instructions"
+msgstr "Instructies voor WordPress Media Library Folders Pro Reset"
+
+#: ../mlf-pro-reset.php:73
+msgid ""
+"If you need to rescan your database, please deactivate the Media Library "
+"Folders Pro plugin and then click WordPress Media Library Folders Pro Reset-"
+">Reset Database to erase the folder data. Then deactivate WordPress Media "
+"Library Folders Pro Reset and reactivate Media Library Folders Pro which "
+"will perform a fresh scan of your database."
+msgstr ""
+"Als je je database opnieuw wil scannen, schakel je de plugin Media Library "
+"Folders Pro uit en klik je vervolgens op WordPress Media Library Folders Pro "
+"Reset->Reset Database van WordPress Media Library om de map gegevens te "
+"wissen. Vervolgens deactiveren de plugin WordPress Media Library Mappen Pro "
+"Reset en dan opnieuw activeren de plugin  Media Library Folders Pro die dan "
+"een nieuwe scan van je database zal uitvoeren."
+
+#: ../mlf-pro-reset.php:154
+msgid "Deleting mgmlp_folders"
+msgstr "Verwijderen van mgmlp_folders"
+
+#: ../mlf-pro-reset.php:171
+msgid "Removing mgmlp_media_folder posts"
+msgstr "Verwijderen van mgmlp_media_folder berichten"
+
+#: ../mlf-pro-reset.php:177
+msgid "Done. You can now reactivate Media Library Folders Pro."
+msgstr "Klaar. Je kan Media Library Folders Pro nu opnieuw activeren."
+
+#: ../mlf-pro-reset.php:202 ../mlf-pro-reset.php:258
+msgid ""
+"<p>The mgmlp_folders table does not exists. Please activate Media Library "
+"Folders Pro to create the table.</p>"
+msgstr ""
+"<p>De mgmlp_folders tabel bestaat niet. Activeer Media Library Folders Pro "
+"om de tabel te maken.</p>"
+
+#: ../mlf-pro-reset.php:223
+msgid "Attachment URLs"
+msgstr "Bijlage URL's"
+
+#: ../mlf-pro-reset.php:225
+msgid "Number of attachments: "
+msgstr "Aantal bijlagen: "
+
+#: ../mlf-pro-reset.php:232
+msgid "Attachment ID"
+msgstr "Bijlage ID"
+
+#: ../mlf-pro-reset.php:233
+msgid "Attachment URL"
+msgstr "Bijlage URL"
+
+#: ../mlf-pro-reset.php:234 ../mlf-pro-reset.php:294
+msgid "Folder ID"
+msgstr "Map ID"
+
+#: ../mlf-pro-reset.php:266
+msgid "Folder URLs"
+msgstr "Map URL's"
+
+#: ../mlf-pro-reset.php:272
+msgid "Uploads folder: "
+msgstr "Uploadmap: "
+
+#: ../mlf-pro-reset.php:274
+msgid "Uploads URL "
+msgstr "Upload URL "
+
+#: ../mlf-pro-reset.php:276
+msgid "Number of folders: "
+msgstr "Aantal mappen: "
+
+#: ../mlf-pro-reset.php:295
+msgid "Folder Name"
+msgstr "Naam van de map"
+
+#: ../mlf-pro-reset.php:296
+msgid "Folder URL"
+msgstr "Map URL"
+
+#: ../mlf-pro-reset.php:297
+msgid "Parent ID"
+msgstr "Hoofd ID"
+
+#: ../mlf-pro-reset.php:313
+msgid "No folder ID found"
+msgstr "Geen map ID gevonden"
+
+#: ../mlf-pro-reset.php:377
+msgid "The mgmlp_userrole_permissions table was removed from the database."
+msgstr "De tabel mgmlp_userrole_permissions is verwijderd uit de database."
+
+#: ../mlf-pro-reset.php:385
+msgid "Remove Other MLFP Database Tables & Settings"
+msgstr "Andere MLFP databasetabellen en instellingen verwijderen"
+
+#: ../mlf-pro-reset.php:387
+msgid ""
+"To remove the auxiliary tables added by Media Library Folders Pro or Media "
+"Library Folders Pro S3, in order to completely uninstall either or both "
+"plugins, select the tables to be remove and click the 'Remove Selected "
+"Tables' button. All data stored in the selected tables will be lost. Only "
+"delete the tables in the plugins to be removed from the site."
+msgstr ""
+"Als je de hulptabellen wilt verwijderen die zijn toegevoegd door Media "
+"Library Folders Pro of Media Library Folders Pro S3 , selecteer je de "
+"tabellen die moeten worden verwijderd en klik je op de knop 'Geselecteerde "
+"tabellen verwijderen'.  Alle gegevens opgeslagen in de geselecteerde "
+"tabellen zullen verloren gaan. Selecteer alleen de tabellen van deze plugins "
+"om te verwijderen van de site."
+
+#: ../mlf-pro-reset.php:389
+msgid "User Role Table"
+msgstr "Tabel met gebruikersrollen"
+
+#: ../mlf-pro-reset.php:390
+msgid "Thumbnail Management Table"
+msgstr "Thumbnail beheer tabel"
+
+#: ../mlf-pro-reset.php:391
+msgid "Export/Import Tables and All Backup Files"
+msgstr "Tabellen exporteren/importeren en alle backup bestanden"
+
+#: ../mlf-pro-reset.php:392
+msgid "Purge Files Table"
+msgstr "Tabel bestanden opschonen"
+
+#: ../mlf-pro-reset.php:393
+msgid "Turn off WPMF integration and clear WPMF folder data"
+msgstr "WPMF integratie uitschakelen en WPMF map gegevens wissen"
+
+#: ../mlf-pro-reset.php:394
+msgid "S3 Update Log Table"
+msgstr "S3 update logtabel"
+
+#: ../mlf-pro-reset.php:395
+msgid "S3 Files to Sync Table"
+msgstr "S3 bestanden om tabel te synchroniseren"
+
+#: ../mlf-pro-reset.php:396
+msgid "S3 Problem Files Table"
+msgstr "S3 Tabel met probleembestanden"
+
+#: ../mlf-pro-reset.php:397
+msgid "S3 Option Settings"
+msgstr "S3 optie instellingen"
+
+#: ../mlf-pro-reset.php:400
+msgid "Remove Selected Tables"
+msgstr "Geselecteerde tabellen verwijderen"
+
+#: ../mlf-pro-reset.php:437
+msgid "Are you sure you want to remove the selected tables, data and files?"
+msgstr ""
+"Weet je zeker dat je de geselecteerde tabellen, gegevens en bestanden wil "
+"verwijderen?"
+
+#: ../mlf-pro-reset.php:497 ../mlf-pro-reset.php:675 ../mlf-pro-reset.php:806
+msgid "missing nonce! Please refresh this page."
+msgstr "ontbrekende nonce! Vernieuw deze pagina."
+
+#: ../mlf-pro-reset.php:588
+msgid "The selected tables, data or settings have been deleted."
+msgstr "De geselecteerde tabellen, gegevens of instellingen zijn verwijderd."
+
+#: ../mlf-pro-reset.php:632
+msgid "The following files with missing folder IDs were found:"
+msgstr "De volgende bestanden met ontbrekende map ID's zijn gevonden:"
+
+#: ../mlf-pro-reset.php:666
+msgid "No files with missing folder IDs were found."
+msgstr "Er zijn geen bestanden gevonden met ontbrekende map-ID's."
+
+#: ../mlf-pro-reset.php:749
+msgid "Add Media Library Folders Tables"
+msgstr "Media Library Folders tabellen toevoegen"
+
+#: ../mlf-pro-reset.php:751
+msgid ""
+"Normally the database tables used by Media Library Folders Pro are created "
+"when the plugin is activated. However, if a table is missing, you can use "
+"this feature to create one or more missing tables."
+msgstr ""
+"Normaal gesproken worden de databasetabellen die door Media Library Folders "
+"Pro worden gebruikt, gemaakt wanneer de plugin wordt geactiveerd. Als er "
+"echter een tabel ontbreekt, kunt je deze functie gebruiken om een of meer "
+"ontbrekende tabellen te maken."
+
+#: ../mlf-pro-reset.php:754
+msgid "Check For Missing Tables"
+msgstr "Controleren op ontbrekende tabellen"
+
+#: ../mlf-pro-reset.php:814
+msgid "Checking mgmlp_userrole_permissions table<br>"
+msgstr "Mgmlp_userrole_permissions tabel controleren<br>"
+
+#: ../mlf-pro-reset.php:818
+msgid "Checking mgmlp_thumbnails table<br>"
+msgstr "Mgmlp_thumbnails tabel controleren<br>"
+
+#: ../mlf-pro-reset.php:822
+msgid "Checking mgmlp_file_purge table<br>"
+msgstr "Mgmlp_file_purge tabel controleren<br>"
+
+#: ../mlf-pro-reset.php:826
+msgid "Checking mgmlp_csv_data table<br>"
+msgstr "Mgmlp_csv_data tabel controleren<br>"
+
+#: ../mlf-pro-reset.php:830
+msgid "Checking mgmlp_import_folders table<br>"
+msgstr "Mgmlp_import_folders tabel controleren<br>"
+
+#: ../mlf-pro-reset.php:832
+msgid "Done creating tables.<br>"
+msgstr "Klaar met het maken van tabellen.<br>"
+
+#: ../mlf-pro-reset.php:835
+msgid "Please activate Media Library Folders Pro to create missing tables."
+msgstr "Activeer Media Library Folders Pro om ontbrekende tabellen te maken."

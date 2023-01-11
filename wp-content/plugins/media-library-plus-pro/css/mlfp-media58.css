@@ -1,0 +1,68 @@
+
+#mlfp-tool-bar {
+  background-color: #fff;
+  display: flex;
+  height: 200px;
+  padding: 10px;
+  width: 97%;
+  overflow: scroll;
+}
+
+#mflp-bc {
+  line-height: 20px;
+  font-size: 16px;  
+}
+
+.gray-blue-link, .gray-blue-link:active  {
+	background-color: #fff;
+	color: #2ea2cc;
+	cursor: pointer;
+  border: 1px solid #2ea2cc;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+	line-height: 32px;
+  margin-left: 4px;
+  padding: 4px 8px;
+  position: relative;
+  text-decoration: none;
+  text-shadow: none;
+  top: -3px;
+	white-space: nowrap;
+}
+
+.gray-blue-link:focus {
+  background: none repeat scroll 0 0 #2ea2cc;
+	border: 0 none;
+  color: #fff;
+  box-shadow: none;
+}
+
+.wp-core-ui .attachment .filename div {
+  width: 117px;
+}
+
+.attachments { 
+  top: 275px;
+}
+
+.media-toolbar {
+  overflow: visible; 
+}
+
+.mode-eml-grid.mode-edit div.media-frame-content div.attachments-browser div.media-sidebar,
+.upload-php .media-frame.mode-eml-grid .attachments-browser .attachments, .upload-php .media-frame.mode-eml-grid .attachments-browser .uploader-inline {
+  top: 225px !important;
+}
+
+.post-php div.media-sidebar {
+  top: 0 !important;
+}
+
+.attachments-browser:not(.has-load-more) .attachments, .attachments-browser.has-load-more .attachments-wrapper, .attachments-browser .uploader-inline {
+  top: 286px !important;
+}    
+
+/*.media-frame .media-frame-toolbar .media-toolbar-primary {
+  bottom: 61px;
+}*/

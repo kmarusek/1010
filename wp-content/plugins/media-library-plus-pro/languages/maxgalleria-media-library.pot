@@ -1,0 +1,3321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: maxgalleria-media-library\n"
+"POT-Creation-Date: 2022-12-01 08:55-0300\n"
+"PO-Revision-Date: 2022-12-01 08:55-0300\n"
+"Last-Translator: Alan Pasho <apasho@gmail.com>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../EDD_SL_Plugin_Updater.php:189
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: ../EDD_SL_Plugin_Updater.php:197
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: ../EDD_SL_Plugin_Updater.php:340
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: ../EDD_SL_Plugin_Updater.php:340
+msgid "Error"
+msgstr ""
+
+#: ../includes/media-folders.php:16 ../media-library-plus-pro.php:305
+msgid "Folders & Files"
+msgstr ""
+
+#: ../includes/media-folders.php:71
+msgid "Library"
+msgstr ""
+
+#: ../includes/media-library.php:67
+msgid ""
+"Media Library Folders has detected that Javascript has been turned off in "
+"this browser. It is necessary for Javascript to be running in order for "
+"Media Library Folders to function."
+msgstr ""
+
+#: ../includes/media-library.php:73
+msgid "Current PHP version, "
+msgstr ""
+
+#: ../includes/media-library.php:73
+msgid ", is outdated. Please upgrade to version 7.4."
+msgstr ""
+
+#: ../includes/media-library.php:77
+msgid ""
+"Folder data not found. Please run Media Library Folders Pro database reset"
+msgstr ""
+
+#: ../includes/media-library.php:113 ../media-library-plus-pro.php:3359
+#: ../media-library-plus-pro.php:7486
+msgid "Location:"
+msgstr ""
+
+#: ../includes/media-library.php:135
+msgid "Add Folder"
+msgstr ""
+
+#: ../includes/media-library.php:146 ../includes/media-library.php:662
+msgid "Refresh Folders"
+msgstr ""
+
+#: ../includes/media-library.php:171
+msgid "Icon Descriptions"
+msgstr ""
+
+#: ../includes/media-library.php:177 ../includes/media-library.php:663
+msgid "Grid View"
+msgstr ""
+
+#: ../includes/media-library.php:183 ../includes/media-library.php:664
+msgid "List View"
+msgstr ""
+
+#: ../includes/media-library.php:193
+msgid "Move Files"
+msgstr ""
+
+#: ../includes/media-library.php:199
+msgid "Copy Files"
+msgstr ""
+
+#: ../includes/media-library.php:208
+msgid "Sort by date"
+msgstr ""
+
+#: ../includes/media-library.php:214
+msgid "Sort by title"
+msgstr ""
+
+#: ../includes/media-library.php:219 ../includes/media-library.php:673
+msgid "Reverse Order"
+msgstr ""
+
+#: ../includes/media-library.php:290
+msgid "Filter Current Folder"
+msgstr ""
+
+#: ../includes/media-library.php:291
+msgid "Search All Media"
+msgstr ""
+
+#: ../includes/media-library.php:295
+#, fuzzy
+msgid "Filter or Search"
+msgstr "Zoeken"
+
+#: ../includes/media-library.php:299 ../media-library-plus-pro.php:5589
+#: ../media-library-plus-pro.php:5718
+msgid "Search"
+msgstr "Zoeken"
+
+#: ../includes/media-library.php:306
+msgid "Find"
+msgstr ""
+
+#: ../includes/media-library.php:332 ../media-library-plus-pro.php:14207
+msgid "Bulk Move"
+msgstr ""
+
+#: ../includes/media-library.php:344
+msgid "Reselect Destination Folder"
+msgstr ""
+
+#: ../includes/media-library.php:345
+msgid "Move Selected Files"
+msgstr ""
+
+#: ../includes/media-library.php:346
+msgid "Stop Moving Files"
+msgstr ""
+
+#: ../includes/media-library.php:355
+msgid "Playlist Shortcode Generator"
+msgstr ""
+
+#: ../includes/media-library.php:358 ../includes/media-library.php:575
+msgid "Type: "
+msgstr ""
+
+#: ../includes/media-library.php:364
+msgid "File IDs: "
+msgstr ""
+
+#: ../includes/media-library.php:372 ../includes/media-library.php:471
+#: ../includes/media-library.php:614
+msgid "Generate Shortcode"
+msgstr ""
+
+#: ../includes/media-library.php:385
+msgid "Gallery Shortcode Options"
+msgstr ""
+
+#: ../includes/media-library.php:390
+msgid "Type"
+msgstr ""
+
+#: ../includes/media-library.php:393 ../includes/media-library.php:409
+#: ../includes/media-library.php:428 ../includes/media-library.php:451
+msgid "No Selection"
+msgstr ""
+
+#: ../includes/media-library.php:394 ../includes/media-library.php:452
+msgid "Thumbnail"
+msgstr ""
+
+#: ../includes/media-library.php:397
+msgid "Rectangular"
+msgstr ""
+
+#: ../includes/media-library.php:398
+msgid "Square"
+msgstr ""
+
+#: ../includes/media-library.php:399
+msgid "Circle"
+msgstr ""
+
+#: ../includes/media-library.php:406
+msgid "Columns"
+msgstr ""
+
+#: ../includes/media-library.php:425
+msgid "Order By"
+msgstr ""
+
+#: ../includes/media-library.php:429
+msgid "ID"
+msgstr ""
+
+#: ../includes/media-library.php:430
+msgid "Menu Order"
+msgstr ""
+
+#: ../includes/media-library.php:431
+msgid "Random"
+msgstr ""
+
+#: ../includes/media-library.php:432 ../media-library-plus-pro.php:4702
+#: ../media-library-plus-pro.php:5777
+msgid "Title"
+msgstr ""
+
+#: ../includes/media-library.php:438
+msgid "Order"
+msgstr ""
+
+#: ../includes/media-library.php:441
+msgid "Ascending"
+msgstr ""
+
+#: ../includes/media-library.php:442
+msgid "Descending"
+msgstr ""
+
+#: ../includes/media-library.php:448
+msgid "Size"
+msgstr ""
+
+#: ../includes/media-library.php:453
+msgid "Medium"
+msgstr ""
+
+#: ../includes/media-library.php:454
+msgid "Large"
+msgstr ""
+
+#: ../includes/media-library.php:455
+msgid "Full"
+msgstr ""
+
+#: ../includes/media-library.php:461
+msgid "Post ID"
+msgstr ""
+
+#: ../includes/media-library.php:468
+msgid "Adds selected images to the gallery box"
+msgstr ""
+
+#: ../includes/media-library.php:468
+msgid "Add Selected Images"
+msgstr ""
+
+#: ../includes/media-library.php:469
+msgid "Remove selected images from the gallery box"
+msgstr ""
+
+#: ../includes/media-library.php:469
+msgid "Remove Selected Images"
+msgstr ""
+
+#: ../includes/media-library.php:470
+msgid "Remove all images from the gallery box"
+msgstr ""
+
+#: ../includes/media-library.php:470
+msgid "Remove All Images"
+msgstr ""
+
+#: ../includes/media-library.php:472
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: ../includes/media-library.php:498
+msgid "Replace an Existing File"
+msgstr ""
+
+#: ../includes/media-library.php:500
+msgid "Click here to view Replace File Instructions"
+msgstr ""
+
+#: ../includes/media-library.php:501
+msgid "Click here to close the insturctions"
+msgstr ""
+
+#: ../includes/media-library.php:504
+msgid "To replace an image:"
+msgstr ""
+
+#: ../includes/media-library.php:506
+msgid "1. Select a file to replace by checking it's checkbox."
+msgstr ""
+
+#: ../includes/media-library.php:507
+msgid "2. Click the Replace File button."
+msgstr ""
+
+#: ../includes/media-library.php:508
+msgid ""
+"3. Select the type of replacement to preform: only replace the file (without "
+"changing the file name or embedded links) or replace and update with new "
+"file (includes changing the file name in the media library and in any links "
+"embedded in posts and pages. ) <span class=\"mlp-warning\">Note updated "
+"embedded links may not point to actual file names due to variations in "
+"thumbnail file sizes. After replacing a file it will be necessary to verify "
+"that the links are working.<span>"
+msgstr ""
+
+#: ../includes/media-library.php:509
+msgid ""
+"4. Select whether to keep the original date (that the file was add to the "
+"media library or update using the current date or enter a custom date)."
+msgstr ""
+
+#: ../includes/media-library.php:510
+msgid ""
+"5. Upload a replacement file. Either drag and drop a single file or click "
+"the Browse button to find and select a file and click the Upload Replacement "
+"button. Once a file is uploaded, the old file will be replaced and Replace "
+"File area will automatically close."
+msgstr ""
+
+#: ../includes/media-library.php:526
+msgid "Drag & Drop a Replacement File Here"
+msgstr ""
+
+#: ../includes/media-library.php:527
+msgid "or select a file or image to upload:"
+msgstr ""
+
+#: ../includes/media-library.php:529
+msgid "Upload Replacement"
+msgstr ""
+
+#: ../includes/media-library.php:536
+msgid "Options:"
+msgstr ""
+
+#: ../includes/media-library.php:537
+msgid "Only replace the file"
+msgstr ""
+
+#: ../includes/media-library.php:538
+msgid "Replace and update with new file"
+msgstr ""
+
+#: ../includes/media-library.php:540
+msgid "A replacement file must be the same file type as the original file."
+msgstr ""
+
+#: ../includes/media-library.php:543
+msgid "Keep the current file date"
+msgstr ""
+
+#: ../includes/media-library.php:544
+msgid "Update the date"
+msgstr ""
+
+#: ../includes/media-library.php:545
+msgid "Use custom date"
+msgstr ""
+
+#: ../includes/media-library.php:546
+msgid "Custom Date:"
+msgstr ""
+
+#: ../includes/media-library.php:548
+msgid ""
+"After replacing an image, it may be necessary to clear your broswer cache to "
+"view the new image."
+msgstr ""
+
+#: ../includes/media-library.php:560
+msgid "Embed PDF/Audio/Video Shortcode Generator: "
+msgstr ""
+
+#: ../includes/media-library.php:563
+msgid "Embed File: "
+msgstr ""
+
+#: ../includes/media-library.php:569
+msgid "Ogg File Type: "
+msgstr ""
+
+#: ../includes/media-library.php:580
+msgid "Width (px or %): "
+msgstr ""
+
+#: ../includes/media-library.php:582
+msgid "Height (px): "
+msgstr ""
+
+#: ../includes/media-library.php:584
+msgid "Align: "
+msgstr ""
+
+#: ../includes/media-library.php:586 ../includes/media-library.php:600
+#: ../includes/settings.php:99
+msgid "None"
+msgstr ""
+
+#: ../includes/media-library.php:587
+msgid "Left"
+msgstr ""
+
+#: ../includes/media-library.php:588
+msgid "Right"
+msgstr ""
+
+#: ../includes/media-library.php:593
+msgid "Autoplay"
+msgstr ""
+
+#: ../includes/media-library.php:594
+msgid "Controls"
+msgstr ""
+
+#: ../includes/media-library.php:595
+msgid "Loop"
+msgstr ""
+
+#: ../includes/media-library.php:596
+msgid "Muted"
+msgstr ""
+
+#: ../includes/media-library.php:597
+msgid "Preload"
+msgstr ""
+
+#: ../includes/media-library.php:598
+msgid "Auto"
+msgstr ""
+
+#: ../includes/media-library.php:599
+msgid "Metadata"
+msgstr ""
+
+#: ../includes/media-library.php:605
+msgid "Poster (optional)"
+msgstr ""
+
+#: ../includes/media-library.php:629
+msgid "Add Images to NextGen Gallery"
+msgstr ""
+
+#: ../includes/media-library.php:642
+msgid "Galleries: "
+msgstr ""
+
+#: ../includes/media-library.php:649
+msgid "Add Images"
+msgstr ""
+
+#: ../includes/media-library.php:660
+msgid "New Folder"
+msgstr ""
+
+#: ../includes/media-library.php:661
+msgid "New File"
+msgstr ""
+
+#: ../includes/media-library.php:669
+msgid "Move File Mode"
+msgstr ""
+
+#: ../includes/media-library.php:670
+msgid "Copy File Mode"
+msgstr ""
+
+#: ../includes/media-library.php:671 ../includes/media-library.php:706
+msgid "Sort by Date"
+msgstr ""
+
+#: ../includes/media-library.php:672 ../includes/media-library.php:705
+msgid "Sort by Title"
+msgstr ""
+
+#: ../includes/media-library.php:678
+msgid "Rename File"
+msgstr ""
+
+#: ../includes/media-library.php:679
+msgid "Sync Files"
+msgstr ""
+
+#: ../includes/media-library.php:680
+msgid "Regenerate Thumbnails"
+msgstr ""
+
+#: ../includes/media-library.php:681
+msgid "Delete Files"
+msgstr ""
+
+#: ../includes/media-library.php:682
+msgid "Create a NextGen Gallery"
+msgstr ""
+
+#: ../includes/media-library.php:687
+msgid "Replace a File"
+msgstr ""
+
+#: ../includes/media-library.php:688
+msgid "Display the Categories Box"
+msgstr ""
+
+#: ../includes/media-library.php:689
+msgid "Display the Help Panel"
+msgstr ""
+
+#: ../includes/media-library.php:699
+msgid "Add New Category"
+msgstr ""
+
+#: ../includes/media-library.php:700
+msgid "Set Categories"
+msgstr ""
+
+#: ../includes/media-library.php:701
+msgid "Get Categories"
+msgstr ""
+
+#: ../includes/media-library.php:702
+msgid "View by Category"
+msgstr ""
+
+#: ../includes/media-library.php:714
+msgid "Category Name: "
+msgstr ""
+
+#: ../includes/media-library.php:716
+msgid "Add Category"
+msgstr ""
+
+#: ../includes/media-library.php:802
+msgid "Gallery Name: "
+msgstr ""
+
+#: ../includes/media-library.php:803
+msgid "Create NG Gallery"
+msgstr ""
+
+#: ../includes/media-library.php:2723
+msgid "Searching for scaled images..."
+msgstr ""
+
+#: ../includes/mlfp-categories.php:6 ../media-library-plus-pro.php:14353
+msgid "Media Categories"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:7
+msgid "All Media Categories"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:8
+msgid "Parent Media Category"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:9
+msgid "Parent Media Category:"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:10
+msgid "New Media Category Name"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:11
+msgid "Add New Media Category"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:12
+msgid "Edit Media Category"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:13
+msgid "Update Media Category"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:14
+msgid "View Media Category"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:15
+msgid "Separate items with commas"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:16
+msgid "Add or remove items"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:17
+msgid "Choose from the most used"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:18
+msgid "Popular Items"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:19
+msgid "Search Media Categories"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:20
+msgid "Not Found"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:21
+msgid "No items"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:22
+msgid "Items list"
+msgstr ""
+
+#: ../includes/mlfp-categories.php:23
+msgid "Items list navigation"
+msgstr ""
+
+#: ../includes/mlfp-cloud.php:8 ../media-library-plus-pro.php:313
+msgid "Cloud Storage"
+msgstr ""
+
+#: ../includes/mlfp-folder-access.php:29
+msgid "Save Access"
+msgstr ""
+
+#: ../includes/mlfp-folder-access.php:123
+msgid "No folders selected."
+msgstr ""
+
+#: ../includes/mlfp-folder-access.php:128
+msgid "No user role selected."
+msgstr ""
+
+#: ../includes/mlfp-image-seo.php:8 ../media-library-plus-pro.php:309
+msgid "Image SEO"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:2 ../media-library-plus-pro.php:13644
+#: ../media-library-plus-pro.php:13729
+msgid "Import"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:3
+msgid "Upload media that was exported from Media Library Folders Pro"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:5
+msgid "Upload a Media Export File"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:6
+msgid "Stop Import"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:10
+msgid "Export"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:12
+msgid "Generate a new export from the contents of the media library"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:15
+msgid "Create a New Media Export File"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:31
+msgid "Export Name"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:32
+msgid "Export Date"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:33
+msgid "Actions"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:133
+msgid "Import cancelled."
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:139
+msgid "Creating export zip file. Please wait."
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:166
+msgid "Delete the selected export file?"
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:192
+msgid "Checking for exisiting exports..."
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:203
+msgid "The export file name cannot be blank."
+msgstr ""
+
+#: ../includes/mlfp-import-export.php:209
+msgid "Loading export data..."
+msgstr ""
+
+#: ../includes/mlfp-options.php:34 ../media-library-plus-pro.php:14544
+msgid "Remove folder tree from Media page & popups"
+msgstr ""
+
+#: ../includes/mlfp-options.php:38 ../media-library-plus-pro.php:14545
+msgid "Enable loading folder tree on the front end media popups"
+msgstr ""
+
+#: ../includes/mlfp-options.php:42
+msgid ""
+"Enable Pagination (allows one to page through files in a folder rather than "
+"lot them all at one time.)"
+msgstr ""
+
+#: ../includes/mlfp-options.php:46
+msgid "Number of images to display per page:"
+msgstr ""
+
+#: ../includes/mlfp-options.php:52 ../media-library-plus-pro.php:14547
+msgid "Enable Front End Upload"
+msgstr ""
+
+#: ../includes/mlfp-options.php:57 ../media-library-plus-pro.php:14548
+msgid ""
+"Disable file delete, folder hide, folder add, folder delete and sync for non "
+"Administrators"
+msgstr ""
+
+#: ../includes/mlfp-options.php:61 ../media-library-plus-pro.php:14549
+msgid "Enable folder access by user role"
+msgstr ""
+
+#: ../includes/mlfp-options.php:65
+msgid "Disable large image scaling"
+msgstr ""
+
+#: ../includes/mlfp-options.php:69 ../media-library-plus-pro.php:14550
+msgid "Enable scaled image rollback"
+msgstr ""
+
+#: ../includes/mlfp-options.php:73 ../media-library-plus-pro.php:14551
+msgid "Disable media library list view"
+msgstr ""
+
+#: ../includes/mlfp-options.php:78 ../media-library-plus-pro.php:14552
+msgid "Enable MLFP Query Display"
+msgstr ""
+
+#: ../includes/mlfp-options.php:83 ../media-library-plus-pro.php:14553
+msgid "Disable import of captions from images"
+msgstr ""
+
+#: ../includes/mlfp-options.php:88
+msgid ""
+"Add an index to the postmeta table. <em>Recommend for sites with a high "
+"number of media files. Uncheck to remove the index.</em>"
+msgstr ""
+
+#: ../includes/mlfp-options.php:93
+msgid ""
+"For users with non Latin character sets, check this option and enter the "
+"proper locale code below to fix issues with moving files"
+msgstr ""
+
+#: ../includes/mlfp-options.php:96
+msgid "Locale"
+msgstr ""
+
+#: ../includes/mlfp-options.php:101 ../media-library-plus-pro.php:8405
+msgid "Update Settings"
+msgstr ""
+
+#: ../includes/mlfp-options.php:107
+msgid "WP Media Folder Integration"
+msgstr ""
+
+#: ../includes/mlfp-options.php:122
+msgid "Enable compatibility with WP Media Folder plugin"
+msgstr ""
+
+#: ../includes/mlfp-options.php:129
+msgid ""
+"This option will enable compatibility with WP Media Folder plugin and will "
+"create matching folders in WPMF. <strong>To upload files to their desired "
+"folders only use Media Library Folders Pro. Folders in WPMF should not be "
+"moved as Media Library Folders Pro does not have a corresponding action as "
+"it would break image links in posts and pages.</strong>"
+msgstr ""
+
+#: ../includes/mlfp-options.php:134
+msgid "Import folders from WP Media Folder"
+msgstr ""
+
+#: ../includes/mlfp-options.php:141
+msgid ""
+"This option will create actual folders from the WPMF data in the media "
+"library. Files remain in their original folders and are not copied to the "
+"imported folders. Use Media Library Folders Pro to manually copy files to "
+"their desired folders."
+msgstr ""
+
+#: ../includes/mlfp-options.php:146
+msgid "Clear and Update WP Media Folder Data"
+msgstr ""
+
+#: ../includes/mlfp-options.php:152
+msgid ""
+"This option will clear the existing WPMF data and import Media Library "
+"Folders Pro folders and files into WPMF."
+msgstr ""
+
+#: ../includes/mlfp-options.php:328
+msgid "Adding files. Please wait."
+msgstr ""
+
+#: ../includes/mlfp-options.php:375
+msgid "Adding folders. Please wait."
+msgstr ""
+
+#: ../includes/mlfp-options.php:401
+msgid "Clearing WPMF terms. Please wait."
+msgstr ""
+
+#: ../includes/mlfp-settings.php:8 ../media-library-plus-pro.php:310
+#: ../media-library-plus-pro.php:8385
+msgid "Settings"
+msgstr ""
+
+#: ../includes/mlfp-settings.php:20
+msgid "Options"
+msgstr ""
+
+#: ../includes/mlfp-settings.php:21
+msgid "License"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:2
+msgid "Media Library Folders Pro Installation"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:3
+msgid "Media Library Folders for Wordpress"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:4
+msgid "Organize your WordPress Media Library"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:5
+msgid ""
+"How to Move, Rename, and Delete Files and Folders Using WordPress Media "
+"Library Folders"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:6
+msgid "How to Add and Organize Folders in the WordPress Media Library"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:7
+msgid "How to Sync Your WordPress Media Library With FTP Folders"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:8
+msgid "Using Media Categories with WordPress Media Library Folders Pro"
+msgstr ""
+
+#: ../includes/mlfp-support-articles.php:9
+msgid ""
+"The Ultimate Guide to Jetpack Galleries: Tiled Galleries, Widgets, and "
+"Carousels"
+msgstr ""
+
+#: ../includes/mlfp-support-sys-info.php:7
+msgid ""
+"You may be asked to provide the information below to help troubleshoot your "
+"issue."
+msgstr ""
+
+#: ../includes/mlfp-support.php:8 ../media-library-plus-pro.php:316
+msgid "Support"
+msgstr ""
+
+#: ../includes/mlfp-support.php:20
+msgid "Troubleshooting Tips"
+msgstr ""
+
+#: ../includes/mlfp-support.php:21
+msgid "Helpful Articles"
+msgstr ""
+
+#: ../includes/mlfp-support.php:22
+msgid "System Info"
+msgstr ""
+
+#: ../includes/mlfp-thumbnails.php:8 ../media-library-plus-pro.php:307
+msgid "Thumbnails"
+msgstr ""
+
+#: ../includes/mlfp-thumbnails.php:20
+msgid "Size Management"
+msgstr ""
+
+#: ../includes/mlfp-thumbnails.php:21
+msgid "Regenerate"
+msgstr ""
+
+#: ../includes/mlfp-thumbnails.php:47
+msgid ""
+"If you would like to remove thumbnails from your site, we recommend that "
+"your first backup the files in your uploads folder. If Media Library Folders "
+"Pro is deactivated, any deactivated thumbnail sizes will become activate "
+"again and will be automatically generated when new images are uploaded. Any "
+"links to thumbnail image that are deleted are not removed from your posts or "
+"pages."
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:6
+msgid ""
+"If you would like to remove the uncateloged files from your media library, "
+"we recommend that you first backup up the files in your uploads folder."
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:31
+msgid ""
+"Scan the media library for files not recorded in the Wordpress database."
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:31
+msgid "Search For Uncataloged Files"
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:32
+msgid "Stop a currently running search."
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:32
+#, fuzzy
+msgid "Stop Search"
+msgstr "Zoeken"
+
+#: ../includes/mlfp_maintenance.php:33
+msgid "Resume a stopped search."
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:33
+#, fuzzy
+msgid "Resume Search"
+msgstr "Zoeken"
+
+#: ../includes/mlfp_maintenance.php:34
+msgid ""
+"Processes all uncataloged files according to their currently set options."
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:34
+msgid "Process Files"
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:38
+msgid "Automatically remove file size from imported thumbnail images names"
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:56
+msgid "Please wait while folders are scanned"
+msgstr ""
+
+#: ../includes/mlfp_maintenance.php:57
+msgid "Please wait while files are processed"
+msgstr ""
+
+#: ../includes/settings.php:51
+msgid "License Key"
+msgstr ""
+
+#: ../includes/settings.php:55
+msgid ""
+"Enter your license key, click Save Changes and then click the Activate button"
+msgstr ""
+
+#: ../includes/settings.php:63
+msgid "Save Changes"
+msgstr ""
+
+#: ../includes/settings.php:66
+msgid "Deactivate License"
+msgstr ""
+
+#: ../includes/settings.php:67
+msgid "Status:"
+msgstr ""
+
+#: ../includes/settings.php:67
+msgid "active"
+msgstr ""
+
+#: ../includes/settings.php:70
+msgid "Activate License"
+msgstr ""
+
+#: ../includes/settings.php:75
+msgid "Renew License"
+msgstr ""
+
+#: ../includes/settings.php:77
+msgid "Enter New License Key"
+msgstr ""
+
+#: ../includes/settings.php:84
+msgid "Activate License on All Network Sites"
+msgstr ""
+
+#: ../includes/settings.php:86
+msgid "Dectivate License on All Network Sites"
+msgstr ""
+
+#: ../includes/settings.php:95
+msgid "Expiration Date: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14
+msgid ""
+"You must deactivate Media Library Folders before activating Media Library "
+"Folders Pro"
+msgstr ""
+
+#: ../media-library-plus-pro.php:248
+msgid ""
+"This multisite was create with a version earlier than Wordpress 3.5 an is "
+"not compatible with Media Library Folders Pro. To continue, click the Back "
+"Arrow."
+msgstr ""
+
+#: ../media-library-plus-pro.php:304
+msgid "Media Library Folders Pro"
+msgstr ""
+
+#: ../media-library-plus-pro.php:314
+msgid "View Sync Log"
+msgstr ""
+
+#: ../media-library-plus-pro.php:317
+msgid "Search Library"
+msgstr ""
+
+#: ../media-library-plus-pro.php:408
+msgid "Brought to you by "
+msgstr ""
+
+#: ../media-library-plus-pro.php:409 ../media-library-plus-pro.php:7458
+#: ../media-library-plus-pro.php:7459
+msgid "Makers of"
+msgstr ""
+
+#: ../media-library-plus-pro.php:409 ../media-library-plus-pro.php:7458
+#: ../media-library-plus-pro.php:7459
+msgid "and"
+msgstr ""
+
+#: ../media-library-plus-pro.php:413
+msgid "Quick Support"
+msgstr ""
+
+#: ../media-library-plus-pro.php:414
+msgid "Click here to"
+msgstr ""
+
+#: ../media-library-plus-pro.php:414
+msgid "Fix Common Problems"
+msgstr ""
+
+#: ../media-library-plus-pro.php:415
+msgid "Need more help? Check out our "
+msgstr ""
+
+#: ../media-library-plus-pro.php:415
+msgid "Support Forums"
+msgstr ""
+
+#: ../media-library-plus-pro.php:416
+msgid "Or Email Us at"
+msgstr ""
+
+#: ../media-library-plus-pro.php:624
+msgid "Are you sure you want to delete the selected files?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:625
+msgid "Are you sure you want to process the selected items?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:626 ../mlf-pro-reset.php:431
+msgid "No items were selected."
+msgstr ""
+
+#: ../media-library-plus-pro.php:627
+msgid "No images were selected."
+msgstr ""
+
+#: ../media-library-plus-pro.php:628
+msgid "Folder names cannot contain single or double quotes."
+msgstr ""
+
+#: ../media-library-plus-pro.php:629
+msgid "The folder name cannot be blank."
+msgstr ""
+
+#: ../media-library-plus-pro.php:630
+msgid "The new file name cannot be blank."
+msgstr ""
+
+#: ../media-library-plus-pro.php:631
+msgid "Folder names cannot contain spaces."
+msgstr ""
+
+#: ../media-library-plus-pro.php:632
+msgid "Please enter a valid file name with no spaces."
+msgstr ""
+
+#: ../media-library-plus-pro.php:633
+msgid "A category name cannot be blank."
+msgstr ""
+
+#: ../media-library-plus-pro.php:634
+msgid "No categories were selected."
+msgstr ""
+
+#: ../media-library-plus-pro.php:635
+msgid "Select only one file to view its categories and press 'Get Categories'"
+msgstr ""
+
+#: ../media-library-plus-pro.php:636
+msgid "The shortcode was copied to the clipboard."
+msgstr ""
+
+#: ../media-library-plus-pro.php:637
+msgid "Please select a file before clicking the Embed Shortcode button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:638
+msgid "Please select a file before clicking the Replace File button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:639
+msgid ""
+"The replacment file type does not match to selected file type. A file needs "
+"to be replaced with the same type (.jpg for .jpg, .png for .png or .pdf for ."
+"pdf). Please choose another file."
+msgstr ""
+
+#: ../media-library-plus-pro.php:640
+msgid " files found"
+msgstr ""
+
+#: ../media-library-plus-pro.php:641
+msgid "No uncataloged files found"
+msgstr ""
+
+#: ../media-library-plus-pro.php:642
+msgid "No file IDs have been selected."
+msgstr ""
+
+#: ../media-library-plus-pro.php:644
+msgid "Select a destination folder in the folder tree"
+msgstr ""
+
+#: ../media-library-plus-pro.php:645
+msgid "File moving stopped."
+msgstr ""
+
+#: ../media-library-plus-pro.php:646
+msgid ""
+"The source and destination folders are the same. Please select a different "
+"destination folder."
+msgstr ""
+
+#: ../media-library-plus-pro.php:647
+msgid "Destination Folder: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:648
+msgid "Please wait while files are moved..."
+msgstr ""
+
+#: ../media-library-plus-pro.php:649
+msgid ""
+" is not an allowed embed file type. Only pdf, mpeg, mp3, oga, wav, mp4, "
+"webm, ogg and ogv can be embedded."
+msgstr ""
+
+#: ../media-library-plus-pro.php:740 ../media-library-plus-pro.php:759
+msgid "Select the folder where you wish to view or upload files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:1413
+msgid ""
+"Please deactivate Media Library Folders. It should not running when Media "
+"Library Folders Pro is activated"
+msgstr ""
+
+#: ../media-library-plus-pro.php:1969 ../media-library-plus-pro.php:2144
+#: ../media-library-plus-pro.php:2253 ../media-library-plus-pro.php:3571
+#: ../media-library-plus-pro.php:3610 ../media-library-plus-pro.php:3753
+#: ../media-library-plus-pro.php:4174 ../media-library-plus-pro.php:4719
+#: ../media-library-plus-pro.php:4857 ../media-library-plus-pro.php:5102
+#: ../media-library-plus-pro.php:5410 ../media-library-plus-pro.php:5508
+#: ../media-library-plus-pro.php:5884 ../media-library-plus-pro.php:6026
+#: ../media-library-plus-pro.php:6350 ../media-library-plus-pro.php:6387
+#: ../media-library-plus-pro.php:6414 ../media-library-plus-pro.php:6441
+#: ../media-library-plus-pro.php:6475 ../media-library-plus-pro.php:6496
+#: ../media-library-plus-pro.php:7098 ../media-library-plus-pro.php:7174
+#: ../media-library-plus-pro.php:7196 ../media-library-plus-pro.php:7252
+#: ../media-library-plus-pro.php:7372 ../media-library-plus-pro.php:7592
+#: ../media-library-plus-pro.php:7610 ../media-library-plus-pro.php:7670
+#: ../media-library-plus-pro.php:7780 ../media-library-plus-pro.php:7831
+#: ../media-library-plus-pro.php:7860 ../media-library-plus-pro.php:7888
+#: ../media-library-plus-pro.php:8421 ../media-library-plus-pro.php:8590
+#: ../media-library-plus-pro.php:8890 ../media-library-plus-pro.php:8917
+#: ../media-library-plus-pro.php:8955 ../media-library-plus-pro.php:9126
+#: ../media-library-plus-pro.php:9336 ../media-library-plus-pro.php:9367
+#: ../media-library-plus-pro.php:9492 ../media-library-plus-pro.php:9504
+#: ../media-library-plus-pro.php:9750 ../media-library-plus-pro.php:10015
+#: ../media-library-plus-pro.php:10183 ../media-library-plus-pro.php:10221
+#: ../media-library-plus-pro.php:10620 ../media-library-plus-pro.php:11448
+#: ../media-library-plus-pro.php:11530 ../media-library-plus-pro.php:11956
+#: ../media-library-plus-pro.php:12074 ../media-library-plus-pro.php:12157
+#: ../media-library-plus-pro.php:12181 ../media-library-plus-pro.php:12620
+#: ../media-library-plus-pro.php:12659 ../media-library-plus-pro.php:12680
+#: ../media-library-plus-pro.php:12738 ../media-library-plus-pro.php:12833
+#: ../media-library-plus-pro.php:13024 ../media-library-plus-pro.php:13062
+#: ../media-library-plus-pro.php:13171 ../media-library-plus-pro.php:13227
+#: ../media-library-plus-pro.php:13270 ../media-library-plus-pro.php:13373
+#: ../media-library-plus-pro.php:13399 ../media-library-plus-pro.php:13596
+#: ../media-library-plus-pro.php:13793 ../media-library-plus-pro.php:13840
+#: ../media-library-plus-pro.php:14001
+msgid "missing nonce!"
+msgstr ""
+
+#: ../media-library-plus-pro.php:2018 ../media-library-plus-pro.php:2177
+#: ../media-library-plus-pro.php:2330
+msgid " file's type is invalid."
+msgstr ""
+
+#: ../media-library-plus-pro.php:2103 ../media-library-plus-pro.php:2232
+#: ../media-library-plus-pro.php:2633
+msgid ""
+" Unable to move the file to the destination folder; the folder may not exist."
+msgstr ""
+
+#: ../media-library-plus-pro.php:2121
+msgid "New file submitted at "
+msgstr ""
+
+#: ../media-library-plus-pro.php:2125
+msgid "A new file has been uploaded at "
+msgstr ""
+
+#: ../media-library-plus-pro.php:2125
+msgid " by "
+msgstr ""
+
+#: ../media-library-plus-pro.php:2671
+msgid "An unequal number of items were sent to update_links function."
+msgstr ""
+
+#: ../media-library-plus-pro.php:3405 ../media-library-plus-pro.php:3468
+#: ../media-library-plus-pro.php:3497 ../media-library-plus-pro.php:3533
+#: ../media-library-plus-pro.php:14049 ../media-library-plus-pro.php:14178
+#: ../media-library-plus-pro.php:15030 ../media-library-plus-pro.php:15069
+msgid "Missing nonce! Please refresh this page."
+msgstr ""
+
+#: ../media-library-plus-pro.php:3852
+msgid "Delete this folder?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:3866
+msgid "Are you sure you want to delete the selected folder?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:3900
+msgid ""
+"Hide this folder? This will remove the folder contents from the media "
+"library database."
+msgstr ""
+
+#: ../media-library-plus-pro.php:3906
+msgid "You cannot hide the currently open folder."
+msgstr ""
+
+#: ../media-library-plus-pro.php:3910
+msgid ""
+"Are you sure you want to hide the selected folder and all its sub folders "
+"and files?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4258
+msgid " files were found. Choose to display the images or just the file names?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4260
+msgid "Display images"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4261
+msgid "Display image file names only"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4262
+msgid "Or you can turn on pagination in Settings."
+msgstr ""
+
+#: ../media-library-plus-pro.php:4435 ../media-library-plus-pro.php:4581
+#: ../media-library-plus-pro.php:7549 ../media-library-plus-pro.php:9106
+#: ../media-library-plus-pro.php:9301 ../media-library-plus-pro.php:9475
+#: ../media-library-plus-pro.php:12416 ../media-library-plus-pro.php:12596
+msgid "No files were found."
+msgstr ""
+
+#: ../media-library-plus-pro.php:4703 ../media-library-plus-pro.php:5778
+msgid "File"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4704 ../media-library-plus-pro.php:5779
+msgid "Author"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4705 ../media-library-plus-pro.php:5780
+msgid "Categories"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4706 ../media-library-plus-pro.php:5781
+msgid "Date"
+msgstr ""
+
+#: ../media-library-plus-pro.php:4882
+msgid "Cannot create folder, missing parent folder ID."
+msgstr ""
+
+#: ../media-library-plus-pro.php:4944
+msgid "The folder was created."
+msgstr ""
+
+#: ../media-library-plus-pro.php:4953
+msgid "There was a problem creating the folder."
+msgstr ""
+
+#: ../media-library-plus-pro.php:4961
+msgid "The folder already exists."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5150
+msgid "The uploads folder cannot be deleted."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5223 ../media-library-plus-pro.php:5258
+msgid "The file(s) were deleted"
+msgstr ""
+
+#: ../media-library-plus-pro.php:5243 ../media-library-plus-pro.php:5260
+msgid "The file(s) were not deleted"
+msgstr ""
+
+#: ../media-library-plus-pro.php:5289
+msgid "The folder, "
+msgstr ""
+
+#: ../media-library-plus-pro.php:5289
+msgid ", is not empty. Please delete or move files from the folder"
+msgstr ""
+
+#: ../media-library-plus-pro.php:5306
+msgid "The folder could not be deleted."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5309
+msgid "The folder is not empty and could not be deleted."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5338
+msgid "The folder was deleted."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5433
+msgid "The images were added."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5549 ../media-library-plus-pro.php:6002
+msgid "No files were found matching that name."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5586 ../media-library-plus-pro.php:5715
+msgid "Media Library Folders Pro Search Results"
+msgstr ""
+
+#: ../media-library-plus-pro.php:5593 ../media-library-plus-pro.php:5762
+msgid ""
+"Click on an image to go to its folder or a on folder to view its contents."
+msgstr ""
+
+#: ../media-library-plus-pro.php:5595 ../media-library-plus-pro.php:5765
+msgid "Search results for: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:5795 ../media-library-plus-pro.php:6010
+#: ../media-library-plus-pro.php:13629 ../media-library-plus-pro.php:13749
+msgid "Previous"
+msgstr ""
+
+#: ../media-library-plus-pro.php:5797 ../media-library-plus-pro.php:6012
+#: ../media-library-plus-pro.php:13633 ../media-library-plus-pro.php:13753
+msgid "Next"
+msgstr ""
+
+#: ../media-library-plus-pro.php:6334
+msgid "Updating attachment links, please wait...The file was renamed"
+msgstr ""
+
+#: ../media-library-plus-pro.php:6367
+msgid "Sorting by date."
+msgstr ""
+
+#: ../media-library-plus-pro.php:6371
+msgid "Sorting by name."
+msgstr ""
+
+#: ../media-library-plus-pro.php:6538
+msgid "Scanning for new folders in "
+msgstr ""
+
+#: ../media-library-plus-pro.php:6565 ../media-library-plus-pro.php:6594
+#: ../media-library-plus-pro.php:6622 ../media-library-plus-pro.php:6664
+msgid "Adding"
+msgstr ""
+
+#: ../media-library-plus-pro.php:6640
+msgid "No new folders were found."
+msgstr ""
+
+#: ../media-library-plus-pro.php:6774
+msgid ""
+"Is there a feature you would like for us to add to Media Library Folders "
+"Pro? Let us know."
+msgstr ""
+
+#: ../media-library-plus-pro.php:6775
+msgid ""
+"Send your suggestions to <a href=\"mailto:support@maxfoundry.com"
+"\">support@maxfoundry.com</a>."
+msgstr ""
+
+#: ../media-library-plus-pro.php:6787
+msgid "Rate us Please!"
+msgstr ""
+
+#: ../media-library-plus-pro.php:6788
+msgid ""
+"Your rating is the simplest way to support Media Library Folders Pro. We "
+"really appreciate it!"
+msgstr ""
+
+#: ../media-library-plus-pro.php:6791
+msgid "I've already left a review"
+msgstr ""
+
+#: ../media-library-plus-pro.php:6792
+msgid "Maybe Later"
+msgstr ""
+
+#: ../media-library-plus-pro.php:6793
+msgid "Sure! I'd love to!"
+msgstr ""
+
+#: ../media-library-plus-pro.php:7456
+msgid "NextGen Gallery Viewer"
+msgstr ""
+
+#: ../media-library-plus-pro.php:7458 ../media-library-plus-pro.php:7459
+msgid "Brought to you by"
+msgstr ""
+
+#: ../media-library-plus-pro.php:7652
+msgid "The gallery was created."
+msgstr ""
+
+#: ../media-library-plus-pro.php:7656
+msgid "The gallery could not be created."
+msgstr ""
+
+#: ../media-library-plus-pro.php:7757
+msgid " image(s) were added."
+msgstr ""
+
+#: ../media-library-plus-pro.php:7851
+msgid "Network site licenses were activated;"
+msgstr ""
+
+#: ../media-library-plus-pro.php:7879
+msgid "Network site licenses were deactivated;"
+msgstr ""
+
+#: ../media-library-plus-pro.php:7997
+#, php-format
+msgid "Thumbnails have been regenerated for %d image(s)"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8058
+msgid "Cheatin&#8217; uh?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8069
+#, php-format
+msgid "Unable to find any images. Are you sure <a href='%s'>some exist</a>?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8080
+msgid ""
+"Please wait while the thumbnails are regenerated. This may take a while."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8084
+#, php-format
+msgid "To go back to the previous page, <a href=\"%s\">click here</a>."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8085
+#, php-format
+msgid ""
+"All done! %1$s image(s) were successfully resized in %2$s seconds and there "
+"were %3$s failure(s). To try regenerating the failed images again, <a href="
+"\"%4$s\">click here</a>. %5$s"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8086
+#, php-format
+msgid ""
+"All done! %1$s image(s) were successfully resized in %2$s seconds and there "
+"were 0 failures. %3$s"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8090 ../media-library-plus-pro.php:8242
+msgid "You must enable Javascript in order to proceed!"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8096
+msgid "Abort Resizing Images"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8098
+msgid "Debugging Information"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8101
+#, php-format
+msgid "Total Images: %s"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8102
+#, php-format
+msgid "Images Resized: %s"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8103
+#, php-format
+msgid "Resize Failures: %s"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8135
+msgid "Stopping..."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8188
+#, php-format
+msgid ""
+"The resize request was abnormally terminated (ID %s). This is likely due to "
+"the image exceeding available memory or some other type of fatal error."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8232 ../media-library-plus-pro.php:8235
+#: ../media-library-plus-pro.php:8237
+msgid "Regenerate All Thumbnails"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8267
+#, php-format
+msgid "Failed resize: %s is an invalid image ID."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8270
+msgid "Your user account doesn't have permission to resize images"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8291
+#, php-format
+msgid "The originally uploaded image file cannot be found at %s"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8308
+msgid "Unknown failure reason."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8349
+#, php-format
+msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8354
+#, php-format
+msgid ""
+"&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8390
+msgid "Turn on Image SEO:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8395
+msgid "Image ALT attribute:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8397 ../media-library-plus-pro.php:8402
+msgid "example"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8400
+msgid "Image Title attribute:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:8447
+msgid "The Image SEO settings have been updated "
+msgstr ""
+
+#: ../media-library-plus-pro.php:8548
+#, php-format
+msgid ""
+"Media Library Maintenance requires PHP version 7.4 or greater. This site "
+"uses version %s."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8600
+msgid "The uploads folder cannot be hidden."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8640
+msgid "The selected folder, subfolders and thier files have been hidden."
+msgstr ""
+
+#: ../media-library-plus-pro.php:8942
+msgid "The media categories were updated."
+msgstr ""
+
+#: ../media-library-plus-pro.php:9333
+msgid "The category was not added."
+msgstr ""
+
+#: ../media-library-plus-pro.php:9661
+msgid "The settings were updated."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10060
+msgid "Scanning for new files and folders...please wait."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10065
+msgid "Syncing finished."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10090
+msgid "Adding "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10093 ../media-library-plus-pro.php:13955
+msgid " is not an allowed file type. It was not added."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10294 ../media-library-plus-pro.php:10661
+msgid "Finished copying files. "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10296 ../media-library-plus-pro.php:10663
+msgid "Finished moving files. "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10390 ../media-library-plus-pro.php:11003
+msgid "Unable to copy the file; please check the folder and file permissions."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10566 ../media-library-plus-pro.php:11200
+msgid "Updating attachment links, please wait..."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10571
+msgid "Unable to move "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10571
+msgid "; please check the folder and file permissions."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10577 ../media-library-plus-pro.php:11211
+msgid "The destination is not a folder: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10582 ../media-library-plus-pro.php:11216
+msgid "Cannot find destination folder: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10587
+msgid "Copying or moving a folder is not allowed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10592 ../media-library-plus-pro.php:11226
+msgid "Cannot find the file: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10599 ../media-library-plus-pro.php:11233
+msgid " was copied to "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10601 ../media-library-plus-pro.php:11235
+msgid " was not copied."
+msgstr ""
+
+#: ../media-library-plus-pro.php:10605 ../media-library-plus-pro.php:11239
+msgid " was moved to "
+msgstr ""
+
+#: ../media-library-plus-pro.php:10607 ../media-library-plus-pro.php:11241
+msgid " was not moved."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11205
+msgid ""
+"Unable to move the file(s); please check the folder and file permissions."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11221
+msgid "Coping or moving a folder is not allowed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11322
+msgid "No License Found! "
+msgstr ""
+
+#: ../media-library-plus-pro.php:11323
+msgid ""
+"Media Library Folders PRO requires a license. Activate or renew your license "
+"to access pro features, get updates and new features plus support!"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11324
+msgid "Click to enter license."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11325
+msgid "Your license is in your purchase email or in the "
+msgstr ""
+
+#: ../media-library-plus-pro.php:11325
+msgid "Account"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11325
+msgid "section of our website."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11330
+msgid "License Expired"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11331
+#, php-format
+msgid ""
+"Your license expired on %s. Renew your license to access pro features, get "
+"updates and new features plus support!"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11332
+#, php-format
+msgid ""
+"Renew your license for a discount via  %s Your Account %s on our website.</p>"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11334
+#, php-format
+msgid ""
+"Already renewed your license, <a href=\"%s\">click here to update your "
+"license information.</a></p>"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11515
+msgid "The role setting were saved."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11762
+msgid ""
+"Please wait while thumbnail files are removed from the site. This may take a "
+"few minutes, depending on the number of files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11780
+msgid "Save Thumbnail Settings"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11786
+msgid "Remove Unselected Thumbnail Sizes"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11792
+msgid "Reset Defaults"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11844
+msgid "Thumbnail settings saved."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11871
+msgid "Removing selected thumbnails. Please wait."
+msgstr ""
+
+#: ../media-library-plus-pro.php:11882
+msgid "Are you sure you want reset thumbnail data?"
+msgstr ""
+
+#: ../media-library-plus-pro.php:11927
+msgid "Thumbnail removal complete."
+msgstr ""
+
+#: ../media-library-plus-pro.php:12059
+msgid "Removeing unselected thumbnail sizes for "
+msgstr ""
+
+#: ../media-library-plus-pro.php:12061
+msgid "The unselected thumbnails sizes were removed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:12780 ../media-library-plus-pro.php:13107
+#: ../media-library-plus-pro.php:15418 ../media-library-plus-pro.php:15557
+msgid " already exists"
+msgstr ""
+
+#: ../media-library-plus-pro.php:12819 ../media-library-plus-pro.php:13119
+#: ../media-library-plus-pro.php:15439
+msgid "Folders added."
+msgstr ""
+
+#: ../media-library-plus-pro.php:12893
+msgid "Files added."
+msgstr ""
+
+#: ../media-library-plus-pro.php:13254
+msgid "The selected file is not an audio file"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13256
+msgid "The selected file is not a video file"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13448
+msgid "Folders scanned."
+msgstr ""
+
+#: ../media-library-plus-pro.php:13625
+msgid "Page"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13625
+msgid "of"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13628 ../media-library-plus-pro.php:13748
+msgid "First Page"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13632 ../media-library-plus-pro.php:13752
+msgid "Last"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13641
+msgid "Image"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13642
+msgid "File Name"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13643
+msgid "Folder"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13644 ../media-library-plus-pro.php:13718
+msgid "Leave"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13644 ../media-library-plus-pro.php:13721
+#: ../media-library-plus-pro.php:13723
+msgid "Delete"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13711
+msgid "File type not allowed"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13726
+msgid "Create"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13757
+msgid "Go to page top"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13900 ../media-library-plus-pro.php:13914
+#: ../media-library-plus-pro.php:13916
+msgid "Folder "
+msgstr ""
+
+#: ../media-library-plus-pro.php:13900
+msgid " was deleted"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13914
+msgid " was added"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13916
+msgid " could not be added"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13950
+msgid " added"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13967
+msgid " deleted"
+msgstr ""
+
+#: ../media-library-plus-pro.php:13972
+msgid " skipped."
+msgstr ""
+
+#: ../media-library-plus-pro.php:13988
+msgid "Processing complete."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14095
+msgid "Updating "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14095 ../media-library-plus-pro.php:14142
+#, php-format
+msgid "% complete"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14142
+msgid "Checking "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14151
+msgid "Done scanning files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14204 ../media-library-plus-pro.php:14370
+msgid "Bulk Actions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14208
+msgid "Playlist Shortcode"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14209
+msgid "Jetpack Gallery"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14210
+msgid "Embed PDF/Audio/Video"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14211
+msgid "Add Images to NextGen Galleries"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14214
+msgid "Upload selected files to S3"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14215
+msgid "Downloads selected files from S3"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14218
+msgid "Roll Back Scaled Images"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14221
+msgid "Apply"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14272
+msgid "Back to top of file contents"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14273
+msgid "items"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14275 ../media-library-plus-pro.php:14277
+msgid "First page"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14279 ../media-library-plus-pro.php:14281
+msgid "Previous page"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14286
+msgid "of "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14288 ../media-library-plus-pro.php:14290
+msgid "Next page"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14292 ../media-library-plus-pro.php:14294
+msgid "Last page"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14313
+msgid "License Key Help"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14314
+msgid ""
+"The license key must be activated to access all the pro features of Media "
+"Library Folders Pro."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14315
+msgid ""
+"To activate, paste in the license key you received after purchasing the "
+"plugin. Click the Save Changes button to save the license key and then click "
+"the Activate License button to activate the license."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14316
+msgid ""
+"If the license key expires, Media Library Folders Pro will display a notice "
+"that the license needs to be renewed. After renewing the license, it is "
+"necessary to visit the Media Library Folders Pro Settings Page, License tab, "
+"which will cause the plugin to update its license information."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14324
+msgid "Library Help"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14326
+msgid ""
+"Media Library Folders provides additional functionality to the standard "
+"Wordpress media library. The media library is basically a database of files "
+"that have been imported into Wordpress. It is not a live picture of files on "
+"your server. Before files can be viewed in the media library they have to be "
+"process and added to the database. New folders created manually on the "
+"server also have to be added to the database before that can be used by "
+"Media Library Folders."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14328
+msgid "Basic Operations"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14330
+msgid "Add Folder, Creates a new folder. Folder names cannot contain spaces."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14331
+msgid ""
+"Upload Files, Opens the file upload area. Here you can upload individual "
+"files using the browse button to find and select a file on your computer. "
+"Multiple files can be uploaded using drag and drop; open your file manger, "
+"select highlight multiple files, drag them to the Drag and Drop box on this "
+"page and release them. The files will be uploaded to the currently selected "
+"folder. To close the file upload area, click the Upload Files icon."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14332
+msgid ""
+"Refresh Folders, Media Library Folders periodically checks for new folders. "
+"Clicking this icon will immediate check and add new folders to the folder "
+"tree."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14333
+msgid ""
+"Move Files, By default, files can be moved from one folder to another by "
+"dragging a file to a folder. Note that the mouse pointer is slightly offset "
+"so be sure to place the mouse, not the image, over the destination folder "
+"before releasing. Media files that are embedded in standard posts and pages "
+"will be updated when a file is moved. However this some themes and page "
+"builders may store embedded links in a non standard format. Media Library "
+"Folders has attentional code for handling such non standard formats but it "
+"is a good practices on a new install of Media Library Folders to test the "
+"updating of embedded links by move a file and checking the page where the "
+"files is embedded to see that it was correctly update to the new link."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14334
+msgid ""
+"Copy Files, It possible to switch the drag and drop operation from moving "
+"files to copying files but clicking on the copy icon. To switch back to "
+"moving files, click the move icon."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14335
+msgid ""
+"Order by Date, Files can be sorted by the date they were added to Wordpress "
+"or by their title. Clicking on the Calendar icon will order the files by "
+"date."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14336
+msgid ""
+"Sort by Title, Order files by their title. The title of a file can be "
+"changed by clicking on an image which will open the file's edit media page "
+"in a new tab."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14337
+msgid "Reverse Order, Reverses the order of files displayed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14338
+msgid ""
+"Sync, The sync function scans the current folder and adds any new files or "
+"folders it finds. Files uploaded to a folder by FTP can be added to the "
+"media library using this feature."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14339
+msgid ""
+"Rename a File, To rename a file, check the check box of the file to be "
+"renamed and click the Rename icon. This action will display the Rename The "
+"Selected File box where you can enter a new name for the file. After "
+"entering the new file name, click the Rename File button. Note the the "
+"file's extension cannot be changes and if multiple files are selected, only "
+"the name of the first file selected can be changed. Folders cannot be "
+"renamed as that would break embedded links in posts and page; instead "
+"renaming a folder, create a new folder with the desired name and move the "
+"files to the new folder which will update any embedded links to the new "
+"location."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14340
+msgid ""
+"Add Images to MaxGalleria Gallery, The icon for adding images to a "
+"MaxGalleria gallery is only visible when MaxGalleria or MaxGalleria Pro is "
+"installed and activated. This feature allows one to select one or more "
+"images in a folder and add them to an existing MaxGalleria gallery. To add "
+"images, select the images to add by checking their checkboxes Then click the "
+"image gallery icon. In the Add images to MaxGalleria Gallery box the "
+"appears, select the name of the gallery where to add the images and click "
+"the Add Images button. This function only works for images and not videos."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14341
+msgid ""
+"Regenerate Thumbnails, To regenerate thumbnails for one or more files, check "
+"the check boxes of the images to regenerate and then click the regenerate "
+"thumbnails icon."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14342
+msgid ""
+"Delete Files, To delete one or more files, check the check boxes of the "
+"files to delete and then click the delete files icon."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14343
+msgid ""
+"Create a NextGen Gallery, This option is available for sites where the "
+"NextGen plugin is installed and allows one to create a new NextGen gallery. "
+"Once a new gallery has been created, media library images can be added using "
+"the Add Images to NextGen Gallery feature."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14344
+msgid "Replace a file, An existing file can be replaced using this feature."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14345
+msgid ""
+"Search/Find, To find a particular file or folder by typing in a file or "
+"folder name and pressing Enter, or by clicking the Find button. The search "
+"results page will display files that match the search text and clicking on "
+"an item on the search results page will open the related folder and display "
+"its contents."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14346
+msgid ""
+"Edit a file, To edit a media file's data, such as it title, alt text, "
+"caption or description, click on an image and the file's edit media page "
+"will open in a new browser tab. "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14347
+msgid "Folder Operations"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14348
+msgid ""
+"Hide a Folder,  To hide a folder, that is to remove it from the folder tree "
+"and the database but not from the server, right click on a folder you want "
+"to hide (CTRL-click on a Mac). Choose the option “Hide this folder?”. "
+"Clicking on this option will remove the folder, its sub folders and files "
+"from the Media Library but not from your server. This action will also write "
+"a file to the folder with the name “mlpp-hidden”. As long as that file is "
+"present, Media Library Plus will skip over this folder when checking for "
+"folders and files to add to the Media Library."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14349
+msgid ""
+"Delete a Folder, Right click on a folder you want to delete (CTRL-click on a "
+"Mac). This action will display a popup menu. Click “Delete this Folder?” and "
+"if the folder is empty, then it will be removed. If you get a message that "
+"the folder is not empty, view that folder and click the Sync button to add "
+"any files on the server that are not in the media library. Then you can "
+"remove the files and delete the folder as explained above."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14350
+msgid ""
+"Select/Deselect All Files, to select or deselect at the files currently "
+"displayed, check the Select All Files checkbox."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14351
+msgid ""
+"Select a Group of Files, To select a group of adjacent files, check the "
+"checkbox of the first file in the group and the while holding down the Shift "
+"key, click the last file in the group."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14354
+msgid "Media Library Folder Pro adds media categories to your Wordpress site. "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14355
+msgid "To assign or view categories, click the category icon"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14355
+msgid "to reveal the category area. From this area you can:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14357
+msgid "Add a new category"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14358
+msgid "Set the category of items in the media library"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14359
+msgid "View the categories of a single item"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14360
+msgid "Display items by categories"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14361
+msgid "Change the sort order of items in categories"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14363
+msgid ""
+"Add a new category by clicking the Add New Category button. Once added, the "
+"new category is automatically displayed the category list."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14364
+msgid ""
+"To set the category of one or more images in Media Library Folders Pro, "
+"click the checkboxes of the desired images, click the check box of a single "
+"category and press the Set Categories button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14365
+msgid ""
+"If you want to see what categories have been assigned to a particular image, "
+"check an image you and then click the Get Categories button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14366
+msgid ""
+"One can do the same even when the Categories Area is not displayed. Just "
+"click on an image and click the Categories button. When it loads the "
+"categories, the category associated with the check image will be checked"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14367
+msgid ""
+"To view all the images in one or more categories, check the checkboxes of "
+"the categories you want to view and press the View Categories button. If "
+"there are more than 40 items to display (in grid view) you will be prompted "
+"to view either the images of the titles of the images or files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14368
+msgid ""
+"When viewing items by category you can specify the sorting order, either "
+"order by title or order by date."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14369
+msgid ""
+"With the items displayed by categories, you can select items from the list "
+"to perform move, copy, regenerate thumbnails or add to a MaxGalleria gallery "
+"operations."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14371
+msgid ""
+"To use a bulk action, select an action from the dropdown list and click the "
+"Apply button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14372
+msgid ""
+"Bulk Move, The bulk move function allows one to move a larger number of "
+"files than can be moved by the drag and drop method. Detailed instructions "
+"for using bulk move are available when the bulk move box is visible."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14373
+msgid ""
+"Playlist Shortcode - This shortcode generator lets one create an audio or "
+"video playlist that can be displayed in a post or page."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14374
+msgid ""
+"Jetpack Gallery, Allows the creation of image gallery shortcodes. Additional "
+"gallery features are available when the Jetpack plugin is installed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14375
+msgid ""
+"Embed PDF/Audio/video, Enables the creation of shortcodes to embed PDFs, "
+"audio or video files into a page or post."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14376
+msgid ""
+"Add Images to NextGen Galleries, For sites where the NextGen plugin is "
+"installed, Media Library Folders can add images NextGen galleries."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14377
+msgid ""
+"Rollback Scaled Images - Since Wordpress 5.3, the media library scales very "
+"large images. For those you want to undo the image scaling, this can be "
+"undone by first enabling image scaling rollback in Media Library Folders Pro "
+"Settings. Then, this option will be available in the Bulk Actions dropdown. "
+"To use, visit a folder containing scaled images, select Roll back scaled "
+"images from the bulk actions dropdown list and click the apply button. The "
+"plugin will search the current folder for scaled images and attempt to "
+"replace them in the media library database with the full site image if it is "
+"still available on the server."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14385
+msgid "Folder Access Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14386
+msgid ""
+"Only roles that are allowed to upload files appear in the Role dropdown "
+"list. Note that each of the roles have full access until any folder access "
+"is set for a role."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14387
+msgid ""
+"When viewing the access folder permissions for a role, no checked check "
+"boxes means full access to all folders. Once one or more folder boxes are "
+"checked and saved, users of the current role are restricted to only access "
+"the checked folders and their parent folders. In this case, the check boxes "
+"of parent folders do not need to be checked, access to these parent folders "
+"is automatically granted by the plugin."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14388
+msgid ""
+"Note that checking the check box of a parent folder will add checkmarks to "
+"all its sub folders. And unchecking a checkbox for a parent folder will "
+"uncheck all it sub folders."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14389
+msgid ""
+"To remove all restrictions on a role, check and uncheck the top most folder "
+"to remove all checkbox checks and click Save Access."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14390
+msgid ""
+"Note that folder access restrictions only affect logged in user from adding, "
+"modifying or removing files from the restricted folder; it does not prevent "
+"files from being viewed or downloaded."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14391
+msgid ""
+"On the Wordpress media page, users can still access files through the list "
+"view. Access to the list view can be turn of in Media Library Folders Pro "
+"Settings"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14399
+msgid "Bulk Move Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14400
+msgid ""
+"1. After opening the bulk move window, select a destination folder from the "
+"folder tree."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14401
+msgid ""
+"2. Select the files to be moved by checking their check boxes. Use the "
+"Select All Files checkbox to select all the displayed files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14402
+msgid ""
+"3. Click the Move Selected Files to begin the moving files. The button will "
+"change to a Stop Moving Files button which may allow one to interrupt the "
+"file moving process, but because the process goes very quickly, it cannot "
+"halt processing immediately."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14403
+msgid ""
+"4. To change to a different destination folder, click the Reselect "
+"Destination Folder and then click the new destination folder in the folder "
+"tree."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14404
+msgid ""
+"5. To close the Bulk Move window click the 'x' in the right corner of the "
+"bulk move area.</p>"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14413
+msgid "Playlist Shortcode Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14414
+msgid "To generate a audio or video playlist shortcode:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14415
+msgid "1. Select the type of playlist to create, audio or video."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14416
+msgid ""
+"2. Navigate to the folders containing the files that you want to include in "
+"the playlist and click on the files to be included in the playlist. Before "
+"the new file's ID is added to the list of IDs, it type will be checked. An "
+"error message will be displayed if the file does not match the selected "
+"playlist type."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14417
+msgid ""
+"3. After adding files click on the Generate Shortcode button to create the "
+"shortcode."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14418
+msgid ""
+"4. Click on Copy to Clipboard button to copy the shortcode and then insert "
+"it into a page or post."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14426
+msgid "Embed Shortcode Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14427
+msgid "To generate an embed shortcode:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14428
+msgid ""
+"1. Select one file from the current folder and click the Embed Shortcode "
+"button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14429
+msgid ""
+"2. For PDF or Video files, enter a width in either pixels (\"px\") or "
+"percent (\"%\") and a height in pixels (‘px’)."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14430
+msgid "3. Select other options as needed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14431
+msgid "4. Click the Generate Shortcode button to create the shortcode."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14432
+msgid ""
+"5. Click the Copy to Clipboard button to copy the shortcode to paste into a "
+"post or page."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14433
+msgid ""
+"6. To generate another shortcode, click the Embed Shortcode button to close "
+"the embed shortcode generator, select a new file and click the Embed "
+"Shortcode button again."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14441
+msgid "Gallery Shortcode Generator Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14442
+msgid "To generate a gallery shortcode:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14443
+msgid ""
+"1. Select images by clicking their checkboxes and then clicking the Add "
+"Selected Images button. The selected images will appear in the selected "
+"image list directly below the gallery options. Images can be added to the "
+"selected image list from multiple folders. Or instead of selecting "
+"individual images enter a post or page ID number to display all embedded "
+"images in a post or page. To find the post or page ID, edit a post or page "
+"and looked at the link in the browser address bar. The number the comes "
+"after 'post=' is the post or page ID. Note if a post or page ID is used, "
+"this will override displaying any selected images."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14444
+msgid ""
+"2. Individual images can be removed from the selected images list by "
+"checking their checkboxes and clicking the Remove Selected Images button. "
+"All the images in the selected image list can be removed by clicking the "
+"Remove All Images button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14445
+msgid ""
+"3. Select the options for displaying the images. Note the shortcode that is "
+"generated by Media Library Folders Pro is one of Wordpress' builtin "
+"shortcodes and not all available options may be supported by the current "
+"version of Wordpress installed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14446
+msgid ""
+"4. After selecting the desired options click the Generate Shortcode button "
+"to create the shortcode which will appear in the text area below the "
+"selected image list. Click the Copy to Clipboard button to copy the "
+"shortcode to insert into a post or Gutenberg shortcode widget."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14454
+msgid "Media LIbrary Maintenance Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14455
+msgid ""
+"1. Before searching for files, check your folder tree for any folders that "
+"do not contain media files which may have been added by other plugins. "
+"Special use folders such as ones for backup files, cache files etc, can be "
+"hidden and then Media Library Maintenance will not scan those folders when "
+"searching for uncateloged files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14456
+msgid ""
+"2. When the Media Library Maintenance page opens, it will display the "
+"results of any previous search for files. Click the Search for Uncataloged "
+"Files button to start a new search of your media library files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14457
+msgid ""
+"3. Once the search is complete, choose which files to delete or import into "
+"the media library."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14458
+msgid ""
+"4. Any uncataloged thumbnail images that are selected for import will have "
+"the file dimensions part of the file name (width x height) removed when "
+"imported. To prevent the removal of the file dimensions, uncheck the "
+"'Automatically remove file size from imported thumbnail images names' option."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14459
+msgid ""
+"5. If there is a full size image to be imported and it also has thumbnail "
+"images, select import for the full size image and mark all the thumbnails "
+"for deletion as they will be automatically regenerated for the full size "
+"image."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14460
+msgid ""
+"6. One does not have to review all the files in the uncateloged file list to "
+"process that ones that have been selected for deletion or import. The plugin "
+"will only process that one that have been marked for deletion or import."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14461
+msgid ""
+"7. Folders that are recorded in the database but which do not exist on the "
+"server will also be displayed in the list and can be selected for removal "
+"from the database or to be recreated on the server."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14462
+msgid ""
+"8. Files that are not allowed by Wordpress will not be imported and will be "
+"denoted as 'File type now allowed'."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14463
+msgid ""
+"<strong>Media Library Maintenance can also be used for the bulk importing of "
+"files to the media library.</strong>"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14464
+msgid ""
+"1. Upload your files to the the site and place them in new or existing "
+"folders under the site's uploads folder."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14465
+msgid ""
+"2. Go to the Media Library Folders Pro Media Library Maintenance page and "
+"click the Search for Uncataloged Files. Media Library Folder Pro will check "
+"for new files and folders and will list all the files it finds."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14466
+msgid ""
+"3. Once searching is finished, select the files to import into the media "
+"library and then click the Process Files button."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14474
+msgid "Export/Import Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14475
+msgid ""
+"The Import/Export feature allows an administrator to export a site's media "
+"library from one site to another. With this feature: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14477
+msgid ""
+"You can export and download the contents of your media library from one "
+"WordPress site and then upload and import it into the media library of "
+"another WordPress site."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14478
+msgid ""
+"The feature will also work for media libraries on multi-sites, either multi-"
+"site library to single site library or single site library to multi-site "
+"library."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14479
+msgid ""
+"You can also import files to an AWS S3 bucket when connected to a site "
+"through Media Library Folders Pro S3."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14480
+msgid ""
+"It can even be used to simply create a back-up of your media library files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14482
+msgid ""
+"Please note: Backups do not include thumbnail images. These will be "
+"generated when the images are imported into the destination site. The only "
+"files and folders included in the backup will be those that are listed in "
+"the media library database."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14483
+msgid ""
+"If media files are stored on a cloud server, such as AWS Spaces, it will be "
+"necessary to move the files from the cloud server to the local media library "
+"in order to create an export file."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14484
+msgid ""
+"To create a new export file, click on the Create a New Media Export File "
+"button, enter a name for the export and press the OK button.  Media Library "
+"Folders will generate a new export file and add it the export file list."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14485
+msgid ""
+"Once created, an export file can be download by clicking on the file's "
+"download icon"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14485
+msgid ""
+"The zip file downloaded can then be uploaded to a different site where Media "
+"Library Folders Pro is installed. There is also a delete icon"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14485
+msgid " if you don’t need to or just prefer not to keep a copy on your site."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14486
+msgid ""
+"To upload an export file, click on the Upload a Media Export File button to "
+"display the Import Media Library Export File window. Click the browse button "
+"and choose the export file to upload and then the Upload Export File. Once "
+"the file is finished uploading it will appear in the list of the export "
+"files and you can then click the import icon"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14486
+msgid " to import the files and folders into the site’s media library."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14487
+msgid ""
+"This will begin a two-part process. First up, folders are added to the site. "
+"If one of the imported folder names already exist, Media Library Folders Pro "
+"won’t create a duplicate, instead it will use the existing folder during the "
+"file import."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14488
+msgid ""
+"Once the folders are created, then second part of the import process will "
+"begin, adding files to the appropriate folders. If a folder already contains "
+"a file with the same name as one being imported, it won’t replace it, but "
+"instead will simply skip that file and continue importing."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14489
+msgid ""
+"If for whatever reason, you need to abort the import, simply click "
+"Stop Import button and the import process will be halted. You can restart "
+"the process at any time and any folders and files not already copied across "
+"will then be imported. The import will attempt a full import but since files "
+"are not overwritten, it will just skip past them."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14497
+msgid ""
+"Click the Regenerate All Thumbnails button to regenerate thumbnails for all "
+"images in the Media Library. This is helpful if you have added new thumbnail "
+"sizes to your site. Existing thumbnails will not be removed to prevent "
+"breaking any links."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14499
+msgid ""
+"You can regenerate thumbnails for individual images from the Media Library "
+"Folders Pro page by checking the box below one or more images and clicking "
+"the Regenerate Thumbnails button. The regenerate operation is not reversible "
+"but you can always generate the sizes you need by adding additional "
+"thumbnail sizes to your theme."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14505
+msgid "Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14506
+msgid ""
+"To start, uncheck the boxes of the thumbnail sizes you wish\n"
+"      to not generate and click Save Thumbnail Settings. Default Wordpress\n"
+"      thumbnails sizes, ‘thumbnail’, ‘medium’, ‘large’, cannot be removed "
+"as\n"
+"      Wordpress requires that these sizes be present. After saving the "
+"thumbnail\n"
+"      settings click the Remove Unselected Thumbnail Sizes button to start "
+"the \n"
+"      removal process."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14513
+msgid ""
+"To add thumbnail sizes or undo the removal \n"
+"      of thumbnail sizes, check the boxes of the thumbnails \n"
+"      desired and save the thumbnail settings. Then go to the"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14517
+msgid "Media Library Folders Pro Regenerate Thumbnails page"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14518
+msgid "and regenerate thumbnails images for the whole site."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14520
+msgid ""
+"Some thumbnail sizes may no longer be active if the theme or plugin \n"
+"      that added the sizes has been removed from the site. To delete the "
+"inactive sizes \n"
+"      from the thumbnail management list, click the ‘Reset Defaults’ button "
+"to reset the \n"
+"      list of sizes registered on your site. Then uncheck the thumbnail "
+"sizes that should \n"
+"      not be generated and resave the thumbnail settings."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14531
+msgid "Image SEO Instruction"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14532
+msgid ""
+"When Image SEO is enabled Media Library Folders Pro automatically adds ALT "
+"and Title attributes with the default settings defined below to all your "
+"images as they are uploaded."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14533
+msgid ""
+"You can easily override the Image SEO default settings when you are "
+"uploading new images. When Image SEO is enabled you will see two fields "
+"under the Upload Box when you add a file - Image Title Text and Image ALT "
+"Text. Whatever you type into these fields overrides the default settings for "
+"the current upload or sync operations."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14534
+msgid ""
+"To change the settings on an individual image simply click on the image and "
+"change the settings on the far right. Save and then back click to return to "
+"Media Library Folders or MLFP."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14535
+#, php-format
+msgid ""
+"Image SEO supports two special tags:<br>\n"
+"%filename - replaces image file name ( without extension )</br>\n"
+"%foldername - replaces image folder name"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14543
+msgid "Media Library Folders Pro Options Instructions"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14544
+msgid ""
+"removes the folder tree from the standard Wordpress media library. This is "
+"useful if you are having an issue with displaying the folder tree."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14545
+msgid ""
+"by default, the folder tree will not appear in media popups on the front end "
+"of the site. If you are using a front end theme editor, you would need to "
+"check this option to allow the folder tree to be displayed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14546
+msgid "Enable Pagination"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14546
+msgid ""
+"checking this option turns on pagination on the Library tab of the Folders "
+"and Files page. To set the number of files to display, enter the number in "
+"Number of images to display per page option."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14547
+msgid ""
+"Media Library Folders Pro includes a shortcode for upload files to a "
+"selected folder. To use this feature, check this option."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14548
+msgid "this option remove these functions for non administrators."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14549
+msgid ""
+"check this option to turn on the user role folder access limit feature for "
+"non administrators. You can then set with folders different user roles can "
+"access in the Folder Access tab on the Folders and Files page. Note, "
+"limiting folder access by user roles does not prevent internet access to "
+"your media files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14550
+msgid ""
+"this option was added to undo the Wordpress images scaling. With this option "
+"is checked, a Roll Back Scaled Images option is added to the Bulk Actions "
+"dropdown list on the Library tab of the Folders and Files page, which when "
+"selected, will search the current folder for previously scaled images and "
+"covert them to non scaled."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14551
+msgid ""
+"when checked, this option prevents users from switching the the media "
+"library from a grid to list view of the media files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14552
+msgid ""
+"This option is only for debugging purposes and should not normally be "
+"checked. It will display the SQL query for displaying folder contents on the "
+"Library page."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14553
+msgid ""
+"this option disables caption text importing from JEPG images when they are "
+"added to the media library."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14554
+msgid "Add an index to the postmeta table"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14554
+msgid ""
+"For sites with a large number of media files, check this option to create a "
+"new index fro the postmeta table to speed by the loading of the Media "
+"Library Folders Pro page."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14555
+msgid "For language local issues, use this option:"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14555
+msgid ""
+"For users with non Latin character sets, check this option and enter the "
+"proper locale code below to fix issues with moving files."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14665 ../media-library-plus-pro.php:14747
+#: ../media-library-plus-pro.php:14818 ../media-library-plus-pro.php:14995
+#: ../media-library-plus-pro.php:15126 ../media-library-plus-pro.php:15355
+#: ../media-library-plus-pro.php:15458
+msgid "missing nonce! Please refresh the page."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14679
+msgid ""
+"Currently Media Library Folders Pro S3 is set to store media library files "
+"only on the Cloud Server. Please go to Cloud Storage, Cloud Files tab and "
+"click the <strong>Download Media Files from Cloud Storage</strong> button to "
+"move all your files to the local media library before creating an export "
+"file."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14690
+msgid "Creating backup "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14690
+msgid ""
+". This may take a few minutes. The list of backups will refresh once the "
+"process is complete. "
+msgstr ""
+
+#: ../media-library-plus-pro.php:14707
+msgid " could not be created. Try another backup name."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14717
+msgid " already exists."
+msgstr ""
+
+#: ../media-library-plus-pro.php:14848
+msgid "Download Export File"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14849
+msgid "Import Export File"
+msgstr ""
+
+#: ../media-library-plus-pro.php:14850
+msgid "Delete Export File"
+msgstr ""
+
+#: ../media-library-plus-pro.php:15089
+msgid "The backup already exists."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15106
+msgid "The backup uploaded successfully."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15108
+msgid "The backup file could not be opened after uploading."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15112
+msgid "The upload failed."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15404
+msgid "Adding folder: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:15409
+msgid "Could not import "
+msgstr ""
+
+#: ../media-library-plus-pro.php:15426
+msgid "Uploads folder found"
+msgstr ""
+
+#: ../media-library-plus-pro.php:15512
+msgid "Importing: "
+msgstr ""
+
+#: ../media-library-plus-pro.php:15565
+msgid "Files imported."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15688
+msgid "Your browser does not support the audio element."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15699
+msgid "Your browser does not support the video element."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15813
+msgid ""
+"The destination folder does not exist. Please verify the correct folder ID."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15865
+msgid "No file was selected."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15876
+msgid "This shortcde requires a folder ID."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15913
+msgid " was uploaded successfully."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15920
+msgid "The file could not be uploaded."
+msgstr ""
+
+#: ../media-library-plus-pro.php:15930
+msgid ""
+"Please enable front end uploading in Media Library Folders Pro Settings to "
+"use the front end upload shortcode."
+msgstr ""
+
+#: ../mlf-pro-reset.php:46
+msgid "Media Library Folders Pro Reset"
+msgstr ""
+
+#: ../mlf-pro-reset.php:47
+msgid "Display Attachment URLs"
+msgstr ""
+
+#: ../mlf-pro-reset.php:48
+msgid "Display Folder Data"
+msgstr ""
+
+#: ../mlf-pro-reset.php:49
+msgid "Check for Folders Without Parent IDs"
+msgstr ""
+
+#: ../mlf-pro-reset.php:51
+msgid "Add MLFP Database Tables"
+msgstr ""
+
+#: ../mlf-pro-reset.php:52
+msgid "Remove Other MLFP Database Tables"
+msgstr ""
+
+#: ../mlf-pro-reset.php:54
+msgid "Reset Media Library Folders Data"
+msgstr ""
+
+#: ../mlf-pro-reset.php:72
+msgid "WordPress Media Library Folders Pro Reset Instructions"
+msgstr ""
+
+#: ../mlf-pro-reset.php:73
+msgid ""
+"If you need to rescan your database, please deactivate the Media Library "
+"Folders Pro plugin and then click WordPress Media Library Folders Pro Reset-"
+">Reset Database to erase the folder data. Then deactivate WordPress Media "
+"Library Folders Pro Reset and reactivate Media Library Folders Pro which "
+"will perform a fresh scan of your database."
+msgstr ""
+
+#: ../mlf-pro-reset.php:154
+msgid "Deleting mgmlp_folders"
+msgstr ""
+
+#: ../mlf-pro-reset.php:171
+msgid "Removing mgmlp_media_folder posts"
+msgstr ""
+
+#: ../mlf-pro-reset.php:177
+msgid "Done. You can now reactivate Media Library Folders Pro."
+msgstr ""
+
+#: ../mlf-pro-reset.php:202 ../mlf-pro-reset.php:258
+msgid ""
+"<p>The mgmlp_folders table does not exists. Please activate Media Library "
+"Folders Pro to create the table.</p>"
+msgstr ""
+
+#: ../mlf-pro-reset.php:223
+msgid "Attachment URLs"
+msgstr ""
+
+#: ../mlf-pro-reset.php:225
+msgid "Number of attachments: "
+msgstr ""
+
+#: ../mlf-pro-reset.php:232
+msgid "Attachment ID"
+msgstr ""
+
+#: ../mlf-pro-reset.php:233
+msgid "Attachment URL"
+msgstr ""
+
+#: ../mlf-pro-reset.php:234 ../mlf-pro-reset.php:294
+msgid "Folder ID"
+msgstr ""
+
+#: ../mlf-pro-reset.php:266
+msgid "Folder URLs"
+msgstr ""
+
+#: ../mlf-pro-reset.php:272
+msgid "Uploads folder: "
+msgstr ""
+
+#: ../mlf-pro-reset.php:274
+msgid "Uploads URL "
+msgstr ""
+
+#: ../mlf-pro-reset.php:276
+msgid "Number of folders: "
+msgstr ""
+
+#: ../mlf-pro-reset.php:295
+msgid "Folder Name"
+msgstr ""
+
+#: ../mlf-pro-reset.php:296
+msgid "Folder URL"
+msgstr ""
+
+#: ../mlf-pro-reset.php:297
+msgid "Parent ID"
+msgstr ""
+
+#: ../mlf-pro-reset.php:313
+msgid "No folder ID found"
+msgstr ""
+
+#: ../mlf-pro-reset.php:377
+msgid "The mgmlp_userrole_permissions table was removed from the database."
+msgstr ""
+
+#: ../mlf-pro-reset.php:385
+msgid "Remove Other MLFP Database Tables & Settings"
+msgstr ""
+
+#: ../mlf-pro-reset.php:387
+msgid ""
+"To remove the auxiliary tables added by Media Library Folders Pro or Media "
+"Library Folders Pro S3, in order to completely uninstall either or both "
+"plugins, select the tables to be remove and click the 'Remove Selected "
+"Tables' button. All data stored in the selected tables will be lost. Only "
+"delete the tables in the plugins to be removed from the site."
+msgstr ""
+
+#: ../mlf-pro-reset.php:389
+msgid "User Role Table"
+msgstr ""
+
+#: ../mlf-pro-reset.php:390
+msgid "Thumbnail Management Table"
+msgstr ""
+
+#: ../mlf-pro-reset.php:391
+msgid "Export/Import Tables and All Backup Files"
+msgstr ""
+
+#: ../mlf-pro-reset.php:392
+msgid "Purge Files Table"
+msgstr ""
+
+#: ../mlf-pro-reset.php:393
+msgid "Turn off WPMF integration and clear WPMF folder data"
+msgstr ""
+
+#: ../mlf-pro-reset.php:394
+msgid "S3 Update Log Table"
+msgstr ""
+
+#: ../mlf-pro-reset.php:395
+msgid "S3 Files to Sync Table"
+msgstr ""
+
+#: ../mlf-pro-reset.php:396
+msgid "S3 Problem Files Table"
+msgstr ""
+
+#: ../mlf-pro-reset.php:397
+msgid "S3 Option Settings"
+msgstr ""
+
+#: ../mlf-pro-reset.php:400
+msgid "Remove Selected Tables"
+msgstr ""
+
+#: ../mlf-pro-reset.php:437
+msgid "Are you sure you want to remove the selected tables, data and files?"
+msgstr ""
+
+#: ../mlf-pro-reset.php:497 ../mlf-pro-reset.php:679 ../mlf-pro-reset.php:810
+msgid "missing nonce! Please refresh this page."
+msgstr ""
+
+#: ../mlf-pro-reset.php:588
+msgid "The selected tables, data or settings have been deleted."
+msgstr ""
+
+#: ../mlf-pro-reset.php:632
+msgid "The following files with missing folder IDs were found:"
+msgstr ""
+
+#: ../mlf-pro-reset.php:670
+msgid "No files with missing folder IDs were found."
+msgstr ""
+
+#: ../mlf-pro-reset.php:753
+msgid "Add Media Library Folders Tables"
+msgstr ""
+
+#: ../mlf-pro-reset.php:755
+msgid ""
+"Normally the database tables used by Media Library Folders Pro are created "
+"when the plugin is activated. However, if a table is missing, you can use "
+"this feature to create one or more missing tables."
+msgstr ""
+
+#: ../mlf-pro-reset.php:758
+msgid "Check For Missing Tables"
+msgstr ""
+
+#: ../mlf-pro-reset.php:818
+msgid "Checking mgmlp_userrole_permissions table<br>"
+msgstr ""
+
+#: ../mlf-pro-reset.php:822
+msgid "Checking mgmlp_thumbnails table<br>"
+msgstr ""
+
+#: ../mlf-pro-reset.php:826
+msgid "Checking mgmlp_file_purge table<br>"
+msgstr ""
+
+#: ../mlf-pro-reset.php:830
+msgid "Checking mgmlp_csv_data table<br>"
+msgstr ""
+
+#: ../mlf-pro-reset.php:834
+msgid "Checking mgmlp_import_folders table<br>"
+msgstr ""
+
+#: ../mlf-pro-reset.php:836
+msgid "Done creating tables.<br>"
+msgstr ""
+
+#: ../mlf-pro-reset.php:839
+msgid "Please activate Media Library Folders Pro to create missing tables."
+msgstr ""
