@@ -30,6 +30,11 @@ function wp_client_reports_pro_load_mailpoet_actions(){
  */
 function wp_client_reports_pro_mailpoet_data() {
 
+    if (!current_user_can('manage_options')) {
+        echo json_encode(['status' => 'error', 'message' => __( 'You do not have administrator privilages.', 'wp-client-reports' )]);
+        wp_die();
+    }
+
     $start = null;
     $end = null;
     if (isset($_GET['start'])) {

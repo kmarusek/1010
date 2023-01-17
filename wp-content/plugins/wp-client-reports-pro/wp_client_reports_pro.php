@@ -3,7 +3,7 @@
 Plugin Name: WP Client Reports Pro
 Plugin URI: https://switchwp.com/wp-client-reports/
 Description: Send beautiful client maintenance reports with integrations from many popular plugins and services
-Version: 1.0.14
+Version: 1.0.15
 Author: SwitchWP
 Author URI: https://switchwp.com/
 Text Domain: wp-client-reports-pro
@@ -14,7 +14,7 @@ if( !defined( 'ABSPATH' ) )
 	exit;
 
 
-define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.14' );
+define( 'WP_CLIENT_REPORTS_PRO_VERSION', '1.0.15' );
 define( 'WP_CLIENT_REPORTS_PRO_STORE_URL', 'https://switchwp.com' );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_ID', 39 );
 define( 'WP_CLIENT_REPORTS_PRO_ITEM_NAME', 'WP Client Reports Pro' );
@@ -126,7 +126,7 @@ function wp_client_reports_pro_admin_init() {
         }
 
         $mailpoet_enabled = get_option('wp_client_reports_pro_enable_mailpoet');
-        if ($mailpoet_enabled == 'on') {
+        if ( class_exists( 'MailPoet' ) && $mailpoet_enabled == 'on') {
             require_once plugin_dir_path( __FILE__ ) . 'services/mailpoet/wp_client_reports_pro_mailpoet.php';
         }
 
@@ -1506,6 +1506,12 @@ function wp_client_reports_pro_color_render() {
 // Ajax action to refresh the user image
 add_action( 'wp_ajax_wp_client_reports_pro_get_image', 'wp_client_reports_pro_get_image'   );
 function wp_client_reports_pro_get_image() {
+
+    if (!current_user_can('manage_options')) {
+        echo json_encode(['status' => 'error', 'message' => __( 'You do not have administrator privilages.', 'wp-client-reports' )]);
+        wp_die();
+    }
+
     if(isset($_GET['id']) ){
         $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), 'medium', false, array( 'id' => 'wp-client-reports-pro-logo-preview' ) );
         $data = array(

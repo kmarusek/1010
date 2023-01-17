@@ -38,6 +38,11 @@ add_action( 'wp_enqueue_scripts', 'wp_client_reports_scripts_pro_gravity_forms_f
  */
 function wp_client_reports_pro_gform_data() {
 
+    if (!current_user_can('manage_options')) {
+        echo json_encode(['status' => 'error', 'message' => __( 'You do not have administrator privilages.', 'wp-client-reports' )]);
+        wp_die();
+    }
+
     $start = null;
     $end = null;
     if (isset($_GET['start'])) {

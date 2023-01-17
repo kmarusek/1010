@@ -188,6 +188,11 @@ function wp_client_reports_pro_google_analytics_key_render(  ) {
 add_action('wp_ajax_wp_client_reports_pro_ga_remove_config', 'wp_client_reports_pro_ga_remove_config');
 function wp_client_reports_pro_ga_remove_config() {
 
+    if (!current_user_can('manage_options')) {
+        echo json_encode(['status' => 'error', 'message' => __( 'You do not have administrator privilages.', 'wp-client-reports' )]);
+        wp_die();
+    }
+
     delete_option('wp_client_reports_pro_google_analytics_view_id');
     delete_option('wp_client_reports_pro_google_analytics_key');
 
@@ -203,6 +208,11 @@ function wp_client_reports_pro_ga_remove_config() {
 add_action('wp_ajax_wp_client_reports_pro_ga_reset_list', 'wp_client_reports_pro_ga_reset_list');
 function wp_client_reports_pro_ga_reset_list() {
 
+    if (!current_user_can('manage_options')) {
+        echo json_encode(['status' => 'error', 'message' => __( 'You do not have administrator privilages.', 'wp-client-reports' )]);
+        wp_die();
+    }
+
     delete_option('wp_client_reports_pro_google_analytics_view_id');
     delete_transient('wp_client_reports_google_analytics_views');
 
@@ -216,6 +226,11 @@ function wp_client_reports_pro_ga_reset_list() {
  * Ajax request report data for google analytics
  */
 function wp_client_reports_pro_ga_data() {
+
+    if (!current_user_can('manage_options')) {
+        echo json_encode(['status' => 'error', 'message' => __( 'You do not have administrator privilages.', 'wp-client-reports' )]);
+        wp_die();
+    }
 
     $start = null;
     $end = null;

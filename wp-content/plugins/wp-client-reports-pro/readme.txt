@@ -4,7 +4,7 @@ Donate link: https://switchwp.com/wp-client-reports/
 Tags:  reports, client reports, analytics, maintenance, updates, plugin updates, theme updates
 Requires at least: 5.3.0
 Tested up to: 6.1
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 Requires PHP: 5.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,6 +30,9 @@ Send an HTML email with update statistics whenever you complete updates to show 
 
 
 == Changelog ==
+
+= 1.0.15 =
+* Increased security
 
 = 1.0.14 =
 * Fix issue with Client Report Notes date formatting
