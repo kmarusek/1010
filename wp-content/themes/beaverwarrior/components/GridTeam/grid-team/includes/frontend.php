@@ -30,12 +30,12 @@ $wrapper_classes = [
 							<img src="<?php echo wp_get_attachment_image_url($member->image, 'medium'); ?>">
 						</div>
 						<div class="GridTeam-text_container">
-							<h4 class='GridTeam-name'>
+							<h2 class='GridTeam-name'>
 								<?php echo $member->name; ?>
-							</h4>
-							<h6 class='GridTeam-position'>
+							</h2>
+							<h3 class='GridTeam-position'>
 								<?php echo $member->position; ?>
-							</h6>
+							</h3>
 						</div>
 						</a>
 				</div>
