@@ -65,12 +65,12 @@ $wrapper_classes = [
 							<div class="GridTeam-rowe">
 								<div class="GridTeam-txtCol">
 									<div class="GridTeam-modal_titles">
-										<h4 class='GridTeam-modal-title'>
+										<h2 class='GridTeam-modal-title'>
 											<?php echo $modal->name; ?>
-										</h4>
-										<h6 class='GridTeam-modal-position'>
+										</h2>
+										<h3 class='GridTeam-modal-position'>
 											<?php echo $modal->position; ?>
-										</h6>
+										</h3>
 									</div>
 									<h4 class='GridTeam-modal-title'>Bio</h4>
 									<div class="GridTeam-modal_text">
