@@ -67,7 +67,7 @@ class TPnavMenuWalker extends Walker_Nav_Menu
             $output .= '</div>';
          }
          if($parent_sub_type == 'simple'){
-             $output .=  '<h5 class="DataNavMenu-title">'.$title.'</h5>';
+             $output .=  '<h3 class="DataNavMenu-title">'.$title.'</h3>';
          } else{
              $output .=  '<span class="DataNavMenu-arrow"><i class="fas fa-arrow-left"></i></span>'.$subMenuTitle;
 
