@@ -9,7 +9,7 @@ if ( $settings->home_page_check === 'not-homepage') : ?>
                 <h4 class="TenTenHero-subtitle"><?php echo $settings->subpage_subtitle ?></h4>
                 <?php endif;?>
                 <h3 class="TenTenHero-title-selector"><?php echo $settings->content_title ?></h3>
-                <h6><?php echo $settings->content ?></h6>
+                <h5><?php echo $settings->content ?></h5>
                 <?php if ( $settings->button_url ): ?>
                     <div class="TenTenHero-buttonwrap">
                         <a class="TenTenHero-button" href="<?php echo $settings->button_url ?>" target="<?php echo $settings->button_url_target ?>" rel="<?php echo $settings->button_url_nofollow ?>">
