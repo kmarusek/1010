@@ -171,7 +171,7 @@ foreach( $postCats as $cat ){
             <li class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" > 
                     <div class="ContentLibrary-content-container">
                         <p class="ContentLibrary-categories categories"><?php echo $post_categories_string;?></p>
-                        <h5 class="ContentLibrary-title title"><?php  echo $post_title;?></h5>
+                        <h2 class="ContentLibrary-title title"><?php  echo $post_title;?></h2>
                     </div>
                     <div class="ContentLibrary-post-link-container">
                             <i class="ContentLibrary-icon <?php echo $settings->posts_anchor_icon; ?>"></i>
