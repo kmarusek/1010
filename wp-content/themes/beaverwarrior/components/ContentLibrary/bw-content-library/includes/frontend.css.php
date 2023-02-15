@@ -17,3 +17,6 @@
  .fl-node-<?php echo $id; ?> .ContentLibrary-post.Spending-Guides {
     background-image: url(<?php echo $settings->spending_guides_posts_background_image_src; ?>);
  }
+ .fl-node-<?php echo $id; ?> .ContentLibrary-post.Press-Releases {
+    background-image: url(<?php echo $settings->press_releases_posts_background_image_src; ?>);
+ }

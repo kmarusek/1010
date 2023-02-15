@@ -148,6 +148,11 @@ FLBuilder::register_module(
                             'label'     => __('Spending Guides Background Image', 'fl-builder'),
                             'show_remove' => true,
                         ),
+                        'press_releases_posts_background_image' => array(
+                            'type'      => 'photo',
+                            'label'     => __('Press Releases Background Image', 'fl-builder'),
+                            'show_remove' => true,
+                        ),
                         'posts_anchor_icon' => array(
                             'type'          => 'icon',
                             'label'         => __( 'Posts Link Arrow Icon', 'fl-builder' ),
