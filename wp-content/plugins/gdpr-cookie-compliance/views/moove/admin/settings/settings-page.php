@@ -79,12 +79,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=moove-gdpr&amp;tab=banner-settings' ) ); ?>" class="nav-tab <?php echo 'banner-settings' === $active_tab ? 'nav-tab-active' : ''; ?>">
 				<?php esc_html_e( 'Cookie Banner Settings', 'gdpr-cookie-compliance' ); ?>
 			</a>
+
+			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=moove-gdpr&amp;tab=screen-settings' ) ); ?>" class="nav-tab <?php echo 'screen-settings' === $active_tab ? 'nav-tab-active' : ''; ?>">
+				<?php esc_html_e( 'Cookie Settings Screen', 'gdpr-cookie-compliance' ); ?>
+			</a>
+
 			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=moove-gdpr&amp;tab=floating-button' ) ); ?>" class="nav-tab <?php echo 'floating-button' === $active_tab ? 'nav-tab-active' : ''; ?>">
 				<?php esc_html_e( 'Floating Button', 'gdpr-cookie-compliance' ); ?>
 			</a>
+
 			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=moove-gdpr&amp;tab=general-settings' ) ); ?>" class="nav-tab <?php echo 'general-settings' === $active_tab ? 'nav-tab-active' : ''; ?>">
 				<?php esc_html_e( 'General Settings', 'gdpr-cookie-compliance' ); ?>
 			</a>
+			
 			<?php
 				$nav_label = isset( $modal_options[ 'moove_gdpr_privacy_overview_tab_title' . $wpml_lang ] ) && $modal_options[ 'moove_gdpr_privacy_overview_tab_title' . $wpml_lang ] ? $modal_options[ 'moove_gdpr_privacy_overview_tab_title' . $wpml_lang ] : __( 'Privacy Overview', 'gdpr-cookie-compliance' );
 			?>
@@ -125,17 +132,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=moove-gdpr&amp;tab=video-tutorial' ) ); ?>" class="nav-tab nav-tab-dark <?php echo 'video-tutorial' === $active_tab ? 'nav-tab-active' : ''; ?>">
 				<span class="dashicons dashicons-format-video"></span>
-				<?php esc_html_e( 'Video Tutorial', 'gdpr-cookie-compliance-addon' ); ?>
+				<?php esc_html_e( 'Video Tutorial', 'gdpr-cookie-compliance' ); ?>
 			</a>
 
 			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=moove-gdpr&amp;tab=support' ) ); ?>" class="nav-tab nav-tab-dark <?php echo 'support' === $active_tab ? 'nav-tab-active' : ''; ?>">
 				<span class="dashicons dashicons-sos"></span>
-				<?php esc_html_e( 'Support', 'gdpr-cookie-compliance-addon' ); ?>
+				<?php esc_html_e( 'Support', 'gdpr-cookie-compliance' ); ?>
 			</a>
 
 			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=moove-gdpr&amp;tab=licence' ) ); ?>" class="nav-tab nav-tab-dark <?php echo 'licence' === $active_tab ? 'nav-tab-active' : ''; ?>">
 				<span class="dashicons dashicons-admin-network"></span>
-				<?php esc_html_e( 'Licence Manager', 'gdpr-cookie-compliance-addon' ); ?>
+				<?php esc_html_e( 'Licence Manager', 'gdpr-cookie-compliance' ); ?>
 			</a>
 
 			<?php do_action( 'gdpr_settings_tab_nav_extensions', $active_tab ); ?>

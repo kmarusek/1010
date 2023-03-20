@@ -58,7 +58,7 @@ class GDPR_Modules {
 		if ( $infobar_hidden ) :
 			$floating_button_class = 'button-visible';
 		endif;
-		$floating_button_position = false;
+		$floating_button_position = apply_filters( 'gdpr_floating_button_position',  false );
 		$data                     = new stdClass();
 		$data->options            = $modal_options;
 		$data->wpml_lang          = $wpml_lang;
@@ -92,7 +92,7 @@ class GDPR_Modules {
 		$layout              = isset( $modal_options['moove_gdpr_plugin_layout'] ) ? $modal_options['moove_gdpr_plugin_layout'] : 'v1';
 		$tab_title           = isset( $modal_options[ 'moove_gdpr_privacy_overview_tab_title' . $wpml_lang ] ) && $modal_options[ 'moove_gdpr_privacy_overview_tab_title' . $wpml_lang ] ? $modal_options[ 'moove_gdpr_privacy_overview_tab_title' . $wpml_lang ] : __( 'Privacy Overview', 'gdpr-cookie-compliance' );
 		$data                = new stdClass();
-		$data->logo_position = isset( $modal_options['moove_gdpr_logo_position'] ) ? $modal_options['moove_gdpr_logo_position'] : 'left';
+		$data->logo_position = apply_filters( 'gdpr_logo_position', 'left' );
 		$data->theme         = 'moove_gdpr_modal_theme_' . $layout;
 		$modal_theme         = 'moove_gdpr_modal_theme_' . $layout;
 		$data->modal_title   = 'v1' === $layout ? false : $tab_title;
@@ -157,7 +157,7 @@ class GDPR_Modules {
 
 		$content            = isset( $modal_options[ 'moove_gdpr_info_bar_content' . $wpml_lang ] ) && $modal_options[ 'moove_gdpr_info_bar_content' . $wpml_lang ] ? $modal_options[ 'moove_gdpr_info_bar_content' . $wpml_lang ] : $_content;
 		$tabindex 					= apply_filters('gdpr_tabindex_attribute', '', '1' );
-		$content            = str_replace( '[setting]', '<span role="link" ' . $tabindex . ' data-href="#moove_gdpr_cookie_modal" class="change-settings-button">', $content );
+		$content            = str_replace( '[setting]', '<span' . $tabindex . ' data-href="#moove_gdpr_cookie_modal" class="change-settings-button">', $content );
 		$content            = str_replace( '[/setting]', '</span>', $content );
 		$content            = apply_filters( 'gdpr_info_bar_notice_content', $content );
 		$data               = new stdClass();
