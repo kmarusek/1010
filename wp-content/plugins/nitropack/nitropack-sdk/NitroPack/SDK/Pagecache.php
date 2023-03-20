@@ -45,6 +45,7 @@ class Pagecache {
         $this->supportedCookies = $supportedCookies;
         $this->dataDir = NULL;
         $this->isAjax = $isAjax;
+        $this->parent = NULL;
         $this->Device = new Device($userAgent);
         $this->useCompression = false;
         $this->useInvalidated = false;
@@ -81,8 +82,11 @@ class Pagecache {
     public function setReferer($referer) {
         $this->referer = $referer ? new Url($referer) : NULL;
         if ($this->referer) {
-            $this->parent = new Pagecache($this->referer->getUrl(), $this->Device->getUserAgent(), $this->cookies, $this->supportedCookies);
+            $this->parent = new Pagecache($this->referer->getNormalized(), $this->Device->getUserAgent(), $this->cookies, $this->supportedCookies);
             $this->parent->setUrlPathVersion($this->urlPathVersion);
+            if ($this->dataDir) {
+                $this->parent->setDataDir(dirname($this->dataDir));
+            }
         } else {
             $this->parent = NULL;
         }
@@ -154,7 +158,11 @@ class Pagecache {
                     return true;
                 }
 
-                if (!empty($headers["x-cache-ctime"]) && $now - (int)$headers["x-cache-ctime"] > $ttl) {
+                if (
+                    !$this->useInvalidated &&
+                    !empty($headers["x-cache-ctime"]) && 
+                    $now - (int)$headers["x-cache-ctime"] > $ttl
+                ) {
                     return true;
                 }
 
@@ -316,7 +324,7 @@ class Pagecache {
     }
 
     private function ajaxPrefix() {
-        return $this->isAjax && $this->parent ? "ajax-" . md5($this->url->getUrl()) . "-" : "";
+        return $this->isAjax && $this->parent ? "ajax-" . md5($this->url->getNormalized()) . "-" : "";
     }
 
     private function customCachePrefix() {
@@ -339,8 +347,8 @@ class Pagecache {
     public function getCachefilePath($suffix = "") {
         if ($suffix) $suffix = "." . $suffix;
         if ($this->isAjax && $this->referer) {
-            return self::getUrlDir($this->dataDir, $this->referer->getUrl(), $this->useInvalidated, $this->urlPathVersion) . "/" . $this->nameOfCachefile() . $suffix;
+            return self::getUrlDir($this->dataDir, $this->referer->getNormalized(), $this->useInvalidated, $this->urlPathVersion) . "/" . $this->nameOfCachefile() . $suffix;
         }
-        return self::getUrlDir($this->dataDir, $this->url->getUrl(), $this->useInvalidated, $this->urlPathVersion) . "/" . $this->nameOfCachefile() . $suffix;
+        return self::getUrlDir($this->dataDir, $this->url->getNormalized(), $this->useInvalidated, $this->urlPathVersion) . "/" . $this->nameOfCachefile() . $suffix;
     }
 }

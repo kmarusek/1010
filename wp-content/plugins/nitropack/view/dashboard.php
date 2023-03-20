@@ -1,3 +1,18 @@
+<style>
+    .rml_btn {
+        float: right;
+        color: #989898 !important;
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: underline !important;
+    }
+
+    .rml_btn:hover{
+        color: #212529 !important;
+        /*text-decoration: underline !important;*/
+    }
+</style>
+
 <div>
   <div class="row">
     <div class="col-md-12">
@@ -10,11 +25,14 @@
       <div class="card-overlay-blurrable np-widget" id="notifications">
         <div class="card card-d-item">
           <div class="card-body">
-            <h5 class="card-title"><?php esc_html_e( 'Notifications', 'nitropack' ); ?></h5>
+            <h5 class="card-title" style="display: inline-block;"><?php esc_html_e( 'Notifications', 'nitropack' ); ?></h5>
             <ul class="list-group list-group-flush" id="notifications-list">
               <?php foreach(get_nitropack()->Notifications->get('system') as $notification) : ?>
               <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
-                <?php echo $notification['message']; ?>
+                  <div class="col-10">
+                       <?php echo $notification['message']; ?>
+                  </div>
+                  <div class="col-2"> <a class="rml_btn" data-notification_end="<?php echo $notification['end_date']; ?>" data-notification_id="<?php echo $notification['id']; ?>">Remind me later</a> </div>
               </li>
               <?php endforeach; ?>
             </ul>
@@ -125,7 +143,13 @@
             <h5 class="card-title"><?php esc_html_e( 'Settings', 'nitropack' ); ?></h5>
             <ul class="list-group list-group-flush">
               <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
-                <span><?php esc_html_e( 'Cache Warmup', 'nitropack' ); ?></br>
+                <span><?php esc_html_e( 'Cache Warmup', 'nitropack' ); ?>
+                        <?php
+                        $sitemap = get_option('np_warmup_sitemap', false);
+                        $toolTipDisplayState = $sitemap ? '' : 'd-none';
+                        ?>
+                        <i class="fa fa-info-circle text-primary warmup-tooltip <?php echo $toolTipDisplayState; ?>" data-toggle="tooltip" data-placement="top" title="<?php echo esc_html_e($sitemap); ?>" aria-hidden="true"></i>
+                    </br>
                   <small><?php esc_html_e( 'Learn more about this feature', 'nitropack' ); ?> <a href="https://support.nitropack.io/hc/en-us/articles/1500002555901-Cache-Warmup-WordPress-" target="_blank" rel="noreferrer noopener"><?php esc_html_e( 'here', 'nitropack' ); ?></a></small>
                 </span>
                 <span id="loading-warmup-status">
@@ -403,6 +427,11 @@
                 var confirmHtml = '<p>Enabling cache warmup will optimize ' + resp.res + ' pages. Would you like to continue?</p>';
                 confirmHtml += '<p><a href="javascript:void(0);" onclick="rejectWarmup()" class="btn btn-default btn-sm"><?php esc_html_e( 'No', 'nitropack' ); ?></a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="confirmWarmup()" class="btn btn-success btn-sm"><?php esc_html_e( 'Yes', 'nitropack' ); ?></p></a>';
                 $("#settings-widget").cardOverlay("notify", {message: confirmHtml});
+
+                if (resp.sitemap_indication) {
+                    jQuery('.warmup-tooltip').removeClass('d-none');
+                    jQuery('.warmup-tooltip').attr('title', resp.sitemap_indication);
+                }
               }
             }
           } else {
@@ -442,6 +471,8 @@
         var resp = JSON.parse(response);
         if (resp.type == "success") {
           // Success notification
+            jQuery('.warmup-tooltip').addClass('d-none');
+            jQuery('.warmup-tooltip').attr('title', '');
         } else {
           // Error notification
         }
@@ -468,6 +499,7 @@
         var resp = JSON.parse(response);
         if (resp.type == "success") {
             $("#safemode-status").attr("checked", true);
+            $("#nitropack-smenabled-notice").parent().show();
           // Success notification
         } else {
             $("#safemode-status").attr("checked", false);
@@ -483,6 +515,7 @@
         var resp = JSON.parse(response);
         if (resp.type == "success") {
           // Success notification
+            $("#nitropack-smenabled-notice").parent().hide();
         } else {
           // Error notification
         }
@@ -812,6 +845,7 @@
         success: function(resp) {
           if (resp.type == "success") {
             $("#safemode-status").attr("checked", !!resp.isEnabled);
+            $("#nitropack-smenabled-notice").length && !!resp.isEnabled ? $("#nitropack-smenabled-notice").parent().show() : $("#nitropack-smenabled-notice").parent().hide();
             $("#loading-safemode-status").hide();
             $("#safemode-toggle").show();
           } else {

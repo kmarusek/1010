@@ -43,6 +43,16 @@ class Integration {
         "NitroPack/Integration/Plugin/WoocommerceCacheHandler",
         "NitroPack/Integration/Plugin/AdvancedMathCaptcha",
         "NitroPack/Integration/Plugin/TheEventsCalendar",
+	    "NitroPack/Integration/Plugin/WCML",
+        "NitroPack/Integration/Plugin/YoastSEO",
+        "NitroPack/Integration/Plugin/JetPackNP",
+        "NitroPack/Integration/Plugin/SquirrlySEO",
+	    "NitroPack/Integration/Plugin/RankMathNP",
+	    "NitroPack/Integration/Plugin/WPBakeryNP",
+	    //"NitroPack/Integration/Plugin/GravityForms",
+	    "NitroPack/Integration/Plugin/Elementor",
+	    "NitroPack/Integration/Plugin/WPForms",
+        "NitroPack/Integration/Plugin/GeoTargetingWP",
     ];
     private static $loadedModules = [];
     private static $stage = "very_early";

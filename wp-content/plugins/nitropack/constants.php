@@ -6,7 +6,7 @@ function nitropack_trailingslashit($string) {
     return rtrim( $string, '/\\' ) . '/';
 }
 
-define( 'NITROPACK_VERSION', '1.5.18' );
+define( 'NITROPACK_VERSION', '1.6.1' );
 define( 'NITROPACK_OPTION_GROUP', 'nitropack' );
 define( 'NITROPACK_DATA_DIR', nitropack_trailingslashit(WP_CONTENT_DIR) . 'nitropack' );
 define( 'NITROPACK_CONFIG_FILE', nitropack_trailingslashit(NITROPACK_DATA_DIR) . 'config.json' );

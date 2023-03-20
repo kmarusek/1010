@@ -36,54 +36,18 @@ class AeliaCurrencySwitcher {
         $siteConfig = get_nitropack()->getSiteConfig();
 
         if (empty($siteConfig["isAeliaCurrencySwitcherActive"])) {
-            self::resetVariationCookies();
+            removeVariationCookies(self::customVariationCookies);
             return true;
         }
 
         // Check if ACS is configured to not geolocate or geolocation is already with caching
         if (!self::isAeliaGeolocationEnabled() || self::doesWoocommerceHandleCache() || self::doesCacheHandlerHandleCache()) {
-            self::resetVariationCookies();
+            removeVariationCookies(self::customVariationCookies);
             return true;
         }
 
         // standard cookie integration
-        self::initVariationCookies();
-    }
-
-    public static function initVariationCookies() {
-        $api = get_nitropack_sdk()->getApi();
-        $customVariationCookies = self::customVariationCookies;
-        try {
-            $variationCookies = $api->getVariationCookies();
-            foreach ($variationCookies as $cookie) {
-                $index = array_search($cookie["name"], $customVariationCookies);
-                if ($index !== false) {
-                    array_splice($customVariationCookies, $index, 1);
-                }
-            }
-
-            foreach ($customVariationCookies as $cookieName) {
-                $api->setVariationCookie($cookieName);
-            }
-        } catch (\Exception $e) {
-            // what to do here? possible reason for exception is the API not responding
-            return false;
-        }
-    }
-
-    public static function resetVariationCookies() {
-        $api = get_nitropack_sdk()->getApi();
-        try {
-            $variationCookies = $api->getVariationCookies();
-            foreach ($variationCookies as $cookie) {
-                if (in_array($cookie["name"], self::customVariationCookies)) {
-                    $api->unsetVariationCookie($cookie["name"]);
-                }
-            }
-        } catch (\Exception $e) {
-            // what to do here? possible reason for exception is the API not responding
-            return false;
-        }
+        initVariationCookies(self::customVariationCookies);;
     }
 
     public function canServeCache($currentState) {

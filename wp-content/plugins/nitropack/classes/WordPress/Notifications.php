@@ -14,20 +14,22 @@ class Notifications {
     }
 
     public function get($type = NULL) {
-        if ($this->notifications === NULL) {
-            $this->load();
-        }
+	    if ($this->notifications === NULL) {
+		    $this->load();
+	    }
 
-        if (isset($this->notifications[$this->nitro->getSiteId()])) {
-            $result = $this->notifications[$this->nitro->getSiteId()];
-            if ($type) {
-                return isset($result['notifications'][$type]) ? $result['notifications'][$type] : [];
-            } else {
-                return $result['notifications'];
-            }
-        } else {
-            return [];
-        }
+	    if (isset($this->notifications[$this->nitro->getSiteId()])) {
+		    $result = $this->notifications[$this->nitro->getSiteId()];
+		    if ($type) {
+			    $notifications = isset($result['notifications'][$type]) ? $result['notifications'][$type] : [];
+		    } else {
+			    $notifications = $result['notifications'];
+		    }
+	    } else {
+		    $notifications = [];
+	    }
+
+	    return apply_filters('get_nitropack_notifications', $notifications, $type);
     }
 
     private function load() {

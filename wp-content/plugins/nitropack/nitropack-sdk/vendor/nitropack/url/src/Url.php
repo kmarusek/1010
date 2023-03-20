@@ -15,10 +15,11 @@ class Url {
     private $relativePath; // no trailing "/"
     private $assumedHost;
     private $assumedPath;
+    private $hostUnmodified;
 
     public function __construct($url) {
         $this->url = $url;
-        $parts = parse_url($url);
+        $parts = parse_url($url ?: '');
         $this->scheme = isset($parts["scheme"]) ? strtolower($parts["scheme"]) : NULL;
         $this->port = isset($parts["port"]) ? $parts["port"] : NULL;
         $this->host = isset($parts["host"]) ? strtolower($parts["host"]) : NULL;
@@ -32,12 +33,14 @@ class Url {
 
         if (!isset($parts["host"]) && isset($parts["path"])) { // This is probably a host written like this: nitropack.io
             if (preg_match("/^[^\s\/]+?\.[^\s\/]+$/", $parts["path"])) {
-                $this->host = $this->path;
+                $this->host = strtolower($this->path);
+                $this->hostUnmodified = $this->path;
                 $this->path = "/";
                 $this->assumedHost = true;
                 $this->assumedPath = true;
             } else if (preg_match("/^([^\s\/]+?\.[^\s\/]+)(\/.*?)$/", $parts["path"], $matches)) {
-                $this->host = $matches[1];
+                $this->host = strtolower($matches[1]);
+                $this->hostUnmodified = $matches[1];
                 $this->path = $matches[2];
                 $this->assumedHost = true;
             }
@@ -119,7 +122,7 @@ class Url {
         }
 
         if ($this->assumedHost) {
-            $this->path = $this->assumedPath ? $this->host : $this->host.$this->path;
+            $this->path = $this->assumedPath ? $this->hostUnmodified : $this->host.$this->path;
             $this->host = NULL;
             $this->assumedHost = false;
             $this->assumedPath = false;
@@ -143,6 +146,15 @@ class Url {
 
         if ($resolvePathNavigation) {
             $path = $this->resolvePathNavigation($path, $resolvePathNavigation);
+        }
+
+        if (strpos($path,'%') !== false) {
+            // Based on RFC3986 (https://www.ietf.org/rfc/rfc3986.txt):
+            // For consistency, URI producers and normalizers should use uppercase hexadecimal digits for all
+            // percent-encodings.
+            $path = preg_replace_callback('/%[a-fA-F\d]{2}/', function ($matches) {
+                return strtoupper($matches[0]);
+            }, $path);
         }
 
         $path_parts = explode('/', $path);

@@ -3,6 +3,7 @@
 namespace NitroPack;
 
 use NitroPack\Integration\Plugin\AeliaCurrencySwitcher;
+use NitroPack\Integration\Plugin\GeoTargetingWP;
 
 class PluginStateHandler {
     const eventHandlersMap = [
@@ -37,11 +38,20 @@ class PluginStateHandler {
         }
     }
 
+    // maybe have these handlers be part of each plugin compatibility class (maybe even have a class PluginCompatibility that they extend).
     public static function HandleAeliaCurrencyActivation() {
-        AeliaCurrencySwitcher::initVariationCookies();
+        initVariationCookies(AeliaCurrencySwitcher::customVariationCookies);
     }
 
     public static function HandleAeliaCurrencyDeactivation() {
-        AeliaCurrencySwitcher::resetVariationCookies();
+        removeVariationCookies(AeliaCurrencySwitcher::customVariationCookies);
+    }
+
+    public static function HandleGeowpActivation() {
+        initVariationCookies(GeoTargetingWP::getCustomVariationCookies());
+    }
+
+    public static function HandleGeowpDeactivation() {
+        removeVariationCookies(GeoTargetingWP::allGeoWpCookies);
     }
 }

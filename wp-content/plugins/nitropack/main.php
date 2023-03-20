@@ -3,7 +3,7 @@
 Plugin Name:  NitroPack
 Plugin URI:   https://nitropack.io/platform/wordpress
 Description:  Everything you need for a fast website. Simple set up, easy to use, awesome support. Caching, Lazy Loading, Minification, Defer CSS/JS, CDN and more!
-Version:      1.5.18
+Version:      1.6.1
 Author:       NitroPack LLC
 Author URI:   https://nitropack.io/
 License:      GPL2
@@ -48,6 +48,7 @@ add_filter( 'nitro_script_output', function($script) {
 });
 add_action( 'pre_post_update', 'nitropack_log_post_pre_update', 10, 3);
 add_action( 'transition_post_status', 'nitropack_handle_post_transition', 10, 3);
+add_action('set_object_terms', 'nitropack_handle_first_publish', 10, 6);
 add_action( 'transition_comment_status', 'nitropack_handle_comment_transition', 10, 3);
 add_action( 'comment_post', 'nitropack_handle_comment_post', 10, 2);
 add_action( 'switch_theme', 'nitropack_theme_handler' );
@@ -120,12 +121,15 @@ if ( is_admin() ) {
     add_action( 'wp_ajax_nitropack_enable_safemode', 'nitropack_enable_safemode' );
     add_action( 'wp_ajax_nitropack_disable_safemode', 'nitropack_disable_safemode' );
     add_action( 'wp_ajax_nitropack_safemode_status', 'nitropack_safemode_status' );
+    add_action( 'wp_ajax_nitropack_rml_notification', 'nitropack_rml_notification' );
     add_action( 'activated_plugin', 'nitropack_upgrade_handler' );
     add_action( 'deactivated_plugin', 'nitropack_upgrade_handler' );
     add_action( 'upgrader_process_complete', 'nitropack_upgrade_handler');
     add_action( 'update_option_nitropack-enableCompression', 'nitropack_handle_compression_toggle', 10, 2 );
     add_action( 'add_meta_boxes', 'nitropack_add_meta_box' );
     add_action( 'plugins_loaded', 'nitropack_offer_safemode');
+
+	add_filter('get_nitropack_notifications', 'nitropack_ignore_dismissed_notifications', 10, 2);
 
     register_activation_hook( __FILE__, 'nitropack_activate' );
     register_deactivation_hook( __FILE__, 'nitropack_deactivate' );
