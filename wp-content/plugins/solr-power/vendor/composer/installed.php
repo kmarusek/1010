@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'pantheon-systems/solr-power',
-        'pretty_version' => 'trunk',
-        'version' => 'dev-trunk',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'f133c3e7e1c998d34304f641ab068d2429ebc0f7',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'pantheon-systems/solr-power' => array(
-            'pretty_version' => 'trunk',
-            'version' => 'dev-trunk',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'f133c3e7e1c998d34304f641ab068d2429ebc0f7',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
