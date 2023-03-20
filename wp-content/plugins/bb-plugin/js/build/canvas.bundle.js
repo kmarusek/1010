@@ -246,4 +246,3 @@ window.FL = _objectSpread(_objectSpread({}, api), {}, {
 
 /******/ })()
 ;
-//# sourceMappingURL=canvas.bundle.js.map

@@ -790,7 +790,7 @@ final class FLBuilderCompatibility {
 	 * @since 2.1
 	 */
 	public static function render_ninja_forms_js( $response ) {
-		if ( class_exists( 'NF_Display_Render' ) ) {
+		if ( class_exists( 'NF_Display_Render' ) && strstr( $response['html'], 'nf-form-cont' ) ) {
 			ob_start();
 			NF_Display_Render::output_templates();
 			$response['html'] .= ob_get_clean();
@@ -981,21 +981,22 @@ final class FLBuilderCompatibility {
 	 * @since 2.4
 	 */
 	public static function fix_tribe_events_pagination_rule( $rules, $tribe_rewrite, $wp_rewrite ) {
-		$bases = $tribe_rewrite->get_bases();
+		$bases         = $tribe_rewrite->get_bases();
+		$flpaged_rules = array();
 
 		// Archive
-		$tec_archive_rules           = $bases->archive . '/paged-[0-9]{1,}/?([0-9]{1,})/?$';
-		$rules[ $tec_archive_rules ] = 'index.php?post_type=tribe_events&eventDisplay=default&flpaged=$matches[1]';
+		$tec_archive_rules                   = $bases->archive . '/paged-[0-9]{1,}/?([0-9]{1,})/?$';
+		$flpaged_rules[ $tec_archive_rules ] = 'index.php?post_type=tribe_events&eventDisplay=default&flpaged=$matches[1]';
 
 		// Category
-		$tec_cat_rules           = $bases->archive . '/(?:category)/(?:[^/]+/)*([^/]+)/paged-[0-9]{1,}/?([0-9]{1,})/?$';
-		$rules[ $tec_cat_rules ] = 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=list&flpaged=$matches[2]';
+		$tec_cat_rules                   = $bases->archive . '/(?:category)/(?:[^/]+/)*([^/]+)/paged-[0-9]{1,}/?([0-9]{1,})/?$';
+		$flpaged_rules[ $tec_cat_rules ] = 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=list&flpaged=$matches[2]';
 
 		// Tag
-		$tec_tag_rules           = $bases->archive . '/(?:tag)/([^/]+)/paged-[0-9]{1,}/?([0-9]{1,})/?$';
-		$rules[ $tec_tag_rules ] = 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=list&flpaged=$matches[2]';
+		$tec_tag_rules                   = $bases->archive . '/(?:tag)/([^/]+)/paged-[0-9]{1,}/?([0-9]{1,})/?$';
+		$flpaged_rules[ $tec_tag_rules ] = 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=list&flpaged=$matches[2]';
 
-		return $rules;
+		return array_merge( $flpaged_rules, $rules );
 	}
 
 	/**
@@ -1296,7 +1297,6 @@ final class FLBuilderCompatibility {
 
 		return $query;
 	}
-
 
 }
 FLBuilderCompatibility::init();

@@ -145,6 +145,16 @@ class FLBuilderModule {
 	 */
 	public $icon = '';
 
+	public $group = '';
+
+	public $type = '';
+
+	public $kind = '';
+
+	public $isWidget = ''; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+
+	public $isAlias = ''; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+
 	/**
 	 * Module constructor.
 	 *

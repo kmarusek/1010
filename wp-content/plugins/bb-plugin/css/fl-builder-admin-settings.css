@@ -439,6 +439,25 @@ body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
 	text-decoration: none;
 }
 
+.advanced-option .text-option {
+	padding: 20px 0;
+}
+
+.advanced-option input.text {
+	width: 55px;
+	margin-right: 20px;
+	text-align: center;
+}
+
+.advanced-option button {
+	min-height: 30px !important;
+	margin-right: 5px !important;
+}
+
+.advanced-option .save-button {
+	display: none;
+}
+
 .toggleWrapper input.mobileToggle {
   opacity: 0;
   position: absolute;

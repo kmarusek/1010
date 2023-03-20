@@ -74,7 +74,32 @@ final class FLBuilderAdminAdvanced {
 				'default'     => 0,
 				'callback'    => array( __CLASS__, 'limit_revisions' ),
 				'group'       => 'ui',
-				'description' => __( 'WP by default does not limit the amount of revisions. This setting will limit revisions to 10 for Layouts', 'fl-builder' ),
+				'hasdepend'   => true,
+				'description' => __( 'WP by default does not limit the amount of revisions.', 'fl-builder' ),
+			),
+			'limitrevisions_num'     => array(
+				'label'       => __( 'Revisions Limit', 'fl-builder' ),
+				'default'     => 10,
+				'type'        => 'text',
+				'depends'     => 'limitrevisions_enabled',
+				'group'       => 'ui',
+				'description' => __( 'Set to 0 to completely disable revisions for layouts/pages controlled by the builder', 'fl-builder' ),
+			),
+			'limithistory_enabled'   => array(
+				'label'       => __( 'Limit the amount of undo/redo history in Builder UI', 'fl-builder' ),
+				'default'     => 0,
+				'callback'    => array( __CLASS__, 'limithistory_enabled' ),
+				'group'       => 'ui',
+				'hasdepend'   => true,
+				'description' => __( 'History is limited to 20 by default in the Builder undo/redo UI', 'fl-builder' ),
+			),
+			'limithistory_num'       => array(
+				'label'       => __( 'History Limit', 'fl-builder' ),
+				'default'     => 5,
+				'type'        => 'text',
+				'depends'     => 'limithistory_enabled',
+				'group'       => 'ui',
+				'description' => __( 'Set to 0 to completely disable undo/redo history', 'fl-builder' ),
 			),
 			'modsec_enabled'         => array(
 				'label'    => __( 'Mod Security fix', 'fl-builder' ),
@@ -98,7 +123,7 @@ final class FLBuilderAdminAdvanced {
 			),
 			'duplicatemenu_enabled'  => array(
 				'label'    => __( 'Show duplicate action link in WP Admin Bar', 'fl-builder' ),
-				'default'  => 1,
+				'default'  => 0,
 				'callback' => array( __CLASS__, 'disable_duplicate_menu' ),
 				'group'    => 'admin',
 			),
@@ -153,6 +178,13 @@ final class FLBuilderAdminAdvanced {
 				'group'       => 'ui',
 				'description' => __( 'Show custom labels for Nodes.', 'fl-builder' ),
 			),
+			'shortcodes_enabled'     => array(
+				'label'    => __( 'Render shortcodes in CSS/JS', 'fl-builder' ),
+				'default'  => 0,
+				'callback' => array( __CLASS__, 'shortcodes_enabled' ),
+				'group'    => 'ui',
+				'link'     => 'https://docs.wpbeaverbuilder.com/beaver-builder/advanced-builder-techniques/shortcodes/use-shortcodes-in-tools-menu-css-or-js/',
+			),
 		);
 		if ( FLBuilderModel::is_white_labeled() ) {
 			unset( $settings['notifications_enabled'] );
@@ -179,7 +211,7 @@ final class FLBuilderAdminAdvanced {
 		add_filter( 'fl_builder_duplicate_enabled', '__return_false', 11 );
 	}
 	static private function disable_duplicate_menu() {
-		add_filter( 'fl_builder_duplicatemenu_enabled', '__return_false', 11 );
+		add_filter( 'fl_builder_duplicatemenu_enabled', '__return_true', 11 );
 	}
 	static private function disable_google() {
 		add_filter( 'fl_builder_font_families_google', '__return_empty_array', 11 );
@@ -224,10 +256,16 @@ final class FLBuilderAdminAdvanced {
 		add_filter( 'wp_revisions_to_keep', function( $num, $post ) {
 			$enabled = get_post_meta( $post->ID, '_fl_builder_enabled', true );
 			if ( $enabled ) {
-				return 11;
+				return (int) get_option( '_fl_builder_limitrevisions_num', 11 ) + 1;
 			}
 			return $num;
 		}, 10, 2 );
+	}
+
+	static private function limithistory_enabled() {
+		add_filter( 'fl_history_states_max', function() {
+			return (int) get_option( '_fl_builder_limithistory_num', 5 );
+		} );
 	}
 
 	static private function enable_modsec() {
@@ -236,6 +274,10 @@ final class FLBuilderAdminAdvanced {
 
 	static private function node_labels_enabled() {
 		add_filter( 'fl_node_labels_disabled', '__return_true' );
+	}
+
+	static private function shortcodes_enabled() {
+		add_filter( 'fl_enable_shortcode_css_js', '__return_true' );
 	}
 
 	/**
@@ -251,7 +293,11 @@ final class FLBuilderAdminAdvanced {
 	static public function advanced_submit() {
 		if ( isset( $_POST['action'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'advanced' ) ) {
 			$setting = $_POST['setting'];
-			$value   = 'true' === $_POST['value'] ? '1' : '0';
+			if ( ! isset( $_POST['type'] ) ) {
+					$value = 'true' === $_POST['value'] ? '1' : '0';
+			} else {
+				$value = (int) $_POST['value'];
+			}
 			update_option( "_fl_builder_{$setting}", $value );
 			wp_send_json_success();
 		} else {
@@ -279,7 +325,7 @@ final class FLBuilderAdminAdvanced {
 	static private function init_hooks() {
 		foreach ( self::get_settings() as $key => $setting ) {
 			$option = get_option( "_fl_builder_{$key}", $setting['default'] );
-			if ( $option != $setting['default'] ) {
+			if ( $option != $setting['default'] && isset( $setting['callback'] ) ) {
 				call_user_func( $setting['callback'] );
 			}
 		}

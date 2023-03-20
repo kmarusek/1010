@@ -75,6 +75,7 @@ final class FLBuilderLoop {
 		add_action( 'registered_post_type', __CLASS__ . '::post_type_rewrite_rules', 10, 2 );
 		add_action( 'registered_taxonomy', __CLASS__ . '::taxonomy_rewrite_rules', 10, 3 );
 		add_action( 'wp_loaded', __CLASS__ . '::flush_rewrite_rules', 1 );
+		add_action( 'parse_query', __CLASS__ . '::parse_query' );
 
 		// Filters
 		add_filter( 'found_posts', __CLASS__ . '::found_posts', 1, 2 );
@@ -383,7 +384,10 @@ final class FLBuilderLoop {
 
 				// Add the args if we have IDs.
 				if ( ! empty( $ids ) ) {
-					$args[ $arg ] = explode( ',', $settings->{'posts_' . $type} );
+					$ids = explode( ',', $settings->{'posts_' . $type} );
+					foreach ( $ids as $id ) {
+						$args[ $arg ][] = $id;
+					}
 				}
 			}
 		}
@@ -695,6 +699,37 @@ final class FLBuilderLoop {
 	}
 
 	/**
+	 * Sets query flags to prevent 404 or canonical redirection for custom pagination.
+	 *
+	 * @param object $query
+	 * @since 2.6.1
+	 * @return void
+	 */
+	static public function parse_query( $query ) {
+		if ( is_admin() ) {
+			return;
+		}
+
+		$is_search = $query->is_search;
+
+		// Search layout pagination
+		if ( isset( $query->query['flpaged'] ) && isset( $query->query['s'] ) && isset( $query->query['page_id'] ) && get_option( 'page_on_front' ) == $query->query['page_id'] ) {
+			$query->is_search = true;
+
+			// Make sure we have layouts for search.
+			$layouts = fl_theme_builder_archive_layouts( $query );
+			if ( $layouts && $layouts['query']->post_count > 0 ) {
+				$query->is_page     = false;
+				$query->is_singular = false;
+				unset( $query->query['page_id'] );
+				unset( $query->query_vars['page_id'] );
+			} else {
+				$query->is_search = $is_search;
+			}
+		}
+	}
+
+	/**
 	 * Disable canonical redirection on the frontpage when query var 'flpaged' is found.
 	 *
 	 * Disable canonical on supported CPT single.
@@ -752,31 +787,42 @@ final class FLBuilderLoop {
 	 * @return bool
 	 */
 	static public function pre_404_pagination( $prevent_404, $query ) {
-		global $wp_actions;
-		global $wp_the_query;
+		global $wp_actions, $wp_the_query, $wp_query;
 
 		if ( ! class_exists( 'FLThemeBuilder' ) ) {
 			return $prevent_404;
 		}
 
-		if ( ! $query->is_paged ) {
+		if ( ! $query->is_paged && ! is_numeric( $wp_the_query->get( 'flpaged' ) ) ) {
 			return false;
 		}
 
-		if ( ! $query->is_archive && ! $query->is_home ) {
+		if ( ! $query->is_archive && ! $query->is_home && ! $query->is_search ) {
 			return false;
 		}
 
-		if ( $query->is_archive && $query->is_category && $query->post_count < 1 ) {
+		$layouts = fl_theme_builder_archive_layouts( $query );
+		if ( ! $layouts || $layouts['query']->post_count <= 0 ) {
+			return false;
+		}
 
-			$post_grid_posts = fl_theme_builder_cat_archive_post_grid( $query );
-			if ( ! $post_grid_posts || $post_grid_posts->post_count < 1 ) {
+		if ( $query->is_paged || is_numeric( $wp_the_query->get( 'flpaged' ) ) ) {
+			$post_grid_posts = fl_theme_builder_archive_post_grid( $layouts );
+
+			if ( ! $post_grid_posts ) {
+				return false;
+			}
+
+			if ( $post_grid_posts && false === $post_grid_posts['page_exists'] ) {
+				// Set 404 for our custom paginations.
+				$wp_query->set_404();
+				status_header( 404 );
+				nocache_headers();
 				return false;
 			}
 		}
 
 		$is_global_hack = false;
-		$layout_type    = '';
 
 		// Manually set globals since filter `pre_handle_404`
 		// doesn't reach `$wp_query->register_globals()`.
@@ -795,7 +841,7 @@ final class FLBuilderLoop {
 			$is_global_hack = true;
 		}
 
-		if ( count( $wp_the_query->posts ) && FLThemeBuilder::has_layout() ) {
+		if ( FLThemeBuilder::has_layout() ) {
 
 			// Reset the hacks.
 			if ( $is_global_hack ) {

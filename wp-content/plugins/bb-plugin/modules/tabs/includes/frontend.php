@@ -11,10 +11,10 @@ if ( 'post' == $settings->source ) {
 
 	<div class="fl-tabs-labels fl-clearfix" role="tablist">
 		<?php
-		$active_tab     = $settings->active_tab;
+		$active_tab     = intval( $settings->active_tab );
 		$tabs_on_mobile = $settings->tabs_on_mobile;
 
-		if ( $active_tab > count( $settings->items ) ) {
+		if ( $active_tab <= 0 || $active_tab > count( $settings->items ) ) {
 			$active_tab = 1;
 		}
 		?>

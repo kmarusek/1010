@@ -159,7 +159,7 @@
 						.updateNodeSettings(
 							nodeId,
 							mergedData,
-							FLBuilder._saveSettingsComplete.bind(this, true, null)
+							FLBuilder._saveSettingsComplete.bind(this, true)
 						);
 
 					// trigger hook

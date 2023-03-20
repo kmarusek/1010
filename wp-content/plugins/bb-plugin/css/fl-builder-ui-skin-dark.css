@@ -295,6 +295,24 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
     fill: #b5becb;
 }
 
+.fl-builder-ui-skin--dark .fl-help-tooltip-text {
+	background: #181b20;
+	border: 1px solid #2c333a;
+	box-shadow: 0 0 5px #2c333a;
+	-moz-box-shadow: 0 0 5px #2c333a;
+	-webkit-box-shadow: 0 0 5px #2c333a;
+}
+.fl-builder-ui-skin--dark .fl-button-group-tooltip-text {
+	background: #181b20;
+	border: 1px solid #2c333a;
+	box-shadow: 0 0 5px #2c333a;
+}
+
+.fl-builder-ui-skin--dark .fl-button-group-tooltip::after {
+	background: #181b20;
+	border-color: #2c333a;
+}
+
 .fl-builder-ui-skin--dark .fl-builder-settings-fields textarea,
 .fl-builder-ui-skin--dark .fl-builder-settings-fields input[type=text],
 .fl-builder-ui-skin--dark .fl-builder-settings-fields input[type=password],

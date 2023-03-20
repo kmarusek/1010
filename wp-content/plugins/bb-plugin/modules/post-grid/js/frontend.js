@@ -240,6 +240,10 @@
 			$( window ).unbind( '.infscr' );
 
 			$(this.nodeClass + ' .fl-builder-pagination-load-more .fl-button').on( 'click', function(){
+				if( $( '#infscr-loading' ).length ) {
+					$( '#infscr-loading' ).remove();
+				}
+
 				wrap.infinitescroll( 'retrieve' );
 				return false;
 			});

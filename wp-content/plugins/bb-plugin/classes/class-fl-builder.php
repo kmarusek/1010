@@ -1022,21 +1022,32 @@ final class FLBuilder {
 		}
 		wp_add_inline_style( 'admin-bar', '#wp-admin-bar-fl-builder-frontend-edit-link .ab-icon:before { content: "\f116" !important; top: 2px; margin-right: 3px; }' );
 
-		$kb_link = sprintf( "<a class='link' target='_blank' href='https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/debugging/known-beaver-builder-incompatibilities'>%s</a>", __( 'Knowledge Base', 'fl-builder' ) );
-		$support = sprintf( "<a class='link' target='_blank' href='https://www.wpbeaverbuilder.com/beaver-builder-support/'>%s</a>", __( 'Support ticket', 'fl-builder' ) );
-		$args    = array(
+		$kb_link   = sprintf( "<a class='link' target='_blank' href='https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/debugging/known-beaver-builder-incompatibilities'>%s</a>", __( 'Knowledge Base', 'fl-builder' ) );
+		$support   = sprintf( "<a class='link' target='_blank' href='https://www.wpbeaverbuilder.com/beaver-builder-support/'>%s</a>", __( 'Support ticket', 'fl-builder' ) );
+		$updates   = self::get_available_updates();
+		$revisions = wp_count_posts( 'revision' );
+		$revisions = $revisions->inherit;
+		$args      = array(
 			'product'     => FLBuilderModel::get_branding(),
 			'white_label' => FLBuilderModel::is_white_labeled(),
+
 			/**
 			 * Custom info text for crash popup.
 			 * @see fl_builder_crash_white_label_text
 			 */
 			'labeled_txt' => apply_filters( 'fl_builder_crash_white_label_text', '' ),
 			'vars'        => array(
-				'PHP Version'    => phpversion(),
-				'Memory Limit'   => FL_Debug::safe_ini_get( 'memory_limit' ),
-				'max_input_vars' => FL_Debug::safe_ini_get( 'max_input_vars' ),
-				'modsecfix'      => FLBuilderUtils::is_modsec_fix_enabled() ? 'Enabled' : 'Disabled',
+				'PHP Version'     => phpversion(),
+				'Memory Limit'    => FL_Debug::safe_ini_get( 'memory_limit' ),
+				'Usage'           => FLBuilderUtils::formatbytes( memory_get_usage() ),
+				'Peak'            => FLBuilderUtils::formatbytes( memory_get_peak_usage() ),
+				'URL'             => get_permalink(),
+				'Builder Version' => FL_BUILDER_VERSION . $updates['builder'],
+				'Theme Version'   => ( defined( 'FL_THEME_VERSION' ) ) ? FL_THEME_VERSION . $updates['theme'] : 'Not active/installed.',
+				'Themer Version'  => ( defined( 'FL_THEME_BUILDER_VERSION' ) ) ? FL_THEME_BUILDER_VERSION . $updates['themer'] : 'Not active/installed.',
+				'Revisions'       => $revisions,
+				'max_input_vars'  => FL_Debug::safe_ini_get( 'max_input_vars' ),
+				'modsecfix'       => FLBuilderUtils::is_modsec_fix_enabled() ? 'Enabled' : 'Disabled',
 			),
 			'strings'     => array(
 				'intro'        => __( 'has detected a plugin conflict that is preventing the page from saving.', 'fl-builder' ),
@@ -1052,8 +1063,43 @@ final class FLBuilder {
 				'hand'         => __( 'Need a helping hand?', 'fl-builder' ),
 			),
 		);
+
 		wp_localize_script( 'fl-builder-min', 'crash_vars', $args );
 		wp_localize_script( 'fl-builder', 'crash_vars', $args );
+	}
+
+	static private function get_available_updates() {
+		$updates   = get_option( '_site_transient_update_plugins' );
+		$updatetxt = sprintf( ' ( %s )', __( 'An update is available', 'fl-builder' ) );
+		$available = array(
+			'builder' => '',
+			'theme'   => '',
+			'themer'  => '',
+		);
+		if ( ! is_object( $updates ) ) {
+			return $available;
+		}
+		// plugins first...
+		if ( isset( $updates->response['bb-plugin/fl-builder.php'] )
+			&& isset( $updates->response['bb-plugin/fl-builder.php']->new_version )
+			&& $updates->response['bb-plugin/fl-builder.php']->new_version < FL_BUILDER_VERSION ) {
+			$available['builder'] = $updatetxt;
+		}
+		if ( defined( 'FL_THEME_BUILDER_VERSION' )
+			&& isset( $updates->response['bb-theme-builder/bb-theme-builder.php'] )
+			&& isset( $updates->response['bb-theme-builder/bb-theme-builder.php']->new_version )
+			&& $updates->response['bb-theme-builder/bb-theme-builder.php']->new_version > FL_THEME_BUILDER_VERSION ) {
+			$available['themer'] = $updatetxt;
+		}
+		// now the theme
+		$updates = get_option( '_site_transient_update_themes' );
+		if ( defined( 'FL_THEME_VERSION' )
+			&& isset( $updates->response['bb-theme'] )
+			&& isset( $updates->response['bb-theme']['new_version'] )
+			&& $updates->response['bb-theme']['new_version'] > FL_THEME_VERSION ) {
+			$available['theme'] = $updatetxt;
+		}
+		return $available;
 	}
 
 	/**
@@ -1180,7 +1226,7 @@ final class FLBuilder {
 				'title' => '<span class="ab-icon"></span>' . FLBuilderModel::get_branding() . $dot,
 				'href'  => FLBuilderModel::get_edit_url( $wp_the_query->post->ID ),
 			));
-			if ( $enabled && true === apply_filters( 'fl_builder_duplicatemenu_enabled', true ) ) {
+			if ( $enabled && true === apply_filters( 'fl_builder_duplicatemenu_enabled', false ) ) {
 				$wp_admin_bar->add_node( array(
 					'parent' => 'fl-builder-frontend-edit-link',
 					'id'     => 'fl-builder-frontend-duplicate-link',
@@ -3147,8 +3193,9 @@ final class FLBuilder {
 		$css .= self::js_comment( 'Global Nodes CSS', self::maybe_do_shortcode( self::render_global_nodes_custom_code( 'css' ) ) );
 
 		// Custom Layout CSS
-		if ( 'published' == $node_status || $post_id !== $wp_the_query->post->ID ) {
-			$css .= self::js_comment( 'Layout CSS', self::maybe_do_shortcode( FLBuilderModel::get_layout_settings()->css ) );
+		if ( ( 'published' == $node_status || $post_id !== $wp_the_query->post->ID ) && ! in_array( 'global-layout-css-' . $post_id, self::$rendered_assets ) ) {
+			self::$rendered_assets[] = 'global-layout-css-' . $post_id;
+			$css                    .= self::js_comment( 'Layout CSS', self::maybe_do_shortcode( FLBuilderModel::get_layout_settings()->css ) );
 		}
 
 		/**
@@ -3613,7 +3660,7 @@ final class FLBuilder {
 				}
 
 				if ( '' != $value && ( $value > intval( $default[ $direction ] ) || $value < 0 ) ) {
-					$margins .= 'margin-' . $direction . ':' . esc_attr( $default[ $direction ] ) . ";";
+					$margins .= 'margin-' . $direction . ':' . esc_attr( $default[ $direction ] ) . ';';
 				}
 			}
 		}
@@ -3716,9 +3763,25 @@ final class FLBuilder {
 		}
 
 		// Add the layout settings JS.
+		if ( ! isset( $_GET['safemode'] ) && ! in_array( 'global-layout-js', self::$rendered_assets ) ) {
+			self::$rendered_assets[] = 'global-layout-js';
+			$js                     .= self::js_comment( 'Global Node Custom JS', self::maybe_do_shortcode( self::render_global_nodes_custom_code( 'js' ) ) );
+		}
+
 		if ( ! isset( $_GET['safemode'] ) ) {
-			$js .= self::js_comment( 'Global Node Custom JS', self::maybe_do_shortcode( self::render_global_nodes_custom_code( 'js' ) ) );
-			$js .= ( is_array( $layout_settings->js ) || is_object( $layout_settings->js ) ) ? self::js_comment( 'Layout Custom JS', self::maybe_do_shortcode( json_encode( $layout_settings->js ) ) ) : self::js_comment( 'Layout Custom JS', self::maybe_do_shortcode( $layout_settings->js ) );
+
+			if ( is_array( $layout_settings->js ) || is_object( $layout_settings->js ) ) {
+				$layout_js = self::js_comment( 'Layout Custom JS', self::maybe_do_shortcode( json_encode( $layout_settings->js ) ) );
+			} else {
+				$layout_js = self::js_comment( 'Layout Custom JS', self::maybe_do_shortcode( $layout_settings->js ) );
+			}
+
+			$key = 'layout-custom-' . FLBuilderModel::get_post_id();
+
+			if ( ! isset( self::$rendered_assets[ $key ] ) ) {
+				$js                           .= $layout_js;
+				self::$rendered_assets[ $key ] = $layout_js;
+			}
 		}
 
 		// Call the FLBuilder._renderLayoutComplete method if we're currently editing.
@@ -3763,6 +3826,11 @@ final class FLBuilder {
 			 * @see fl_builder_after_render_js
 			 */
 			do_action( 'fl_builder_after_render_js' );
+		}
+
+		// if JS contains jQuery, make sure to enqueue it just in case inline mode is in use
+		if ( false !== strpos( $js, 'jQuery' ) ) {
+			wp_enqueue_script( 'jquery' );
 		}
 
 		return $js;

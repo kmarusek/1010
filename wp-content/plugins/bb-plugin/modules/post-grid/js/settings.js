@@ -29,11 +29,13 @@
 				icon = form.find('input[name=icon]'),
 				layout = form.find( 'select[name=layout]' ),
 				postType = form.find( '#fl-field-post_type' ).find('select'),
-				showContent = form.find( 'select[name=show_content]' );
+				showContent = form.find( 'select[name=show_content]' ),
+				dataSource = form.find( '#fl-field-data_source' ).find('select');
 
 			layout.on( 'change', this._layoutChanged.bind( this ) );
 			postType.on( 'change', this._toggleEventsSection.bind( this ) );
 			postType.on( 'change', this._toggleWooCommerceSection.bind( this ) );
+			dataSource.on( 'change', this._toggleWooCommerceSection.bind( this ) );
 			showContent.on( 'change', this._showContentChanged.bind(this) );
 			resizeFields.find( 'input' ).on( 'input', this._resizeLayout.bind( this ) );
 			resizeFields.find( 'select' ).on( 'change', this._resizeLayout.bind( this ) );
@@ -81,22 +83,32 @@
 		 */
 		_toggleWooCommerceSection: function() {
 			var form = $('.fl-builder-settings'),
+				dataSource = form.find('#fl-field-data_source select').val(),
 				selectedPostTypes = form.find('#fl-field-post_type').find('select').val(),
 				wooSection = form.find('#fl-builder-settings-section-woo'),
 				wooStyleSection = form.find('#fl-builder-settings-section-woo_style'),
-				wooButtonSection = form.find('#fl-builder-settings-section-woo_button');
+				wooButtonSection = form.find('#fl-builder-settings-section-woo_button'),
+				isWooLayout = false;
 
-			if (wooSection.length) {
-				wooStyleSection = wooStyleSection.length ? wooStyleSection : form.find('#fl-builder-settings-tab-style #fl-builder-settings-section-woo');
-				if ( $.inArray('product', selectedPostTypes ) > -1) {
-					wooSection.show();
-					wooStyleSection.show();
-					wooButtonSection.show();
-				} else {
-					wooSection.hide();
-					wooStyleSection.hide();
-					wooButtonSection.hide();
-				}
+			if ( wooSection.length <= 0 ) {
+				return;
+			}
+
+			if ( 'main_query' === dataSource ) {
+				isWooLayout = 'fl-theme-layout' === FLBuilderConfig.postType && $('body').hasClass('woocommerce');
+			} else {
+				isWooLayout = $.inArray('product', selectedPostTypes ) > -1;
+			}
+
+			wooStyleSection = wooStyleSection.length ? wooStyleSection : form.find('#fl-builder-settings-tab-style #fl-builder-settings-section-woo');
+			if ( isWooLayout ) {
+				wooSection.show();
+				wooStyleSection.show();
+				wooButtonSection.show();
+			} else {
+				wooSection.hide();
+				wooStyleSection.hide();
+				wooButtonSection.hide();
 			}
 		},
 

@@ -8,6 +8,31 @@ class Plugin {
 
 	private static $plugins = array();
 
+	private $allowed_plugins = array(
+		'acf',
+		'autooptimize',
+		'breeze',
+		'cacheenabler',
+		'cloudflare',
+		'defines',
+		'fastest',
+		'godaddy',
+		'hummingbird',
+		'kinsta',
+		'nginxhelper',
+		'pagely',
+		'pantheon',
+		'pressidium',
+		'siteground',
+		'spinupwp',
+		'supercache',
+		'swift',
+		'varnish',
+		'w3cache',
+		'wordpress',
+		'wpengine',
+	);
+
 	private $actions = array(
 		'fl_builder_cache_cleared',
 		'fl_builder_after_save_layout',
@@ -105,7 +130,14 @@ class Plugin {
 		foreach ( glob( FL_BUILDER_CACHE_HELPER_DIR . 'plugins/*.php' ) as $file ) {
 
 			$classname = 'FLCacheClear\\' . ucfirst( str_replace( '.php', '', basename( $file ) ) );
-			include_once( $file );
+
+			if ( ! in_array( pathinfo( $file, PATHINFO_FILENAME ), $this->allowed_plugins ) ) {
+				$this->triggererror( $file );
+				return false;
+			} else {
+				include_once( $file );
+			}
+
 			$class = new $classname();
 
 			$actions = isset( $class->actions ) ? $class->actions : $this->actions;
@@ -131,6 +163,23 @@ class Plugin {
 				$this->add_filters( $class, $filters );
 			}
 		}
+	}
+
+	/**
+	 * @since 2.6.1
+	 */
+	private function triggererror( $file ) {
+		$filename = basename( $file );
+		$message  = "An unexpected file ($filename) was found, possible malware! File: $file";
+
+		( ! \FLBuilderAJAX::doing_ajax() && ! isset( $_GET['fl_builder'] ) ) ? trigger_error( $message, E_USER_WARNING ) : false;
+		$args = array(
+			'content' => $message,
+			'id'      => pathinfo( $file, PATHINFO_FILENAME ),
+			'only'    => false,
+			'class'   => 'notice-error',
+		);
+		\FLBuilderAdminNotices::register_notice( $args );
 	}
 
 	/**

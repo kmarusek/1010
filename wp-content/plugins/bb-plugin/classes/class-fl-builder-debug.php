@@ -52,13 +52,6 @@ final class FL_Debug {
 		self::$tests[ $slug ] = $args;
 	}
 
-	private static function formatbytes( $size, $precision = 2 ) {
-		$base     = log( $size, 1024 );
-		$suffixes = array( '', 'K', 'M', 'G', 'T' );
-
-		return round( pow( 1024, $base - floor( $base ) ), $precision ) . $suffixes[ floor( $base ) ];
-	}
-
 	private static function get_plugins() {
 
 		$plugins = array();
@@ -348,7 +341,7 @@ final class FL_Debug {
 
 		$args = array(
 			'name' => 'Max Upload Size',
-			'data' => self::formatbytes( wp_max_upload_size() ),
+			'data' => FLBuilderUtils::formatbytes( wp_max_upload_size() ),
 		);
 		self::register( 'post_max_upload', $args );
 

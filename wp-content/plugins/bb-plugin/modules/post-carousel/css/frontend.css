@@ -185,8 +185,7 @@ body.rtl .fl-post-carousel-post {
 	        transition: all 0.3s;
 }
 
-.fl-post-carousel-gallery .fl-post-carousel-text h2.fl-post-carousel-title {
-	font-size: 22px;
+.fl-post-carousel-gallery .fl-post-carousel-title {
 	margin: 0 0 5px 0;
 }
 

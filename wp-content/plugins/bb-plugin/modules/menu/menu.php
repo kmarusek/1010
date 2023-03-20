@@ -131,7 +131,7 @@ class FLMenuModule extends FLBuilderModule {
 
 		if ( ! empty( $this->core_menus ) ) {
 			if ( empty( $settings->menu ) || ! in_array( $settings->menu, $this->core_menus ) ) {
-				$settings->menu = $this->core_menus[0];
+				$settings->menu = apply_filters( 'fl_builder_menu_module_core_menu', $this->core_menus[0], $settings );
 			}
 		}
 
@@ -1104,7 +1104,7 @@ FLBuilder::register_module('FLMenuModule', array(
 						),
 						'preview'    => array(
 							'type'      => 'css',
-							'selector'  => '.fl-menu .sub-menu',
+							'selector'  => '.fl-menu .menu .sub-menu > li',
 							'important' => true,
 						),
 					),

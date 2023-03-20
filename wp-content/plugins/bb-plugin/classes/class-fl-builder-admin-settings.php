@@ -782,9 +782,9 @@ final class FLBuilderAdminSettings {
 			return;
 		} elseif ( isset( $_POST['fl-css-js-nonce'] ) && wp_verify_nonce( $_POST['fl-css-js-nonce'], 'debug' ) ) {
 			if ( get_transient( 'fl_debug_mode' ) || ( defined( 'FL_ENABLE_META_CSS_EDIT' ) && FL_ENABLE_META_CSS_EDIT ) ) {
-				$css          = $_POST['css'];
-				$js           = $_POST['js'];
-				$options      = get_option( '_fl_builder_settings' );
+				$css          = stripslashes( $_POST['css'] );
+				$js           = stripslashes( $_POST['js'] );
+				$options      = get_option( '_fl_builder_settings', (object) array() );
 				$options->css = $css;
 				$options->js  = $js;
 				FLBuilderUtils::update_option( '_fl_builder_settings', $options );

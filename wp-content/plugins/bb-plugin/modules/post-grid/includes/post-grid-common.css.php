@@ -7,7 +7,7 @@ $post_columns_medium     = $module->get_columns_count( 'medium' );
 $post_columns_responsive = $module->get_columns_count( 'responsive' );
 
 if ( 'grid' == $settings->layout ) : ?>
-.fl-node-<?php echo $id; ?> div.fl-post-grid-post {
+.fl-node-<?php echo $id; ?> <?php echo $module->get_posts_container(); ?>.fl-post-grid-post {
 	margin-bottom: <?php echo $post_spacing; ?>px;
 	width: <?php echo $post_width; ?>px;
 }

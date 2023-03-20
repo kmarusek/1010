@@ -125,6 +125,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'wooActive'                  => class_exists( 'WooCommerce' ) ? true : false,
 	'uploadPath'                 => ( get_option( 'upload_path' ) && get_option( 'upload_path' ) != 'wp-content/uploads' ) ? true : false,
 	'uploadUrl'                  => admin_url( 'options-media.php' ),
+	'responsiveFields'           => array( 'align', 'border', 'dimension', 'unit', 'photo', 'select', 'typography', 'text' ),
 	/**
 	 * @see fl_builder_default_image_select_size
 	 */

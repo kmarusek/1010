@@ -2404,7 +2404,7 @@ function Transition(_ref) {
 }
 
 
-//# sourceMappingURL=react-laag.esm.js.map
+
 
 
 /***/ }),
@@ -2545,4 +2545,3 @@ window.ReactLaag = window.ReactLaag || vendor_react_laag__WEBPACK_IMPORTED_MODUL
 
 /******/ })()
 ;
-//# sourceMappingURL=vendor-react-laag.bundle.js.map

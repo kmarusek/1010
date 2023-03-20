@@ -70,10 +70,11 @@ final class FLBuilderUserTemplatesAdminList {
 		$post_type     = isset( $_GET['post_type'] ) ? $_GET['post_type'] : null;
 		$template_type = isset( $_GET['fl-builder-template-type'] ) ? $_GET['fl-builder-template-type'] : null;
 		$page          = isset( $_GET['page'] ) ? $_GET['page'] : null;
+		$template_cat  = isset( $_GET['fl-builder-template-category'] ) ? $_GET['fl-builder-template-category'] : 0;
 
 		if ( 'edit.php' == $pagenow && 'fl-builder-template' == $post_type && ! $template_type && ! $page ) {
 
-			$url = admin_url( '/edit.php?post_type=fl-builder-template&fl-builder-template-type=layout' );
+			$url = admin_url( '/edit.php?post_type=fl-builder-template&fl-builder-template-type=layout&fl-builder-template-category=' . $template_cat );
 
 			wp_redirect( $url );
 
@@ -230,7 +231,7 @@ final class FLBuilderUserTemplatesAdminList {
 		if ( 'fl-builder-template' == $typenow ) {
 			$taxonomy = 'fl-builder-template-category';
 			$tax      = get_taxonomy( $taxonomy );
-			$term     = $_GET['fl-builder-template-type'];
+			$term     = empty( $_GET['fl-builder-template-category'] ) ? 0 : $_GET['fl-builder-template-category'];
 			wp_dropdown_categories(
 				array(
 					'show_option_all' => __( 'Show All Categories', 'fl-builder' ),

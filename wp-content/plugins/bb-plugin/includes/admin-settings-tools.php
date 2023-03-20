@@ -32,7 +32,7 @@
 		$interval   = $datetime1->diff( $datetime2 );
 	}
 	?>
-	<?php $header = ( $debug ) ? __( 'Debug Mode Enabled', 'fl-builder' ) : __( 'Debug Mode Disabled', 'fl-builder' ); ?>
+	<?php $header = ( $debug ) ? __( 'Debug Mode Enabled', 'fl-builder' ) : __( 'Debug Mode', 'fl-builder' ); ?>
 	<h3 class="fl-settings-form-header"><?php echo $header; ?></h3>
 
 	<form id="debug-form" action="<?php FLBuilderAdminSettings::render_form_action( 'tools' ); ?>" method="post">

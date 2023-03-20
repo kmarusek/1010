@@ -56,7 +56,71 @@ function fl_set_curl_safe_opts( $handle ) {
  * Fix pagination on category archive layout.
  * @since 2.2.4
  */
-function fl_theme_builder_cat_archive_post_grid( $query ) {
+function fl_theme_builder_archive_post_grid( $layouts ) {
+	global $wp_the_query;
+
+	if ( ! $layouts || $layouts['query']->post_count <= 0 ) {
+		return;
+	}
+
+	$post_grid     = null;
+	$exclusions    = array();
+	$current_loop  = 0;
+	$current_paged = 1;
+	$nodes         = array();
+
+	if ( $wp_the_query->get( 'flpaged' ) ) {
+		global $wp;
+		$current_url = home_url( $wp->request );
+		$flpaged     = preg_match( '/paged-([0-9]{1,})\/?([0-9]{1,})/', $current_url, $matches );
+		if ( $flpaged ) {
+			$current_loop  = (int) $matches[1] > 1 ? (int) $matches[1] - 1 : 1;
+			$current_paged = (int) $matches[2];
+		}
+	} elseif ( $wp_the_query->get( 'paged' ) ) {
+		$current_paged = $wp_the_query->get( 'paged' );
+	}
+
+	foreach ( $layouts['query']->posts as $i => $post_id ) {
+		$exclusions = FLThemeBuilderRulesLocation::get_saved_exclusions( $post_id );
+		$exclude    = false;
+
+		if ( $layouts['object'] && in_array( $layouts['object'], $exclusions ) ) {
+			$exclude = true;
+		} elseif ( in_array( $layouts['location'], $exclusions ) ) {
+			$exclude = true;
+		} elseif ( in_array( 'general:archive', $exclusions ) ) {
+			$exclude = true;
+		}
+
+		if ( $exclude ) {
+			continue;
+		}
+
+		$nodes      = FLBuilderModel::get_layout_data( 'published', $post_id );
+		$post_grids = fl_ordered_post_grid( $nodes );
+
+		if ( empty( $nodes ) || empty( $post_grids ) || ! isset( $post_grids[ $current_loop ] ) ) {
+			continue;
+		}
+
+		FLBuilderLoop::$loop_counter = $current_loop;
+		$get_node                    = $nodes[ $post_grids[ $current_loop ] ];
+		$query_post_grid             = FLBuilderLoop::query( $get_node->settings );
+		FLBuilderLoop::$loop_counter = 0;
+
+		$post_grid['post_count']  = $query_post_grid->post_count;
+		$post_grid['page_exists'] = $query_post_grid->max_num_pages >= $current_paged;
+		break;
+	}
+
+	return $post_grid;
+}
+
+/**
+ * Helper function that queries the themer layouts in archive pages.
+ */
+function fl_theme_builder_archive_layouts( $query, $return = '' ) {
 	if ( ! $query ) {
 		return;
 	}
@@ -69,11 +133,53 @@ function fl_theme_builder_cat_archive_post_grid( $query ) {
 		return;
 	}
 
-	if ( ! $query->is_archive || ! $query->is_category ) {
+	if ( ! $query->is_archive && ! $query->is_home && ! $query->is_search ) {
 		return;
 	}
 
-	$args       = array(
+	$queried_object = get_queried_object();
+	$object         = null;
+	$location       = null;
+	$layouts_data   = array();
+
+	if ( ! $queried_object && ! is_home() && ! is_search() && ! is_date() ) {
+		return;
+	}
+
+	if ( is_home() ) {
+		$location = 'archive:post';
+	} elseif ( is_author() ) {
+		$location = 'general:author';
+	} elseif ( is_date() ) {
+		$location = 'general:date';
+	} elseif ( is_search() ) {
+		$location = 'general:search';
+	} elseif ( is_category() ) {
+		$location = 'taxonomy:category';
+
+		if ( is_object( $queried_object ) ) {
+			$object = $location . ':' . $queried_object->term_id;
+		}
+	} elseif ( is_tag() ) {
+		$location = 'taxonomy:post_tag';
+
+		if ( is_object( $queried_object ) ) {
+			$object = $location . ':' . $queried_object->term_id;
+		}
+	} elseif ( is_tax() ) {
+		$location = 'taxonomy:' . get_query_var( 'taxonomy' );
+
+		if ( is_object( $queried_object ) ) {
+			$location = 'taxonomy:' . $queried_object->taxonomy;
+			$object   = $location . ':' . $queried_object->term_id;
+		}
+	} elseif ( is_post_type_archive() && is_object( $queried_object ) ) {
+		$location = 'archive:' . $queried_object->query_var;
+	} else {
+		return;
+	}
+
+	$args = array(
 		'post_type'   => 'fl-theme-layout',
 		'post_status' => 'publish',
 		'fields'      => 'ids',
@@ -81,86 +187,130 @@ function fl_theme_builder_cat_archive_post_grid( $query ) {
 			'relation' => 'OR',
 			array(
 				'key'     => '_fl_theme_builder_locations',
-				'value'   => 'general:site',
+				'value'   => '"general:site"',
 				'compare' => 'LIKE',
 			),
 			array(
 				'key'     => '_fl_theme_builder_locations',
-				'value'   => 'taxonomy:category',
-				'compare' => 'LIKE',
-			),
-			array(
-				'key'     => '_fl_theme_builder_locations',
-				'value'   => 'general:archive',
+				'value'   => '"' . $location . '"',
 				'compare' => 'LIKE',
 			),
 		),
 	);
-	$post_grid  = null;
-	$object     = null;
-	$exclusions = array();
 
-	if ( $query->get( 'cat' ) ) {
-		$term = get_term( $query->get( 'cat' ), 'category' );
-	} elseif ( $query->get( 'category_name' ) ) {
-		$term = get_term_by( 'slug', $query->get( 'category_name' ), 'category' );
-	}
-
-	if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
-		$term_id              = (int) $term->term_id;
-		$object               = 'taxonomy:category:' . $term_id;
+	if ( is_archive() || is_home() || is_search() ) {
 		$args['meta_query'][] = array(
 			'key'     => '_fl_theme_builder_locations',
-			'value'   => $object,
+			'value'   => '"general:archive"',
 			'compare' => 'LIKE',
 		);
 	}
 
-	$layout_query = new WP_Query( $args );
-	if ( $layout_query->post_count > 0 ) {
+	if ( $object ) {
+		$args['meta_query'][] = array(
+			'key'     => '_fl_theme_builder_locations',
+			'value'   => '"' . $object . '"',
+			'compare' => 'LIKE',
+		);
+	}
 
-		foreach ( $layout_query->posts as $i => $post_id ) {
-			$exclusions = FLThemeBuilderRulesLocation::get_saved_exclusions( $post_id );
-			$exclude    = false;
+	$layouts_data = array(
+		'location' => $location,
+		'object'   => $object,
+		'query'    => new WP_Query( $args ),
+	);
 
-			if ( $object && in_array( $object, $exclusions ) ) {
-				$exclude = true;
-			} elseif ( in_array( 'taxonomy:category', $exclusions ) ) {
-				$exclude = true;
-			} elseif ( in_array( 'general:archive', $exclusions ) ) {
-				$exclude = true;
-			}
+	if ( ! empty( $return ) && isset( $layouts_data[ $return ] ) ) {
+		return $layouts_data[ $return ];
+	} else {
+		return $layouts_data;
+	}
+}
 
-			if ( ! $exclude ) {
-				$data = FLBuilderModel::get_layout_data( 'published', $post_id );
-				if ( ! empty( $data ) ) {
+/**
+ * Get the ordered post-grid modules from the layout data.
+ */
+function fl_ordered_post_grid( $data ) {
+	$parent_nodes  = array();
+	$ordered_nodes = array();
 
-					foreach ( $data as $node_id => $node ) {
+	foreach ( $data as $node_id => $node ) {
+		if ( 'module' != $node->type ) {
+			continue;
+		}
 
-						if ( 'module' != $node->type ) {
-							continue;
-						}
+		if ( ! isset( $node->settings->data_source ) || ! isset( $node->settings->pagination ) ) {
+			continue;
+		}
 
-						if ( ! isset( $node->settings->type ) || 'post-grid' != $node->settings->type ) {
-							continue;
-						}
+		if ( ! in_array( $node->settings->data_source, array( 'main_query', 'custom_query' ) ) ) {
+			continue;
+		}
 
-						// Check for `post-grid` with custom query source.
-						if ( 'custom_query' == $node->settings->data_source ) {
-							$post_grid = FLBuilderLoop::custom_query( $node->settings );
-							break;
-						}
-					}
+		$root_node = false;
+		$grid_node = $node;
+
+		// Traverse parent nodes.
+		while ( ! $root_node ) {
+			if ( ! empty( $grid_node->parent ) && isset( $data[ $grid_node->parent ] ) ) {
+				$parent = $data[ $grid_node->parent ];
+
+				if ( ! isset( $parent_nodes[ $parent->type ] ) || ! isset( $parent_nodes[ $parent->type ][ $parent->node ] ) ) {
+					$parent_nodes[ $parent->type ][ $parent->node ] = array(
+						'position' => $parent->position,
+						'node'     => array(
+							$node_id => array(
+								'position' => $node->position,
+							),
+						),
+					);
+				} elseif ( isset( $parent_nodes[ $parent->type ][ $parent->node ] )
+					&& ! isset( $parent_nodes[ $parent->type ][ $parent->node ]['node'][ $node_id ] ) ) {
+						$parent_nodes[ $parent->type ][ $parent->node ]['node'][ $node_id ] = array(
+							'position' => $node->position,
+						);
 				}
-			}
 
-			if ( $post_grid ) {
+				// New node to crawl the tree.
+				$grid_node = $parent;
+
+			} elseif ( empty( $grid_node->parent ) && 'row' == $grid_node->type ) {
+				$root_node = true;
+			} else {
 				break;
 			}
 		}
 	}
 
-	return $post_grid;
+	// Order nodes by position
+	foreach ( $parent_nodes as $type => $parent_node ) {
+		uasort($parent_node, function( $a, $b ) {
+			return $a['position'] - $b['position'];
+		});
+
+		foreach ( $parent_node as $parent_id => $parent ) {
+			if ( ! isset( $parent['node'] ) ) {
+				continue;
+			}
+
+			// Order post grids
+			uasort($parent['node'], function( $a, $b ) {
+				return $a['position'] - $b['position'];
+			});
+			$parent_node[ $parent_id ] = $parent;
+
+			// Priorize row ordering
+			if ( 'row' == $type ) {
+				foreach ( $parent['node'] as $node_id => $node ) {
+					if ( ! in_array( $node_id, $ordered_nodes ) ) {
+						$ordered_nodes[] = $node_id;
+					}
+				}
+			}
+		}
+	}
+
+	return $ordered_nodes;
 }
 
 /**

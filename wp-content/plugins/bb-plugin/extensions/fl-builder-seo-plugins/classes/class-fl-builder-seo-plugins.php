@@ -140,6 +140,7 @@ class FLBuilderSeoPlugins {
 		wp_dequeue_style( $handle );
 		wp_deregister_script( $handle );
 		wp_deregister_style( $handle );
+		FLBuilderModel::delete_all_asset_cache( $id );
 		return str_replace( PHP_EOL, '', $data );
 	}
 

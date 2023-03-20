@@ -383,7 +383,7 @@
 
 			content.css('background-image', 'url(' + imageSrc[screenSize] + ')');
 			row.data('current-image-loaded', screenSize );
-			
+
 		},
 
 		/**
@@ -1039,22 +1039,14 @@
 							}, 100 );
 						}
 						if ( element.hasClass( 'fl-tabs-panel' ) ) {
-
 							setTimeout( function() {
-
 								tabs 			= element.closest( '.fl-tabs' );
 								responsiveLabel = element.find( '.fl-tabs-panel-label' );
 								tabIndex 		= responsiveLabel.data( 'index' );
 								label 			= tabs.find( '.fl-tabs-labels .fl-tabs-label[data-index=' + tabIndex + ']' );
-
-								if ( responsiveLabel.is( ':visible' ) ) {
-									responsiveLabel.trigger( 'click' );
-								}
-								else {
-									label[0].click();
-									FLBuilderLayout._scrollToElement( element );
-								}
-
+								
+								label[0].click();
+								FLBuilderLayout._scrollToElement(element);
 							}, 100 );
 						}
 					}
@@ -1236,11 +1228,10 @@
 				label 			= tabs.find( '.fl-tabs-labels .fl-tabs-label[data-index=' + tabIndex + ']' );
 
 				if ( responsiveLabel.is( ':visible' ) ) {
-
+					
 					var callback = function() {
 						if ( element ) {
-							responsiveLabel.trigger( 'click' );
-							element = false;
+							responsiveLabel.trigger( $.Event( 'click', { which: 1 } ) );
 						}
 					};
 
@@ -1393,16 +1384,10 @@
 		},
 		_string_to_slug: function( str ) {
 			str = str.replace(/^\s+|\s+$/g, ''); // trim
-			// remove accents, swap ñ for n, etc
-			var from = "àáäâèéëêìíïîòóöôùúüûñçěščřžýúůďťň·";
-			var to   = "aaaaeeeeiiiioooouuuuncescrzyuudtn-";
-			for (var i=0, l=from.length ; i < l ; i++) {
-				str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-			}
 			if ( 'undefined' == typeof window._fl_string_to_slug_regex ) {
 				regex = new RegExp('[^a-zA-Z0-9\'":() !.,-_|]', 'g');
 			} else {
-				regex = new RegExp('[^' + window._fl_string_to_slug_regex + '\'":\(\) !.,-_|]', 'g');
+				regex = new RegExp('[^' + window._fl_string_to_slug_regex + '\'":\(\) !.,-_|\\\p{Letter}]', 'ug');
 			}
 			str = str.replace(regex, '') // remove invalid chars
 				.replace(/\s+/g, ' '); // collapse whitespace and replace by a space

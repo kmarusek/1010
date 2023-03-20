@@ -21,6 +21,7 @@ final class FLBuilderHistoryManager {
 
 		// Actions
 		add_action( 'fl_builder_init_ui', __CLASS__ . '::init_states' );
+		add_action( 'template_redirect', __CLASS__ . '::clean_history_for_post' );
 	}
 
 	/**
@@ -128,7 +129,7 @@ final class FLBuilderHistoryManager {
 			'position' => self::get_position(),
 			'hooks'    => $hooks,
 			'labels'   => $labels,
-			'enabled'  => FL_BUILDER_HISTORY_STATES && FL_BUILDER_HISTORY_STATES > 0 ? true : false,
+			'enabled'  => (int) self::get_states_max() > 0 ? true : false,
 		);
 		return $config;
 	}
@@ -159,7 +160,7 @@ final class FLBuilderHistoryManager {
 	 * when the builder is active.
 	 */
 	static public function init_states() {
-		if ( FL_BUILDER_HISTORY_STATES && FL_BUILDER_HISTORY_STATES > 0 && ! isset( $_GET['nohistory'] ) ) {
+		if ( (int) self::get_states_max() > 0 && ! isset( $_GET['nohistory'] ) ) {
 			$states = self::get_states();
 
 			if ( empty( $states ) ) {
@@ -271,7 +272,7 @@ final class FLBuilderHistoryManager {
 			),
 		);
 
-		if ( count( $states ) > FL_BUILDER_HISTORY_STATES ) {
+		if ( count( $states ) > (int) self::get_states_max() ) {
 			array_shift( $states );
 		}
 
@@ -321,6 +322,17 @@ final class FLBuilderHistoryManager {
 			),
 			'newNodes' => FLBuilderModel::get_layout_data(),
 		);
+	}
+
+	static private function get_states_max() {
+		return apply_filters( 'fl_history_states_max', FL_BUILDER_HISTORY_STATES );
+	}
+
+	static public function clean_history_for_post() {
+		if ( FLBuilderModel::is_builder_active() && isset( $_GET['nohistory'] ) && isset( $_GET['delete'] ) ) {
+			global $post;
+			self::delete_states( $post->ID );
+		}
 	}
 }
 

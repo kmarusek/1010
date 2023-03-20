@@ -16,6 +16,7 @@ final class FLBuilderRevisions {
 	static public function init() {
 		add_filter( 'fl_builder_ui_js_config', __CLASS__ . '::ui_js_config' );
 		add_filter( 'fl_builder_main_menu', __CLASS__ . '::main_menu_config' );
+		add_action( 'template_redirect', __CLASS__ . '::clean_revisions_for_post' );
 	}
 
 	/**
@@ -26,6 +27,14 @@ final class FLBuilderRevisions {
 	 * @return array
 	 */
 	static public function ui_js_config( $config ) {
+		if ( isset( $_GET['norevisions'] ) ) {
+			$config['revisions'] = array(
+				'posts'   => array(),
+				'authors' => array(),
+			);
+			$config['revisions_count'] = 0;
+			return $config;
+		}
 		$config['revisions']       = self::get_config( $config['postId'] );
 		$config['revisions_count'] = isset( $config['revisions']['posts'] ) && is_array( $config['revisions']['posts'] ) ? count( $config['revisions']['posts'] ) : 0;
 		return $config;
@@ -168,6 +177,25 @@ final class FLBuilderRevisions {
 			'config'   => FLBuilderUISettingsForms::get_node_js_config(),
 			'settings' => $settings,
 		);
+	}
+
+	/**
+	 * @since 2.6.1
+	 */
+	static public function clean_revisions_for_post() {
+		if ( FLBuilderModel::is_builder_active() && isset( $_GET['norevisions'] ) && isset( $_GET['delete'] ) ) {
+			global $post;
+			if ( ! get_post_meta( $post->ID, '_fl_builder_enabled', true ) ) {
+				return false;
+			}
+			$revisions = wp_get_post_revisions( $post->ID, array(
+				'numberposts' => -1,
+				'fields'      => 'ids',
+			) );
+			foreach ( (array) $revisions as $revision_id ) {
+				wp_delete_post_revision( $revision_id );
+			}
+		}
 	}
 }
 

@@ -178,6 +178,13 @@ if ( ! empty( $settings->submenu_bg_color ) || 'yes' == $settings->drop_shadow )
 	<?php
 endif;
 
+// Dropdown Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'submenu_typography',
+	'selector'     => ".fl-node-$id .fl-menu .menu .sub-menu > li",
+) );
+
 /**
  * Submenu links
  */
@@ -278,11 +285,6 @@ if ( isset( $settings->submenu_border ) && ! empty( $settings->submenu_border ) 
 		'selector'     => "$submenu_selector:hover",
 	) );
 
-	FLBuilderCSS::typography_field_rule( array(
-		'settings'     => $settings,
-		'setting_name' => 'submenu_typography',
-		'selector'     => "$submenu_selector",
-	) );
 endif;
 
 /**
