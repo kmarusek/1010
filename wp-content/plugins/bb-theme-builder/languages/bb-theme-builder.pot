@@ -1,20 +1,20 @@
-# Copyright (C) 2022 The Beaver Builder Team
+# Copyright (C) 2023 The Beaver Builder Team
 # This file is distributed under the GNU General Public License v2.0.
 msgid ""
 msgstr ""
 "Project-Id-Version: bb-theme-builder\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2022-10-25 16:23:57+00:00\n"
+"POT-Creation-Date: 2023-01-30 17:27:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 0.5.4\n"
 "X-Poedit-KeywordsList: "
 "__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
 "attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: classes/class-fl-theme-builder-logic-i18n.php:194
 #: includes/layout-admin-add-fields.php:14
@@ -49,7 +49,7 @@ msgstr ""
 #: classes/class-fl-theme-builder-logic-i18n.php:117
 #: classes/class-fl-theme-builder-logic-i18n.php:130
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:169
-#: extensions/acf/includes/page-data-acf.php:482
+#: extensions/acf/includes/page-data-acf.php:501
 msgid "User"
 msgstr ""
 
@@ -610,7 +610,7 @@ msgstr ""
 
 #: classes/class-fl-theme-builder-logic-i18n.php:112
 #: classes/class-fl-theme-builder-logic-i18n.php:118
-#: extensions/acf/includes/page-data-acf.php:515
+#: extensions/acf/includes/page-data-acf.php:534
 #: includes/page-data-post.php:436 includes/page-data-site.php:55
 msgid "Username"
 msgstr ""
@@ -745,8 +745,8 @@ msgstr ""
 
 #: classes/class-fl-theme-builder-logic-i18n.php:148
 #: extensions/woocommerce/classes/class-fl-page-data-woocommerce.php:16
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:301
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:373
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:313
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:385
 #: extensions/woocommerce/modules/fl-woo-breadcrumb/fl-woo-breadcrumb.php:18
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:18
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:18
@@ -948,7 +948,7 @@ msgstr ""
 
 #: classes/class-fl-theme-builder-logic-i18n.php:198
 #: classes/class-fl-theme-builder-rules-location.php:814
-#: classes/class-fl-theme-builder-rules-location.php:1349
+#: classes/class-fl-theme-builder-rules-location.php:1353
 msgid "Search Results"
 msgstr ""
 
@@ -1026,7 +1026,7 @@ msgid "All Archives"
 msgstr ""
 
 #: classes/class-fl-theme-builder-rules-location.php:804
-#: classes/class-fl-theme-builder-rules-location.php:1357
+#: classes/class-fl-theme-builder-rules-location.php:1361
 #: extensions/bb-logic/rest/classes/class-bb-logic-rest-wordpress.php:272
 msgid "Author Archives"
 msgstr ""
@@ -1040,8 +1040,8 @@ msgstr ""
 msgid "404 Page"
 msgstr ""
 
-#: classes/class-fl-theme-builder-rules-location.php:1297
-#: classes/class-fl-theme-builder-rules-location.php:1676
+#: classes/class-fl-theme-builder-rules-location.php:1301
+#: classes/class-fl-theme-builder-rules-location.php:1680
 msgid "None"
 msgstr ""
 
@@ -1065,11 +1065,11 @@ msgstr ""
 msgid "The selected roles will be able to edit Themer layouts."
 msgstr ""
 
-#: extensions/acf/classes/class-fl-page-data-acf.php:861
+#: extensions/acf/classes/class-fl-page-data-acf.php:874
 msgid "Detected Fields"
 msgstr ""
 
-#: extensions/acf/classes/class-fl-page-data-acf.php:863
+#: extensions/acf/classes/class-fl-page-data-acf.php:876
 msgid "Choose ACF Field"
 msgstr ""
 
@@ -1078,7 +1078,7 @@ msgid "ACF Relationship"
 msgstr ""
 
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:168
-#: extensions/acf/includes/page-data-acf.php:485
+#: extensions/acf/includes/page-data-acf.php:504
 msgid "Relationship"
 msgstr ""
 
@@ -1132,7 +1132,7 @@ msgid "Random"
 msgstr ""
 
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:211
-#: extensions/acf/includes/page-data-acf.php:104 includes/page-data-post.php:42
+#: extensions/acf/includes/page-data-acf.php:118 includes/page-data-post.php:42
 #: includes/page-data-post.php:231
 msgid "Title"
 msgstr ""
@@ -1150,17 +1150,16 @@ msgid "By default all post types are included, If none of the options is selecte
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:44
-#: extensions/acf/includes/page-data-acf.php:226
-#: extensions/acf/includes/page-data-acf.php:306
-#: extensions/acf/includes/page-data-acf.php:479
+#: extensions/acf/includes/page-data-acf.php:245
+#: extensions/acf/includes/page-data-acf.php:325
+#: extensions/acf/includes/page-data-acf.php:498
 msgid "Field Type"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:47
-#: extensions/acf/includes/page-data-acf.php:144
-#: extensions/acf/includes/page-data-acf.php:154
-#: extensions/acf/includes/page-data-acf.php:229
-#: extensions/acf/includes/page-data-acf.php:309
+#: extensions/acf/includes/page-data-acf.php:173
+#: extensions/acf/includes/page-data-acf.php:248
+#: extensions/acf/includes/page-data-acf.php:328
 #: extensions/bigcommerce/settings/price/original.php:5
 msgid "Text"
 msgstr ""
@@ -1178,10 +1177,10 @@ msgid "Email"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:51
-#: extensions/acf/includes/page-data-acf.php:102
-#: extensions/acf/includes/page-data-acf.php:123
-#: extensions/acf/includes/page-data-acf.php:230
-#: extensions/acf/includes/page-data-acf.php:310 includes/page-data-post.php:41
+#: extensions/acf/includes/page-data-acf.php:116
+#: extensions/acf/includes/page-data-acf.php:137
+#: extensions/acf/includes/page-data-acf.php:249
+#: extensions/acf/includes/page-data-acf.php:329 includes/page-data-post.php:41
 #: includes/page-data-post.php:230
 msgid "URL"
 msgstr ""
@@ -1199,19 +1198,19 @@ msgid "oEmbed"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:55
-#: extensions/acf/includes/page-data-acf.php:231
-#: extensions/acf/includes/page-data-acf.php:311
+#: extensions/acf/includes/page-data-acf.php:250
+#: extensions/acf/includes/page-data-acf.php:330
 msgid "Image"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:56
-#: extensions/acf/includes/page-data-acf.php:232
+#: extensions/acf/includes/page-data-acf.php:251
 msgid "File"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:57
-#: extensions/acf/includes/page-data-acf.php:233
-#: extensions/acf/includes/page-data-acf.php:312
+#: extensions/acf/includes/page-data-acf.php:252
+#: extensions/acf/includes/page-data-acf.php:331
 msgid "Select"
 msgstr ""
 
@@ -1220,8 +1219,8 @@ msgid "Checkbox"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:59
-#: extensions/acf/includes/page-data-acf.php:234
-#: extensions/acf/includes/page-data-acf.php:313
+#: extensions/acf/includes/page-data-acf.php:253
+#: extensions/acf/includes/page-data-acf.php:332
 msgid "Radio"
 msgstr ""
 
@@ -1230,8 +1229,8 @@ msgid "Button Group"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:61
-#: extensions/acf/includes/page-data-acf.php:235
-#: extensions/acf/includes/page-data-acf.php:520
+#: extensions/acf/includes/page-data-acf.php:254
+#: extensions/acf/includes/page-data-acf.php:539
 #: includes/page-data-post.php:379 includes/page-data-post.php:441
 #: includes/page-data-post.php:510 includes/page-data-site.php:60
 #: includes/page-data-site.php:131
@@ -1239,8 +1238,8 @@ msgid "Link"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:62
-#: extensions/acf/includes/page-data-acf.php:236
-#: extensions/acf/includes/page-data-acf.php:484
+#: extensions/acf/includes/page-data-acf.php:255
+#: extensions/acf/includes/page-data-acf.php:503
 msgid "Page Link"
 msgstr ""
 
@@ -1268,77 +1267,90 @@ msgstr ""
 msgid "True/False"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:90
-#: extensions/acf/includes/page-data-acf.php:246
-#: extensions/acf/includes/page-data-acf.php:323
-#: extensions/acf/includes/page-data-acf.php:443
-#: extensions/acf/includes/page-data-acf.php:502
+#: extensions/acf/includes/page-data-acf.php:99
+#: extensions/acf/includes/page-data-acf.php:265
+#: extensions/acf/includes/page-data-acf.php:342
+#: extensions/acf/includes/page-data-acf.php:462
+#: extensions/acf/includes/page-data-acf.php:521
 #: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:366
 msgid "Field Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:94
-#: extensions/acf/includes/page-data-acf.php:250
-#: extensions/acf/includes/page-data-acf.php:332
+#: extensions/acf/includes/page-data-acf.php:103
+#: extensions/acf/includes/page-data-acf.php:155
+#: extensions/acf/includes/page-data-acf.php:170
+#: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:30
+#: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:61
+#: includes/page-data-site.php:237
+msgid "Format"
+msgstr ""
+
+#: extensions/acf/includes/page-data-acf.php:104
+msgid "Use standard WordPress Date and Time Formatting characters."
+msgstr ""
+
+#: extensions/acf/includes/page-data-acf.php:108
+#: extensions/acf/includes/page-data-acf.php:269
+#: extensions/acf/includes/page-data-acf.php:351
 #: modules/fl-author-bio/fl-author-bio.php:35
 msgid "Image Size"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:99
-#: extensions/acf/includes/page-data-acf.php:120 includes/page-data-post.php:37
+#: extensions/acf/includes/page-data-acf.php:113
+#: extensions/acf/includes/page-data-acf.php:134 includes/page-data-post.php:37
 #: includes/page-data-post.php:226 includes/page-data-post.php:335
 #: modules/fl-post-info/fl-post-info.php:230
 msgid "Display"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:103
+#: extensions/acf/includes/page-data-acf.php:117
 #: includes/page-data-post.php:229
 msgid "Image Tag"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:105
+#: extensions/acf/includes/page-data-acf.php:119
 #: includes/page-data-post.php:232
 msgid "Caption"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:106
+#: extensions/acf/includes/page-data-acf.php:120
 #: includes/page-data-post.php:233
 msgid "Description"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:107
+#: extensions/acf/includes/page-data-acf.php:121
 #: includes/page-data-post.php:234
 msgid "Alt Text"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:124
+#: extensions/acf/includes/page-data-acf.php:138
 #: includes/page-data-post.php:338 modules/fl-post-info/fl-post-info.php:233
 msgid "Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:125
+#: extensions/acf/includes/page-data-acf.php:139
 msgid "Base Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:126
+#: extensions/acf/includes/page-data-acf.php:140
 msgid "Extension"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:131
+#: extensions/acf/includes/page-data-acf.php:145
 #: includes/page-data-post.php:258 includes/page-data-post.php:356
 msgid "Linked"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:134
-#: extensions/acf/includes/page-data-acf.php:165
-#: extensions/acf/includes/page-data-acf.php:451
-#: extensions/acf/includes/page-data-acf.php:523
-#: extensions/acf/includes/page-data-acf.php:557
-#: extensions/acf/includes/page-data-acf.php:566
-#: extensions/acf/includes/page-data-acf.php:575
-#: extensions/acf/includes/page-data-acf.php:584
+#: extensions/acf/includes/page-data-acf.php:148
+#: extensions/acf/includes/page-data-acf.php:184
+#: extensions/acf/includes/page-data-acf.php:470
+#: extensions/acf/includes/page-data-acf.php:542
+#: extensions/acf/includes/page-data-acf.php:576
+#: extensions/acf/includes/page-data-acf.php:585
+#: extensions/acf/includes/page-data-acf.php:594
+#: extensions/acf/includes/page-data-acf.php:603
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-countdown/fl-the-events-calendar-countdown.php:49
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:368
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:380
 #: extensions/woocommerce/includes/page-data-woocommerce.php:75
 #: extensions/woocommerce/modules/fl-woo-product-upsells/fl-woo-product-upsells.php:39
 #: extensions/woocommerce/modules/fl-woo-related-products/fl-woo-related-products.php:39
@@ -1352,16 +1364,16 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:135
-#: extensions/acf/includes/page-data-acf.php:164
-#: extensions/acf/includes/page-data-acf.php:450
-#: extensions/acf/includes/page-data-acf.php:524
-#: extensions/acf/includes/page-data-acf.php:558
-#: extensions/acf/includes/page-data-acf.php:567
-#: extensions/acf/includes/page-data-acf.php:576
-#: extensions/acf/includes/page-data-acf.php:585
+#: extensions/acf/includes/page-data-acf.php:149
+#: extensions/acf/includes/page-data-acf.php:183
+#: extensions/acf/includes/page-data-acf.php:469
+#: extensions/acf/includes/page-data-acf.php:543
+#: extensions/acf/includes/page-data-acf.php:577
+#: extensions/acf/includes/page-data-acf.php:586
+#: extensions/acf/includes/page-data-acf.php:595
+#: extensions/acf/includes/page-data-acf.php:604
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-countdown/fl-the-events-calendar-countdown.php:50
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:367
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:379
 #: extensions/woocommerce/includes/page-data-woocommerce.php:76
 #: extensions/woocommerce/modules/fl-woo-product-upsells/fl-woo-product-upsells.php:40
 #: extensions/woocommerce/modules/fl-woo-related-products/fl-woo-related-products.php:40
@@ -1375,224 +1387,224 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:137
+#: extensions/acf/includes/page-data-acf.php:151
 #: includes/page-data-post.php:264
 msgid "Link the image to the post."
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:141
-#: extensions/acf/includes/page-data-acf.php:151
-#: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:30
-#: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:61
-#: includes/page-data-site.php:237
-msgid "Format"
+#: extensions/acf/includes/page-data-acf.php:158
+msgid "Text Separator"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:145
-#: extensions/acf/includes/page-data-acf.php:155
-#: extensions/acf/includes/page-data-acf.php:548
+#: extensions/acf/includes/page-data-acf.php:159
+#: extensions/acf/includes/page-data-acf.php:174
+#: extensions/acf/includes/page-data-acf.php:567
 #: includes/page-data-post.php:323
 msgid "Ordered List"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:146
-#: extensions/acf/includes/page-data-acf.php:156
-#: extensions/acf/includes/page-data-acf.php:547
+#: extensions/acf/includes/page-data-acf.php:160
+#: extensions/acf/includes/page-data-acf.php:175
+#: extensions/acf/includes/page-data-acf.php:566
 #: includes/page-data-post.php:324
 msgid "Unordered List"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:161
-#: extensions/acf/includes/page-data-acf.php:447
+#: extensions/acf/includes/page-data-acf.php:165
+msgid "Checkbox Separator"
+msgstr ""
+
+#: extensions/acf/includes/page-data-acf.php:180
+#: extensions/acf/includes/page-data-acf.php:466
 msgid "Add Hex Color Prefix"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:171
+#: extensions/acf/includes/page-data-acf.php:190
 msgid "Smart Slider 3"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:189
+#: extensions/acf/includes/page-data-acf.php:208
 msgid "ACF Archive Field - URL"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:196
+#: extensions/acf/includes/page-data-acf.php:215
 msgid "ACF Post Field - URL"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:203
+#: extensions/acf/includes/page-data-acf.php:222
 msgid "ACF Post Author Field - URL"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:210
+#: extensions/acf/includes/page-data-acf.php:229
 msgid "ACF User Field - URL"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:217
+#: extensions/acf/includes/page-data-acf.php:236
 msgid "ACF Option Field - URL"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:269
+#: extensions/acf/includes/page-data-acf.php:288
 msgid "ACF Archive Field - Photo"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:276
+#: extensions/acf/includes/page-data-acf.php:295
 msgid "ACF Post Field - Photo"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:283
+#: extensions/acf/includes/page-data-acf.php:302
 msgid "ACF Post Author Field - Photo"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:290
+#: extensions/acf/includes/page-data-acf.php:309
 msgid "ACF User Field - Photo"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:297
+#: extensions/acf/includes/page-data-acf.php:316
 msgid "ACF Option Field - Photo"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:327
+#: extensions/acf/includes/page-data-acf.php:346
 msgid "Fallback Image"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:351
+#: extensions/acf/includes/page-data-acf.php:370
 msgid "ACF Archive Field - Gallery"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:358
+#: extensions/acf/includes/page-data-acf.php:377
 msgid "ACF Post Field - Gallery"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:365
+#: extensions/acf/includes/page-data-acf.php:384
 msgid "ACF Post Author Field - Gallery"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:372
+#: extensions/acf/includes/page-data-acf.php:391
 msgid "ACF User Field - Gallery"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:379
+#: extensions/acf/includes/page-data-acf.php:398
 msgid "ACF Option Field - Gallery"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:388
+#: extensions/acf/includes/page-data-acf.php:407
 msgid "Gallery Field Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:406
+#: extensions/acf/includes/page-data-acf.php:425
 msgid "ACF Archive Field - Color"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:413
+#: extensions/acf/includes/page-data-acf.php:432
 msgid "ACF Post Field - Color"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:420
+#: extensions/acf/includes/page-data-acf.php:439
 msgid "ACF Post Author Field - Color"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:427
+#: extensions/acf/includes/page-data-acf.php:446
 msgid "ACF User Field - Color"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:434
+#: extensions/acf/includes/page-data-acf.php:453
 msgid "ACF Option Field - Color"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:470
+#: extensions/acf/includes/page-data-acf.php:489
 msgid "ACF Relational"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:483
+#: extensions/acf/includes/page-data-acf.php:502
 msgid "Post Object"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:486
+#: extensions/acf/includes/page-data-acf.php:505
 #: includes/page-data-post.php:313 modules/fl-post-info/fl-post-info.php:224
 #: modules/fl-post-navigation/fl-post-navigation.php:85
 msgid "Taxonomy"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:506
+#: extensions/acf/includes/page-data-acf.php:525
 msgid "Display Type"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:509
+#: extensions/acf/includes/page-data-acf.php:528
 #: includes/page-data-post.php:430 includes/page-data-site.php:49
 msgid "Display Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:510
+#: extensions/acf/includes/page-data-acf.php:529
 #: includes/page-data-post.php:431 includes/page-data-site.php:50
 msgid "First Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:511
+#: extensions/acf/includes/page-data-acf.php:530
 #: includes/page-data-post.php:432 includes/page-data-site.php:51
 msgid "Last Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:512
+#: extensions/acf/includes/page-data-acf.php:531
 #: includes/page-data-post.php:433 includes/page-data-site.php:52
 msgid "First &amp; Last Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:513
+#: extensions/acf/includes/page-data-acf.php:532
 #: includes/page-data-post.php:434 includes/page-data-site.php:53
 msgid "Last, First Name"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:514
+#: extensions/acf/includes/page-data-acf.php:533
 #: includes/page-data-post.php:435 includes/page-data-site.php:54
 msgid "Nickname"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:531
+#: extensions/acf/includes/page-data-acf.php:550
 #: includes/page-data-post.php:452 includes/page-data-post.php:521
 msgid "Link to the archive or website for this author."
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:535
+#: extensions/acf/includes/page-data-acf.php:554
 #: includes/page-data-post.php:456 includes/page-data-post.php:525
 #: includes/page-data-site.php:75 includes/page-data-site.php:146
 msgid "Link Type"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:538
+#: extensions/acf/includes/page-data-acf.php:557
 #: includes/page-data-post.php:459 includes/page-data-post.php:491
 #: includes/page-data-post.php:528 includes/page-data-site.php:78
 #: includes/page-data-site.php:112 includes/page-data-site.php:149
 msgid "Post Archive"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:539
+#: extensions/acf/includes/page-data-acf.php:558
 #: includes/page-data-post.php:460 includes/page-data-post.php:492
 #: includes/page-data-post.php:529 includes/page-data-site.php:79
 #: includes/page-data-site.php:113 includes/page-data-site.php:150
 msgid "Website"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:544
+#: extensions/acf/includes/page-data-acf.php:563
 msgid "List Type"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:549
+#: extensions/acf/includes/page-data-acf.php:568
 msgid "Regular (No bullets/numbering.)"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:554
+#: extensions/acf/includes/page-data-acf.php:573
 msgid "Add Post Title Link"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:563
+#: extensions/acf/includes/page-data-acf.php:582
 msgid "Add Term Archive Link"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:572
+#: extensions/acf/includes/page-data-acf.php:591
 msgid "Show Post Counts"
 msgstr ""
 
-#: extensions/acf/includes/page-data-acf.php:581
+#: extensions/acf/includes/page-data-acf.php:600
 msgid "Hide Term if No Posts"
 msgstr ""
 
@@ -1680,7 +1692,7 @@ msgstr ""
 #: extensions/bigcommerce/modules/fl-bc-product-price/fl-bc-product-price.php:13
 #: extensions/edd/includes/page-data-edd.php:23
 #: extensions/edd/modules/fl-edd-product-price/fl-edd-product-price.php:15
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:332
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:344
 #: extensions/woocommerce/includes/page-data-woocommerce.php:34
 #: extensions/woocommerce/modules/fl-woo-product-price/fl-woo-product-price.php:15
 msgid "Product Price"
@@ -1703,7 +1715,7 @@ msgstr ""
 
 #: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:283
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:157
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:341
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:353
 msgid "Cart Button"
 msgstr ""
 
@@ -1729,12 +1741,12 @@ msgstr ""
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:322
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:331
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:340
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:308
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:317
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:326
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:335
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:344
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:353
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:320
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:329
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:338
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:347
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:356
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:365
 #: extensions/woocommerce/modules/fl-woo-product-images/fl-woo-product-images.php:52
 #: modules/fl-post-info/fl-post-info.php:90
 #: modules/fl-post-info/fl-post-info.php:125
@@ -1758,12 +1770,12 @@ msgstr ""
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:323
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:332
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:341
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:309
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:318
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:327
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:336
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:345
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:354
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:321
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:330
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:339
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:348
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:357
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:366
 #: extensions/woocommerce/modules/fl-woo-product-images/fl-woo-product-images.php:53
 #: modules/fl-post-info/fl-post-info.php:91
 #: modules/fl-post-info/fl-post-info.php:126
@@ -1782,7 +1794,7 @@ msgid "Sale Display"
 msgstr ""
 
 #: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:334
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:314
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:326
 #: extensions/woocommerce/includes/page-data-woocommerce.php:139
 msgid "Product Sale"
 msgstr ""
@@ -1810,7 +1822,7 @@ msgstr ""
 
 #: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:392
 #: extensions/bigcommerce/modules/fl-bc-product-rating/fl-bc-product-rating.php:15
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:323
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:335
 #: extensions/woocommerce/includes/page-data-woocommerce.php:24
 #: extensions/woocommerce/modules/fl-woo-product-rating/fl-woo-product-rating.php:15
 msgid "Product Rating"
@@ -2234,13 +2246,13 @@ msgstr ""
 #: extensions/bigcommerce/settings/sale-badge.php:5
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:192
 #: extensions/edd/modules/fl-edd-cart-button/fl-edd-cart-button.php:36
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:384
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:385
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-archive-view/fl-the-events-calendar-archive-view.php:42
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-archive-view/fl-the-events-calendar-archive-view.php:61
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:61
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-notices/fl-the-events-calendar-notices.php:46
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-tickets/fl-the-events-calendar-tickets.php:36
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:430
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:442
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:63
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:42
 #: modules/fl-author-bio/fl-author-bio.php:43
@@ -2274,12 +2286,12 @@ msgstr ""
 #: extensions/edd/modules/fl-edd-cart-button/fl-edd-cart-button.php:41
 #: extensions/edd/modules/fl-edd-product-price/fl-edd-product-price.php:64
 #: extensions/edd/modules/fl-edd-product-title/fl-edd-product-title.php:76
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:390
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:391
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-archive-view/fl-the-events-calendar-archive-view.php:53
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:51
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-notices/fl-the-events-calendar-notices.php:36
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-tickets/fl-the-events-calendar-tickets.php:46
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:439
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:451
 #: extensions/woocommerce/modules/fl-woo-breadcrumb/fl-woo-breadcrumb.php:74
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:36
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:36
@@ -2566,8 +2578,8 @@ msgstr ""
 msgid "Featured Events"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:380
-msgid "The Events Calendar Cart Button"
+#: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:381
+msgid "The Events Calendar Ticket Button"
 msgstr ""
 
 #: extensions/the-events-calendar/includes/page-data-the-events-calendar.php:11
@@ -2784,12 +2796,12 @@ msgid "Displays links to export the current event to your calendar."
 msgstr ""
 
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:71
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:457
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:469
 msgid "Hover Text Color"
 msgstr ""
 
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:79
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:448
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:460
 msgid "Hover Background Color"
 msgstr ""
 
@@ -3301,52 +3313,52 @@ msgstr ""
 msgid "Woocommerce Product Description"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:305
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:317
 #: extensions/woocommerce/includes/page-data-woocommerce.php:234
 msgid "Product Ordering"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:350
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:362
 msgid "Show Hidden Products"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:363
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:375
 msgid "WooCommerce Classes"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:364
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:376
 msgid "Add woocommerce and woocommerce-page classes to module wrapper."
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:377
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:389
 msgid "Product Sale Background"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:385
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:397
 msgid "Product Sale Text Color"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:393
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:405
 msgid "Product Rating Foreground"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:398
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:410
 msgid "Product Rating Background"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:403
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:415
 msgid "Product Rating Font Size"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:411
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:423
 msgid "Product Price Text Color"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:416
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:428
 msgid "Product Price Font Size"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:426
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:438
 msgid "WooCommerce Cart Button"
 msgstr ""
 
@@ -4101,8 +4113,8 @@ msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid ""
-"https://www.wpbeaverbuilder.com/?utm_medium=bb-theme-builder&utm_source="
-"plugins-admin-page&utm_campaign=plugins-admin-uri"
+"https://www.wpbeaverbuilder.com/?utm_medium=bb-theme-builder&utm_"
+"source=plugins-admin-page&utm_campaign=plugins-admin-uri"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -4115,8 +4127,8 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid ""
-"https://www.wpbeaverbuilder.com/?utm_medium=bb-theme-builder&utm_source="
-"plugins-admin-page&utm_campaign=plugins-admin-author"
+"https://www.wpbeaverbuilder.com/?utm_medium=bb-theme-builder&utm_"
+"source=plugins-admin-page&utm_campaign=plugins-admin-author"
 msgstr ""
 
 #: classes/class-fl-page-data-archive.php:26

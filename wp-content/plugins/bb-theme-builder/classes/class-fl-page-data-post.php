@@ -326,8 +326,18 @@ final class FLPageDataPost {
 			$terms = array_slice( $terms, 0, $limit );
 		}
 
+		$is_events_post_type = 'tribe_events' === get_post_type( $id ) && function_exists( 'tribe_events_get_url' );
 		foreach ( $terms as $term ) {
-			$link = get_term_link( $term, $taxonomy );
+			if ( $is_events_post_type ) {
+				$link = tribe_events_get_url( array(
+					'tag'          => $term->slug,
+					'post_type'    => 'tribe_events',
+					'eventDisplay' => 'default',
+				) );
+			} else {
+				$link = get_term_link( $term, $taxonomy );
+			}
+
 			if ( is_wp_error( $link ) ) {
 				return $link;
 			}

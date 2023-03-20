@@ -1,4 +1,21 @@
-<h4>1.4.4 - 11/07/2022</h4>
+<h4>1.4.5 - 02/06/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>ACF: Sort detected fields dropdown alphabetically (#694)</li>
+	<li>TEC: Add new connection for Event Tags since existing Term list doesn't work with Event Tags (#706)</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed field connections not inserting into editors (#722)</li>
+	<li>Fix [wpbb-else] shortcode  not working with repeater (#676)</li>
+	<li>Fix deprecation warnings with PHP 8.1 and 8.2 (#704 and #723)</li>
+	<li>ACF: Fix PHP Warning in 8.1 if you connect a relational field and it doesn't exist (#702)</li>
+	<li>TEC: Fix Event Ticket add-on cart button style options not working properly (#695)</li>
+	<li>WooCommerce: On search results, show select options button (#697)</li>
+</ul>
+
+<h4>1.4.4 - 11/09/2022</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
 	<li>ACF: Add date/time format option for Date, DateTime and Time Picker fields</li>
