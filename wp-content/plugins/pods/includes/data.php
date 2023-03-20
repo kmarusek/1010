@@ -673,13 +673,13 @@ function pods_v( $var = null, $type = 'get', $default = null, $strict = false, $
 				}
 				break;
 			case 'user':
+				// Prevent deprecation notice from WP.
+				if ( 'id' === $var ) {
+					$var = 'ID';
+				}
+
 				if ( is_user_logged_in() ) {
 					$user = get_userdata( get_current_user_id() );
-
-					// Prevent deprecation notice from WP.
-					if ( 'id' === $var ) {
-						$var = 'ID';
-					}
 
 					if ( 'user_pass' === $var || 'user_activation_key' === $var ) {
 						$value = '';
@@ -700,7 +700,10 @@ function pods_v( $var = null, $type = 'get', $default = null, $strict = false, $
 					} elseif ( ! is_array( $value ) && 0 < strlen( $value ) ) {
 						$output = $value;
 					}
-				}//end if
+				} elseif ( 'ID' === $var ) {
+					// Return 0 when logged out and calling the ID.
+					$output = 0;
+				}
 				break;
 			case 'option':
 				$output = get_option( $var, $default );
@@ -1215,10 +1218,14 @@ function pods_query_arg( $array = null, $allowed = null, $excluded = null, $url 
 
 	if ( ! empty( $array ) ) {
 		foreach ( $array as $key => $val ) {
-			if ( null !== $val || false === strpos( $key, '*' ) ) {
-				if ( is_array( $val ) && ! empty( $val ) ) {
+			$is_value_null = null === $val;
+
+			if ( ! $is_value_null || false === strpos( $key, '*' ) ) {
+				$is_value_array = is_array( $val );
+
+				if ( $is_value_array && ! empty( $val ) ) {
 					$query_args[ $key ] = $val;
-				} elseif ( ! is_array( $val ) && 0 < strlen( $val ) ) {
+				} elseif ( ! $is_value_null && ! $is_value_array && 0 < strlen( $val ) ) {
 					$query_args[ $key ] = $val;
 				} else {
 					$query_args[ $key ] = false;
@@ -1398,7 +1405,11 @@ function pods_unique_slug( $slug, $column_name, $pod, $pod_id = 0, $id = 0, $obj
  * @since 1.2.0
  */
 function pods_clean_name( $orig, $lower = true, $trim_underscores = false ) {
-	$str = trim( $orig );
+	if ( null === $orig ) {
+		return '';
+	}
+
+	$str = trim( (string) $orig );
 	$str = remove_accents( $str );
 	$str = preg_replace( '/([^0-9a-zA-Z\-_\s])/', '', $str );
 	$str = preg_replace( '/(\s_)/', '_', $str );
@@ -1464,6 +1475,12 @@ function pods_js_camelcase_name( $orig ) {
  * @since 2.0.0
  */
 function pods_absint( $maybeint, $strict = true, $allow_negative = false ) {
+	if ( is_null( $maybeint ) ) {
+		$maybeint = 0;
+	} elseif ( is_bool( $maybeint ) ) {
+		$maybeint = (int) $maybeint;
+	}
+
 	if ( true === $strict && ! is_numeric( trim( $maybeint ) ) ) {
 		return 0;
 	}
@@ -2464,6 +2481,106 @@ function pods_bool_to_int( $value ) {
 }
 
 /**
+ * Check whether the value is truthy. Handles null, boolean, integer, float, and string validation.
+ *
+ * Strings will check for "1", "true", "on", "yes", and "y".
+ *
+ * @since 2.9.13
+ *
+ * @param null|bool|int|float|string $value The value to check.
+ *
+ * @return bool Whether the value is truthy.
+ */
+function pods_is_truthy( $value ) {
+	// Check for null.
+	if ( is_null( $value ) ) {
+		return false;
+	}
+
+	// Check boolean for true.
+	if ( is_bool( $value ) ) {
+		return true === $value;
+	}
+
+	// Check integer / float for 1.
+	if ( is_int( $value ) || is_float( $value ) ) {
+		return 1 === $value;
+	}
+
+	// We only support strings from this point forward.
+	if ( ! is_string( $value ) ) {
+		return false;
+	}
+
+	// Normalize the string to lowercase.
+	$value = trim( strtolower( $value ) );
+
+	// This is the list of strings we will support as truthy.
+	$supported_strings = [
+		'1'    => true,
+		'true' => true,
+		'on'   => true,
+		'yes'  => true,
+		'y'    => true,
+	];
+
+	return isset( $supported_strings[ $value ] );
+}
+
+/**
+ * Check whether the value is falsey. Handles null, boolean, integer, float, and string validation.
+ *
+ * Strings will check for "0", "false", "off", "no", and "n".
+ *
+ * Note: If the variable type is not supported, this will always return false as it cannot be validated as falsey.
+ *
+ * @since 2.9.13
+ *
+ * @param null|bool|int|float|string $value The value to check.
+ *
+ * @return bool Whether the value is falsey.
+ */
+function pods_is_falsey( $value ) {
+	// Check for null.
+	if ( is_null( $value ) ) {
+		return true;
+	}
+
+	// Check boolean for false.
+	if ( is_bool( $value ) ) {
+		return false === $value;
+	}
+
+	// Check integer / float for 0.
+	if ( is_int( $value ) || is_float( $value ) ) {
+		return 0 === $value;
+	}
+
+	// We only support strings from this point forward.
+	if ( ! is_string( $value ) ) {
+		/*
+		 * This is a falsey check but it seems that if we are checking specifically for a falsey,
+		 * then this cannot be validated so it's not falsey.
+		 */
+		return false;
+	}
+
+	// Normalize the string to lowercase.
+	$value = trim( strtolower( $value ) );
+
+	// This is the list of strings we will support as falsey.
+	$supported_strings = [
+		'0'     => true,
+		'false' => true,
+		'off'   => true,
+		'no'    => true,
+		'n'     => true,
+	];
+
+	return isset( $supported_strings[ $value ] );
+}
+
+/**
  * Make replacements to a string using key=>value pairs.
  *
  * @since 2.8.11
@@ -2678,4 +2795,70 @@ function pods_host_from_url( $url ) {
 	}
 
 	return esc_html( $url_parsed['host'] );
+}
+
+/**
+ * Clone a list of objects.
+ *
+ * @since 2.9.12
+ *
+ * @param object[] $objects The list of objects to clone.
+ *
+ * @return object[] The cloned list of objects.
+ */
+function pods_clone_objects( $objects ) {
+	return array_map( 'pods_clone_object', $objects );
+}
+
+/**
+ * Clone an object.
+ *
+ * @since 2.9.12
+ *
+ * @param object $object The object to clone.
+ *
+ * @return object The cloned object.
+ */
+function pods_clone_object( $object ) {
+	return clone $object;
+}
+
+/**
+ * Get the item object based on object type.
+ *
+ * @param int    $item_id     The item ID.
+ * @param string $object_type The object type.
+ *
+ * @return WP_Post|WP_Term|WP_User|WP_Comment|null The item object or null if not found.
+ */
+function pods_get_item_object( $item_id, $object_type ) {
+	$object = null;
+
+	switch ( $object_type ) {
+		case 'post':
+		case 'post_type':
+		case 'media':
+			$object = get_post( $item_id );
+
+			break;
+		case 'term':
+		case 'taxonomy':
+			$object = get_term( $item_id );
+
+			break;
+		case 'user':
+			$object = get_userdata( $item_id );
+
+			break;
+		case 'comment':
+			$object = get_comment( $item_id );
+
+			break;
+	}
+
+	if ( is_object( $object ) && ! is_wp_error( $object ) ) {
+		return $object;
+	}
+
+	return null;
 }
