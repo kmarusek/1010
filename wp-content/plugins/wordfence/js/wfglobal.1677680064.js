@@ -66,14 +66,19 @@
 					}
 				);
 			},
-			setOption: function(key, value, successCallback) {
+			setOption: function(key, value, successCallback, errorCallback) {
 				var changes = {};
 				changes[key] = value;
+				if (typeof errorCallback !== 'function')
+					errorCallback = function() {};
 				this.ajax('wordfence_saveOptions', {changes: JSON.stringify(changes)}, function(res) {
 					if (res.success) {
 						typeof successCallback == 'function' && successCallback(res);
 					}
-				});
+					else {
+						errorCallback(res);
+					}
+				}, errorCallback);
 			},
 			ajax: function(action, data, cb, cbErr, noLoading){
 				if(typeof(data) == 'string'){
@@ -106,11 +111,11 @@
 						}
 						cb(json);
 					},
-					error: function(){
+					error: function(response){
 						if(! noLoading){
 							self.removeLoading();
 						}
-						cbErr();
+						cbErr(response);
 					}
 				});
 			},
@@ -142,31 +147,71 @@
 				}
 				return emails;
 			},
-			onboardingProcessEmails: function(emails, subscribe, touppAgreed) {
+			onboardingProcessEmails: function(emails, subscribe, touppAgreed, callback) {
 				var subscribe = !!subscribe;
-				wordfenceExt.setOption('alertEmails', emails.join(', '));
+				var pendingCount = 1 + (touppAgreed ? 1 : 0) + (subscribe ? 1 : 0);
+				var failed = false;
+				var called = false;
+				function complete(response) {
+					if (called)
+						return;
+					if (--pendingCount === 0 || failed) {
+						called = true;
+						var error = null;
+						if (response && typeof response.error == 'string')
+							error = response.error;
+						callback(!failed, error);
+					}
+				}
+				function onError() {
+					failed = true;
+					complete();
+				}
+				wordfenceExt.setOption('alertEmails', emails.join(', '), complete, onError);
 				
 				if (touppAgreed) {
-					this.ajax('wordfence_recordTOUPP', {}, function(res) {
-						//Do nothing
-					});
+					this.ajax('wordfence_recordTOUPP', {}, complete, onError);
 				}
 
 				if (subscribe) {
-					this.ajax('wordfence_mailingSignup', {emails: JSON.stringify(emails)}, function(res) {
-						//Do nothing
-					});
+					this.ajax('wordfence_mailingSignup', {emails: JSON.stringify(emails)}, complete, onError);
 				}
 			},
 			onboardingInstallLicense: function(license, successCallback, errorCallback) {
-				this.ajax('wordfence_installLicense', {license: license}, function(res) {
-					if (res.success) {
-						typeof successCallback == 'function' && successCallback(res);
+				var self = this;
+				function performRequest(statusChange, onSuccess, onError) {
+					self.ajax(
+						'wordfence_installLicense',
+						{
+							license: license,
+							status_change: statusChange
+						},
+						onSuccess,
+						onError
+					);
+				}
+				performRequest(
+					false,
+					function (res) {
+						if (res.success) {
+							performRequest(
+								true,
+								function () {
+									typeof successCallback == 'function' && successCallback(res);
+								},
+								function () {
+									errorCallback();
+								}
+							);
+						}
+						else {
+							typeof errorCallback == 'function' && errorCallback((typeof res.error === 'string') ? res.error : null);
+						}
+					},
+					function () {
+						errorCallback();
 					}
-					else if (res.error) {
-						typeof errorCallback == 'function' && errorCallback(res);
-					}
-				});
+				);
 			}
 		};
 	}
