@@ -5,17 +5,24 @@ import Placeholder from '../Placeholder/Placeholder';
 
 const OtherPlugins = (props) => {
     const [dataLoaded, setDataLoaded] = useState(false);
+    const [error, setError] = useState(false);
     const [dataUpdated, setDataUpdated] = useState('');
     const [pluginData, setPluginData] = useState(false);
 
-    useEffect(()=>{
-        if ( !dataLoaded ) {
-               rsssl_api.runTest('otherpluginsdata').then( ( response ) => {
-                response.data.forEach(function(pluginItem, i) {
-                    response.data[i].pluginActionNice = pluginActionNice(pluginItem.pluginAction);
-                });
+    useEffect(() => {
+        if (!dataLoaded) {
 
-                setPluginData(response.data);
+            rsssl_api.runTest('otherpluginsdata').then((response) => {
+                let responseData = [];
+                if (response.error) {
+                    setError(response.error);
+                } else {
+                    responseData = response.plugins;
+                    responseData.forEach(function (pluginItem, i) {
+                        responseData[i].pluginActionNice = pluginActionNice(pluginItem.pluginAction);
+                    });
+                }
+                setPluginData(responseData);
                 setDataLoaded(true);
             })
         }
@@ -38,7 +45,7 @@ const OtherPlugins = (props) => {
             return;
         }
         rsssl_api.doAction('plugin_actions', data).then( ( response ) => {
-            pluginItem = response.data;
+            pluginItem = response;
             updatePluginData(slug, pluginItem);
             PluginActions(slug, pluginItem.pluginAction);
         })
@@ -74,7 +81,6 @@ const OtherPlugins = (props) => {
     }
 
     const otherPluginElement = (plugin, i) => {
-
         return (
            <div key={i} className={"rsssl-other-plugins-element rsssl-"+plugin.slug}>
                <a href={plugin.wordpress_url} target="_blank" title={plugin.title}>
@@ -91,8 +97,8 @@ const OtherPlugins = (props) => {
         )
     }
 
-    if ( !dataLoaded ) {
-        return (<Placeholder lines="3"></Placeholder>)
+    if ( !dataLoaded || error) {
+        return (<Placeholder lines="3" error={error}></Placeholder>)
     }
 
     return (

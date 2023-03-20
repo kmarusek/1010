@@ -17,16 +17,6 @@ import {__} from '@wordpress/i18n';
 class SettingsPage extends Component {
     constructor() {
         super( ...arguments );
-        this.state = {
-            refreshTests:false,
-            fields:'',
-            isAPILoaded: false,
-            changedFields:'',
-            nextButtonDisabled: false,
-        };
-    }
-
-    componentDidMount() {
         this.save = this.save.bind(this);
         this.saveAndContinue = this.saveAndContinue.bind(this);
         this.wizardNextPrevious = this.wizardNextPrevious.bind(this);
@@ -38,21 +28,36 @@ class SettingsPage extends Component {
         this.resetRefreshTests = this.resetRefreshTests.bind(this);
         this.handleNextButtonDisabled = this.handleNextButtonDisabled.bind(this);
         this.checkRequiredFields = this.checkRequiredFields.bind(this);
-        let fields = this.props.fields;
+
+        this.state = {
+            refreshTests:false,
+            fields:'',
+            isAPILoaded: false,
+            changedFields:'',
+            nextButtonDisabled: false,
+        };
+    }
+
+    componentDidMount() {
         //if count >1, it's a wizard
-        let changedFields = [];
-        let selectedMenuItem = this.props.selectedMenuItem;
-        this.selectedMenuItem = selectedMenuItem;
-        this.changedFields = changedFields;
+        this.selectedMenuItem = this.props.selectedMenuItem;
+        this.changedFields = [];
         this.setState({
             isAPILoaded: true,
             fields: this.props.fields,
-            changedFields: changedFields,
+            changedFields: this.changedFields,
             selectedMainMenuItem: this.props.selectedMainMenuItem,
         });
+
+       this.props.menu.menu_items = this.addVisibleToMenuItems(this.props.menu.menu_items);
+        this.checkRequiredFields();
+        this.updateFieldsListWithConditions();
     }
 
-    componentDidChange(){
+    //if the main menu is switched, only this event fires, not the didmount event.
+    componentDidUpdate(){
+        this.props.menu.menu_items = this.addVisibleToMenuItems(this.props.menu.menu_items);
+        this.updateFieldsListWithConditions();
     }
 
     addVisibleToMenuItems(menuItems) {
@@ -106,18 +111,26 @@ class SettingsPage extends Component {
     }
 
     filterMenuItems(menuItems) {
+
         const newMenuItems = menuItems;
         for (const [index, menuItem] of menuItems.entries()) {
-            const searchResult = this.props.fields.filter((field) => {
-                return (field.menu_id === menuItem.id && field.visible)
+            const menuItemFields = this.props.fields.filter((field) => {
+                return (field.menu_id === menuItem.id && field.visible && !field.conditionallyDisabled)
             });
-            if(searchResult.length === 0) {
+            if( menuItemFields.length === 0 && !menuItem.hasOwnProperty('menu_items') )  {
                 newMenuItems[index].visible = false;
             } else {
                 newMenuItems[index].visible = true;
-                if(menuItem.hasOwnProperty('menu_items')) {
+                if( menuItem.hasOwnProperty('menu_items') ) {
                     newMenuItems[index].menu_items = this.filterMenuItems(menuItem.menu_items);
                 }
+            }
+
+            //if the current selected menu item has no fields, but it has a submenu, select the submenu.
+            if ( menuItem.id === this.props.selectedMenuItem && menuItemFields.length === 0 && menuItem.hasOwnProperty('menu_items')){
+                //get first item of submenu's
+                const firstSubMenuItem = newMenuItems[index].menu_items[0].id;
+                this.props.selectMenu(firstSubMenuItem);
             }
         }
         return newMenuItems;
@@ -125,8 +138,8 @@ class SettingsPage extends Component {
 
     updateFieldsListWithConditions(){
         for (const field of this.props.fields){
-          let enabled = !(field.hasOwnProperty('react_conditions') && !this.validateConditions(field.react_conditions, this.props.fields));
 
+          let enabled = !(field.hasOwnProperty('react_conditions') && !this.validateConditions(field.react_conditions, this.props.fields));
           //we want to update the changed fields if this field has just become visible. Otherwise the new field won't get saved.
           let previouslyDisabled = this.props.fields[this.props.fields.indexOf(field)].conditionallyDisabled;
           this.props.fields[this.props.fields.indexOf(field)].conditionallyDisabled = !enabled;
@@ -148,7 +161,7 @@ class SettingsPage extends Component {
             this.props.fields[this.props.fields.indexOf(field)].visible = true;
           }
         }
-        this.filterMenuItems(this.props.menu.menu_items)
+        this.props.menu.menu_items = this.filterMenuItems(this.props.menu.menu_items)
     }
 
     saveChangedFields(changedField){
@@ -193,7 +206,7 @@ class SettingsPage extends Component {
 
         rsssl_api.setFields(saveFields).then(( response ) => {
             this.changedFields = [];
-            this.props.updateProgress(response.data.progress);
+            this.props.updateProgress(response.progress);
             this.setState({
                 changedFields :[],
             });
@@ -284,9 +297,6 @@ class SettingsPage extends Component {
                 <Placeholder></Placeholder>
             );
         }
-        this.props.menu.menu_items = this.addVisibleToMenuItems(this.props.menu.menu_items);
-        this.checkRequiredFields();
-        this.updateFieldsListWithConditions();
 
         let fieldsUpdateComplete = changedFields.length === 0;
         return (
@@ -303,6 +313,7 @@ class SettingsPage extends Component {
                 />
                 <Settings
                     updateFields={this.props.updateFields}
+                    addNotice={this.props.addNotice}
                     dropItemFromModal={this.props.dropItemFromModal}
                     selectMenu={this.props.selectMenu}
                     selectMainMenu={this.props.selectMainMenu}

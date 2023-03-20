@@ -21,6 +21,7 @@ class ProgressBlock extends Component {
             notices:null,
             percentageCompleted:0,
             progressLoaded: false,
+            error:false,
         };
 
     }
@@ -46,20 +47,26 @@ class ProgressBlock extends Component {
 
     getProgressData(){
         rsssl_api.runTest('progressData', 'refresh').then( ( response ) => {
-            this.progressText = response.data.text;
-            this.filter = response.data.filter;
-            this.percentageCompleted = response.data.percentage;
-            this.notices = response.data.notices;
-            this.progressLoaded = true;
+            if ( response.error ) {
+                this.setState({
+                    error: response.error,
+                });
+            } else {
+                this.progressText = response.text;
+                this.filter = response.filter;
+                this.percentageCompleted = response.percentage;
+                this.notices = response.notices;
+                this.progressLoaded = true;
 
-            this.setState({
-                progressLoaded: this.progressLoaded,
-                progressText: this.progressText,
-                filter: this.filter,
-                notices: this.notices,
-                percentageCompleted: this.percentageCompleted,
-            });
-            this.props.setBlockProps('notices',this.notices);
+                this.setState({
+                    progressLoaded: this.progressLoaded,
+                    progressText: this.progressText,
+                    filter: this.filter,
+                    notices: this.notices,
+                    percentageCompleted: this.percentageCompleted,
+                });
+                this.props.setBlockProps('notices', this.notices);
+            }
         });
     }
 
@@ -85,21 +92,26 @@ class ProgressBlock extends Component {
 
         this.props.setBlockProps('notices', notices);
         return rsssl_api.runTest('dismiss_task', notice_id).then(( response ) => {
-            this.percentageCompleted = response.data.percentage;
+            this.percentageCompleted = response.percentage;
             this.setState({
                 percentageCompleted:this.percentageCompleted
             })
         });
     }
 
+
+
     render(){
+        const {
+            error,
+        } = this.state;
         let progressBarColor = '';
         if ( this.percentageCompleted<80 ) {
             progressBarColor += 'rsssl-orange';
         }
-        if ( !this.progressLoaded ) {
+        if ( !this.progressLoaded || error ) {
             return (
-                <Placeholder lines='9'></Placeholder>
+                <Placeholder lines='9' error={error}></Placeholder>
             );
         }
         let filter = 'all';
@@ -131,7 +143,7 @@ class ProgressBlock extends Component {
                 </div>
 
                 <div className="rsssl-scroll-container">
-                    {notices.map((notice, i) => <TaskElement key={i} index={i} notice={notice} onCloseTaskHandler={this.onCloseTaskHandler} highLightField={this.props.highLightField}/>)}
+                    {notices.map((notice, i) => <TaskElement key={i} index={i} notice={notice} getFields={this.props.getFields} onCloseTaskHandler={this.onCloseTaskHandler} highLightField={this.props.highLightField}/>)}
                 </div>
 
             </div>

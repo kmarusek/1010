@@ -16,8 +16,8 @@ const SslLabs = (props) => {
     useEffect(()=>{
         if (!dataLoaded) {
             rsssl_api.runTest('ssltest_get').then( ( response ) => {
-                if (response.data.hasOwnProperty('host') )  {
-                    let data = processSslData(response.data);
+                if (response.hasOwnProperty('host') )  {
+                    let data = processSslData(response);
                     setSslData(data);
                     setEndpointData(data.endpointData);
                     setDataLoaded(true);
@@ -139,7 +139,6 @@ const SslLabs = (props) => {
         let grade = sslData.grade ? sslData.grade : '?';
         let ipAddress='';
         if ( sslData.endpoints ) {
-            totalProgress = sslData.endpoints.length * 100;
             let completedEndpoints = sslData.endpoints.filter((endpoint) => endpoint.statusMessage === 'Ready');
             let completedEndpointsLength = completedEndpoints.length;
             let lastCompletedEndpoint = completedEndpoints[ completedEndpointsLength-1];
@@ -179,7 +178,7 @@ const SslLabs = (props) => {
         let data = {};
         data.url = url;
         return rsssl_api.doAction('ssltest_run', data).then( ( response ) => {
-            return JSON.parse(response.data);
+            return JSON.parse(response);
         })
     }
 
@@ -197,7 +196,7 @@ const SslLabs = (props) => {
         data.url = url;
 
         return rsssl_api.doAction('ssltest_run', data).then( ( response ) => {
-            return JSON.parse(response.data);
+            return JSON.parse(response);
         })
     }
 
@@ -247,7 +246,6 @@ const SslLabs = (props) => {
             ratingClass = 'rsssl-test-inactive';
         }
         if ( endpointData && endpointData.length>0 ) {
-            status = 'success';
             let weakest = 256;
             let strongest = 128;
             endpointData.forEach(function(endpoint, i){

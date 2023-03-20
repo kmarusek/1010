@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 .rsssl{
   div[class^="rsssl-wizard-"]{ // starts with selector
     .components-flex{
@@ -7,6 +10,9 @@
       justify-content: space-between;
       .components-flex-item label{
         margin: 0;
+      }
+      .rsssl-tooltip {
+        flex-grow:1;
       }
       .components-input-control__container {
         max-width: max-content;
@@ -35,13 +41,15 @@
         flex-direction: row-reverse;
         align-items: center;
         justify-content: space-between;
+        width:100%;
         .components-form-toggle{
             margin-right: 0;
+
         }
       }
     }
     .components-form-toggle.is-checked .components-form-toggle__track{
-      background-color: var(--rsp-green);
+      background-color: var(--rsp-dark-blue);
     }
     .rsssl-grid-item{
       .rsssl-grid-item-content{

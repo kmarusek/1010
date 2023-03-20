@@ -15,11 +15,9 @@ class REALLY_SIMPLE_SECURITY
 		if (!isset(self::$instance) && !(self::$instance instanceof REALLY_SIMPLE_SECURITY)) {
 			self::$instance = new REALLY_SIMPLE_SECURITY;
 			self::$instance->includes();
-
-			if ( rsssl_is_logged_in_rest() || is_admin() || wp_doing_cron() || defined('RSSSL_LEARNING_MODE') ) {
+			if ( rsssl_admin_logged_in() ) {
 				self::$instance->firewall_manager = new rsssl_firewall_manager();
 			}
-			self::$instance->hooks();
 		}
 		return self::$instance;
 	}
@@ -33,7 +31,7 @@ class REALLY_SIMPLE_SECURITY
 		/**
 		 * Load only on back-end
 		 */
-		if ( rsssl_is_logged_in_rest() || is_admin() || wp_doing_cron() || defined('RSSSL_LEARNING_MODE')  ) {
+		if ( rsssl_admin_logged_in() ) {
 			require_once( $path . 'functions.php' );
 			require_once( $path . 'deactivate-integration.php' );
 			require_once( $path . 'firewall-manager.php' );
@@ -42,10 +40,6 @@ class REALLY_SIMPLE_SECURITY
 			require_once( $path . 'sync-settings.php' );
 		}
 
-	}
-
-	private function hooks()
-	{
 	}
 }
 

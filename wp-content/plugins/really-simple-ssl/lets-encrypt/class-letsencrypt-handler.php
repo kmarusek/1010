@@ -774,6 +774,21 @@ class rsssl_letsencrypt_handler {
 	 * @return RSSSL_RESPONSE
 	 */
     public function get_order(){
+
+		#if we don't have an account, try to retrieve it
+		if ( !$this->account ) {
+			$this->get_account();
+		}
+
+		#still no account, then exit
+		if ( !$this->account ) {
+			return new RSSSL_RESPONSE(
+				'error',
+				'retry',
+				__( "Failed retrieving account.", 'really-simple-ssl' )
+			);
+		}
+
 	    if ( ! Order::exists( $this->account, $this->subjects ) ) {
 		    try {
 			    $response = new RSSSL_RESPONSE(
@@ -1501,7 +1516,7 @@ class rsssl_letsencrypt_handler {
 		if ($is_subdomain) {
 			$status  = 'error';
 			$action  = 'stop';
-			$message = sprintf(__("This is a multisite configuration with subdomains, which requires a wildcard certificate. Wildcard certificates are part of the %spremium%s plan.",'really-simple-ssl'), '<a href="https://really-simple-ssl.com/pro" target="_blank">','</a>');
+			$message = sprintf(__("This is a multisite configuration with subdomains. You should generate a wildcard certificate on the root domain.",'really-simple-ssl'), '<a href="https://really-simple-ssl.com/pro/?mtm_campaign=error&mtm_kwd=multisite&mtm_source=free&mtm_medium=letsencrypt&mtm_content=upgrade" target="_blank">','</a>');
 			rsssl_progress_remove('system-status');
 		} else {
 			$status  = 'success';
@@ -1678,7 +1693,7 @@ class rsssl_letsencrypt_handler {
 		$server = isset($data[0]) ? $data[0] : false;
 		$type = isset($data[1]) ? $data[1] : false;
 
-		$attempt_count = intval(get_transient('rsssl_le_install_attempt_count'));
+		$attempt_count = (int) get_transient( 'rsssl_le_install_attempt_count' );
 		$attempt_count++;
 		set_transient('rsssl_le_install_attempt_count', $attempt_count, DAY_IN_SECONDS);
 		if ( $attempt_count>10 ){
@@ -1694,8 +1709,12 @@ class rsssl_letsencrypt_handler {
 				if ( $server === 'cpanel' ) {
 					if ($type==='default') {
 						$response = rsssl_install_cpanel_default();
-					} else if ( function_exists('rsssl_install_cpanel_shell') ) {
-						$response = rsssl_install_cpanel_shell();
+					} else if ( function_exists('rsssl_shell_installSSL') ) {
+						$response = rsssl_shell_installSSL();
+					} else {
+						//in case of auto ssl.
+						$response = new RSSSL_RESPONSE('error', 'stop', '');
+						delete_option( "rsssl_le_start_installation" );
 					}
 
 					if ( $response->status === 'success' ) {
