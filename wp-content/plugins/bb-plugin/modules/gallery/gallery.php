@@ -150,7 +150,12 @@ class FLGalleryModule extends FLBuilderModule {
 		$photos = array();
 
 		// Load the feed into a DOM object.
-		$feed = simplexml_load_file( $this->settings->feed_url, 'SimpleXMLElement', LIBXML_NOWARNING );
+		if ( ini_get( 'allow_url_fopen' ) ) {
+			$feed = simplexml_load_file( $this->settings->feed_url, 'SimpleXMLElement', LIBXML_NOWARNING );
+		} else {
+			$data = wp_remote_get( $this->settings->feed_url );
+			$feed = simplexml_load_string( $data['body'], 'SimpleXMLElement', LIBXML_NOWARNING );
+		}
 
 		if ( false !== $feed ) {
 

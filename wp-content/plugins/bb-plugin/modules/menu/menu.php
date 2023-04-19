@@ -147,6 +147,7 @@ class FLMenuModule extends FLBuilderModule {
 	public static function _get_menus() {
 		$get_menus = get_terms( 'nav_menu', array(
 			'hide_empty' => true,
+			'update_term_meta_cache' => false,
 		) );
 		$fields    = array(
 			'label' => __( 'Menu', 'fl-builder' ),
@@ -301,7 +302,7 @@ class FLMenuModule extends FLBuilderModule {
 	 */
 	public function get_total_top_lvl_items() {
 		$settings = $this->settings;
-		$count    = count( wp_list_filter( wp_get_nav_menu_items( $this->settings->menu ), array( 'menu_item_parent' => 0 ) ) );
+		$count    = count( wp_list_filter( wp_get_nav_menu_items( $this->settings->menu, array( 'update_menu_item_cache' => false ) ), array( 'menu_item_parent' => 0 ) ) );
 
 		if ( isset( $settings->woo_menu_cart ) && 'show' == $settings->woo_menu_cart ) {
 			$count++;
@@ -525,6 +526,7 @@ class FLMenuModule extends FLBuilderModule {
 		$core_menus = array();
 		$nav_terms  = get_terms( 'nav_menu', array(
 			'hide_empty' => true,
+			'update_term_meta_cache' => false,
 		) );
 
 		foreach ( $nav_terms as $key => $menu ) {

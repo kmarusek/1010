@@ -344,12 +344,13 @@ final class FLBuilderAdminPosts {
 			$user_access      = FLBuilderUserAccess::current_user_can( 'builder_access' );
 			$post_types       = FLBuilderModel::get_post_types();
 			$typeobj          = get_post_type_object( $post->post_type );
-			$singular_name    = ( isset( $_GET['fl-builder-template-type'] ) ) ? ucfirst( $_GET['fl-builder-template-type'] ) : $typeobj->labels->singular_name;
+			$singular_name    = ( isset( $_GET['fl-builder-template-type'] ) ) ? ucfirst( sanitize_key( $_GET['fl-builder-template-type'] ) ) : $typeobj->labels->singular_name;
 			$singular_name    = ( 'Layout' === $singular_name ) ? 'Template' : $singular_name;
 			if ( in_array( $post->post_type, $post_types ) && $is_post_editable && $user_access ) {
 				$enabled               = get_post_meta( $post->ID, '_fl_builder_enabled', true );
+				$title                 = FLBuilder::is_debug() ? sprintf( ' title="%s Revision(s)"', count( wp_get_post_revisions( $post ) ) ) : '';
 				$dot                   = '&nbsp;<span style="color:' . ( $enabled ? '#6bc373' : '#d9d9d9' ) . '; font-size:18px;">&bull;</span>';
-				$actions['fl-builder'] = '<a href="' . FLBuilderModel::get_edit_url() . '">' . FLBuilderModel::get_branding() . $dot . '</a>';
+				$actions['fl-builder'] = '<a' . $title . ' href="' . FLBuilderModel::get_edit_url() . '">' . FLBuilderModel::get_branding() . $dot . '</a>';
 				if ( $enabled && true === apply_filters( 'fl_builder_duplicate_enabled', true ) ) {
 					$url = add_query_arg( array(
 						'post_type'        => $post->post_type,

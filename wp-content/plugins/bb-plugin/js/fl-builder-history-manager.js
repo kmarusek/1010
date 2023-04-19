@@ -177,6 +177,16 @@
 						position: 0,
 					} )
 				} )
+			} else if ( this.states.length < 1 ) {
+				FLBuilderConfig.mainMenu.history.items.push( {
+					eventName: 'historyItemClicked',
+					type: 'event',
+					label: wp.template( 'fl-history-list-item' )( {
+						label: 'No history found',
+						current: 0,
+						position: 0,
+					} )
+				} )
 			}
 
 			if ( undefined !== FLBuilder.MainMenu ) {

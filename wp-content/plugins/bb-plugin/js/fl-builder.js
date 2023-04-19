@@ -2836,13 +2836,16 @@
 		 */
 		_blockPreventSort: function( item, parent )
 		{
-			var prevent     = false,
-				isRowBlock  = item.hasClass( 'fl-builder-block-row' ),
-				isCol       = item.hasClass( 'fl-col-sortable-proxy-item' ),
-				isParentCol = parent.hasClass( 'fl-col-content' ),
-				isColTarget = parent.hasClass( 'fl-col-drop-target' ),
-				group       = parent.parents( '.fl-col-group:not(.fl-col-group-nested)' ),
-				nestedGroup = parent.parents( '.fl-col-group-nested' );
+			var prevent              = false,
+				isRowBlock           = item.hasClass( 'fl-builder-block-row' ),
+				isCol                = item.hasClass( 'fl-col-sortable-proxy-item' ),
+				isModuleItem         = item.hasClass('fl-builder-block-module'),
+				isParentColGlobal    = parent.closest('.fl-col').hasClass('fl-node-global'),
+				isEditingColTemplate = parent.closest('.fl-builder-content-editing').hasClass('fl-builder-column-template'),
+				isParentCol          = parent.hasClass( 'fl-col-content' ),
+				isColTarget          = parent.hasClass( 'fl-col-drop-target' ),
+				group                = parent.parents( '.fl-col-group:not(.fl-col-group-nested)' ),
+				nestedGroup          = parent.parents( '.fl-col-group-nested' );
 
 			// Prevent columns in nested columns.
 			if ( ( isRowBlock || isCol ) && isParentCol && nestedGroup.length > 0 ) {
@@ -2880,6 +2883,11 @@
 
 			// Prevent more than 4 nested columns.
 			if ( isColTarget && nestedGroup.length > 0 && nestedGroup.find( '.fl-col:visible' ).length > 3 ) {
+				prevent = true;
+			}
+
+			// Prevent module from being dropped to a Global Col except when editing a saved column.
+			if ( isModuleItem && isParentColGlobal && ! isEditingColTemplate ) {
 				prevent = true;
 			}
 

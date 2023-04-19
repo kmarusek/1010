@@ -873,8 +873,10 @@ final class FLBuilder {
 	 * @return void
 	 */
 	static public function enqueue_ui_styles_scripts() {
+		global $post;
+
 		if ( FLBuilderModel::is_builder_active() ) {
-			global $wp_the_query;
+
 			global $wp_version;
 
 			// Remove wp admin bar top margin
@@ -1019,53 +1021,55 @@ final class FLBuilder {
 			 * Enqueue the canvas script for handling dom manipulation.
 			 */
 			self::enqueue_canvas();
+			$kb_link   = sprintf( "<a class='link' target='_blank' href='https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/debugging/known-beaver-builder-incompatibilities'>%s</a>", __( 'Knowledge Base', 'fl-builder' ) );
+			$support   = sprintf( "<a class='link' target='_blank' href='https://www.wpbeaverbuilder.com/beaver-builder-support/'>%s</a>", __( 'Support ticket', 'fl-builder' ) );
+			$updates   = self::get_available_updates();
+			$revisions = wp_count_posts( 'revision' );
+			$revisions = $revisions->inherit;
+			$revpage   = strval( count( wp_get_post_revisions( $post->ID ) ) );
+			$args      = array(
+				'product'     => FLBuilderModel::get_branding(),
+				'white_label' => FLBuilderModel::is_white_labeled(),
+
+				/**
+				 * Custom info text for crash popup.
+				 * @see fl_builder_crash_white_label_text
+				 */
+				'labeled_txt' => apply_filters( 'fl_builder_crash_white_label_text', '' ),
+				'vars'        => array(
+					'PHP Version'      => phpversion(),
+					'Memory Limit'     => FL_Debug::safe_ini_get( 'memory_limit' ),
+					'Usage'            => FLBuilderUtils::formatbytes( memory_get_usage() ),
+					'Peak'             => FLBuilderUtils::formatbytes( memory_get_peak_usage() ),
+					'URL'              => get_permalink(),
+					'Builder Version'  => FL_BUILDER_VERSION . $updates['builder'],
+					'Theme Version'    => ( defined( 'FL_THEME_VERSION' ) ) ? FL_THEME_VERSION . $updates['theme'] : 'Not active/installed.',
+					'Themer Version'   => ( defined( 'FL_THEME_BUILDER_VERSION' ) ) ? FL_THEME_BUILDER_VERSION . $updates['themer'] : 'Not active/installed.',
+					'Revisions Total'  => $revisions,
+					'Revisions Layout' => $revpage,
+					'WP_DEBUG'         => WP_DEBUG ? 'Enabled' : 'Disabled',
+					'max_input_vars'   => FL_Debug::safe_ini_get( 'max_input_vars' ),
+					'modsecfix'        => FLBuilderUtils::is_modsec_fix_enabled() ? 'Enabled' : 'Disabled',
+				),
+				'strings'     => array(
+					'intro'        => __( 'has detected a plugin conflict that is preventing the page from saving.', 'fl-builder' ),
+					'try'          => __( 'Try to fix it yourself now', 'fl-builder' ),
+					/* translators: %s: link to documentation */
+					'troubleshoot' => sprintf( __( 'If you want to troubleshoot further, you can check our %s for plugins we know to be incompatible. Then deactivate your plugins one by one while you try to save the page in the Beaver Builder editor.<br />When the page saves normally, you have identified the plugin causing the conflict.', 'fl-builder' ), $kb_link ),
+					'contact'      => __( 'If you contact Beaver Builder Support, we need to know what the error is in the JavaScript console in your browser.', 'fl-builder' ),
+					'step_one'     => __( 'Step One', 'fl-builder' ),
+					'step_two'     => __( 'Step Two', 'fl-builder' ),
+					'if_contact'   => __( 'If you contact Beaver Builder Support, we need to know what the error is in the JavaScript console in your browser.', 'fl-builder' ),
+					/* translators: %s: link to support form */
+					'contact'      => sprintf( __( 'Copy the errors you find there and submit them with your %s. It saves us having to ask you that as a second step.', 'fl-builder' ), $support ),
+					'hand'         => __( 'Need a helping hand?', 'fl-builder' ),
+				),
+			);
+
+			wp_localize_script( 'fl-builder-min', 'crash_vars', $args );
+			wp_localize_script( 'fl-builder', 'crash_vars', $args );
 		}
 		wp_add_inline_style( 'admin-bar', '#wp-admin-bar-fl-builder-frontend-edit-link .ab-icon:before { content: "\f116" !important; top: 2px; margin-right: 3px; }' );
-
-		$kb_link   = sprintf( "<a class='link' target='_blank' href='https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/debugging/known-beaver-builder-incompatibilities'>%s</a>", __( 'Knowledge Base', 'fl-builder' ) );
-		$support   = sprintf( "<a class='link' target='_blank' href='https://www.wpbeaverbuilder.com/beaver-builder-support/'>%s</a>", __( 'Support ticket', 'fl-builder' ) );
-		$updates   = self::get_available_updates();
-		$revisions = wp_count_posts( 'revision' );
-		$revisions = $revisions->inherit;
-		$args      = array(
-			'product'     => FLBuilderModel::get_branding(),
-			'white_label' => FLBuilderModel::is_white_labeled(),
-
-			/**
-			 * Custom info text for crash popup.
-			 * @see fl_builder_crash_white_label_text
-			 */
-			'labeled_txt' => apply_filters( 'fl_builder_crash_white_label_text', '' ),
-			'vars'        => array(
-				'PHP Version'     => phpversion(),
-				'Memory Limit'    => FL_Debug::safe_ini_get( 'memory_limit' ),
-				'Usage'           => FLBuilderUtils::formatbytes( memory_get_usage() ),
-				'Peak'            => FLBuilderUtils::formatbytes( memory_get_peak_usage() ),
-				'URL'             => get_permalink(),
-				'Builder Version' => FL_BUILDER_VERSION . $updates['builder'],
-				'Theme Version'   => ( defined( 'FL_THEME_VERSION' ) ) ? FL_THEME_VERSION . $updates['theme'] : 'Not active/installed.',
-				'Themer Version'  => ( defined( 'FL_THEME_BUILDER_VERSION' ) ) ? FL_THEME_BUILDER_VERSION . $updates['themer'] : 'Not active/installed.',
-				'Revisions'       => $revisions,
-				'max_input_vars'  => FL_Debug::safe_ini_get( 'max_input_vars' ),
-				'modsecfix'       => FLBuilderUtils::is_modsec_fix_enabled() ? 'Enabled' : 'Disabled',
-			),
-			'strings'     => array(
-				'intro'        => __( 'has detected a plugin conflict that is preventing the page from saving.', 'fl-builder' ),
-				'try'          => __( 'Try to fix it yourself now', 'fl-builder' ),
-				/* translators: %s: link to documentation */
-				'troubleshoot' => sprintf( __( 'If you want to troubleshoot further, you can check our %s for plugins we know to be incompatible. Then deactivate your plugins one by one while you try to save the page in the Beaver Builder editor.<br />When the page saves normally, you have identified the plugin causing the conflict.', 'fl-builder' ), $kb_link ),
-				'contact'      => __( 'If you contact Beaver Builder Support, we need to know what the error is in the JavaScript console in your browser.', 'fl-builder' ),
-				'step_one'     => __( 'Step One', 'fl-builder' ),
-				'step_two'     => __( 'Step Two', 'fl-builder' ),
-				'if_contact'   => __( 'If you contact Beaver Builder Support, we need to know what the error is in the JavaScript console in your browser.', 'fl-builder' ),
-				/* translators: %s: link to support form */
-				'contact'      => sprintf( __( 'Copy the errors you find there and submit them with your %s. It saves us having to ask you that as a second step.', 'fl-builder' ), $support ),
-				'hand'         => __( 'Need a helping hand?', 'fl-builder' ),
-			),
-		);
-
-		wp_localize_script( 'fl-builder-min', 'crash_vars', $args );
-		wp_localize_script( 'fl-builder', 'crash_vars', $args );
 	}
 
 	static private function get_available_updates() {

@@ -1,5 +1,9 @@
 ( function( $ ) {
 	$.validator.addMethod( "nonull", function( value, element ) {
+		layout = $('#fl-field-layout select[name=layout]').val();
+		if ( 'columns' !== layout ) {
+			return true;
+		}
 		return parseInt( value ) >= 1;
 	}, "Value must be one or greater" );
 

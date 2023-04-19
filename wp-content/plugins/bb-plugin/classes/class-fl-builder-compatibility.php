@@ -95,6 +95,7 @@ final class FLBuilderCompatibility {
 		add_filter( 'fl_builder_render_assets_inline', array( __CLASS__, 'fix_ultimate_dashboard_pro' ), 1001 );
 		add_filter( 'the_content', __CLASS__ . '::render_tribe_event_template', 11 );
 		add_filter( 'fl_builder_loop_query', array( __CLASS__, 'fix_tribe_events_pagination' ), 20, 2 );
+		add_filter( 'option_iubenda_cookie_law_solution', array( __CLASS__, 'fix_iubenda' ) );
 	}
 
 	/**
@@ -1298,5 +1299,12 @@ final class FLBuilderCompatibility {
 		return $query;
 	}
 
+	/**
+	 * https://wordpress.org/plugins/iubenda-cookie-law-solution/
+	 */
+	public static function fix_iubenda( $options ) {
+		$options['parse'] = isset( $_GET['fl_builder'] ) ? false : $options['parse'];
+		return $options;
+	}
 }
 FLBuilderCompatibility::init();

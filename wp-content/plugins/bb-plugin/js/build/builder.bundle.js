@@ -1291,6 +1291,11 @@ var after = {
   SAVE_HISTORY_STATE: function SAVE_HISTORY_STATE(_ref31) {
     var label = _ref31.label,
         moduleType = _ref31.moduleType;
+
+    if (!FLBuilderConfig.history.enabled) {
+      return false;
+    }
+
     FLBuilder.ajax({
       action: 'save_history_state',
       label: label,
@@ -5406,7 +5411,7 @@ var hasVisibility = function hasVisibility(settings) {
       responsive_display = _settings$responsive_ === void 0 ? '' : _settings$responsive_,
       _settings$visibility_ = settings.visibility_display,
       visibility_display = _settings$visibility_ === void 0 ? '' : _settings$visibility_;
-  return '' !== responsive_display || '' !== visibility_display;
+  return 'desktop,large,medium,mobile' !== responsive_display && '' !== responsive_display || '' !== visibility_display;
 };
 var getChildNodes = function getChildNodes(id, nodes) {
   return Object.values(nodes).filter(function (node) {
@@ -7709,11 +7714,18 @@ window.FL = _objectSpread(_objectSpread({}, api), {}, {
   Builder: Builder
 }); // Needs to happen after FL.Builder.data API is available
 
-(0,_ui__WEBPACK_IMPORTED_MODULE_3__.registerPanels)(); // Render UI
+(0,_ui__WEBPACK_IMPORTED_MODULE_3__.registerPanels)();
+var isAtLeastReact18 = 18 <= parseInt(react__WEBPACK_IMPORTED_MODULE_0___default().version.split('.')[0]); // Render UI
 
-var root = document.getElementById('fl-ui-root');
-root.classList.add('fluid', 'fl', 'uid');
-(0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ui__WEBPACK_IMPORTED_MODULE_3__["default"], null), root);
+var mountNode = window.parent.document.getElementById('fl-ui-root');
+mountNode.classList.add('fluid', 'fl', 'uid');
+
+if (isAtLeastReact18) {
+  var root = (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createRoot)(mountNode);
+  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ui__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+} else {
+  (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ui__WEBPACK_IMPORTED_MODULE_3__["default"], null), mountNode);
+}
 })();
 
 /******/ })()

@@ -825,7 +825,7 @@ final class FLPageDataACF {
 		if ( ! FLBuilderModel::is_builder_active() ) {
 			return array();
 		}
-		$results = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field' ORDER BY field_name", ARRAY_A );
+		$results = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field' and post_status = 'publish' ORDER BY field_name", ARRAY_A );
 
 		// maybe filter
 		foreach ( $results as $k => $field ) {

@@ -1933,6 +1933,8 @@ function ai1wm_get_htaccess() {
 	if ( is_file( AI1WM_WORDPRESS_HTACCESS ) ) {
 		return @file_get_contents( AI1WM_WORDPRESS_HTACCESS );
 	}
+
+	return '';
 }
 
 /**
@@ -1944,6 +1946,8 @@ function ai1wm_get_webconfig() {
 	if ( is_file( AI1WM_WORDPRESS_WEBCONFIG ) ) {
 		return @file_get_contents( AI1WM_WORDPRESS_WEBCONFIG );
 	}
+
+	return '';
 }
 
 /**

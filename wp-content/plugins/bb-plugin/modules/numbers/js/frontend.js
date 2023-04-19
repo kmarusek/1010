@@ -61,8 +61,6 @@ var FLBuilderNumber;
 
 			var $number = $( this.wrapperClass ).find( '.fl-number-string' );
 
-			this.animated = false;
-
 			if( !isNaN( this.delay ) && this.delay > 0 ) {
 				setTimeout( function(){
 					if( this.layout == 'circle' ){
@@ -147,6 +145,10 @@ var FLBuilderNumber;
 			    startPct = 0,
 				endPct =  max;
 
+			if ( this.animated ) {
+				return;
+			}
+
 			if (val < 0) { val = 0;}
 			if (val > max) { val = max;}
 
@@ -185,6 +187,10 @@ var FLBuilderNumber;
 				return;
 			}
 
+			if ( this.animated ) {
+				return;
+			}
+
 			if ( number > startNum && total < number ) {
 				total = number;
 			} else if ( startNum > number && total < startNum ) {
@@ -197,17 +203,16 @@ var FLBuilderNumber;
 			// Set the initial indicator bar value.
 			$bar.css('width', initWidth + '%');
 
-			if( ! this.animated ) {
-				$bar.animate({
-					width: finalWidth + '%'
-				}, {
-					duration: this.speed,
-					easing: 'swing',
-					complete: function() {
-						this.animated = true;
-					}
-				});
-			}
+			$bar.animate({
+				width: finalWidth + '%'
+			}, {
+				duration: this.speed,
+				easing: 'swing',
+				complete: function() {
+					this.animated = true;
+				}
+			});
+
 		}
 	};
 

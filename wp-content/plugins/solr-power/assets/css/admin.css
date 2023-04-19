@@ -1,18 +1,15 @@
 .solrtab {
   display: none; }
   .solrtab.active {
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     background: #fff;
     padding: 20px; }
   .solrtab .solr-display {
     width: 50%;
     float: left;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex; }
     .solrtab .solr-display div {
@@ -23,16 +20,13 @@
         border-bottom: 1px solid #c0c0c0;
         margin: 0; }
       .solrtab .solr-display div ul li {
-        display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
-        -webkit-flex-wrap: wrap;
-            -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
         border-bottom: 1px dotted #c0c0c0; }
         .solrtab .solr-display div ul li strong {
           width: 50%;
-          display: -webkit-flex;
           display: -ms-flexbox;
           display: flex; }
 

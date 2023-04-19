@@ -4894,7 +4894,7 @@ final class FLBuilderModel {
 	*
 	* @return array
 	*/
-	static public function array_remove_by_values( $haystack, $values, $whitelist = array( 'animation', 'style' ) ) {
+	static public function array_remove_by_values( $haystack, $values, $whitelist = array( 'animation', 'style', 'post_columns' ) ) {
 		foreach ( $haystack as $key => $value ) {
 			if ( is_array( $value ) ) {
 				$haystack[ $key ] = self::array_remove_by_values( $haystack[ $key ], $values );
@@ -5683,11 +5683,12 @@ final class FLBuilderModel {
 		if ( isset( $node->settings->visibility_display ) && ( '' !== $node->settings->visibility_display ) ) {
 			$rules = true;
 		}
-		if ( isset( $node->settings->responsive_display ) && ( '' !== $node->settings->responsive_display ) ) {
+		if ( isset( $node->settings->responsive_display ) && ( '' !== $node->settings->responsive_display && 'desktop,large,medium,mobile' !== $node->settings->responsive_display ) ) {
 			$rules = true;
 		}
 		return $rules;
 	}
+
 
 	/**
 	 * Returns visibility rule.

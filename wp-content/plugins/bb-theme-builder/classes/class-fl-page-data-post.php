@@ -326,7 +326,7 @@ final class FLPageDataPost {
 			$terms = array_slice( $terms, 0, $limit );
 		}
 
-		$is_events_post_type = 'tribe_events' === get_post_type( $id ) && function_exists( 'tribe_events_get_url' );
+		$is_events_post_type = 'tribe_events' === get_post_type( $id ) && 'post_tag' === $taxonomy && function_exists( 'tribe_events_get_url' ) && ! defined( 'ICL_SITEPRESS_VERSION' );
 		foreach ( $terms as $term ) {
 			if ( $is_events_post_type ) {
 				$link = tribe_events_get_url( array(

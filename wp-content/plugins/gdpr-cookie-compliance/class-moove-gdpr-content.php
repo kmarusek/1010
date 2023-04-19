@@ -29,6 +29,161 @@ class Moove_GDPR_Content {
 	}
 
 	/**
+	 * Integration Extensions
+	 */
+	public static function gdpr_extend_integration_snippets( $cache_array, $gdpr_options ) {
+		$gdin_values        = isset( $gdpr_options['gdin_values'] ) ? json_decode( $gdpr_options['gdin_values'], true ) : array();
+		if ( $gdin_values && ! empty( $gdin_values ) && is_array( $gdin_values ) ) :
+			$gdin_modules       = gdpr_get_integration_modules( $gdpr_options, $gdin_values );
+			foreach ( $gdin_modules as $_gdin_module_slug => $_gdin_module ) :
+				if ( isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && $_gdin_module['status'] ) :
+					$cache_array = apply_filters( 'gdpr_insert_integration_' . $_gdin_module_slug . '_snippet', $cache_array, $_gdin_module );
+				endif;
+			endforeach;
+		endif;
+		return $cache_array;
+	}
+
+	public static function gdpr_insert_integration_ga_snippet( $cache_array, $_gdin_module ) {
+		if ( isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && intval( $_gdin_module['cookie_cat'] ) ) :
+			$cookie_cat_n = intval( $_gdin_module['cookie_cat'] ) === 2 ? 'thirdparty' : ( intval( $_gdin_module['cookie_cat'] ) === 3 ? 'advanced' : '' );
+			if ( $cookie_cat_n ) :
+				ob_start();
+				?>
+				<!-- Google tag (gtag.js) -->
+				<script src="https://www.googletagmanager.com/gtag/js?id=<?php echo $_gdin_module['tacking_id']; ?>" data-type="gdpr-integration"></script>
+				<script data-type="gdpr-integration">
+				  window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+
+				  gtag('config', '<?php echo $_gdin_module['tacking_id']; ?>');
+				</script>
+				<?php
+				$cache_array[$cookie_cat_n]['header'] .= ob_get_clean();
+			endif;
+		endif;
+		return $cache_array;
+	}
+
+	public static function gdpr_insert_integration_ga4_snippet( $cache_array, $_gdin_module ) {
+		if ( isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && intval( $_gdin_module['cookie_cat'] ) ) :
+			$cookie_cat_n = intval( $_gdin_module['cookie_cat'] ) === 2 ? 'thirdparty' : ( intval( $_gdin_module['cookie_cat'] ) === 3 ? 'advanced' : '' );
+			if ( $cookie_cat_n ) :
+				ob_start();
+				?>
+				<!-- Google tag (gtag.js) -->
+				<script src="https://www.googletagmanager.com/gtag/js?id=<?php echo $_gdin_module['tacking_id']; ?>" data-type="gdpr-integration"></script>
+				<script data-type="gdpr-integration">
+				  window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+
+				  gtag('config', '<?php echo $_gdin_module['tacking_id']; ?>');
+				</script>
+				<?php
+				$cache_array[$cookie_cat_n]['header'] .= ob_get_clean();
+			endif;
+		endif;
+		return $cache_array;
+	}
+
+	public static function gdpr_insert_integration_gtm_snippet( $cache_array, $_gdin_module ) {
+		if ( isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && intval( $_gdin_module['cookie_cat'] ) ) :
+			$cookie_cat_n = intval( $_gdin_module['cookie_cat'] ) === 2 ? 'thirdparty' : ( intval( $_gdin_module['cookie_cat'] ) === 3 ? 'advanced' : '' );
+			if ( $cookie_cat_n ) :
+				ob_start();
+				?>
+				<!-- Google Tag Manager -->
+				<script data-type="gdpr-integration">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+				})(window,document,'script','dataLayer','<?php echo $_gdin_module['tacking_id']; ?>');</script>
+				<!-- End Google Tag Manager -->
+				<?php
+				$cache_array[$cookie_cat_n]['header'] .= ob_get_clean();
+				ob_start();
+				?>
+				<!-- Google Tag Manager (noscript) -->
+				<noscript data-type="gdpr-integration"><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo $_gdin_module['tacking_id']; ?>"
+				height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+				<!-- End Google Tag Manager (noscript) -->
+				<?php
+				$cache_array[$cookie_cat_n]['body'] .= ob_get_clean();
+			endif;
+		endif;
+		return $cache_array;
+	}
+
+	public static function gdpr_insert_integration_fbp_snippet( $cache_array, $_gdin_module ) {
+		if ( isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && intval( $_gdin_module['cookie_cat'] ) ) :
+			$cookie_cat_n = intval( $_gdin_module['cookie_cat'] ) === 2 ? 'thirdparty' : ( intval( $_gdin_module['cookie_cat'] ) === 3 ? 'advanced' : '' );
+			if ( $cookie_cat_n ) :
+				ob_start();
+				?>
+				<!-- Facebook Pixel Code -->
+				<script data-type="gdpr-integration">
+				  !function(f,b,e,v,n,t,s)
+				  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+				  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+				  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+				  n.queue=[];t=b.createElement(e);t.async=!0;
+				  t.src=v;s=b.getElementsByTagName(e)[0];
+				  s.parentNode.insertBefore(t,s)}(window, document,'script',
+				  'https://connect.facebook.net/en_US/fbevents.js');
+				  fbq('init', '<?php echo $_gdin_module['tacking_id']; ?>');
+				  fbq('track', 'PageView');
+				</script>
+				<?php
+				$cache_array[$cookie_cat_n]['header'] .= ob_get_clean();
+				ob_start();
+				?>
+				<noscript data-type="gdpr-integration">
+				  <img height="1" width="1" style="display:none" 
+				       src="https://www.facebook.com/tr?id=<?php echo $_gdin_module['tacking_id']; ?>&ev=PageView&noscript=1"/>
+				</noscript>
+				<!-- End Facebook Pixel Code -->
+				<?php
+				$cache_array[$cookie_cat_n]['body'] .= ob_get_clean();
+			endif;
+		endif;
+		return $cache_array;
+	}
+
+	public static function gdpr_insert_integration_gtm4wp_snippet( $cache_array, $_gdin_module ) {
+		if ( defined('GTM4WP_OPTIONS') && defined ( 'GTM4WP_OPTION_GTM_PLACEMENT' ) && defined ( 'GTM4WP_PLACEMENT_OFF' ) ) :
+      $storedoptions = (array) get_option( GTM4WP_OPTIONS );
+			if ( ( isset( $storedoptions[GTM4WP_OPTION_GTM_PLACEMENT] ) && $storedoptions[GTM4WP_OPTION_GTM_PLACEMENT] === GTM4WP_PLACEMENT_OFF ) && isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && intval( $_gdin_module['cookie_cat'] ) ) :
+				$cookie_cat_n = intval( $_gdin_module['cookie_cat'] ) === 2 ? 'thirdparty' : ( intval( $_gdin_module['cookie_cat'] ) === 3 ? 'advanced' : '' );
+				if ( $cookie_cat_n && ! $gtm4wp_container_code_written ) :
+					ob_start();
+					?>
+					<!-- Google Tag Manager -->
+					<script data-type="gdpr-integration">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+					new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+					j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+					'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+					})(window,document,'script','dataLayer','<?php echo $_gdin_module['tacking_id']; ?>');</script>
+					<!-- End Google Tag Manager -->
+					<?php
+					$cache_array[$cookie_cat_n]['header'] .= ob_get_clean();
+					ob_start();
+					?>
+					<!-- Google Tag Manager (noscript) -->
+					<noscript data-type="gdpr-integration"><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo $_gdin_module['tacking_id']; ?>"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+					<!-- End Google Tag Manager (noscript) -->
+					<?php
+					$cache_array[$cookie_cat_n]['body'] .= ob_get_clean();
+					$gtm4wp_container_code_written = true;
+				endif;
+			endif;
+		endif;
+		return $cache_array;
+	}
+
+	/**
 	 * Privacy Overview Tab Content
 	 *
 	 * @return string Filtered Content
@@ -542,7 +697,7 @@ class Moove_GDPR_Content {
 				$gdpr_key             = $gdpr_default_content->gdpr_get_activation_key( $option_key );
 				$license_key          = isset( $gdpr_key['key'] ) ? sanitize_text_field( $gdpr_key['key'] ) : false;
 				$renew_link           = MOOVE_SHOP_URL . '?renew=' . $license_key;
-				$license_manager      = admin_url( 'admin.php' ) . '?page=moove-gdpr&amp;tab=licence';
+				$license_manager      = admin_url( 'admin.php' ) . '?page=moove-gdpr_licence';
 				$purchase_link        = 'https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/';
 				$notice_text          = '';
 				if ( $license_key && isset( $gdpr_key['activation'] ) ) :

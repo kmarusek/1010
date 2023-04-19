@@ -107,7 +107,7 @@ $plugin_details  = $gdpr_controller->get_gdpr_plugin_details( 'gdpr-cookie-compl
 		<!--  .box-header -->
 		<div class="box-content">
 			<a href="https://www.mooveagency.com/wordpress-plugins/user-activity-tracking-and-log/" target="_blank">
-				<img src='<?php echo moove_gdpr_get_plugin_directory_url() ?>/assets/images/uat-promo-wp.png?rev=<?php echo MOOVE_GDPR_VERSION; ?>'/>
+				<img src='<?php echo trailingslashit( moove_gdpr_get_plugin_directory_url() ); ?>dist/images/uat-promo-wp.png?rev=<?php echo MOOVE_GDPR_VERSION; ?>'/>
 			</a>
 			<hr>
 			<p><?php esc_html_e( 'Track user activity & duration on your website with this incredibly powerful, easy-to-use and well supported plugin.', 'gdpr-cookie-compliance' ); ?></p>

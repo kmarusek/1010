@@ -23,7 +23,7 @@ $option_key           = $gdpr_default_content->moove_gdpr_get_key_name();
 $gdpr_key             = $gdpr_default_content->gdpr_get_activation_key( $option_key );
 
 ?>
-<form action="<?php echo esc_url( admin_url( 'admin.php?page=moove-gdpr&tab=licence' ) ); ?>" method="post" id="moove_gdpr_license_settings">
+<form action="<?php echo esc_url( admin_url( 'admin.php?page=moove-gdpr_licence&tab=licence' ) ); ?>" method="post" id="moove_gdpr_license_settings">
 	<table class="form-table">
 		<tbody>
 			<tr>

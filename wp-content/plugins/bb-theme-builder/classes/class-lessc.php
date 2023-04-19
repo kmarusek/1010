@@ -2431,10 +2431,10 @@ class lessc_parser {
     protected $sourceName;
     public    $writeComments;
     protected $parser;
-    protected $count;
+    public $count;
     protected $line;
     protected $env;
-    protected $buffer;
+    public $buffer;
     protected $seenComments;
     protected $inExp;
     protected $scope;

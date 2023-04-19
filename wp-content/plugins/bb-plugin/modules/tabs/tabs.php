@@ -167,13 +167,12 @@ FLBuilder::register_module('FLTabsModule', array(
 						'type'        => 'unit',
 						'label'       => 'Active Tab',
 						'default'     => '1',
-						'placeholder' => '1',
 						'slider'      => array(
 							'min'  => 1,
 							'max'  => 50,
 							'step' => 1,
 						),
-						'help'        => __( 'Value should not exceed the total number of tab items.', 'fl-builder' ),
+						'help'        => __( 'If value set exceeds number of tabs, the first tab will be used.  If set to 0 or blank, there will be no active tab on load.', 'fl-builder' ),
 					),
 					'tabs_on_mobile' => array(
 						'type'    => 'select',

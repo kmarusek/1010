@@ -436,7 +436,7 @@ input.input_plugin_radio {
 }
 
 .wizard>.content {
-	min-height: 32em;
+    min-height: 1000px;
 }
 
 dt {
@@ -1309,4 +1309,15 @@ Sample Code
 
 .welcome-panel-last h1 {
     line-height: 34px;
+}
+
+.ps-broken-mail-notice {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    background: #cce5ff;
+    border: #b8daff;
+    color: #004085;
+    border-radius: 9px;
 }

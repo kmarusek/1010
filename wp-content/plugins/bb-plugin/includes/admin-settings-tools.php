@@ -88,6 +88,28 @@
 		<?php wp_nonce_field( 'debug', 'fl-css-js-nonce' ); ?>
 	</form>
 
+		<?php if ( defined( 'FL_THEME_VERSION' ) ) : ?>
+
+			<?php
+			$theme_opts  = get_theme_mods();
+			$theme_codes = array(
+				'fl-js-code',
+				'fl-head-code',
+				'fl-header-code',
+				'fl-footer-code',
+			);
+			?>
+		<form id="theme-opts-form" action="<?php FLBuilderAdminSettings::render_form_action( 'tools' ); ?>" method="post">
+			<?php
+			foreach ( $theme_codes as $key ) {
+				printf( '<h3 class="fl-settings-form-header">Theme %s</h3>', str_replace( 'fl-', '', $key ) );
+				printf( '<p><textarea style="width:100%%" rows=10 name="%s">%s</textarea></p>', $key, esc_attr( $theme_opts[ $key ] ) );
+			}
+			?>
+		<input type="submit" name="update-theme-opts" class="button-primary" value="<?php echo esc_attr__( 'Update Theme Code Settings', 'fl-builder' ); ?>" />
+			<?php wp_nonce_field( 'debug', 'fl-theme-opts-nonce' ); ?>
+	<?php endif; ?>
+
 	<?php endif; ?>
 
 	<?php

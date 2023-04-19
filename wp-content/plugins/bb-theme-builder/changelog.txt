@@ -1,3 +1,13 @@
+<h4>1.4.5.1 - 03/23/2023</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Add filter <code>fl_themer_is_content_building_enabled</code> to aid in solving compatibility issues with other plugins, typically translation plugins (#757)</li>
+	<li>ACF: Fix trashed field groups showing up in field select dropdown (#754)</li>
+	<li>TEC: Fix Event Category links being broken (#752)</li>
+	<li>Fix Preview throwing a JS TypeError when a taxonomy has no terms (#717)</li>
+	<li>Fix lessc error with WP-Less plugin and others that may use the same library (#744)</li>
+</ul>
+
 <h4>1.4.5 - 02/06/2023</h4>
 <p><strong>Enhancements</strong></p>
 <ul>

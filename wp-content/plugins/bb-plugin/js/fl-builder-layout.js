@@ -334,7 +334,15 @@
 			if($('.fl-bg-video').length > 0) {
 				FLBuilderLayout._initBgVideos();
 				FLBuilderLayout._resizeBgVideos();
-				win.on('resize.fl-bg-video', FLBuilderLayout._resizeBgVideos);
+
+				// Ensure FLBuilderLayout._resizeBgVideos() is only called once on window resize.
+				var resizeBGTimer = null;
+				win.on('resize.fl-bg-video', function(e){
+					clearTimeout( resizeBGTimer );
+					resizeBGTimer = setTimeout(function() {
+						FLBuilderLayout._resizeBgVideos(e);
+					}, 100 );
+				});
 			}
 		},
 
@@ -471,9 +479,13 @@
 			 */
 			if( 'undefined' != typeof fallback && '' != fallback ) {
 				videoTag.attr( 'poster', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' )
-				videoTag.css( 'background', 'transparent url("' + fallback + '") no-repeat center center' )
-				videoTag.css( 'background-size', 'cover' )
-				videoTag.css( 'height', '100%' )
+				videoTag.css({
+					backgroundImage: 'url("' + fallback + '")',
+					backgroundColor: 'transparent',
+					backgroundRepeat: 'no-repeat',
+					backgroundSize: 'cover',
+					backgroundPosition: 'center center',
+				})
 			}
 
 			// MP4 Source Tag
@@ -831,7 +843,13 @@
 				newHeight   = Math.round(vidHeight * wrapWidth/vidWidth),
 				newLeft     = 0,
 				newTop      = 0,
-				iframe 		= wrap.find('iframe');
+				iframe 		= wrap.find('iframe'),
+				isRowFullHeight = $(this).closest('.fl-row-bg-video').hasClass('fl-row-full-height'),
+				vidCSS          = {
+					top:       '50%',
+					left:      '50%',
+					transform: 'translate(-50%,-50%)',
+				};
 
 			if ( vid.length ) {
 				if(vidHeight === '' || typeof vidHeight === 'undefined' || vidWidth === '' || typeof vidWidth === 'undefined') {
@@ -843,31 +861,29 @@
 
 					// Try to set the actual video dimension on 'loadedmetadata' when using URL as video source
 					vid.on('loadedmetadata', FLBuilderLayout._resizeOnLoadedMeta);
-
+					
+					return;
 				}
-				else {
-					if(newHeight < wrapHeight) {
+
+				if ( ! isRowFullHeight ) {
+					if ( newHeight < wrapHeight ) {
 						newHeight = wrapHeight;
 						newLeft   = -((newWidth - wrapWidth) / 2);
-
-						if ( 0 != vidHeight ) {
-							newWidth = Math.round(vidWidth * wrapHeight/vidHeight);
-						}
+						newWidth  = vidHeight ? Math.round(vidWidth * wrapHeight/vidHeight) : newWidth;
 					}
 					else {
 						newTop = -((newHeight - wrapHeight)/2);
 					}
-
-					vid.css({
-						'left'   : newLeft + 'px',
-						'top'    : newTop + 'px',
-						'height' : newHeight + 'px',
-						'width'  : newWidth + 'px'
-					});
-
-					vid.on('loadedmetadata', FLBuilderLayout._resizeOnLoadedMeta);
-
+					vidCSS = {
+						left   : newLeft + 'px',
+						top    : newTop + 'px',
+						height : newHeight + 'px',
+						width  : newWidth + 'px',
+					}
 				}
+
+				vid.css( vidCSS );
+
 			}
 			else if ( iframe.length ) {
 

@@ -14,7 +14,7 @@ if ( 'post' == $settings->source ) {
 		$active_tab     = intval( $settings->active_tab );
 		$tabs_on_mobile = $settings->tabs_on_mobile;
 
-		if ( $active_tab <= 0 || $active_tab > count( $settings->items ) ) {
+		if ( $active_tab > count( $settings->items ) ) {
 			$active_tab = 1;
 		}
 		?>

@@ -758,6 +758,7 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'type'    => 'text',
 						'label'   => __( 'Posts Element Class', 'fl-builder' ),
 						'default' => '',
+						'connections' => array( 'string' ),
 					),
 					'posts_container_ul_class' => array(
 						'type'    => 'text',

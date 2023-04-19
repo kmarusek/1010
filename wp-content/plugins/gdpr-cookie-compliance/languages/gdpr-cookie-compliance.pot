@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-13 07:20+0000\n"
+"POT-Creation-Date: 2023-04-18 08:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -60,8 +60,9 @@ msgid "3. Create a Support Ticket"
 msgstr ""
 
 #: class-gdpr-modules.php:311 class-gdpr-modules.php:425
-#: views/moove/admin/settings/settings-page.php:109
+#: views/moove/admin/settings/settings-page.php:128
 #: views/moove/admin/settings/third-party-cookies.php:77
+#: views/moove/admin/settings/integrations.php:73
 msgid "3rd Party Cookies"
 msgstr ""
 
@@ -69,7 +70,7 @@ msgstr ""
 msgid "Absolute Path"
 msgstr ""
 
-#: class-moove-gdpr-content.php:150 class-gdpr-modules.php:178
+#: class-moove-gdpr-content.php:305 class-gdpr-modules.php:178
 #: views/moove/admin/settings/banner-settings.php:237
 msgid "Accept"
 msgstr ""
@@ -94,7 +95,7 @@ msgstr ""
 msgid "Accept Cookies on Scroll / Hide timer"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:809
+#: class-moove-gdpr-actions.php:859
 msgid "Accept on Scroll / Hide timer"
 msgstr ""
 
@@ -102,8 +103,8 @@ msgstr ""
 msgid "Accessibility"
 msgstr ""
 
-#: class-moove-gdpr-content.php:311 class-moove-gdpr-content.php:318
-#: class-moove-gdpr-content.php:324
+#: class-moove-gdpr-content.php:466 class-moove-gdpr-content.php:473
+#: class-moove-gdpr-content.php:479
 msgid "Activate"
 msgstr ""
 
@@ -111,7 +112,7 @@ msgstr ""
 msgid "activate again"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:530 class-moove-gdpr-actions.php:553
+#: class-moove-gdpr-actions.php:580 class-moove-gdpr-actions.php:603
 msgid "Activate your licence"
 msgstr ""
 
@@ -145,12 +146,13 @@ msgid "add-on plugin from your CMS completely"
 msgstr ""
 
 #: class-gdpr-modules.php:283 class-gdpr-modules.php:429
-#: views/moove/admin/settings/settings-page.php:116
+#: views/moove/admin/settings/settings-page.php:135
 #: views/moove/admin/settings/advanced-cookies.php:67
+#: views/moove/admin/settings/integrations.php:75
 msgid "Additional Cookies"
 msgstr ""
 
-#: class-moove-gdpr-content.php:151
+#: class-moove-gdpr-content.php:306
 msgid "Adjust your settings"
 msgstr ""
 
@@ -168,11 +170,11 @@ msgstr ""
 msgid "Always enabled and content hidden from user"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:817
+#: class-moove-gdpr-actions.php:867
 msgid "Analytics"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:555
+#: class-moove-gdpr-actions.php:605
 msgid "and activate it"
 msgstr ""
 
@@ -213,7 +215,7 @@ msgstr ""
 msgid "Brand Colour"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:77
+#: views/moove/admin/settings/settings-page.php:92
 #: views/moove/admin/settings/branding.php:70
 msgid "Branding"
 msgstr ""
@@ -231,24 +233,24 @@ msgstr ""
 msgid "Button Style"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:531 class-moove-gdpr-actions.php:553
+#: class-moove-gdpr-actions.php:581 class-moove-gdpr-actions.php:603
 msgid "buy a new licence here"
 msgstr ""
 
-#: class-moove-gdpr-content.php:328 class-moove-gdpr-content.php:418
+#: class-moove-gdpr-content.php:483 class-moove-gdpr-content.php:573
 msgid "Buy licence"
 msgstr ""
 
-#: class-moove-gdpr-content.php:381
+#: class-moove-gdpr-content.php:536
 msgid "Buy more licences"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:534 class-moove-gdpr-actions.php:560
+#: class-moove-gdpr-actions.php:584 class-moove-gdpr-actions.php:610
 #: views/moove/admin/settings/plugin-boxes.php:39
 msgid "Buy Now"
 msgstr ""
 
-#: gdpr-functions.php:131
+#: gdpr-functions.php:223
 msgid "Buy Premium"
 msgstr ""
 
@@ -347,8 +349,8 @@ msgstr ""
 msgid "Close button"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:464 class-moove-gdpr-actions.php:465
-#: class-moove-gdpr-actions.php:482 class-moove-gdpr-actions.php:483
+#: class-moove-gdpr-actions.php:514 class-moove-gdpr-actions.php:515
+#: class-moove-gdpr-actions.php:532 class-moove-gdpr-actions.php:533
 msgid "Close GDPR Cookie Banner"
 msgstr ""
 
@@ -395,7 +397,7 @@ msgstr ""
 msgid "Consent expiry"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:837
+#: class-moove-gdpr-actions.php:887
 #: views/moove/admin/settings/consent-log.php:15
 #: views/moove/admin/settings/plugin-boxes.php:29
 msgid "Consent Log"
@@ -421,18 +423,18 @@ msgstr ""
 msgid "Cookie Banner position"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:80
+#: views/moove/admin/settings/settings-page.php:95
 #: views/moove/admin/settings/banner-settings.php:143
 msgid "Cookie Banner Settings"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:833
+#: class-moove-gdpr-actions.php:883
 #: views/moove/admin/settings/cookie-declaration.php:15
 msgid "Cookie Declaration"
 msgstr ""
 
 #: class-gdpr-modules.php:368 class-gdpr-modules.php:433
-#: views/moove/admin/settings/settings-page.php:122
+#: views/moove/admin/settings/settings-page.php:141
 #: views/moove/admin/settings/cookie-policy.php:57
 msgid "Cookie Policy"
 msgstr ""
@@ -441,7 +443,7 @@ msgstr ""
 msgid "Cookie Settings Logo"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:84
+#: views/moove/admin/settings/settings-page.php:99
 #: views/moove/admin/settings/screen-settings.php:129
 msgid "Cookie Settings Screen"
 msgstr ""
@@ -539,6 +541,7 @@ msgstr ""
 #: views/moove/admin/settings/banner-settings.php:333
 #: views/moove/admin/settings/third-party-cookies.php:109
 #: views/moove/admin/settings/advanced-cookies.php:98
+#: views/moove/admin/settings/integrations.php:111
 #: views/moove/admin/settings/screen-settings.php:175
 #: views/moove/admin/settings/screen-settings.php:206
 #: views/moove/admin/settings/screen-settings.php:237
@@ -552,12 +555,12 @@ msgstr ""
 msgid "Disabled state"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:69
+#: views/moove/admin/settings/settings-page.php:84
 msgid "dismiss notice"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:31
-#: views/moove/admin/settings/settings-page.php:42
+#: views/moove/admin/settings/settings-page.php:58
+#: views/moove/admin/settings/settings-page.php:69
 msgid "Dismiss this notice."
 msgstr ""
 
@@ -565,13 +568,12 @@ msgstr ""
 msgid "Display cookie banner for EU visitors only"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:555
+#: class-moove-gdpr-actions.php:605
 msgid "Do you have a licence key?"
 msgstr ""
 
-#: views/moove/admin/settings/support.php:29
+#: gdpr-functions.php:30 views/moove/admin/settings/support.php:29
 #: views/moove/admin/settings/support.php:37
-#: views/moove/admin/settings/settings-page.php:130
 #: views/moove/admin/settings/help.php:15
 msgid "Documentation"
 msgstr ""
@@ -589,7 +591,7 @@ msgid ""
 "Does this plugin guarantee that I will comply with data protection laws?"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:531
+#: class-moove-gdpr-actions.php:581
 msgid "Don’t have a valid licence key yet?"
 msgstr ""
 
@@ -629,6 +631,7 @@ msgstr ""
 #: views/moove/admin/settings/banner-settings.php:333
 #: views/moove/admin/settings/third-party-cookies.php:109
 #: views/moove/admin/settings/advanced-cookies.php:98
+#: views/moove/admin/settings/integrations.php:111
 #: views/moove/admin/settings/screen-settings.php:175
 #: views/moove/admin/settings/screen-settings.php:206
 #: views/moove/admin/settings/screen-settings.php:237
@@ -642,15 +645,15 @@ msgstr ""
 msgid "Enabled state"
 msgstr ""
 
-#: class-moove-gdpr-content.php:403
+#: class-moove-gdpr-content.php:558
 msgid "Enter a new licence key:"
 msgstr ""
 
-#: class-moove-gdpr-content.php:449
+#: class-moove-gdpr-content.php:604
 msgid "Enter licence key:"
 msgstr ""
 
-#: class-moove-gdpr-content.php:366
+#: class-moove-gdpr-content.php:521
 msgid "Enter new licence key"
 msgstr ""
 
@@ -660,7 +663,7 @@ msgid ""
 "can be http, https or protocol-relative"
 msgstr ""
 
-#: class-moove-gdpr-content.php:436
+#: class-moove-gdpr-content.php:591
 msgid "Enter your licence key:"
 msgstr ""
 
@@ -672,7 +675,7 @@ msgstr ""
 msgid "Export / Import Settings"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:801
+#: class-moove-gdpr-actions.php:851
 msgid "Export/Import Settings"
 msgstr ""
 
@@ -688,7 +691,7 @@ msgstr ""
 msgid "Find this plugin useful?"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:88
+#: views/moove/admin/settings/settings-page.php:103
 #: views/moove/admin/settings/floating-button.php:61
 #: views/moove/admin/settings/floating-button.php:68
 msgid "Floating Button"
@@ -729,7 +732,7 @@ msgstr ""
 msgid "Free trial"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:813
+#: class-moove-gdpr-actions.php:863
 msgid "Full-screen / Cookiewall"
 msgstr ""
 
@@ -746,11 +749,11 @@ msgid "GDPR Cookie Banner"
 msgstr ""
 
 #. Name of the plugin
-#: class-moove-gdpr-actions.php:788
+#: class-moove-gdpr-actions.php:838
 msgid "GDPR Cookie Compliance"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:16
+#: views/moove/admin/settings/settings-page.php:43
 msgid "GDPR Cookie Compliance Plugin (CCPA ready)"
 msgstr ""
 
@@ -764,24 +767,16 @@ msgid "GDPR Settings Screen"
 msgstr ""
 
 #: views/moove/admin/settings/general-settings.php:89
-#: views/moove/admin/settings/settings-page.php:92
+#: views/moove/admin/settings/settings-page.php:111
 msgid "General Settings"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:821
+#: class-moove-gdpr-actions.php:871
 msgid "Geo Location"
 msgstr ""
 
 #: views/moove/admin/settings/geo-location.php:15
 msgid "Geo Location Setup"
-msgstr ""
-
-#: class-moove-gdpr-actions.php:847
-msgid "Google Site Kit"
-msgstr ""
-
-#: views/moove/admin/settings/google-site-kit.php:15
-msgid "Google Site Kit - Integration"
 msgstr ""
 
 #: views/moove/admin/settings/help.php:473
@@ -812,7 +807,7 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:825
+#: class-moove-gdpr-actions.php:875
 msgid "Hide Cookie Banner"
 msgstr ""
 
@@ -891,7 +886,7 @@ msgid ""
 "assets by following the steps below:"
 msgstr ""
 
-#: class-moove-gdpr-content.php:98
+#: class-moove-gdpr-content.php:253
 msgid ""
 "If you disable this cookie, we will not be able to save your preferences. "
 "This means that every time you visit this website you will need to enable or "
@@ -917,7 +912,7 @@ msgstr ""
 msgid "If you still need support, you can create a %s in our Support Forum."
 msgstr ""
 
-#: class-moove-gdpr-actions.php:829
+#: class-moove-gdpr-actions.php:879
 #: views/moove/admin/settings/iframe-blocker.php:15
 msgid "Iframe Blocker"
 msgstr ""
@@ -930,11 +925,19 @@ msgstr ""
 msgid "Inherit font-family from your WordPress theme"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:555
+#: class-moove-gdpr-actions.php:605
 msgid "Insert your license key to the"
 msgstr ""
 
-#: class-moove-gdpr-content.php:120
+#: views/moove/admin/settings/integrations.php:80
+msgid "Integrations"
+msgstr ""
+
+#: views/moove/admin/settings/settings-page.php:107
+msgid "Integrations [NEW]"
+msgstr ""
+
+#: class-moove-gdpr-content.php:275
 msgid "Keeping this cookie enabled helps us to improve our website."
 msgstr ""
 
@@ -942,9 +945,8 @@ msgstr ""
 msgid "Language specific scripts"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:555
-#: views/moove/admin/settings/settings-page.php:145
-#: views/moove/admin/settings/licence.php:15
+#: class-moove-gdpr-actions.php:605 gdpr-functions.php:42
+#: gdpr-functions.php:204 views/moove/admin/settings/licence.php:15
 msgid "Licence Manager"
 msgstr ""
 
@@ -952,7 +954,7 @@ msgstr ""
 msgid "Light"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:531
+#: class-moove-gdpr-actions.php:581
 msgid "Login to your account"
 msgstr ""
 
@@ -981,7 +983,7 @@ msgid ""
 "protection for the wp-login.php only."
 msgstr ""
 
-#: class-moove-gdpr-content.php:134
+#: class-moove-gdpr-content.php:289
 msgid "More information about our [privacy_link]Cookie Policy[/privacy_link]"
 msgstr ""
 
@@ -1000,7 +1002,7 @@ msgid ""
 "%s. Search bar is located in the top right corner."
 msgstr ""
 
-#: class-moove-gdpr-actions.php:805
+#: class-moove-gdpr-actions.php:855
 #: views/moove/admin/settings/multisite-settings.php:15
 msgid "Multisite Settings"
 msgstr ""
@@ -1053,7 +1055,7 @@ msgstr ""
 msgid "Optional, leave it empty to use default domain"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:553
+#: class-moove-gdpr-actions.php:603
 msgid "or"
 msgstr ""
 
@@ -1131,13 +1133,13 @@ msgid ""
 "that would help us see what issues you are experiencing."
 msgstr ""
 
-#: class-moove-gdpr-content.php:180
+#: class-moove-gdpr-content.php:335
 msgid ""
 "Please enable Strictly Necessary Cookies first so that we can save your "
 "preferences!"
 msgstr ""
 
-#: class-moove-gdpr-content.php:148
+#: class-moove-gdpr-content.php:303
 msgid "Please enable the cookies to view this content"
 msgstr ""
 
@@ -1212,7 +1214,7 @@ msgid "Prevent storing a \"temporary reject cookie\" when cookies are rejected"
 msgstr ""
 
 #: class-gdpr-modules.php:93 class-gdpr-modules.php:231
-#: class-gdpr-modules.php:417 views/moove/admin/settings/settings-page.php:96
+#: class-gdpr-modules.php:417 views/moove/admin/settings/settings-page.php:115
 #: views/moove/admin/settings/privacy-overview.php:49
 msgid "Privacy Overview"
 msgstr ""
@@ -1237,7 +1239,7 @@ msgstr ""
 msgid "Redirect location"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:435
+#: class-moove-gdpr-actions.php:485
 #: views/moove/admin/settings/banner-settings.php:275
 msgid "Reject"
 msgstr ""
@@ -1275,12 +1277,12 @@ msgstr ""
 msgid "Remove jQuery script dependency"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:841
+#: class-moove-gdpr-actions.php:891
 #: views/moove/admin/settings/renew-consent.php:15
 msgid "Renew Consent"
 msgstr ""
 
-#: class-moove-gdpr-content.php:360
+#: class-moove-gdpr-content.php:515
 msgid "Renew your licence"
 msgstr ""
 
@@ -1337,7 +1339,7 @@ msgstr ""
 msgid "Set custom z-index"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:446 gdpr-functions.php:118
+#: class-moove-gdpr-actions.php:496 gdpr-functions.php:210
 #: views/moove/admin/settings/banner-settings.php:312
 msgid "Settings"
 msgstr ""
@@ -1358,7 +1360,7 @@ msgstr ""
 msgid "Settings button opens up the Cookie Settings Screen."
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:29
+#: views/moove/admin/settings/settings-page.php:56
 msgid "Settings saved."
 msgstr ""
 
@@ -1370,14 +1372,14 @@ msgstr ""
 msgid "Squared corners"
 msgstr ""
 
-#: class-moove-gdpr-content.php:82
+#: class-moove-gdpr-content.php:237
 msgid ""
 "Strictly Necessary Cookie should be enabled at all times so that we can save "
 "your preferences for cookie settings."
 msgstr ""
 
 #: class-gdpr-modules.php:253 class-gdpr-modules.php:421
-#: views/moove/admin/settings/settings-page.php:102
+#: views/moove/admin/settings/settings-page.php:121
 #: views/moove/admin/settings/strictly-necessary-cookies.php:67
 msgid "Strictly Necessary Cookies"
 msgstr ""
@@ -1386,8 +1388,8 @@ msgstr ""
 msgid "Strictly necessary required message."
 msgstr ""
 
-#: gdpr-functions.php:124 views/moove/admin/settings/support.php:15
-#: views/moove/admin/settings/settings-page.php:140
+#: gdpr-functions.php:38 gdpr-functions.php:216
+#: views/moove/admin/settings/support.php:15
 msgid "Support"
 msgstr ""
 
@@ -1476,7 +1478,7 @@ msgid ""
 "caching plugin that should be investigated by your developers."
 msgstr ""
 
-#: class-moove-gdpr-content.php:561
+#: class-moove-gdpr-content.php:716
 msgid "There is a new version of GDPR Cookie Compliance - Premium Add-On."
 msgstr ""
 
@@ -1494,7 +1496,7 @@ msgstr ""
 msgid "This action will remove all of your custom modifications and settings"
 msgstr ""
 
-#: class-moove-gdpr-content.php:147
+#: class-moove-gdpr-content.php:302
 msgid "This content is blocked"
 msgstr ""
 
@@ -1504,7 +1506,7 @@ msgid ""
 "PageSpeed Insights."
 msgstr ""
 
-#: class-moove-gdpr-actions.php:529
+#: class-moove-gdpr-actions.php:579
 msgid "This feature is not supported in this version of the Premium Add-on."
 msgstr ""
 
@@ -1524,7 +1526,7 @@ msgid ""
 "work properly."
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:19
+#: views/moove/admin/settings/settings-page.php:46
 msgid ""
 "This plugin is useful in preparing your site for cookie compliance, data "
 "protection and privacy regulations."
@@ -1550,7 +1552,7 @@ msgid ""
 "Necessary Cookies."
 msgstr ""
 
-#: class-moove-gdpr-content.php:37
+#: class-moove-gdpr-content.php:192
 msgid ""
 "This website uses cookies so that we can provide you with the best user "
 "experience possible. Cookie information is stored in your browser and "
@@ -1559,13 +1561,13 @@ msgid ""
 "most interesting and useful."
 msgstr ""
 
-#: class-moove-gdpr-content.php:119
+#: class-moove-gdpr-content.php:274
 msgid ""
 "This website uses Google Analytics to collect anonymous information such as "
 "the number of visitors to the site, and the most popular pages."
 msgstr ""
 
-#: class-moove-gdpr-content.php:109
+#: class-moove-gdpr-content.php:264
 msgid ""
 "This website uses the following additional cookies:</p><p>(List the cookies "
 "that you are using on the website here.)"
@@ -1575,11 +1577,11 @@ msgstr ""
 msgid "To ACCEPT all cookies"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:530
+#: class-moove-gdpr-actions.php:580
 msgid "to download the latest version of the Premium Add-on"
 msgstr ""
 
-#: class-moove-gdpr-actions.php:531
+#: class-moove-gdpr-actions.php:581
 msgid "to generate the key or"
 msgstr ""
 
@@ -1626,8 +1628,7 @@ msgstr ""
 msgid "User Activity Tracking and Log"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:135
-#: views/moove/admin/settings/video-tutorial.php:15
+#: gdpr-functions.php:34 views/moove/admin/settings/video-tutorial.php:15
 msgid "Video Tutorial"
 msgstr ""
 
@@ -1650,7 +1651,7 @@ msgstr ""
 msgid "We are using cookies to give you the best experience on our website."
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:65
+#: views/moove/admin/settings/settings-page.php:80
 msgid "We have detected that you have a multi-language setup."
 msgstr ""
 
@@ -1690,7 +1691,7 @@ msgid ""
 msgstr ""
 
 #. %s: version number
-#: views/moove/admin/settings/settings-page.php:67
+#: views/moove/admin/settings/settings-page.php:82
 #, php-format
 msgid "You are currently editing: %s version"
 msgstr ""
@@ -1705,11 +1706,11 @@ msgid ""
 "any issues."
 msgstr ""
 
-#: class-moove-gdpr-content.php:331 class-moove-gdpr-content.php:421
+#: class-moove-gdpr-content.php:486 class-moove-gdpr-content.php:576
 msgid "You can buy licences from our [store_link]online store[/store_link]."
 msgstr ""
 
-#: class-moove-gdpr-content.php:384
+#: class-moove-gdpr-content.php:539
 msgid ""
 "You can buy more licences from our [store_link]online store[/store_link]."
 msgstr ""
@@ -1754,7 +1755,7 @@ msgstr ""
 msgid "You can use the following to display the Cookie Settings Screen window:"
 msgstr ""
 
-#: views/moove/admin/settings/settings-page.php:39
+#: views/moove/admin/settings/settings-page.php:66
 msgid "You need to insert the relevant script for the settings to be saved."
 msgstr ""
 
@@ -1762,7 +1763,7 @@ msgstr ""
 msgid "You will find the list of popular hooks here:"
 msgstr ""
 
-#: class-moove-gdpr-content.php:361
+#: class-moove-gdpr-content.php:516
 msgid ""
 "Your licence has expired. You will not receive the latest updates and "
 "features unless you renew your licence."

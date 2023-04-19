@@ -451,6 +451,7 @@ final class FLBuilderAdminSettings {
 		self::clear_cache();
 		self::debug();
 		self::global_edit();
+		self::theme_code_edit();
 		self::beta();
 		self::uninstall();
 
@@ -788,6 +789,31 @@ final class FLBuilderAdminSettings {
 				$options->css = $css;
 				$options->js  = $js;
 				FLBuilderUtils::update_option( '_fl_builder_settings', $options );
+			}
+		}
+	}
+
+	/**
+	 * Update Theme Code
+	 *
+	 * @since 2.6
+	 * @access private
+	 * @return void
+	 */
+	static private function theme_code_edit() {
+		if ( ! FLBuilderAdmin::current_user_can_access_settings() ) {
+			return;
+		} elseif ( isset( $_POST['fl-theme-opts-nonce'] ) && wp_verify_nonce( $_POST['fl-theme-opts-nonce'], 'debug' ) ) {
+			if ( get_transient( 'fl_debug_mode' ) || ( defined( 'FL_ENABLE_META_CSS_EDIT' ) && FL_ENABLE_META_CSS_EDIT ) ) {
+				$theme_codes = array(
+					'fl-js-code',
+					'fl-head-code',
+					'fl-header-code',
+					'fl-footer-code',
+				);
+				foreach ( $theme_codes as $key ) {
+					set_theme_mod( $key, stripslashes( $_POST[ $key ] ) );
+				}
 			}
 		}
 	}

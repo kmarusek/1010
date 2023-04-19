@@ -395,6 +395,8 @@ class Moove_GDPR_Controller {
 			endif;
 			$cache_array['advanced']['footer'] .= ob_get_clean();
 
+			$cache_array = apply_filters( 'gdpr_cc_before_script_cache_set', $cache_array, $modal_options );
+
 			$cache_json = json_encode( $cache_array, true );
 
 			set_transient( $transient_key, $cache_json, 86400 );
@@ -515,6 +517,8 @@ class Moove_GDPR_Controller {
 				apply_filters( 'gdpr_cc_keephtml', $advanced_scripts, true );
 			endif;
 			$cache_array['advanced']['footer'] .= ob_get_clean();
+
+			$cache_array = apply_filters( 'gdpr_cc_before_script_cache_set', $cache_array, $modal_options );
 
 			$cache_json = json_encode( $cache_array, true );
 

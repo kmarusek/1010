@@ -1,3 +1,49 @@
+<h4>2.6.3.2 - 04/11/2023</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix conflict with iubenda GDPR Cookie Compliance Plugin (#2604)</li>
+	<li>Fix conflict with Yoast SEO where the Beaver Builder menu would appear on roles without access (#2608)</li>
+	<li>Fix issue when downgrading from 2.7 pre-release to 2.6 where the visibility eye icon would render in the Outline Panel for nodes when it shouldn't (#2567)</li>
+	<li>Fix various issues with the Menu Module for single page menus (#2497)</li>
+</ul>
+
+<h4>2.6.3.1 - 03/27/2023</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix row background video fallback photo not working correctly and video size being incorrect</li>
+</ul>
+
+<h4>2.6.3 - 03/20/2023</h4>
+<p><strong>Security Fixes</strong></p>
+<ul>
+	<li>Ensure template type name is sanitized to prevent possible XSS injections (#2538)</li>
+</ul>
+
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Performance: Don't make AJAX request if history is disabled (#2438)</li>
+	<li>Performance: set update_term_meta_cache to false (#2445)</li>
+	<li>Performance: Disable debug code that should only be run when Builder UI is open (#2540)</li>
+	<li>Icon Group Module: Link field now supports field connections (#2461)</li>
+	<li>Debug Mode: Show revision count on hover of Post titles and add ability to edit code sections of the BB theme (#2398 & #2499)</li>
+	<li>Post Module: add field connection for Post Element class field (#2549)</li>
+	<li>FLBuilderCSS methods now support an array of selectors (#2478)</li>
+	<li>Updates for WordPress 6.2 and React 18 compatibility (#2566)</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Number Counter Module: Fix counter animating more than once (#2510)</li>
+	<li>Column border still appears even when it's set to 0 (#2416)</li>
+	<li>Fix video background resizing on android device when swiping (#1887)</li>
+	<li>Yoast SEO: Make sure BB templates and categories are not indexable content (#2503)</li>
+	<li>Tabs Module: Fix active tab being set to 0 not working (#2493)</li>
+	<li>Prevent dropping a module inside a Global Column (#2224)</li>
+	<li>Fix gradients on rows not working correctly with Small Data Mode enabled (#2385)</li>
+	<li>Posts Module: Make sure validation for number of columns field only applies to columns layout (#2555)</li>
+	<li>Gallery Module: fix SmugMug galleries being broken on some servers (#2562)</li>
+</ul>
+
 <h4>2.6.2.3 - 02/9/2023</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

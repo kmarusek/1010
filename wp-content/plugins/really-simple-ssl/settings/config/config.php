@@ -108,7 +108,7 @@ function rsssl_menu() {
 							'premium'              => true,
 							'premium_text'         => __( "Get Recommended Security Headers with %sReally Simple SSL Pro%s", 'really-simple-ssl' ),
 							'upgrade'              => 'https://really-simple-ssl.com/pro/?mtm_campaign=recommendedheaders&mtm_source=free&mtm_content=upgrade',
-							'title'                => __( 'Recommended Security Headers ', 'really-simple-ssl' ),
+							'title'                => __( 'Recommended Security Headers', 'really-simple-ssl' ),
 							'helpLink'             => 'https://really-simple-ssl.com/instructions/about-recommended-security-headers/?mtm_campaign=instructions&mtm_source=free',
 						],
 					],
@@ -286,24 +286,28 @@ function rsssl_fields( $load_values = true ) {
 		],
 		[
 			'id'               => 'redirect',
-			'menu_id'          => 'general',
+            'menu_id'          => 'general',
 			'group_id'         => 'general',
 			'type'             => 'select',
 			'tooltip'  => __( "Changing redirect methods should be done with caution. Please make sure you have read our instructions beforehand at the right-hand side.", 'really-simple-ssl' ),
 			'label'            => __( "Redirect method", 'really-simple-ssl' ),
 			'warning'     			=> true,
 			'options'          => [
-				'none'        => __( "No redirect", "really-simple-ssl" ),
-				'wp_redirect' => __( "301 PHP redirect", "really-simple-ssl" ),
-				'htaccess'    => __( "301 .htaccess redirect (read instructions first)", "really-simple-ssl" ),
+				'none'         => __( "No redirect", "really-simple-ssl" ),
+				'wp_redirect'  => __( "301 PHP redirect", "really-simple-ssl" ),
+				'htaccess'     => __( "301 .htaccess redirect (read instructions first)", "really-simple-ssl" ),
 			],
-			'warning' => true,
-			'tooltip' => __('Redirects all requests over HTTP to HTTPS.', 'really-simple-ssl'),
 			'help'             => [
 				'label' => 'default',
 				'title' => __( "Redirect method", 'really-simple-ssl' ),
 				'text'  => __( 'Redirects your site to https with a SEO friendly 301 redirect if it is requested over http.', 'really-simple-ssl' ),
 			],
+            'email'            => [
+                'title'   => __( "Settings update: .htaccess redirect", 'really-simple-ssl' ),
+                'message' => __( "The .htaccess redirect has been enabled on your site. If the server configuration is non-standard, this might cause issues. Please check if all pages on your site are functioning properly.", 'really-simple-ssl' ),
+                'url'     => 'https://really-simple-ssl.com/remove-htaccess-redirect-site-lockout/',
+                'condition'  => ['redirect' => 'htaccess']
+            ],
 			'react_conditions' => [
 				'relation' => 'AND',
 				[
@@ -318,10 +322,6 @@ function rsssl_fields( $load_values = true ) {
 			'group_id' => 'general',
 			'type'     => 'checkbox',
 			'label'    => __( "Mixed content fixer", 'really-simple-ssl' ),
-			// 'help'        => [
-			// 	'label' => 'default',
-			// 	'text' => __( 'In most cases you need to leave this enabled, to prevent mixed content issues on your site.', 'really-simple-ssl' ),
-			// ],
 			'disabled' => false,
 			'default'  => true,
 		],
@@ -365,7 +365,7 @@ function rsssl_fields( $load_values = true ) {
 			'label'    => __( "Notifications by email", 'really-simple-ssl' ),
 			'tooltip'  => __( "Get notified of important changes, updates and settings. Recommended when using security features.", 'really-simple-ssl' ),
 			'disabled' => false,
-			'default'  => true,
+			'default'  => false,
 		],
 		[
 			'id'       => 'notifications_email_address',
@@ -561,10 +561,11 @@ function rsssl_fields( $load_values = true ) {
 			'group_id'           => 'hardening_basic',
 			'type'               => 'checkbox',
 			'label'              => __( "Block the username 'admin'", 'really-simple-ssl' ),
-			'email'            => [
+			'email'              => [
 				'title'   => __( "Settings update: Username 'admin' renamed", 'really-simple-ssl' ),
 				'message' => sprintf(__( "As a security precaution, the username ‘admin’ has been changed on %s. From now on, you can login with '%s' or an email address.", 'really-simple-ssl' ), '{site_url}','{username}'),
 				'url'     => 'https://really-simple-ssl.com/instructions/locked-our-after-renaming-the-admin-username/',
+				'condition'    => 'rsssl_username_admin_changed',
 			],
 			'tooltip'            => __( "If the username 'admin' currently exists, you can rename it here. Please note that you can no longer use this username, and should use the new username or an email address",
 				'really-simple-ssl' ),
@@ -673,6 +674,57 @@ function rsssl_fields( $load_values = true ) {
 			'disabled' => false,
 			'default'  => false,
 		],
+        [
+            'id'       => 'change_login_url_enabled',
+            'menu_id'  => 'hardening',
+            'group_id' => 'hardening_extended',
+            'warning'  => true,
+            'type'     => 'checkbox',
+            'tooltip'  => __( "Allows you to enter a custom login URL.", 'really-simple-ssl' ),
+            'label'    => __( "Enable Custom login URL", 'really-simple-ssl' ),
+            'email'            => [
+                'title'   => __( "You have changed your login URL", 'really-simple-ssl' ),
+                'message' => __( "Your login URL has changed to {login_url} to prevent common bot attacks on standard login URLs. Learn more about this feature, common questions and measures to prevent any issues.", 'really-simple-ssl' ),
+                'url'     => 'https://really-simple-ssl.com/instructions/login-url-changed',
+            ],
+            'disabled' => false,
+            'default'  => false,
+        ],
+        [
+            'id'       => 'change_login_url',
+            'menu_id'  => 'hardening',
+            'group_id' => 'hardening_extended',
+            'type'     => 'text',
+            'tooltip'  => __( "Enter a custom login URL. This allows you to log in via this custom URL instead of /wp-admin or /wp-login.php", 'really-simple-ssl' ),
+            'placeholder'  => __( "Example: If you want to change your login page from /wp-admin/ to /control/ answer: control", 'really-simple-ssl' ),
+            'label'    => __( "Custom login URL", 'really-simple-ssl' ),
+            'disabled' => false,
+            'default'  => false,
+            'condition_action'   => 'hide',
+            'react_conditions' => [
+                'relation' => 'AND',
+                [
+                    'change_login_url_enabled' => 1,
+                ]
+            ],
+        ],
+        [
+            'id'       => 'change_login_url_failure_url',
+            'menu_id'  => 'hardening',
+            'group_id' => 'hardening_extended',
+            'type'     => 'postdropdown',
+            'tooltip'  => __( "Users trying to enter via /wp-admin or /wp-login.php will be redirected to this URL.", 'really-simple-ssl' ),
+            'label'    => '',
+            'disabled' => false,
+            'default'  => '404_default',
+            'condition_action'   => 'hide',
+            'react_conditions' => [
+                'relation' => 'AND',
+                [
+                    'change_login_url_enabled' => 1,
+                ]
+            ],
+        ],
 		[
 			'id'       => 'xmlrpc_status',
 			'menu_id'  => 'hardening',
@@ -700,7 +752,6 @@ function rsssl_fields( $load_values = true ) {
 			'label'            => __( "XML-RPC", 'really-simple-ssl' ),
 			'disabled'         => false,
 			'default'          => false,
-			'data_source'      => [ 'RSSSL', 'placeholder', 'xml_data' ],
 			'react_conditions' => [
 				'relation' => 'AND',
 				[
@@ -831,13 +882,13 @@ function rsssl_fields( $load_values = true ) {
 			'react_conditions' => [
 				'relation' => 'AND',
 				[
-					'hsts' => 1,
+					'hsts' => true,
 				]
 			],
 			'configure_on_activation' => [
 				'condition' => 1,
 				[
-					'hsts_subdomains' => 1,
+					'hsts_subdomains' => true,
 					'hsts_max_age' => 63072000,
 				]
 			],
@@ -853,7 +904,7 @@ function rsssl_fields( $load_values = true ) {
 			'react_conditions' => [
 				'relation' => 'AND',
 				[
-					'hsts' => 1,
+					'hsts' => true,
 				]
 			],
 			'disabled'         => false,
@@ -873,7 +924,7 @@ function rsssl_fields( $load_values = true ) {
 			'react_conditions' => [
 				'relation' => 'AND',
 				[
-					'hsts' => 1,
+					'hsts' => true,
 				]
 			],
 			'disabled'         => false,
@@ -937,7 +988,6 @@ function rsssl_fields( $load_values = true ) {
 			'group_id'    => 'mixedcontentscan',
 			'type'        => 'mixedcontentscan',
 			'label'       => __( "Mixed content scan", "really-simple-ssl-pro" ),
-			'data_source' => [ 'RSSSL', 'placeholder', 'mixed_content_data' ],
 			'help'        => [
 				'label' => 'default',
 				'url' => 'https://really-simple-ssl.com/definition/what-is-mixed-content/?mtm_campaign=definition&mtm_source=free',
@@ -1150,7 +1200,6 @@ function rsssl_fields( $load_values = true ) {
 			'label'         => "Content Security Policy",
 			'disabled'      => false,
 			'default'       => false,
-			'data_source'   => [ 'RSSSL', 'placeholder', 'csp_data' ],
 			'columns'       => [
 				[
 					'name'     => __( 'Location', 'really-simple-ssl' ),
@@ -1185,7 +1234,8 @@ function rsssl_fields( $load_values = true ) {
 	foreach ( $fields as $key => $field ) {
 		$field = wp_parse_args( $field, [ 'default' => '', 'id' => false, 'visible' => true, 'disabled' => false, 'new_features_block' => false ] );
 		//handle server side conditions
-		if ( isset( $field['server_conditions'] ) ) {
+		//but not if outside our settings pages
+		if ( rsssl_is_logged_in_rest() && isset( $field['server_conditions'] ) ) {
 			if ( ! rsssl_conditions_apply( $field['server_conditions'] ) ) {
 				unset( $fields[ $key ] );
 				continue;

@@ -1142,9 +1142,12 @@ final class FLThemeBuilderRulesLocation {
 			'hierarchical'       => true,
 		));
 
-		$terms_json      = '[' . rtrim( $terms_data, ',' ) . ']';
-		$terms           = json_decode( $terms_json, true );
-		$data['objects'] = $terms;
+		$terms_json = '[' . rtrim( $terms_data, ',' ) . ']';
+		$terms      = json_decode( $terms_json, true );
+
+		if ( $terms ) {
+			$data['objects'] = $terms;
+		}
 
 		return $data;
 	}

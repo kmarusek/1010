@@ -165,7 +165,7 @@ final class FLThemeBuilderFrontendEdit {
 	 * @return bool
 	 */
 	static public function is_content_building_enabled( $post_id = null ) {
-		return 'content' === self::get_edit_mode( $post_id );
+		return 'content' === apply_filters( 'fl_themer_is_content_building_enabled', self::get_edit_mode( $post_id ), $post_id );
 	}
 
 	static public function unset_content( $post_id, $new_post ) {
