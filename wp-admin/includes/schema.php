@@ -732,8 +732,6 @@ function populate_roles_160() {
 	add_role( 'author', 'Author' );
 	add_role( 'contributor', 'Contributor' );
 	add_role( 'subscriber', 'Subscriber' );
-	add_role( 'legalUser', 'Legal User' );
-	
 
 	// Add caps for Administrator role.
 	$role = get_role( 'administrator' );
@@ -810,10 +808,6 @@ function populate_roles_160() {
 
 	// Add caps for Subscriber role.
 	$role = get_role( 'subscriber' );
-	$role->add_cap( 'read' );
-	$role->add_cap( 'level_0' );
-// Add caps for Legal User role.
-	$role = get_role( 'legalUser' );
 	$role->add_cap( 'read' );
 	$role->add_cap( 'level_0' );
 }
@@ -1056,7 +1050,7 @@ function populate_network( $network_id = 1, $domain = '', $email = '', $site_nam
 	 * created.
 	 */
 	if ( ! is_multisite() ) {
-		$current_site            = new stdClass;
+		$current_site            = new stdClass();
 		$current_site->domain    = $domain;
 		$current_site->path      = $path;
 		$current_site->site_name = ucfirst( $domain );
