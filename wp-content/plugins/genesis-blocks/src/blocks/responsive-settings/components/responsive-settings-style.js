@@ -32,13 +32,11 @@ export const ResponsiveSettingStyle = ( {
 					${ camelToKebabCase( settingName ) }: ${ settingValue } !important
 				}
 			}`
-			: null
-		}
+			: null }
 		{ selectedDevice === device && !! settingValue
 			? `#block-${ clientId } {
 				${ camelToKebabCase( settingName ) }: ${ settingValue } !important
 			}`
-			: null
-		}
+			: null }
 	</>
 );

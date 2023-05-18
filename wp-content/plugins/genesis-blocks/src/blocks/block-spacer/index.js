@@ -29,10 +29,16 @@ class GBSpacerBlock extends Component {
 
 		return [
 			// Show the block controls on focus
-			<Inspector key={ 'gb-spacer-inspector-' + this.props.clientId } { ...this.props } />,
+			<Inspector
+				key={ 'gb-spacer-inspector-' + this.props.clientId }
+				{ ...this.props }
+			/>,
 
 			// Show the button markup in the editor
-			<Spacer key={ 'gb-spacer-editor-' + this.props.clientId } { ...this.props }>
+			<Spacer
+				key={ 'gb-spacer-editor-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<Resizable
 					className={ classnames( className, 'gb-spacer-handle' ) }
 					style={ {

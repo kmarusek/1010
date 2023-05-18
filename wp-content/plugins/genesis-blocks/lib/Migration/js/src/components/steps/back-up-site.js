@@ -14,7 +14,14 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { ButtonNext, ButtonPrevious, Step, StepContent, StepFooter, StepIcon } from '../';
+import {
+	ButtonNext,
+	ButtonPrevious,
+	Step,
+	StepContent,
+	StepFooter,
+	StepIcon,
+} from '../';
 import { FIRST_STEP_NUMBER } from '../../constants';
 
 /**
@@ -32,29 +39,43 @@ import { FIRST_STEP_NUMBER } from '../../constants';
  * @param {BackUpSiteProps} Props The component props.
  * @return {React.ReactElement} The component to prompt to back up the site.
  */
-const BackUpSite = ( { isStepActive, isStepComplete, goToNext, goToPrevious, stepIndex } ) => {
+const BackUpSite = ( {
+	isStepActive,
+	isStepComplete,
+	goToNext,
+	goToPrevious,
+	stepIndex,
+} ) => {
 	const isFirstStep = FIRST_STEP_NUMBER === stepIndex;
 
-	let backupIntroText = __( 'Migrating from Atomic Blocks to Genesis Blocks is a one-way action. It can’t be undone. Please back up your site before you begin.', 'genesis-blocks' );
+	let backupIntroText = __(
+		'Migrating from Atomic Blocks to Genesis Blocks is a one-way action. It can’t be undone. Please back up your site before you begin.',
+		'genesis-blocks'
+	);
 	if ( genesisBlocksMigration.isPro ) {
-		backupIntroText = __( 'Migrating your Genesis Blocks content is a one-way action. It can’t be undone. Please back up your site before you begin.', 'genesis-blocks' );
+		backupIntroText = __(
+			'Migrating your Genesis Blocks content is a one-way action. It can’t be undone. Please back up your site before you begin.',
+			'genesis-blocks'
+		);
 	}
 
 	return (
 		<Step isActive={ isStepActive } isComplete={ isStepComplete }>
-			<StepIcon
-				index={ stepIndex }
-				isComplete={ isStepComplete }
-			/>
+			<StepIcon index={ stepIndex } isComplete={ isStepComplete } />
 			<StepContent
 				heading={ __( 'Back Up Your Site', 'genesis-blocks' ) }
 				isStepActive={ isStepActive }
 			>
 				<p>{ backupIntroText }</p>
 				<StepFooter>
-					{ ! isFirstStep && <ButtonPrevious onClick={ goToPrevious } /> }
+					{ ! isFirstStep && (
+						<ButtonPrevious onClick={ goToPrevious } />
+					) }
 					<ButtonNext
-						checkboxLabel={ __( 'I have backed up my site.', 'genesis-blocks' ) }
+						checkboxLabel={ __(
+							'I have backed up my site.',
+							'genesis-blocks'
+						) }
 						onClick={ goToNext }
 						stepIndex={ stepIndex }
 					/>

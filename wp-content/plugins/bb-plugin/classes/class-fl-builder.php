@@ -873,7 +873,7 @@ final class FLBuilder {
 	 * @return void
 	 */
 	static public function enqueue_ui_styles_scripts() {
-		global $post;
+		global $post, $wpdb;
 
 		if ( FLBuilderModel::is_builder_active() ) {
 
@@ -1026,7 +1026,7 @@ final class FLBuilder {
 			$updates   = self::get_available_updates();
 			$revisions = wp_count_posts( 'revision' );
 			$revisions = $revisions->inherit;
-			$revpage   = strval( count( wp_get_post_revisions( $post->ID ) ) );
+			$revpage   = $wpdb->get_var( $wpdb->prepare( "SELECT count(ID) from $wpdb->posts WHERE post_type = 'revision' AND post_parent = %d", $post->ID ) );
 			$args      = array(
 				'product'     => FLBuilderModel::get_branding(),
 				'white_label' => FLBuilderModel::is_white_labeled(),

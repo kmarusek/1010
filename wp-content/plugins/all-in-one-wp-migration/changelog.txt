@@ -1,3 +1,8 @@
+= 7.69 =
+**Added**
+
+* Improved support for custom backups location
+
 = 7.68 =
 * Better support for PHP 8.1
 

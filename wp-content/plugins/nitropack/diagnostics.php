@@ -57,7 +57,8 @@ function npdiag_poll_api($nitro_sdk) {
     );
 
     try {
-        $apiResponseCode = $nitro_sdk->getApi()->getCache(get_home_url(), __( 'NitroPack Diagnostic Agent', 'nitropack' ), array(), false, 'default')->getStatus();
+		$referer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : '';
+        $apiResponseCode = $nitro_sdk->getApi()->getCache(get_home_url(), __( 'NitroPack Diagnostic Agent', 'nitropack' ), array(), false, 'default', $referer)->getStatus();
         return $pollResult[$apiResponseCode];
     } catch (\Exception $e) {
         return 'Error: ' . $e->getMessage();
@@ -93,7 +94,7 @@ function npdiag_get_general_info() {
         'Nitro_WP_Cache' => defined('WP_CACHE') ? (WP_CACHE ? __( 'OK for drop-in', 'nitropack' ) : __( 'Turned off', 'nitropack' )) : __( 'Undefined', 'nitropack' ),
         'Advanced_Cache_Version' => defined('NITROPACK_ADVANCED_CACHE_VERSION') ? NITROPACK_ADVANCED_CACHE_VERSION : __( 'Undefined', 'nitropack' ),
         'Nitro_Absolute_Path' => defined('ABSPATH') ? ABSPATH : __( 'Undefined', 'nitropack' ),
-        'Nitro_Plugin_Direcotry' => defined('NITROPACK_PLUGIN_DIR') ? NITROPACK_PLUGIN_DIR : dirname(__FILE__),
+        'Nitro_Plugin_Directory' => defined('NITROPACK_PLUGIN_DIR') ? NITROPACK_PLUGIN_DIR : dirname(__FILE__),
         'Nitro_Data_Directory' => defined('NITROPACK_DATA_DIR') ? NITROPACK_DATA_DIR : __( 'Undefined', 'nitropack' ),
         'Nitro_Config_File' => defined('NITROPACK_CONFIG_FILE') ? NITROPACK_CONFIG_FILE : __( 'Undefined', 'nitropack' ),
         'Nitro_Backlog_File_Status' => $nitro ? npdiag_backlog_status($nitro) : __( 'Error: Cannot get an SDK instance', 'nitropack' ),

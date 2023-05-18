@@ -78,6 +78,16 @@ final class FLPageDataTheEventsCalendar {
 	}
 
 	/**
+	 * Gets the Tribe event website URL.
+	 *
+	 * @since 1.4.5
+	 * @return string
+	 */
+	static public function event_website_url() {
+		return esc_url( tribe_get_event_website_url() );
+	}
+
+	/**
 	 * @since TBD
 	 * @return string
 	 */

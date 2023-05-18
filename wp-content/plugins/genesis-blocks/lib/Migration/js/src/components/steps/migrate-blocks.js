@@ -33,8 +33,14 @@ import { Step, StepContent, StepFooter, StepIcon, SubstepList } from '../';
  * @param {MigrateBlocksProps} Props The component props.
  * @return {React.ReactElement} The component to prompt to migrate the post content.
  */
-const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) => {
-	const [ currentBlockMigrationStep, setCurrentBlockMigrationStep ] = useState( 0 );
+const MigrateBlocks = ( {
+	isStepActive,
+	isStepComplete,
+	stepIndex,
+	goToNext,
+} ) => {
+	const [ currentBlockMigrationStep, setCurrentBlockMigrationStep ] =
+		useState( 0 );
 	const [ isInProgress, setIsInProgress ] = useState( false );
 	const [ isError, setIsError ] = useState( false );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
@@ -43,9 +49,12 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 
 	const migrationLabels = [
 		__( 'Migrate block settings.', 'genesis-blocks' ),
-		__( 'Migrate block content. Migrated: ', 'genesis-blocks' ) + ` ${ postsMigrated }.`,
+		__( 'Migrate block content. Migrated: ', 'genesis-blocks' ) +
+			` ${ postsMigrated }.`,
 		__( 'Migrate favorite blocks.', 'genesis-blocks' ),
-		genesisBlocksMigration.isPro ? __( 'Clean up.', 'genesis-blocks' ) : __( 'Deactivate Atomic Blocks.', 'genesis-blocks' ),
+		genesisBlocksMigration.isPro
+			? __( 'Clean up.', 'genesis-blocks' )
+			: __( 'Deactivate Atomic Blocks.', 'genesis-blocks' ),
 	];
 
 	/**
@@ -55,18 +64,25 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 		await apiFetch( {
 			path: '/genesis-blocks/migrate-settings',
 			method: 'POST',
-		} ).then( async () => {
-			setCurrentBlockMigrationStep( 1 );
-			await migrateProBlockSettings();
-			await migratePostContent();
-		} ).catch( ( result ) => {
-			if ( result.hasOwnProperty( 'message' ) ) {
-				setErrorMessage( result.message );
-			}
-			speak( __( 'The migration failed during settings migration.', 'genesis-blocks' ) );
-			setIsError( true );
-			setIsInProgress( false );
-		} );
+		} )
+			.then( async () => {
+				setCurrentBlockMigrationStep( 1 );
+				await migrateProBlockSettings();
+				await migratePostContent();
+			} )
+			.catch( ( result ) => {
+				if ( result.hasOwnProperty( 'message' ) ) {
+					setErrorMessage( result.message );
+				}
+				speak(
+					__(
+						'The migration failed during settings migration.',
+						'genesis-blocks'
+					)
+				);
+				setIsError( true );
+				setIsInProgress( false );
+			} );
 	};
 
 	const migrateProBlockSettings = async () => {
@@ -77,7 +93,9 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 			if ( result.hasOwnProperty( 'message' ) ) {
 				setErrorMessage( result.message );
 			}
-			speak( __( 'The pro settings migration failed.', 'genesis-blocks' ) );
+			speak(
+				__( 'The pro settings migration failed.', 'genesis-blocks' )
+			);
 			setIsError( true );
 		} );
 	};
@@ -92,26 +110,39 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 		await apiFetch( {
 			path: '/genesis-blocks/migrate-content',
 			method: 'POST',
-		} ).then( async ( response ) => {
-			// Send migration requests until no posts with Atomic Blocks content are found.
-			if ( response.results && response.results.postsFound > 0 ) {
-				setPostsMigrated( ( postsMigrated ) => postsMigrated + response.results.postsFound );
-				await migratePostContent();
-				return;
-			}
-			setCurrentBlockMigrationStep( 2 );
-			await migrateFavoriteBlocks();
-		} ).catch( async ( result ) => {
-			if ( result.hasOwnProperty( 'code' ) && timeoutErrorCode === result.code ) {
-				await migratePostContent();
-				return;
-			} else if ( result.hasOwnProperty( 'message' ) ) {
-				setErrorMessage( result.message );
-			}
+		} )
+			.then( async ( response ) => {
+				// Send migration requests until no posts with Atomic Blocks content are found.
+				if ( response.results && response.results.postsFound > 0 ) {
+					setPostsMigrated(
+						( postsMigrated ) =>
+							postsMigrated + response.results.postsFound
+					);
+					await migratePostContent();
+					return;
+				}
+				setCurrentBlockMigrationStep( 2 );
+				await migrateFavoriteBlocks();
+			} )
+			.catch( async ( result ) => {
+				if (
+					result.hasOwnProperty( 'code' ) &&
+					timeoutErrorCode === result.code
+				) {
+					await migratePostContent();
+					return;
+				} else if ( result.hasOwnProperty( 'message' ) ) {
+					setErrorMessage( result.message );
+				}
 
-			speak( __( 'The migration failed during post content migration', 'genesis-blocks' ) );
-			setIsError( true );
-		} );
+				speak(
+					__(
+						'The migration failed during post content migration',
+						'genesis-blocks'
+					)
+				);
+				setIsError( true );
+			} );
 	};
 
 	/**
@@ -124,20 +155,30 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 		await apiFetch( {
 			path: '/genesis-blocks/migrate-user-meta',
 			method: 'POST',
-		} ).then( async () => {
-			setCurrentBlockMigrationStep( 3 );
-			await cleanup();
-		} ).catch( async ( result ) => {
-			if ( result.hasOwnProperty( 'code' ) && timeoutErrorCode === result.code ) {
-				await migrateFavoriteBlocks();
-				return;
-			} else if ( result.hasOwnProperty( 'message' ) ) {
-				setErrorMessage( result.message );
-			}
+		} )
+			.then( async () => {
+				setCurrentBlockMigrationStep( 3 );
+				await cleanup();
+			} )
+			.catch( async ( result ) => {
+				if (
+					result.hasOwnProperty( 'code' ) &&
+					timeoutErrorCode === result.code
+				) {
+					await migrateFavoriteBlocks();
+					return;
+				} else if ( result.hasOwnProperty( 'message' ) ) {
+					setErrorMessage( result.message );
+				}
 
-			speak( __( 'The migration failed while migrating favorite blocks.', 'genesis-blocks' ) );
-			setIsError( true );
-		} );
+				speak(
+					__(
+						'The migration failed while migrating favorite blocks.',
+						'genesis-blocks'
+					)
+				);
+				setIsError( true );
+			} );
 	};
 
 	/**
@@ -177,20 +218,31 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 
 	return (
 		<Step isActive={ isStepActive } isComplete={ isStepComplete }>
-			<StepIcon
-				index={ stepIndex }
-				isComplete={ isStepComplete }
-			/>
+			<StepIcon index={ stepIndex } isComplete={ isStepComplete } />
 			<StepContent
 				heading={ __( 'Migrate Your Content', 'genesis-blocks' ) }
 				isStepActive={ isStepActive }
 				isLastStep={ true }
 			>
-				{ ! isSuccess && <p>{ __( 'Okay! Everything is ready. Let’s do this. While the migration is underway, don’t leave this page.', 'genesis-blocks' ) }</p> }
+				{ ! isSuccess && (
+					<p>
+						{ __(
+							'Okay! Everything is ready. Let’s do this. While the migration is underway, don’t leave this page.',
+							'genesis-blocks'
+						) }
+					</p>
+				) }
 				{ !! errorMessage && (
 					<div className="gb-migration__error inline-notice gb-error">
-						<p><span>{ __( 'The following error occurred:', 'genesis-blocks' ) }</span>
-							{ errorMessage }</p>
+						<p>
+							<span>
+								{ __(
+									'The following error occurred:',
+									'genesis-blocks'
+								) }
+							</span>
+							{ errorMessage }
+						</p>
 					</div>
 				) }
 				{ ( isInProgress || isSuccess ) && (
@@ -198,7 +250,8 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 						<SubstepList
 							steps={ migrationLabels }
 							currentStep={ currentBlockMigrationStep }
-							complete={ ! isInProgress } />
+							complete={ ! isInProgress }
+						/>
 					</>
 				) }
 				{ ! isInProgress && ! isSuccess && (
@@ -206,7 +259,9 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 						className="gb-admin-button-primary"
 						onClick={ migrate }
 					>
-						{ isError ? __( 'Try Again', 'genesis-blocks' ) : __( 'Migrate Now', 'genesis-blocks' ) }
+						{ isError
+							? __( 'Try Again', 'genesis-blocks' )
+							: __( 'Migrate Now', 'genesis-blocks' ) }
 					</button>
 				) }
 				{ isSuccess && (
@@ -215,7 +270,10 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 							<p>
 								<span
 									role="img"
-									aria-label={ __( 'party emoji', 'genesis-blocks' ) }
+									aria-label={ __(
+										'party emoji',
+										'genesis-blocks'
+									) }
 								>
 									🎉
 								</span>
@@ -236,7 +294,10 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 							<p>
 								<span
 									role="img"
-									aria-label={ __( 'party emoji', 'genesis-blocks' ) }
+									aria-label={ __(
+										'party emoji',
+										'genesis-blocks'
+									) }
 								>
 									🎉
 								</span>
@@ -249,8 +310,14 @@ const MigrateBlocks = ( { isStepActive, isStepComplete, stepIndex, goToNext } ) 
 						) }
 						<StepFooter>
 							{ /* @ts-ignore */ }
-							<a href={ genesisBlocksMigration.gbUrl } className="btn">
-								{ __( 'Get started with Genesis Blocks', 'genesis-blocks' ) }
+							<a
+								href={ genesisBlocksMigration.gbUrl }
+								className="btn"
+							>
+								{ __(
+									'Get started with Genesis Blocks',
+									'genesis-blocks'
+								) }
 							</a>
 						</StepFooter>
 					</>

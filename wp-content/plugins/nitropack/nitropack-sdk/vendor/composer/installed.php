@@ -3,7 +3,7 @@
         'name' => 'nitropack/nitropackcloud-sdk',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '5a4de5f995302d7382e1e2ae3d338df215134703',
+        'reference' => '8a90e3d43b44d6af33575dc9a7e2b59099bbf524',
         'type' => 'package',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'nitropack/httpclient' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'd8eae26357a53b7f7c04cf100440e81672ddefc5',
+            'reference' => '549b4e269581e105616e880577193db60628a482',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nitropack/httpclient',
             'aliases' => array(
@@ -24,7 +24,7 @@
         'nitropack/nitropackcloud-sdk' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '5a4de5f995302d7382e1e2ae3d338df215134703',
+            'reference' => '8a90e3d43b44d6af33575dc9a7e2b59099bbf524',
             'type' => 'package',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -33,7 +33,7 @@
         'nitropack/url' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '69cf4142331215ef90c6e5d41e08332dee0ef5bd',
+            'reference' => '6b9393364893561f29abf5ac16aa7d97f2b3a49d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nitropack/url',
             'aliases' => array(

@@ -9,12 +9,8 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 const { compose } = wp.compose;
 
-const {
-	InspectorControls,
-	withColors,
-	ContrastChecker,
-	PanelColorSettings,
-} = wp.blockEditor;
+const { InspectorControls, withColors, ContrastChecker, PanelColorSettings } =
+	wp.blockEditor;
 
 const {
 	PanelBody,

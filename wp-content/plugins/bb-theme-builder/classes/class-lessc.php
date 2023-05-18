@@ -37,8 +37,8 @@
  * The `lessc_formatter` takes a CSS tree, and dumps it to a formatted string,
  * handling things like indentation.
  */
-class lessc {
-    static public $VERSION = "v0.7.0";
+class themer_lessc {
+    static public $VERSION = "v0.7.1";
 
     static public $TRUE = array("keyword", "true");
     static public $FALSE = array("keyword", "false");
@@ -1367,7 +1367,7 @@ class lessc {
                     $name = $name . ": ";
                 }
 
-                $this->throwError("${name}expecting $expectedArgs arguments, got $numValues");
+                $this->throwError("$name expecting $expectedArgs arguments, got $numValues");
             }
 
             return $values;
@@ -1749,7 +1749,7 @@ class lessc {
         }
 
         // type based operators
-        $fname = "op_${ltype}_${rtype}";
+        $fname = "op_$ltype_$rtype";
         if (is_callable(array($this, $fname))) {
             $out = $this->$fname($op, $left, $right);
             if (!is_null($out)) return $out;
@@ -1965,7 +1965,7 @@ class lessc {
     // inject array of unparsed strings into environment as variables
     protected function injectVariables($args) {
         $this->pushEnv();
-        $parser = new lessc_parser($this, __METHOD__);
+        $parser = new themer_lessc_parser($this, __METHOD__);
         foreach ($args as $name => $strValue) {
             if ($name[0] !== '@') {
                 $name = '@' . $name;
@@ -2143,7 +2143,7 @@ class lessc {
     }
 
     protected function makeParser($name) {
-        $parser = new lessc_parser($this, $name);
+        $parser = new themer_lessc_parser($this, $name);
         $parser->writeComments = $this->preserveComments;
 
         return $parser;
@@ -2154,11 +2154,11 @@ class lessc {
     }
 
     protected function newFormatter() {
-        $className = "lessc_formatter_lessjs";
+        $className = "themer_lessc_formatter_lessjs";
         if (!empty($this->formatterName)) {
             if (!is_string($this->formatterName))
                 return $this->formatterName;
-            $className = "lessc_formatter_$this->formatterName";
+            $className = "themer_lessc_formatter_$this->formatterName";
         }
 
         return new $className;
@@ -2381,7 +2381,7 @@ class lessc {
 
 // responsible for taking a string of LESS code and converting it into a
 // syntax tree
-class lessc_parser {
+class themer_lessc_parser {
     static protected $nextBlockId = 0; // used to uniquely identify blocks
 
     static protected $precedence = array(
@@ -2453,12 +2453,12 @@ class lessc_parser {
 
         if (!self::$operatorString) {
             self::$operatorString =
-                '('.implode('|', array_map(array('lessc', 'preg_quote'),
+                '('.implode('|', array_map(array('themer_lessc', 'preg_quote'),
                     array_keys(self::$precedence))).')';
 
-            $commentSingle = lessc::preg_quote(self::$commentSingle);
-            $commentMultiLeft = lessc::preg_quote(self::$commentMultiLeft);
-            $commentMultiRight = lessc::preg_quote(self::$commentMultiRight);
+            $commentSingle = themer_lessc::preg_quote(self::$commentSingle);
+            $commentMultiLeft = themer_lessc::preg_quote(self::$commentMultiLeft);
+            $commentMultiRight = themer_lessc::preg_quote(self::$commentMultiRight);
 
             self::$commentMulti = $commentMultiLeft.'.*?'.$commentMultiRight;
             self::$whitePattern = '/'.$commentSingle.'[^\n]*\s*|('.self::$commentMulti.')\s*|\s+/Ais';
@@ -2686,7 +2686,7 @@ class lessc_parser {
     protected function isDirective($dirname, $directives) {
         // TODO: cache pattern in parser
         $pattern = implode("|",
-            array_map(array("lessc", "preg_quote"), $directives));
+            array_map(array("themer_lessc", "preg_quote"), $directives));
         $pattern = '/^(-[a-z-]+-)?(' . $pattern . ')$/i';
 
         return preg_match($pattern, $dirname);
@@ -2711,7 +2711,7 @@ class lessc_parser {
 
         if (count($values) == 0) return false;
 
-        $exps = lessc::compressList($values, ' ');
+        $exps = themer_lessc::compressList($values, ' ');
         return true;
     }
 
@@ -2809,7 +2809,7 @@ class lessc_parser {
 
         if (count($values) == 0) return false;
 
-        $value = lessc::compressList($values, ', ');
+        $value = themer_lessc::compressList($values, ', ');
         return true;
     }
 
@@ -2973,7 +2973,7 @@ class lessc_parser {
         $this->eatWhiteDefault = false;
 
         $stop = array("'", '"', "@{", $end);
-        $stop = array_map(array("lessc", "preg_quote"), $stop);
+        $stop = array_map(array("themer_lessc", "preg_quote"), $stop);
         // $stop[] = self::$commentMulti;
 
         if (!is_null($rejectStrs)) {
@@ -3049,7 +3049,7 @@ class lessc_parser {
 
         // look for either ending delim , escape, or string interpolation
         $patt = '([^\n]*?)(@\{|\\\\|' .
-            lessc::preg_quote($delim).')';
+            themer_lessc::preg_quote($delim).')';
 
         $oldWhite = $this->eatWhiteDefault;
         $this->eatWhiteDefault = false;
@@ -3571,7 +3571,7 @@ class lessc_parser {
         }
 
         if (!isset(self::$literalCache[$what])) {
-            self::$literalCache[$what] = lessc::preg_quote($what);
+            self::$literalCache[$what] = themer_lessc::preg_quote($what);
         }
 
         return $this->match(self::$literalCache[$what], $m, $eatWhitespace);
@@ -3611,7 +3611,7 @@ class lessc_parser {
         } else {
             $validChars = $allowNewline ? "." : "[^\n]";
         }
-        if (!$this->match('('.$validChars.'*?)'.lessc::preg_quote($what), $m, !$until)) return false;
+        if (!$this->match('('.$validChars.'*?)'.themer_lessc::preg_quote($what), $m, !$until)) return false;
         if ($until) $this->count -= strlen($what); // give back $what
         $out = $m[1];
         return true;
@@ -3781,7 +3781,7 @@ class lessc_parser {
 
 }
 
-class lessc_formatter_classic {
+class themer_lessc_formatter_classic {
     public $indentChar = "  ";
 
     public $break = "\n";
@@ -3876,7 +3876,7 @@ class lessc_formatter_classic {
     }
 }
 
-class lessc_formatter_compressed extends lessc_formatter_classic {
+class themer_lessc_formatter_compressed extends themer_lessc_formatter_classic {
     public $disableSingle = true;
     public $open = "{";
     public $selectorSeparator = ",";
@@ -3889,7 +3889,7 @@ class lessc_formatter_compressed extends lessc_formatter_classic {
     }
 }
 
-class lessc_formatter_lessjs extends lessc_formatter_classic {
+class themer_lessc_formatter_lessjs extends themer_lessc_formatter_classic {
     public $disableSingle = true;
     public $breakSelectors = true;
     public $assignSeparator = ": ";

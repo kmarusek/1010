@@ -33,11 +33,7 @@ class LayoutLibraryItem extends Component {
 	}
 
 	render() {
-		return (
-			<Fragment>
-				{ this.layoutTabContent() }
-			</Fragment>
-		);
+		return <Fragment>{ this.layoutTabContent() }</Fragment>;
 	}
 }
 
@@ -52,7 +48,8 @@ export default compose(
 
 		// The core/editor package doesn't work on the widgets page, and thus doesn't exist there. Therefore this conditional exists.
 		if ( select( 'core/editor' ) ) {
-			canUserUseUnfilteredHTML = select( 'core/editor' ).canUserUseUnfilteredHTML;
+			canUserUseUnfilteredHTML =
+				select( 'core/editor' ).canUserUseUnfilteredHTML;
 			canUserUseUnfilteredHTML = canUserUseUnfilteredHTML();
 		} else {
 			canUserUseUnfilteredHTML = true;

@@ -81,7 +81,9 @@ function appendImportButton() {
 	toolbar.appendChild( buttonDiv );
 
 	// Remove flex:grow CSS
-	const innerToolbar = document.querySelector( '.components-accessible-toolbar.edit-post-header-toolbar' );
+	const innerToolbar = document.querySelector(
+		'.components-accessible-toolbar.edit-post-header-toolbar'
+	);
 	if ( innerToolbar ) {
 		innerToolbar.style.flexGrow = 0;
 	}

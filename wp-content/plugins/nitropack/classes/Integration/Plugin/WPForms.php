@@ -19,12 +19,12 @@ class WPForms {
 
 	public function extend_wpforms_token_expiration( $times ) {
 		$nitro = NitroPack::getInstance();
-		if ($nitro) {
+		if ($nitro && $nitro->getSdk()) {
 			$config = $nitro->getSdk()->getConfig();
-		}
-		$cacheTtlDays = (int)($config->PageCache->ExpireTime / DAY_IN_SECONDS);
-		for ($day = 1; $day <= $cacheTtlDays; $day++) {
-			$times[] = $day * DAY_IN_SECONDS;
+			$cacheTtlDays = (int)($config->PageCache->ExpireTime / DAY_IN_SECONDS);
+			for ($day = 1; $day <= $cacheTtlDays; $day++) {
+				$times[] = $day * DAY_IN_SECONDS;
+			}
 		}
 		return $times;
 	}

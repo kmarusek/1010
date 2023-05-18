@@ -131,7 +131,10 @@ class BackgroundImagePanel extends Component {
 							/>
 
 							<RangeControl
-								label={ __( 'Image Opacity', 'genesis-blocks' ) }
+								label={ __(
+									'Image Opacity',
+									'genesis-blocks'
+								) }
 								value={ attributes.backgroundDimRatio }
 								onChange={ ( value ) =>
 									this.props.setAttributes( {
@@ -161,7 +164,10 @@ class BackgroundImagePanel extends Component {
 
 							<SelectControl
 								className="gb-inspector-help-text"
-								label={ __( 'Image Display', 'genesis-blocks' ) }
+								label={ __(
+									'Image Display',
+									'genesis-blocks'
+								) }
 								value={ attributes.backgroundSize }
 								help={ backgroundSizeHelp }
 								options={ backgroundSizeOptions }

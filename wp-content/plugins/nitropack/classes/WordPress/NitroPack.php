@@ -290,6 +290,12 @@ class NitroPack {
      * @return string The current url
      */
     public function getCurrentUrl() {
+
+        if ( defined('NITROPACK_HOST') ) {
+
+            return NITROPACK_HOST;
+        }
+
         if (! empty( $_SERVER['HTTP_X_FORWARDED_HOST'] )) {
             $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
         } else {
@@ -299,7 +305,7 @@ class NitroPack {
         $uri = !empty($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : "";
         $currentUrl = $host . $uri;
 
-        if (empty($currentUrl)) {
+        if (empty($currentUrl) || (defined( 'WP_CLI' ) && WP_CLI && trim($currentUrl) == "localhost")) {
 
 	        if (function_exists('get_site_url')) {
 		        $host = apply_filters('nitropack_current_host', get_site_url());

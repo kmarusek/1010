@@ -105,7 +105,7 @@ FLPageData::add_post_property( 'the_events_calendar_website_url', array(
 	'label'  => __( 'Event Website URL', 'bb-theme-builder' ),
 	'group'  => 'the-events-calendar',
 	'type'   => 'url',
-	'getter' => 'tribe_get_event_website_url',
+	'getter' => 'FLPageDataTheEventsCalendar::event_website_url',
 ) );
 
 /**

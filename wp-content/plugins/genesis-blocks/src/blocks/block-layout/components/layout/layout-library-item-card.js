@@ -33,11 +33,18 @@ export default class LayoutLibraryItemCard extends Component {
 								className="gb-layout-insert-button"
 								isSmall
 								onClick={ () => {
-									this.props.import( this.props.content, this.props.clientId );
+									this.props.import(
+										this.props.content,
+										this.props.clientId
+									);
 								} }
 							>
 								<img
-									src={ this.props.image ? this.props.image : genesis_blocks_globals.pattern_fallback_image }
+									src={
+										this.props.image
+											? this.props.image
+											: genesis_blocks_globals.pattern_fallback_image
+									}
 									alt={ this.props.name }
 									onError={ this.addDefaultSrc }
 								/>
@@ -53,13 +60,13 @@ export default class LayoutLibraryItemCard extends Component {
 													this.props.itemKey
 												)
 													? __(
-														'Remove from Favorites',
-														'genesis-blocks'
-													)
+															'Remove from Favorites',
+															'genesis-blocks'
+													  )
 													: __(
-														'Add to Favorites',
-														'genesis-blocks'
-													)
+															'Add to Favorites',
+															'genesis-blocks'
+													  )
 											}
 										>
 											<Button

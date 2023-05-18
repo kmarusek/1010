@@ -18,22 +18,45 @@ export function CollectionCard( props ) {
 							className="gb-layout-insert-button gb-layout-collection-button"
 							isSmall
 							onClick={ () => {
-								props.collectionsView.setCurrentView( 'collection' );
-								props.setCurrentCollection( props.collectionSlug );
+								props.collectionsView.setCurrentView(
+									'collection'
+								);
+								props.setCurrentCollection(
+									props.collectionSlug
+								);
 							} }
 						>
 							<div className="gb-layout-collection-cover">
 								<img
-									src={ props.context.collections[ props.collectionSlug ].thumbnail ? props.context.collections[ props.collectionSlug ].thumbnail : genesis_blocks_globals.pattern_fallback_image }
-									alt={ props.context.collections[ props.collectionSlug ].label }
+									src={
+										props.context.collections[
+											props.collectionSlug
+										].thumbnail
+											? props.context.collections[
+													props.collectionSlug
+											  ].thumbnail
+											: genesis_blocks_globals.pattern_fallback_image
+									}
+									alt={
+										props.context.collections[
+											props.collectionSlug
+										].label
+									}
 									onError={ ( event ) => {
-										event.target.src = genesis_blocks_globals.pattern_fallback_image;
+										event.target.src =
+											genesis_blocks_globals.pattern_fallback_image;
 									} }
 								/>
 							</div>
 							<div className="gb-layout-design-info">
 								<div className="gb-layout-design-title">
-									<span className="gb-layout-collection-label">{ props.context.collections[ props.collectionSlug ].label }</span>
+									<span className="gb-layout-collection-label">
+										{
+											props.context.collections[
+												props.collectionSlug
+											].label
+										}
+									</span>
 								</div>
 							</div>
 						</Button>

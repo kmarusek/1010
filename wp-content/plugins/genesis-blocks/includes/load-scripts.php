@@ -111,7 +111,12 @@ function genesis_blocks_add_custom_block_category( $categories ) {
 				'title' => __( 'Genesis Blocks', 'genesis-blocks' ),
 			),
 		),
-		$categories
+		array_filter(
+			$categories,
+			function( $category ) {
+				return 'genesis-blocks' !== $category['slug'];
+			}
+		)
 	);
 }
 

@@ -26,12 +26,8 @@ const { withFallbackStyles, PanelBody } = wp.components;
 
 // Apply fallback styles
 const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
-	const {
-		textColor,
-		backgroundColor,
-		fontSize,
-		customFontSize,
-	} = ownProps.attributes;
+	const { textColor, backgroundColor, fontSize, customFontSize } =
+		ownProps.attributes;
 	const editableNode = node.querySelector( '[contenteditable="true"]' );
 	const computedStyles = editableNode
 		? getComputedStyle( editableNode )

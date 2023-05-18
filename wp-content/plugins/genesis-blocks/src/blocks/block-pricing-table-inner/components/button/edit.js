@@ -10,13 +10,8 @@ const { registerBlockType } = wp.blocks;
 const { compose } = wp.compose;
 const { Component, Fragment } = wp.element;
 
-const {
-	RichText,
-	withFontSizes,
-	withColors,
-	InnerBlocks,
-	URLInput,
-} = wp.blockEditor;
+const { RichText, withFontSizes, withColors, InnerBlocks, URLInput } =
+	wp.blockEditor;
 
 const { Button, Dashicon, Icon } = wp.components;
 
@@ -60,7 +55,12 @@ class Edit extends Component {
 		};
 
 		return [
-			<Fragment key={ 'gb-pricing-table-inner-component-button-' + this.props.clientId }>
+			<Fragment
+				key={
+					'gb-pricing-table-inner-component-button-' +
+					this.props.clientId
+				}
+			>
 				<Inspector { ...this.props } />
 				<div
 					className={ editClassName ? editClassName : undefined }

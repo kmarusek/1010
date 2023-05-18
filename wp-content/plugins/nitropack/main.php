@@ -2,8 +2,8 @@
 /*
 Plugin Name:  NitroPack
 Plugin URI:   https://nitropack.io/platform/wordpress
-Description:  Everything you need for a fast website. Simple set up, easy to use, awesome support. Caching, Lazy Loading, Minification, Defer CSS/JS, CDN and more!
-Version:      1.6.1
+Description:  Automatic optimization for site speed and Core Web Vitals. Use 35+ features, including Caching, image optimization, critical CSS, and Cloudflare CDN.
+Version:      1.7.1
 Author:       NitroPack LLC
 Author URI:   https://nitropack.io/
 License:      GPL2
@@ -39,11 +39,13 @@ if ( \NitroPack\Integration\Plugin\Ezoic::isActive() ) {
 }
 
 add_filter( 'nitro_script_output', function($script) {
-    // Make sure we don't accidentally print a non-amp compatible script to an amp page
-    if (nitropack_is_amp_page()) {
-        return "";
-    } else {
+    $canPrintScripts = !nitropack_is_amp_page() // Make sure we don't accidentally print a non-amp compatible script to an amp page
+        && (!isset($_SERVER['HTTP_SEC_FETCH_DEST']) || $_SERVER['HTTP_SEC_FETCH_DEST'] === 'document');
+
+    if ($canPrintScripts) {
         return $script;
+    } else {
+        return "";
     }
 });
 add_action( 'pre_post_update', 'nitropack_log_post_pre_update', 10, 3);
@@ -114,6 +116,7 @@ if ( is_admin() ) {
     add_action( 'wp_ajax_nitropack_run_warmup', 'nitropack_run_warmup' );
     add_action( 'wp_ajax_nitropack_purge_single_cache', 'nitropack_purge_single_cache' );
     add_action( 'wp_ajax_nitropack_invalidate_single_cache', 'nitropack_invalidate_single_cache' );
+    add_action( 'wp_ajax_nitropack_purge_entire_cache', 'nitropack_purge_entire_cache' );
     add_action( 'wp_ajax_nitropack_dismiss_hosting_notice', 'nitropack_dismiss_hosting_notice' );
     add_action( 'wp_ajax_nitropack_dismiss_woocommerce_notice', 'nitropack_dismiss_woocommerce_notice' );
     add_action( 'wp_ajax_nitropack_reconfigure_webhooks', 'nitropack_reconfigure_webhooks' );
@@ -150,7 +153,10 @@ function nitropack_menu() {
 
 function nitropack_action_links ( $links ) {
     $nitroLinks = array(
-        '<a href="' . admin_url( 'options-general.php?page=nitropack' ) . '">Settings</a>',
+        '<a href="' . admin_url( 'options-general.php?page=nitropack' ) . '" rel="noopener noreferrer">Settings</a>',
+        '<a href="https://support.nitropack.io/hc/en-us/categories/360005122034-Frequently-Asked-Questions-FAQs-" target="_blank" rel="noopener noreferrer">FAQ</a>',
+        '<a href="https://support.nitropack.io/hc/en-us" target="_blank" rel="noopener noreferrer">Docs</a>',
+        '<a href="https://support.nitropack.io/hc/en-us/requests/new" target="_blank" rel="noopener noreferrer">Support</a>',
     );
     return array_merge( $nitroLinks, $links );
 }
@@ -168,9 +174,10 @@ add_action( 'init', function() {
 
         // Enqueue admin menu custom javascript
         add_action( 'wp_enqueue_scripts', 'nitropack_admin_bar_script' );
+	    add_action( 'admin_enqueue_scripts', 'nitropack_admin_bar_script' );
 
         // Add our admin menu bar entry
-        add_action('admin_bar_menu', 'nitropack_admin_bar_menu', 50);
+        add_action('admin_bar_menu', 'nitropack_admin_bar_menu', PHP_INT_MAX - 10 );
         add_action('plugins_loaded', 'nitropack_plugin_notices'); // Run the checks early, because we need to set some headers. The results from the checks will be cached, so future calls will work as expected.
 
 	    add_action( 'updated_option', 'nitropack_updated_option', ~PHP_INT_MAX, 3 );

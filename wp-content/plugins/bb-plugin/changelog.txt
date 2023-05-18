@@ -1,3 +1,9 @@
+<h4>2.6.3.3 - 04/20/2023</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Performance Boost: Tweak the way we load/count revisions in the UI to use less memory (#2644)</li>
+</ul>
+
 <h4>2.6.3.2 - 04/11/2023</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

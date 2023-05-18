@@ -13,7 +13,10 @@ import './styles/editor.scss';
 
 registerBlockType( 'genesis-blocks/gb-newsletter', {
 	title: __( 'Email newsletter', 'genesis-blocks' ),
-	description: __( 'Add an email newsletter sign-up form.', 'genesis-blocks' ),
+	description: __(
+		'Add an email newsletter sign-up form.',
+		'genesis-blocks'
+	),
 	category: 'genesis-blocks',
 	icon: 'email-alt',
 	keywords: [

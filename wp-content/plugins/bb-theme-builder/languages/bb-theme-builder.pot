@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-theme-builder\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2023-03-15 13:19:58+00:00\n"
+"POT-Creation-Date: 2023-05-03 19:38:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,6 +16,7 @@ msgstr ""
 "attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
+#: classes/class-fl-theme-builder-layout-admin-list.php:193
 #: classes/class-fl-theme-builder-logic-i18n.php:194
 #: includes/layout-admin-add-fields.php:14
 msgid "404"
@@ -89,6 +90,7 @@ msgid "General"
 msgstr ""
 
 #: classes/class-fl-page-data.php:83
+#: classes/class-fl-theme-builder-layout-admin-list.php:191
 #: extensions/themes/classes/class-fl-theme-builder-support-storefront.php:116
 #: includes/frontend-edit-preview-locations.php:36
 #: modules/fl-archive-description/fl-archive-description.php:17
@@ -192,23 +194,23 @@ msgstr ""
 msgid "Themer Layout Settings"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:65
+#: classes/class-fl-theme-builder-layout-admin-list.php:67
 msgid "Unpublish this layout"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:66
+#: classes/class-fl-theme-builder-layout-admin-list.php:68
 msgid "Publish this layout"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:104
+#: classes/class-fl-theme-builder-layout-admin-list.php:106
 msgid "Published"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:105
+#: classes/class-fl-theme-builder-layout-admin-list.php:107
 msgid "Categories"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:106
+#: classes/class-fl-theme-builder-layout-admin-list.php:108
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:165
 #: extensions/edd/modules/fl-edd-product-description/fl-edd-product-description.php:36
 #: extensions/woocommerce/modules/fl-woo-product-description/fl-woo-product-description.php:36
@@ -218,23 +220,44 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:107
+#: classes/class-fl-theme-builder-layout-admin-list.php:109
 #: includes/admin-edit-location-rules.php:4
 msgid "Location"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:108
+#: classes/class-fl-theme-builder-layout-admin-list.php:110
 #: includes/admin-edit-user-rules.php:4
 msgid "Users"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:149
+#: classes/class-fl-theme-builder-layout-admin-list.php:151
 #: includes/layout-admin-edit-settings.php:13
 msgid "Unsupported"
 msgstr ""
 
-#: classes/class-fl-theme-builder-layout-admin-list.php:168
+#: classes/class-fl-theme-builder-layout-admin-list.php:170
 msgid "All"
+msgstr ""
+
+#: classes/class-fl-theme-builder-layout-admin-list.php:188
+msgid "Headers"
+msgstr ""
+
+#: classes/class-fl-theme-builder-layout-admin-list.php:189
+msgid "Footers"
+msgstr ""
+
+#: classes/class-fl-theme-builder-layout-admin-list.php:190
+msgid "Parts"
+msgstr ""
+
+#: classes/class-fl-theme-builder-layout-admin-list.php:192
+#: includes/layout-admin-add-fields.php:13
+msgid "Singular"
+msgstr ""
+
+#: classes/class-fl-theme-builder-layout-admin-list.php:197
+msgid "All Layouts"
 msgstr ""
 
 #: classes/class-fl-theme-builder-layout-renderer.php:536
@@ -745,8 +768,8 @@ msgstr ""
 
 #: classes/class-fl-theme-builder-logic-i18n.php:148
 #: extensions/woocommerce/classes/class-fl-page-data-woocommerce.php:16
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:313
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:385
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:296
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:368
 #: extensions/woocommerce/modules/fl-woo-breadcrumb/fl-woo-breadcrumb.php:18
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:18
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:18
@@ -1350,7 +1373,7 @@ msgstr ""
 #: extensions/acf/includes/page-data-acf.php:594
 #: extensions/acf/includes/page-data-acf.php:603
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-countdown/fl-the-events-calendar-countdown.php:49
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:380
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:363
 #: extensions/woocommerce/includes/page-data-woocommerce.php:75
 #: extensions/woocommerce/modules/fl-woo-product-upsells/fl-woo-product-upsells.php:39
 #: extensions/woocommerce/modules/fl-woo-related-products/fl-woo-related-products.php:39
@@ -1373,7 +1396,7 @@ msgstr ""
 #: extensions/acf/includes/page-data-acf.php:595
 #: extensions/acf/includes/page-data-acf.php:604
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-countdown/fl-the-events-calendar-countdown.php:50
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:379
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:362
 #: extensions/woocommerce/includes/page-data-woocommerce.php:76
 #: extensions/woocommerce/modules/fl-woo-product-upsells/fl-woo-product-upsells.php:40
 #: extensions/woocommerce/modules/fl-woo-related-products/fl-woo-related-products.php:40
@@ -1692,7 +1715,7 @@ msgstr ""
 #: extensions/bigcommerce/modules/fl-bc-product-price/fl-bc-product-price.php:13
 #: extensions/edd/includes/page-data-edd.php:23
 #: extensions/edd/modules/fl-edd-product-price/fl-edd-product-price.php:15
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:344
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:327
 #: extensions/woocommerce/includes/page-data-woocommerce.php:34
 #: extensions/woocommerce/modules/fl-woo-product-price/fl-woo-product-price.php:15
 msgid "Product Price"
@@ -1715,7 +1738,7 @@ msgstr ""
 
 #: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:283
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:157
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:353
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:336
 msgid "Cart Button"
 msgstr ""
 
@@ -1741,12 +1764,12 @@ msgstr ""
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:322
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:331
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:340
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:320
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:329
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:338
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:347
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:356
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:365
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:303
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:312
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:321
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:330
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:339
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:348
 #: extensions/woocommerce/modules/fl-woo-product-images/fl-woo-product-images.php:52
 #: modules/fl-post-info/fl-post-info.php:90
 #: modules/fl-post-info/fl-post-info.php:125
@@ -1770,12 +1793,12 @@ msgstr ""
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:323
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:332
 #: extensions/the-events-calendar/classes/class-fl-theme-builder-the-events-calendar-archive.php:341
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:321
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:330
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:339
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:348
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:357
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:366
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:304
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:313
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:322
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:331
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:340
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:349
 #: extensions/woocommerce/modules/fl-woo-product-images/fl-woo-product-images.php:53
 #: modules/fl-post-info/fl-post-info.php:91
 #: modules/fl-post-info/fl-post-info.php:126
@@ -1794,7 +1817,7 @@ msgid "Sale Display"
 msgstr ""
 
 #: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:334
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:326
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:309
 #: extensions/woocommerce/includes/page-data-woocommerce.php:139
 msgid "Product Sale"
 msgstr ""
@@ -1822,7 +1845,7 @@ msgstr ""
 
 #: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:392
 #: extensions/bigcommerce/modules/fl-bc-product-rating/fl-bc-product-rating.php:15
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:335
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:318
 #: extensions/woocommerce/includes/page-data-woocommerce.php:24
 #: extensions/woocommerce/modules/fl-woo-product-rating/fl-woo-product-rating.php:15
 msgid "Product Rating"
@@ -2252,7 +2275,7 @@ msgstr ""
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:61
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-notices/fl-the-events-calendar-notices.php:46
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-tickets/fl-the-events-calendar-tickets.php:36
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:442
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:425
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:63
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:42
 #: modules/fl-author-bio/fl-author-bio.php:43
@@ -2291,7 +2314,7 @@ msgstr ""
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:51
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-notices/fl-the-events-calendar-notices.php:36
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-tickets/fl-the-events-calendar-tickets.php:46
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:451
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:434
 #: extensions/woocommerce/modules/fl-woo-breadcrumb/fl-woo-breadcrumb.php:74
 #: extensions/woocommerce/modules/fl-woo-cart-button/fl-woo-cart-button.php:36
 #: extensions/woocommerce/modules/fl-woo-notices/fl-woo-notices.php:36
@@ -2509,7 +2532,7 @@ msgstr ""
 msgid "The Events Calendar"
 msgstr ""
 
-#: extensions/the-events-calendar/classes/class-fl-page-data-the-events-calendar.php:147
+#: extensions/the-events-calendar/classes/class-fl-page-data-the-events-calendar.php:157
 msgid "&laquo; All Events"
 msgstr ""
 
@@ -2796,12 +2819,12 @@ msgid "Displays links to export the current event to your calendar."
 msgstr ""
 
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:71
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:469
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:452
 msgid "Hover Text Color"
 msgstr ""
 
 #: extensions/the-events-calendar/modules/fl-the-events-calendar-export-links/fl-the-events-calendar-export-links.php:79
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:460
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:443
 msgid "Hover Background Color"
 msgstr ""
 
@@ -3313,52 +3336,52 @@ msgstr ""
 msgid "Woocommerce Product Description"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:317
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:300
 #: extensions/woocommerce/includes/page-data-woocommerce.php:234
 msgid "Product Ordering"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:362
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:345
 msgid "Show Hidden Products"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:375
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:358
 msgid "WooCommerce Classes"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:376
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:359
 msgid "Add woocommerce and woocommerce-page classes to module wrapper."
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:389
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:372
 msgid "Product Sale Background"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:397
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:380
 msgid "Product Sale Text Color"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:405
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:388
 msgid "Product Rating Foreground"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:410
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:393
 msgid "Product Rating Background"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:415
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:398
 msgid "Product Rating Font Size"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:423
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:406
 msgid "Product Price Text Color"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:428
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:411
 msgid "Product Price Font Size"
 msgstr ""
 
-#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:438
+#: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:421
 msgid "WooCommerce Cart Button"
 msgstr ""
 
@@ -3600,10 +3623,6 @@ msgstr ""
 #: includes/layout-admin-add-fields.php:9
 #: includes/layout-admin-add-fields.php:15
 msgid "(Unsupported)"
-msgstr ""
-
-#: includes/layout-admin-add-fields.php:13
-msgid "Singular"
 msgstr ""
 
 #: includes/layout-admin-add-fields.php:15

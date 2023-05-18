@@ -28,14 +28,28 @@ if ( isset( $_POST ) && isset( $_POST['moove_gdpr_nonce'] ) ) :
 			else :
 				$gfr = 0;
 			endif;
-
 			$gdpr_options['gdpr_force_reload'] = $gfr;
+
+			if ( isset( $_POST['script_insertion_method'] ) ) :
+				$sim = intval( $_POST['script_insertion_method'] );
+			else :
+				$sim = 0;
+			endif;
+			$gdpr_options['script_insertion_method'] = $sim;
+
+			if ( isset( $_POST['gdpr_cookie_removal'] ) ) :
+				$gcr = intval( $_POST['gdpr_cookie_removal'] );
+			else :
+				$gcr = 0;
+			endif;
+			$gdpr_options['gdpr_cookie_removal'] = $gcr;
 
 			$restricted_keys = array(
 				'moove_gdpr_modal_powered_by_disable',
-				'gdpr_force_reload'
+				'gdpr_force_reload',
+				'script_insertion_method',
+				'gdpr_cookie_removal'
 			);
-
 			
 			foreach ( $_POST as $form_key => $form_value ) :
 				if ( ! in_array( $form_key, $restricted_keys ) ) :
@@ -82,6 +96,9 @@ if ( isset( $_POST ) && isset( $_POST['moove_gdpr_reset_nonce'] ) ) :
 endif;
 
 $gdpr_force_reload 	= isset( $gdpr_options['gdpr_force_reload'] ) && intval( $gdpr_options['gdpr_force_reload'] ) >= 0 ? intval( $gdpr_options['gdpr_force_reload'] ) : apply_filters( 'gdpr_force_reload', false );
+$script_insertion_method 	= isset( $gdpr_options['script_insertion_method'] ) && intval( $gdpr_options['script_insertion_method'] ) >= 0 ? intval( $gdpr_options['script_insertion_method'] ) : apply_filters( 'gdpr_cc_prevent_ajax_script_inject', true );
+
+$static_cookie_removal 		= isset( $gdpr_options['gdpr_cookie_removal'] ) && intval( $gdpr_options['gdpr_cookie_removal'] ) >= 0 ? intval( $gdpr_options['gdpr_cookie_removal'] ) : ! apply_filters( 'gdpr_ajax_cookie_removal', true );
 
 
 ?>
@@ -104,6 +121,42 @@ $gdpr_force_reload 	= isset( $gdpr_options['gdpr_force_reload'] ) && intval( $gd
 
 					<p class="description">
 						<?php esc_html_e( 'Choose if you’d like the page to reload when user accepts cookies. If you choose not to, your analytical software will not count the current page visit as the cookies will be loaded during the next page load only.', 'gdpr-cookie-compliance' ); ?>
+					</p>
+					<!-- .description -->
+				</td>
+			</tr>
+
+			<tr>
+				<th scope="row">
+					<label for="script_insertion_method"><?php esc_html_e( 'Script Insertion Method', 'gdpr-cookie-compliance' ); ?></label>
+				</th>
+				<td>
+					<!-- GDPR Rounded switch -->
+					<label class="gdpr-checkbox-toggle">
+						<input type="checkbox" name="script_insertion_method" id="script_insertion_method" <?php echo $script_insertion_method ? 'checked' : ''; ?> value="1" >
+						<span class="gdpr-checkbox-slider" data-enable="<?php esc_html_e( 'Static', 'gdpr-cookie-compliance' ); ?>" data-disable="<?php esc_html_e( 'Dynamic', 'gdpr-cookie-compliance' ); ?>"></span>
+					</label>
+
+					<p class="description">
+						<?php esc_html_e( 'Recommended default method is Static. Switch to dynamic only if you experience issues with static method (dynamic way uses more server resources)', 'gdpr-cookie-compliance' ); ?>
+					</p>
+					<!-- .description -->
+				</td>
+			</tr>
+
+			<tr>
+				<th scope="row">
+					<label for="gdpr_cookie_removal"><?php esc_html_e( 'Cookie Removal', 'gdpr-cookie-compliance' ); ?></label>
+				</th>
+				<td>
+					<!-- GDPR Rounded switch -->
+					<label class="gdpr-checkbox-toggle">
+						<input type="checkbox" name="gdpr_cookie_removal" id="gdpr_cookie_removal" <?php echo $static_cookie_removal ? 'checked' : ''; ?> value="1" >
+						<span class="gdpr-checkbox-slider" data-enable="<?php esc_html_e( 'Static', 'gdpr-cookie-compliance' ); ?>" data-disable="<?php esc_html_e( 'Dynamic', 'gdpr-cookie-compliance' ); ?>"></span>
+					</label>
+
+					<p class="description">
+						<?php esc_html_e( 'Recommended default method is Static. Switch to dynamic for advanced cookie removal method if needed (uses more server performance)', 'gdpr-cookie-compliance' ); ?>
 					</p>
 					<!-- .description -->
 				</td>

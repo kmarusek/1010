@@ -4,7 +4,7 @@ Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordp
 Requires at least: 3.3
 Tested up to: 6.2
 Requires PHP: 5.3
-Stable tag: 7.73
+Stable tag: 7.74
 License: GPLv2 or later
 
 Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
@@ -88,6 +88,15 @@ All-in-One WP Migration is in full compliance with General Data Protection Regul
 See our [GDPR Compliant Privacy Policy here](https://www.iubenda.com/privacy-policy/946881).
 
 == Changelog ==
+= 7.74 =
+**Fixed**
+
+* Resolved an ongoing issue with the compatibility of the plugin with servers running Imunify360. The file "wp-content/plugins/all-in-one-wp-migration/functions.php" was being falsely flagged and deleted due to a detection error. This update includes small changes to the "functions.php" file to modify its checksum and prevent the false flag by Imunify360
+
+**Notes**
+
+* Imunify360 has updated its signatures, which should prevent this issue from occurring on servers running the updated version. However, this plugin update serves as an additional measure to ensure that the issue is resolved for all users
+
 = 7.73 =
 **Added**
 
@@ -107,8 +116,3 @@ See our [GDPR Compliant Privacy Policy here](https://www.iubenda.com/privacy-pol
 **Added**
 
 * Hooks that allow excluding specific database tables on export
-
-= 7.69 =
-**Added**
-
-* Improved support for custom backups location

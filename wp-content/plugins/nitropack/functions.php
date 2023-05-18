@@ -3,8 +3,8 @@
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 $np_basePath = dirname(__FILE__) . '/';
-require_once  $np_basePath . 'constants.php';
 require_once  $np_basePath . 'nitropack-sdk/autoload.php';
+require_once  $np_basePath . 'constants.php';
 
 $np_originalRequestCookies = $_COOKIE;
 $np_customExpirationTimes = array();
@@ -834,8 +834,10 @@ function nitropack_get_beacon_script() {
 }
 
 function nitropack_print_cookie_handler_script() {
+
     if (defined("NITROPACK_COOKIE_HANDLER_PRINTED")) return;
     define("NITROPACK_COOKIE_HANDLER_PRINTED", true);
+
     echo apply_filters("nitro_script_output", nitropack_get_cookie_handler_script());
 }
 
@@ -1105,6 +1107,10 @@ function nitropack_is_advanced_cache_allowed() {
 }
 
 function nitropack_admin_notices() {
+    if (defined('NITROPACK_DATA_DIR_WARNING')) {
+        nitropack_print_notice('warning', NITROPACK_DATA_DIR_WARNING);
+    }
+
     if (!empty($_COOKIE["nitropack_after_activate_notice"])) {
         nitropack_print_notice("info", "<script>document.cookie = 'nitropack_after_activate_notice=1; expires=Thu, 01 Jan 1970 00:00:01 GMT;';</script>NitroPack has been successfully activated, but it is not connected yet. Please go to <a href='" . admin_url( 'options-general.php?page=nitropack' ) . "'>its settings</a> page to connect it in order to start optimizing your site!");
     }
@@ -1810,6 +1816,22 @@ function nitropack_purge_single_cache() {
     ));
 }
 
+function nitropack_purge_entire_cache() {
+	try {
+        if (nitropack_sdk_purge(null, null, 'Manual purge of all pages')) {
+            nitropack_json_and_exit(array(
+                "type" => "success",
+                "message" => __( 'Success! Cache has been purged successfully!', 'nitropack' )
+            ));
+        }
+    } catch (\Exception $e) {}	
+
+	nitropack_json_and_exit(array(
+		"type" => "error",
+		"message" => __( 'Error! There was an error and the cache was not purged!', 'nitropack' )
+	));
+}
+
 function nitropack_invalidate_single_cache() {
     if (!empty($_POST["postId"]) && is_numeric($_POST["postId"])) {
         $postId = $_POST["postId"];
@@ -2004,7 +2026,7 @@ function nitropack_handle_post_transition($new, $old, $post) {
 
 function nitropack_handle_first_publish($post_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids) {
     $first_publish_post = get_transient($post_id . '_np_first_publish', false);
-    if ( ! $first_publish_post || $taxonomy != "category" ) {
+    if ( ! $first_publish_post || ( $taxonomy != "category" && $taxonomy != "product_cat" ) ) {
         return;
     }
 
@@ -2303,7 +2325,7 @@ function nitropack_verify_connect($siteId, $siteSecret) {
         nitropack_json_and_exit(array("status" => "error", "message" => __( 'Permission Error: ', 'nitropack' ) . $e->getMessage()));
     } catch (\NitroPack\SDK\EmptyConfigException $e) {
         nitropack_json_and_exit(array("status" => "error", "message" =>  __( 'Error while fetching remote config: ', 'nitropack' ) . $e->getMessage()));
-    } catch (\NitroPack\SocketOpenException $e) {
+    } catch (\NitroPack\HttpClient\Exceptions\SocketOpenException $e) {
         nitropack_json_and_exit(array("status" => "error", "message" =>  __( 'Can\'t establish connection with NitroPack\'s servers', 'nitropack' )));
     } catch (\Exception $e) {
         nitropack_json_and_exit(array("status" => "error", "message" => __( 'Incorrect API credentials. Please make sure that you copied them correctly and try again.', 'nitropack' )));
@@ -2989,12 +3011,48 @@ function nitropack_admin_bar_menu($wp_admin_bar){
             )
         );
 
+	    $wp_admin_bar->add_node( array(
+
+		    'parent' => 'nitropack-top-menu',
+		    'title' => __( 'Settings', 'nitropack' ),
+		    'href' => admin_url( 'options-general.php?page=nitropack' ),
+		    'meta' => array(
+			    'class' => 'custom-node-class'
+		    )
+
+	    ));
+
+	    $wp_admin_bar->add_node(
+		    array(
+			    'parent' => 'nitropack-top-menu',
+			    'title' => __( 'Purge Entire Cache', 'nitropack' ),
+			    'href' => '#',
+			    'meta' => array(
+				    'class' => 'nitropack-purge-cache-entire-site',
+			    ),
+		    )
+	    );
+
+
         if(!is_admin()) { // menu otions available when browsing front-end pages
+
+	        $wp_admin_bar->add_node(
+		        array(
+			        'parent' => 'nitropack-top-menu',
+			        'id'     => 'optimizations-purge-cache',
+			        'title'  =>  __( 'Purge Current Page', 'nitropack' ),
+			        'href'   =>  "#",
+			        'meta' => array(
+				        'class' => 'nitropack-purge-cache',
+			        )
+		        )
+	        );
+
             $wp_admin_bar->add_node(
                 array(
                     'parent' => 'nitropack-top-menu',
                     'id'     => 'optimizations-invalidate-cache',
-                    'title'  =>  __( 'Invalidate Cache for this page&nbsp;&nbsp;', 'nitropack' ),
+                    'title'  =>  __( 'Invalidate Current Page', 'nitropack' ),
                     'href'   =>  "#",
                     'meta' => array(
                         'class' => 'nitropack-invalidate-cache',
@@ -3002,18 +3060,8 @@ function nitropack_admin_bar_menu($wp_admin_bar){
                 )
             );
 
-            $wp_admin_bar->add_node(
-                array(
-                    'parent' => 'nitropack-top-menu',
-                    'id'     => 'optimizations-purge-cache',
-                    'title'  =>  __( 'Purge Cache for this page&nbsp;&nbsp;', 'nitropack' ),
-                    'href'   =>  "#",
-                    'meta' => array(
-                        'class' => 'nitropack-purge-cache',
-                    )
-                )
-            );
         }
+
 
         if ($pluginStatus != "ok") {
             $numberOfIssues = count($nitropackPluginNotices['error']) + count($nitropackPluginNotices['warning']);
@@ -3534,6 +3582,60 @@ function getNewCookies() {
     }
     return $cookies;
 }
+
+/**
+ * Purge entire cache when permalink structure is changed.
+ *
+ * @param string $old_permalink_structure The previous permalink structure.
+ * @param string $permalink_structure     The new permalink structure.
+ *
+ * @return void
+ */
+function nitropack_permalink_structure_changed_handler($old_permalink_structure, $permalink_structure) {
+
+    if ($old_permalink_structure != $permalink_structure && get_option("nitropack-autoCachePurge", 1))  {
+	    $msg = 'The permalink structure is changed. Purging the cache for the home page.';
+	    $url = get_home_url();
+
+	    try {
+		    nitropack_sdk_purge($url, NULL, $msg); // purge cache for the home page
+	    } catch (\Exception $e) {}
+
+        // run warmup
+	    if (null !== $nitro = get_nitropack_sdk()) {
+		    try {
+			    $nitro->getApi()->runWarmup();
+		    } catch (\Exception $e) {
+		    }
+	    }
+    }
+}
+
+add_action('permalink_structure_changed', 'nitropack_permalink_structure_changed_handler', 10, 2);
+
+/**
+ * Purge entire cache when front page is changed.
+ *
+ * @param array $old_value An array of previous settings values.
+ * @param array $value An array of submitted settings values.
+ *
+ * @return void
+ */
+function nitropack_frontpage_changed_handler($old_value, $value) {
+
+	if ( $old_value !== $value ) {
+        $msg = 'The front page is changed';
+        $url = get_home_url();
+
+        try {
+            nitropack_sdk_purge($url, NULL, $msg); // purge entire cache
+        } catch (\Exception $e) {}
+	}
+}
+
+add_action('update_option_show_on_front', 'nitropack_frontpage_changed_handler', 10, 2);
+add_action('update_option_page_on_front', 'nitropack_frontpage_changed_handler', 10, 2);
+add_action('update_option_page_for_posts', 'nitropack_frontpage_changed_handler', 10, 2);
 
 // Init integration action handlers
 $integration = NitroPack\Integration::getInstance();

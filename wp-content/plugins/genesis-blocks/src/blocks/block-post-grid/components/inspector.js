@@ -47,7 +47,6 @@ export default class Inspector extends Component {
 			pagesTitleToIdRelationships: false,
 			pagesIdToTitleRelationships: false,
 			waitingForApiResponse: false,
-
 		};
 	}
 
@@ -57,15 +56,34 @@ export default class Inspector extends Component {
 
 	componentDidUpdate() {
 		// If this block was just selected by the user, fetch the previously-selected category slugs from the server so we have something to show in the sidebar.
-		if ( this.props.isSelected && ! this.state.waitingForApiResponse && this.props.attributes.categories && ! this.state.categoriesList && 'post' === this.props.attributes.postType ) {
-			this.getCategoriesFromServer( this.props.attributes.categories ? this.props.attributes.categories : false, true );
+		if (
+			this.props.isSelected &&
+			! this.state.waitingForApiResponse &&
+			this.props.attributes.categories &&
+			! this.state.categoriesList &&
+			'post' === this.props.attributes.postType
+		) {
+			this.getCategoriesFromServer(
+				this.props.attributes.categories
+					? this.props.attributes.categories
+					: false,
+				true
+			);
 		}
 
 		// If this block was just selected by the user, fetch the previously-selected page slugs from the server so we have something to show in the sidebar.
-		if ( this.props.isSelected && ! this.state.waitingForApiResponse && this.props.attributes.selectedPages.length > 0 && ! this.state.pagesList && 'page' === this.props.attributes.postType ) {
+		if (
+			this.props.isSelected &&
+			! this.state.waitingForApiResponse &&
+			this.props.attributes.selectedPages.length > 0 &&
+			! this.state.pagesList &&
+			'page' === this.props.attributes.postType
+		) {
 			const ids = [];
 			for ( const selectedPage in this.props.attributes.selectedPages ) {
-				ids.push( this.props.attributes.selectedPages[ selectedPage ].value );
+				ids.push(
+					this.props.attributes.selectedPages[ selectedPage ].value
+				);
 			}
 
 			this.getPagesFromServer( ids ? ids : false, true );
@@ -107,32 +125,56 @@ export default class Inspector extends Component {
 
 			this.fetchRequest = apiFetch( {
 				path: addQueryArgs( '/wp/v2/categories', args ),
-			} ).then( ( categoriesList ) => {
-				// Store arrays for slug-to-id and id-to-slug to make them easy to reference in components and attributes.
-				const categoriesTitleToIdRelationships = this.state.categoriesTitleToIdRelationships ? this.state.categoriesTitleToIdRelationships : {};
-				const categoriesIdToTitleRelationships = this.state.categoriesIdToTitleRelationships ? this.state.categoriesIdToTitleRelationships : {};
+			} )
+				.then( ( categoriesList ) => {
+					// Store arrays for slug-to-id and id-to-slug to make them easy to reference in components and attributes.
+					const categoriesTitleToIdRelationships = this.state
+						.categoriesTitleToIdRelationships
+						? this.state.categoriesTitleToIdRelationships
+						: {};
+					const categoriesIdToTitleRelationships = this.state
+						.categoriesIdToTitleRelationships
+						? this.state.categoriesIdToTitleRelationships
+						: {};
 
-				for ( const category in categoriesList ) {
-					categoriesTitleToIdRelationships[ categoriesList[ category ].name + ' (' + categoriesList[ category ].slug + ')' ] = categoriesList[ category ].id;
-					categoriesIdToTitleRelationships[ categoriesList[ category ].id ] = categoriesList[ category ].name + ' (' + categoriesList[ category ].slug + ')';
-				}
+					for ( const category in categoriesList ) {
+						categoriesTitleToIdRelationships[
+							categoriesList[ category ].name +
+								' (' +
+								categoriesList[ category ].slug +
+								')'
+						] = categoriesList[ category ].id;
+						categoriesIdToTitleRelationships[
+							categoriesList[ category ].id
+						] =
+							categoriesList[ category ].name +
+							' (' +
+							categoriesList[ category ].slug +
+							')';
+					}
 
-				this.setState( {
-					categoriesList,
-					categoriesTitleToIdRelationships,
-					categoriesIdToTitleRelationships,
-					waitingForApiResponse: false,
-				} );
-
-				resolve();
-			} ).catch( () => {
-				console.log( `category request failure: ${ error.message }` );
-				if ( this.stillMounted ) {
-					this.setState( { categoriesList: [], waitingForApiResponse: false } );
+					this.setState( {
+						categoriesList,
+						categoriesTitleToIdRelationships,
+						categoriesIdToTitleRelationships,
+						waitingForApiResponse: false,
+					} );
 
 					resolve();
-				}
-			} );
+				} )
+				.catch( () => {
+					console.log(
+						`category request failure: ${ error.message }`
+					);
+					if ( this.stillMounted ) {
+						this.setState( {
+							categoriesList: [],
+							waitingForApiResponse: false,
+						} );
+
+						resolve();
+					}
+				} );
 		} );
 	}
 
@@ -167,30 +209,50 @@ export default class Inspector extends Component {
 
 			this.fetchRequest = apiFetch( {
 				path: addQueryArgs( '/wp/v2/pages', args ),
-			} ).then( ( pagesList ) => {
-				// Store arrays for slug-to-id and id-to-slug to make them easy to reference in components and attributes.
-				const pagesTitleToIdRelationships = this.state.pagesTitleToIdRelationships ? this.state.pagesTitleToIdRelationships : {};
-				const pagesIdToTitleRelationships = this.state.pagesIdToTitleRelationships ? this.state.pagesIdToTitleRelationships : {};
+			} )
+				.then( ( pagesList ) => {
+					// Store arrays for slug-to-id and id-to-slug to make them easy to reference in components and attributes.
+					const pagesTitleToIdRelationships = this.state
+						.pagesTitleToIdRelationships
+						? this.state.pagesTitleToIdRelationships
+						: {};
+					const pagesIdToTitleRelationships = this.state
+						.pagesIdToTitleRelationships
+						? this.state.pagesIdToTitleRelationships
+						: {};
 
-				for ( const page in pagesList ) {
-					pagesTitleToIdRelationships[ pagesList[ page ].title.rendered + ' (' + pagesList[ page ].slug + ')' ] = pagesList[ page ].id;
-					pagesIdToTitleRelationships[ pagesList[ page ].id ] = pagesList[ page ].title.rendered + ' (' + pagesList[ page ].slug + ')';
-				}
+					for ( const page in pagesList ) {
+						pagesTitleToIdRelationships[
+							pagesList[ page ].title.rendered +
+								' (' +
+								pagesList[ page ].slug +
+								')'
+						] = pagesList[ page ].id;
+						pagesIdToTitleRelationships[ pagesList[ page ].id ] =
+							pagesList[ page ].title.rendered +
+							' (' +
+							pagesList[ page ].slug +
+							')';
+					}
 
-				this.setState( {
-					pagesList,
-					pagesTitleToIdRelationships,
-					pagesIdToTitleRelationships,
-					waitingForApiResponse: false,
-				} );
+					this.setState( {
+						pagesList,
+						pagesTitleToIdRelationships,
+						pagesIdToTitleRelationships,
+						waitingForApiResponse: false,
+					} );
 
-				resolve();
-			} ).catch( () => {
-				if ( this.stillMounted ) {
-					this.setState( { pagesList: [], waitingForApiResponse: false } );
 					resolve();
-				}
-			} );
+				} )
+				.catch( () => {
+					if ( this.stillMounted ) {
+						this.setState( {
+							pagesList: [],
+							waitingForApiResponse: false,
+						} );
+						resolve();
+					}
+				} );
 		} );
 	}
 
@@ -308,64 +370,126 @@ export default class Inspector extends Component {
 							}
 						/>
 					</RenderSettingControl>
-					{ 'page' === attributes.postType &&
+					{ 'page' === attributes.postType && (
 						<RenderSettingControl id="gb_postgrid_selectedPages">
 							<div className="components-base-control">
-								<div className="components-base-control__field" style={ { position: 'relative' } }>
+								<div
+									className="components-base-control__field"
+									style={ { position: 'relative' } }
+								>
 									<FormTokenField
 										suggestions={ compact(
-											map( pagesList, ( { title, slug } ) => {
-												return title.rendered + ' (' + slug + ')';
-											} ) )
+											map(
+												pagesList,
+												( { title, slug } ) => {
+													return (
+														title.rendered +
+														' (' +
+														slug +
+														')'
+													);
+												}
+											)
+										) }
+										label={
+											<>
+												{ __(
+													'Enter page names to display',
+													'genesis-blocks'
+												) }
+												{ this.state
+													.waitingForApiResponse ? (
+													<div
+														style={ {
+															position:
+																'absolute',
+															bottom: '30px',
+															right: '0px',
+														} }
+													>
+														<Spinner />
+													</div>
+												) : null }
+											</>
 										}
-										label={ <>
-											{ __( 'Enter page names to display', 'genesis-blocks' ) }
-											{
-												this.state.waitingForApiResponse ? <div style={ { position: 'absolute', bottom: '30px', right: '0px' } }><Spinner /></div> : null
-											}
-										</> }
-										placeholder={ __( 'Start typing page name…', 'genesis-blocks' ) }
+										placeholder={ __(
+											'Start typing page name…',
+											'genesis-blocks'
+										) }
 										value={ ( () => {
-											if ( ! this.props.attributes.selectedPages ) {
+											if (
+												! this.props.attributes
+													.selectedPages
+											) {
 												return [];
 											}
 
 											const values = [];
 
-											for ( const selectedPage in this.props.attributes.selectedPages ) {
-												const pageId = this.props.attributes.selectedPages[ selectedPage ].value;
+											for ( const selectedPage in this
+												.props.attributes
+												.selectedPages ) {
+												const pageId =
+													this.props.attributes
+														.selectedPages[
+														selectedPage
+													].value;
 
-												if ( pagesIdToTitleRelationships[ pageId ] ) {
-													values.push( pagesIdToTitleRelationships[ this.props.attributes.selectedPages[ selectedPage ].value ] );
+												if (
+													pagesIdToTitleRelationships[
+														pageId
+													]
+												) {
+													values.push(
+														pagesIdToTitleRelationships[
+															this.props
+																.attributes
+																.selectedPages[
+																selectedPage
+															].value
+														]
+													);
 												}
 											}
 
 											return values;
 										} )() }
 										onInputChange={ ( userInput ) => {
-											const delayName = 'getPagesFromServer';
+											const delayName =
+												'getPagesFromServer';
 
 											// Set up a delay which waits to search the api until the user takes a .5 second break from typing.
 											if ( inputDelay[ delayName ] ) {
 												// Clear the keypress delay if the user just typed
-												clearTimeout( inputDelay[ delayName ] );
+												clearTimeout(
+													inputDelay[ delayName ]
+												);
 												inputDelay[ delayName ] = null;
 											}
 
 											// (Re)-Set up the save to fire in 500ms
-											inputDelay[ delayName ] = setTimeout( () => {
-												clearTimeout( inputDelay[ delayName ] );
+											inputDelay[ delayName ] =
+												setTimeout( () => {
+													clearTimeout(
+														inputDelay[ delayName ]
+													);
 
-												// When the user types in the field, search the API for matching categories.
-												this.getPagesFromServer( userInput );
-											}, 500 );
+													// When the user types in the field, search the API for matching categories.
+													this.getPagesFromServer(
+														userInput
+													);
+												}, 500 );
 										} }
 										onChange={ ( newPagesSlugs ) => {
 											let selectedPages = [];
 
 											// Loop through each category slug chosen by the user, and populate the selectedPages attribute.
 											for ( const page in newPagesSlugs ) {
-												selectedPages.push( { value: pagesTitleToIdRelationships[ newPagesSlugs[ page ] ] } );
+												selectedPages.push( {
+													value: pagesTitleToIdRelationships[
+														newPagesSlugs[ page ]
+													],
+												} );
 											}
 
 											if ( ! selectedPages ) {
@@ -378,81 +502,156 @@ export default class Inspector extends Component {
 								</div>
 							</div>
 						</RenderSettingControl>
-					}
+					) }
 
 					{ 'post' === attributes.postType && (
 						<RenderSettingControl id="gb_postgrid_categories">
 							<div className="components-base-control">
-								<div className="components-base-control__field" style={ { position: 'relative' } }>
+								<div
+									className="components-base-control__field"
+									style={ { position: 'relative' } }
+								>
 									<FormTokenField
 										suggestions={ compact(
-											map( categoriesList, ( { name, slug } ) => {
-												return name + ' (' + slug + ')';
-											} ) )
+											map(
+												categoriesList,
+												( { name, slug } ) => {
+													return (
+														name + ' (' + slug + ')'
+													);
+												}
+											)
+										) }
+										label={
+											<>
+												{ __(
+													'Enter category names to display',
+													'genesis-blocks'
+												) }
+												{ this.state
+													.waitingForApiResponse ? (
+													<div
+														style={ {
+															position:
+																'absolute',
+															bottom: '30px',
+															right: '0px',
+														} }
+													>
+														<Spinner />
+													</div>
+												) : null }
+											</>
 										}
-										label={ <>
-											{ __( 'Enter category names to display', 'genesis-blocks' ) }
-											{
-												this.state.waitingForApiResponse ? <div style={ { position: 'absolute', bottom: '30px', right: '0px' } }><Spinner /></div> : null
-											}
-										</> }
-										placeholder={ __( 'Start typing category name…', 'genesis-blocks' ) }
+										placeholder={ __(
+											'Start typing category name…',
+											'genesis-blocks'
+										) }
 										value={ ( () => {
-											if ( ! this.props.attributes.categories ) {
+											if (
+												! this.props.attributes
+													.categories
+											) {
 												return [];
 											}
 
 											// Convert the string of category IDs to an array.
-											const categoryIdArray = this.props.attributes.categories.split( ',' );
+											const categoryIdArray =
+												this.props.attributes.categories.split(
+													','
+												);
 
 											const values = [];
 
 											// Convert each ID to its slug.
 											for ( const categoryId in categoryIdArray ) {
-												if ( categoriesIdToTitleRelationships[ categoryIdArray[ categoryId ] ] ) {
-													values.push( categoriesIdToTitleRelationships[ categoryIdArray[ categoryId ] ] );
+												if (
+													categoriesIdToTitleRelationships[
+														categoryIdArray[
+															categoryId
+														]
+													]
+												) {
+													values.push(
+														categoriesIdToTitleRelationships[
+															categoryIdArray[
+																categoryId
+															]
+														]
+													);
 												}
 											}
 
 											return values;
 										} )() }
 										onInputChange={ ( userInput ) => {
-											const delayName = 'getCategoriesFromServer';
+											const delayName =
+												'getCategoriesFromServer';
 
 											// Set up a delay which waits to search the api until the user takes a .5 second break from typing.
 											if ( inputDelay[ delayName ] ) {
 												// Clear the keypress delay if the user just typed
-												clearTimeout( inputDelay[ delayName ] );
+												clearTimeout(
+													inputDelay[ delayName ]
+												);
 												inputDelay[ delayName ] = null;
 											}
 
 											// (Re)-Set up the save to fire in 500ms
-											inputDelay[ delayName ] = setTimeout( () => {
-												clearTimeout( inputDelay[ delayName ] );
+											inputDelay[ delayName ] =
+												setTimeout( () => {
+													clearTimeout(
+														inputDelay[ delayName ]
+													);
 
-												// When the user types in the field, search the API for matching categories.
-												this.getCategoriesFromServer( userInput );
-											}, 500 );
+													// When the user types in the field, search the API for matching categories.
+													this.getCategoriesFromServer(
+														userInput
+													);
+												}, 500 );
 										} }
 										onChange={ ( newCategorySlugs ) => {
 											let chosenCatIdString = '';
 
 											// Loop through each category slug chosen by the user, and build a comma-separated string with each corresponding ID.
 											for ( const category in newCategorySlugs ) {
-												if ( categoriesTitleToIdRelationships[ newCategorySlugs[ category ] ] ) {
-													chosenCatIdString = chosenCatIdString + categoriesTitleToIdRelationships[ newCategorySlugs[ category ] ] + ',';
+												if (
+													categoriesTitleToIdRelationships[
+														newCategorySlugs[
+															category
+														]
+													]
+												) {
+													chosenCatIdString =
+														chosenCatIdString +
+														categoriesTitleToIdRelationships[
+															newCategorySlugs[
+																category
+															]
+														] +
+														',';
 												}
 											}
 
 											//Remove trailing comma and whitespace.
-											chosenCatIdString = chosenCatIdString.replace( /,\s*$/, '' );
+											chosenCatIdString =
+												chosenCatIdString.replace(
+													/,\s*$/,
+													''
+												);
 
 											if ( ! chosenCatIdString ) {
 												chosenCatIdString = undefined;
 											}
 
 											// Note that we parse the category id to be a string, as the attribute was originally defined as a string for this block.
-											setAttributes( { categories: undefined !== chosenCatIdString ? chosenCatIdString : '' } );
+											setAttributes( {
+												categories:
+													undefined !==
+													chosenCatIdString
+														? chosenCatIdString
+														: '',
+											} );
 										} }
 									/>
 								</div>
@@ -466,16 +665,27 @@ export default class Inspector extends Component {
 								<QueryControls
 									{ ...{ order, orderBy } }
 									numberOfItems={ attributes.postsToShow }
-									onOrderChange={ ( value ) => setAttributes( { order: value } ) }
-									onOrderByChange={ ( value ) => setAttributes( { orderBy: value } ) }
-									onNumberOfItemsChange={ ( value ) => setAttributes( { postsToShow: value } ) }
+									onOrderChange={ ( value ) =>
+										setAttributes( { order: value } )
+									}
+									onOrderByChange={ ( value ) =>
+										setAttributes( { orderBy: value } )
+									}
+									onNumberOfItemsChange={ ( value ) =>
+										setAttributes( { postsToShow: value } )
+									}
 								/>
 							</RenderSettingControl>
 							<RenderSettingControl id="gb_postgrid_offset">
 								<RangeControl
-									label={ __( 'Number of items to offset', 'genesis-blocks' ) }
+									label={ __(
+										'Number of items to offset',
+										'genesis-blocks'
+									) }
 									value={ attributes.offset }
-									onChange={ ( value ) => setAttributes( { offset: value } ) }
+									onChange={ ( value ) =>
+										setAttributes( { offset: value } )
+									}
 									min={ 0 }
 									max={ 20 }
 								/>
@@ -496,9 +706,9 @@ export default class Inspector extends Component {
 									! hasPosts
 										? MAX_POSTS_COLUMNS
 										: Math.min(
-											MAX_POSTS_COLUMNS,
-											latestPosts.length
-										)
+												MAX_POSTS_COLUMNS,
+												latestPosts.length
+										  )
 								}
 							/>
 						</RenderSettingControl>
@@ -520,7 +730,8 @@ export default class Inspector extends Component {
 							checked={ attributes.displaySectionTitle }
 							onChange={ () =>
 								this.props.setAttributes( {
-									displaySectionTitle: ! attributes.displaySectionTitle,
+									displaySectionTitle:
+										! attributes.displaySectionTitle,
 								} )
 							}
 						/>
@@ -528,7 +739,10 @@ export default class Inspector extends Component {
 					{ attributes.displaySectionTitle && (
 						<RenderSettingControl id="gb_postgrid_sectionTitle">
 							<TextControl
-								label={ __( 'Section Title', 'genesis-blocks' ) }
+								label={ __(
+									'Section Title',
+									'genesis-blocks'
+								) }
 								type="text"
 								value={ attributes.sectionTitle }
 								onChange={ ( value ) =>
@@ -548,7 +762,8 @@ export default class Inspector extends Component {
 							checked={ attributes.displayPostImage }
 							onChange={ () =>
 								this.props.setAttributes( {
-									displayPostImage: ! attributes.displayPostImage,
+									displayPostImage:
+										! attributes.displayPostImage,
 								} )
 							}
 						/>
@@ -573,7 +788,8 @@ export default class Inspector extends Component {
 							checked={ attributes.displayPostTitle }
 							onChange={ () =>
 								this.props.setAttributes( {
-									displayPostTitle: ! attributes.displayPostTitle,
+									displayPostTitle:
+										! attributes.displayPostTitle,
 								} )
 							}
 						/>
@@ -588,7 +804,8 @@ export default class Inspector extends Component {
 								checked={ attributes.displayPostAuthor }
 								onChange={ () =>
 									this.props.setAttributes( {
-										displayPostAuthor: ! attributes.displayPostAuthor,
+										displayPostAuthor:
+											! attributes.displayPostAuthor,
 									} )
 								}
 							/>
@@ -601,7 +818,8 @@ export default class Inspector extends Component {
 								checked={ attributes.displayPostDate }
 								onChange={ () =>
 									this.props.setAttributes( {
-										displayPostDate: ! attributes.displayPostDate,
+										displayPostDate:
+											! attributes.displayPostDate,
 									} )
 								}
 							/>
@@ -613,7 +831,8 @@ export default class Inspector extends Component {
 							checked={ attributes.displayPostExcerpt }
 							onChange={ () =>
 								this.props.setAttributes( {
-									displayPostExcerpt: ! attributes.displayPostExcerpt,
+									displayPostExcerpt:
+										! attributes.displayPostExcerpt,
 								} )
 							}
 						/>
@@ -643,7 +862,8 @@ export default class Inspector extends Component {
 							checked={ attributes.displayPostLink }
 							onChange={ () =>
 								this.props.setAttributes( {
-									displayPostLink: ! attributes.displayPostLink,
+									displayPostLink:
+										! attributes.displayPostLink,
 								} )
 							}
 						/>
@@ -667,7 +887,10 @@ export default class Inspector extends Component {
 					) }
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Post and Page Grid Markup', 'genesis-blocks' ) }
+					title={ __(
+						'Post and Page Grid Markup',
+						'genesis-blocks'
+					) }
 					initialOpen={ false }
 					className="gb-block-post-grid-markup-settings"
 				>

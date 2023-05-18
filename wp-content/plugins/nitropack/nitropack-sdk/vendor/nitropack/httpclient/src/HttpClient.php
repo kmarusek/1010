@@ -88,14 +88,14 @@ class HttpClient {
             $buffer = stream_get_contents($sock);
             if (strlen($buffer) && HttpClient::$DEBUG) {
                 if (isset(HttpClient::$backtraces[(int)$sock])) {
-                    file_put_contents("/tmp/" . (int)$sock . "_" . microtime(true) . ".nitro_backtrace_log", print_r(HttpClient::$backtraces[(int)$sock], true));
+                    self::forceFilePutContents("/tmp/" . (int)$sock . "_" . microtime(true) . ".nitro_backtrace_log", print_r(HttpClient::$backtraces[(int)$sock], true));
                 } else {
-                    file_put_contents("/tmp/" . (int)$sock . "_" . microtime(true) . ".nitro_log", $buffer);
+                    self::forceFilePutContents("/tmp/" . (int)$sock . "_" . microtime(true) . ".nitro_log", $buffer);
                 }
             }
             $oob = stream_socket_recvfrom($sock, 4096, STREAM_OOB);
             if (strlen($oob) && HttpClient::$DEBUG) {
-                file_put_contents("/tmp/" . (int)$sock . "_" . microtime(true) . ".nitro_log_oob", $oob);
+                self::forceFilePutContents("/tmp/" . (int)$sock . "_" . microtime(true) . ".nitro_log_oob", $oob);
             }
 
             if ($isBlocking) {
@@ -206,10 +206,20 @@ class HttpClient {
     private $data_len;
     private $is_chunked;
     private $emptyRead;
+    private $last_error;
 
     private $ignored_data = "";
     private $gzip_header = "";
     private $gzip_trailer = "";
+    private $gzip_ftext = false;
+    private $gzip_fhcrc = false;
+    private $gzip_fextra = false;
+    private $gzip_fname = false;
+    private $gzip_fcomment = false;
+    private $gzip_consumed_crc_header = false;
+    private $gzip_consumed_extra_header = false;
+    private $gzip_consumed_name_header = false;
+    private $gzip_consumed_comment_header = false;
 
     private $cookie_jar = "";
 
@@ -228,11 +238,20 @@ class HttpClient {
     private $privateIpRanges;
     private $isReusingConnection;
 
+    private $dynamicProperties;
+    public function __get($prop) {
+        return !empty($this->dynamicProperties[$prop]) ? $this->dynamicProperties[$prop] : NULL;
+    }
+
+    public function __set($name,$prop) {
+        $this->dynamicProperties[$name] = $prop;
+    }
     public function __construct($URL, $httpConfig = NULL) {
         $this->prevUrl = NULL;
         $this->setURL($URL);
         $this->http_method = "GET";
 
+        $this->last_error = [];
         $this->connect_timeout = NULL;//in seconds
         $this->ssl_timeout = NULL;//in seconds
         $this->timeout = 5;//in seconds
@@ -453,7 +472,7 @@ class HttpClient {
         }
 
         if ($this->cookie_jar) {
-            file_put_contents($this->cookie_jar, json_encode($this->cookies));
+            self::forceFilePutContents($this->cookie_jar, json_encode($this->cookies));
         }
     }
 
@@ -469,7 +488,7 @@ class HttpClient {
         }
 
         if ($this->cookie_jar) {
-            file_put_contents($this->cookie_jar, json_encode($this->cookies));
+            self::forceFilePutContents($this->cookie_jar, json_encode($this->cookies));
         }
     }
 
@@ -479,7 +498,7 @@ class HttpClient {
         }
 
         if ($this->cookie_jar) {
-            file_put_contents($this->cookie_jar, json_encode($this->cookies));
+            self::forceFilePutContents($this->cookie_jar, json_encode($this->cookies));
         }
     }
 
@@ -637,6 +656,15 @@ class HttpClient {
         $this->ignored_data = "";
         $this->gzip_header = "";
         $this->gzip_trailer = "";
+        $this->gzip_ftext = false;
+        $this->gzip_fhcrc = false;
+        $this->gzip_fextra = false;
+        $this->gzip_fname = false;
+        $this->gzip_fcomment = false;
+        $this->gzip_consumed_crc_header = false;
+        $this->gzip_consumed_extra_header = false;
+        $this->gzip_consumed_name_header = false;
+        $this->gzip_consumed_comment_header = false;
         $this->end_of_chunks = false;
         $this->chunk_remainder = 0;
         $this->data_size = 0;
@@ -837,7 +865,11 @@ class HttpClient {
                 "verify_peer_name" => $this->ssl_verify_peer_name,
                 "allow_self_signed" => true,
                 "SNI_enabled" => true,
-                "peer_name" => $this->host
+                "peer_name" => $this->host,
+                // Modern versions of OpenSSL no longer accept MD5 and SHA-1 server signatures
+                // This breaks communication in some cases. Using the following ciphers config works around this
+                // Hopefully soon everyone will drop these ciphers and we can remove this workaround
+                "ciphers" => "DEFAULT"
             )
         );
 
@@ -938,30 +970,56 @@ class HttpClient {
             $crypto_method |= STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
         }
 
-        //set_error_handler(array($this, 'error_sink'));
         $scheme = $this->scheme;
         if ($scheme == 'https') {
             if (!$this->ssl_negotiation_start) {
                 $this->ssl_negotiation_start = microtime(true);
             }
 
-            stream_set_blocking($this->sock, !$this->isAsync);
-            $result = @stream_socket_enable_crypto($this->sock, true, $crypto_method);
-            stream_set_blocking($this->sock, false);
-            //restore_error_handler();
+            $retry = 2;
 
-            if ($result === true) {
-                $this->ssl_negotiation = microtime(true) - $this->ssl_negotiation_start;
-                HttpClient::$secure_connections[(int)$this->sock] = true;
-                return true;
-            } else if ($result === false) {
-                $this->disconnect();
-                throw new SocketOpenException('Unable to establish secure connection to: ' . $this->host .' on port ' . $this->port);
-            } else {
-                $timeout = $this->ssl_timeout ? $this->ssl_timeout : $this->timeout;
-                if (microtime(true) - $this->ssl_negotiation_start >= $timeout) {
+            while ($retry-- > 0) {
+                stream_set_blocking($this->sock, !$this->isAsync);
+                $this->error_sink_start();
+                $result = @stream_socket_enable_crypto($this->sock, true, $crypto_method);
+                $this->error_sink_end();
+                stream_set_blocking($this->sock, false);
+
+                if ($result === true) {
+                    $this->ssl_negotiation = microtime(true) - $this->ssl_negotiation_start;
+                    HttpClient::$secure_connections[(int)$this->sock] = true;
+                    return true;
+                } else if ($result === false) {
+                    $opts = stream_context_get_options($this->sock);
+                    if (!empty($opts["ssl"]["ciphers"]) && $opts["ssl"]["ciphers"] == "DEFAULT") {
+                        stream_context_set_option($this->sock, [
+                            "ssl" => [
+                                "ciphers" => "DEFAULT@SECLEVEL=1"
+                            ],
+                        ]);
+                        continue;
+                    }
                     $this->disconnect();
-                    throw new SocketTlsTimedOutException($this->URL . " - SSL negotiation timed out.");
+                    if ($this->last_error) {
+                        if (
+                            !empty($this->last_error["errstr"])
+                            && strpos($this->last_error["errstr"], "error:14094438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error") === false
+                            && strpos($this->last_error["errstr"], "SSL: Success") === false
+                        ) {
+                            // These errors don't need to be logged because we cannot fix them
+                            // It is an issue on the other end that SSL is not enabled
+                            // All other errors must still propagate to the regular error handler
+                            $this->trigger_last_error();
+                        }
+                    }
+                    throw new SocketOpenException('Unable to establish secure connection to: ' . $this->host . ' on port ' . $this->port);
+                } else {
+                    $timeout = $this->ssl_timeout ? $this->ssl_timeout : $this->timeout;
+                    if (microtime(true) - $this->ssl_negotiation_start >= $timeout) {
+                        $this->disconnect();
+                        throw new SocketTlsTimedOutException($this->URL . " - SSL negotiation timed out.");
+                    }
+                    break;
                 }
             }
         } else {
@@ -1102,16 +1160,35 @@ class HttpClient {
                             }
                             break;
                         case 'content-encoding':
-                            if (strtolower($value) == 'gzip') {
-                                $this->is_gzipped = true;
+                            $isGzip = false;
+                            if (is_array($value)) {
+                                $params = array_map('strtolower', $value);
+                                if (array_pop($params) === 'gzip') {
+                                    $isGzip = true;
+                                }
+                            } else if (strtolower($value) == 'gzip') {
+                                $isGzip = true;
+                            }
 
+                            if ($isGzip) {
+                                $this->is_gzipped = true;
                                 if ($this->auto_deflate) {
                                     $this->gzip_filter = stream_filter_append($this->body_stream, "zlib.inflate", STREAM_FILTER_WRITE);
                                 }
                             }
                             break;
                         case 'transfer-encoding':
-                            if (strtolower($value) != 'identity') {
+                            $isChunked = false;
+                            if (is_array($value)) {
+                                $params = array_map('strtolower', $value);
+                                if (array_pop($params) != 'identity') {
+                                    $isChunked = true;
+                                }
+                            } else if (strtolower($value) != 'identity') {
+                                $isChunked = true;
+                            }
+
+                            if ($isChunked) {
                                 $this->is_chunked = true;
                             }
                         }
@@ -1216,6 +1293,55 @@ class HttpClient {
             if (strlen($this->gzip_header) > 10) {
                 $this->gzip_trailer = substr($this->gzip_header, 10);
                 $this->gzip_header = substr($this->gzip_header, 0, 10);
+                $this->gzip_ftext = ord($this->gzip_header[3]) & 0x80;
+                $this->gzip_fhcrc = ord($this->gzip_header[3]) & 0x40;
+                $this->gzip_fextra = ord($this->gzip_header[3]) & 0x20;
+                $this->gzip_fname = ord($this->gzip_header[3]) & 0x10;
+                $this->gzip_fcomment = ord($this->gzip_header[3]) & 0x08;
+            }
+
+            if ($this->gzip_fhcrc && !$this->gzip_consumed_crc_header && strlen($this->gzip_trailer) >= 2) {
+                $this->gzip_trailer = substr($this->gzip_trailer, 2);
+                $this->gzip_consumed_crc_header = true;
+            }
+
+            if ($this->gzip_fextra && !$this->gzip_consumed_extra_header && strlen($this->gzip_trailer) >= 2) {
+                if ($this->gzip_extra_remaining === NULL) {
+                    $this->gzip_extra_remaining = unpack("Slen", $this->gzip_trailer)["len"];
+                }
+                
+                $trailerLen = strlen($this->gzip_trailer);
+                $this->gzip_trailer = substr($this->gzip_trailer, $this->gzip_extra_remaining - 1);
+                $this->gzip_extra_remaining += strlen($this->gzip_trailer) - $trailerLen;
+
+                if ($this->gzip_extra_remaining < 1) {
+                    if ($this->gzip_extra_remaining !== 0) {
+                        throw new \RuntimeException("Extra GZIP header was not consumed correctly");
+                    }
+                    $this->gzip_consumed_extra_header = true;
+                }
+            }
+
+            if ($this->gzip_fname && !$this->gzip_consumed_name_header && strlen($this->gzip_trailer) > 0) {
+                $bytes = unpack("C*", $this->gzip_trailer);
+                foreach ($bytes as $index => $byte) { // Indicies start from 1 in unpack
+                    if ($byte === 0) {
+                        break;
+                    }
+                }
+                $this->gzip_trailer = substr($this->gzip_trailer, (int)$index);
+                $this->gzip_consumed_name_header = true;
+            }
+
+            if ($this->gzip_fcomment && !$this->gzip_consumed_comment_header && strlen($this->gzip_trailer) > 0) {
+                $bytes = unpack("C*", $this->gzip_trailer);
+                foreach ($bytes as $index => $byte) { // Indicies start from 1 in unpack
+                    if ($byte === 0) {
+                        break;
+                    }
+                }
+                $this->gzip_trailer = substr($this->gzip_trailer, (int)$index);
+                $this->gzip_consumed_comment_header = true;
             }
 
             if (strlen($this->gzip_trailer) > 8) {
@@ -1418,7 +1544,9 @@ class HttpClient {
 
         if ($this->post_data && ($this->http_method == "POST" || $this->http_method == "PUT") ) {
             if ($this->post_data_type) {
-                $headers[] = "content-type: " . $this->post_data_type;
+                if (!isset($this->request_headers['content-type'])) {
+                    $headers[] = "content-type: " . $this->post_data_type;
+                }
             }
             $headers[] = "content-length: " . strlen($this->post_data);
             if ($this->debug) {
@@ -1441,6 +1569,15 @@ class HttpClient {
 
     public function wasEmptyRead() {
         return $this->emptyRead;
+    }
+
+    public function error_capture($errno, $errstr, $errfile, $errline) {
+        $this->last_error = [
+            "errno" => $errno,
+            "errstr" => $errstr,
+            "errfile" => $errfile,
+            "errline" => $errline
+        ];
     }
 
     private function initBodyStream() {
@@ -1479,5 +1616,54 @@ class HttpClient {
         ];
     }
 
-    private function error_sink($errno, $errstr) {}
+    private static function forceFilePutContents($filePath, $message)
+    {
+        $folderName = dirname($filePath);
+        clearstatcache(true);
+        if (!is_dir($folderName)) {
+            mkdir($folderName, 0755, true);
+        }
+        file_put_contents($filePath, $message);
+    }
+
+    private function error_sink_start() {
+        $this->last_error = [];
+        set_error_handler(array($this, "error_capture"));
+    }
+
+    private function error_sink_end() {
+        restore_error_handler();
+    }
+    
+    private function trigger_last_error() {
+        if (!$this->last_error) return;
+        
+        switch ($this->last_error["errno"]) {
+            case E_ERROR:
+            case E_PARSE:
+            case E_CORE_ERROR:
+            case E_COMPILE_ERROR:
+            case E_RECOVERABLE_ERROR:
+                $errorLevel = E_USER_ERROR;
+                break;
+    
+            case E_WARNING:
+            case E_CORE_WARNING:
+            case E_COMPILE_WARNING:
+                $errorLevel = E_USER_WARNING;
+                break;
+    
+            case E_NOTICE:
+            case E_USER_NOTICE:
+            case E_STRICT:
+                $errorLevel = E_USER_NOTICE;
+                break;
+    
+            default:
+                $errorLevel = E_USER_ERROR;
+                break;
+        }
+
+        trigger_error($this->last_error["errstr"], $errorLevel);
+    }
 }

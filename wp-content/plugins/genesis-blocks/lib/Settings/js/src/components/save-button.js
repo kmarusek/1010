@@ -48,7 +48,9 @@ function SaveButtonComponent( {
 	function showMessage() {
 		messageTimerRef.current = setTimeout(
 			() =>
-				dispatch( 'genesis-blocks/global-settings' ).resetFormSaveState(),
+				dispatch(
+					'genesis-blocks/global-settings'
+				).resetFormSaveState(),
 			messageDuration * 1000
 		);
 
@@ -86,8 +88,6 @@ export const SaveButton = compose( [
 		settings: select(
 			'genesis-blocks/global-settings'
 		).getModifiedSettings(),
-		custom: select(
-			'genesis-blocks/global-settings'
-		).getCustom(),
+		custom: select( 'genesis-blocks/global-settings' ).getCustom(),
 	} ) ),
 ] )( SaveButtonComponent );

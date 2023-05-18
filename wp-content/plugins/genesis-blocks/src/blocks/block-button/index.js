@@ -55,10 +55,16 @@ class GBButtonBlock extends Component {
 			</BlockControls>,
 
 			// Show the block controls on focus
-			<Inspector key={ 'gb-button-inspector-' + this.props.clientId } { ...this.props } />,
+			<Inspector
+				key={ 'gb-button-inspector-' + this.props.clientId }
+				{ ...this.props }
+			/>,
 
 			// Show the button markup in the editor
-			<CustomButton key={ 'gb-button-custombutton-' + this.props.clientId } { ...this.props }>
+			<CustomButton
+				key={ 'gb-button-custombutton-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<RichText
 					tagName="span"
 					placeholder={ __( 'Button text…', 'genesis-blocks' ) }
@@ -179,7 +185,8 @@ registerBlockType( 'genesis-blocks/gb-button', {
 		// Save the block markup for the front end
 		return (
 			<CustomButton { ...props }>
-				{ // Check if there is button text and output
+				{
+					// Check if there is button text and output
 					buttonText && (
 						<a
 							href={ buttonUrl }
@@ -201,7 +208,8 @@ registerBlockType( 'genesis-blocks/gb-button', {
 						>
 							<RichText.Content value={ buttonText } />
 						</a>
-					) }
+					)
+				}
 			</CustomButton>
 		);
 	},

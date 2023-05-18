@@ -881,7 +881,7 @@ final class FLPageDataACF {
 					$field['field_key'] = $sub_fields[ $field['id'] ];
 				}
 				$data = maybe_unserialize( $field['field_opts'] );
-				if ( is_array( $data ) && isset( $data['type'] ) ) {
+				if ( is_array( $data ) && isset( $data['type'] ) && '' !== $field['field_key'] && '' !== $field['field_name'] ) {
 					$type                                   = isset( $data['type'] ) ? str_replace( array( '_', '-' ), ' ', $data['type'] ) : 'unknown';
 					$form['options'][ $field['field_key'] ] = sprintf( '%s (%s) [%s]', $field['field_name'], $field['field_key'], $type );
 				}

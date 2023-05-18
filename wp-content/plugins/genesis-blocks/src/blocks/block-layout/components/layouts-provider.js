@@ -55,7 +55,7 @@ export default class LayoutsProvider extends Component {
 			.then( ( favorite_keys ) => {
 				const favorites = [];
 
-				Object.values( this.state.all ).forEach( function( item ) {
+				Object.values( this.state.all ).forEach( function ( item ) {
 					if ( favorite_keys.includes( item.key ) ) {
 						favorites.push( item );
 					}
@@ -78,8 +78,7 @@ export default class LayoutsProvider extends Component {
 			method: 'PATCH',
 			body: JSON.stringify( { genesis_blocks_favorite_key: key } ),
 			_wpnonce: wpApiSettings.nonce,
-		} )
-			.catch( ( error ) => console.error( error ) );
+		} ).catch( ( error ) => console.error( error ) );
 	}
 
 	/**
@@ -94,8 +93,7 @@ export default class LayoutsProvider extends Component {
 			method: 'DELETE',
 			body: JSON.stringify( { genesis_blocks_favorite_key: key } ),
 			_wpnonce: wpApiSettings.nonce,
-		} )
-			.catch( ( error ) => console.error( error ) );
+		} ).catch( ( error ) => console.error( error ) );
 	}
 
 	async componentDidMount() {
@@ -115,7 +113,7 @@ export default class LayoutsProvider extends Component {
 			const favorites = [];
 			const collections = [];
 
-			Object.values( components ).forEach( function( item ) {
+			Object.values( components ).forEach( function ( item ) {
 				if ( 'layout' === item.type ) {
 					layouts.push( item );
 				}
@@ -129,7 +127,9 @@ export default class LayoutsProvider extends Component {
 				}
 
 				if ( item.hasOwnProperty( 'collection' ) ) {
-					if ( ! collections.hasOwnProperty( item.collection.slug ) ) {
+					if (
+						! collections.hasOwnProperty( item.collection.slug )
+					) {
 						collections[ item.collection.slug ] = [];
 						item.collection.image = item.image;
 						collections[ item.collection.slug ] = item.collection;

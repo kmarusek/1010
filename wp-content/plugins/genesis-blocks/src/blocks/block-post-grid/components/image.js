@@ -108,47 +108,53 @@ export default class PostGridImage extends Component {
 						/>
 					</a>
 
-					{ /* If we don't have the selected image size, show a warning */
+					{
+						/* If we don't have the selected image size, show a warning */
 						! this.getImageUrl() &&
-						this.state.imageLoaded &&
-						'selectimage' !== this.props.imgSize && (
-							<Fragment>
-								<div className={ 'gb-post-grid-no-image-icon' }>
-									<Dashicon icon={ 'warning' } />
-								</div>
+							this.state.imageLoaded &&
+							'selectimage' !== this.props.imgSize && (
+								<Fragment>
+									<div
+										className={
+											'gb-post-grid-no-image-icon'
+										}
+									>
+										<Dashicon icon={ 'warning' } />
+									</div>
 
-								<Placeholder
-									className={
-										'gb-post-grid-no-image-placeholder'
-									}
-								>
-									<Dashicon icon={ 'info' } />
-									<div className="components-placeholder__label">
-										{ __(
-											'There is no image generated for the selected image size, so a fallback image size is being used.',
-											'genesis-blocks'
-										) }
-									</div>
-									<div className="gb-post-grid-image-help">
-										<a
-											target="_blank"
-											rel="noreferrer noopener"
-											aria-label={ __(
-												'Learn more about image sizes (opens in a new tab)',
-												'genesis-blocks'
-											) }
-											href="https://github.com/studiopress/genesis-blocks/wiki/Post-Grid-Block#featured-image-sizes"
-										>
+									<Placeholder
+										className={
+											'gb-post-grid-no-image-placeholder'
+										}
+									>
+										<Dashicon icon={ 'info' } />
+										<div className="components-placeholder__label">
 											{ __(
-												'Learn more ',
+												'There is no image generated for the selected image size, so a fallback image size is being used.',
 												'genesis-blocks'
 											) }
-											<span>&rarr;</span>
-										</a>
-									</div>
-								</Placeholder>
-							</Fragment>
-						) }
+										</div>
+										<div className="gb-post-grid-image-help">
+											<a
+												target="_blank"
+												rel="noreferrer noopener"
+												aria-label={ __(
+													'Learn more about image sizes (opens in a new tab)',
+													'genesis-blocks'
+												) }
+												href="https://github.com/studiopress/genesis-blocks/wiki/Post-Grid-Block#featured-image-sizes"
+											>
+												{ __(
+													'Learn more ',
+													'genesis-blocks'
+												) }
+												<span>&rarr;</span>
+											</a>
+										</div>
+									</Placeholder>
+								</Fragment>
+							)
+					}
 				</div>
 			</Fragment>
 		);

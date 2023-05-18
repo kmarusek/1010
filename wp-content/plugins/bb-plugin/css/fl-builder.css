@@ -5991,6 +5991,11 @@ body > .fl-builder-tour-dimmed {
 	top:0;
 	background: #E5EAED !important;
 }
+
+.fl-builder--main-menu-panel-view-title button.fl-builder-upgrade-button {
+	float: right;
+}
+
 .fl-builder--menu-item:before {
 	display:block;
 	content: "";

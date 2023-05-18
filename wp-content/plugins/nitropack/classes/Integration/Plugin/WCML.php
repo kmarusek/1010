@@ -67,8 +67,8 @@ class WCML {
 		if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return;
 		}
-		$wcCurrencyLanguage = WC()->session->get("client_currency_language");
-		if (!$wcCurrencyLanguage) $wcCurrencyLanguage = 0;
+
+		$wcCurrencyLanguage = (!is_admin() && isset(WC()->session) && WC()->session->has_session()) ? WC()->session->get("client_currency_language") : 0;
 		setcookie('np_wc_currency_language', $wcCurrencyLanguage, time() + (86400 * 7), "/");
 	}
 }

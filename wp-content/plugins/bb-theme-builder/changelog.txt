@@ -1,3 +1,21 @@
+<h4>1.4.6 - 05/11/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Allow layouts to be filterable in WP Admin by type (#732)</li>
+	<li>Improve compatibility with PHP 8.2 (#760)</li>
+	<li>Updates to support React 18 style rendering (#763)</li>
+	<li>TEC: Run event URL through esc_url (#693)</li>
+</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix pagination not displaying when using WooCommerce product shortcode (#619)</li>
+	<li>Fix conditional logic for post type not always working correctly (#728)</li>
+	<li>If ACF field name and label are blank, do not show in detected fields dropdown (#771)</li>
+</ul>
+
+
 <h4>1.4.5.1 - 03/23/2023</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

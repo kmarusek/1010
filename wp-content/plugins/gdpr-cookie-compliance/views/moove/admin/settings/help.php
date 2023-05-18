@@ -407,22 +407,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
 		<!--  .gdpr-faq-toggle -->
-    
+
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3><?php esc_html_e( 'Prevent ajax script injection', 'gdpr-cookie-compliance' ); ?></h3>
+				<h3><?php esc_html_e( 'GDPR Branding link extra attributes', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
-				<p><?php esc_html_e( 'By default, our plugin uses AJAX script injection to function properly, however, this may sometimes cause high server load. For that reason, you can disable the AJAX script and enable static script injection using the following hook. You will also need to purge all caches for the hook to start working.', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'You can add rel="noopener noreferrer" to Powered by GDPR link.', 'gdpr-cookie-compliance' ); ?></p>
 				<?php ob_start(); ?>
-				add_action( 'gdpr_cc_prevent_ajax_script_inject', '__return_true' );
+				add_filter( 'gdpr_branding_link_attributes', 'gdpr_branding_link_attributes_noopener' );
+				function gdpr_branding_link_attributes_noopener( $atts ) {
+					$atts .= 'rel="noopener noreferrer"';
+					return $atts;
+				}
 				<?php $code = trim( ob_get_clean() ); ?>
 				<textarea id="<?php echo esc_attr( uniqid( strtotime( 'now' ) ) ); ?>"><?php apply_filters( 'gdpr_cc_keephtml', $code, true ); ?></textarea>
 				<div class="gdpr-code"></div><!--  .gdpr-code -->
 			</div>
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
-		<!--  .gdpr-faq-toggle -->	    
+		<!--  .gdpr-faq-toggle -->
+
+		<div class="gdpr-faq-toggle">
+			<div class="gdpr-faq-accordion-header">
+				<h3><?php esc_html_e( 'GDPR Branding link target', 'gdpr-cookie-compliance' ); ?></h3>
+			</div>
+			<div class="gdpr-faq-accordion-content" >
+				<p><?php esc_html_e( 'You can remove the target="_blank" from Powered by GDPR link.', 'gdpr-cookie-compliance' ); ?></p>
+				<?php ob_start(); ?>
+				add_filter( 'gdpr_branding_link_target', '__return_empty_string' );
+				<?php $code = trim( ob_get_clean() ); ?>
+				<textarea id="<?php echo esc_attr( uniqid( strtotime( 'now' ) ) ); ?>"><?php apply_filters( 'gdpr_cc_keephtml', $code, true ); ?></textarea>
+				<div class="gdpr-code"></div><!--  .gdpr-code -->
+			</div>
+			<!--  .gdpr-faq-accordion-content -->
+		</div>
+		<!--  .gdpr-faq-toggle -->	 
 
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">

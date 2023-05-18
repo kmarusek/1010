@@ -13,7 +13,9 @@ const { Button, Dashicon, Modal, TabPanel } = wp.components;
 const { useDispatch } = wp.data;
 
 function LayoutModal( props ) {
-	const [ currentTab, setCurrentTab ] = useState( 'gb-layout-tab-collections' );
+	const [ currentTab, setCurrentTab ] = useState(
+		'gb-layout-tab-collections'
+	);
 	const [ modalOpen, setModalOpen ] = useState( true );
 	const { removeBlock } = useDispatch( 'core/block-editor' );
 
@@ -72,10 +74,7 @@ function LayoutModal( props ) {
 			</Button>
 			{ modalOpen ? (
 				<Modal
-					key={
-						'layout-modal-modal-component-' +
-						props.clientId
-					}
+					key={ 'layout-modal-modal-component-' + props.clientId }
 					className="gb-layout-modal"
 					title={ __( 'Layout Selector', 'genesis-blocks' ) }
 					onRequestClose={ () => {
@@ -94,10 +93,7 @@ function LayoutModal( props ) {
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								{ __(
-									'Add Custom Layouts',
-									'genesis-blocks'
-								) }
+								{ __( 'Add Custom Layouts', 'genesis-blocks' ) }
 							</a>
 							<span>&middot;</span>
 							<a
@@ -110,9 +106,7 @@ function LayoutModal( props ) {
 								{ __( 'Reusable Blocks', 'genesis-blocks' ) }
 							</a>
 							<a
-								href={
-									'https://www.research.net/r/XFQYFPP'
-								}
+								href={ 'https://www.research.net/r/XFQYFPP' }
 								target="_blank"
 								rel="noopener noreferrer"
 								className="gb-pro-feedback"
@@ -123,9 +117,7 @@ function LayoutModal( props ) {
 						</div>
 					) }
 					<TabPanel
-						key={
-							'layout-modal-tabpanel-' + props.clientId
-						}
+						key={ 'layout-modal-tabpanel-' + props.clientId }
 						className="gb-layout-modal-panel"
 						activeClass="gb-layout-modal-active-tab"
 						onSelect={ ( tabName ) => {
@@ -140,9 +132,7 @@ function LayoutModal( props ) {
 							);
 
 							if ( tab.name ) {
-								if (
-									'gb-layout-tab-sections' === tab.name
-								) {
+								if ( 'gb-layout-tab-sections' === tab.name ) {
 									return [
 										<LayoutLibrary
 											key={
@@ -150,20 +140,14 @@ function LayoutModal( props ) {
 												props.clientId
 											}
 											clientId={ props.clientId }
-											currentTab={
-												currentTab
-											}
-											data={
-												props.context.sections
-											}
+											currentTab={ currentTab }
+											data={ props.context.sections }
 											context={ props.context }
 										/>,
 									];
 								}
 
-								if (
-									'gb-layout-tab-layouts' === tab.name
-								) {
+								if ( 'gb-layout-tab-layouts' === tab.name ) {
 									return [
 										<LayoutLibrary
 											key={
@@ -171,12 +155,8 @@ function LayoutModal( props ) {
 												props.clientId
 											}
 											clientId={ props.clientId }
-											currentTab={
-												currentTab
-											}
-											data={
-												props.context.layouts
-											}
+											currentTab={ currentTab }
+											data={ props.context.layouts }
 											context={ props.context }
 										/>,
 									];
@@ -192,20 +172,14 @@ function LayoutModal( props ) {
 												props.clientId
 											}
 											clientId={ props.clientId }
-											currentTab={
-												currentTab
-											}
-											data={
-												props.context.collections
-											}
+											currentTab={ currentTab }
+											data={ props.context.collections }
 											context={ props.context }
 										/>,
 									];
 								}
 
-								if (
-									'gb-layout-tab-favorites' === tab.name
-								) {
+								if ( 'gb-layout-tab-favorites' === tab.name ) {
 									return [
 										<LayoutLibrary
 											key={
@@ -213,20 +187,15 @@ function LayoutModal( props ) {
 												props.clientId
 											}
 											clientId={ props.clientId }
-											currentTab={
-												currentTab
-											}
-											data={
-												props.context.favorites
-											}
+											currentTab={ currentTab }
+											data={ props.context.favorites }
 											context={ props.context }
 										/>,
 									];
 								}
 
 								if (
-									'gb-layout-tab-reusable-blocks' ===
-									tab.name
+									'gb-layout-tab-reusable-blocks' === tab.name
 								) {
 									return [
 										<LayoutLibrary
@@ -235,12 +204,9 @@ function LayoutModal( props ) {
 												props.clientId
 											}
 											clientId={ props.clientId }
-											currentTab={
-												currentTab
-											}
+											currentTab={ currentTab }
 											data={
-												props.context
-													.reusableBlocks
+												props.context.reusableBlocks
 											}
 											context={ props.context }
 										/>,

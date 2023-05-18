@@ -9,12 +9,8 @@ import Accordion from './accordion';
  */
 const { __ } = wp.i18n;
 const { Component } = wp.element;
-const {
-	RichText,
-	AlignmentToolbar,
-	BlockControls,
-	InnerBlocks,
-} = wp.blockEditor;
+const { RichText, AlignmentToolbar, BlockControls, InnerBlocks } =
+	wp.blockEditor;
 
 export default class Edit extends Component {
 	render() {
@@ -32,10 +28,16 @@ export default class Edit extends Component {
 			</BlockControls>,
 
 			// Show the block controls on focus
-			<Inspector key={ 'gb-accordion-inspector-' + this.props.clientId } { ...this.props } />,
+			<Inspector
+				key={ 'gb-accordion-inspector-' + this.props.clientId }
+				{ ...this.props }
+			/>,
 
 			// Show the button markup in the editor
-			<Accordion key={ 'gb-accordion-' + this.props.clientId } { ...this.props }>
+			<Accordion
+				key={ 'gb-accordion-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<RichText
 					tagName="p"
 					placeholder={ __( 'Accordion Title', 'genesis-blocks' ) }

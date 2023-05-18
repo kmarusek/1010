@@ -5,7 +5,7 @@ use \NitroPack\Url\Url;
 use \NitroPack\SDK\Url\Embedjs;
 
 class NitroPack {
-    const VERSION = '0.53.1';
+    const VERSION = '0.55.0';
     const PAGECACHE_LOCK_EXPIRATION_TIME = 300; // in seconds
     private $dataDir;
     private $cachePath = array('data', 'pagecache');
@@ -116,7 +116,7 @@ class NitroPack {
         $this->loadHealthStatus();
 
         if (empty($userAgent)) {
-            $this->userAgent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36';
+            $this->userAgent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36';
         } else {
             $this->userAgent = $userAgent;
         }
@@ -157,7 +157,7 @@ class NitroPack {
 
         $this->pageCache = new Pagecache($this->url, $this->userAgent, $this->supportedCookiesFilter(self::getCookies()), $this->config->PageCache->SupportedCookies, $this->isAJAXRequest());
         $this->pageCache->setCookiesProvider([$this, "getPagecacheCookies"]);
-        if ($this->isAJAXRequest() && $this->isAllowedAJAXUrl($this->url) && !empty($_SERVER["HTTP_REFERER"]) && !$this->isAllowedAStandaloneJAXUrl($url)) {
+        if ($this->isAJAXRequest() && $this->isAllowedAJAXUrl($this->url) && !empty($_SERVER["HTTP_REFERER"]) && !$this->isAllowedStandaloneAJAXUrl($url)) {
             $refererInfo = new Url($_SERVER["HTTP_REFERER"]);
             $this->pageCache->setReferer($refererInfo->getNormalized());
         }
@@ -727,7 +727,7 @@ class NitroPack {
         return 
             (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ||
             $this->isAllowedAJAXUrl($this->url) ||
-            $this->isAllowedAStandaloneJAXUrl($this->url);
+            $this->isAllowedStandaloneAJAXUrl($this->url);
     }
 
     public function isRequestMethod($method) {
@@ -735,7 +735,7 @@ class NitroPack {
     }
 
     public function isAllowedAJAX() {
-        if (!$this->isAllowedAStandaloneJAXUrl($this->url)) {
+        if (!$this->isAllowedStandaloneAJAXUrl($this->url)) {
             if (!$this->pageCache->getParent()) return false;
             if (!$this->pageCache->getParent()->hasCache() || $this->pageCache->getParent()->hasExpired($this->config->PageCache->ExpireTime)) return false;
         }
@@ -757,7 +757,7 @@ class NitroPack {
         return false;
     }
 
-    public function isAllowedAStandaloneJAXUrl($url)
+    public function isAllowedStandaloneAJAXUrl($url)
     {
         if ($this->config->AjaxURLs->Status) {
             if (!empty($this->config->AjaxURLs->StandaloneURLs)) {

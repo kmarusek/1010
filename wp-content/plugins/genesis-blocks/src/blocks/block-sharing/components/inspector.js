@@ -113,8 +113,8 @@ export default class Inspector extends Component {
 							checked={ !! this.props.attributes.pinterest }
 							onChange={ () =>
 								this.props.setAttributes( {
-									pinterest: ! this.props.attributes
-										.pinterest,
+									pinterest:
+										! this.props.attributes.pinterest,
 								} )
 							}
 						/>

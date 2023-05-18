@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: NitroPack 1.5.17\n"
+"Project-Id-Version: NitroPack 1.5.19\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nitropack-wordpress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-03T09:20:35+01:00\n"
+"POT-Creation-Date: 2023-01-19T07:14:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: nitropack\n"
@@ -32,6 +32,10 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://nitropack.io/"
+msgstr ""
+
+#: classes/Integration/Plugin/AdvancedMathCaptcha.php:316
+msgid "Invalid request."
 msgstr ""
 
 #: diagnostics.php:32
@@ -147,214 +151,214 @@ msgstr ""
 msgid "Not found"
 msgstr ""
 
-#: functions.php:1730
-#: functions.php:1823
-#: wp-cli.php:56
+#: functions.php:1727
+#: functions.php:1820
+#: wp-cli.php:74
 msgid "Success! Cache has been purged successfully!"
 msgstr ""
 
-#: functions.php:1737
-#: functions.php:1831
-#: wp-cli.php:63
+#: functions.php:1734
+#: functions.php:1828
+#: wp-cli.php:81
 msgid "Error! There was an error and the cache was not purged!"
 msgstr ""
 
-#: functions.php:1746
-#: functions.php:1857
-#: wp-cli.php:87
+#: functions.php:1743
+#: functions.php:1854
+#: wp-cli.php:105
 msgid "Success! Cache has been invalidated successfully!"
 msgstr ""
 
-#: functions.php:1753
-#: functions.php:1865
-#: wp-cli.php:94
+#: functions.php:1750
+#: functions.php:1862
+#: wp-cli.php:112
 msgid "Error! There was an error and the cache was not invalidated!"
 msgstr ""
 
-#: functions.php:1764
+#: functions.php:1761
 msgid "Success! The residual cache has been cleared successfully!"
 msgstr ""
 
-#: functions.php:1770
+#: functions.php:1767
 msgid "Error! There was an error clearing the residual cache!"
 msgstr ""
 
-#: functions.php:2178
+#: functions.php:2175
 msgid "Webhook Error: "
 msgstr ""
 
-#: functions.php:2181
+#: functions.php:2178
 msgid "Unable to get SDK instance"
 msgstr ""
 
-#: functions.php:2184
+#: functions.php:2181
 msgid "Incomplete site config. Please reinstall the plugin!"
 msgstr ""
 
-#: functions.php:2229
+#: functions.php:2226
 msgid "Site ID and Site Secret cannot be empty"
 msgstr ""
 
-#: functions.php:2237
+#: functions.php:2234
 msgid "Invalid Site ID or Site Secret value"
 msgstr ""
 
-#: functions.php:2246
+#: functions.php:2243
 msgid "Error when trying to communicate with NitroPack's servers. Please try again in a few minutes. If the issue persists, please"
 msgstr ""
 
-#: functions.php:2305
+#: functions.php:2302
 msgid "Permission Error: "
 msgstr ""
 
-#: functions.php:2307
+#: functions.php:2304
 msgid "Error while fetching remote config: "
 msgstr ""
 
-#: functions.php:2309
+#: functions.php:2306
 msgid "Can't establish connection with NitroPack's servers"
 msgstr ""
 
-#: functions.php:2311
+#: functions.php:2308
 msgid "Incorrect API credentials. Please make sure that you copied them correctly and try again."
 msgstr ""
 
-#: functions.php:2385
+#: functions.php:2382
 msgid "Error! There was an error while updating cart cache!"
 msgstr ""
 
-#: functions.php:2407
+#: functions.php:2404
 msgid "Success! Cacheable post types have been updated!"
 msgstr ""
 
-#: functions.php:2490
+#: functions.php:2487
 msgid "Success! Cache warmup has been enabled successfully!"
 msgstr ""
 
-#: functions.php:2496
+#: functions.php:2493
 msgid "Error! There was an error while enabling the cache warmup!"
 msgstr ""
 
-#: functions.php:2510
+#: functions.php:2507
 msgid "Success! Cache warmup has been disabled successfully!"
 msgstr ""
 
-#: functions.php:2516
+#: functions.php:2513
 msgid "Error! There was an error while disabling the cache warmup!"
 msgstr ""
 
-#: functions.php:2529
+#: functions.php:2526
 msgid "Success! Cache warmup has been started successfully!"
 msgstr ""
 
-#: functions.php:2535
+#: functions.php:2532
 msgid "Error! There was an error while starting the cache warmup!"
 msgstr ""
 
-#: functions.php:2549
+#: functions.php:2546
 msgid "Error! Invalid estimation ID!"
 msgstr ""
 
-#: functions.php:2570
+#: functions.php:2567
 msgid "Error! There was an error while estimating the cache warmup!"
 msgstr ""
 
-#: functions.php:2581
-#: functions.php:2593
+#: functions.php:2578
+#: functions.php:2590
 msgid "Error! There was an error while fetching warmup stats!"
 msgstr ""
 
-#: functions.php:2607
+#: functions.php:2604
 msgid "Success! Safe mode has been enabled successfully!"
 msgstr ""
 
-#: functions.php:2613
+#: functions.php:2610
 msgid "Error! There was an error while enabling safe mode!"
 msgstr ""
 
-#: functions.php:2627
+#: functions.php:2624
 msgid "Success! Safe mode has been disabled successfully!"
 msgstr ""
 
-#: functions.php:2633
+#: functions.php:2630
 msgid "Error! There was an error while disabling safe mode!"
 msgstr ""
 
-#: functions.php:2644
+#: functions.php:2641
 msgid "Success! Cart cache has been enabled successfully!"
 msgstr ""
 
-#: functions.php:2652
+#: functions.php:2649
 msgid "Error! There was an error while enabling cart cache!"
 msgstr ""
 
-#: functions.php:2663
+#: functions.php:2660
 msgid "Success! Cart cache has been disabled successfully!"
 msgstr ""
 
-#: functions.php:2671
+#: functions.php:2668
 msgid "Error! There was an error while disabling cart cache!"
 msgstr ""
 
-#: functions.php:2683
+#: functions.php:2680
 msgid "Error! There was an error while fetching the status of safe mode!"
 msgstr ""
 
-#: functions.php:2697
+#: functions.php:2694
 msgid "Error! There was an error while fetching status of safe mode!"
 msgstr ""
 
-#: functions.php:2939
+#: functions.php:2936
 msgid "Connect NitroPack&nbsp;&nbsp;"
 msgstr ""
 
-#: functions.php:2961
+#: functions.php:2958
 msgid "Invalidate Cache for this page&nbsp;&nbsp;"
 msgstr ""
 
-#: functions.php:2973
+#: functions.php:2970
 msgid "Purge Cache for this page&nbsp;&nbsp;"
 msgstr ""
 
-#: functions.php:3129
+#: functions.php:3126
 msgid "The file /wp-content/advanced-cache.php was either missing or not the one generated by NitroPack. NitroPack re-installed its version of the file, so it can function properly. Possibly there is another active page caching plugin in your system. For correct operation, please deactivate any other page caching plugins."
 msgstr ""
 
-#: functions.php:3132
-#: functions.php:3142
+#: functions.php:3129
+#: functions.php:3139
 msgid "The file /wp-content/advanced-cache.php cannot be created. Please make sure that the /wp-content/ directory is writable and refresh this page."
 msgstr ""
 
-#: functions.php:3140
+#: functions.php:3137
 msgid "The file /wp-content/advanced-cache.php cannot be created because a conflicting plugin is active. Please make sure to disable all conflicting plugins."
 msgstr ""
 
-#: functions.php:3155
+#: functions.php:3152
 msgid "The WP_CACHE setting is not enabled. Please go to your FlyWheel control panel and enable this setting. You can find more information <a href='https://getflywheel.com/wordpress-support/how-to-enable-wp_cache/' target='_blank'>in this document</a>."
 msgstr ""
 
-#: functions.php:3157
+#: functions.php:3154
 msgid "The WP_CACHE constant cannot be set in the wp-config.php file. This can lead to slower cache delivery. Please make sure that the /wp-config.php file is writable and refresh this page."
 msgstr ""
 
-#: functions.php:3163
+#: functions.php:3160
 msgid "Unable to configure LiteSpeed specific rules for maximum performance. Please make sure your .htaccess file is writable or contact support."
 msgstr ""
 
-#: functions.php:3168
+#: functions.php:3165
 msgid "The NitroPack data directory cannot be created. Please make sure that the /wp-content/ directory is writable and refresh this page."
 msgstr ""
 
-#: functions.php:3184
+#: functions.php:3181
 msgid "The NitroPack static config file cannot be created. Please make sure that the /wp-content/nitropack/ directory is writable and refresh this page."
 msgstr ""
 
-#: functions.php:3187
-#: functions.php:3241
+#: functions.php:3184
+#: functions.php:3238
 msgid "The NitroPack static config file cannot be updated. Please make sure that the /wp-content/nitropack/ directory is writable and refresh this page."
 msgstr ""
 
-#: functions.php:3207
+#: functions.php:3204
 msgid "Unable to configure webhooks. This can impact the stability of the plugin. Please disconnect and connect again in order to retry configuring the webhooks."
 msgstr ""
 
