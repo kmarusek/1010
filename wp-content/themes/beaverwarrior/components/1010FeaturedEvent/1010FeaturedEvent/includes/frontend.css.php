@@ -47,10 +47,10 @@ FLBuilderCSS::dimension_field_rule( array(
     'selector'    => ".TenTenFeaturedEvent .TenTenFeaturedEvent-post",
     'unit'        => 'px', // Omit if custom unit select is used.
     'props'       => array(
-      'padding-top'    => 'event_margin_top', // As in $settings->padding_top
-      'padding-right'  => 'event_margin_right',
-      'padding-bottom' => 'event_margin_bottom',
-      'padding-left'   => 'event_margin_left',
+      'margin-top'    => 'event_margin_top', // As in $settings->padding_top
+      'margin-right'  => 'event_margin_right',
+      'margin-bottom' => 'event_margin_bottom',
+      'margin-left'   => 'event_margin_left',
     ),
   ) );
 FLBuilderCSS::dimension_field_rule( array(
