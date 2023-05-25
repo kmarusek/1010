@@ -43,6 +43,18 @@ FLBuilderCSS::typography_field_rule(
  */
 FLBuilderCSS::dimension_field_rule( array(
     'settings'    => $settings,
+    'setting_name'    => 'event_margin',
+    'selector'    => ".TenTenFeaturedEvent .TenTenFeaturedEvent-post",
+    'unit'        => 'px', // Omit if custom unit select is used.
+    'props'       => array(
+      'padding-top'    => 'event_margin_top', // As in $settings->padding_top
+      'padding-right'  => 'event_margin_right',
+      'padding-bottom' => 'event_margin_bottom',
+      'padding-left'   => 'event_margin_left',
+    ),
+  ) );
+FLBuilderCSS::dimension_field_rule( array(
+    'settings'    => $settings,
     'setting_name'    => 'event_padding',
     'selector'    => ".TenTenFeaturedEvent .TenTenFeaturedEvent-post",
     'unit'        => 'px', // Omit if custom unit select is used.

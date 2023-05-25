@@ -176,7 +176,7 @@ FLBuilder::register_module('BW1010FeaturedEvent', array(
             'card_margin' => array (
                 'title' => __( 'Featured Event Card Margin & Padding', 'fl-builder'),
                 'fields' => array (
-                    'featured_event_margin' => array(
+                    'event_margin' => array(
                         'type'         => 'dimension',
                         'label'        => __( 'Margin for each individual card', 'fl-builder' ),
                         'units'        => array( 'px' ),
