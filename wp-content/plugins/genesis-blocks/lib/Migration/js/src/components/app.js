@@ -40,30 +40,31 @@ const App = () => {
 		setStepIndex( currentStepIndex + 1 );
 	};
 
-	const steps = [
-		BackUpSite,
-		UpdateHooks,
-		MigrateBlocks,
-	];
+	const steps = [ BackUpSite, UpdateHooks, MigrateBlocks ];
 
 	return (
 		<div className="gb-migration__content-wrapper">
 			<div className="container gb-migration__content-container gb-admin-plugin-container">
 				<Intro />
-				{
-					steps.map( ( MigrationStep, index ) => {
-						const stepIndex = FIRST_STEP_NUMBER + index;
-						const isStepActive = currentStepIndex === stepIndex;
-						const isStepComplete = currentStepIndex > stepIndex;
+				{ steps.map( ( MigrationStep, index ) => {
+					const stepIndex = FIRST_STEP_NUMBER + index;
+					const isStepActive = currentStepIndex === stepIndex;
+					const isStepComplete = currentStepIndex > stepIndex;
 
-						return (
-							<MigrationStep
-								key={ `gb-migration-step-${ stepIndex }` }
-								{ ...{ currentStepIndex, goToNext, goToPrevious, isStepActive, isStepComplete, stepIndex } }
-							/>
-						);
-					} )
-				}
+					return (
+						<MigrationStep
+							key={ `gb-migration-step-${ stepIndex }` }
+							{ ...{
+								currentStepIndex,
+								goToNext,
+								goToPrevious,
+								isStepActive,
+								isStepComplete,
+								stepIndex,
+							} }
+						/>
+					);
+				} ) }
 			</div>
 		</div>
 	);

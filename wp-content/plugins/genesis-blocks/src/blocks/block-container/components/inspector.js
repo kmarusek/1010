@@ -108,7 +108,10 @@ export default class Inspector extends Component {
 						/>
 
 						<RangeControl
-							label={ __( 'Padding Right (%)', 'genesis-blocks' ) }
+							label={ __(
+								'Padding Right (%)',
+								'genesis-blocks'
+							) }
 							value={ containerPaddingRight }
 							onChange={ ( value ) =>
 								this.props.setAttributes( {
@@ -134,7 +137,10 @@ export default class Inspector extends Component {
 						/>
 
 						<RangeControl
-							label={ __( 'Margin Bottom (%)', 'genesis-blocks' ) }
+							label={ __(
+								'Margin Bottom (%)',
+								'genesis-blocks'
+							) }
 							value={ containerMarginBottom }
 							onChange={ ( value ) =>
 								this.props.setAttributes( {
@@ -198,28 +204,31 @@ export default class Inspector extends Component {
 
 									{ containerImgURL &&
 										!! containerImgURL.length && (
-										<Button
-											className="gb-container-inspector-media"
-											label={ __(
-												'Remove Image',
-												'genesis-blocks'
-											) }
-											onClick={ onRemoveImage }
-										>
-											<Icon icon="dismiss" />
-											{ __(
-												'Remove',
-												'genesis-blocks'
-											) }
-										</Button>
-									) }
+											<Button
+												className="gb-container-inspector-media"
+												label={ __(
+													'Remove Image',
+													'genesis-blocks'
+												) }
+												onClick={ onRemoveImage }
+											>
+												<Icon icon="dismiss" />
+												{ __(
+													'Remove',
+													'genesis-blocks'
+												) }
+											</Button>
+										) }
 								</div>
 							) }
 						></MediaUpload>
 
 						{ containerImgURL && !! containerImgURL.length && (
 							<RangeControl
-								label={ __( 'Image Opacity', 'genesis-blocks' ) }
+								label={ __(
+									'Image Opacity',
+									'genesis-blocks'
+								) }
 								value={ containerDimRatio }
 								onChange={ ( value ) =>
 									this.props.setAttributes( {

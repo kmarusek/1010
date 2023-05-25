@@ -15,12 +15,8 @@ const { __ } = wp.i18n;
 
 const { Component, Fragment } = wp.element;
 
-const {
-	RichText,
-	AlignmentToolbar,
-	BlockControls,
-	MediaUpload,
-} = wp.blockEditor;
+const { RichText, AlignmentToolbar, BlockControls, MediaUpload } =
+	wp.blockEditor;
 
 const { Button, Dashicon } = wp.components;
 
@@ -30,7 +26,10 @@ export default class Edit extends Component {
 	constructor() {
 		super( ...arguments );
 
-		if ( ! this.props.attributes.clientId || this.props.attributes.clientId !== this.props.clientId ) {
+		if (
+			! this.props.attributes.clientId ||
+			this.props.attributes.clientId !== this.props.clientId
+		) {
 			this.props.setAttributes( { clientId: this.props.clientId } );
 		}
 	}
@@ -62,10 +61,16 @@ export default class Edit extends Component {
 			</BlockControls>,
 
 			/* Show the block controls on focus */
-			<Inspector key={ 'gb-author-profile-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
+			<Inspector
+				key={ 'gb-author-profile-inspector-' + this.props.clientId }
+				{ ...{ setAttributes, ...this.props } }
+			/>,
 
 			/* Show the block markup in the editor */
-			<ProfileBox key={ 'gb-author-profile-' + this.props.clientId } { ...this.props }>
+			<ProfileBox
+				key={ 'gb-author-profile-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<AvatarColumn { ...this.props }>
 					<figure className="gb-profile-image-square">
 						<MediaUpload

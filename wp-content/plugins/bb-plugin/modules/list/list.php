@@ -135,6 +135,25 @@ class FLListModule extends FLBuilderModule {
 
 		return $content_html;
 	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		// Rename 'icon_color' to 'list_icon_color'
+		if ( empty( $settings->list_icon_color ) && ! empty( $settings->icon_color ) ) {
+			$settings->list_icon_color = $settings->icon_color;
+			unset( $settings->icon_color );
+		}
+
+		return $settings;
+	}
+
 }
 
 /**
@@ -279,10 +298,7 @@ FLBuilder::register_module(
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'preview'     => array(
-								'type'      => 'css',
-								'selector'  => '.fl-module-content',
-								'property'  => 'background-color',
-								'important' => true,
+								'type' => 'refresh',
 							),
 						),
 						'list_padding'             => array(
@@ -335,20 +351,17 @@ FLBuilder::register_module(
 					'title'     => __( 'Icon Style', 'fl-builder' ),
 					'collapsed' => true,
 					'fields'    => array(
-						'icon_color'   => array(
+						'list_icon_color' => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
-							'label'       => __( 'Icon Color', 'fl-builder' ),
+							'label'       => __( 'List Icon Color', 'fl-builder' ),
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'preview'     => array(
-								'type'      => 'css',
-								'selector'  => '.fl-module-content .fl-list-item-icon',
-								'property'  => 'color',
-								'important' => true,
+								'type' => 'refresh',
 							),
 						),
-						'icon_size'    => array(
+						'icon_size'       => array(
 							'type'      => 'unit',
 							'label'     => __( 'Icon Size', 'fl-builder' ),
 							'default'   => '10',
@@ -373,7 +386,7 @@ FLBuilder::register_module(
 								'important' => true,
 							),
 						),
-						'icon_width'   => array(
+						'icon_width'      => array(
 							'type'         => 'unit',
 							'label'        => __( 'Icon Width', 'fl-builder' ),
 							'maxlength'    => '5',
@@ -396,7 +409,7 @@ FLBuilder::register_module(
 								'important' => true,
 							),
 						),
-						'icon_padding' => array(
+						'icon_padding'    => array(
 							'type'       => 'dimension',
 							'label'      => __( 'Icon Padding', 'fl-builder' ),
 							'default'    => '0',
@@ -426,10 +439,7 @@ FLBuilder::register_module(
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'preview'     => array(
-								'type'      => 'css',
-								'selector'  => '.fl-module-content .fl-list-item-heading',
-								'property'  => 'color',
-								'important' => true,
+								'type' => 'refresh',
 							),
 						),
 						'heading_typography' => array(
@@ -455,10 +465,7 @@ FLBuilder::register_module(
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'preview'     => array(
-								'type'      => 'css',
-								'selector'  => '.fl-module-content .fl-list-item-content .fl-list-item-content-text, .fl-module-content .fl-list-item-content .fl-list-item-content-text *',
-								'property'  => 'color',
-								'important' => true,
+								'type' => 'refresh',
 							),
 						),
 						'content_typography' => array(

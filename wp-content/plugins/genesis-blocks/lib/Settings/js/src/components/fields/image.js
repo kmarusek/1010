@@ -60,7 +60,9 @@ function ImageFieldComponent( {
 					{ field.label || DEFAULT_LABEL }
 				</p>
 				<MediaUpload
-					title={ field.label_media_modal || DEFAULT_LABEL_MEDIA_MODAL }
+					title={
+						field.label_media_modal || DEFAULT_LABEL_MEDIA_MODAL
+					}
 					onSelect={ onUpdateImage }
 					allowedTypes={ ALLOWED_MEDIA_TYPES }
 					render={ ( { open } ) => (

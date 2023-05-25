@@ -4,10 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit008d5fbba23d4487431bb48cd9baaa3e
+class ComposerStaticInit69685a1a3c98f3b837517bc52ea3a4d2
 {
     public static $files = array (
+        '0078757fbd019a5f202f2be6585c3626' => __DIR__ . '/..' . '/publishpress/wordpress-banners/BannersMain.php',
         '41c664bd04a95c2d6a2f2a3e00f06593' => __DIR__ . '/..' . '/publishpress/wordpress-reviews/ReviewsController.php',
+        'a3d26137b9bd0e5c180ba24186046ae6' => __DIR__ . '/../..' . '/define-base-path.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -15,6 +17,7 @@ class ComposerStaticInit008d5fbba23d4487431bb48cd9baaa3e
         array (
             'PublishPressFuture\\' => 19,
             'Psr\\Container\\' => 14,
+            'PPVersionNotices\\' => 17,
         ),
     );
 
@@ -27,6 +30,20 @@ class ComposerStaticInit008d5fbba23d4487431bb48cd9baaa3e
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'PPVersionNotices\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/publishpress/wordpress-version-notices/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'Pimple' => 
+            array (
+                0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
@@ -36,9 +53,10 @@ class ComposerStaticInit008d5fbba23d4487431bb48cd9baaa3e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit008d5fbba23d4487431bb48cd9baaa3e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit008d5fbba23d4487431bb48cd9baaa3e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit008d5fbba23d4487431bb48cd9baaa3e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit69685a1a3c98f3b837517bc52ea3a4d2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit69685a1a3c98f3b837517bc52ea3a4d2::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit69685a1a3c98f3b837517bc52ea3a4d2::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit69685a1a3c98f3b837517bc52ea3a4d2::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -97,6 +97,7 @@ class FLPhotoModule extends FLBuilderModule {
 
 		if ( fl_builder_filesystem()->file_exists( $cropped_path['path'] ) ) {
 			fl_builder_filesystem()->unlink( $cropped_path['path'] );
+			do_action( 'fl_builder_cropped_image_deleted', $cropped_path );
 		}
 	}
 

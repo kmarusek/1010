@@ -7,12 +7,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:nitropack/httpclient.git",
-                "reference": "8744838023ab86b9ce8d754ae04cc4095a54d9b8"
+                "reference": "549b4e269581e105616e880577193db60628a482"
             },
             "require": {
                 "nitropack/url": "dev-master"
             },
-            "time": "2022-10-14T12:18:14+00:00",
+            "require-dev": {
+                "phpunit/phpunit": "^10",
+                "react/http": "^1.8",
+                "react/socket": "^1.12"
+            },
+            "time": "2023-04-28T14:56:46+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "source",
@@ -20,6 +25,11 @@
                 "psr-4": {
                     "NitroPack\\HttpClient\\": "src/"
                 }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit --testdox tests"
+                ]
             },
             "authors": [
                 {
@@ -42,12 +52,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:nitropack/url.git",
-                "reference": "a8ea4e71f231de2e3527f716d3a08946048524fc"
+                "reference": "6b9393364893561f29abf5ac16aa7d97f2b3a49d"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9"
             },
-            "time": "2023-01-06T10:25:29+00:00",
+            "time": "2023-03-16T14:26:58+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "source",

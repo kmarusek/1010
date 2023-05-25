@@ -141,6 +141,14 @@ final class FLBuilderColor {
 			return $gradient;
 		}
 
+		/**
+		 * There should be 2 colours here even if one is blank
+		 * SD mode strips the blank one, we need to add it back
+		 */
+		if ( count( $setting['colors'] ) < 2 ) {
+			$setting['colors'][] = '';
+		}
+
 		foreach ( $setting['colors'] as $i => $color ) {
 			$stop = $setting['stops'][ $i ];
 

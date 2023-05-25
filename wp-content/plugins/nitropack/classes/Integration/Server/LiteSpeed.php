@@ -89,13 +89,15 @@ class LiteSpeed {
             $cookies = $nitro->getConfig()->PageCache->SupportedCookies;
         }
 
-        $device = new Device($_SERVER["HTTP_USER_AGENT"]);
         $deviceStr = "nitrodesktop";
+        if ( ! empty($_SERVER["HTTP_USER_AGENT"]) ) {
+            $device = new Device($_SERVER["HTTP_USER_AGENT"]);
 
-        if ($device->isMobile()) {
-            $deviceStr = "nitromobile";
-        } else if ($device->isTablet()) {
-            $deviceStr = "nitrotablet";
+            if ($device->isMobile()) {
+                $deviceStr = "nitromobile";
+            } else if ($device->isTablet()) {
+                $deviceStr = "nitrotablet";
+            }
         }
 
         $varyStr = "";

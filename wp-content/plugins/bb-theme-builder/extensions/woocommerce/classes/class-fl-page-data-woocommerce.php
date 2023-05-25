@@ -119,7 +119,7 @@ final class FLPageDataWooCommerce {
 	static public function get_add_to_cart_button() {
 		$html = '';
 
-		if ( FLPageData::is_archive() ) {
+		if ( FLPageData::is_archive() || is_search() ) {
 			$html = self::get_template_html( 'woocommerce_template_loop_add_to_cart' );
 		} else {
 			$html = self::get_template_html( 'woocommerce_template_single_add_to_cart' );

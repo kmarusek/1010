@@ -19,10 +19,12 @@ final class FLThemeBuilderLayoutAdminList {
 		add_action( 'manage_fl-theme-layout_posts_custom_column', __CLASS__ . '::manage_column_content', 10, 2 );
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::admin_enqueue_scripts' );
 		add_action( 'wp_ajax_fl_template_switch', __CLASS__ . '::switch_status' );
+		add_action( 'restrict_manage_posts', __CLASS__ . '::restrict_manage_posts' );
 
 		// Filters
 		add_filter( 'manage_fl-theme-layout_posts_columns', __CLASS__ . '::manage_column_headings' );
 		add_filter( 'manage_edit-fl-theme-layout_sortable_columns', __CLASS__ . '::manage_sortable_columns' );
+		add_filter( 'parse_query', __CLASS__ . '::posts_filter' );
 	}
 
 	/**
@@ -172,6 +174,52 @@ final class FLThemeBuilderLayoutAdminList {
 					echo $label . '<br />';
 				}
 			}
+		}
+	}
+
+	static public function restrict_manage_posts() {
+		$type = 'fl-theme-layout';
+		if ( isset( $_GET['post_type'] ) ) {
+			$type = $_GET['post_type'];
+		}
+
+		if ( 'fl-theme-layout' == $type ) {
+			$values = array(
+				__( 'Headers', 'bb-theme-builder' )  => 'header',
+				__( 'Footers', 'bb-theme-builder' )  => 'footer',
+				__( 'Parts', 'bb-theme-builder' )    => 'part',
+				__( 'Archives', 'bb-theme-builder' ) => 'archive',
+				__( 'Singular', 'bb-theme-builder' ) => 'singular',
+				__( '404', 'bb-theme-builder' )      => '404',
+			);
+			?>
+		<select name="layout_type">
+		<option value=""><?php _e( 'All Layouts', 'bb-theme-builder' ); ?></option>
+			<?php
+			$current_v = isset( $_GET['layout_type'] ) ? $_GET['layout_type'] : '';
+			foreach ( $values as $label => $value ) {
+				printf(
+					'<option value="%s"%s>%s</option>',
+					$value,
+					$value == $current_v ? ' selected="selected"' : '',
+					$label
+				);
+			}
+			?>
+		</select>
+			<?php
+		}
+	}
+
+	static public function posts_filter( $query ) {
+		global $pagenow;
+		$type = 'fl-theme-layout';
+		if ( isset( $_GET['post_type'] ) ) {
+			$type = $_GET['post_type'];
+		}
+		if ( 'fl-theme-layout' === $type && is_admin() && 'edit.php' === $pagenow && isset( $_GET['layout_type'] ) && '' !== $_GET['layout_type'] ) {
+			$query->query_vars['meta_key']   = '_fl_theme_layout_type';
+			$query->query_vars['meta_value'] = $_GET['layout_type'];
 		}
 	}
 }

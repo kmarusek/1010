@@ -467,7 +467,7 @@
 				} );
 
 				// Hide active menu when click on anchor link ID that exists on a page.
-				$menu.on( 'click', '.menu-item > a[href*="#"]:not([href="#"])', function(e){
+				$menu.off().on( 'click', '.menu-item > a[href*="#"]:not([href="#"])', function(e){
 					var $href = $(this).attr('href'),
 						$targetID = $href.split('#')[1],
 						element = $('#' + $targetID);
@@ -490,6 +490,10 @@
 				$menu    = $wrapper.find( 'ul.menu' );
 				$wrapper.find( '.fl-menu-mobile-toggle' ).removeClass( 'fl-active' );
 				$menu.css({ display: '' });
+
+				if ( ! this._isMobileBelowRowEnabled() ) {
+					$menu.off( 'click', '.menu-item > a[href*="#"]:not([href="#"])' );
+				}
 
 				if ( this.mobileFlyout && $wrapper.find( '.fl-menu-mobile-flyout' ).length > 0 ) {
 					$( 'body' ).css( 'margin', '' );
@@ -593,6 +597,7 @@
 
 			module.find( '.fl-menu-mobile-toggle' ).after( menu );
 			clone.remove();
+			menu.find( 'a' ).each( FLBuilderLayout._initAnchorLink );
 		},
 
 		/**

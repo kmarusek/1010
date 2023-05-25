@@ -33,7 +33,7 @@ module.exports = ( defaultConfig, rootPath ) => {
 		},
 		externals: {
 			// eslint-disable-next-line quote-props
-			'lodash': 'lodash', // Prevents an editor crash. See https://github.com/WordPress/gutenberg/issues/4043#issuecomment-633081315.
+			lodash: 'lodash', // Prevents an editor crash. See https://github.com/WordPress/gutenberg/issues/4043#issuecomment-633081315.
 		},
 		module: {
 			rules: [

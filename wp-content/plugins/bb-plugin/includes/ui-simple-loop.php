@@ -106,8 +106,21 @@ $settings     = (object) array_merge( $defaults, $tab_defaults, (array) $setting
 					// Taxonomies
 					$taxonomies = FLBuilderLoop::taxonomies( $slug );
 
+					$field_settings = new stdClass;
+					foreach ( $settings as $k => $setting ) {
+						if ( false !== strpos( $k, 'tax_' . $slug ) ) {
+							$field_settings->$k = $setting;
+						}
+					}
+
 					foreach ( $taxonomies as $tax_slug => $tax ) {
-						FLBuilder::render_settings_field( 'tax_' . $slug . '_' . $tax_slug, array(
+						$field_key = 'tax_' . $slug . '_' . $tax_slug;
+
+						if ( isset( $settings->$field_key ) ) {
+							$field_settings->$field_key = $settings->$field_key;
+						}
+
+						FLBuilder::render_settings_field( $field_key, array(
 							'type'      => 'suggest',
 							'action'    => 'fl_as_terms',
 							'data'      => $tax_slug,
@@ -117,7 +130,7 @@ $settings     = (object) array_merge( $defaults, $tab_defaults, (array) $setting
 							'help'      => sprintf( __( 'Enter a list of %1$s.', 'fl-builder' ), $tax->label ),
 							'matching'  => true,
 							'row_class' => "fl-custom-query-filter fl-custom-query-{$slug}-filter",
-						), $settings );
+						), $field_settings );
 					}
 				}
 				?>

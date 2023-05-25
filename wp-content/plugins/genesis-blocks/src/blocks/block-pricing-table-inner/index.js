@@ -69,8 +69,15 @@ class GBPricingTableBlock extends Component {
 					} }
 				/>
 			</BlockControls>,
-			<Inspector key={ 'gb-pricing-table-inner-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
-			<Fragment key={ 'gb-pricing-table-inner-fragment-' + this.props.clientId } >
+			<Inspector
+				key={
+					'gb-pricing-table-inner-inspector-' + this.props.clientId
+				}
+				{ ...{ setAttributes, ...this.props } }
+			/>,
+			<Fragment
+				key={ 'gb-pricing-table-inner-fragment-' + this.props.clientId }
+			>
 				<div
 					className={ classnames(
 						alignment

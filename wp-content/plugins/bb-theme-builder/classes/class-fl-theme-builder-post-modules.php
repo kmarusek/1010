@@ -133,9 +133,6 @@ final class FLThemeBuilderPostModules {
 	 */
 	static public function post_grid_css( $css, $nodes ) {
 
-		if ( ! class_exists( 'lessc' ) ) {
-			require_once FL_THEME_BUILDER_DIR . 'classes/class-lessc.php';
-		}
 		foreach ( $nodes['modules'] as $module ) {
 
 			if ( ! is_object( $module ) ) {
@@ -146,8 +143,13 @@ final class FLThemeBuilderPostModules {
 				continue;
 			}
 
+			if ( empty( $module->settings->custom_post_layout->css ) ) {
+				continue;
+			}
+
+			require_once FL_THEME_BUILDER_DIR . 'classes/class-lessc.php';
+			$less = new themer_lessc;
 			try {
-				$less    = new lessc;
 				$custom  = '.fl-node-' . $module->node . ' { ';
 				$custom .= $module->settings->custom_post_layout->css;
 				$custom .= ' }';
@@ -159,7 +161,7 @@ final class FLThemeBuilderPostModules {
 				$css .= $module->settings->custom_post_layout->css;
 			}
 		}
-			return $css;
+		return $css;
 	}
 
 	/**

@@ -15,7 +15,6 @@ final class FLThemeBuilderWooCommerceArchive {
 		// Actions
 		add_action( 'fl_builder_posts_module_before_posts', __CLASS__ . '::print_notices', 10, 2 );
 		add_action( 'fl_builder_posts_module_before_posts', __CLASS__ . '::posts_module_before_posts' );
-		add_action( 'fl_builder_posts_module_after_pagination', __CLASS__ . '::posts_module_after_pagination', 10, 2 );
 		add_action( 'fl_builder_post_grid_before_image', __CLASS__ . '::post_grid_before_image' );
 		add_action( 'fl_builder_post_grid_before_content', __CLASS__ . '::post_grid_before_content' );
 		add_action( 'fl_builder_post_grid_after_content', __CLASS__ . '::post_grid_after_content' );
@@ -100,22 +99,6 @@ final class FLThemeBuilderWooCommerceArchive {
 			if ( $force ) {
 				unset( $GLOBALS['woocommerce_loop'] );
 			}
-		}
-	}
-
-	/**
-	 * Fires the woocommerce_after_shop_loop hook to support
-	 * third party plugins.
-	 *
-	 * @since 1.0.1
-	 * @param object $settings
-	 * @param object $query
-	 * @return void
-	 */
-	static public function posts_module_after_pagination( $settings, $query = null ) {
-		if ( is_object( $query ) && isset( $query->query_vars['post_type'] ) && 'product' == $query->query_vars['post_type'] ) {
-			remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination' );
-			do_action( 'woocommerce_after_shop_loop' );
 		}
 	}
 
@@ -540,6 +523,8 @@ final class FLThemeBuilderWooCommerceArchive {
 
 		if ( is_object( $wp_the_query->post ) && 'product' === $wp_the_query->post->post_type ) {
 			if ( is_shop() || is_product_category() || is_product_tag() ) {
+				// Remove default WooCommerce product pagination.
+				remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination' );
 				do_action( 'woocommerce_after_shop_loop' );
 			}
 		}
@@ -557,9 +542,6 @@ final class FLThemeBuilderWooCommerceArchive {
 			// Remove default WooCommerce Product Sorting.
 			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
-
-			// Remove default WooCommerce product pagination.
-			remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination' );
 		}
 	}
 }

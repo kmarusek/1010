@@ -484,10 +484,10 @@ function ai1wm_archive_file( $blog_id = null ) {
 	}
 
 	// Add year, month and day
-	$name[] = date( 'Ymd' );
+	$name[] = date_i18n( 'Ymd' );
 
 	// Add hours, minutes and seconds
-	$name[] = date( 'His' );
+	$name[] = date_i18n( 'His' );
 
 	// Add unique identifier
 	$name[] = ai1wm_generate_random_string( 6, false );
@@ -1933,6 +1933,8 @@ function ai1wm_get_htaccess() {
 	if ( is_file( AI1WM_WORDPRESS_HTACCESS ) ) {
 		return @file_get_contents( AI1WM_WORDPRESS_HTACCESS );
 	}
+
+	return '';
 }
 
 /**
@@ -1944,6 +1946,8 @@ function ai1wm_get_webconfig() {
 	if ( is_file( AI1WM_WORDPRESS_WEBCONFIG ) ) {
 		return @file_get_contents( AI1WM_WORDPRESS_WEBCONFIG );
 	}
+
+	return '';
 }
 
 /**
@@ -1956,6 +1960,22 @@ function ai1wm_disk_free_space( $path ) {
 	if ( function_exists( 'disk_free_space' ) ) {
 		return @disk_free_space( $path );
 	}
+}
+
+/**
+ * Set response header to json end echo data
+ *
+ * @param array $data
+ * @param int $options
+ * @param int $depth
+ * @return void
+ */
+function ai1wm_json_response( $data, $options = 0 ) {
+	if ( ! headers_sent() ) {
+		header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset', 'utf-8' ) );
+	}
+
+	echo json_encode( $data, $options );
 }
 
 /**
@@ -2093,20 +2113,4 @@ function ai1wm_is_decryption_password_valid( $encrypted_signature, $password ) {
 	} catch ( Ai1wm_Not_Decryptable_Exception $exception ) {
 		return false;
 	}
-}
-
-/**
- * Set response header to json end echo data
- *
- * @param array $data
- * @param int $options
- * @param int $depth
- * @return void
- */
-function ai1wm_json_response( $data, $options = 0 ) {
-	if ( ! headers_sent() ) {
-		header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset', 'utf-8' ) );
-	}
-
-	echo json_encode( $data, $options );
 }

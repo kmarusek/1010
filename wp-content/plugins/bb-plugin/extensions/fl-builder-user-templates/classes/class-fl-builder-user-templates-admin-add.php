@@ -63,7 +63,7 @@ final class FLBuilderUserTemplatesAdminAdd {
 	 */
 	static public function render() {
 		$modules       = FLBuilderModel::get_categorized_modules();
-		$selected_type = isset( $_GET['fl-builder-template-type'] ) ? $_GET['fl-builder-template-type'] : '';
+		$selected_type = isset( $_GET['fl-builder-template-type'] ) ? sanitize_key( $_GET['fl-builder-template-type'] ) : '';
 
 		$types = apply_filters( 'fl_builder_user_templates_add_new_types', array(
 			100 => array(

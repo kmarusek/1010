@@ -18,6 +18,9 @@
 			form
 				.find("select[name=number_position]")
 				.on("change", this._toggleNumberControls);
+			form
+				.find("select[name=number_type]")
+				.on("change", this._toggleNumberControls);
 
 			this._validateNumber();
 			form
@@ -211,6 +214,7 @@
 				numberPosition = form.find("select[name=number_position]").val(),
 				numberPrefix = form.find("#fl-field-number_prefix"),
 				numberSuffix = form.find("#fl-field-number_suffix"),
+				numberType = form.find("select[name=number_type]").val(),
 				numberColor = form.find("#fl-field-number_color");
 
 			if ("bars" == layout && "hidden" == numberPosition) {
@@ -221,6 +225,11 @@
 				numberPrefix.show();
 				numberSuffix.show();
 				numberColor.show();
+			}
+
+			if ('percent' == numberType) {
+				numberPrefix.hide();
+				numberSuffix.hide();
 			}
 		},
 

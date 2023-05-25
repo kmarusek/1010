@@ -15,14 +15,8 @@ const { Component } = wp.element;
 const { InspectorControls, PanelColorSettings, MediaUpload } = wp.blockEditor;
 
 // Import Inspector components
-const {
-	Button,
-	Icon,
-	PanelBody,
-	RangeControl,
-	SelectControl,
-	ToggleControl,
-} = wp.components;
+const { Button, Icon, PanelBody, RangeControl, SelectControl, ToggleControl } =
+	wp.components;
 
 /**
  * Create an Inspector Controls wrapper Component
@@ -187,7 +181,10 @@ export default class Inspector extends Component {
 
 						{ imgURL && !! imgURL.length && (
 							<RangeControl
-								label={ __( 'Image Opacity', 'genesis-blocks' ) }
+								label={ __(
+									'Image Opacity',
+									'genesis-blocks'
+								) }
 								value={ dimRatio }
 								onChange={ ( value ) =>
 									this.props.setAttributes( {
@@ -283,7 +280,10 @@ export default class Inspector extends Component {
 						></PanelColorSettings>
 
 						<PanelColorSettings
-							title={ __( 'Button Text Color', 'genesis-blocks' ) }
+							title={ __(
+								'Button Text Color',
+								'genesis-blocks'
+							) }
 							initialOpen={ false }
 							colorSettings={ [
 								{

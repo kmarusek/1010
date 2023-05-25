@@ -278,7 +278,7 @@
 
 				input.trigger( 'keyup' );
 			} else if ( 'editor' == type ) {
-				window.send_to_editor( token );
+				window.parent.send_to_editor( token );
 			} else if ( 'code' == type ) {
 				field.data( 'editor' ).insert( token );
 			}

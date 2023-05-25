@@ -77,16 +77,20 @@ const blockAttributes = {
 class GBContainerBlock extends Component {
 	render() {
 		// Setup the attributes
-		const {
-			setAttributes,
-		} = this.props;
+		const { setAttributes } = this.props;
 
 		return [
 			// Show the block controls on focus
-			<Inspector key={ 'gb-container-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
+			<Inspector
+				key={ 'gb-container-inspector-' + this.props.clientId }
+				{ ...{ setAttributes, ...this.props } }
+			/>,
 
 			// Show the container markup in the editor
-			<Container key={ 'gb-container-' + this.props.clientId } { ...this.props }>
+			<Container
+				key={ 'gb-container-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<InnerBlocks />
 			</Container>,
 		];
@@ -134,7 +138,8 @@ registerBlockType( 'genesis-blocks/gb-container', {
 				<InnerBlocks.Content />
 			</Container>
 		);
-	}, getEditWrapperProps( { containerWidth } ) {
+	},
+	getEditWrapperProps( { containerWidth } ) {
 		if (
 			'center' === containerWidth ||
 			'wide' === containerWidth ||

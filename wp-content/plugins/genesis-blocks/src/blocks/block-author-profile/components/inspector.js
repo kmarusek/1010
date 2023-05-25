@@ -123,7 +123,10 @@ export default class Inspector extends Component {
 
 					<RenderSettingControl id="gb_author_profile_profileLinkColor">
 						<PanelColorSettings
-							title={ __( 'Social Link Color', 'genesis-blocks' ) }
+							title={ __(
+								'Social Link Color',
+								'genesis-blocks'
+							) }
 							initialOpen={ false }
 							colorSettings={ [
 								{

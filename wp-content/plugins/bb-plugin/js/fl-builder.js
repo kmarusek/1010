@@ -434,7 +434,7 @@
 		{
 			if(typeof wp.heartbeat != 'undefined') {
 
-				wp.heartbeat.interval(30);
+				wp.heartbeat.interval(120);
 
 				wp.heartbeat.enqueue('fl_builder_post_lock', {
 					post_id: FLBuilderConfig.postId
@@ -2836,13 +2836,16 @@
 		 */
 		_blockPreventSort: function( item, parent )
 		{
-			var prevent     = false,
-				isRowBlock  = item.hasClass( 'fl-builder-block-row' ),
-				isCol       = item.hasClass( 'fl-col-sortable-proxy-item' ),
-				isParentCol = parent.hasClass( 'fl-col-content' ),
-				isColTarget = parent.hasClass( 'fl-col-drop-target' ),
-				group       = parent.parents( '.fl-col-group:not(.fl-col-group-nested)' ),
-				nestedGroup = parent.parents( '.fl-col-group-nested' );
+			var prevent              = false,
+				isRowBlock           = item.hasClass( 'fl-builder-block-row' ),
+				isCol                = item.hasClass( 'fl-col-sortable-proxy-item' ),
+				isModuleItem         = item.hasClass('fl-builder-block-module'),
+				isParentColGlobal    = parent.closest('.fl-col').hasClass('fl-node-global'),
+				isEditingColTemplate = parent.closest('.fl-builder-content-editing').hasClass('fl-builder-column-template'),
+				isParentCol          = parent.hasClass( 'fl-col-content' ),
+				isColTarget          = parent.hasClass( 'fl-col-drop-target' ),
+				group                = parent.parents( '.fl-col-group:not(.fl-col-group-nested)' ),
+				nestedGroup          = parent.parents( '.fl-col-group-nested' );
 
 			// Prevent columns in nested columns.
 			if ( ( isRowBlock || isCol ) && isParentCol && nestedGroup.length > 0 ) {
@@ -2880,6 +2883,11 @@
 
 			// Prevent more than 4 nested columns.
 			if ( isColTarget && nestedGroup.length > 0 && nestedGroup.find( '.fl-col:visible' ).length > 3 ) {
+				prevent = true;
+			}
+
+			// Prevent module from being dropped to a Global Col except when editing a saved column.
+			if ( isModuleItem && isParentColGlobal && ! isEditingColTemplate ) {
 				prevent = true;
 			}
 
@@ -5875,7 +5883,8 @@
 		 */
 		_addModuleComplete: function( response )
 		{
-			var data = FLBuilder._jsonParse( response );
+			var data             = FLBuilder._jsonParse( response ),
+			    showSettingsForm = false;
 
 			// Setup a preview layout if we have one.
 			if ( data.layout ) {
@@ -5895,8 +5904,13 @@
 			if ( $( 'form.fl-builder-settings' ).length || data.global ) {
 				if ( data.layout ) {
 					FLBuilder._renderLayout( data.layout );
+					showSettingsForm = true;
 				}
 			} else {
+				showSettingsForm = true;
+			}
+
+			if ( showSettingsForm ) {
 				FLBuilder._showModuleSettings( data, function() {
 					$( '.fl-builder-module-settings' ).data( 'new-module', '1' );
 				} );
@@ -7040,7 +7054,7 @@
 
 				// Dispatch to store
 				const actions = FL.Builder.data.getLayoutActions()
-				const callback = FLBuilder._saveSettingsComplete.bind( this, render, preview )
+				const callback = FLBuilder._saveSettingsComplete.bind( this, render )
 				actions.updateNodeSettings( nodeId, settings, callback )
 
 				// Trigger the hook.
@@ -7106,19 +7120,19 @@
 		 * @access private
 		 * @method _saveSettingsComplete
 		 * @param {Boolean} render Whether the layout should render after saving.
-		 * @param {Object} preview The preview object for this settings save.
 		 * @param {String} response The layout data from the server.
 		 */
-		_saveSettingsComplete: function( render, preview, response )
+		_saveSettingsComplete: function( render, response )
 		{
 			var data 	 	= FLBuilder._jsonParse( response ),
 				type	 	= data.layout.nodeType,
 				moduleType	= data.layout.moduleType,
 				hook	 	= 'didSave' + type.charAt(0).toUpperCase() + type.slice(1) + 'SettingsComplete',
+				preview		= FLBuilder.preview,
 				callback 	= function() {
 					if (preview && data.layout.partial && data.layout.nodeId === preview.nodeId && !FLBuilder._publishAndRemain ) {
 						preview.clear();
-						preview = null;
+						FLBuilder.preview = null;
 					}
 					FLBuilder._publishAndRemain = false;
 				};

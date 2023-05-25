@@ -4,7 +4,6 @@ defined('ABSPATH') or die();
  *  Only functions also required on front-end here
  */
 
-
 /**
  * Get a Really Simple SSL option by name
  *
@@ -36,6 +35,10 @@ function rsssl_get_option( string $name, $default=false ) {
 		$value = $default;
 	}
 
+	if ($value===1) {
+		$value = true;
+	}
+
 	return apply_filters("rsssl_option_$name", $value, $name);
 }
 
@@ -50,14 +53,15 @@ function rsssl_is_networkwide_active(){
 	if ( !is_multisite() ) {
 		return false;
 	}
-	if ( !function_exists('is_plugin_active_for_network') )
-		require_once(ABSPATH . '/wp-admin/includes/plugin.php');
+	if ( !function_exists('is_plugin_active_for_network') ) {
+		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+	}
 
 	if ( is_plugin_active_for_network(rsssl_plugin) ) {
 		return true;
-	} else {
-		return false;
 	}
+
+	return false;
 }
 
 /**

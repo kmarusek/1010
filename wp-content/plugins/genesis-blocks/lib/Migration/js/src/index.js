@@ -11,8 +11,5 @@ import { App } from './components';
 
 // Renders the app in the container.
 domReady( () => {
-	render(
-		<App />,
-		document.querySelector( '.gb-migration__content' )
-	);
+	render( <App />, document.querySelector( '.gb-migration__content' ) );
 } );

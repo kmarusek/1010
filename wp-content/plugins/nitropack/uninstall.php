@@ -18,6 +18,6 @@ if (defined('MULTISITE') && MULTISITE) {
     }
 }
 
-require_once 'constants.php';
 require_once 'nitropack-sdk/autoload.php';
+require_once 'constants.php';
 NitroPack\SDK\Filesystem::deleteDir(NITROPACK_DATA_DIR);

@@ -20,7 +20,9 @@ global.genesisBlocksMigration = {
 };
 
 test( 'migrate blocks step', async () => {
-	apiFetch.mockImplementation( () => new Promise( ( resolve ) => resolve( { success: true } ) ) );
+	apiFetch.mockImplementation(
+		() => new Promise( ( resolve ) => resolve( { success: true } ) )
+	);
 	const props = {
 		currentStepIndex: 4,
 		goToNext: jest.fn(),
@@ -34,9 +36,7 @@ test( 'migrate blocks step', async () => {
 	getByText( /migrate your content/i );
 	getByText( props.stepIndex.toString() );
 
-	await waitFor( () =>
-		user.click( getByText( 'Migrate Now' ) )
-	);
+	await waitFor( () => user.click( getByText( 'Migrate Now' ) ) );
 
 	expect( getByText( 'The migration was successful!' ) ).toBeInTheDocument();
 } );

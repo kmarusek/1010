@@ -411,7 +411,7 @@ FLBuilder::register_module('FLButtonModule', array(
 						'show_alpha'  => true,
 						'preview'     => array(
 							'type'      => 'css',
-							'selector'  => 'a.fl-button:hover, a.fl-button:hover *, a.fl-button:focus, a.fl-button:focus *',
+							'selector'  => 'a.fl-button:hover, a.fl-button:hover *',
 							'property'  => 'color',
 							'important' => true,
 						),

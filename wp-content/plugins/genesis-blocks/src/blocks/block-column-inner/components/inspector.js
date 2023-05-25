@@ -12,12 +12,8 @@ import RenderSettingControl from '../../../utils/components/settings/renderSetti
 const { __ } = wp.i18n;
 const { Component } = wp.element;
 const { compose } = wp.compose;
-const {
-	InspectorControls,
-	PanelColorSettings,
-	withColors,
-	ContrastChecker,
-} = wp.blockEditor;
+const { InspectorControls, PanelColorSettings, withColors, ContrastChecker } =
+	wp.blockEditor;
 const { PanelBody, ToggleControl, SelectControl } = wp.components;
 
 /**

@@ -21,7 +21,8 @@ class FLBuilderSeoPlugins {
 		add_filter( 'rank_math/sitemap/excluded_post_types', array( $this, 'rankmath_types' ) );
 
 		add_filter( 'seopress_content_analysis_content', array( $this, 'sp_content_analysis_content' ), 10, 2 );
-
+		add_filter( 'fl_builder_register_template_category_args', array( $this, 'yoast_templates' ) );
+		add_filter( 'wpseo_indexable_excluded_post_types', array( $this, 'wpseo_indexable_excluded_post_types' ), 11 );
 	}
 
 	function init() {
@@ -140,6 +141,7 @@ class FLBuilderSeoPlugins {
 		wp_dequeue_style( $handle );
 		wp_deregister_script( $handle );
 		wp_deregister_style( $handle );
+		FLBuilderModel::delete_all_asset_cache( $id );
 		return str_replace( PHP_EOL, '', $data );
 	}
 
@@ -160,6 +162,19 @@ class FLBuilderSeoPlugins {
 			return $this->content_data( $id );
 		}
 		return $content;
+	}
+
+	function yoast_templates( $args ) {
+		if ( defined( 'WPSEO_VERSION' ) ) {
+			$args['public'] = false;
+			$args['show_ui'] = true;
+		}
+		return $args;
+	}
+
+	function wpseo_indexable_excluded_post_types( $types ) {
+		$types[] = 'fl-builder-template';
+		return $types;
 	}
 
 }

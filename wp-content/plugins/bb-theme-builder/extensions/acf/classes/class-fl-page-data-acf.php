@@ -414,8 +414,7 @@ final class FLPageDataACF {
 		} else {
 			$object = get_field_object( trim( $settings->name ), self::get_object_id( $property ) );
 		}
-
-		$bail_out = $object['type'] !== $settings->type || empty( $object ) || ! isset( $object['type'] ) || ! in_array( $object['type'], array( 'user', 'post_object', 'relationship', 'page_link', 'taxonomy' ) );
+		$bail_out = empty( $object ) || $object['type'] !== $settings->type || ! isset( $object['type'] ) || ! in_array( $object['type'], array( 'user', 'post_object', 'relationship', 'page_link', 'taxonomy' ) );
 		if ( $bail_out ) {
 			return $content;
 		} elseif ( ! empty( $object['value'] ) ) {
@@ -826,7 +825,7 @@ final class FLPageDataACF {
 		if ( ! FLBuilderModel::is_builder_active() ) {
 			return array();
 		}
-		$results = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field'", ARRAY_A );
+		$results = $wpdb->get_results( "SELECT ID as 'id', post_excerpt as 'field_key', post_title as 'field_name', post_content as 'field_opts' FROM {$wpdb->posts} where post_type = 'acf-field' and post_status = 'publish' ORDER BY field_name", ARRAY_A );
 
 		// maybe filter
 		foreach ( $results as $k => $field ) {
@@ -882,7 +881,7 @@ final class FLPageDataACF {
 					$field['field_key'] = $sub_fields[ $field['id'] ];
 				}
 				$data = maybe_unserialize( $field['field_opts'] );
-				if ( is_array( $data ) && isset( $data['type'] ) ) {
+				if ( is_array( $data ) && isset( $data['type'] ) && '' !== $field['field_key'] && '' !== $field['field_name'] ) {
 					$type                                   = isset( $data['type'] ) ? str_replace( array( '_', '-' ), ' ', $data['type'] ) : 'unknown';
 					$form['options'][ $field['field_key'] ] = sprintf( '%s (%s) [%s]', $field['field_name'], $field['field_key'], $type );
 				}

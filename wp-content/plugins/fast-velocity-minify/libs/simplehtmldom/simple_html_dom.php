@@ -1054,7 +1054,15 @@ class fvm_simple_html_dom_node
 				&& ($this->is_utf8($text))) {
 				$converted_text = $text;
 			} else {
-				$converted_text = iconv($sourceCharset, $targetCharset, $text);
+				
+				# replace legacy code
+				//$converted_text = iconv($sourceCharset, $targetCharset, $text);
+				
+				# with mb_string
+				if(function_exists('mb_substitute_character')) { mb_substitute_character("none"); }
+				$converted_text= mb_convert_encoding($text, $targetCharset, $sourceCharset);
+				
+				
 			}
 		}
 

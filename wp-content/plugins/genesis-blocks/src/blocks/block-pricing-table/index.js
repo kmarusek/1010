@@ -56,10 +56,16 @@ class GBPricingBlock extends Component {
 			</BlockControls>,
 
 			// Show the block controls on focus
-			<Inspector key={ 'gb-pricing-table-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
+			<Inspector
+				key={ 'gb-pricing-table-inspector-' + this.props.clientId }
+				{ ...{ setAttributes, ...this.props } }
+			/>,
 
 			// Show the block markup in the editor
-			<PricingTable key={ 'gb-pricing-table-' + this.props.clientId } { ...this.props }>
+			<PricingTable
+				key={ 'gb-pricing-table-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<div
 					className={ classnames(
 						'gb-pricing-table-wrap-admin',

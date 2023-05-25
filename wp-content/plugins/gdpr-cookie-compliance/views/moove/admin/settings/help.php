@@ -28,43 +28,54 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3>Plugin doesn’t work as expected</h3>
+				<h3><?php esc_html_e( 'Plugin doesn’t work as expected', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
-				<h3>There might be several reasons why and most of them can be fixed easily and quickly.</h3>
+				<h3><?php esc_html_e( 'There might be several reasons why and most of them can be fixed easily and quickly.', 'gdpr-cookie-compliance' ); ?></h3>
 				<hr>
 
-				<h4>Common issue 1: Console errors</h4>
+				<h4><?php esc_html_e( 'Common issue 1: Console errors', 'gdpr-cookie-compliance' ); ?></h4>
 				<ul>
-					<li>Our plugin doesn’t work if there are any console errors on your site. For that reason, it’s important to fix those before contacting our support as we won’t be able to help you until the errors are fixed.</li>
-					<li>You can check if you have any console errors using Chrome browser (Inspect > Console).</li>
-					<li>There also might be some conflict with your theme or plugins, or with a caching plugin that should be investigated by your developers.</li>
-					<li>If you don’t see the updates correctly, the best is to view the site in a private browsing window or you can use a different browser to ensure that your local cache does not interfere.</li>
-				</ul>
-				<hr>				        
-        <hr>
-
-				<h4>Common issue 2: Cache conflict</h4>
-				<p>If you are using any caching plugins, you will need to exclude our plugin assets by following the steps below:</p>
-				<ul>
-					<li>
-						“Exclude Cookies” with value: moove_gdpr_popup
-					</li>
-					<li>
-						“Exclude JS” with value: gdpr-cookie-compliance/dist/scripts/main.js
-					</li>
-					<li>
-						You can also try to disable the ‘combine inline JS feature’ if you run into any issues.
-					</li>
+					<li><?php esc_html_e( 'Our plugin doesn’t work if there are any console errors on your site. For that reason, it’s important to fix those before contacting our support as we won’t be able to help you until the errors are fixed.', 'gdpr-cookie-compliance' ); ?></li>
+					<li><?php esc_html_e( 'You can check if you have any console errors using Chrome browser (Inspect > Console).', 'gdpr-cookie-compliance' ); ?></li>
+					<li><?php esc_html_e( 'There also might be some conflict with your theme or plugins, or with a caching plugin that should be investigated by your developers.', 'gdpr-cookie-compliance' ); ?></li>
+					<li><?php esc_html_e( 'If you don’t see the updates correctly, the best is to view the site in a private browsing window or you can use a different browser to ensure that your local cache does not interfere.', 'gdpr-cookie-compliance' ); ?></li>
 				</ul>
 				<hr>
 
-				<h4>Common issue 3: Ajax script is blocked</h4>
+				<h4><?php esc_html_e( 'Common issue 2: Cache conflict', 'gdpr-cookie-compliance' ); ?></h4>
+				<p><?php esc_html_e( 'If you are using any caching plugins, you will need to exclude our plugin assets by following the steps below:', 'gdpr-cookie-compliance' ); ?></p>
 				<ul>
-					<li>Our plugin, just as many other plugins, needs Ajax to work properly. Sometimes Ajax calls are restricted on servers so you need to check if that’s the case on your site too.</li>
-					<li>Check <a href="<?php echo home_url('/wp-admin/admin-ajax.php'); ?>" target="_blank"><?php echo home_url('/wp-admin/admin-ajax.php'); ?></a> in private browsing - if it’s restricted, you need to whitelist the admin-ajax.php in your .htaccess file, or to apply the HTTP protection for the wp-login.php only.</li>
-					<li>More info here: <a href="https://www.wpwhitesecurity.com/wordpress-security-hacks/securing-wordpress-wp-admin-htaccess/" target="_blank">https://www.wpwhitesecurity.com/wordpress-security-hacks/securing-wordpress-wp-admin-htaccess/</a></li>
-					<li>Alternatively, you can try adding the code snippet below to your functions.php to change the script injection from AJAX to static which might help.</li>
+					<li>
+						<?php esc_html_e( '“Exclude Cookies” with value: moove_gdpr_popup', 'gdpr-cookie-compliance' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( '“Exclude JS” with value: gdpr-cookie-compliance/dist/scripts/main.js', 'gdpr-cookie-compliance' ); ?>
+					</li>
+					<li>
+						<?php esc_html_e( 'You can also try to disable the ‘combine inline JS feature’ if you run into any issues.', 'gdpr-cookie-compliance' ); ?>
+					</li>
+				</ul>
+				<hr>
+
+				<h4><?php esc_html_e( 'Common issue 3: Ajax script is blocked', 'gdpr-cookie-compliance' ); ?></h4>
+				<ul>
+					<li><?php esc_html_e( 'Our plugin, just as many other plugins, needs Ajax to work properly. Sometimes Ajax calls are restricted on servers so you need to check if that’s the case on your site too.', 'gdpr-cookie-compliance' ); ?></li>
+					<li>
+						<?php 
+						  echo sprintf(
+						    esc_html__( 'Check %s in private browsing - if it’s restricted, you need to whitelist the admin-ajax.php in your .htaccess file, or to apply the HTTP protection for the wp-login.php only.', 'gdpr-cookie-compliance' ),
+						    '<a href="' . home_url('/wp-admin/admin-ajax.php') . '" class="gdpr_admin_link" target="_blank">' . esc_attr( home_url('/wp-admin/admin-ajax.php') ) . '</a>'
+						  );
+						?>
+					<li>
+						<?php 
+						  echo sprintf(
+						    esc_html__( 'More info here: %s in private browsing - if it’s restricted, you need to whitelist the admin-ajax.php in your .htaccess file, or to apply the HTTP protection for the wp-login.php only.', 'gdpr-cookie-compliance' ),
+						    '<a href="https://www.wpwhitesecurity.com/wordpress-security-hacks/securing-wordpress-wp-admin-htaccess/" class="gdpr_admin_link" target="_blank">https://www.wpwhitesecurity.com/wordpress-security-hacks/securing-wordpress-wp-admin-htaccess/</a>'
+						  );
+						?>
+					<li><?php esc_html_e( 'Alternatively, you can try adding the code snippet below to your functions.php to change the script injection from AJAX to static which might help.', 'gdpr-cookie-compliance' ); ?></li>
 				  <code>add_action( 'gdpr_cc_prevent_ajax_script_inject', '__return_true' );</code>
 					</li>
 				</ul>
@@ -77,20 +88,27 @@ if ( ! defined( 'ABSPATH' ) ) {
     
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3>I can’t activate the premium licence</h3>
+				<h3><?php esc_html_e( 'I can’t activate the premium licence', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
-				<p>Can you please check in your CMS > Plugins that both the free version and the premium add-on plugin are activated?</p>
-				<p>If not, please ensure that <b>both are activated</b>, not just installed.</p>
-				<p>If they are both activated and you still don’t see the premium features, you can try the following:</p>
+				<p><?php esc_html_e( 'Can you please check in your CMS > Plugins that both the free version and the premium add-on plugin are activated?', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'If not, please ensure that <b>both are activated</b>, not just installed.', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'If they are both activated and you still don’t see the premium features, you can try the following:', 'gdpr-cookie-compliance' ); ?></p>
 				<ol>
-					<li><b>Delete the premium</b> add-on plugin from your CMS completely</li>
-					<li><b>Update the free</b> plugin to the latest version</li>
-					<li><b>Deactivate</b> the licence key on the “Licence Manager” tab</li>
-					<li>Paste the licence key again and <b>activate again</b> > this will force automatic download of the latest version of the premium add-on and everything should work now.</li>
+					<li><b><?php esc_html_e( 'Delete the premium', 'gdpr-cookie-compliance' ); ?></b> <?php esc_html_e( 'add-on plugin from your CMS completely', 'gdpr-cookie-compliance' ); ?></li>
+					<li><b><?php esc_html_e( 'Update the free', 'gdpr-cookie-compliance' ); ?></b> <?php esc_html_e( 'plugin to the latest version', 'gdpr-cookie-compliance' ); ?></li>
+					<li><b><?php esc_html_e( 'Deactivate', 'gdpr-cookie-compliance' ); ?></b> <?php esc_html_e( 'the licence key on the “Licence Manager” tab', 'gdpr-cookie-compliance' ); ?></li>
+					<li>
+						<?php 
+						  echo sprintf(
+						    esc_html__( 'Paste the licence key again and %s  this will force automatic download of the latest version of the premium add-on and everything should work now.', 'gdpr-cookie-compliance' ),
+						    '<b>'.esc_html__( 'activate again', 'gdpr-cookie-compliance' ).'</b>'
+						  );
+						?>
+					</li>
 				</ol>
 
-				<p>The deactivation doesn’t affect your settings stored in the plugin.</p>
+				<p><?php esc_html_e( 'The deactivation doesn’t affect your settings stored in the plugin.', 'gdpr-cookie-compliance' ); ?></p>
 			</div>
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
@@ -98,10 +116,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3>The Cookie Banner is covered by another pop-up</h3>
+				<h3><?php esc_html_e( 'The Cookie Banner is covered by another pop-up', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
-				<p>The issue is related to a higher z-index in your theme. You can solve the issue by adding the following code snippet to your functions.php</p>
+				<p><?php esc_html_e( 'The issue is related to a higher z-index in your theme. You can solve the issue by adding the following code snippet to your functions.php', 'gdpr-cookie-compliance' ); ?></p>
 				<code>add_action('moove_gdpr_inline_styles','gdpr_cookie_css_extension_zindex',10,3);</code>
 				<code>function gdpr_cookie_css_extension_zindex( $styles, $primary, $secondary ) { $styles .= '#moove_gdpr_cookie_info_bar { z-index: 99999999; }'; $styles .= 'body.moove_gdpr_overflow #moove_gdpr_cookie_info_bar { z-index: 9900; }'; $styles .= 'body.moove_gdpr_overflow .lity { z-index: 999999999; }'; return $styles; } </code>
 			</div>
@@ -177,8 +195,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p><?php esc_html_e( 'The "Strictly Necessary Cookies", sometimes called Essential Cookies, are cookies that are necessary for your site to function properly.', 'gdpr-cookie-compliance' ); ?></p>
 				<p><?php esc_html_e( 'For example, we use Strictly Necessary Cookies to save information about which cookies the user consented to.', 'gdpr-cookie-compliance' ); ?></p>
 				<p><?php esc_html_e( 'We are not storing any sensitive or personal data there, the cookie file contains only one of the following strings:', 'gdpr-cookie-compliance' ); ?></p>
-				<code>Disabled state: strictly: 1, thirdparty: 0, advanced: 0</code><br />
-				<code>Enabled state: strictly: 1, thirdparty: 1, advanced: 1</code>   
+				<code><?php esc_html_e( 'Disabled state', 'gdpr-cookie-compliance' ); ?>: strictly: 1, thirdparty: 0, advanced: 0</code><br />
+				<code><?php esc_html_e( 'Enabled state', 'gdpr-cookie-compliance' ); ?>: strictly: 1, thirdparty: 1, advanced: 1</code>   
       </div>
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
@@ -260,7 +278,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3><?php esc_html_e( 'Does this plugin guarantee that I will comply with data protection laws?' ); ?></h3>
+				<h3><?php esc_html_e( 'Does this plugin guarantee that I will comply with data protection laws?', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
 				<p><?php esc_html_e( 'This plugin is just a template and needs to be setup correctly in order to work properly.', 'gdpr-cookie-compliance' ); ?></p>
@@ -274,7 +292,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div id="gdpr_cbm_dh" class="gdpr-help-content-block">
 		<p><?php esc_html_e( 'Here you can find the default hooks & custom scripts available in our plugin.', 'gdpr-cookie-compliance' ); ?></p>
-		<p><strong><?php esc_html_e( 'Please note that these are just examples - some bespoke development work may be required to customise these code snippets to your specific requirements.' ); ?></strong></p>
+		<p><strong><?php esc_html_e( 'Please note that these are just examples - some bespoke development work may be required to customise these code snippets to your specific requirements.', 'gdpr-cookie-compliance' ); ?></strong></p>
 
 		<div class="gdpr-faq-toggle gdpr-faq-open">
 			<div class="gdpr-faq-accordion-header">
@@ -389,14 +407,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
 		<!--  .gdpr-faq-toggle -->
-    
+
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3><?php esc_html_e( 'Enable force reload', 'gdpr-cookie-compliance' ); ?></h3>
+				<h3><?php esc_html_e( 'GDPR Branding link extra attributes', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
+				<p><?php esc_html_e( 'You can add rel="noopener noreferrer" to Powered by GDPR link.', 'gdpr-cookie-compliance' ); ?></p>
 				<?php ob_start(); ?>
-				add_action( 'gdpr_force_reload', '__return_true' );
+				add_filter( 'gdpr_branding_link_attributes', 'gdpr_branding_link_attributes_noopener' );
+				function gdpr_branding_link_attributes_noopener( $atts ) {
+					$atts .= 'rel="noopener noreferrer"';
+					return $atts;
+				}
 				<?php $code = trim( ob_get_clean() ); ?>
 				<textarea id="<?php echo esc_attr( uniqid( strtotime( 'now' ) ) ); ?>"><?php apply_filters( 'gdpr_cc_keephtml', $code, true ); ?></textarea>
 				<div class="gdpr-code"></div><!--  .gdpr-code -->
@@ -404,22 +427,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
 		<!--  .gdpr-faq-toggle -->
-    
+
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3><?php esc_html_e( 'Prevent ajax script injection', 'gdpr-cookie-compliance' ); ?></h3>
+				<h3><?php esc_html_e( 'GDPR Branding link target', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
-				<p><?php esc_html_e( 'By default, our plugin uses AJAX script injection to function properly, however, this may sometimes cause high server load. For that reason, you can disable the AJAX script and enable static script injection using the following hook. You will also need to purge all caches for the hook to start working.', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'You can remove the target="_blank" from Powered by GDPR link.', 'gdpr-cookie-compliance' ); ?></p>
 				<?php ob_start(); ?>
-				add_action( 'gdpr_cc_prevent_ajax_script_inject', '__return_true' );
+				add_filter( 'gdpr_branding_link_target', '__return_empty_string' );
 				<?php $code = trim( ob_get_clean() ); ?>
 				<textarea id="<?php echo esc_attr( uniqid( strtotime( 'now' ) ) ); ?>"><?php apply_filters( 'gdpr_cc_keephtml', $code, true ); ?></textarea>
 				<div class="gdpr-code"></div><!--  .gdpr-code -->
 			</div>
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
-		<!--  .gdpr-faq-toggle -->	    
+		<!--  .gdpr-faq-toggle -->	 
 
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
@@ -724,37 +747,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3><?php esc_html_e( 'Delay script execution', 'gdpr-cookie-compliance' ); ?></h3>
-			</div>
-			<div class="gdpr-faq-accordion-content" >
-				<?php ob_start(); ?>
-				add_filter( 'gdpr_init_script_delay', 'gdpr_delay_script_execution', 20, 1 );
-				function gdpr_delay_script_execution( $ms ) {
-					return 5000; // 5000 ms = 5 seconds.
-				}
-				<?php $code = trim( ob_get_clean() ); ?>
-				<textarea id="<?php echo esc_attr( uniqid( strtotime( 'now' ) ) ); ?>"><?php apply_filters( 'gdpr_cc_keephtml', $code, true ); ?></textarea>
-				<div class="gdpr-code"></div><!--  .gdpr-code -->
-			</div>
-			<!--  .gdpr-faq-accordion-content -->
-		</div>
-		<!--  .gdpr-faq-toggle -->	
-
-		<div class="gdpr-faq-toggle">
-			<div class="gdpr-faq-accordion-header">
 				<h3><?php esc_html_e( 'Compatibility with Pixel Your Site plugin', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
+				<p>
+					<?php 
+					  echo sprintf(
+					    esc_html__( 'Please ensure you have the %s enabled.', 'gdpr-cookie-compliance' ),
+					    '<strong><a href="' . esc_url( admin_url( 'admin.php?page=moove-gdpr&tab=general-settings' ) ) . '" class="gdpr_admin_link" target="_blank">Force Reload</a></strong>'
+					  );
+					?>	
+				</p>
+				<hr />
 				<?php ob_start(); ?>
-				add_filter( 'pys_disable_by_gdpr', 'gdpr_cookie_compliance_pys' );
+				add_filter( 'pys_disable_by_gdpr', 'gdpr_cookie_compliance_pys', 100 );
 				function gdpr_cookie_compliance_pys() {
-					if ( function_exists( 'gdpr_cookie_is_accepted' ) ) :
-						$disable_pys = gdpr_cookie_is_accepted( 'thirdparty' ) ? false : true;
-						return $disable_pys;
-					endif;
-					return true;
+				    if ( function_exists( 'gdpr_cookie_is_accepted' ) ) :
+				        $disable_pys = gdpr_cookie_is_accepted( 'thirdparty' ) ? false : true;
+				        return $disable_pys;
+				    endif;
+				    return true;
 				}
-				add_action( 'gdpr_force_reload', '__return_true' );
+
+				add_action( 'wp_enqueue_scripts', function() {
+				  if ( apply_filters( 'pys_disable_by_gdpr', false ) ) :
+				    wp_deregister_script('pys');
+				  endif;
+				}, 100);
 				<?php $code = trim( ob_get_clean() ); ?>
 				<textarea id="<?php echo esc_attr( uniqid( strtotime( 'now' ) ) ); ?>"><?php apply_filters( 'gdpr_cc_keephtml', $code, true ); ?></textarea>
 				<div class="gdpr-code"></div><!--  .gdpr-code -->
@@ -768,6 +787,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3><?php esc_html_e( 'Hook for WooCommerce Facebook Pixel plugin', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
+				<p>
+					<?php 
+					  echo sprintf(
+					    esc_html__( 'Please ensure you have the %s enabled.', 'gdpr-cookie-compliance' ),
+					    '<strong><a href="' . esc_url( admin_url( 'admin.php?page=moove-gdpr&tab=general-settings' ) ) . '" class="gdpr_admin_link" target="_blank">Force Reload</a></strong>'
+					  );
+					?>	
+				</p>
+				<hr>
 				<?php ob_start(); ?>
 				add_filter('facebook_for_woocommerce_integration_pixel_enabled', 'gdpr_cookie_facebook_wc', 20);
 				function gdpr_cookie_facebook_wc() {
@@ -777,7 +805,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					endif;
 					return $enable_fb_wc;
 				}
-				add_action( 'gdpr_force_reload', '__return_true' );
 				<?php $code = trim( ob_get_clean() ); ?>
 				<textarea id="<?php echo esc_attr( uniqid( strtotime( 'now' ) ) ); ?>"><?php apply_filters( 'gdpr_cc_keephtml', $code, true ); ?></textarea>
 				<div class="gdpr-code"></div><!--  .gdpr-code -->
@@ -824,14 +851,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3><?php esc_html_e( 'Custom tracking code on language sites (WPML, qTranslate, WP Multilang, Polylang)', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
+				<p>
+					<?php 
+					  echo sprintf(
+					    esc_html__( 'Please ensure you have the %s enabled.', 'gdpr-cookie-compliance' ),
+					    '<strong><a href="' . esc_url( admin_url( 'admin.php?page=moove-gdpr&tab=general-settings' ) ) . '" class="gdpr_admin_link" target="_blank">Force Reload</a></strong>'
+					  );
+					?>	
+				</p>
+				<hr>
+
 				<?php ob_start(); ?>
 				// Script caching should be disabled if you have separate scripts / site
 				add_filter('gdpr_cookie_script_cache','gdpr_prevent_script_cache');
 				function gdpr_prevent_script_cache() {
 					return array();
 				}
-				// Force reload required because of PHP functions
-				add_action( 'gdpr_force_reload', '__return_true' );
 
 				// Custom scripts based on front-end language
 				add_action('wp_head', 'my_gdpr_script_inject' );
@@ -863,11 +898,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h3><?php esc_html_e( 'Disable comments until cookies are accepted', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
+				<p>
+					<?php 
+					  echo sprintf(
+					    esc_html__( 'Please ensure you have the %s enabled.', 'gdpr-cookie-compliance' ),
+					    '<strong><a href="' . esc_url( admin_url( 'admin.php?page=moove-gdpr&tab=general-settings' ) ) . '" class="gdpr_admin_link" target="_blank">Force Reload</a></strong>'
+					  );
+					?>	
+				</p>
+				<hr>
 				<?php ob_start(); ?>
-				
-				// Force reload required because of PHP functions
-				add_action( 'gdpr_force_reload', '__return_true' );
-				
 
 				// Custom Scripts based on front-end language
 				add_action('comments_open', function( $comments_open ){

@@ -395,6 +395,8 @@ class Moove_GDPR_Controller {
 			endif;
 			$cache_array['advanced']['footer'] .= ob_get_clean();
 
+			$cache_array = apply_filters( 'gdpr_cc_before_script_cache_set', $cache_array, $modal_options );
+
 			$cache_json = json_encode( $cache_array, true );
 
 			set_transient( $transient_key, $cache_json, 86400 );
@@ -516,6 +518,8 @@ class Moove_GDPR_Controller {
 			endif;
 			$cache_array['advanced']['footer'] .= ob_get_clean();
 
+			$cache_array = apply_filters( 'gdpr_cc_before_script_cache_set', $cache_array, $modal_options );
+
 			$cache_json = json_encode( $cache_array, true );
 
 			set_transient( $transient_key, $cache_json, 86400 );
@@ -547,6 +551,9 @@ class Moove_GDPR_Controller {
 				endif;
 			endif;
 		else :
+			$d_domains = array('_ga', '_fbp', '_gid', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz');
+			$d_domains = apply_filters( 'gdpr_d_domains_filter', $d_domains );
+
 			if ( isset( $_SERVER['HTTP_COOKIE'] ) ) {
 				$cookies = explode( ';', sanitize_text_field( wp_unslash( $_SERVER['HTTP_COOKIE'] ) ) );
 
@@ -563,7 +570,7 @@ class Moove_GDPR_Controller {
 					if ( $name !== 'moove_gdpr_popup' && strpos( $name, 'woocommerce' ) === false  && strpos( $name, 'wc_' ) === false && strpos( $name, 'wordpress' ) === false ) :
 						if ( 'language' === $name || 'currency' === $name ) {
 							setcookie( $name, null, -1, '/', 'www.' . $domain );
-						} elseif ( '_ga' === $name || '_fbp' === $name || '_gid' === $name || '_gat' === $name || strpos( $name, '_ga' ) !== false || strpos( $name, '_fbp' ) !== false ) {
+						} elseif ( in_array( $name, $d_domains ) || strpos( $name, '_ga' ) !== false || strpos( $name, '_fbp' ) !== false ) {
 							setcookie( $name, null, -1, '/', '.' . $domain );
 						} else {
 							setcookie( $name, '', time() - 1000 );
@@ -588,7 +595,7 @@ class Moove_GDPR_Controller {
 						if ( 'language' === $key || 'currency' === $key ) {
 							setcookie( $key, null, -1, '/', 'www.' . $domain );
 							$cookies_removed[$key] = $domain;
-						} elseif ( '_ga' === $key || '_fbp' === $key || '_gid' === $key || '_gat' === $key || strpos( $key, '_ga' ) !== false || strpos( $key, '_fbp' ) !== false ) {
+						} elseif ( in_array( $key, $d_domains ) || strpos( $key, '_ga' ) !== false || strpos( $key, '_fbp' ) !== false ) {
 							setcookie( $key, null, -1, '/', '.' . $domain );
 							$cookies_removed[$key] = $domain;
 						}
@@ -608,13 +615,15 @@ class Moove_GDPR_Controller {
 		$urlparts = wp_parse_url( site_url( '/' ) );
 		$domain   = preg_replace( '/www\./i', '', $urlparts['host'] );
 		$cookies_removed = array();
+		$d_domains = array('_ga', '_fbp', '_gid', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz');
+		$d_domains = apply_filters( 'gdpr_d_domains_filter', $d_domains );
 		if ( isset( $_COOKIE ) && is_array( $_COOKIE ) && $domain ) :
 			foreach ( $_COOKIE as $key => $value ) {
 				if ( $key !== 'moove_gdpr_popup' && strpos( $key, 'woocommerce' ) === false && strpos( $key, 'wc_' ) === false && strpos( $key, 'wordpress' ) === false ) : 
 					if ( 'language' === $key || 'currency' === $key ) {
 						setcookie( $key, null, -1, '/', 'www.' . $domain );
 						$cookies_removed[$key] = $domain;
-					} elseif ( '_ga' === $key || '_fbp' === $key || '_gid' === $key || '_gat' === $key || strpos( $key, '_ga' ) !== false || strpos( $key, '_fbp' ) !== false ) {
+					} elseif ( in_array( $key, $d_domains ) || strpos( $key, '_ga' ) !== false || strpos( $key, '_fbp' ) !== false ) {
 						setcookie( $key, null, -1, '/', '.' . $domain );
 						$cookies_removed[$key] = $domain;
 					}
@@ -633,7 +642,7 @@ class Moove_GDPR_Controller {
 					if ( 'language' === $name || 'currency' === $name ) {
 						setcookie( $name, null, -1, '/', 'www.' . $domain );
 						$cookies_removed[$name] = $domain;
-					} elseif ( '_ga' === $name || '_fbp' === $name || '_gid' === $name || '_gat' === $name || strpos( $name, '_ga' ) !== false || strpos( $name, '_fbp' ) !== false ) {
+					} elseif ( in_array( $key, $d_domains ) || strpos( $name, '_ga' ) !== false || strpos( $name, '_fbp' ) !== false ) {
 						setcookie( $name, null, -1, '/', '.' . $domain );
 						$cookies_removed[$name] = '.' . $domain;
 					} else {

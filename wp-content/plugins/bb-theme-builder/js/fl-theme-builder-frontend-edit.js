@@ -96,7 +96,7 @@
 				FLBuilder.ajax( {
 					action: 'disable_content_building_for_post'
 				} );
-				window.location.reload();
+				window.parent.location.reload();
 			} );
 
 			lightbox._node.find( '.fl-builder-override-content' ).on( 'click', function() {
@@ -105,14 +105,14 @@
 				FLBuilder.ajax( {
 					action: 'enable_content_building_for_post'
 				} );
-				window.location.reload();
+				window.parent.location.reload();
 			} );
 
 			lightbox._node.find( '.fl-builder-override-cancel' ).on( 'click', function() {
 				FLLightbox.closeParent( this );
 				if ( goBack ) {
 					FLBuilder.showAjaxLoader();
-					window.location.href = FLThemeBuilderConfig.adminEditURL;
+					window.parent.location.href = FLThemeBuilderConfig.adminEditURL;
 				}
 			} );
 

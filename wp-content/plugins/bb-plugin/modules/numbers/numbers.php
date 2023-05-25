@@ -108,10 +108,11 @@ class FLNumbersModule extends FLBuilderModule {
 		$number      = isset( $this->settings->number ) && is_numeric( $this->settings->number ) ? $this->settings->number : 100;
 		$max         = isset( $this->settings->max_number ) && is_numeric( $this->settings->max_number ) ? $this->settings->max_number : $number;
 		$layout      = $this->settings->layout ? $this->settings->layout : 'default';
+		$locale      = str_replace( '_', '-', str_replace( array( '_formal', '_informal' ), '', get_locale() ) );
 		$type        = $this->settings->number_type ? $this->settings->number_type : 'percent';
 		$prefix      = 'percent' == $type ? '' : $this->settings->number_prefix;
 		$suffix      = 'percent' == $type ? '%' : $this->settings->number_suffix;
-		$start       = 'jQuery( ".fl-node-' . $this->node . ' .fl-number-int" ).html( "' . $start_num . '" );';
+		$start       = "jQuery( '.fl-node-" . $this->node . " .fl-number-int' ).html( new Intl.NumberFormat('$locale').format($start_num) );";
 		$nojs        = '<noscript>' . number_format( $number ) . '</noscript>';
 		$number_data = 'data-start-number="' . $start_num . '" data-number="' . $number . '" data-total="' . $max . '"';
 
@@ -120,7 +121,7 @@ class FLNumbersModule extends FLBuilderModule {
 			'start_number' => $start_num,
 			'number'       => $number,
 			'max'          => $max,
-			'locale'       => get_locale(),
+			'locale'       => $locale,
 		) );
 
 		echo '<div class="fl-number-string">' . $prefix . '<span class="fl-number-int" ' . $number_data . '>' . $nojs . '</span>' . $suffix . '</div>';

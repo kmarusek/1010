@@ -107,6 +107,8 @@ class EPS_Redirects_Plugin
   // handle dismiss button for notices
   static function dismiss_notice()
   {
+    check_admin_referer( '301_dismiss_notice' );
+
     if (empty($_GET['notice'])) {
       wp_safe_redirect(admin_url());
       exit;
@@ -155,6 +157,7 @@ class EPS_Redirects_Plugin
 
     $rate_url = 'https://wordpress.org/support/plugin/eps-301-redirects/reviews/?filter=5&rate=5#new-post';
     $dismiss_url = add_query_arg(array('action' => '301_dismiss_notice', 'notice' => 'rate', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
+    $dismiss_url = wp_nonce_url($dismiss_url, '301_dismiss_notice');
 
     echo '<div id="301_rate_notice" style="font-size: 14px;" class="notice-info notice"><p>Hi!<br>Saw that you already have ' . esc_attr($tmp2) . ' redirect rules that got used ' . esc_attr($tmp1) . ' times - that\'s awesome! We wanted to ask for your help to <b>make the plugin better</b>.<br>We just need a minute of your time to rate the plugin. It helps us out a lot!';
 

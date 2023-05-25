@@ -11,12 +11,8 @@ const { __ } = wp.i18n;
 const { compose } = wp.compose;
 const { Component } = wp.element;
 const { ToolbarGroup } = wp.components;
-const {
-	AlignmentToolbar,
-	BlockControls,
-	InnerBlocks,
-	withColors,
-} = wp.blockEditor;
+const { AlignmentToolbar, BlockControls, InnerBlocks, withColors } =
+	wp.blockEditor;
 
 class Edit extends Component {
 	render() {

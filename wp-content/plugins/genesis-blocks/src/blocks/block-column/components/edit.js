@@ -16,18 +16,9 @@ import _times from 'lodash/times';
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const { compose } = wp.compose;
-const {
-	BlockControls,
-	BlockAlignmentToolbar,
-	InnerBlocks,
-	withColors,
-} = wp.blockEditor;
-const {
-	Placeholder,
-	ButtonGroup,
-	Tooltip,
-	Button,
-} = wp.components;
+const { BlockControls, BlockAlignmentToolbar, InnerBlocks, withColors } =
+	wp.blockEditor;
+const { Placeholder, ButtonGroup, Tooltip, Button } = wp.components;
 
 /* Set allowed blocks and media. */
 const ALLOWED_BLOCKS = [ 'genesis-blocks/gb-column' ];
@@ -47,15 +38,14 @@ class Edit extends Component {
 	}
 
 	render() {
-		const {
-			attributes,
-			setAttributes,
-		} = this.props;
+		const { attributes, setAttributes } = this.props;
 
 		let selectedRows = 1;
 
 		if ( attributes.columns ) {
-			selectedRows = parseInt( attributes.columns.toString().split( '-' ) );
+			selectedRows = parseInt(
+				attributes.columns.toString().split( '-' )
+			);
 		}
 
 		const columnOptions = [
@@ -103,33 +93,59 @@ class Edit extends Component {
 				<Placeholder
 					key="placeholder"
 					icon="editor-table"
-					label={ attributes.columns ? __( 'Column Layout', 'genesis-blocks' ) : __( 'Column Number', 'genesis-blocks' ) }
-					instructions={ attributes.columns ? __( 'Select a layout for this column.', 'genesis-blocks' ) : __( 'Select the number of columns for this layout.', 'genesis-blocks' ) }
+					label={
+						attributes.columns
+							? __( 'Column Layout', 'genesis-blocks' )
+							: __( 'Column Number', 'genesis-blocks' )
+					}
+					instructions={
+						attributes.columns
+							? __(
+									'Select a layout for this column.',
+									'genesis-blocks'
+							  )
+							: __(
+									'Select the number of columns for this layout.',
+									'genesis-blocks'
+							  )
+					}
 					className={ 'gb-column-selector-placeholder' }
 				>
-					{ ! attributes.columns
-						? (
-							<ButtonGroup
-								aria-label={ __( 'Select Row Columns', 'genesis-blocks' ) }
-								className="gb-column-selector-group"
-							>
-								{ map( columnOptions, ( { name, key, icon, columns } ) => (
+					{ ! attributes.columns ? (
+						<ButtonGroup
+							aria-label={ __(
+								'Select Row Columns',
+								'genesis-blocks'
+							) }
+							className="gb-column-selector-group"
+						>
+							{ map(
+								columnOptions,
+								( { name, key, icon, columns } ) => (
 									<Tooltip text={ name } key={ key }>
 										<div className="gb-column-selector">
 											<Button
 												className={ classnames(
 													'gb-column-selector-button',
-													'gb-select-' + key,
+													'gb-select-' + key
 												) }
 												isSmall
 												onClick={ () => {
 													setAttributes( {
 														columns,
-														layout: 1 === columns || 5 === columns || 6 === columns ? key : null,
+														layout:
+															1 === columns ||
+															5 === columns ||
+															6 === columns
+																? key
+																: null,
 													} );
 
-													{ 1 === columns &&
-													this.setState( { selectLayout: false } );
+													{
+														1 === columns &&
+															this.setState( {
+																selectLayout: false,
+															} );
 													}
 												} }
 											>
@@ -137,50 +153,62 @@ class Edit extends Component {
 											</Button>
 										</div>
 									</Tooltip>
-								) ) }
-							</ButtonGroup>
-						) : (
-							<Fragment>
-								<ButtonGroup
-									aria-label={ __( 'Select Column Layout', 'genesis-blocks' ) }
-									className="gb-column-selector-group"
-								>
-									{ map( columnLayouts[ selectedRows ], ( { name, key, icon } ) => (
+								)
+							) }
+						</ButtonGroup>
+					) : (
+						<Fragment>
+							<ButtonGroup
+								aria-label={ __(
+									'Select Column Layout',
+									'genesis-blocks'
+								) }
+								className="gb-column-selector-group"
+							>
+								{ map(
+									columnLayouts[ selectedRows ],
+									( { name, key, icon } ) => (
 										<Tooltip text={ name } key={ key }>
 											<div className="gb-column-selector">
 												<Button
 													key={ key }
 													className={ classnames(
 														'gb-column-selector-button',
-														key,
+														key
 													) }
 													isSmall
 													onClick={ () => {
 														setAttributes( {
 															layout: key,
 														} );
-														this.setState( { selectLayout: false } );
+														this.setState( {
+															selectLayout: false,
+														} );
 													} }
 												>
 													{ icon }
 												</Button>
 											</div>
 										</Tooltip>
-									) ) }
-								</ButtonGroup>
-								<Button
-									className="gb-column-selector-button-back"
-									onClick={ () => {
-										setAttributes( {
-											columns: null,
-										} );
-										this.setState( { selectLayout: true } );
-									} }
-								>
-									{ __( 'Return to Column Selection', 'genesis-blocks' ) }
-								</Button>
-							</Fragment> )
-					}
+									)
+								) }
+							</ButtonGroup>
+							<Button
+								className="gb-column-selector-button-back"
+								onClick={ () => {
+									setAttributes( {
+										columns: null,
+									} );
+									this.setState( { selectLayout: true } );
+								} }
+							>
+								{ __(
+									'Return to Column Selection',
+									'genesis-blocks'
+								) }
+							</Button>
+						</Fragment>
+					) }
 				</Placeholder>,
 			];
 		}
@@ -196,7 +224,6 @@ class Edit extends Component {
 			<Inspector { ...this.props } key="inspector" />,
 			<Columns
 				{ ...this.props }
-
 				/* Pass through the live color value to the Columns component */
 				backgroundColorValue={ this.props.backgroundColor.color }
 				textColorValue={ this.props.textColor.color }
@@ -206,9 +233,15 @@ class Edit extends Component {
 					className={ classnames(
 						'gb-layout-column-wrap-admin',
 						'gb-block-layout-column-gap-' + attributes.columnsGap,
-						attributes.responsiveToggle ? 'gb-is-responsive-column' : null,
+						attributes.responsiveToggle
+							? 'gb-is-responsive-column'
+							: null
 					) }
-					style={ { maxWidth: attributes.columnMaxWidth ? attributes.columnMaxWidth : null } }
+					style={ {
+						maxWidth: attributes.columnMaxWidth
+							? attributes.columnMaxWidth
+							: null,
+					} }
 				>
 					<InnerBlocks
 						template={ getLayoutTemplate( attributes.columns ) }
@@ -222,8 +255,5 @@ class Edit extends Component {
 }
 
 export default compose( [
-	withColors(
-		'backgroundColor',
-		{ textColor: 'color' },
-	),
+	withColors( 'backgroundColor', { textColor: 'color' } ),
 ] )( Edit );

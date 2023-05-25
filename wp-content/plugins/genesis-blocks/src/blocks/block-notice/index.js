@@ -52,16 +52,24 @@ class GBNoticeBlock extends Component {
 			</BlockControls>,
 
 			// Show the block controls on focus
-			<Inspector key={ 'gb-notice-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
+			<Inspector
+				key={ 'gb-notice-inspector-' + this.props.clientId }
+				{ ...{ setAttributes, ...this.props } }
+			/>,
 
 			// Show the block markup in the editor
-			<NoticeBox key={ 'gb-notice-noticebox-' + this.props.clientId } { ...this.props }>
-				{ // Check if the notice is dismissible and output the button
+			<NoticeBox
+				key={ 'gb-notice-noticebox-' + this.props.clientId }
+				{ ...this.props }
+			>
+				{
+					// Check if the notice is dismissible and output the button
 					noticeDismiss && 'gb-dismissable' === noticeDismiss && (
 						<DismissButton { ...this.props }>
 							{ icons.dismiss }
 						</DismissButton>
-					) }
+					)
+				}
 
 				<RichText
 					tagName="p"

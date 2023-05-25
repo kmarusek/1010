@@ -21,11 +21,8 @@ const { TextControl, withFallbackStyles } = wp.components;
 
 /* Apply fallback styles. */
 const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
-	const {
-		backgroundColor,
-		textColor,
-		buttonBackgroundColor,
-	} = ownProps.attributes;
+	const { backgroundColor, textColor, buttonBackgroundColor } =
+		ownProps.attributes;
 	const editableNode = node.querySelector( '[contenteditable="true"]' );
 	const computedStyles = editableNode
 		? getComputedStyle( editableNode )
@@ -86,8 +83,14 @@ class Edit extends Component {
 		}
 
 		return [
-			<Inspector key={ 'gb-newsletter-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
-			<NewsletterContainer key={ 'gb-newsletter-container-' + this.props.clientId } { ...this.props }>
+			<Inspector
+				key={ 'gb-newsletter-inspector-' + this.props.clientId }
+				{ ...{ setAttributes, ...this.props } }
+			/>,
+			<NewsletterContainer
+				key={ 'gb-newsletter-container-' + this.props.clientId }
+				{ ...this.props }
+			>
 				{ ! apiKeyDefined && (
 					<Fragment>
 						<div className="gb-newsletter-notice">

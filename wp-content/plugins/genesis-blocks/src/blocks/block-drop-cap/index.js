@@ -42,10 +42,16 @@ class GBDropCapBlock extends Component {
 			</BlockControls>,
 
 			// Show the block controls on focus
-			<Inspector key={ 'gb-drop-cap-inspector-' + this.props.clientId } { ...this.props } />,
+			<Inspector
+				key={ 'gb-drop-cap-inspector-' + this.props.clientId }
+				{ ...this.props }
+			/>,
 
 			// Show the block markup in the editor
-			<DropCap key={ 'gb-drop-cap-' + this.props.clientId } { ...this.props }>
+			<DropCap
+				key={ 'gb-drop-cap-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<RichText
 					tagName="div"
 					multiline="p"
@@ -134,14 +140,16 @@ registerBlockType( 'genesis-blocks/gb-drop-cap', {
 		// Save the block markup for the front end
 		return (
 			<DropCap { ...props }>
-				{ // Check if there is text and output
+				{
+					// Check if there is text and output
 					dropCapContent && (
 						<RichText.Content
 							tagName="div"
 							className="gb-drop-cap-text"
 							value={ dropCapContent }
 						/>
-					) }
+					)
+				}
 			</DropCap>
 		);
 	},

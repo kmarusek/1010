@@ -16,6 +16,7 @@ foreach ( array( '', 'large', 'medium', 'responsive' ) as $device ) {
 	// Font Size
 	FLBuilderCSS::rule( array(
 		'media'    => $device,
+		'enabled'  => empty( $device ) ? true : ! empty( $settings->{ $key } ),
 		'selector' => ".fl-node-$id .fl-icon i, .fl-node-$id .fl-icon i:before",
 		'props'    => array(
 			'font-size' => $size_value[ $device ] . $size_unit,

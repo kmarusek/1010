@@ -6,8 +6,8 @@ class Godaddy {
 
 	static function run() {
 		if ( class_exists( '\WPaaS\Cache' ) ) {
-			if ( method_exists( '\WPaaS\Cache', 'ban' ) ) {
-				\WPaaS\Cache::ban();
+			if ( method_exists( '\WPaaS\Cache', 'purge' ) ) {
+				\add_action( 'shutdown', array( $GLOBALS['wpaas_cache_class'], 'purge' ) );
 			}
 		}
 	}

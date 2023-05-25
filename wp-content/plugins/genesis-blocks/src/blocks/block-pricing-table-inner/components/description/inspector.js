@@ -31,12 +31,8 @@ const {
 
 // Apply fallback styles
 const applyFallbackStyles = withFallbackStyles( ( node, ownProps ) => {
-	const {
-		textColor,
-		backgroundColor,
-		fontSize,
-		customFontSize,
-	} = ownProps.attributes;
+	const { textColor, backgroundColor, fontSize, customFontSize } =
+		ownProps.attributes;
 	const editableNode = node.querySelector( '[contenteditable="true"]' );
 	const computedStyles = editableNode
 		? getComputedStyle( editableNode )
@@ -116,7 +112,10 @@ class Inspector extends Component {
 					/>
 					{ 'gb-list-border-none' !== borderStyle && (
 						<RangeControl
-							label={ __( 'List Border Width', 'genesis-blocks' ) }
+							label={ __(
+								'List Border Width',
+								'genesis-blocks'
+							) }
 							value={ borderWidth }
 							onChange={ ( value ) =>
 								this.props.setAttributes( {
@@ -135,7 +134,10 @@ class Inspector extends Component {
 									'List Border Color',
 									'genesis-blocks'
 								) }
-								id={ 'gb-list-border-color-' + this.props.clientId }
+								id={
+									'gb-list-border-color-' +
+									this.props.clientId
+								}
 							>
 								<ColorPalette
 									initialOpen={ false }

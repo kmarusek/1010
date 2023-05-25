@@ -19,11 +19,7 @@ import { Collections } from './collections/views/Collections.js';
 const { __ } = wp.i18n;
 const { addQueryArgs } = wp.url;
 const { Component, Fragment } = wp.element;
-const {
-	ButtonGroup,
-	TextControl,
-	SelectControl,
-} = wp.components;
+const { ButtonGroup, TextControl, SelectControl } = wp.components;
 
 export default class LayoutLibrary extends Component {
 	constructor() {
@@ -91,7 +87,9 @@ export default class LayoutLibrary extends Component {
 
 		// Handle the contents of the collections tab in the Collections component.
 		if ( this.props.currentTab === 'gb-layout-tab-collections' ) {
-			return ( <Collections key={ this.props.data.key } { ...this.props } /> );
+			return (
+				<Collections key={ this.props.data.key } { ...this.props } />
+			);
 		}
 
 		return (
@@ -172,7 +170,10 @@ export default class LayoutLibrary extends Component {
 									? 'gb-layout-view-full'
 									: null
 							) }
-							aria-label={ __( 'Layout Options', 'genesis-blocks' ) }
+							aria-label={ __(
+								'Layout Options',
+								'genesis-blocks'
+							) }
 						>
 							{ map(
 								data,

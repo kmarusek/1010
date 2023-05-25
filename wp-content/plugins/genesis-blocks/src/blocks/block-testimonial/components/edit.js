@@ -11,12 +11,8 @@ import icons from './../../../utils/components/icons';
  */
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const {
-	RichText,
-	AlignmentToolbar,
-	BlockControls,
-	MediaUpload,
-} = wp.blockEditor;
+const { RichText, AlignmentToolbar, BlockControls, MediaUpload } =
+	wp.blockEditor;
 const { Button, Dashicon } = wp.components;
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
@@ -58,10 +54,16 @@ export default class Edit extends Component {
 			</BlockControls>,
 
 			// Show the block controls on focus
-			<Inspector key={ 'gb-testimonial-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
+			<Inspector
+				key={ 'gb-testimonial-inspector-' + this.props.clientId }
+				{ ...{ setAttributes, ...this.props } }
+			/>,
 
 			// Show the block markup in the editor
-			<Testimonial key={ 'gb-testimonial-editor-' + this.props.clientId } { ...this.props }>
+			<Testimonial
+				key={ 'gb-testimonial-editor-' + this.props.clientId }
+				{ ...this.props }
+			>
 				<RichText
 					tagName="div"
 					multiline="p"
@@ -96,7 +98,8 @@ export default class Edit extends Component {
 								onSelect={ ( img ) =>
 									setAttributes( {
 										testimonialImgID: img.id,
-										testimonialImgURL: img.sizes.thumbnail.url,
+										testimonialImgURL:
+											img.sizes.thumbnail.url,
 										testimonialImgAlt: img.alt,
 									} )
 								}
@@ -119,7 +122,11 @@ export default class Edit extends Component {
 												<img
 													className="gb-testimonial-avatar"
 													src={ testimonialImgURL }
-													alt={ testimonialImgAlt ? testimonialImgAlt : null }
+													alt={
+														testimonialImgAlt
+															? testimonialImgAlt
+															: null
+													}
 												/>
 											) }
 										</Button>

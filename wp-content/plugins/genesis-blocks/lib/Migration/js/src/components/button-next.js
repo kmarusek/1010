@@ -29,7 +29,11 @@ const ButtonNext = ( { onClick, checkboxLabel, stepIndex } ) => {
 
 	// If there's no label for the 'confirmation' checkbox, return a simple button.
 	if ( ! checkboxLabel ) {
-		return <button className="btn" onClick={ onClick }>{ __( 'Next Step', 'genesis-blocks' ) }</button>;
+		return (
+			<button className="btn" onClick={ onClick }>
+				{ __( 'Next Step', 'genesis-blocks' ) }
+			</button>
+		);
 	}
 
 	const inputId = `gb-migration-check-${ stepIndex }`;
@@ -43,7 +47,9 @@ const ButtonNext = ( { onClick, checkboxLabel, stepIndex } ) => {
 						setCheckboxChecked( ! isCheckboxChecked );
 					} }
 				/>
-				<label htmlFor={ inputId } className="gb-checkbox-label">{ checkboxLabel }</label>
+				<label htmlFor={ inputId } className="gb-checkbox-label">
+					{ checkboxLabel }
+				</label>
 			</form>
 			<button
 				className="gb-admin-button-primary"
@@ -53,7 +59,6 @@ const ButtonNext = ( { onClick, checkboxLabel, stepIndex } ) => {
 				{ __( 'Next Step', 'genesis-blocks' ) }
 			</button>
 		</>
-
 	);
 };
 

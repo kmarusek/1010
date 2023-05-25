@@ -151,7 +151,9 @@ class GBCTGBlock extends Component {
 
 		return [
 			// Show the alignment toolbar on focus
-			<BlockControls key={ 'gb-cta-block-controls-' + this.props.clientId } >
+			<BlockControls
+				key={ 'gb-cta-block-controls-' + this.props.clientId }
+			>
 				<BlockAlignmentToolbar
 					value={ ctaWidth }
 					onChange={ ( ctaWidth ) => setAttributes( { ctaWidth } ) }
@@ -166,10 +168,16 @@ class GBCTGBlock extends Component {
 			</BlockControls>,
 
 			// Show the block controls on focus
-			<Inspector key={ 'gb-cta-inspector-' + this.props.clientId } { ...{ setAttributes, ...this.props } } />,
+			<Inspector
+				key={ 'gb-cta-inspector-' + this.props.clientId }
+				{ ...{ setAttributes, ...this.props } }
+			/>,
 
 			// Show the button markup in the editor
-			<CallToAction key={ 'gb-cta-' + this.props.clientId } { ...this.props }>
+			<CallToAction
+				key={ 'gb-cta-' + this.props.clientId }
+				{ ...this.props }
+			>
 				{ imgURL && !! imgURL.length && (
 					<div className="gb-cta-image-wrap">
 						<img

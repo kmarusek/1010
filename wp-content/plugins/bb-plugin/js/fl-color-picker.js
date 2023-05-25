@@ -749,7 +749,7 @@ var FLBuilderColorPicker;
 				} );
 
 			// logic to hide picker when the user clicks outside it
-			$( document ).on( 'mousedown', function( event ) {
+			$( window.parent.document ).add( document ).on( 'mousedown', function( event ) {
 				if ( 0 === $( event.target ).closest( '.fl-color-picker-ui' ).length ) {
 					presets = self._ui.find( '.fl-color-picker-presets' );
 					presetsCloseLabel = presets.find( '.fl-color-picker-presets-close-label' );

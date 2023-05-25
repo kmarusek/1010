@@ -376,23 +376,25 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			),
 		);
 
-		$form['style']['sections']['events_button'] = array(
-			'title'  => __( 'The Events Calendar Cart Button', 'bb-theme-builder' ),
-			'fields' => array(
-				'events_button_bg_color'   => array(
-					'type'       => 'color',
-					'label'      => __( 'Background Color', 'bb-theme-builder' ),
-					'default'    => '',
-					'show_reset' => true,
+		if ( class_exists( 'Tribe__Tickets__Main' ) ) :
+			$form['style']['sections']['events_button'] = array(
+				'title'  => __( 'The Events Calendar Ticket Button', 'bb-theme-builder' ),
+				'fields' => array(
+					'events_button_bg_color'   => array(
+						'type'       => 'color',
+						'label'      => __( 'Background Color', 'bb-theme-builder' ),
+						'default'    => '',
+						'show_reset' => true,
+					),
+					'events_button_text_color' => array(
+						'type'       => 'color',
+						'label'      => __( 'Text Color', 'bb-theme-builder' ),
+						'default'    => '',
+						'show_reset' => true,
+					),
 				),
-				'events_button_text_color' => array(
-					'type'       => 'color',
-					'label'      => __( 'Text Color', 'bb-theme-builder' ),
-					'default'    => '',
-					'show_reset' => true,
-				),
-			),
-		);
+			);
+		endif;
 
 		return $form;
 	}

@@ -155,12 +155,15 @@ registerBlockType( 'genesis-blocks/gb-pricing-table-button', {
 				style={ styles }
 			>
 				<CustomButton { ...props }>
-					{ // Check if there is button text and output
+					{
+						// Check if there is button text and output
 						buttonText && (
 							<a
 								href={ buttonUrl }
 								target={ buttonTarget ? '_blank' : null }
-								rel={ buttonTarget ? 'noopener noreferrer' : null }
+								rel={
+									buttonTarget ? 'noopener noreferrer' : null
+								}
 								className={ classnames(
 									'gb-button',
 									buttonShape,
@@ -173,7 +176,8 @@ registerBlockType( 'genesis-blocks/gb-pricing-table-button', {
 							>
 								<RichText.Content value={ buttonText } />
 							</a>
-						) }
+						)
+					}
 				</CustomButton>
 			</div>
 		);

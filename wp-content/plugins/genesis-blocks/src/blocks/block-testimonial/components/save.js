@@ -39,7 +39,11 @@ export default class Save extends Component {
 								<img
 									className="gb-testimonial-avatar"
 									src={ testimonialImgURL }
-									alt={ testimonialImgAlt ? testimonialImgAlt : null }
+									alt={
+										testimonialImgAlt
+											? testimonialImgAlt
+											: null
+									}
 								/>
 							</div>
 						</div>

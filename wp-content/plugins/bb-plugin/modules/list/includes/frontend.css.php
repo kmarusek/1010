@@ -1,6 +1,7 @@
 <?php
 // Heading Style - Color
 if ( ! empty( $settings->heading_color ) ) : ?>
+	.fl-node-<?php echo $id; ?> .fl-list-item-heading-text,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-list-item-heading-text {
 		color: <?php echo FLBuilderColor::hex_or_rgb( $settings->heading_color ); ?>;
 	}
@@ -17,6 +18,8 @@ FLBuilderCSS::typography_field_rule( array(
 // Content Style - Color
 if ( ! empty( $settings->content_color ) ) :
 	?>
+	.fl-node-<?php echo $id; ?> .fl-list-item-content .fl-list-item-content-text,
+	.fl-node-<?php echo $id; ?> .fl-list-item-content .fl-list-item-content-text * ,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-list-item-content .fl-list-item-content-text,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-list-item-content .fl-list-item-content-text * {
 		color: <?php echo FLBuilderColor::hex_or_rgb( $settings->content_color ); ?>;
@@ -34,6 +37,7 @@ FLBuilderCSS::typography_field_rule( array(
 // List Style - Background Color
 if ( ! empty( $settings->list_bg_color ) ) :
 	?>
+	.fl-node-<?php echo $id; ?> .fl-module-content,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-module-content {
 		background-color: <?php echo FLBuilderColor::hex_or_rgb( $settings->list_bg_color ); ?>;
 	}
@@ -74,11 +78,13 @@ FLBuilderCSS::border_field_rule( array(
 ) );
 
 // Icon Style - Color
-if ( ! empty( $settings->icon_color ) ) :
+if ( ! empty( $settings->list_icon_color ) ) :
 	?>
+	.fl-node-<?php echo $id; ?> .fl-list-item-heading-icon .fl-list-item-icon,
+	.fl-node-<?php echo $id; ?> .fl-list-item-content-icon .fl-list-item-icon,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-list-item-heading-icon .fl-list-item-icon,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-list-item-content-icon .fl-list-item-icon {
-		color: <?php echo FLBuilderColor::hex_or_rgb( $settings->icon_color ); ?>;
+		color: <?php echo FLBuilderColor::hex_or_rgb( $settings->list_icon_color ); ?>;
 	}
 	<?php
 endif;
@@ -86,6 +92,8 @@ endif;
 // Icon Style - Size
 if ( ! empty( $settings->icon_size ) ) :
 	?>
+	.fl-node-<?php echo $id; ?> .fl-list-item-heading-icon .fl-list-item-icon,
+	.fl-node-<?php echo $id; ?> .fl-list-item-content-icon .fl-list-item-icon,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-list-item-heading-icon .fl-list-item-icon,
 	.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-list-item-content-icon .fl-list-item-icon {
 		font-size: <?php echo $settings->icon_size . 'px'; ?>;
@@ -154,6 +162,7 @@ foreach ( $settings->list_items as $k => $item ) :
 	// Item Heading Text Color
 	if ( ! empty( $item->heading_text_color ) ) :
 		?>
+		.fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-heading-text,
 		.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-heading-text {
 			color: <?php echo FLBuilderColor::hex_or_rgb( $item->heading_text_color ); ?>;
 		}
@@ -163,6 +172,7 @@ foreach ( $settings->list_items as $k => $item ) :
 	// Item Content Text Color
 	if ( ! empty( $item->content_text_color ) ) :
 		?>
+		.fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-content-text *,
 		.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-content-text * {
 			color: <?php echo FLBuilderColor::hex_or_rgb( $item->content_text_color ); ?>;
 		}
@@ -181,6 +191,8 @@ foreach ( $settings->list_items as $k => $item ) :
 	// Item Icon Style - Color
 	if ( ! empty( $item->icon_color ) ) :
 		?>
+		.fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-heading-icon .fl-list-item-icon,
+		.fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-content-icon .fl-list-item-icon,
 		.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-heading-icon .fl-list-item-icon,
 		.fl-row .fl-col .fl-node-<?php echo $id; ?> .fl-module-content .fl-list-item-<?php echo $item_counter; ?> .fl-list-item-content-icon .fl-list-item-icon {
 			color: <?php echo FLBuilderColor::hex_or_rgb( $item->icon_color ); ?>;

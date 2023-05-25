@@ -167,7 +167,7 @@ final class FLBuilderModel {
 	 */
 	static private $node_template_types = array();
 
-	static private $get_user_templates_cache = false;
+	static private $get_user_templates_cache = array();
 
 	/**
 	 * Initialize hooks.
@@ -4793,8 +4793,6 @@ final class FLBuilderModel {
 		 */
 		if ( apply_filters( 'fl_builder_enable_small_data_mode', false ) ) {
 
-			$data = self::clean_layout_data( $data );
-
 			if ( 'published' === $status ) {
 				foreach ( $data as $node_id => $node ) {
 					if ( isset( $node->settings ) ) {
@@ -4802,7 +4800,6 @@ final class FLBuilderModel {
 					}
 				}
 			}
-			$data = self::slash_settings( $data );
 		} else {
 			$data = self::slash_settings( self::clean_layout_data( $data ) );
 		}
@@ -4897,7 +4894,7 @@ final class FLBuilderModel {
 	*
 	* @return array
 	*/
-	static public function array_remove_by_values( $haystack, $values, $whitelist = array( 'animation', 'style' ) ) {
+	static public function array_remove_by_values( $haystack, $values, $whitelist = array( 'animation', 'style', 'post_columns' ) ) {
 		foreach ( $haystack as $key => $value ) {
 			if ( is_array( $value ) ) {
 				$haystack[ $key ] = self::array_remove_by_values( $haystack[ $key ], $values );
@@ -5125,6 +5122,8 @@ final class FLBuilderModel {
 		// Rerender the assets for this layout.
 		FLBuilder::render_assets();
 
+		self::cleanup_post_data( $post_id );
+
 		/**
 		 * This action allows you to hook into after the data is saved for a layout.
 		 * @see fl_builder_after_save_layout
@@ -5151,12 +5150,28 @@ final class FLBuilderModel {
 			self::save_layout( false );
 		}
 
+		self::cleanup_post_data( $post_id, false );
+
 		/**
 		 * After draft is saved.
 		 * @see fl_builder_after_save_draft
 		 */
 		do_action( 'fl_builder_after_save_draft', $post_id, $post_status );
 	}
+
+	static public function cleanup_post_data( $post_id, $history = true ) {
+
+		// remove any post lock
+		delete_post_meta( $post_id, '_edit_lock' );
+
+		if ( ! $history ) {
+			return;
+		}
+
+		// delete old states
+		FLBuilderHistoryManager::delete_states( $post_id );
+	}
+
 
 	/**
 	 * Duplicates a layout for WPML when the copy from original
@@ -5668,11 +5683,12 @@ final class FLBuilderModel {
 		if ( isset( $node->settings->visibility_display ) && ( '' !== $node->settings->visibility_display ) ) {
 			$rules = true;
 		}
-		if ( isset( $node->settings->responsive_display ) && ( '' !== $node->settings->responsive_display ) ) {
+		if ( isset( $node->settings->responsive_display ) && ( '' !== $node->settings->responsive_display && 'desktop,large,medium,mobile' !== $node->settings->responsive_display ) ) {
 			$rules = true;
 		}
 		return $rules;
 	}
+
 
 	/**
 	 * Returns visibility rule.

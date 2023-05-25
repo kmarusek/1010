@@ -3,8 +3,8 @@
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 $np_basePath = dirname(__FILE__) . '/';
-require_once  $np_basePath . 'constants.php';
 require_once  $np_basePath . 'nitropack-sdk/autoload.php';
+require_once  $np_basePath . 'constants.php';
 
 $np_originalRequestCookies = $_COOKIE;
 $np_customExpirationTimes = array();
@@ -571,6 +571,11 @@ function nitropack_is_ajax() {
         !empty($_GET["wc-ajax"]);
 }
 
+/**
+ * Checking if the current request is wp-cli request
+ *
+ * @return bool
+ */
 function nitropack_is_wp_cli() {
     return defined("WP_CLI") && WP_CLI;
 }
@@ -673,11 +678,6 @@ function nitropack_init() {
             if (!isset($_GET["wpf_action"]) && nitropack_passes_cookie_requirements() && nitropack_passes_page_requirements()) {
                 add_action('wp_footer', 'nitropack_print_beacon_script');
                 add_action('get_footer', 'nitropack_print_beacon_script');
-
-                $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
-                if (in_array('woocommerce-multilingual/wpml-woocommerce.php', $active_plugins, true) && (!isset($_COOKIE["np_wc_currency"]) || !isset($_COOKIE["np_wc_currency_language"]))) {
-                    add_action('woocommerce_init', 'set_wc_cookies');
-                }
 
                 if (nitropack_is_optimizer_request()) { // Only care about tags for requests coming from our service. There is no need to do an API request when handling a standard client request.
                     if (defined('FUSION_BUILDER_VERSION')) {
@@ -834,8 +834,10 @@ function nitropack_get_beacon_script() {
 }
 
 function nitropack_print_cookie_handler_script() {
+
     if (defined("NITROPACK_COOKIE_HANDLER_PRINTED")) return;
     define("NITROPACK_COOKIE_HANDLER_PRINTED", true);
+
     echo apply_filters("nitro_script_output", nitropack_get_cookie_handler_script());
 }
 
@@ -887,7 +889,6 @@ function nitropack_get_telemetry_meta() {
 }
 
 function nitropack_print_element_override() {
-    return;
     if (defined("NITROPACK_ELEMENT_OVERRIDE_PRINTED")) return;
     define("NITROPACK_ELEMENT_OVERRIDE_PRINTED", true);
     echo apply_filters("nitro_script_output", nitropack_get_element_override_script());
@@ -900,15 +901,6 @@ function nitropack_get_element_override_script() {
 
 function nitropack_has_advanced_cache() {
     return defined( 'NITROPACK_ADVANCED_CACHE' );
-}
-
-function set_wc_cookies() {
-    $wcCurrency = WC()->session->get("client_currency");
-    $wcCurrencyLanguage = WC()->session->get("client_currency_language");
-    if (!$wcCurrency) $wcCurrency = 0;
-    if (!$wcCurrencyLanguage) $wcCurrencyLanguage = 0;
-    setcookie('np_wc_currency', $wcCurrency, time() + (86400 * 7), "/");
-    setcookie('np_wc_currency_language', $wcCurrencyLanguage, time() + (86400 * 7), "/");
 }
 
 function nitropack_validate_site_id($siteId) {
@@ -1115,6 +1107,10 @@ function nitropack_is_advanced_cache_allowed() {
 }
 
 function nitropack_admin_notices() {
+    if (defined('NITROPACK_DATA_DIR_WARNING')) {
+        nitropack_print_notice('warning', NITROPACK_DATA_DIR_WARNING);
+    }
+
     if (!empty($_COOKIE["nitropack_after_activate_notice"])) {
         nitropack_print_notice("info", "<script>document.cookie = 'nitropack_after_activate_notice=1; expires=Thu, 01 Jan 1970 00:00:01 GMT;';</script>NitroPack has been successfully activated, but it is not connected yet. Please go to <a href='" . admin_url( 'options-general.php?page=nitropack' ) . "'>its settings</a> page to connect it in order to start optimizing your site!");
     }
@@ -1175,7 +1171,7 @@ function nitropack_print_woocommerce_notice() {
         if (class_exists('WooCommerce')) {
             $wcOneTimeNotice = get_option('nitropack-wcNotice');
             if ($wcOneTimeNotice === false) {
-                nitropack_print_notice("success", "WooCommerce is detected. Your <strong>Account</strong>, <strong>cart</strong> and <strong>checkout</strong> pages are automatically excluded from optimization. <a href='javascript:void(0);' onclick='jQuery.post(ajaxurl, {action: \"nitropack_dismiss_woocommerce_notice\"});jQuery(this).closest(\".is-dismissible\").hide();'>Dismiss</a>");
+                nitropack_print_notice("success", "WooCommerce is detected. Your <strong>account</strong>, <strong>cart</strong> and <strong>checkout</strong> pages are automatically excluded from optimization. <a href='javascript:void(0);' onclick='jQuery.post(ajaxurl, {action: \"nitropack_dismiss_woocommerce_notice\"});jQuery(this).closest(\".is-dismissible\").hide();'>Dismiss</a>", false);
             }
         }
     }
@@ -1820,6 +1816,22 @@ function nitropack_purge_single_cache() {
     ));
 }
 
+function nitropack_purge_entire_cache() {
+	try {
+        if (nitropack_sdk_purge(null, null, 'Manual purge of all pages')) {
+            nitropack_json_and_exit(array(
+                "type" => "success",
+                "message" => __( 'Success! Cache has been purged successfully!', 'nitropack' )
+            ));
+        }
+    } catch (\Exception $e) {}	
+
+	nitropack_json_and_exit(array(
+		"type" => "error",
+		"message" => __( 'Error! There was an error and the cache was not purged!', 'nitropack' )
+	));
+}
+
 function nitropack_invalidate_single_cache() {
     if (!empty($_POST["postId"]) && is_numeric($_POST["postId"])) {
         $postId = $_POST["postId"];
@@ -1993,8 +2005,8 @@ function nitropack_handle_post_transition($new, $old, $post) {
             if ($new == "future") {
                 nitropack_clean_post_cache($post, array('added' => nitropack_get_taxonomies($post)), true, sprintf("Invalidate related pages due to scheduling %s '%s'", $nicePostTypeLabel, $post->post_title));
             } else if ($new == "publish" && $old != "publish") {
-                nitropack_clean_post_cache($post, array('added' => nitropack_get_taxonomies($post)), true, sprintf("Invalidate related pages due to publishing %s '%s'", $nicePostTypeLabel, $post->post_title));
-                $np_loggedWarmups[] = get_permalink($post);
+                $post->nicePostTypeLabel = $nicePostTypeLabel;
+                set_transient($post->ID . '_np_first_publish', $post, 120);
             } else if ($new == "trash" && $old == "publish") {
                 nitropack_clean_post_cache($post, array('deleted' => nitropack_get_taxonomies($post)), true, sprintf("Invalidate related pages due to deleting %s '%s'", $nicePostTypeLabel, $post->post_title), true);
             } else if ($new == "private" && $old == "publish") {
@@ -2007,6 +2019,20 @@ function nitropack_handle_post_transition($new, $old, $post) {
             }
             break;
         }
+    } catch (\Exception $e) {
+        // TODO: Log the error
+    }
+}
+
+function nitropack_handle_first_publish($post_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids) {
+    $first_publish_post = get_transient($post_id . '_np_first_publish', false);
+    if ( ! $first_publish_post || ( $taxonomy != "category" && $taxonomy != "product_cat" ) ) {
+        return;
+    }
+
+    try {
+        nitropack_clean_post_cache( $first_publish_post, array( 'added' => $tt_ids ), true, sprintf( "Invalidate related pages due to publishing %s '%s'", $first_publish_post->nicePostTypeLabel, $first_publish_post->post_title ) );
+        delete_transient($post_id . '_np_first_publish');
     } catch (\Exception $e) {
         // TODO: Log the error
     }
@@ -2213,6 +2239,12 @@ function nitropack_verify_connect($siteId, $siteSecret) {
         nitropack_json_and_exit(array("status" => "error", "message" => "stream_socket_client function is not allowed by your host. <a href=\"https://support.nitropack.io/hc/en-us/articles/360020898137\" target=\"_blank\" rel=\"noreferrer noopener\">Read more</a>"));
     }
 
+	if (!nitropack_check_func_availability('stream_context_create')) {
+        // <a href=\"https://support.nitropack.io/hc/en-us/articles/360020898137\" target=\"_blank\" rel=\"noreferrer noopener\">Read more</a>
+        // ^ Similar article needed on website for stream_context_create function
+		nitropack_json_and_exit(array("status" => "error", "message" => "stream_context_create function is not allowed by your host."));
+	}
+
     if (empty($siteId) || empty($siteSecret)) {
         nitropack_json_and_exit(array("status" => "error", "message" => __( 'Site ID and Site Secret cannot be empty', 'nitropack' )));
     }
@@ -2293,7 +2325,7 @@ function nitropack_verify_connect($siteId, $siteSecret) {
         nitropack_json_and_exit(array("status" => "error", "message" => __( 'Permission Error: ', 'nitropack' ) . $e->getMessage()));
     } catch (\NitroPack\SDK\EmptyConfigException $e) {
         nitropack_json_and_exit(array("status" => "error", "message" =>  __( 'Error while fetching remote config: ', 'nitropack' ) . $e->getMessage()));
-    } catch (\NitroPack\SocketOpenException $e) {
+    } catch (\NitroPack\HttpClient\Exceptions\SocketOpenException $e) {
         nitropack_json_and_exit(array("status" => "error", "message" =>  __( 'Can\'t establish connection with NitroPack\'s servers', 'nitropack' )));
     } catch (\Exception $e) {
         nitropack_json_and_exit(array("status" => "error", "message" => __( 'Incorrect API credentials. Please make sure that you copied them correctly and try again.', 'nitropack' )));
@@ -2490,6 +2522,7 @@ function nitropack_disable_warmup() {
         try {
             $nitro->getApi()->disableWarmup();
             $nitro->getApi()->resetWarmup();
+	        delete_option('np_warmup_sitemap');
         } catch (\Exception $e) {
         }
 
@@ -2538,7 +2571,35 @@ function nitropack_estimate_warmup() {
                 ));
             }
 
+            $sitemapUrls = nitropack_active_sitemap_plugins() ? nitropack_get_site_maps() : NULL;
+            $configuredSitemap = false;
+
+            if ($sitemapUrls === NULL) {
+
+                $defaultSitemap = get_default_sitemap();
+                if ($defaultSitemap) {
+                    $nitro->getApi()->setWarmupSitemap($defaultSitemap);
+                    $configuredSitemap = true;
+                }
+
+	            delete_option('np_warmup_sitemap');
+
+            } else {
+
+                $warmupSitemap = evaluate_warmup_sitemap($sitemapUrls);
+                if ($warmupSitemap) {
+                    $nitro->getApi()->setWarmupSitemap($warmupSitemap);
+                    $configuredSitemap = true;
+                }
+
+            }
+
+            if (!$configuredSitemap) {
+                $nitro->getApi()->setWarmupSitemap(NULL);
+            }
+
             $nitro->getApi()->setWarmupHomepage(get_home_url());
+
             $optimizationsEstimate = $nitro->getApi()->estimateWarmup($id);
 
             if ($id === NULL) {
@@ -2548,8 +2609,9 @@ function nitropack_estimate_warmup() {
         }
 
         nitropack_json_and_exit(array(
-            "type" => "success",
-            "res" => $optimizationsEstimate
+            "type"               => "success",
+            "res"                => $optimizationsEstimate,
+            "sitemap_indication" => get_option('np_warmup_sitemap', false)
         ));
     }
 
@@ -2660,30 +2722,38 @@ function nitropack_disable_cart_cache() {
     ));
 }
 
-function nitropack_safemode_status() {
+function nitropack_safemode_status($dontExit = false) {
     if (null !== $nitro = get_nitropack_sdk()) {
         try {
             $isEnabled = $nitro->getApi()->isSafeModeEnabled();
         } catch (\Exception $e) {
-            nitropack_cache_safemode_status();
-            nitropack_json_and_exit(array(
-                "type" => "error",
-                "message" => __( 'Error! There was an error while fetching the status of safe mode!', 'nitropack' )
-            ));
+            if (!$dontExit) {
+                nitropack_json_and_exit(array(
+                    "type" => "error",
+                    "message" => __( 'Error! There was an API error while fetching status of safe mode!', 'nitropack' )
+                ));
+            }
+            return NULL;
         }
 
         nitropack_cache_safemode_status($isEnabled);
-        nitropack_json_and_exit(array(
-            "type" => "success",
-            "isEnabled" => $isEnabled
-        ));
+        if (!$dontExit) {
+            nitropack_json_and_exit(array(
+                "type" => "success",
+                "isEnabled" => $isEnabled
+            ));
+        }
+        return $isEnabled;
     }
 
     nitropack_cache_safemode_status();
-    nitropack_json_and_exit(array(
-        "type" => "error",
-        "message" => __( 'Error! There was an error while fetching status of safe mode!', 'nitropack' )
-    ));
+    if (!$dontExit) {
+        nitropack_json_and_exit(array(
+            "type" => "error",
+            "message" => __( 'Error! There was an SDK error while fetching status of safe mode!', 'nitropack' )
+        ));
+    }
+    return NULL;
 }
 
 function nitropack_cache_safemode_status($operation = null) {
@@ -2941,12 +3011,48 @@ function nitropack_admin_bar_menu($wp_admin_bar){
             )
         );
 
+	    $wp_admin_bar->add_node( array(
+
+		    'parent' => 'nitropack-top-menu',
+		    'title' => __( 'Settings', 'nitropack' ),
+		    'href' => admin_url( 'options-general.php?page=nitropack' ),
+		    'meta' => array(
+			    'class' => 'custom-node-class'
+		    )
+
+	    ));
+
+	    $wp_admin_bar->add_node(
+		    array(
+			    'parent' => 'nitropack-top-menu',
+			    'title' => __( 'Purge Entire Cache', 'nitropack' ),
+			    'href' => '#',
+			    'meta' => array(
+				    'class' => 'nitropack-purge-cache-entire-site',
+			    ),
+		    )
+	    );
+
+
         if(!is_admin()) { // menu otions available when browsing front-end pages
+
+	        $wp_admin_bar->add_node(
+		        array(
+			        'parent' => 'nitropack-top-menu',
+			        'id'     => 'optimizations-purge-cache',
+			        'title'  =>  __( 'Purge Current Page', 'nitropack' ),
+			        'href'   =>  "#",
+			        'meta' => array(
+				        'class' => 'nitropack-purge-cache',
+			        )
+		        )
+	        );
+
             $wp_admin_bar->add_node(
                 array(
                     'parent' => 'nitropack-top-menu',
                     'id'     => 'optimizations-invalidate-cache',
-                    'title'  =>  __( 'Invalidate Cache for this page&nbsp;&nbsp;', 'nitropack' ),
+                    'title'  =>  __( 'Invalidate Current Page', 'nitropack' ),
                     'href'   =>  "#",
                     'meta' => array(
                         'class' => 'nitropack-invalidate-cache',
@@ -2954,18 +3060,8 @@ function nitropack_admin_bar_menu($wp_admin_bar){
                 )
             );
 
-            $wp_admin_bar->add_node(
-                array(
-                    'parent' => 'nitropack-top-menu',
-                    'id'     => 'optimizations-purge-cache',
-                    'title'  =>  __( 'Purge Cache for this page&nbsp;&nbsp;', 'nitropack' ),
-                    'href'   =>  "#",
-                    'meta' => array(
-                        'class' => 'nitropack-purge-cache',
-                    )
-                )
-            );
         }
+
 
         if ($pluginStatus != "ok") {
             $numberOfIssues = count($nitropackPluginNotices['error']) + count($nitropackPluginNotices['warning']);
@@ -3105,7 +3201,14 @@ function nitropack_plugin_notices() {
         $cookie_path = nitropack_cookiepath();
         $warnings[] = "It seems plugins have been activated, deactivated or updated. It is recommended that you purge the cache to reflect the latest changes. <a class=\"btn-sm\" href=\"javascript:void(0);\" id=\"np-onstate-cache-purge\" class=\"acivate\" onclick=\"document.cookie = 'nitropack_apwarning=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=$cookie_path';window.location.reload();\"> Dismiss</a>";
     }
-    
+
+    // Add SM enabled notice
+    $smStatus = get_option('nitropack-safeModeStatus', "-1");
+    if ($smStatus === "-1") $smStatus = nitropack_safemode_status(true);
+    if ($smStatus) {
+        $warnings[] = "<div id=\"nitropack-smenabled-notice\"><strong>Important:</strong> Safe Mode is <strong>enabled</strong> on your site. Under Safe Mode, your website does not serve optimizations to regular users. Make sure to disable it once you are done testing.</div>";
+    }
+
     $nitropackIsConnected = get_nitropack()->isConnected();
 
     if ($nitropackIsConnected) {
@@ -3222,6 +3325,7 @@ function nitropack_plugin_notices() {
                 (!array_key_exists("isLateIntegrationInitRequired", $siteConfig) || $siteConfig["isLateIntegrationInitRequired"] !== nitropack_is_late_integration_init_required()) ||
                 (!array_key_exists("isDlmActive", $siteConfig) || $siteConfig["isDlmActive"] !== \NitroPack\Integration\Plugin\DownloadManager::isActive()) ||
                 (!array_key_exists("isAeliaCurrencySwitcherActive", $siteConfig) || $siteConfig["isAeliaCurrencySwitcherActive"] !== \NitroPack\Integration\Plugin\AeliaCurrencySwitcher::isActive()) ||
+                (!array_key_exists("isGeoTargetingWPActive", $siteConfig) || $siteConfig["isGeoTargetingWPActive"] !== \NitroPack\Integration\Plugin\GeoTargetingWP::isActive()) ||
                 (!array_key_exists("isWoocommerceActive", $siteConfig) || $siteConfig["isWoocommerceActive"] !== \NitroPack\Integration\Plugin\Woocommerce::isActive()) ||
                 (!array_key_exists("isWoocommerceCacheHandlerActive", $siteConfig) || $siteConfig["isWoocommerceCacheHandlerActive"] !== \NitroPack\Integration\Plugin\WoocommerceCacheHandler::isActive())
             ) {
@@ -3336,6 +3440,202 @@ function nitropack_offer_safemode() {
         }
     }
 }
+
+function nitropack_active_sitemap_plugins() {
+    return
+        NitroPack\Integration\Plugin\YoastSEO::isActive()    ||
+        NitroPack\Integration\Plugin\JetPackNP::isActive()   ||
+        NitroPack\Integration\Plugin\SquirrlySEO::isActive() ||
+        NitroPack\Integration\Plugin\RankMathNP::isActive();
+}
+
+function nitropack_get_site_maps() {
+    $sitemapUrls['YoastSEO']    = NitroPack\Integration\Plugin\YoastSEO::getSitemapURL();
+    $sitemapUrls['JetPack']     = NitroPack\Integration\Plugin\JetPackNP::getSitemapURL();
+    $sitemapUrls['SquirrlySEO'] = NitroPack\Integration\Plugin\SquirrlySEO::getSitemapURL();
+    $sitemapUrls['RankMath']    = NitroPack\Integration\Plugin\RankMathNP::getSitemapURL();
+
+    return $sitemapUrls;
+}
+
+function get_default_sitemap() {
+
+	$defaultSiteMap = NitroPack\Integration\Plugin\WPCacheHelper::getSitemapURL();
+    if ($defaultSiteMap) {
+	    set_sitemap_indication_msg('WordPress', $defaultSiteMap);
+	    return $defaultSiteMap;
+    }
+
+    return false;
+}
+
+function evaluate_warmup_sitemap($sitemapUrls) {
+
+	$sitemapProviders = array(
+		'YoastSEO' => 'Yoast!',
+		'SquirrlySEO' => 'Squirrly SEO',
+		'RankMath' => 'Rank Math',
+		'JetPack' => 'Jetpack',
+	);
+
+	foreach ($sitemapProviders as $provider => $name) {
+		if (isset($sitemapUrls[$provider]) && $sitemapUrls[$provider]) {
+			set_sitemap_indication_msg($name, $sitemapUrls[$provider]);
+			return $sitemapUrls[$provider];
+		}
+	}
+
+	return get_default_sitemap();
+}
+
+function set_sitemap_indication_msg($pluginName, $sitemapURL) {
+	$sitemapURI = explode("/", parse_url($sitemapURL,PHP_URL_PATH));
+    $msg = $sitemapURI[1] . ' used by ' . $pluginName;
+	update_option('np_warmup_sitemap', $msg);
+}
+
+function nitropack_rml_notification() {
+
+    if ( ! isset( $_POST ) ) {
+        return;
+    }
+
+	$notification_id  = $_POST['notification_id'];
+    $notification_end = $_POST['notification_end'];
+    $midpoint         = get_date_midpoint($notification_end);
+	$notification_end = strtotime($notification_end) - time();
+	$transient_status = set_transient( $notification_id, $midpoint, $notification_end );
+
+    nitropack_json_and_exit(array(
+		"transient_status" => $transient_status,
+    ));
+
+}
+
+function get_date_midpoint($endDate) {
+    return ( time() + strtotime($endDate) ) / 2 ;
+}
+
+function nitropack_ignore_dismissed_notifications($notifications, $type) {
+	foreach ($notifications as $key => $notification) {
+		$display_time = get_transient( $notification['id'] );
+		if ($display_time && time() < $display_time) {
+			unset($notifications[$key]);
+		}
+	}
+
+	return $notifications;
+}
+
+function initVariationCookies($customVariationCookies) {
+    $api = get_nitropack_sdk()->getApi();
+    try {
+        $variationCookies = $api->getVariationCookies();
+        foreach ($variationCookies as $cookie) {
+            $index = array_search($cookie["name"], $customVariationCookies);
+            if ($index !== false) {
+                array_splice($customVariationCookies, $index, 1);
+            }
+        }
+
+        foreach ($customVariationCookies as $cookieName) {
+            $api->setVariationCookie($cookieName);
+        }
+    } catch (\Exception $e) {
+        // what to do here? possible reason for exception is the API not responding
+        return false;
+    }
+}
+
+function removeVariationCookies($cookiesToRemove) {
+    $api = get_nitropack_sdk()->getApi();
+    try {
+        $variationCookies = $api->getVariationCookies();
+        foreach ($variationCookies as $cookie) {
+            if (in_array($cookie["name"], $cookiesToRemove)) {
+                $api->unsetVariationCookie($cookie["name"]);
+            }
+        }
+    } catch (\Exception $e) {
+        // what to do here? possible reason for exception is the API not responding
+        return false;
+    }
+}
+
+function getNewCookie($name) {
+    $cookies = getNewCookies();
+    return !empty($cookies[$name]) ? $cookies[$name] : null;
+}
+
+/**
+ * Returns an array of newly set cookies (not in $_COOKIE), that will be sent along with the headers of the current response.
+ */
+function getNewCookies() {
+    $cookies = [];
+    $headers = headers_list();
+    foreach($headers as $header) {
+        if (strpos($header, 'Set-Cookie: ') === 0) {
+            $value = str_replace('&', urlencode('&'), substr($header, 12));
+            parse_str(current(explode(';', $value)), $pair);
+            $cookies = array_merge_recursive($cookies, $pair);
+        }
+    }
+    return $cookies;
+}
+
+/**
+ * Purge entire cache when permalink structure is changed.
+ *
+ * @param string $old_permalink_structure The previous permalink structure.
+ * @param string $permalink_structure     The new permalink structure.
+ *
+ * @return void
+ */
+function nitropack_permalink_structure_changed_handler($old_permalink_structure, $permalink_structure) {
+
+    if ($old_permalink_structure != $permalink_structure && get_option("nitropack-autoCachePurge", 1))  {
+	    $msg = 'The permalink structure is changed. Purging the cache for the home page.';
+	    $url = get_home_url();
+
+	    try {
+		    nitropack_sdk_purge($url, NULL, $msg); // purge cache for the home page
+	    } catch (\Exception $e) {}
+
+        // run warmup
+	    if (null !== $nitro = get_nitropack_sdk()) {
+		    try {
+			    $nitro->getApi()->runWarmup();
+		    } catch (\Exception $e) {
+		    }
+	    }
+    }
+}
+
+add_action('permalink_structure_changed', 'nitropack_permalink_structure_changed_handler', 10, 2);
+
+/**
+ * Purge entire cache when front page is changed.
+ *
+ * @param array $old_value An array of previous settings values.
+ * @param array $value An array of submitted settings values.
+ *
+ * @return void
+ */
+function nitropack_frontpage_changed_handler($old_value, $value) {
+
+	if ( $old_value !== $value ) {
+        $msg = 'The front page is changed';
+        $url = get_home_url();
+
+        try {
+            nitropack_sdk_purge($url, NULL, $msg); // purge entire cache
+        } catch (\Exception $e) {}
+	}
+}
+
+add_action('update_option_show_on_front', 'nitropack_frontpage_changed_handler', 10, 2);
+add_action('update_option_page_on_front', 'nitropack_frontpage_changed_handler', 10, 2);
+add_action('update_option_page_for_posts', 'nitropack_frontpage_changed_handler', 10, 2);
 
 // Init integration action handlers
 $integration = NitroPack\Integration::getInstance();

@@ -51,7 +51,12 @@ class Edit extends Component {
 		};
 
 		return [
-			<Fragment key={ 'gb-pricing-table-inner-component-title-' + this.props.clientId }>
+			<Fragment
+				key={
+					'gb-pricing-table-inner-component-title-' +
+					this.props.clientId
+				}
+			>
 				<Inspector { ...this.props } />
 				<RichText
 					tagName="div"

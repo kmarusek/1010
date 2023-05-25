@@ -68,11 +68,11 @@ class PostsmtpMailer extends PHPMailer {
 
 	public function get_mail_args( $atts ) {
 		$this->mail_args = array();
-		$this->mail_args[] = $atts['to'];
-		$this->mail_args[] = $atts['subject'];
-		$this->mail_args[] = $atts['message'];
-		$this->mail_args[] = $atts['headers'];
-		$this->mail_args[] = $atts['attachments'];
+		$this->mail_args[] = @$atts['to'];
+		$this->mail_args[] = @$atts['subject'];
+		$this->mail_args[] = @$atts['message'];
+		$this->mail_args[] = @$atts['headers'];
+		$this->mail_args[] = @$atts['attachments'];
 
 		return $atts;
 	}
@@ -134,9 +134,6 @@ class PostsmtpMailer extends PHPMailer {
 					$postmanWpMail->send( $to, $subject, $body, $headers, $attachments ) :
 					$this->sendSmtp();
 			}
-
-
-			do_action( 'post_smtp_on_success', $log, $postmanMessage, $this->transcript, $transport );
 
 			return $result;
 

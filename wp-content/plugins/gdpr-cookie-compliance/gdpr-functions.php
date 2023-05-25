@@ -20,12 +20,97 @@ if ( ! function_exists( 'moove_gdpr_get_plugin_directory_url' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'gdpr_get_admin_submenu_items' ) ) :
+	/**
+	 * Admin Sub Menu
+	 */
+	function gdpr_get_admin_submenu_items() {
+		$plugin_tabs = array(
+			'help' => array(
+				'title'    => esc_html__( 'Documentation', 'gdpr-cookie-compliance' ),
+				'slug'     => 'help'
+			),
+			'video-tutorial' => array(
+				'title'    => esc_html__( 'Video Tutorial', 'gdpr-cookie-compliance' ),
+				'slug'     => 'video-tutorial'
+			),
+			'support' => array(
+				'title'    => esc_html__( 'Support', 'gdpr-cookie-compliance' ),
+				'slug'     => 'support'
+			),
+			'licence' => array(
+				'title'    => '<span style="color: #f89e26">' . esc_html__( 'Licence Manager', 'gdpr-cookie-compliance' ) . '</span>',
+				'slug'     => 'licence'
+			)
+		);
+
+		$plugin_tabs = apply_filters( 'gdpr_admin_sidebar_nav_links', $plugin_tabs );
+		return $plugin_tabs;
+	}
+endif;
+
 if ( ! function_exists( 'gdpr_get_site_id' ) ) :
 	/**
 	 * Returns the current blog id as site_id
 	 */
 	function gdpr_get_site_id() {
 		return function_exists( 'get_current_blog_id' ) ? get_current_blog_id() : 1;
+	}
+endif;
+
+if ( ! function_exists('gdpr_get_integration_modules') ) :
+	function gdpr_get_integration_modules( $gdpr_options, $gdin_values ) {
+		$integration_modules = array(
+			'ga' => array(
+				'name'				=> 'Google Universal Analytics',
+				'desc'				=> '',
+				'cookie_cat'	=> isset( $gdin_values['ga'] ) ? intval( $gdin_values['ga'] ) : 2,
+				'tacking_id'	=> isset( $gdin_values['ga_id'] ) ? $gdin_values['ga_id'] : '',
+				'id_format'		=> 'UA-XXXXXXXX',
+				'atts'				=> array(
+					'toggle'		=> true,
+					'input'			=> ''
+				),
+				'status'			=> isset( $gdin_values['ga'] )
+			),
+			'ga4'	=> array(
+				'name'				=> 'Google Analytics 4',
+				'desc'				=> '',
+				'cookie_cat'	=> isset( $gdin_values['ga4'] ) ? intval( $gdin_values['ga4'] ) : 2,
+				'tacking_id'	=> isset( $gdin_values['ga4_id'] ) ? $gdin_values['ga4_id'] : '',
+				'id_format'		=> 'G-XXXXXXX',
+				'atts'				=> array(
+					'toggle'		=> true,
+					'input'			=> ''
+				),
+				'status'			=> isset( $gdin_values['ga4'] )
+			),
+			'gtm'	=> array(
+				'name'			=> 'Google Tag Manager',
+				'desc'			=> '',
+				'cookie_cat'	=> isset( $gdin_values['gtm'] ) ? intval( $gdin_values['gtm'] ) : 2,
+				'tacking_id'	=> isset( $gdin_values['gtm_id'] ) ? $gdin_values['gtm_id'] : '',
+				'id_format'	=> 'GTM-XXXXXX',
+				'atts'				=> array(
+					'toggle'		=> true,
+					'input'			=> ''
+				),
+				'status'		=> isset( $gdin_values['gtm'] )
+			),
+			'fbp'	=> array(
+				'name'			=> 'Meta Pixel',
+				'desc'			=> '(Formerly Facebook Pixel)',
+				'cookie_cat'	=> isset( $gdin_values['fbp'] ) ? intval( $gdin_values['fbp'] ) : 2,
+				'tacking_id'	=> isset( $gdin_values['fbp_id'] ) ? $gdin_values['fbp_id'] : '',
+				'id_format'	=> '[15 digit ID]',
+				'atts'				=> array(
+					'toggle'		=> true,
+					'input'			=> ''
+				),
+				'status'		=> isset( $gdin_values['fbp'] )
+			)
+		);
+		return apply_filters( 'gdpr_integration_modules', $integration_modules, $gdpr_options, $gdin_values );
 	}
 endif;
 
@@ -112,6 +197,13 @@ add_filter( 'plugin_action_links', 'moove_gdpr_plugin_settings_link', 10, 2 );
  */
 function moove_gdpr_plugin_settings_link( $links, $file ) {
 	if ( plugin_basename( dirname( __FILE__ ) . '/moove-gdpr.php' ) === $file ) {
+
+		/*
+		* Insert the Licence Manager link at the beginning
+		*/
+		$in = '<a href="'.esc_url( admin_url( 'admin.php' ) ).'?page=moove-gdpr_licence" target="_blank">' . __( 'Licence Manager', 'gdpr-cookie-compliance' ) . '</a>';
+		array_unshift( $links, $in );
+
 		/*
 		* Insert the Settings page link at the beginning
 		*/
@@ -131,6 +223,8 @@ function moove_gdpr_plugin_settings_link( $links, $file ) {
 			$in = '<a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" class="gdpr_admin_link gdpr_premium_buy_link" target="_blank">' . __( 'Buy Premium', 'gdpr-cookie-compliance' ) . '</a>';
 			array_push( $links, $in );
 		endif;
+
+
 	}
 	return $links;
 }

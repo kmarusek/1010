@@ -17,11 +17,8 @@ import RenderSettingControl from '../../../utils/components/settings/renderSetti
  */
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const {
-	InspectorControls,
-	PanelColorSettings,
-	ContrastChecker,
-} = wp.blockEditor;
+const { InspectorControls, PanelColorSettings, ContrastChecker } =
+	wp.blockEditor;
 const {
 	PanelBody,
 	RangeControl,
@@ -202,7 +199,8 @@ export default class Inspector extends Component {
 									checked={ attributes.centerColumns }
 									onChange={ () =>
 										this.props.setAttributes( {
-											centerColumns: ! attributes.centerColumns,
+											centerColumns:
+												! attributes.centerColumns,
 										} )
 									}
 								/>
@@ -224,7 +222,8 @@ export default class Inspector extends Component {
 								checked={ attributes.responsiveToggle }
 								onChange={ () =>
 									this.props.setAttributes( {
-										responsiveToggle: ! attributes.responsiveToggle,
+										responsiveToggle:
+											! attributes.responsiveToggle,
 									} )
 								}
 							/>

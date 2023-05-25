@@ -61,8 +61,6 @@ var FLBuilderNumber;
 
 			var $number = $( this.wrapperClass ).find( '.fl-number-string' );
 
-			this.animated = false;
-
 			if( !isNaN( this.delay ) && this.delay > 0 ) {
 				setTimeout( function(){
 					if( this.layout == 'circle' ){
@@ -87,11 +85,11 @@ var FLBuilderNumber;
 
 			var $number    = $( this.wrapperClass ).find( '.fl-number-string' ),
 				$string    = $number.find( '.fl-number-int' ),
-				number     = parseInt( $string.data( 'number' ) ),
+				number     = parseFloat( $string.data( 'number' ) ),
 				current    = 0,
 				self       = this,
-				startNum   = parseInt( $string.data( 'start-number' ) ),
-				endNum     = parseInt( $string.data( 'number' ) ),
+				startNum   = parseFloat( $string.data( 'start-number' ) ),
+				endNum     = parseFloat( $string.data( 'number' ) ),
 				countUp    = startNum < endNum,
 				startStep  = countUp ? startNum : endNum,
 				endStep    = countUp ? endNum : startNum,
@@ -113,8 +111,14 @@ var FLBuilderNumber;
 							stepNum = (startStep + endStep - counterNum);
 						}
 						locale  = self.locale.replace('_', '-' );
-						stepNum = new Intl.NumberFormat(locale).format(stepNum)
-						$string.text( stepNum );
+						stepNumText = new Intl.NumberFormat(locale).format(stepNum)
+						if ( countUp ) {
+							if ( stepNum < endStep ) {
+								$string.text( stepNumText );
+							}
+						} else {
+							$string.text( stepNumText );
+						}
 					},
 					complete: function() {
 						locale  = self.locale.replace('_', '-' );
@@ -140,6 +144,10 @@ var FLBuilderNumber;
 				max    = parseInt( total ),
 			    startPct = 0,
 				endPct =  max;
+
+			if ( this.animated ) {
+				return;
+			}
 
 			if (val < 0) { val = 0;}
 			if (val > max) { val = max;}
@@ -179,6 +187,10 @@ var FLBuilderNumber;
 				return;
 			}
 
+			if ( this.animated ) {
+				return;
+			}
+
 			if ( number > startNum && total < number ) {
 				total = number;
 			} else if ( startNum > number && total < startNum ) {
@@ -191,17 +203,16 @@ var FLBuilderNumber;
 			// Set the initial indicator bar value.
 			$bar.css('width', initWidth + '%');
 
-			if( ! this.animated ) {
-				$bar.animate({
-					width: finalWidth + '%'
-				}, {
-					duration: this.speed,
-					easing: 'swing',
-					complete: function() {
-						this.animated = true;
-					}
-				});
-			}
+			$bar.animate({
+				width: finalWidth + '%'
+			}, {
+				duration: this.speed,
+				easing: 'swing',
+				complete: function() {
+					this.animated = true;
+				}
+			});
+
 		}
 	};
 

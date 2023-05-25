@@ -480,11 +480,6 @@ class Pods_Component_I18n extends PodsComponent {
 			return $options;
 		}
 
-		// Load the pod
-		foreach ( $pod['options'] as $_option => $_value ) {
-			$pod[ $_option ] = $_value;
-		}
-
 		$labels = array(
 			// Default
 			'name'                       => 'label', // Different.

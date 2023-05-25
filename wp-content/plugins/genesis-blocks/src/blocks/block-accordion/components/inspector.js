@@ -52,8 +52,8 @@ export default class Inspector extends Component {
 							checked={ this.props.attributes.accordionOpen }
 							onChange={ () =>
 								this.props.setAttributes( {
-									accordionOpen: ! this.props.attributes
-										.accordionOpen,
+									accordionOpen:
+										! this.props.attributes.accordionOpen,
 								} )
 							}
 						/>

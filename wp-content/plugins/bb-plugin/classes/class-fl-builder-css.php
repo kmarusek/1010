@@ -51,7 +51,7 @@ final class FLBuilderCSS {
 		$settings          = $args['settings'];
 		$setting_name      = $args['setting_name'];
 		$setting_base_name = $args['setting_base_name'];
-		$selector          = $args['selector'];
+		$selector          = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
 		$prop              = $args['prop'];
 		$props             = $args['props'];
 		$default_unit      = $args['unit'];
@@ -113,7 +113,7 @@ final class FLBuilderCSS {
 		) );
 		$settings          = $args['settings'];
 		$setting_base_name = $args['setting_name'];
-		$selector          = $args['selector'];
+		$selector          = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
 		$props             = $args['props'];
 		$unit              = $args['unit'];
 
@@ -153,7 +153,7 @@ final class FLBuilderCSS {
 			'setting_name' => '',
 		) );
 		$type            = $args['type'];
-		$selector        = $args['selector'];
+		$selector        = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
 		$settings        = $args['settings'];
 		$setting_name    = $args['setting_name'];
 		$breakpoints     = array( '', 'large', 'medium', 'responsive' );
@@ -229,17 +229,10 @@ final class FLBuilderCSS {
 			$props['border-color'] = $setting['color'];
 		}
 		if ( isset( $setting['width'] ) && is_array( $setting['width'] ) ) {
-			if ( ! empty( $setting['width']['top'] ) ) {
-				$props['border-top-width'] = $setting['width']['top'] . 'px';
-			}
-			if ( ! empty( $setting['width']['right'] ) ) {
-				$props['border-right-width'] = $setting['width']['right'] . 'px';
-			}
-			if ( ! empty( $setting['width']['bottom'] ) ) {
-				$props['border-bottom-width'] = $setting['width']['bottom'] . 'px';
-			}
-			if ( ! empty( $setting['width']['left'] ) ) {
-				$props['border-left-width'] = $setting['width']['left'] . 'px';
+			foreach ( array( 'top', 'right', 'bottom', 'left' ) as $side ) {
+				if ( isset( $setting['width'][ $side ] ) && strlen( trim( $setting['width'][ $side ] ) ) ) {
+					$props[ "border-$side-width" ] = intval( $setting['width'][ $side ] ) . 'px';
+				}
 			}
 		}
 		if ( isset( $setting['radius'] ) && is_array( $setting['radius'] ) ) {
@@ -372,7 +365,7 @@ final class FLBuilderCSS {
 
 			$args     = array_merge( $defaults, $args );
 			$media    = self::media_value( $args['media'] );
-			$selector = $args['selector'];
+			$selector = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
 			$props    = self::properties( $args['props'] );
 
 			if ( ! $args['enabled'] || empty( $selector ) || empty( $props ) ) {

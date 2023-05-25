@@ -27,9 +27,18 @@ export default class Inspector extends Component {
 
 		// Drop cap style options
 		const dropCapOptions = [
-			{ value: 'gb-drop-cap-letter', label: __( 'Letter', 'genesis-blocks' ) },
-			{ value: 'gb-drop-cap-square', label: __( 'Square', 'genesis-blocks' ) },
-			{ value: 'gb-drop-cap-border', label: __( 'Border', 'genesis-blocks' ) },
+			{
+				value: 'gb-drop-cap-letter',
+				label: __( 'Letter', 'genesis-blocks' ),
+			},
+			{
+				value: 'gb-drop-cap-square',
+				label: __( 'Square', 'genesis-blocks' ),
+			},
+			{
+				value: 'gb-drop-cap-border',
+				label: __( 'Border', 'genesis-blocks' ),
+			},
 		];
 
 		return (

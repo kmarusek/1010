@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'genesis/blocks',
-        'pretty_version' => '1.5.3',
-        'version' => '1.5.3.0',
-        'reference' => 'be51e88b0c4cb5d27ff023db392cf7b4056c7f34',
+        'pretty_version' => '1.5.5',
+        'version' => '1.5.5.0',
+        'reference' => '7637c6185004c4248b9d1064f3ddf40b87b05a26',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'genesis/blocks' => array(
-            'pretty_version' => '1.5.3',
-            'version' => '1.5.3.0',
-            'reference' => 'be51e88b0c4cb5d27ff023db392cf7b4056c7f34',
+            'pretty_version' => '1.5.5',
+            'version' => '1.5.5.0',
+            'reference' => '7637c6185004c4248b9d1064f3ddf40b87b05a26',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

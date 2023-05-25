@@ -98,7 +98,57 @@ class Moove_GDPR_Actions {
 		endif;
 
 		add_action( 'gdpr_template_html_load', array( &$this, 'gdpr_prevent_html_load_to_divi_builder' ), 10, 1);
+			
+		add_filter( 'gdpr_integration_modules', array( &$this, 'gdpr_integration_modules_gtm4wp' ), 10, 3 );
+		add_filter( 'gdpr_cc_before_script_cache_set', array( 'Moove_GDPR_Content', 'gdpr_extend_integration_snippets' ), 10, 2 );
+
+		/**
+		 * Integration Modules
+		 */
+		add_action( 'gdpr_insert_integration_ga_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_ga_snippet' ), 10, 2 );
+		add_action( 'gdpr_insert_integration_ga4_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_ga4_snippet' ), 10, 2 );
+		add_action( 'gdpr_insert_integration_gtm_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_gtm_snippet' ), 10, 2 );
+		add_action( 'gdpr_insert_integration_fbp_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_fbp_snippet' ), 10, 2 );
+		add_action( 'gdpr_insert_integration_gtm4wp_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_gtm4wp_snippet' ), 10, 2 );
 	}
+
+	/**
+	 * GTM4WP Plugin Compatibility Integrations
+	 * @param array $gdin_modules GDPR Integration Modules.
+	 * @param array $gdpr_options GDPR Options.
+	 * @param array $gdin_valie Integration Values.
+	 * @return array $gdin_modules Extended modules.
+	 */
+	public static function gdpr_integration_modules_gtm4wp( $gdin_modules, $gdpr_options, $gdin_values ) {
+		if ( defined( 'GTM4WP_VERSION' ) && defined('GTM4WP_OPTIONS') ) :
+			$gdin_modules = $gdin_modules ? $gdin_modules : array();
+			if ( isset( $gdin_modules['gtm'] ) ) :
+				unset ( $gdin_modules['gtm'] );
+			endif;
+			
+			$status = isset( $gdin_values['gtm4wp'] );
+			if ( defined('GTM4WP_OPTIONS') && defined ( 'GTM4WP_OPTION_GTM_PLACEMENT' ) && defined ( 'GTM4WP_PLACEMENT_OFF' ) ) :
+		      $storedoptions = (array) get_option( GTM4WP_OPTIONS );
+				if ( isset( $storedoptions[GTM4WP_OPTION_GTM_PLACEMENT] ) && $storedoptions[GTM4WP_OPTION_GTM_PLACEMENT] !== GTM4WP_PLACEMENT_OFF ) :
+					$status = false;
+				endif;
+				$gdin_modules['gtm4wp'] = array(
+					'name'				=> 'Google Tag Manager',
+					'desc'				=> 'Compatibility for GTM4WP',
+					'cookie_cat'	=> isset( $gdin_values['gtm4wp'] ) ? intval( $gdin_values['gtm4wp'] ) : 2,
+					'tacking_id'	=> isset(  $storedoptions['gtm-code'] ) && $storedoptions['gtm-code'] ? $storedoptions['gtm-code'] : '',
+					'id_format'		=> 'G-XXXXXXX',
+					'atts'				=> array(
+						'toggle'		=> true,
+						'input'		=> 'disabled'
+					),
+					'status'			=> $status
+				);
+			endif;
+		endif;
+		return $gdin_modules;
+	}
+
 	/**
 	 * TranslatePress plugin support to switch language inside GDPR Cookie Compliance admin page
 	 */
@@ -280,7 +330,7 @@ class Moove_GDPR_Actions {
 	 * @param int $hook Hook suffix for the current admin page.
 	 */
 	function gdpr_thirdparty_admin_scripts( $hook ) {
-    if ( 'toplevel_page_moove-gdpr' !== $hook ) :
+    if ( 'toplevel_page_moove-gdpr' !== $hook && 'gdpr-cookie-compliance_page_moove-gdpr_help' !== $hook ) :
        return;
     endif;
     wp_enqueue_script( 'gdpr_colorpicker_script', esc_url( moove_gdpr_get_plugin_directory_url() ) . 'dist/scripts/colorpicker.js', array(), MOOVE_GDPR_VERSION, true );
@@ -526,12 +576,12 @@ class Moove_GDPR_Actions {
 				<div class="gdpr-locked-section">
 					<span>
 						<i class="dashicons dashicons-lock"></i>
-						<h4>This feature is not supported in this version of the Premium Add-on.</h4>
-						<p><strong><a href="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>?page=moove-gdpr&amp;tab=licence" class="gdpr_admin_link">Activate your licence</a> to download the latest version of the Premium Add-on.</strong></p>
-						<p class="gdpr_license_info">Don’t have a valid licence key yet? <br><a href="<?php echo esc_url( MOOVE_SHOP_URL ); ?>/my-account" target="_blank" class="gdpr_admin_link">Login to your account</a> to generate the key or <a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" class="gdpr_admin_link" target="_blank">buy a new licence here</a>.</p>
+						<h4><?php esc_html_e( 'This feature is not supported in this version of the Premium Add-on.', 'gdpr-cookie-compliance' ); ?></h4>
+						<p><strong><a href="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>?page=moove-gdpr_licence" class="gdpr_admin_link"><?php esc_html_e( 'Activate your licence', 'gdpr-cookie-compliance' ); ?></a> <?php esc_html_e( 'to download the latest version of the Premium Add-on', 'gdpr-cookie-compliance' ); ?>.</strong></p>
+						<p class="gdpr_license_info"><?php esc_html_e( 'Don’t have a valid licence key yet?', 'gdpr-cookie-compliance' ); ?> <br><a href="<?php echo esc_url( MOOVE_SHOP_URL ); ?>/my-account" target="_blank" class="gdpr_admin_link"><?php esc_html_e( 'Login to your account', 'gdpr-cookie-compliance' ); ?></a> <?php esc_html_e( 'to generate the key or', 'gdpr-cookie-compliance' ); ?> <a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" class="gdpr_admin_link" target="_blank"><?php esc_html_e( 'buy a new licence here', 'gdpr-cookie-compliance' ); ?></a>.</p>
 						<br />
 
-						<a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" target="_blank" class="plugin-buy-now-btn">Buy Now</a>
+						<a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" target="_blank" class="plugin-buy-now-btn"><?php esc_html_e( 'Buy Now', 'gdpr-cookie-compliance' ); ?></a>
 					</span>
 
 				</div>
@@ -550,14 +600,14 @@ class Moove_GDPR_Actions {
 					$gdpr_key             = $gdpr_default_content->gdpr_get_activation_key( $option_key );
 					?>
 					<?php if ( $gdpr_key && isset( $gdpr_key['deactivation'] ) ) : ?>
-						<p><strong><a href="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>?page=moove-gdpr&amp;tab=licence" class="gdpr_admin_link">Activate your licence</a> or <a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" class="gdpr_admin_link" target="_blank">buy a new licence here</a></strong></p>
+						<p><strong><a href="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>?page=moove-gdpr_licence" class="gdpr_admin_link"><?php esc_html_e( 'Activate your licence', 'gdpr-cookie-compliance' ); ?></a> <?php esc_html_e( 'or', 'gdpr-cookie-compliance' ); ?> <a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" class="gdpr_admin_link" target="_blank"><?php esc_html_e( 'buy a new licence here', 'gdpr-cookie-compliance' ); ?></a></strong></p>
 						<?php else : ?>
-							<p><strong>Do you have a licence key? <br />Insert your license key to the "<a href="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>?page=moove-gdpr&amp;tab=licence" class="gdpr_admin_link">Licence Manager</a>" and activate it.</strong></p>
+							<p><strong><?php esc_html_e( 'Do you have a licence key?', 'gdpr-cookie-compliance' ); ?> <br /><?php esc_html_e( 'Insert your license key to the', 'gdpr-cookie-compliance' ); ?> "<a href="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>?page=moove-gdpr_licence" class="gdpr_admin_link"><?php esc_html_e( 'Licence Manager', 'gdpr-cookie-compliance' ); ?></a>" <?php esc_html_e( 'and activate it', 'gdpr-cookie-compliance' ); ?>.</strong></p>
 
 						<?php endif; ?>
 						<br />
 
-						<a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" target="_blank" class="plugin-buy-now-btn">Buy Now</a>
+						<a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" target="_blank" class="plugin-buy-now-btn"><?php esc_html_e( 'Buy Now', 'gdpr-cookie-compliance' ); ?></a>
 					</span>
 
 				</div>
@@ -619,7 +669,7 @@ class Moove_GDPR_Actions {
 		$gdpr_default_content = new Moove_GDPR_Content();
 		$option_name          = $gdpr_default_content->moove_gdpr_get_option_name();
 		$modal_options        = get_option( $option_name );
-		$force_reload         = apply_filters( 'gdpr_force_reload', false );
+		$force_reload 			 = isset( $modal_options['gdpr_force_reload'] ) && intval( $modal_options['gdpr_force_reload'] ) >= 0 ? intval( $modal_options['gdpr_force_reload'] ) : apply_filters( 'gdpr_force_reload', false );
 		$force_reload         = $force_reload ? 'true' : 'false';
 		$wpml_lang            = $gdpr_default_content->moove_gdpr_get_wpml_lang();
 	
@@ -637,14 +687,24 @@ class Moove_GDPR_Actions {
 			$close_button_v 		 = false;
 		endif;
 
+		$close_btn_action 	= isset( $modal_options['gdpr_close_button_bhv'] ) && intval( $modal_options['gdpr_close_button_bhv'] ) ? intval( $modal_options['gdpr_close_button_bhv'] ) : 1;
+		$close_btn_redirect 	= $close_btn_action === 4 && isset( $modal_options['gdpr_close_button_bhv_redirect'] ) && sanitize_url( wp_unslash( $modal_options['gdpr_close_button_bhv_redirect'] ) ) ? sanitize_url( wp_unslash( $modal_options['gdpr_close_button_bhv_redirect'] ) ) : '';
+		$close_btn_redirect = apply_filters( 'gdpr_close_btn_redirect', $close_btn_redirect, $modal_options );
+
+		$initalization_delay 	= isset( $modal_options['gdpr_initialization_delay'] ) && intval( $modal_options['gdpr_initialization_delay'] ) >= 0 ? intval( $modal_options['gdpr_initialization_delay'] ) : apply_filters( 'gdpr_init_script_delay', 2000 );
+
+		$cookie_removal_static = isset( $modal_options['gdpr_cookie_removal'] ) ? intval( $modal_options['gdpr_cookie_removal'] ) : ! apply_filters( 'gdpr_ajax_cookie_removal', true );
+		$cookie_removal_static = $cookie_removal_static ? 'false' : 'true';
+
 		$loc_data            = array(
-			'ajaxurl'         	=> admin_url( 'admin-ajax.php' ),
-			'post_id'         	=> get_the_ID(),
-			'plugin_dir'      	=> apply_filters( 'gdpr_cdn_url', plugins_url( basename( dirname( __FILE__ ) ) ) ),
-			'show_icons'      	=> apply_filters( 'gdpr_show_icons', 'all' ),
-			'is_page'         	=> is_page(),
-			'strict_init'     	=> isset( $modal_options['moove_gdpr_strictly_necessary_cookies_functionality'] ) && intval( $modal_options['moove_gdpr_strictly_necessary_cookies_functionality'] ) ? intval( $modal_options['moove_gdpr_strictly_necessary_cookies_functionality'] ) : 1,
-			'enabled_default' 	=> array(
+			'ajaxurl'         		=> admin_url( 'admin-ajax.php' ),
+			'post_id'         		=> get_the_ID(),
+			'plugin_dir'      		=> apply_filters( 'gdpr_cdn_url', plugins_url( basename( dirname( __FILE__ ) ) ) ),
+			'show_icons'      		=> apply_filters( 'gdpr_show_icons', 'all' ),
+			'is_page'         		=> is_page(),
+			'ajax_cookie_removal'	=> $cookie_removal_static,
+			'strict_init'     		=> isset( $modal_options['moove_gdpr_strictly_necessary_cookies_functionality'] ) && intval( $modal_options['moove_gdpr_strictly_necessary_cookies_functionality'] ) ? intval( $modal_options['moove_gdpr_strictly_necessary_cookies_functionality'] ) : 1,
+			'enabled_default' 		=> array(
 				'third_party' => isset( $modal_options['moove_gdpr_third_party_cookies_enable_first_visit'] ) && intval( $modal_options['moove_gdpr_third_party_cookies_enable_first_visit'] ) ? intval( $modal_options['moove_gdpr_third_party_cookies_enable_first_visit'] ) : 0,
 				'advanced'    => isset( $modal_options['moove_gdpr_advanced_cookies_enable_first_visit'] ) && intval( $modal_options['moove_gdpr_advanced_cookies_enable_first_visit'] ) ? intval( $modal_options['moove_gdpr_advanced_cookies_enable_first_visit'] ) : 0,
 			),
@@ -654,12 +714,13 @@ class Moove_GDPR_Actions {
 			'hide_save_btn'		=> $hide_save_btn,
 			'current_user'    	=> get_current_user_id(),
 			'cookie_expiration' 	=> apply_filters( 'gdpr_cookie_expiration_days', $cookie_expiration ),
-			'script_delay'			=> apply_filters( 'gdpr_init_script_delay', 2000 ),
-			'close_btn_action'	=> isset( $modal_options['gdpr_close_button_bhv'] ) && intval( $modal_options['gdpr_close_button_bhv'] ) ? intval( $modal_options['gdpr_close_button_bhv'] ) : 1,
-			'close_cs_action'		=> $close_button_v && isset( $modal_options['gdpr_cb_close_button_bhv'] ) && intval( $modal_options['gdpr_cb_close_button_bhv'] ) ? intval( $modal_options['gdpr_cb_close_button_bhv'] ) : 1,
+			'script_delay'			=> $initalization_delay,
+			'close_btn_action'	=> $close_btn_action,
+			'close_btn_rdr'		=> $close_btn_redirect
 		);
 
-		$ajax_script_handler = apply_filters( 'gdpr_cc_prevent_ajax_script_inject', false );
+		$ajax_script_handler 	= isset( $modal_options['script_insertion_method'] ) && intval( $modal_options['script_insertion_method'] ) >= 0 ? intval( $modal_options['script_insertion_method'] ) : apply_filters( 'gdpr_cc_prevent_ajax_script_inject', true );
+
 
 		if ( $ajax_script_handler ) :
 			$gdpr_controller = new Moove_GDPR_Controller();
@@ -778,8 +839,7 @@ class Moove_GDPR_Actions {
 		$powered_label        = ( isset( $modal_options[ 'moove_gdpr_modal_powered_by_label' . $wpml_lang ] ) && $modal_options[ 'moove_gdpr_modal_powered_by_label' . $wpml_lang ] ) ? $modal_options[ 'moove_gdpr_modal_powered_by_label' . $wpml_lang ] : 'Powered by';
 		ob_start();
 		?>
-
-		<a href="https://wordpress.org/plugins/gdpr-cookie-compliance/" target="_blank" rel="noopener noreferrer nofollow" class='moove-gdpr-branding'><?php echo esc_attr( $powered_label ); ?>&nbsp; <span><?php esc_attr_e( 'GDPR Cookie Compliance', 'gdpr-cookie-compliance' ); ?></span></a>
+		<a href="https://wordpress.org/plugins/gdpr-cookie-compliance/" <?php echo apply_filters('gdpr_branding_link_attributes', 'rel="noopener noreferrer"'); ?> <?php echo apply_filters('gdpr_branding_link_target', 'target="_blank"'); ?> class='moove-gdpr-branding'><?php echo esc_attr( $powered_label ); ?>&nbsp; <span><?php esc_attr_e( 'GDPR Cookie Compliance', 'gdpr-cookie-compliance' ); ?></span></a>
 		<?php
 		return ob_get_clean();
 	}
@@ -792,56 +852,50 @@ class Moove_GDPR_Actions {
 	public function gdpr_settings_tab_nav_extensions( $active_tab ) {
 		$tab_data = array(
 			array(
-				'name' => __( 'Export/Import Settings', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Export/Import Settings', 'gdpr-cookie-compliance' ),
 				'slug' => 'export-import',
 			),
 			array(
-				'name' => __( 'Multisite Settings', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Multisite Settings', 'gdpr-cookie-compliance' ),
 				'slug' => 'multisite-settings',
 			),
 			array(
-				'name' => __( 'Accept on Scroll / Hide timer', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Accept on Scroll / Hide timer', 'gdpr-cookie-compliance' ),
 				'slug' => 'accept-on-scroll',
 			),
 			array(
-				'name' => __( 'Full-screen / Cookiewall', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Full-screen / Cookiewall', 'gdpr-cookie-compliance' ),
 				'slug' => 'full-screen-mode',
 			),
 			array(
-				'name' => __( 'Analytics', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Analytics', 'gdpr-cookie-compliance' ),
 				'slug' => 'stats',
 			),
 			array(
-				'name' => __( 'Geo Location', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Geo Location', 'gdpr-cookie-compliance' ),
 				'slug' => 'geo-location',
 			),
 			array(
-				'name' => __( 'Hide Cookie Banner', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Hide Cookie Banner', 'gdpr-cookie-compliance' ),
 				'slug' => 'cookie-banner-manager',
 			),
 			array(
-				'name' => __( 'Iframe Blocker', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Iframe Blocker', 'gdpr-cookie-compliance' ),
 				'slug' => 'iframe-blocker',
 			),
 			array(
-				'name' => __( 'Cookie Declaration', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Cookie Declaration', 'gdpr-cookie-compliance' ),
 				'slug' => 'cookie-declaration',
 			),
 			array(
-				'name' => __( 'Consent Log', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Consent Log', 'gdpr-cookie-compliance' ),
 				'slug' => 'consent-log',
 			),
 			array(
-				'name' => __( 'Renew Consent', 'gdpr-cookie-compliance-addon' ),
+				'name' => __( 'Renew Consent', 'gdpr-cookie-compliance' ),
 				'slug' => 'renew-consent',
-			),
+			)
 		);
-
-		$gsk_tab = array(
-			'name' => __( 'Google Site Kit', 'gdpr-cookie-compliance-addon' ),
-			'slug' => 'google-site-kit',
-		);
-		array_unshift( $tab_data, $gsk_tab );
 
 		foreach ( $tab_data as $tab ) :
 			ob_start();

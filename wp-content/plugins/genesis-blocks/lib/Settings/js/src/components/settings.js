@@ -59,13 +59,22 @@ function SettingsComponent( { settings, sections } ) {
 	 * @param {string} section The section name to load fields for.
 	 */
 	function renderFields( section ) {
-		if ( section.hasOwnProperty( 'fields' ) && Array.isArray( section.fields ) ) {
-			const fields = section.fields.map( function( field, index ) {
+		if (
+			section.hasOwnProperty( 'fields' ) &&
+			Array.isArray( section.fields )
+		) {
+			const fields = section.fields.map( function ( field, index ) {
 				if ( ! components.hasOwnProperty( field.type ) ) {
 					return '';
 				}
 				const Field = components[ field.type ];
-				return <Field key={ index } settings={ settings } field={ field } />;
+				return (
+					<Field
+						key={ index }
+						settings={ settings }
+						field={ field }
+					/>
+				);
 			} );
 
 			if ( fields.length > 0 ) {
@@ -73,7 +82,11 @@ function SettingsComponent( { settings, sections } ) {
 			}
 		}
 
-		return <p>{ __( 'No fields found for this section.', 'genesis-blocks' ) }</p>;
+		return (
+			<p>
+				{ __( 'No fields found for this section.', 'genesis-blocks' ) }
+			</p>
+		);
 	}
 
 	/**
@@ -96,25 +109,33 @@ function SettingsComponent( { settings, sections } ) {
 				className="genesis-blocks-settings-sections"
 				activeClass="gb-nav-tab-active"
 				onSelect={ resetFormSaveState }
-				tabs={
-					Object.values( addTabClassNames( sections ) )
-				}
+				tabs={ Object.values( addTabClassNames( sections ) ) }
 			>
 				{ ( tab ) => (
-					<div
-						className="gb-admin-plugin-admin-body"
-					>
-						<div
-							className="gb-admin-plugin-container"
-						>
+					<div className="gb-admin-plugin-admin-body">
+						<div className="gb-admin-plugin-container">
 							{ renderFields( tab ) }
 							<SlotFillProvider>
-								<Slot name={ 'GenesisBlocksSettings_' + tab.name.replace( 'genesis_blocks_settings_', '' ) } />
+								<Slot
+									name={
+										'GenesisBlocksSettings_' +
+										tab.name.replace(
+											'genesis_blocks_settings_',
+											''
+										)
+									}
+								/>
 								<PluginArea />
 							</SlotFillProvider>
 							<SaveButton
-								successMessage={ __( 'Settings saved', 'genesis-blocks' ) }
-								failMessage={ __( 'Saving failed', 'genesis-blocks' ) }
+								successMessage={ __(
+									'Settings saved',
+									'genesis-blocks'
+								) }
+								failMessage={ __(
+									'Saving failed',
+									'genesis-blocks'
+								) }
 								messageDuration="2"
 							>
 								{ __( 'Save All', 'genesis-blocks' ) }

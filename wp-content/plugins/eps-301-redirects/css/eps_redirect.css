@@ -461,6 +461,10 @@ a.button.eps-redirect-remove:hover {
   line-height: 1.6;
 }
 
+.ui-dialog.eps-pro-dialog .ui-dialog-content{
+    padding: 16px;
+}
+
 .eps-pro-dialog .ui-dialog-titlebar {
   display: none;
 }

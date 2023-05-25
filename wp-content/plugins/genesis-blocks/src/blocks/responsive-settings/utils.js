@@ -41,10 +41,9 @@ export const addResponsiveAttributes = ( settings, name ) => {
  * @return {string} A kebab-case string.
  */
 export const camelToKebabCase = ( camelCase ) =>
-	camelCase.replace(
-		/([a-z])([A-Z1-9])/g,
-		( match, p1, p2 ) => p1 + '-' + p2
-	).toLowerCase();
+	camelCase
+		.replace( /([a-z])([A-Z1-9])/g, ( match, p1, p2 ) => p1 + '-' + p2 )
+		.toLowerCase();
 
 /**
  * Adds a px unit to the font-size size if it has no unit.
@@ -60,9 +59,7 @@ export const conditionallyAddPxUnit = ( size ) => {
 		return size;
 	}
 
-	return size.match( /[A-Za-z]+$/ )
-		? size
-		: `${ size }px`;
+	return size.match( /[A-Za-z]+$/ ) ? size : `${ size }px`;
 };
 
 /**

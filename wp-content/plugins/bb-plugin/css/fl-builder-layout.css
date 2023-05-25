@@ -116,6 +116,12 @@
 	right: 0;
 	top: 0px;
 }
+.fl-row-bg-video .fl-bg-video video {
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+}
 .fl-row-bg-video .fl-bg-video iframe,
 .fl-row-bg-embed .fl-bg-embed-code iframe {
 	pointer-events: none;

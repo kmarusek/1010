@@ -117,8 +117,26 @@ class Block_Field extends Field {
 			return null;
 		}
 
-		if ( 'file' === $type && 'multi' === $this->get_arg( 'file__format_type' ) ) {
+		if ( 'file' === $type && 'multi' === $this->get_arg( 'file_format_type' ) ) {
 			return null;
+		}
+
+		if (
+			isset( $field_mapping['data'] )
+			&& (
+				is_string( $field_mapping['data'] )
+				|| is_object( $field_mapping['data'] )
+				|| (
+					is_array( $field_mapping['data'] )
+					&& 2 === count( $field_mapping['data'] )
+					&& isset( $field_mapping['data'][0], $field_mapping['data'][1] )
+					&& is_object( $field_mapping['data'][0] )
+					&& is_string( $field_mapping['data'][1] )
+				)
+			)
+			&& is_callable( $field_mapping['data'] )
+		) {
+			$field_mapping['data'] = call_user_func( $field_mapping['data'] );
 		}
 
 		$block_args = $field_mapping[ $type ];
@@ -158,11 +176,15 @@ class Block_Field extends Field {
 		$data     = [];
 
 		if ( ! is_array( $raw_data ) ) {
+			// Support string callables.
 			if ( is_callable( $raw_data ) ) {
 				$raw_data = $raw_data();
 			} else {
 				$raw_data = [];
 			}
+		} elseif ( isset( $raw_data[0] ) && is_object( $raw_data[0] ) && is_callable( $raw_data ) ) {
+			// Support array callables if first item is an object.
+			$raw_data = $raw_data();
 		}
 
 		foreach ( $raw_data as $key => $item ) {

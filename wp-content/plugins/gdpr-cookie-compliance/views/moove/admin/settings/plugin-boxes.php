@@ -19,25 +19,24 @@ $plugin_details  = $gdpr_controller->get_gdpr_plugin_details( 'gdpr-cookie-compl
 	<?php ob_start(); ?>
 	<div class="m-plugin-box m-plugin-box-highlighted">
 		<div class="box-header">
-			<h4>Premium Add-On</h4>
+			<h4><?php esc_html_e( 'Premium Add-On', 'gdpr-cookie-compliance' ); ?></h4>
 		</div>
 		<!--  .box-header -->
 		<div class="box-content">
 			<div class="gdpr-faq-forum-content">
-				<p><span class="gdpr-chevron-left">&#8250;</span> Includes a cookiewall layout</p>
-				<p><span class="gdpr-chevron-left">&#8250;</span> Export & import</p>
-        <p><span class="gdpr-chevron-left">&#8250;</span> Consent Log</p>
-				<p><span class="gdpr-chevron-left">&#8250;</span> WordPress Multisite support</p>
-				<p><span class="gdpr-chevron-left">&#8250;</span> Accept cookies on scroll</p>
-				<p><span class="gdpr-chevron-left">&#8250;</span> Consent Analytics</p>
-				<p><span class="gdpr-chevron-left">&#8250;</span> Display cookie banner for EU visitors only</p>
-				<p><span class="gdpr-chevron-left">&#8250;</span> Language specific scripts</p>
-				<p><span class="gdpr-chevron-left">&#8250;</span> and more...</p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'Includes a cookiewall layout', 'gdpr-cookie-compliance' ); ?></p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'Export & import', 'gdpr-cookie-compliance' ); ?></p>
+        <p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'Consent Log', 'gdpr-cookie-compliance' ); ?></p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'WordPress Multisite support', 'gdpr-cookie-compliance' ); ?></p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'Accept cookies on scroll', 'gdpr-cookie-compliance' ); ?></p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'Consent Analytics', 'gdpr-cookie-compliance' ); ?></p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'Display cookie banner for EU visitors only', 'gdpr-cookie-compliance' ); ?></p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'Language specific scripts', 'gdpr-cookie-compliance' ); ?></p>
+				<p><span class="gdpr-chevron-left">&#8250;</span> <?php esc_html_e( 'and more...', 'gdpr-cookie-compliance' ); ?></p>
       </div>
 			<!-- gdpr-faq-forum-content -->
 			<hr />
-			<strong>Buy Now for only <span>£59</span></strong>
-			<a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" target="_blank" class="plugin-buy-now-btn">Buy Now</a>
+			<a href="https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/" target="_blank" class="plugin-buy-now-btn"><?php esc_html_e( 'Buy Now', 'gdpr-cookie-compliance' ); ?></a>
 
 		</div>
 		<!--  .box-content -->
@@ -51,22 +50,22 @@ $plugin_details  = $gdpr_controller->get_gdpr_plugin_details( 'gdpr-cookie-compl
 	
 	<div class="m-plugin-box">
 		<div class="box-header">
-			<h4>Find this plugin useful?</h4>
+			<h4><?php esc_html_e( 'Find this plugin useful?', 'gdpr-cookie-compliance' ); ?></h4>
 		</div>
 		<!--  .box-header -->
 		<div class="box-content">
 
-			<p>You can help other users find it too by <a href="https://wordpress.org/support/plugin/gdpr-cookie-compliance/reviews/?rate=5#new-post" target="_blank">rating this plugin</a>.</p>
+			<p><?php esc_html_e( 'You can help other users find it too by', 'gdpr-cookie-compliance' ); ?> <a href="https://wordpress.org/support/plugin/gdpr-cookie-compliance/reviews/?rate=5#new-post" target="_blank"><?php esc_html_e( 'rating this plugin', 'gdpr-cookie-compliance' ); ?></a>.</p>
 			<?php if ( $plugin_details ) : ?>
 				<hr />
 				<div class="plugin-stats">
 					<div class="plugin-download-ainstalls-cnt">
 						<div class="plugin-downloads">
-							Downloads: <strong><?php echo number_format( $plugin_details->downloaded, 0, '', ',' ); ?></strong>
+							<?php esc_html_e( 'Downloads', 'gdpr-cookie-compliance' ); ?>: <strong><?php echo number_format( $plugin_details->downloaded, 0, '', ',' ); ?></strong>
 						</div>
 						<!--  .plugin-downloads -->
 						<div class="plugin-active-installs">
-							Active installations: <strong><?php echo number_format( $plugin_details->active_installs, 0, '', ',' ); ?>+</strong>
+							<?php esc_html_e( 'Active installations', 'gdpr-cookie-compliance' ); ?>: <strong><?php echo number_format( $plugin_details->active_installs, 0, '', ',' ); ?>+</strong>
 						</div>
 						<!--  .plugin-downloads -->
 					</div>
@@ -96,6 +95,25 @@ $plugin_details  = $gdpr_controller->get_gdpr_plugin_details( 'gdpr-cookie-compl
 				</div>
 				<!--  .plugin-stats -->
 			<?php endif; ?>
+		</div>
+		<!--  .box-content -->
+	</div>
+	<!--  .m-plugin-box -->
+
+	<div class="m-plugin-box">
+		<div class="box-header">
+			<h4><?php esc_html_e( 'User Activity Tracking and Log', 'gdpr-cookie-compliance' ); ?></h4>
+		</div>
+		<!--  .box-header -->
+		<div class="box-content">
+			<a href="https://www.mooveagency.com/wordpress-plugins/user-activity-tracking-and-log/" target="_blank">
+				<img src='<?php echo trailingslashit( moove_gdpr_get_plugin_directory_url() ); ?>dist/images/uat-promo-wp.png?rev=<?php echo MOOVE_GDPR_VERSION; ?>'/>
+			</a>
+			<hr>
+			<p><?php esc_html_e( 'Track user activity & duration on your website with this incredibly powerful, easy-to-use and well supported plugin.', 'gdpr-cookie-compliance' ); ?></p>
+
+			<hr />
+			<a href="https://www.mooveagency.com/wordpress-plugins/user-activity-tracking-and-log/" target="_blank" class="plugin-buy-now-btn"><?php esc_html_e( 'Free trial', 'gdpr-cookie-compliance' ); ?></a>
 		</div>
 		<!--  .box-content -->
 	</div>

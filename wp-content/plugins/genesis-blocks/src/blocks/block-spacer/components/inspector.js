@@ -132,7 +132,10 @@ export default class Inspector extends Component {
 						</PanelBody>
 						<RenderSettingControl id="gb_spacer_dividerColor">
 							<PanelColorSettings
-								title={ __( 'Divider Color', 'genesis-blocks' ) }
+								title={ __(
+									'Divider Color',
+									'genesis-blocks'
+								) }
 								initialOpen={ false }
 								colorSettings={ [
 									{

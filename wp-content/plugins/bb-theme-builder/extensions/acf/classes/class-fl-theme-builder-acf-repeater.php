@@ -106,6 +106,12 @@ final class FLThemeBuilderACFRepeater {
 				$row     = FLThemeBuilderFieldConnections::parse_shortcodes( $row, self::$repeater_shortcodes );
 				$parsed .= $row;
 			}
+		} else {
+			$content = self::escape_nested_shortcodes( $content );
+			$row     = FLThemeBuilderFieldConnections::parse_shortcodes( $content, self::$all_shortcodes );
+			$row     = self::unescape_nested_shortcodes( $row );
+			$row     = FLThemeBuilderFieldConnections::parse_shortcodes( $row, self::$repeater_shortcodes );
+			$parsed .= $row;
 		}
 
 		return $parsed;

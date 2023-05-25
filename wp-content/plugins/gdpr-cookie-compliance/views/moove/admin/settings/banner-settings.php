@@ -30,6 +30,7 @@ if ( isset( $_POST ) && isset( $_POST['moove_gdpr_nonce'] ) ) :
 				'moove_gdpr_settings_button_enable',
 				'moove_gdpr_close_button_enable',
 				'moove_gdpr_colour_scheme',
+				'gdpr_close_button_bhv_redirect',
 				'gdpr_accesibility',
 			);
 			// Cookie Banner Visibility.
@@ -70,7 +71,8 @@ if ( isset( $_POST ) && isset( $_POST['moove_gdpr_nonce'] ) ) :
 			$gdpr_options['gdpr_close_button_bhv'] = 1;
 			if ( '1' === $moove_gdpr_close_enable ) :
 				if ( isset( $_POST['gdpr_close_button_bhv'] ) && intval( $_POST['gdpr_close_button_bhv'] ) ) :
-					$gdpr_options['gdpr_close_button_bhv'] = intval( $_POST['gdpr_close_button_bhv'] );
+					$gdpr_options['gdpr_close_button_bhv'] 				= intval( $_POST['gdpr_close_button_bhv'] );
+					$gdpr_options['gdpr_close_button_bhv_redirect'] 	= isset( $_POST['gdpr_close_button_bhv_redirect'] ) ? sanitize_url( wp_unslash( $_POST['gdpr_close_button_bhv_redirect'] ) ) : '';
 				endif;
 			endif;
 
@@ -98,6 +100,9 @@ if ( isset( $_POST ) && isset( $_POST['moove_gdpr_nonce'] ) ) :
 					$gdpr_options[ $form_key . $wpml_lang ] = $value;
 				elseif ( 'moove_gdpr_modal_strictly_secondary_notice' . $wpml_lang === $form_key ) :
 					$value                     = wpautop( wp_unslash( $form_value ) );
+					$gdpr_options[ $form_key ] = $value;
+				elseif ( 'gdpr_initialization_delay' === $form_key ) :
+					$value                     = intval( $form_value );
 					$gdpr_options[ $form_key ] = $value;
 				elseif ( 'gdpr_bs_buttons_order' === $form_key ) :
 					$value 										 	= json_decode( wp_unslash( $form_value ), true );
@@ -130,6 +135,8 @@ if ( isset( $_POST ) && isset( $_POST['moove_gdpr_nonce'] ) ) :
 endif;
 
 $buttons_order 				= isset( $gdpr_options['gdpr_bs_buttons_order'] ) ? json_decode( $gdpr_options['gdpr_bs_buttons_order'], true ) : array('accept', 'reject', 'settings', 'close');
+
+$initalization_delay 	= isset( $gdpr_options['gdpr_initialization_delay'] ) && intval( $gdpr_options['gdpr_initialization_delay'] ) >= 0 ? intval( $gdpr_options['gdpr_initialization_delay'] ) : apply_filters( 'gdpr_init_script_delay', 2000 );
 ?>
 <form action="<?php echo esc_url( admin_url( 'admin.php?page=moove-gdpr&tab=banner-settings' ) ); ?>" method="post" id="moove_gdpr_tab_banner_settings">
 	<?php wp_nonce_field( 'moove_gdpr_nonce_field', 'moove_gdpr_nonce' ); ?>
@@ -338,6 +345,8 @@ $buttons_order 				= isset( $gdpr_options['gdpr_bs_buttons_order'] ) ? json_deco
 																		<fieldset class="gdpr-close-options">
 																			<?php 
 																			$gdpr_close_button_bhv = isset( $gdpr_options['gdpr_close_button_bhv'] ) && intval( $gdpr_options['gdpr_close_button_bhv'] ) ? intval( $gdpr_options['gdpr_close_button_bhv'] ) : 1;
+
+																			$gdpr_close_button_bhv_redirect = isset( $gdpr_options['gdpr_close_button_bhv_redirect'] ) && sanitize_url( wp_unslash( $gdpr_options['gdpr_close_button_bhv_redirect'] ) ) ? sanitize_url( wp_unslash( $gdpr_options['gdpr_close_button_bhv_redirect'] ) ) : '';
 																			?>
 					
 																			<label for="gdpr_close_button_bhv_1">
@@ -361,6 +370,19 @@ $buttons_order 				= isset( $gdpr_options['gdpr_bs_buttons_order'] ) ? json_deco
 																				<?php esc_html_e( 'as an Accept button', 'gdpr-cookie-compliance' ); ?>
 																				<span class="gdpr_cb_bhv_desc"><?php esc_html_e( '(The cookies are accepted and the cookie banner does not re-appear until the cookie consent expires.)', 'gdpr-cookie-compliance' ); ?></span>
 																			</label>
+																			
+																			<br /><br />
+
+																			<div class="gdpr-conditional-field-group">
+																				<label for="gdpr_close_button_bhv_4">
+																					<input name="gdpr_close_button_bhv" type="radio" <?php echo $gdpr_close_button_bhv === 4 ? 'checked' : ''; ?> id="gdpr_close_button_bhv_4" value="4">
+																					<?php esc_html_e( 'as a Redirect', 'gdpr-cookie-compliance' ); ?>
+																					<span class="gdpr_cb_bhv_desc"><?php esc_html_e( '(The cookies are rejected and the user will be redirected to the specified URL.)', 'gdpr-cookie-compliance' ); ?></span>
+																				</label>
+																				<br>
+																				<input type="text" name="gdpr_close_button_bhv_redirect" id="gdpr_close_button_bhv_redirect" style="display: none;" class="regular-text" placeholder="<?php esc_html_e('Redirect location', 'gdpr-cookie-compliance') ?>" value="<?php echo esc_url( $gdpr_close_button_bhv_redirect ); ?>">
+																			</div>
+																			<!-- .gdpr-conditional-field-group -->
 
 																			<br />
 
@@ -430,6 +452,27 @@ $buttons_order 				= isset( $gdpr_options['gdpr_bs_buttons_order'] ) ? json_deco
 					<p class="description">
 						<?php
 							$content = __( 'Choose the right accessibility experience for your users. You can decide wether pressing tab key on your keyboard should first focus on the Cookie Banner or on your website\'s content.', 'gdpr-cookie-compliance' );			
+							apply_filters( 'gdpr_cc_keephtml', $content, true );
+						?>
+					</p>            
+				</td>
+			</tr>
+
+			<tr>
+				<th scope="row">
+					<label for="gdpr_initialization_delay"><?php esc_html_e( 'Banner initialization delay', 'gdpr-cookie-compliance' ); ?></label>
+				</th>
+				<td>
+					<span style="white-space: nowrap;">
+						<input type="number" value="<?php echo $initalization_delay; ?>" min="0" step="1" name="gdpr_initialization_delay" id="gdpr_initialization_delay" style="width: 100px;">
+						milliseconds
+					</span>
+
+					<p class="description">
+						<?php
+							$content = __( 'This feature can be used to improve Largest Contentful Paint (LCP) metric in PageSpeed Insights.', 'gdpr-cookie-compliance' );
+							$content .= '<br />';
+							$content .= __( 'Set 0 for the Cookie Banner to appear with no delay.', 'gdpr-cookie-compliance' );
 							apply_filters( 'gdpr_cc_keephtml', $content, true );
 						?>
 					</p>            

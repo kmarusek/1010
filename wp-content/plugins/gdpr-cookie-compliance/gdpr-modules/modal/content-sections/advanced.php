@@ -28,8 +28,8 @@
         <?php echo $content->warning_message; ?>
       </div>
       <!--  .moove-gdpr-strict-secondary-warning-message -->
-      <?php do_action( 'gdpr_modules_content_extension', $content, 'advanced' ); ?> 
     <?php endif; ?>
+    <?php do_action( 'gdpr_modules_content_extension', $content, 'advanced' ); ?> 
     </div>
     <!--  .moove-gdpr-tab-main-content -->
   </div>

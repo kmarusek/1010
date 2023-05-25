@@ -27,6 +27,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 	protected $defaults = [
 		// Non-form fields, set via (ajax) function.
 		'tracking'                                 => null,
+		'toggled_tracking'                         => false,
 		'license_server_version'                   => false,
 		'ms_defaults_set'                          => false,
 		'ignore_search_engines_discouraged_notice' => false,
@@ -87,6 +88,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'configuration_finished_steps'             => [],
 		'dismiss_configuration_workout_notice'     => false,
 		'dismiss_premium_deactivated_notice'       => false,
+		'dismiss_old_premium_version_notice'       => '',
 		'importing_completed'                      => [],
 		'wincher_integration_active'               => true,
 		'wincher_tokens'                           => [],
@@ -131,6 +133,9 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'least_linked_ignore_list'                 => [],
 		'indexables_page_reading_list'             => [ false, false, false, false, false ],
 		'indexables_overview_state'                => 'dashboard-not-visited',
+		'last_known_public_post_types'             => [],
+		'last_known_public_taxonomies'             => [],
+		'last_known_no_unindexed'                  => [],
 	];
 
 	/**
@@ -169,6 +174,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 	 */
 	protected $environment_types = [
 		'',
+		'local',
 		'production',
 		'staging',
 		'development',
@@ -319,6 +325,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				case 'wincher_website_id':
 				case 'clean_permalinks_extra_variables':
 				case 'indexables_overview_state':
+				case 'dismiss_old_premium_version_notice':
 					if ( isset( $dirty[ $key ] ) ) {
 						$clean[ $key ] = $dirty[ $key ];
 					}
@@ -400,6 +407,8 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				case 'most_linked_ignore_list':
 				case 'least_linked_ignore_list':
 				case 'indexables_page_reading_list':
+				case 'last_known_public_post_types':
+				case 'last_known_public_taxonomies':
 					$clean[ $key ] = $old[ $key ];
 
 					if ( isset( $dirty[ $key ] ) ) {
@@ -443,7 +452,23 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 						$clean['wordproof_integration_changed'] = true;
 					}
 					break;
+				case 'last_known_no_unindexed':
+					$clean[ $key ] = $old[ $key ];
 
+					if ( isset( $dirty[ $key ] ) ) {
+						$items = $dirty[ $key ];
+
+						if ( is_array( $items ) ) {
+							foreach ( $items as $item_key => $item ) {
+								if ( ! \is_string( $item_key ) || ! \is_numeric( $item ) ) {
+									unset( $items[ $item_key ] );
+								}
+							}
+							$clean[ $key ] = $items;
+						}
+					}
+
+					break;
 
 				/*
 				 * Boolean (checkbox) fields.

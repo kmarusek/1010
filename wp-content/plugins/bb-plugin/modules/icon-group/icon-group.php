@@ -18,6 +18,39 @@ class FLIconGroupModule extends FLBuilderModule {
 			'icon'            => 'star-filled.svg',
 		));
 	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$icons_count = count( $settings->icons );
+		for ( $i = 0; $i < $icons_count; $i++ ) {
+
+			if ( ! is_object( $settings->icons[ $i ] ) ) {
+				continue;
+			}
+
+			// Rename 'color' to 'item_icon_color'
+			if ( empty( $icon->item_icon_color ) && ! empty( $settings->icons[ $i ]->color ) ) {
+				$settings->icons[ $i ]->item_icon_color = $settings->icons[ $i ]->color;
+				unset( $settings->icons[ $i ]->color );
+			}
+
+			// Rename 'bg_color' to 'item_icon_bg_color'
+			if ( empty( $icon->item_icon_bg_color ) && ! empty( $settings->icons[ $i ]->bg_color ) ) {
+				$settings->icons[ $i ]->item_icon_bg_color = $settings->icons[ $i ]->bg_color;
+				unset( $settings->icons[ $i ]->bg_color );
+			}
+		}
+
+		return $settings;
+	}
+
 }
 
 /**
@@ -96,10 +129,7 @@ FLBuilder::register_module('FLIconGroupModule', array(
 						'show_reset'  => true,
 						'show_alpha'  => true,
 						'preview'     => array(
-							'type'      => 'css',
-							'selector'  => '.fl-icon i, .fl-icon i::before',
-							'property'  => 'color',
-							'important' => true,
+							'type' => 'refresh',
 						),
 					),
 					'hover_color'    => array(
@@ -168,11 +198,13 @@ FLBuilder::register_settings_form('icon_group_form', array(
 							'label'         => __( 'Link', 'fl-builder' ),
 							'show_target'   => true,
 							'show_nofollow' => true,
+							'connections'   => array( 'url' ),
 						),
 						'sr_text' => array(
-							'type'    => 'text',
-							'label'   => __( 'Screen Reader Text', 'fl-builder' ),
-							'default' => '',
+							'type'        => 'text',
+							'label'       => __( 'Screen Reader Text', 'fl-builder' ),
+							'default'     => '',
+							'connections' => array( 'string' ),
 						),
 					),
 				),
@@ -182,9 +214,9 @@ FLBuilder::register_settings_form('icon_group_form', array(
 			'title'    => __( 'Style', 'fl-builder' ), // Tab title
 			'sections' => array( // Tab Sections
 				'colors' => array( // Section
-					'title'  => __( 'Colors', 'fl-builder' ), // Section Title
+					'title'  => __( 'Item Icon Colors', 'fl-builder' ), // Section Title
 					'fields' => array( // Section Fields
-						'duo_color1'     => array(
+						'duo_color1'         => array(
 							'label'      => __( 'DuoTone Primary Color', 'fl-builder' ),
 							'type'       => 'color',
 							'default'    => '',
@@ -194,7 +226,7 @@ FLBuilder::register_settings_form('icon_group_form', array(
 								'type' => 'none',
 							),
 						),
-						'duo_color2'     => array(
+						'duo_color2'         => array(
 							'label'      => __( 'DuoTone Secondary Color', 'fl-builder' ),
 							'type'       => 'color',
 							'default'    => '',
@@ -204,34 +236,34 @@ FLBuilder::register_settings_form('icon_group_form', array(
 								'type' => 'none',
 							),
 						),
-						'color'          => array(
+						'item_icon_color'    => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
-							'label'       => __( 'Color', 'fl-builder' ),
+							'label'       => __( 'Item Icon Color', 'fl-builder' ),
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),
-						'hover_color'    => array(
+						'hover_color'        => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
-							'label'       => __( 'Hover Color', 'fl-builder' ),
+							'label'       => __( 'Item Icon Hover Color', 'fl-builder' ),
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'preview'     => array(
 								'type' => 'none',
 							),
 						),
-						'bg_color'       => array(
+						'item_icon_bg_color' => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
-							'label'       => __( 'Background Color', 'fl-builder' ),
+							'label'       => __( 'Item Icon Background Color', 'fl-builder' ),
 							'show_reset'  => true,
 							'show_alpha'  => true,
 						),
-						'bg_hover_color' => array(
+						'bg_hover_color'     => array(
 							'type'        => 'color',
 							'connections' => array( 'color' ),
-							'label'       => __( 'Background Hover Color', 'fl-builder' ),
+							'label'       => __( 'Item Icon Background Hover Color', 'fl-builder' ),
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'preview'     => array(

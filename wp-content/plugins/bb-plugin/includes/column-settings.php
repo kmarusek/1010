@@ -376,8 +376,7 @@ FLBuilder::register_settings_form('col', array(
 							'label'      => __( 'Border', 'fl-builder' ),
 							'responsive' => true,
 							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.fl-col-content',
+								'type' => 'refresh',
 							),
 						),
 					),
@@ -400,9 +399,7 @@ FLBuilder::register_settings_form('col', array(
 								'%',
 							),
 							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.fl-col-content',
-								'property' => 'margin',
+								'type' => 'refresh',
 							),
 							'responsive' => array(
 								'default_unit' => array(
@@ -441,9 +438,7 @@ FLBuilder::register_settings_form('col', array(
 								'%',
 							),
 							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.fl-col-content',
-								'property' => 'padding',
+								'type' => 'refresh',
 							),
 							'responsive' => array(
 								'default_unit' => array(

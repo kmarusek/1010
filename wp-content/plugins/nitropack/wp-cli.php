@@ -45,9 +45,27 @@ function nitropack_cli_disconnect($args, $assocArgs) {
 */
 
 function nitropack_cli_purge($args, $assocArgs) {
+	$host = !empty($assocArgs["purge-host"]) ? $assocArgs["purge-host"] : NULL;
     $url = !empty($assocArgs["purge-url"]) ? $assocArgs["purge-url"] : NULL;
     $tag = !empty($assocArgs["purge-tag"]) ? $assocArgs["purge-tag"] : NULL;
     $reason = !empty($assocArgs["purge-reason"]) ? $assocArgs["purge-reason"] : NULL;
+
+	if (!empty($host)) {
+		/**
+		 * Override the site url by the purge-host parameter
+		 *
+		 * @param string $host
+		 * @return string
+		 */
+		add_filter( 'nitropack_current_host', function() use ( $host ) {
+				if (!preg_match('#^http(s)?://#', $host)) {
+					$host = 'https://' . $host;
+				}
+				return $host;
+			}
+		);
+	}
+
     if ($url || $tag || $reason) {
         try {
             if (nitropack_sdk_purge($url, $tag, $reason)) {
