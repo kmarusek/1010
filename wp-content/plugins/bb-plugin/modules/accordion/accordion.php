@@ -42,6 +42,14 @@ class FLAccordionModule extends FLBuilderModule {
 			unset( $settings->border_color );
 		}
 
+		if ( ! isset( $settings->content_type ) ) {
+			$settings->content_type = 'post_content';
+		}
+
+		if ( ! isset( $settings->more_link ) ) {
+			$settings->more_link = 'hide';
+		}
+
 		// exclude current post
 		$settings->exclude_self = 'yes';
 
@@ -69,6 +77,31 @@ class FLAccordionModule extends FLBuilderModule {
 			echo apply_filters( 'the_content', get_the_content( null, false, $post_id ) );
 		}
 	}
+
+	/**
+	 * @method render_excerpt
+	 */
+	public function render_excerpt( $post_id ) {
+		echo '<p>' . get_the_excerpt( $post_id ) . '</p>';
+	}
+
+	/**
+	 * @method render_more_link
+	 */
+	public function render_more_link( $post_id, $more_link_text = '' ) {
+
+		if ( empty( $more_link_text ) ) {
+			return;
+		}
+
+		$html   = array();
+		$html[] = '<div><a class="fl-accordion-post-more-link"';
+		$html[] = 'href="' . esc_url( get_the_permalink() ) . '"';
+		$html[] = 'title="' . the_title_attribute( array( 'echo' => false ) ) . '">';
+		$html[] = $more_link_text;
+		$html[] = '</a></div>';
+		echo join( '', $html );
+	}
 }
 
 /**
@@ -92,6 +125,7 @@ FLBuilder::register_module('FLAccordionModule', array(
 						'toggle'  => array(
 							'post'    => array(
 								'sections' => array( 'post' ),
+								'fields'   => array( 'content_type', 'more_link', 'more_link_text' ),
 							),
 							'content' => array(
 								'sections' => array( 'content' ),
@@ -120,7 +154,35 @@ FLBuilder::register_module('FLAccordionModule', array(
 			'display' => array(
 				'title'  => __( 'Display', 'fl-builder' ),
 				'fields' => array(
-					'collapse'   => array(
+					'content_type'   => array(
+						'type'    => 'select',
+						'label'   => __( 'Content Type', 'fl-builder' ),
+						'default' => 'post_content',
+						'options' => array(
+							'post_content' => __( 'Post Content', 'fl-builder' ),
+							'post_excerpt' => __( 'Post Excerpt', 'fl-builder' ),
+						),
+					),
+					'more_link'      => array(
+						'type'    => 'select',
+						'label'   => __( 'More Link', 'fl-builder' ),
+						'default' => 'hide',
+						'options' => array(
+							'show' => __( 'Show', 'fl-builder' ),
+							'hide' => __( 'Hide', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'show' => array(
+								'fields' => array( 'more_link_text' ),
+							),
+						),
+					),
+					'more_link_text' => array(
+						'type'    => 'text',
+						'label'   => __( 'More Link Text', 'fl-builder' ),
+						'default' => __( 'Read More', 'fl-builder' ),
+					),
+					'collapse'       => array(
 						'type'    => 'select',
 						'label'   => __( 'Collapse Inactive', 'fl-builder' ),
 						'default' => '1',
@@ -133,7 +195,7 @@ FLBuilder::register_module('FLAccordionModule', array(
 							'type' => 'none',
 						),
 					),
-					'open_first' => array(
+					'open_first'     => array(
 						'type'    => 'select',
 						'label'   => __( 'Expand First Item', 'fl-builder' ),
 						'default' => '0',
@@ -145,6 +207,7 @@ FLBuilder::register_module('FLAccordionModule', array(
 					),
 				),
 			),
+
 		),
 	),
 	'style' => array(

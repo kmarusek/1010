@@ -922,6 +922,7 @@ class PodsAPI {
 					'label'       => 'Status',
 					'type'        => 'pick',
 					'pick_object' => 'post-status',
+					'pick_format_single' => 'dropdown',
 					'default'     => $this->do_hook( 'default_status_' . $pod_name, pods_v( 'default_status', pods_v( 'options', $pod ), 'draft', true ), $pod ),
 					'alias'       => [ 'status' ],
 				],
@@ -1652,6 +1653,14 @@ class PodsAPI {
 			unset( $params->create_extend );
 		}
 
+		if ( ! isset( $params->bypass_table_schema ) ) {
+			$params->bypass_table_schema = false;
+		}
+
+		if ( ! isset( $params->overwrite_table_schema ) ) {
+			$params->overwrite_table_schema = true;
+		}
+
 		$pod = null;
 
 		$lookup_type = null;
@@ -2240,13 +2249,13 @@ class PodsAPI {
 		}
 
 		// Maybe save the pod table schema.
-		if ( $db ) {
+		if ( $db && ! $params->bypass_table_schema ) {
 			$old_info = compact(
 				'old_storage',
 				'old_name'
 			);
 
-			$this->save_pod_table_schema( $pod, $all_fields, $old_info );
+			$this->save_pod_table_schema( $pod, $all_fields, $old_info, $params->overwrite_table_schema );
 		}
 
 		// Maybe handle renaming.
@@ -2541,15 +2550,16 @@ class PodsAPI {
 	 *
 	 * @since 2.8.0
 	 *
-	 * @param array $pod      The pod configuration.
-	 * @param array $fields   The list of fields on the pod.
-	 * @param array $old_info The old information to reference.
+	 * @param array   $pod                    The pod configuration.
+	 * @param array   $fields                 The list of fields on the pod.
+	 * @param array   $old_info               The old information to reference.
+	 * @param boolean $overwrite_table_schema Whether to overwrite the table schema if it exists already.
 	 *
 	 * @return bool|WP_Error True if the schema changes were handled, false or an error if it failed to create/update.
 	 *
 	 * @throws Exception
 	 */
-	public function save_pod_table_schema( $pod, array $fields, array $old_info ) {
+	public function save_pod_table_schema( $pod, array $fields, array $old_info, $overwrite_table_schema = true ) {
 		global $wpdb;
 
 		$tableless_field_types    = PodsForm::tableless_field_types();
@@ -2568,8 +2578,8 @@ class PodsAPI {
 			return;
 		}
 
-		$table_name     = "@wp_pods_{$pod['name']}";
-		$old_table_name = "@wp_pods_{$old_name}";
+		$table_name     = "{$wpdb->prefix}pods_{$pod['name']}";
+		$old_table_name = "{$wpdb->prefix}pods_{$old_name}";
 
 		if ( $old_storage !== $pod['storage'] ) {
 			// Create the table if it wasn't there before.
@@ -2601,6 +2611,25 @@ class PodsAPI {
 
 				if ( $definition && '' !== $definition ) {
 					$definitions[] = "`{$field['name']}` " . $definition;
+				}
+			}
+
+			// Check if the table exists first if we should not overwrite the table schema.
+			if ( ! $overwrite_table_schema ) {
+				$table_match = pods_query(
+					'
+						SELECT `TABLE_NAME`
+						FROM `information_schema`.`TABLES`
+						WHERE `TABLE_NAME` = %s AND `TABLE_SCHEMA` = %s
+					',
+					[
+						$table_name,
+						DB_NAME,
+					]
+				);
+
+				if ( ! empty( $table_match ) ) {
+					return false;
 				}
 			}
 
@@ -5201,7 +5230,7 @@ class PodsAPI {
 				// Handle Simple Relationships
 				if ( $simple ) {
 					if ( ! is_array( $value ) ) {
-						if ( 0 < strlen( $value ) ) {
+						if ( is_string( $value ) && 0 < strlen( $value ) ) {
 							$value = explode( ',', $value );
 						} else {
 							$value = array();
@@ -5226,7 +5255,7 @@ class PodsAPI {
 								$custom_values = array();
 
 								foreach ( $custom as $c => $cv ) {
-									if ( 0 < strlen( $cv ) ) {
+									if ( is_string( $cv ) && 0 < strlen( $cv ) ) {
 										$custom_label = explode( '|', $cv );
 
 										if ( ! isset( $custom_label[1] ) ) {
@@ -5602,7 +5631,7 @@ class PodsAPI {
 		if ( $params->clear_slug_cache && ! empty( $pod['field_slug'] ) ) {
 			$slug = pods_get_instance( $pod['name'], $params->id )->field( $pod['field_slug'] );
 
-			if ( 0 < strlen( $slug ) ) {
+			if ( is_string( $slug ) && 0 < strlen( $slug ) ) {
 				pods_cache_clear( $slug, 'pods_items_' . $pod['name'] );
 			}
 		}
@@ -6255,7 +6284,7 @@ class PodsAPI {
 			}
 
 			return false;
-		} elseif ( in_array( $pod['type'], array( 'post_type', 'taxonomy' ) ) && 0 < strlen( $pod['object'] ) ) {
+		} elseif ( in_array( $pod['type'], array( 'post_type', 'taxonomy' ) ) && is_string( $pod['object'] ) && 0 < strlen( $pod['object'] ) ) {
 			$pod['object'] = '';
 		}
 
@@ -6645,7 +6674,7 @@ class PodsAPI {
 			// @todo Add term compatibility to set unique name
 			// @todo Add user compatibility to set unique user_login/user_email
 
-			if ( ! empty( $value ) || ( ! is_array( $value ) && 0 < strlen( $value ) ) ) {
+			if ( ! empty( $value ) || ( is_string( $value ) && 0 < strlen( $value ) ) ) {
 				$save_params['data'][ $field['name'] ] = $value;
 			}
 		}
@@ -9950,8 +9979,8 @@ class PodsAPI {
 				$prefix = 'pod-';
 
 				// Make sure we actually have the prefix before trying anything with the name
-				if ( 0 === strpos( $object_type, $prefix ) ) {
-					$name = substr( $object_type, strlen( $prefix ), strlen( $object_type ) );
+				if ( 0 === strpos( (string) $object_type, $prefix ) ) {
+					$name = substr( (string) $object_type, strlen( $prefix ), strlen( (string) $object_type ) );
 				}
 			}
 
@@ -9976,8 +10005,8 @@ class PodsAPI {
 				$prefix = $object_type . '-';
 
 				// Make sure we actually have the prefix before trying anything with the name
-				if ( 0 === strpos( $object_type, $prefix ) ) {
-					$name = substr( $object_type, strlen( $prefix ), strlen( $object_type ) );
+				if ( 0 === strpos( (string) $object_type, $prefix ) ) {
+					$name = substr( (string) $object_type, strlen( $prefix ), strlen( (string) $object_type ) );
 				}
 			}
 
@@ -10010,8 +10039,8 @@ class PodsAPI {
 				$prefix = 'pod-';
 
 				// Make sure we actually have the prefix before trying anything with the name
-				if ( 0 === strpos( $object_type, $prefix ) ) {
-					$name = substr( $object_type, strlen( $prefix ), strlen( $object_type ) );
+				if ( 0 === strpos( (string) $object_type, $prefix ) ) {
+					$name = substr( (string) $object_type, strlen( $prefix ), strlen( (string) $object_type ) );
 				}
 			}
 
@@ -10238,8 +10267,8 @@ class PodsAPI {
 				$prefix = 'post_type-';
 
 				// Make sure we actually have the prefix before trying anything with the name
-				if ( 0 === strpos( $object_type, $prefix ) ) {
-					$name = substr( $object_type, strlen( $prefix ), strlen( $object_type ) );
+				if ( 0 === strpos( (string) $object_type, $prefix ) ) {
+					$name = substr( (string) $object_type, strlen( $prefix ), strlen( (string) $object_type ) );
 				}
 			}
 
@@ -10364,8 +10393,8 @@ class PodsAPI {
 				$prefix = 'taxonomy-';
 
 				// Make sure we actually have the prefix before trying anything with the name
-				if ( 0 === strpos( $object_type, $prefix ) ) {
-					$name = substr( $object_type, strlen( $prefix ), strlen( $object_type ) );
+				if ( 0 === strpos( (string) $object_type, $prefix ) ) {
+					$name = substr( (string) $object_type, strlen( $prefix ), strlen( (string) $object_type ) );
 				}
 			}
 

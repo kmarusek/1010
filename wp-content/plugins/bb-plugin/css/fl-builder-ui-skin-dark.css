@@ -22,6 +22,13 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
     background-image: url( "../img/svg/select-arrow-down-alt2-light.svg" ) !important;
 }
 /* Panel arrows */
+.fl-builder-ui-skin--dark .fl-builder-ui-iframe-toolbar {
+    background-color: #23282d;
+}
+.fl-builder-ui-skin--dark .fl-builder-ui-iframe-wrap {
+    background-color: #131619;
+}
+/* Panel arrows */
 .fl-builder-ui-skin--dark .fl-builder--main-menu-panel:before {
     border-bottom-color:#1d1d1d;
 }
@@ -41,6 +48,7 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-builder-button,
 .fl-builder-ui-skin--dark .fl-builder--preview-actions .device-icons {
     background: #2c333a;
+    color: #c6cdd6 !important;
 }
 .fl-builder-ui-skin--dark .fl-builder-button:focus {
     background: #131a22;
@@ -117,6 +125,9 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
     color: #ffffff !important;
     fill: #ffffff !important;
     background: #181b20 !important;
+}
+.fl-builder-ui-skin--dark .fl-builder-settings-tabs a.fl-active.error {
+    color: #d03436 !important;
 }
 .fl-builder-ui-skin--dark .fl-builder--tabs *:focus {
     background-color: #101215 !important;
@@ -257,7 +268,7 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
     color: #a8b3bf;
     background-color: #1b2025;
 }
-.fl-builder-ui-skin--dark .fl-lightbox :not(i):not([class^='ace_']) {
+.fl-builder-ui-skin--dark .fl-lightbox :not(i):not([class^='ace_']):not(.error):not(.fl-builder-settings-tab-description a):not(.fl-field-description a):not(.fl-builder-service-error) {
     color: #a7b1bb !important;
 }
 .fl-builder-ui-skin--dark .fl-builder-button {
@@ -272,8 +283,8 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-lightbox .fl-builder-button.fl-builder-button-primary {
     color: #ffffff !important;
 }
-.fl-builder-ui-skin--dark .fl-color-picker {
-    background-image: url('../img/transp_bg_dark.png');
+.fl-builder-ui-skin--dark .fl-color-picker:has( .fl-color-picker-empty ) {
+	background-image: url( '../img/transp_bg_dark.png' );
 }
 .fl-color-picker-color.fl-color-picker-empty .fl-color-picker-icon {
     fill:#6f7881;
@@ -356,6 +367,7 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-lightbox .select2-container--default .selection .select2-selection--multiple {
 	border-color: #181b20 !important;
 }
+.fl-builder-ui-skin--dark .fl-lightbox .select2-container--default .selection .select2-selection--single,
 .fl-builder-ui-skin--dark .fl-lightbox .select2-container--default .selection .select2-selection--multiple {
 	background-color: #181b20 !important;
 }
@@ -461,6 +473,12 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
     background-color: #383f46 !important;
     color:white;
 }
+
+.fl-builder-ui-skin--dark #fl-field-responsive_display .fl-button-group-field-option i {
+color: #8e8e8e;
+}
+
+
 .fl-builder-ui-skin--dark .fl-button-group-field-option[data-selected="1"] i {
     color:white !important;
 }
@@ -471,8 +489,15 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-compound-field-section-toggle {
     background-color: #181b20;
 }
-.fl-builder-ui-skin--dark .fl-compound-field-section-toggle:hover {
-    background-color: #383f46;
+
+#fl-field-responsive_display .fl-button-group-field-option[data-selected="0"]:active {
+    background-color: unset;
+    color: unset;
+}
+
+.fl-builder-ui-skin--dark  #fl-field-responsive_display .fl-button-group-field-option[data-selected="1"]:active:hover {
+    background-color: unset !important;
+    color: unset !important;
 }
 .fl-builder-ui-skin--dark .fl-compound-field-section-visible .fl-compound-field-section-toggle {
     border-top-color: #121a23 !important;
@@ -497,7 +522,7 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 }
 
 /* MCE */
-.fl-builder-ui-skin--dark .fl-lightbox div.mce-panel {
+.fl-builder-ui-skin--dark .fl-lightbox div.mce-panel, .fl-builder-ui-skin--dark .fl-lightbox div.mce-toolbar{
     background: #383f46;
 }
 .fl-builder-ui-skin--dark .fl-lightbox .mce-toolbar .mce-ico {
@@ -529,4 +554,13 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-lightbox .wp-core-ui .button:focus,
 .fl-builder-ui-skin--dark .fl-lightbox .wp-core-ui .button:hover {
     background: #191b20;
+}
+
+.fl-builder-ui-skin--dark .fl-builder-service-connect-row .fl-field-description,
+.fl-builder-ui-skin--dark #fl-field-visibility_user_capability .fl-field-description {
+	background: #1d2227;
+}
+.fl-builder-ui-skin--dark .fl-icons-filter input[type="text"] {
+    border-color: #383f46 !important;
+    background-color: #181b20;
 }

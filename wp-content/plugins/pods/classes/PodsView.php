@@ -63,7 +63,7 @@ class PodsView {
 		// Advanced $expires handling
 		$expires = self::expires( $expires, $cache_mode );
 
-		if ( ! isset( self::$cache_modes[ $cache_mode ] ) ) {
+		if ( ! self::is_cache_mode_valid( $cache_mode ) ) {
 			$cache_mode = 'cache';
 		}
 
@@ -151,7 +151,7 @@ class PodsView {
 		$key .= '-' . sanitize_key( PODS_VERSION );
 
 		// Patch for limitations in DB
-		if ( 44 < strlen( $group_key . $key ) ) {
+		if ( is_string( $group_key ) && 44 < strlen( $group_key . $key ) ) {
 			$key = md5( $key );
 		}
 
@@ -182,7 +182,7 @@ class PodsView {
 			|| $external_object_cache
 		);
 
-		if ( ! isset( self::$cache_modes[ $cache_mode ] ) ) {
+		if ( ! self::is_cache_mode_valid( $cache_mode ) ) {
 			$cache_mode = 'cache';
 		}
 
@@ -205,7 +205,7 @@ class PodsView {
 		$nocache      = array();
 
 		if ( null !== $pods_nocache && pods_is_admin() ) {
-			if ( 1 < strlen( $pods_nocache ) ) {
+			if ( is_string( $pods_nocache ) && 1 < strlen( $pods_nocache ) ) {
 				$nocache = explode( ',', $pods_nocache );
 				$nocache = array_flip( $nocache );
 			} else {
@@ -333,7 +333,7 @@ class PodsView {
 		// Advanced $expires handling
 		$expires = self::expires( $expires, $cache_mode );
 
-		if ( ! isset( self::$cache_modes[ $cache_mode ] ) ) {
+		if ( ! self::is_cache_mode_valid( $cache_mode ) ) {
 			$cache_mode = 'cache';
 		}
 
@@ -423,7 +423,7 @@ class PodsView {
 
 		global $wpdb;
 
-		if ( ! isset( self::$cache_modes[ $cache_mode ] ) ) {
+		if ( ! self::is_cache_mode_valid( $cache_mode ) ) {
 			$cache_mode = 'cache';
 		}
 
@@ -678,6 +678,23 @@ class PodsView {
 
 		return $expires;
 
+	}
+
+	/**
+	 * Determine whether the cache mode is valid.
+	 *
+	 * @since 2.9.14
+	 *
+	 * @param string|mixed $cache_mode The cache mode.
+	 *
+	 * @return bool Whether the cache mode is valid.
+	 */
+	public static function is_cache_mode_valid( $cache_mode ) {
+		return (
+			$cache_mode
+			&& is_string( $cache_mode )
+			&& ! isset( self::$cache_modes[ $cache_mode ] )
+       );
 	}
 
 }

@@ -21,6 +21,7 @@
 .fl-settings-nav ul {
 	background: #fff;
 	border: 1px solid #e5e5e5;
+	border-radius: 4px;
 }
 .fl-settings-nav ul li {
 	display: block;
@@ -33,16 +34,25 @@
 	padding: 5px 10px;
 }
 .fl-settings-nav ul li a {
-	border-bottom: 1px solid #eee;
+	background: #F9F9F9;
+	border: none;
+  	color: #424348;
 	display: block;
 	padding: 10px;
 }
 .fl-settings-nav ul li a:hover,
 .fl-settings-nav ul li a.fl-active {
-	background: #f5f5f5;
+	background: #fff;
+	box-shadow: none;
+	color: #EE521F;
+	outline: none;
+}
+.fl-settings-nav ul li:first-child a {
+  border-radius: 4px 4px 0 0;
 }
 .fl-settings-nav ul li:last-child a {
-	border-bottom: none;
+  border-radius: 0 0 4px 4px;
+  border-bottom: none;
 }
 .fl-settings-nav a {
 	text-decoration: none;
@@ -56,6 +66,18 @@
 
 /* Content
 ----------------------------------------------------------- */
+
+.settings_page_fl-builder-settings {
+	background: #fff;
+}
+
+.settings_page_fl-builder-settings a {
+  color: #EE521F;
+  text-decoration: none;
+}
+.settings_page_fl-builder-settings a:hover {
+  color: #1a7497;
+}
 
 .fl-settings-content {
 	float: left;
@@ -76,6 +98,7 @@
 }
 .fl-settings-form-header {
 	margin-bottom: 20px !important;
+	padding: 0;
 }
 .fl-settings-form .form-table {
 	margin: 12px 0;
@@ -158,6 +181,9 @@ body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
 .fl-welcome-page-content {
 	max-width: 880px;
 }
+.fl-welcome-page-content p.welcome-intro {
+	margin-bottom: 0;
+}
 .fl-upgrade-page-content ul,
 .fl-welcome-page-content ul {
 	list-style-type: disc;
@@ -169,6 +195,20 @@ body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
 }
 .fl-welcome-page-content .fl-welcome-col-wrap {
 	clear:both;
+	border: 1px solid #E9E9E9;
+  	margin-top: 50px;
+  	padding: 50px 40px 30px 40px;
+  	position: relative;
+  	box-shadow: 0 2px 4px 0 rgba(10,29,66,0.07);
+}
+.fl-welcome-col-wrap.divider::after {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  content: "";
+  background: #E9E9E9;
+  width: 1px;
+  height: 75%;
 }
 .fl-welcome-page-content .fl-welcome-col {
 	box-sizing: border-box;
@@ -182,13 +222,101 @@ body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
 .fl-welcome-page-content .fl-welcome-col:last-child {
 	padding-left: 30px;
 }
+.fl-welcome-page-content .divider .fl-welcome-col:nth-child(2) {
+  padding-right: 30px;
+}
+.fl-welcome-col-wrap h2 {
+  background: url(../img/svg/col-wrap-h2.svg) center center no-repeat;
+  width: 260px;
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 7px 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+.fl-welcome-col-wrap h3 {
+	line-height: 1.3;
+	margin: 0 0 1em 0;
+}
+.fl-welcome-col-wrap h3.centered {
+	text-align: center;
+}
 .fl-welcome-page-content .fl-welcome-big-link {
 	font-weight: 600;
 	font-size: 14px;
 }
+.fl-welcome-col ul {
+    margin: 0 0 0 26px;
+}
+.fl-welcome-col ul li.dashicons-before {
+  list-style: none;
+
+}
+.fl-welcome-col ul li.dashicons-before::before {
+  color: #73DF99;
+  font-size: 17px;
+  margin: 0 5px 0 -26px;
+}
 .fl-welcome-page-content .fl-welcome-img {
 	max-width: 100%;
 	display: inline-block;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
+}
+.fl-welcome-page-content a.fl-button {
+  background: #ee521f;
+  color: #fff;
+  border-radius: 4px;
+  display: block;
+  margin: 30px 0 10px 0;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 160px;
+  transition: 0.2s ease-in-out;
+}
+.fl-welcome-page-content a.fl-button.centered {
+  margin: 30px auto 10px auto;
+}
+.fl-welcome-page-content a.fl-button:hover {
+  background: #197596;
+}
+
+@media(min-width:1540px) {
+  .settings_page_fl-builder-settings #wpbody {
+    background: url(../img/shape-top_right.png) no-repeat top right;
+    background-size: 314px;
+	min-height: 100vh;
+  }
+  .settings_page_fl-builder-settings #wpbody:before {
+    position: absolute;
+    content: "";
+    width: 260px;
+    height: 170px;
+    background: url(../img/shape-bottom_left.png) no-repeat bottom left;
+    background-size: 270px;
+    left: -20px;
+    bottom: 0;
+  }
+  .settings_page_fl-builder-settings #wpbody:after {
+    position: absolute;
+    content: "";
+    width: 256px;
+    height: 310px;
+    background: url(../img/shape-bottom_right.png) no-repeat bottom left;
+    background-size: 256px;
+    right: 0;
+    bottom: 0;
+  }
+  #footer-left {
+    padding-left: 21%;
+  }
 }
 
 .curl-alert {
@@ -224,7 +352,7 @@ body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
 ----------------------------------------------------------- */
 
 #fl-user-access-form {
-	max-width: none;
+	max-width: 900px;
 }
 .fl-user-access-group {
     background: #fff;

@@ -111,7 +111,7 @@ var letterSpacing = wp.template( 'fl-builder-field-unit' )( {
 	unit_name: data.name + '[][letter_spacing][unit]',
 	unit_value: value.letter_spacing.unit,
 	field: {
-		units: [ 'px' ],
+		units: [ 'px','em', 'rem' ],
 		slider: {
 			min: -10,
 			max: 10,

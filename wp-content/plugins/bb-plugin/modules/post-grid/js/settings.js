@@ -34,6 +34,7 @@
 				layout = form.find( 'select[name=layout]' ),
 				postType = form.find( '#fl-field-post_type' ).find('select'),
 				showContent = form.find( 'select[name=show_content]' ),
+				showImage = form.find( 'select[name=show_image]' ),
 				dataSource = form.find( '#fl-field-data_source' ).find('select');
 
 			layout.on( 'change', this._layoutChanged.bind( this ) );
@@ -41,6 +42,7 @@
 			postType.on( 'change', this._toggleWooCommerceSection.bind( this ) );
 			dataSource.on( 'change', this._toggleWooCommerceSection.bind( this ) );
 			showContent.on( 'change', this._showContentChanged.bind(this) );
+			showImage.on( 'change', this._featuredImageDependencyChanged.bind(this) );
 			resizeFields.find( 'input' ).on( 'input', this._resizeLayout.bind( this ) );
 			resizeFields.find( 'select' ).on( 'change', this._resizeLayout.bind( this ) );
 			buttonBgColor.on( 'change', this._previewButtonBackground );
@@ -48,6 +50,7 @@
 			this._flipSettings();
 			this._toggleEventsSection();
 			this._toggleWooCommerceSection();
+			this._featuredImageDependencyChanged();
 		},
 
 		/**
@@ -56,6 +59,7 @@
 		 */
 		_layoutChanged: function() {
 			this._showContentChanged();
+			this._featuredImageDependencyChanged();
 		},
 
 		/**
@@ -69,7 +73,7 @@
 				dataSource = form.find('#fl-field-data_source select').val(),
 				selectedPostTypes = form.find( '#fl-field-post_type' ).find('select').val();
 
-			if ( tecEventsSection.length <= 0 || tecEventsButtonSection.length <= 0 || 'custom_query' !== dataSource ) {
+			if ( ( tecEventsSection.length <= 0 && tecEventsButtonSection.length <= 0 ) || 'custom_query' !== dataSource ) {
 				return;
 			}
 			if ( $.inArray( 'tribe_events', selectedPostTypes ) > -1 ) {
@@ -125,6 +129,56 @@
 				showContent = form.find('select[name=show_content]').val();
 
 			this._switchContentFields( '0' === showContent );
+		},
+
+		/**
+		 * Show Content Field Change event handler.
+		 * @since 2.4.2
+		 */
+		_featuredImageDependencyChanged: function() {
+			var form              = $('.fl-builder-settings'),
+				layout            = form.find( 'select[name=layout]' ).val(),
+				image             = form.find( 'select[name=show_image]' ).val(),
+				showImage         = form.find( '#fl-field-show_image' ),
+				imagePosition     = form.find( '#fl-field-image_position' ),
+				gridImagePosition = form.find( '#fl-field-grid_image_position' ),
+				imageSize         = form.find( '#fl-field-image_size' ),
+				gridImageSpacing  = form.find( '#fl-field-grid_image_spacing' ),
+				imageSpacing      = form.find( '#fl-field-image_spacing' ),
+				imageWidth        = form.find( '#fl-field-image_width' ),
+				imageFallback     = form.find( '#fl-field-image_fallback' );
+
+			showImage.hide();
+			imagePosition.hide();
+			gridImagePosition.hide();
+			imageSpacing.hide();
+			gridImageSpacing.hide();
+			imageSize.hide();
+			imageWidth.hide();
+			imageFallback.hide();
+
+			if ( 'columns' === layout || 'grid' === layout ) {
+				showImage.show();
+
+				if ( '1' === image ) {
+					gridImagePosition.show();
+					gridImageSpacing.show();
+					imageSize.show();
+					imageFallback.show();
+				}
+			} else if ( 'gallery' ===  layout ) {
+				imageFallback.show();
+			} else if ( 'feed' ===  layout ) {
+				showImage.show();
+
+				if ( '1' === image ) {
+					imagePosition.show();
+					imageSpacing.show();
+					imageWidth.show();
+					imageSize.show();
+					imageFallback.show();
+				}
+			}
 		},
 
 		/**

@@ -176,6 +176,11 @@ class FLButtonModule extends FLBuilderModule {
 		return $rel;
 	}
 
+	public function get_role() {
+		if ( isset( $this->settings->click_action ) && 'lightbox' === $this->settings->click_action ) {
+			return ' role="button"';
+		}
+	}
 }
 
 /**

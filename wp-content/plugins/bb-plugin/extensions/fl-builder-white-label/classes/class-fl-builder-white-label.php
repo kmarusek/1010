@@ -158,7 +158,7 @@ final class FLBuilderWhiteLabel {
 	 * @return string
 	 */
 	static public function get_default_branding_icon() {
-		return apply_filters( 'fl_builder_default_branding_icon', FL_BUILDER_URL . 'img/beaver.png' );
+		return apply_filters( 'fl_builder_default_branding_icon', FLBuilder::plugin_url() . 'img/beaver.png' );
 	}
 
 	/**

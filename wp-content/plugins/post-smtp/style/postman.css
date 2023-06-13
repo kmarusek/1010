@@ -1338,6 +1338,7 @@ h5#ps-progress {
     border-radius: 50px;
     display: inline-block;
     margin-right: 5px;
+    cursor: pointer;
 }
 
 
@@ -1536,4 +1537,9 @@ div#ps-email-log_length{
 
 #ps-email-log_paginate a {
     margin: 0 4px;
+}
+
+.ps-status-log {
+    display: inline-block;
+    font-family: inherit;
 }

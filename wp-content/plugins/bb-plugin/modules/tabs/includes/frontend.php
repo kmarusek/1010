@@ -80,7 +80,7 @@ if ( 'post' == $settings->source ) {
 					<div class="fl-tabs-panel-content fl-clearfix<?php if ( ($active_tab - 1)  == $i ) { echo ' fl-tab-active';} ?>" id="<?php echo 'fl-tabs-' . $module->node . '-panel-' . $i; ?>" data-index="<?php echo $i; ?>"<?php if ( ($active_tab - 1) !== $i ) { echo ' aria-hidden="true"';} ?> aria-labelledby="<?php echo 'fl-tabs-' . $module->node . '-label-' . $i; ?>" role="tabpanel" aria-live="polite"><?php // @codingStandardsIgnoreLine ?>
 						<?php
 						if ( 'none' === $settings->items[ $i ]->saved_layout ) {
-							echo wpautop( $wp_embed->autoembed( $settings->items[ $i ]->content ) );
+							echo FLBuilderUtils::wpautop( $wp_embed->autoembed( $settings->items[ $i ]->content ), $module );
 						} else {
 							$post_id = $settings->items[ $i ]->{'saved_' . $settings->items[ $i ]->saved_layout};
 
@@ -106,7 +106,18 @@ if ( 'post' == $settings->source ) {
 							<i class="fas<?php echo ( ( $active_tab - 1 ) !== $i || 'close-all' === $tabs_on_mobile ) ? ' fa-plus' : ''; ?>"></i>
 						</div>
 						<div class="fl-tabs-panel-content fl-clearfix<?php if ( ($active_tab - 1)  == $i ) { echo ' fl-tab-active';} ?>" id="<?php echo 'fl-tabs-' . $module->node . '-panel-' . $i; ?>" data-index="<?php echo $i; ?>"<?php if ( ($active_tab - 1) !== $i ) { echo ' aria-hidden="true"';} ?> aria-labelledby="<?php echo 'fl-tabs-' . $module->node . '-label-' . $i; ?>" role="tabpanel" aria-live="polite"><?php // @codingStandardsIgnoreLine ?>
-							<?php $module->render_content( get_the_id() ); ?>
+							<?php
+
+							$post_id = get_the_id();
+							if ( ! empty( $settings->content_type ) && 'post_content' === $settings->content_type ) {
+								$module->render_content( $post_id );
+							} else {
+								$module->render_excerpt( $post_id );
+							}
+							$more_link_text = ( ! empty( $settings->more_link ) && 'show' === $settings->more_link ) ? $settings->more_link_text : '';
+							$module->render_more_link( $post_id, $more_link_text );
+
+							?>
 						</div>
 					</div>
 					<?php

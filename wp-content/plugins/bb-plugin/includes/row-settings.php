@@ -75,11 +75,8 @@ $row_settings = array(
 							),
 							'help'    => __( 'Full height rows fill the height of the browser window. Minimum height rows are at least as tall as the value entered.', 'fl-builder' ),
 							'toggle'  => array(
-								'full'   => array(
-									'fields' => array( 'content_alignment' ),
-								),
 								'custom' => array(
-									'fields' => array( 'content_alignment', 'min_height' ),
+									'fields' => array( 'min_height' ),
 								),
 							),
 							'preview' => array(
@@ -118,7 +115,7 @@ $row_settings = array(
 								'bottom' => __( 'Bottom', 'fl-builder' ),
 							),
 							'preview' => array(
-								'type' => 'refresh',
+								'type' => 'none',
 							),
 						),
 						'aspect_ratio'      => array(
@@ -710,12 +707,11 @@ $row_settings = array(
 					'title'  => __( 'Background Gradient', 'fl-builder' ),
 					'fields' => array(
 						'bg_gradient' => array(
-							'type'    => 'gradient',
-							'label'   => __( 'Gradient', 'fl-builder' ),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '> .fl-row-content-wrap',
-								'property' => 'background-image',
+							'type'       => 'gradient',
+							'label'      => __( 'Gradient', 'fl-builder' ),
+							'responsive' => true,
+							'preview'    => array(
+								'type' => 'refresh',
 							),
 						),
 					),
@@ -833,20 +829,25 @@ $row_settings = array(
 					'title'  => __( 'Visibility', 'fl-builder' ),
 					'fields' => array(
 						'responsive_display'         => array(
-							'type'    => 'select',
-							'label'   => __( 'Breakpoint', 'fl-builder' ),
-							'options' => array(
-								''               => __( 'All', 'fl-builder' ),
-								'xl'             => __( 'Extra Large Devices Only', 'fl-builder' ),
-								'desktop'        => __( 'Extra Large &amp; Large Devices Only', 'fl-builder' ),
-								'desktop-medium' => __( 'Extra Large, Large &amp; Medium Devices Only', 'fl-builder' ),
-								'large'          => __( 'Large Devices Only', 'fl-builder' ),
-								'large-medium'   => __( 'Large &amp; Medium Devices Only', 'fl-builder' ),
-								'medium'         => __( 'Medium Devices Only', 'fl-builder' ),
-								'medium-mobile'  => __( 'Medium &amp; Small Devices Only', 'fl-builder' ),
-								'mobile'         => __( 'Small Devices Only', 'fl-builder' ),
+							'type'         => 'button-group',
+							'label'        => __( 'Breakpoint', 'fl-builder' ),
+							'options'      => array(
+								'desktop' => '<i class="dashicons dashicons-desktop"></i>',
+								'large'   => '<i class="dashicons dashicons-laptop"></i>',
+								'medium'  => '<i class="dashicons dashicons-tablet"></i>',
+								'mobile'  => '<i class="dashicons dashicons-smartphone"></i>',
 							),
-							'preview' => array(
+							'tooltip'      => array(
+								'desktop' => __( 'Extra Large', 'fl-builder' ),
+								'large'   => __( 'Large', 'fl-builder' ),
+								'medium'  => __( 'Medium', 'fl-builder' ),
+								'mobile'  => __( 'Mobile', 'fl-builder' ),
+							),
+							'default'      => 'desktop,large,medium,mobile',
+							'multi-select' => array(
+								'min' => 1,
+							),
+							'preview'      => array(
 								'type' => 'none',
 							),
 						),
@@ -945,8 +946,9 @@ $row_settings = array(
 					),
 				),
 				'export_import' => array(
-					'title'  => __( 'Export/Import', 'fl-builder' ),
-					'fields' => array(
+					'title'     => __( 'Export/Import', 'fl-builder' ),
+					'collapsed' => true,
+					'fields'    => array(
 						'export' => array(
 							'type'    => 'raw',
 							'label'   => __( 'Export', 'fl-builder' ),

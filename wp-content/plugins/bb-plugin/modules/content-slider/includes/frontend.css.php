@@ -10,6 +10,24 @@
 	max-width: <?php echo $settings->max_width; ?>px;
 }
 <?php
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-slide .fl-slide-title, .fl-node-$id .fl-slide .fl-slide-text, .fl-node-$id .fl-slide .fl-slide-text *",
+	'enabled'  => ! empty( $settings->common_text_color ),
+	'props'    => array(
+		'color' => $settings->common_text_color,
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-slide .fl-slide-content",
+	'enabled'  => ! empty( $settings->common_text_bg_color ),
+	'props'    => array(
+		'background-color' => $settings->common_text_bg_color,
+	),
+) );
+
+
 if ( $settings->arrows ) :
 	if ( isset( $settings->arrows_bg_color ) && ! empty( $settings->arrows_bg_color ) ) :
 		?>
@@ -144,12 +162,22 @@ for ( $i = 0; $i < count( $settings->slides ); $i++ ) {
 		// BG Color
 		if ( ! empty( $slide->text_bg_color ) ) {
 			echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-content ';
-			echo '{ background-color: ' . FLBuilderColor::hex_or_rgb( $slide->text_bg_color ) . ';';
-			echo 'padding-top: ' . $slide->text_padding_top . 'px;';
-			echo 'padding-right: ' . $slide->text_padding_right . 'px;';
-			echo 'padding-bottom: ' . $slide->text_padding_bottom . 'px;';
-			echo 'padding-left: ' . $slide->text_padding_left . 'px;}';
+			echo '{ background-color: ' . FLBuilderColor::hex_or_rgb( $slide->text_bg_color ) . ';}';
 		}
+
+		// Text Padding
+		FLBuilderCSS::dimension_field_rule( array(
+			'settings'     => $slide,
+			'unit'         => 'px',
+			'setting_name' => 'text_padding',
+			'selector'     => ".fl-builder-content .fl-node-$id .fl-slide-$i .fl-slide-content",
+			'props'        => array(
+				'padding-top'    => 'text_padding_top',
+				'padding-right'  => 'text_padding_right',
+				'padding-bottom' => 'text_padding_bottom',
+				'padding-left'   => 'text_padding_left',
+			),
+		) );
 
 		// Title
 		FLBuilderCSS::rule( array(

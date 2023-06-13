@@ -1,6 +1,6 @@
 <?php
 
-define( 'FL_PRICING_TABLE_URL', FL_BUILDER_URL . 'modules/pricing-table/' );
+define( 'FL_PRICING_TABLE_URL', FLBuilder::plugin_url() . 'modules/pricing-table/' );
 
 /**
  * @class FLPricingTableModule

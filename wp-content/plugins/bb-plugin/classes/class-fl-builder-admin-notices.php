@@ -62,7 +62,7 @@ final class FLBuilderAdminNotices {
 
 		wp_enqueue_script(
 			'fl-builder-admin-notices',
-			FL_BUILDER_URL . '/js/fl-builder-admin-notices.js',
+			FLBuilder::plugin_url() . '/js/fl-builder-admin-notices.js',
 			array( 'jquery' ),
 			FL_BUILDER_VERSION,
 			true

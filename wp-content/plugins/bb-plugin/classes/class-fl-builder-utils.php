@@ -374,4 +374,14 @@ final class FLBuilderUtils {
 
 		return round( pow( 1024, $base - floor( $base ) ), $precision ) . $suffixes[ floor( $base ) ];
 	}
+
+	/**
+	 * @since 2.7
+	 */
+	public static function wpautop( $content, $module = false ) {
+		if ( true === apply_filters( 'fl_enable_wpautop', true, $module ) ) {
+			return wpautop( $content );
+		}
+		return $content;
+	}
 }

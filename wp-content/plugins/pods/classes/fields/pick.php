@@ -152,6 +152,8 @@ class PodsField_Pick extends PodsField {
 
 		$simple_objects = $this->simple_objects();
 
+		$slow_text = __( '(may be slow for large data sets)', 'pods' );
+
 		$options = [
 			static::$type . '_format_type'              => [
 				'label'                 => __( 'Selection Type', 'pods' ),
@@ -163,6 +165,7 @@ class PodsField_Pick extends PodsField {
 					'single' => __( 'Single Select', 'pods' ),
 					'multi'  => __( 'Multiple Select', 'pods' ),
 				],
+				'pick_format_single' => 'dropdown',
 				'pick_show_select_text' => 0,
 				'dependency'            => true,
 			],
@@ -176,13 +179,33 @@ class PodsField_Pick extends PodsField {
 				'required'              => true,
 				'type'                  => 'pick',
 				'data'                  => apply_filters( 'pods_form_ui_field_pick_format_single_options', [
-					'dropdown'     => __( 'Drop Down', 'pods' ),
-					'radio'        => __( 'Radio Buttons', 'pods' ),
+					'dropdown'     => __( 'Drop Down', 'pods' ) . ' ' . $slow_text,
+					'radio'        => __( 'Radio Buttons', 'pods' ) . ' ' . $slow_text,
 					'autocomplete' => __( 'Autocomplete', 'pods' ),
 					'list'         => __( 'List View (single value)', 'pods' ),
 				] ),
+				'pick_format_single' => 'dropdown',
 				'pick_show_select_text' => 0,
 				'dependency'            => true,
+			],
+			static::$type . '_format_single_help'         => [
+				'label'             => '',
+				'type'              => 'html',
+				'default'           => 0,
+				'html_content'      => '<p><em>' . esc_html__( 'Please note: When relating to dynamic content with large amounts of data, Drop Down or Radio Buttons can cause the edit screen to load very slowly because it loads all data at once. Consider using the Autocomplete or List View instead.', 'pods' ) . '</em></p>',
+				'dependency'        => true,
+				'wildcard-on' => [
+					static::$type . '_format_single' => [
+						'^dropdown$',
+						'^radio$',
+					],
+					static::$type . '_object' => [
+						'^post_type-(?!(custom_css|customize_changeset)).*$',
+						'^taxonomy-.*$',
+						'^user$',
+						'^pod-.*$',
+					],
+				],
 			],
 			static::$type . '_format_multi'             => [
 				'label'                 => __( 'Input Type', 'pods' ),
@@ -194,13 +217,33 @@ class PodsField_Pick extends PodsField {
 				'required'              => true,
 				'type'                  => 'pick',
 				'data'                  => apply_filters( 'pods_form_ui_field_pick_format_multi_options', [
-					'checkbox'     => __( 'Checkboxes', 'pods' ),
-					'multiselect'  => __( 'Multi Select (basic selection)', 'pods' ),
+					'checkbox'     => __( 'Checkboxes', 'pods' ) . ' ' . $slow_text,
+					'multiselect'  => __( 'Multi Select (basic selection)', 'pods' ) . ' ' . $slow_text,
 					'autocomplete' => __( 'Autocomplete', 'pods' ),
 					'list'         => __( 'List View (with reordering)', 'pods' ),
 				] ),
+				'pick_format_single' => 'dropdown',
 				'pick_show_select_text' => 0,
 				'dependency'            => true,
+			],
+			static::$type . '_format_multi_help'         => [
+				'label'             => '',
+				'type'              => 'html',
+				'default'           => 0,
+				'html_content'      => '<p><em>' . esc_html__( 'Please note: When relating to dynamic content with large amounts of data, Checkboxes or Multi Select can cause the edit screen to load very slowly because it loads all data at once. Consider using the Autocomplete or List View instead.', 'pods' ) . '</em></p>',
+				'dependency'        => true,
+				'wildcard-on' => [
+					static::$type . '_format_multi' => [
+						'^checkbox$',
+						'^multiselect$',
+					],
+					static::$type . '_object' => [
+						'^post_type-(?!(custom_css|customize_changeset)).*$',
+						'^taxonomy-.*$',
+						'^user$',
+						'^pod-.*$',
+					],
+				],
 			],
 			static::$type . '_display_format_multi'     => [
 				'label'                 => __( 'Display Format', 'pods' ),
@@ -216,6 +259,7 @@ class PodsField_Pick extends PodsField {
 					'non_serial' => __( 'Item 1, Item 2 and Item 3', 'pods' ),
 					'custom'     => __( 'Custom separator (without "and")', 'pods' ),
 				],
+				'pick_format_single' => 'dropdown',
 				'pick_show_select_text' => 0,
 				'dependency'            => true,
 			],
@@ -362,6 +406,7 @@ class PodsField_Pick extends PodsField {
 				'type'             => 'pick',
 				'pick_object'      => 'role',
 				'pick_format_type' => 'multi',
+				'pick_format_multi' => 'autocomplete',
 				'depends-on'       => [
 					static::$type . '_object' => 'user',
 				],

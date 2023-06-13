@@ -24,6 +24,8 @@ var FLBuilderCountdownIntervals = FLBuilderCountdownIntervals || [];
 		this.secondsLabel		 = $( this.secondsWrapper + ' .fl-countdown-unit-label' ).data( 'label' );
 		this.timestamp			 = settings.time;
 		this.type				 = settings.type;
+		this.redirect			 = settings.redirect;
+		this.redirect_url		 = settings.redirect_url;
 
 		// initialize the countdown
 		this._initCountdown();
@@ -43,7 +45,6 @@ var FLBuilderCountdownIntervals = FLBuilderCountdownIntervals || [];
 		secondsWrapper          : '',
 		secondsLabel            : '',
 		timestamp               : '',
-		_timeInterval			: '',
 
 		/**
 		 * Gets the defined timestamp and return the remaining time.
@@ -74,7 +75,7 @@ var FLBuilderCountdownIntervals = FLBuilderCountdownIntervals || [];
 		 * @since  1.6.4
 		 * @return void
 		 */
-		_setTimeRemaining: function(){
+		_setTimeRemaining: function(shouldRedirect){
 			var t        = this._getTimeRemaining( this.timestamp ),
 				wrappers = {
 					days  	: $( this.dateWrapper ),
@@ -87,14 +88,26 @@ var FLBuilderCountdownIntervals = FLBuilderCountdownIntervals || [];
 					hours 	: this.hoursLabel,
 					minutes : this.minutesLabel,
 					seconds : this.secondsLabel,
-				};
+				},
+				redirect = shouldRedirect && 'disabled' !== this.redirect || false,
+				url      = this.redirect_url || '';
+
+			if ('undefined' !== typeof FLBuilder) {
+				redirect = false;
+			}
 
 			if( t.total <= 0 ){
-				clearInterval( this._timeInterval );
+				clearInterval( FLBuilderCountdownIntervals[ this.nodeID ] );
 				$.each( wrappers, function( type, element ){
 					element.find('.fl-countdown-unit-number').html( '00' );
 				} );
 
+				// redirect if countdown finish
+				if (!!redirect && 0 < url.length) {
+					setTimeout(() => {
+						window.location.href = url;
+					}, 1000);
+				}
 			} else {
 				$.each( wrappers, function( type, element ){
 					element.find('.fl-countdown-unit-number').html( t[type] );
@@ -147,19 +160,21 @@ var FLBuilderCountdownIntervals = FLBuilderCountdownIntervals || [];
 				return;
 			}
 
-			this._setTimeRemaining();
-			if( this.type == 'circle' ){
-				this._setCircleCount();
-			}
-
 			clearInterval( FLBuilderCountdownIntervals[ this.nodeID ] );
-			FLBuilderCountdownIntervals[ this.nodeID ] = setInterval( function(){
-				self._setTimeRemaining();
+
+			FLBuilderCountdownIntervals[ this.nodeID ] = setInterval( function() {
+				self._setTimeRemaining(true);
+
 				if( self.type == 'circle' ){
 					self._setCircleCount();
 				}
 			}, 1000 );
 
+			this._setTimeRemaining('always' === self.redirect);
+
+			if( this.type == 'circle' ){
+				this._setCircleCount();
+			}
 		},
 
 	};

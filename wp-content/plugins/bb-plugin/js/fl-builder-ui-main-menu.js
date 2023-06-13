@@ -109,8 +109,8 @@
 
             // Render Panel
             this.template = wp.template(this.templateName);
-            $('body').prepend( this.template(this) );
-            this.$el = $('.fl-builder--main-menu-panel');
+            $( 'body', window.parent.document ).prepend( this.template(this) );
+            this.$el = $('.fl-builder--main-menu-panel', window.parent.document);
             this.$el.find('.fl-builder--main-menu-panel-views').html('');
 
             // Render Views
@@ -119,13 +119,13 @@
             }
 
             // Event Listeners
-            $('body').on('click', '.fl-builder--main-menu-panel .pop-view', this.goToPreviousView.bind(this));
+            $('body', window.parent.document).on('click', '.fl-builder--main-menu-panel .pop-view', this.goToPreviousView.bind(this));
 
             this.$tabs = this.$el.find('.fl-builder--tabs > span'); /* on purpose */
             this.$tabs.on('click', this.onItemClick.bind(this));
 
-            this.$barTitle = $('.fl-builder-bar-title'); /* on purpose */
-            $('body').on('click', '.fl-builder-bar-title', this.toggle.bind(this));
+            this.$barTitle = $('.fl-builder-bar-title', window.parent.document); /* on purpose */
+            $('body', window.parent.document).on('click', '.fl-builder-bar-title', this.toggle.bind(this));
 
             var hide = this.hide.bind(this);
             FLBuilder.addHook('didShowPublishActions', hide);
@@ -138,7 +138,7 @@
             FLBuilder.addHook('didFailSettingsSave', hide);
             FLBuilder.addHook('showKeyboardShortcuts', hide);
 
-            this.$mask = $('.fl-builder--main-menu-panel-mask');
+            this.$mask = $('.fl-builder--main-menu-panel-mask', window.parent.document);
             this.$mask.on('click', hide);
 
             Tools.init();
@@ -161,7 +161,7 @@
             view.init();
             $html = $( view.render() );
             view.$el = $html;
-            $( '.fl-builder--main-menu-panel-views' ).append( $html );
+            $( '.fl-builder--main-menu-panel-views', window.parent.document ).append( $html );
             view.bindEvents();
             view.$el.find( '.fl-builder--menu-item' ).on( 'click', this.onItemClick.bind( this ) );
 
@@ -230,7 +230,7 @@
         * @return void
         */
         onItemClick: function(e) {
-            var $item = $(e.currentTarget),
+            var $item = $(e.currentTarget, window.parent.document),
                 type = $item.data('type');
 
             switch (type) {
@@ -276,7 +276,7 @@
             currentView.transitionOut(true);
             newView.transitionIn(true);
             this.currentView = newView;
-            $('.fl-builder-bar-title-caret').focus();
+            $('.fl-builder-bar-title-caret', window.parent.document).focus();
         },
 
         /**
@@ -390,22 +390,22 @@
         * @var Event
         * @return void
         */
-				toggleUISkin: function(e) {
-					const colorScheme = FL.Builder.data.getSystemState().colorScheme;
-					let newColorScheme = ''
+		toggleUISkin: function(e) {
+			const colorScheme = FL.Builder.data.getSystemState().colorScheme;
+			let newColorScheme = ''
 
-					// cycle modes...
-					if ( 'light' === colorScheme ) {
-						newColorScheme = 'dark';
-					} else if ( 'dark' === colorScheme ) {
-						newColorScheme = 'auto';
-					} else {
-						newColorScheme = 'light';
-					}
+			// cycle modes...
+			if ( 'light' === colorScheme ) {
+				newColorScheme = 'dark';
+			} else if ( 'dark' === colorScheme ) {
+				newColorScheme = 'auto';
+			} else {
+				newColorScheme = 'light';
+			}
 
-					FL.Builder.data.getSystemActions().setColorScheme( newColorScheme );
-					$('.current-mode').html( '(' + newColorScheme + ')' );
-				},
+			FL.Builder.data.getSystemActions().setColorScheme( newColorScheme );
+			$('.current-mode').html( '(' + newColorScheme + ')' );
+		},
 
         /**
         * @return void

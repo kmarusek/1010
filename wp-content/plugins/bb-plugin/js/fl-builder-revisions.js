@@ -18,9 +18,9 @@
 		{
 			this.setupMainMenuData();
 
-			$( '.fl-builder--revision-actions select' ).on( 'change', this.selectChanged );
-			$( '.fl-cancel-revision-preview' ).on( 'click', this.exitPreview.bind( this ) );
-			$( '.fl-apply-revision-preview' ).on( 'click', this.applyClicked.bind( this ) );
+			$( '.fl-builder--revision-actions select', window.parent.document ).on( 'change', this.selectChanged );
+			$( '.fl-cancel-revision-preview', window.parent.document ).on( 'click', this.exitPreview.bind( this ) );
+			$( '.fl-apply-revision-preview', window.parent.document ).on( 'click', this.applyClicked.bind( this ) );
 
 			FLBuilder.addHook( 'revisionItemClicked', this.itemClicked.bind( this ) );
 			FLBuilder.addHook( 'didPublishLayout', this.refreshItems.bind( this ) );
@@ -37,7 +37,7 @@
 			var posts    = FLBuilderConfig.revisions.posts,
 				authors  = FLBuilderConfig.revisions.authors,
 				template = wp.template( 'fl-revision-list-item' ),
-				select   = $( '.fl-builder--revision-actions select' ),
+				select   = $( '.fl-builder--revision-actions select', window.parent.document ),
 				date     = '',
 				author   = '',
 				i        = 0;
@@ -126,7 +126,7 @@
 				return;
 			}
 
-			$( '.fl-builder--revision-actions select' ).val( id );
+			$( '.fl-builder--revision-actions select', window.parent.document ).val( id );
 
 			this.preview( id );
 		},
@@ -152,7 +152,7 @@
 		 */
 		applyClicked: function( e )
 		{
-			var id = $( '.fl-builder--revision-actions select' ).val();
+			var id = $( '.fl-builder--revision-actions select', window.parent.document ).val();
 
 			Revisions.restore( id );
 		},
@@ -166,7 +166,8 @@
 		 */
 		preview: function( id )
 		{
-			$( '.fl-builder--revision-actions' ).css( 'display', 'flex' );
+			$( '.fl-builder--revision-actions', window.parent.document ).css( 'display', 'flex' );
+
 			FLBuilder.triggerHook( 'didEnterRevisionPreview' );
 			FLBuilder.showAjaxLoader();
 
@@ -199,7 +200,8 @@
 		 */
 		exitPreview: function()
 		{
-			$( '.fl-builder--revision-actions' ).hide();
+			$( '.fl-builder--revision-actions', window.parent.document ).hide();
+
 			FLBuilder.triggerHook( 'didExitRevisionPreview' );
 			FLBuilder._bindOverlayEvents();
 			FLBuilder._updateLayout();
@@ -214,7 +216,8 @@
 		 */
 		restore: function( id )
 		{
-			$( '.fl-builder--revision-actions' ).hide();
+			$( '.fl-builder--revision-actions', window.parent.document ).hide();
+
 			FLBuilder.triggerHook( 'didExitRevisionPreview' );
 			FLBuilder.showAjaxLoader();
 			FLBuilder._bindOverlayEvents();

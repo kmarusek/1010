@@ -97,8 +97,27 @@ FLBuilderCSS::rule( array(
 FLBuilderCSS::rule( array(
 	'selector' => ".fl-node-$id > .fl-row-content-wrap",
 	'enabled'  => 'gradient' === $settings->bg_type,
+	'media'    => 'default',
 	'props'    => array(
 		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient ),
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id > .fl-row-content-wrap",
+	'enabled'  => 'gradient' === $settings->bg_type && ! empty( $settings->bg_gradient_medium ) && ! empty( array_filter( $settings->bg_gradient_medium['colors'] ) ),
+	'media'    => 'medium',
+	'props'    => array(
+		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient_medium ),
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id > .fl-row-content-wrap",
+	'enabled'  => 'gradient' === $settings->bg_type && ! empty( $settings->bg_gradient_responsive ) && ! empty( array_filter( $settings->bg_gradient_responsive['colors'] ) ),
+	'media'    => 'responsive',
+	'props'    => array(
+		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient_responsive ),
 	),
 ) );
 

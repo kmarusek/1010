@@ -57,14 +57,14 @@ final class FLBuilderWPBlocks {
 
 		wp_enqueue_style(
 			'fl-builder-wp-editor',
-			FL_BUILDER_URL . 'css/build/wp-editor.bundle' . $min . '.css',
+			FLBuilder::plugin_url() . 'css/build/wp-editor.bundle' . $min . '.css',
 			array(),
 			FL_BUILDER_VERSION
 		);
 
 		wp_enqueue_script(
 			'fl-builder-wp-editor',
-			FL_BUILDER_URL . 'js/build/wp-editor.bundle' . $min . '.js',
+			FLBuilder::plugin_url() . 'js/build/wp-editor.bundle' . $min . '.js',
 			array( 'wp-edit-post' ),
 			FL_BUILDER_VERSION
 		);

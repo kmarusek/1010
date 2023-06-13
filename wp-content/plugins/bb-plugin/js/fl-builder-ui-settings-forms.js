@@ -130,7 +130,7 @@
 		 * @method cacheCurrentSettings
 		 */
 		cacheCurrentSettings: function() {
-			var form = $('.fl-builder-settings:visible');
+			var form = $('.fl-builder-settings:visible', window.parent.document);
 
 			if (!form.closest('.fl-lightbox-wrap[data-parent]').length) {
 				this.settings = FLBuilder._getSettingsForChangedCheck(this.config.nodeId, form);
@@ -176,7 +176,7 @@
 		renderLightbox: function( config ) {
 			var template 	= wp.template( 'fl-builder-settings' ),
 				form	 	= FLBuilder._lightbox._node.find( 'form.fl-builder-settings' ),
-				nested   	= $( '.fl-lightbox-wrap[data-parent]' ),
+				nested   	= $( '.fl-lightbox-wrap[data-parent]', window.parent.document ),
 				cachedTabId = localStorage.getItem( 'fl-builder-settings-tab' );
 
 			// Don't render a node form if it's already open.
@@ -390,7 +390,7 @@
 		 * @return {Boolean}
 		 */
 		renderLegacySettings: function( config, callback ) {
-			var form     = $( '.fl-builder-settings:visible' ),
+			var form     = $( '.fl-builder-settings:visible', window.parent.document ),
 				name     = null,
 				ele      = null,
 				render   = false,
@@ -475,10 +475,10 @@
 
 			// Get the form object.
 			if ( data.lightbox ) {
-				lightbox = $( '.fl-builder-lightbox[data-instance-id=' + data.lightbox + ']' );
+				lightbox = $( '.fl-builder-lightbox[data-instance-id=' + data.lightbox + ']', window.parent.document );
 				form = lightbox.length ? lightbox.find( '.fl-builder-settings' ) : null;
 			} else {
-				form = $( '.fl-builder-settings:visible' );
+				form = $( '.fl-builder-settings:visible', window.parent.document );
 				lightbox = form.closest( '.fl-builder-lightbox' );
 			}
 
@@ -489,13 +489,13 @@
 
 			// Fields
 			for ( name in data.fields ) {
-				field = $( '#fl-field-' + name ).attr( 'id', '' );
+				field = $( '#fl-field-' + name, window.parent.document ).attr( 'id', '' );
 				field.after( data.fields[ name ] ).remove();
 			}
 
 			// Field extras
 			for ( name in data.extras ) {
-				field = $( '#fl-field-' + name ).find( '.fl-field-control-wrapper' );
+				field = $( '#fl-field-' + name, window.parent.document ).find( '.fl-field-control-wrapper' );
 				if ( data.extras[ name ].multiple ) {
 					field.each( function( i, field_item ) {
 						if ( ( i in data.extras[ name ].before ) && ( data.extras[ name ].before[ i ] != "" ) ) {
@@ -534,14 +534,14 @@
 			// Sections
 			for ( tab in data.sections ) {
 				for ( name in data.sections[ tab ] ) {
-					section = $( '#fl-builder-settings-section-' + name );
+					section = $( '#fl-builder-settings-section-' + name, window.parent.document );
 					section.html( data.sections[ tab ][ name ] );
 				}
 			}
 
 			// Tabs
 			for ( name in data.tabs ) {
-				tab = $( '#fl-builder-settings-tab-' + name );
+				tab = $( '#fl-builder-settings-tab-' + name, window.parent.document );
 				tab.html( data.tabs[ name ] );
 			}
 
@@ -573,7 +573,7 @@
 		 * @return {Object}
 		 */
 		getLegacyVars: function() {
-			var form     = $( '.fl-builder-settings:visible' ),
+			var form     = $( '.fl-builder-settings:visible', window.parent.document ),
 				lightbox = form.closest( '.fl-builder-lightbox' ),
 				parent   = lightbox.attr( 'data-parent' ),
 				settings = null,
@@ -581,7 +581,7 @@
 				vars     = {};
 
 			if ( parent ) {
-				parent   = $( '.fl-builder-lightbox[data-instance-id=' + parent + ']' );
+				parent   = $( '.fl-builder-lightbox[data-instance-id=' + parent + ']', window.parent.document );
 				form     = parent.find( 'form.fl-builder-settings' );
 				settings = FLBuilder._getSettings( form );
 				nodeId   = form.attr( 'data-node' );
@@ -620,7 +620,7 @@
 		 */
 		closeOnDeleteNode: function( e )
 		{
-			var settings = $( '.fl-builder-settings[data-node]' ),
+			var settings = $( '.fl-builder-settings[data-node]', window.parent.document ),
 				selector = FLBuilder._contentClass + ' .fl-node-' + settings.data( 'node' );
 
 			if ( settings.length && ! $( selector ).length ) {
@@ -635,7 +635,7 @@
 		 * @method showLightboxLoader
 		 */
 		showLightboxLoader: function() {
-			$( '.fl-builder-settings:visible' ).append( '<div class="fl-builder-loading"></div>' );
+			$( '.fl-builder-settings:visible', window.parent.document ).append( '<div class="fl-builder-loading"></div>' );
 		},
 
 		/**
@@ -645,7 +645,7 @@
 		 * @method hideLightboxLoader
 		 */
 		hideLightboxLoader: function( ele ) {
-			$( '.fl-builder-settings:visible .fl-builder-loading' ).remove();
+			$( '.fl-builder-settings:visible .fl-builder-loading', window.parent.document ).remove();
 		},
 
 		/**

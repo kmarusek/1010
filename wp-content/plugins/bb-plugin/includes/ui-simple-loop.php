@@ -28,9 +28,10 @@ $settings     = (object) array_merge( $defaults, $tab_defaults, (array) $setting
 				<?php
 				// Post type
 				FLBuilder::render_settings_field('post_type', array(
-					'type'      => 'post-type',
-					'label'     => __( 'Post Type', 'fl-builder' ),
-					'row_class' => 'fl-custom-query',
+					'type'         => 'post-type',
+					'label'        => __( 'Post Type', 'fl-builder' ),
+					'row_class'    => 'fl-custom-query',
+					'multi-select' => true,
 				), $settings);
 
 				// Number of Posts

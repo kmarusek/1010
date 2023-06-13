@@ -1,3 +1,8 @@
+= 7.70 =
+**Added**
+
+* Hooks that allow excluding specific database tables on export
+
 = 7.69 =
 **Added**
 

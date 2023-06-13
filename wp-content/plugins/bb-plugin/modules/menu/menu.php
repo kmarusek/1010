@@ -146,7 +146,7 @@ class FLMenuModule extends FLBuilderModule {
 	 */
 	public static function _get_menus() {
 		$get_menus = get_terms( 'nav_menu', array(
-			'hide_empty' => true,
+			'hide_empty'             => true,
 			'update_term_meta_cache' => false,
 		) );
 		$fields    = array(
@@ -525,7 +525,7 @@ class FLMenuModule extends FLBuilderModule {
 
 		$core_menus = array();
 		$nav_terms  = get_terms( 'nav_menu', array(
-			'hide_empty' => true,
+			'hide_empty'             => true,
 			'update_term_meta_cache' => false,
 		) );
 

@@ -306,8 +306,9 @@ final class FLBuilderCSS {
 				$props['line-height'] .= $setting['line_height']['unit'];
 			}
 		}
-		if ( isset( $setting['letter_spacing'] ) && '' !== strval( $setting['letter_spacing']['length'] ) ) {
-			$props['letter-spacing'] = floatval( $setting['letter_spacing']['length'] ) . 'px';
+		if ( isset( $setting['letter_spacing'] ) && isset( $setting['letter_spacing']['length'] ) && '' !== strval( $setting['letter_spacing']['length'] ) ) {
+			$unit                    = isset( $setting['letter_spacing']['unit'] ) && '' !== $setting['letter_spacing']['unit'] ? $setting['letter_spacing']['unit'] : 'px';
+			$props['letter-spacing'] = floatval( $setting['letter_spacing']['length'] ) . $unit;
 		}
 		if ( isset( $setting['text_align'] ) ) {
 			$props['text-align'] = $setting['text_align'];

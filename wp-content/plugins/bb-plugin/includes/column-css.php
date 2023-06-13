@@ -62,6 +62,7 @@
 <?php
 
 $responsive_enabled = $global_settings->responsive_enabled;
+$reverse_stack      = explode( ',', $col->settings->responsive_order );
 
 // Width - Desktop
 FLBuilderCSS::rule( array(
@@ -116,17 +117,6 @@ FLBuilderCSS::rule( array(
 	),
 ) );
 
-// Stacking Order - Responsive
-FLBuilderCSS::rule( array(
-	'media'    => 'responsive',
-	'selector' => ".fl-col-group-custom-width.fl-col-group-responsive-reversed .fl-node-$id",
-	'enabled'  => 'reversed' == $settings->responsive_order && '' !== $settings->size_responsive && $responsive_enabled,
-	'props'    => array(
-		'flex-basis' => "{$settings->size_responsive}%",
-		'margin'     => '0',
-	),
-) );
-
 // Background Color
 FLBuilderCSS::rule( array(
 	'selector' => ".fl-node-$id > .fl-col-content",
@@ -142,6 +132,24 @@ FLBuilderCSS::rule( array(
 	'enabled'  => 'gradient' === $settings->bg_type,
 	'props'    => array(
 		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient ),
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id > .fl-col-content",
+	'enabled'  => 'gradient' === $settings->bg_type && ! empty( $settings->bg_gradient_medium ) && ! empty( array_filter( $settings->bg_gradient_medium['colors'] ) ),
+	'media'    => 'medium',
+	'props'    => array(
+		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient_medium ),
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id > .fl-col-content",
+	'enabled'  => 'gradient' === $settings->bg_type && ! empty( $settings->bg_gradient_responsive ) && ! empty( array_filter( $settings->bg_gradient_responsive['colors'] ) ),
+	'media'    => 'responsive',
+	'props'    => array(
+		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient_responsive ),
 	),
 ) );
 

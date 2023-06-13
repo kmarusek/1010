@@ -446,11 +446,11 @@ class FLPhotoModule extends FLBuilderModule {
 	 * @method _get_cropped_path
 	 * @protected
 	 */
-	protected function _get_cropped_path() {
+	protected function _get_cropped_path( $node = true ) {
 		$crop      = empty( $this->settings->crop ) ? 'none' : $this->settings->crop;
 		$url       = $this->_get_uncropped_url();
 		$cache_dir = FLBuilderModel::get_cache_dir();
-
+		$cache_id  = $node ? sprintf( '-%s-%s', md5( $url ), $this->node ) : '';
 		if ( empty( $url ) ) {
 			$filename = FLBuilderModel::uniqid(); // Return a file that doesn't exist.
 		} else {
@@ -467,10 +467,16 @@ class FLPhotoModule extends FLBuilderModule {
 				$ext      = $pathinfo['extension'];
 				$name     = wp_basename( $url, ".$ext" );
 				$new_ext  = strtolower( $ext );
-				$filename = "{$name}-{$crop}.{$new_ext}";
+				$filename = "{$name}-{$crop}{$cache_id}.{$new_ext}";
 			} else {
-				$filename = $pathinfo['filename'] . "-{$crop}.png";
+				$filename = $pathinfo['filename'] . "-{$crop}{$cache_id}.png";
 			}
+		}
+
+		// upgrade, remove duplicate file if it exists without the cacheid
+		$oldfile = str_replace( $cache_id, '', $filename );
+		if ( file_exists( $cache_dir['path'] . $oldfile ) ) {
+			fl_builder_filesystem()->unlink( $cache_dir['path'] . $oldfile );
 		}
 
 		return array(
@@ -490,7 +496,7 @@ class FLPhotoModule extends FLBuilderModule {
 		} elseif ( ! empty( $this->settings->photo_src ) ) {
 			$url = $this->settings->photo_src;
 		} else {
-			$url = apply_filters( 'fl_builder_photo_noimage', FL_BUILDER_URL . 'img/pixel.png' );
+			$url = apply_filters( 'fl_builder_photo_noimage', FLBuilder::plugin_url() . 'img/pixel.png' );
 		}
 
 		return $url;
@@ -501,7 +507,7 @@ class FLPhotoModule extends FLBuilderModule {
 	 * @protected
 	 */
 	protected function _get_cropped_demo_url() {
-		$info = $this->_get_cropped_path();
+		$info = $this->_get_cropped_path( false );
 		$src  = $this->settings->photo_src;
 
 		// Pull from a demo subsite.

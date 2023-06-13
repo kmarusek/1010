@@ -61,7 +61,10 @@
 		_init: function()
 		{
 			this._bind();
-			this._initMediaQueries();
+
+			if ( ! FLBuilder.UIIFrame.isEnabled() ) {
+				this._initMediaQueries();
+			}
 		},
 
 		/**
@@ -77,10 +80,10 @@
 			FLBuilder.addHook( 'didEnterRevisionPreview', this._clearPreview );
 			FLBuilder.addHook( 'responsiveEditing', this._menuToggleClicked );
 			FLBuilder.addHook( 'preview-init', this._switchAllSettingsToCurrentMode );
-			FLBuilder.addHook( 'responsive-editing-switched', this._showSize );
+			FLBuilder.addHook( 'responsive-editing-switched', this._updateSizeText );
 
-			$( 'body' ).on( 'click', '.fl-field-responsive-toggle', this._settingToggleClicked );
-			$( 'body' ).on( 'click', '.fl-responsive-preview-message button', this._previewToggleClicked );
+			$( 'body', window.parent.document ).on( 'click', '.fl-field-responsive-toggle', this._settingToggleClicked );
+			$( 'body', window.parent.document ).on( 'click', '.fl-responsive-preview-message button', this._previewToggleClicked );
 		},
 
 		/**
@@ -118,8 +121,11 @@
 			] );
 		},
 
-		_showSize: function() {
-				var show_size = $('.fl-responsive-preview-message .size' ),
+		/**
+		 * Updates the size text in the preview UI.
+		 */
+		_updateSizeText: function() {
+			var show_size = $('.fl-responsive-preview-message .size' ),
 				large = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.large_breakpoint : 1200,
 				medium = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.medium_breakpoint : 769,
 				responsive = ( '1' === FLBuilderConfig.global.responsive_preview ) ? FLBuilderConfig.global.responsive_breakpoint : 360,
@@ -145,7 +151,7 @@
 		 */
 		_switchTo: function( mode, callback )
 		{
-			var html		= $( 'html' ),
+			var html		= $( 'html' ).add( 'html', window.parent.document ),
 				body        = $( 'body' ),
 				content     = $( FLBuilder._contentClass ),
 				preview     = $( '.fl-responsive-preview' ),
@@ -156,62 +162,70 @@
 			// Save the new mode.
 			FLBuilderResponsiveEditing._mode = mode;
 
-			// Setup the preview.
-			if ( 'default' == mode ) {
+			// Run the legacy UI, otherwise, use the iframe UI.
+			if ( ! FLBuilder.UIIFrame.isEnabled() ) {
 
-				if ( 0 === placeholder.length ) {
-					return;
+				// Setup the preview.
+				if ( 'default' == mode ) {
+
+					if ( 0 === placeholder.length ) {
+						return;
+					}
+
+					html.removeClass( 'fl-responsive-preview-enabled' );
+					placeholder.after( content );
+					placeholder.remove();
+					preview.remove();
+					mask.remove();
+				}
+				else if ( 0 === preview.length ) {
+					html.addClass( 'fl-responsive-preview-enabled' );
+					content.after( '<div class="fl-content-placeholder"></div>' );
+					body.prepend( wp.template( 'fl-responsive-preview' )() );
+					$( '.fl-responsive-preview' ).addClass( 'fl-preview-' + mode );
+					$( '.fl-responsive-preview-content' ).append( content );
+				}
+				else {
+					preview.removeClass( 'fl-preview-responsive fl-preview-medium' );
+					preview.addClass( 'fl-preview-' + mode  );
 				}
 
-				html.removeClass( 'fl-responsive-preview-enabled' );
-				placeholder.after( content );
-				placeholder.remove();
-				preview.remove();
-				mask.remove();
-			}
-			else if ( 0 === preview.length ) {
-				html.addClass( 'fl-responsive-preview-enabled' );
-				content.after( '<div class="fl-content-placeholder"></div>' );
-				body.prepend( wp.template( 'fl-responsive-preview' )() );
-				$( '.fl-responsive-preview' ).addClass( 'fl-preview-' + mode );
-				$( '.fl-responsive-preview-content' ).append( content );
-			}
-			else {
-				preview.removeClass( 'fl-preview-responsive fl-preview-medium' );
-				preview.addClass( 'fl-preview-' + mode  );
-			}
+				// Set the content width and apply media queries.
+				if ( 'responsive' == mode ) {
+					width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.responsive_breakpoint >= 360 ) ? 360 : FLBuilderConfig.global.responsive_breakpoint;
+					content.width( width );
+					FLBuilderSimulateMediaQuery.update( width, callback );
+					FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
+				}
+				else if ( 'medium' == mode ) {
+					width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.medium_breakpoint >= 769 ) ? 769 : FLBuilderConfig.global.medium_breakpoint;
+					content.width( width );
+					FLBuilderSimulateMediaQuery.update( width, callback );
+					FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
+				}
+				else if ( 'large' == mode ) {
+					width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.large_breakpoint >= 1200 ) ? 1200 : FLBuilderConfig.global.large_breakpoint;
+					content.width( width );
+					FLBuilderSimulateMediaQuery.update( width, callback );
+					FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
+				}
+				else {
+					content.width( '' );
+					FLBuilderSimulateMediaQuery.update( null, callback );
+				}
 
-			// Set the content width and apply media queries.
-			if ( 'responsive' == mode ) {
-				width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.responsive_breakpoint >= 360 ) ? 360 : FLBuilderConfig.global.responsive_breakpoint;
-				content.width( width );
-				FLBuilderSimulateMediaQuery.update( width, callback );
-				FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
-			}
-			else if ( 'medium' == mode ) {
-				width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.medium_breakpoint >= 769 ) ? 769 : FLBuilderConfig.global.medium_breakpoint;
-				content.width( width );
-				FLBuilderSimulateMediaQuery.update( width, callback );
-				FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
-			}
-			else if ( 'large' == mode ) {
-				width = ( '1' !== FLBuilderConfig.global.responsive_preview && FLBuilderConfig.global.large_breakpoint >= 1200 ) ? 1200 : FLBuilderConfig.global.large_breakpoint;
-				content.width( width );
-				FLBuilderSimulateMediaQuery.update( width, callback );
-				FLBuilderResponsiveEditing._setMarginPaddingPlaceholders();
-			}
-			else {
-				content.width( '' );
-				FLBuilderSimulateMediaQuery.update( null, callback );
-			}
+				// Set the content background color.
+				this._setContentBackgroundColor();
 
-			// Set the content background color.
-			this._setContentBackgroundColor();
+			} else if ( callback ) {
+				callback();
+			}
 
 			// Resize the layout.
 			FLBuilder._resizeLayout();
 
 			// Preview all responsive settings.
+			this._setMarginPaddingPlaceholders();
 			this._previewFields();
 
 			// Broadcast the switch.
@@ -264,7 +278,7 @@
 		 */
 		_switchToAndScroll: function( mode )
 		{
-			var nodeId  = $( '.fl-builder-settings' ).data( 'node' ),
+			var nodeId  = $( '.fl-builder-settings', window.parent.document ).data( 'node' ),
 				element = undefined === nodeId ? undefined : $( '.fl-node-' + nodeId );
 
 			FLBuilderResponsiveEditing._switchTo( mode, function() {
@@ -389,18 +403,7 @@
 				self._setSpacingInputPlaceholder( inputs, 'margin', 'responsive', 'medium', side )
 			} );
 
-			var isAuto = '1' === FLBuilderConfig.global.auto_spacing;
-			var isRow = !! $( '.fl-builder-row-settings' ).length;
-			var isCol = !! $( '.fl-builder-col-settings' ).length;
-
-			if ( isAuto && ( isRow || isCol ) ) {
-				inputs.margin.responsive.top.attr( 'placeholder', '0' );
-				inputs.margin.responsive.right.attr( 'placeholder', '0' );
-				inputs.margin.responsive.bottom.attr( 'placeholder', '0' );
-				inputs.margin.responsive.left.attr( 'placeholder', '0' );
-				inputs.padding.responsive.right.attr( 'placeholder', '0' );
-				inputs.padding.responsive.left.attr( 'placeholder', '0' );
-			}
+			self._setAutoSpacingPlaceholders( inputs );
 		},
 
 		/**
@@ -423,6 +426,45 @@
 				} else if ( fallback.attr( 'placeholder' ) ) {
 					input.attr( 'placeholder', fallback.attr( 'placeholder' ) );
 				}
+			}
+		},
+
+		/**
+		 * @since 2.7
+		 * @access private
+		 * @method _setAutoSpacingPlaceholders
+		 */
+		_setAutoSpacingPlaceholders: function( inputs )
+		{
+			var settings = FLBuilderConfig.global;
+			var isAuto = '1' === settings.auto_spacing;
+			var isRow = !! $( '.fl-builder-row-settings' ).length;
+			var isCol = !! $( '.fl-builder-col-settings' ).length;
+			var isModule = !! $( '.fl-builder-module-settings' ).length;
+
+			if ( ! isAuto || isModule ) {
+				return;
+			}
+
+			var type = isRow ? 'row' : 'column';
+
+			if ( '' === settings[ type + '_padding_right_responsive' ] ) {
+				inputs.padding.responsive.right.attr( 'placeholder', '0' );
+			}
+			if ( '' === settings[ type + '_padding_left_responsive' ] ) {
+				inputs.padding.responsive.left.attr( 'placeholder', '0' );
+			}
+			if ( '' === settings[ type + '_margins_top_responsive' ] ) {
+				inputs.margin.responsive.top.attr( 'placeholder', '0' );
+			}
+			if ( '' === settings[ type + '_margins_right_responsive' ] ) {
+				inputs.margin.responsive.right.attr( 'placeholder', '0' );
+			}
+			if ( '' === settings[ type + '_margins_bottom_responsive' ] ) {
+				inputs.margin.responsive.bottom.attr( 'placeholder', '0' );
+			}
+			if ( '' === settings[ type + '_margins_left_responsive' ] ) {
+				inputs.margin.responsive.left.attr( 'placeholder', '0' );
 			}
 		},
 

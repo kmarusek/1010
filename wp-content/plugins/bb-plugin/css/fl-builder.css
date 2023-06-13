@@ -14,8 +14,11 @@ html {
 	transition-property: margin;
 	transition-duration: .35s;
 }
+html.fl-builder-edit {
+	scroll-behavior: initial;
+}
 html.fl-builder-is-showing-toolbar {
-	margin-top: calc( 44px + 1px ) !important; /* top bar plus border */
+	padding-top: 45px !important; /* top bar plus border */
 }
 .fl-builder-edit body {
 	position: static !important;
@@ -119,7 +122,8 @@ html.fl-builder-show-admin-bar #wpadminbar {
 /* @group Visibility Rules
 ------------------------------------------------------ */
 
-.fl-node-hidden {
+.fl-node-hidden,
+.fl-builder-edit.fl-responsive-preview-enabled .fl-node-hidden {
 	display: none;
 }
 .fl-builder-edit .fl-node-hidden {
@@ -130,32 +134,18 @@ html.fl-builder-show-admin-bar #wpadminbar {
 /* @group Responsive Utilities
 ------------------------------------------------------ */
 
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-xl,
 html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-desktop,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-desktop-medium,
 html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-large,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-large-medium,
 html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-medium,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-medium-mobile,
 html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-visible-mobile {
-	display: block !important;
-}
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-xl,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-desktop,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-desktop-medium,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-large,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-large-medium,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-medium,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-medium-mobile,
-html:not(.fl-responsive-preview-enabled) .fl-builder-content-editing .fl-col-group-equal-height .fl-col.fl-visible-mobile {
-	display: flex !important;
+	display: inherit;
 }
 /* @endgroup Responsive Utilities */
 
 /* @group Responsive Editing
 ------------------------------------------------------ */
 
-.fl-responsive-preview-enabled body {
+.fl-responsive-preview-enabled body:not(.fl-builder-ui-iframe) {
 	overflow: hidden !important;
 }
 .fl-responsive-preview-mask {
@@ -3851,6 +3841,7 @@ body .fl-lightbox-has-tab-overflow .fl-builder-settings-tabs-more {
 	margin: 20px 20px;
 }
 .fl-builder-settings-tab-description a {
+	color: #21759b;
 	text-decoration: underline !important;
 }
 .fl-builder-settings-tab-description a:hover {
@@ -4792,7 +4783,6 @@ input[type=number].fl-field-popup-slider-focus {
 	display: flex;
 	float: left;
 	height: 36px;
-	overflow: hidden;
 }
 .fl-button-group-field-option {
 	cursor: pointer;
@@ -4817,11 +4807,11 @@ input[type=number].fl-field-popup-slider-focus {
 	border: 2px solid #00a0d2;
 	color: #333;
 }
-.fl-button-group-field-option:first-child {
+:not(.fl-button-group-tooltip-wrap) > .fl-button-group-field-option:first-child {
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
 }
-.fl-button-group-field-option:last-child {
+:not(.fl-button-group-tooltip-wrap) > .fl-button-group-field-option:last-child {
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
 }
@@ -4829,11 +4819,96 @@ input[type=number].fl-field-popup-slider-focus {
 	background-color: #fff !important;
 	color: #000000;
 }
+
+#fl-field-responsive_display .fl-button-group-field-option[data-selected="1"] i {
+	color: #00A0D2 !important;
+}
+
+#fl-field-responsive_display .fl-button-group-field-option:hover i {
+	color: #0197C6 !important;
+}
+
+#fl-field-responsive_display .fl-button-group-field-option:focus {
+    border-color: transparent;
+}
+
+#fl-field-responsive_display .fl-button-group-field-option i {
+	color: #a7a9ad;
+}
 .fl-button-group-field-option i {
 	color: #6B6E75;
 }
+#fl-field-responsive_display .fl-button-group-field-option[data-selected="1"] i {
+	color: #fff;
+}
+
+#fl-field-responsive_display .fl-button-group-field-option[data-selected="0"]:active {
+	background-color: unset;
+	color: unset;
+}
+
+#fl-field-responsive_display .fl-button-group-field-option[data-selected="1"]:active {
+	background-color: white;
+}
+
+
+
+#fl-field-responsive_display .fl-button-group-field-option[data-selected="1"]:active:hover {
+	background-color: unset !important;
+	color: unset !important;
+}
+
 .fl-button-group-field-option:hover i {
 	color: #333;
+}
+.fl-button-group-field-tooltip .fl-button-group-tooltip-wrap {
+	position: relative;
+}
+.fl-button-group-field-tooltip .fl-button-group-field-option {
+	height: 100%;
+	box-sizing: border-box;
+}
+.fl-button-group-field-tooltip .fl-button-group-tooltip {
+	display: flex;
+	position: absolute;
+	top: calc(-100% - 8px);
+    left: 0;
+	width: max-content;
+	z-index: 1000;
+	visibility: hidden;
+}
+.fl-button-group-field-tooltip .fl-button-group-tooltip-text {
+    font-weight: normal;
+	background: #fff;
+    border: 1px solid #ccc;
+	border-radius: 4px;
+    box-shadow: 0 0 5px #ccc;
+    padding: 10px 12px;
+}
+.fl-button-group-field-tooltip .fl-button-group-tooltip::after {
+	content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 15px;
+    margin-left: -5px;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+	border-style: solid;
+    border-width: 0 1px 1px 0;
+	border-color: #ccc;
+    transform: rotate(45deg);
+}
+.fl-button-group-tooltip-wrap:hover .fl-button-group-tooltip {
+	visibility: visible;
+}
+.fl-button-group-tooltip-wrap:first-child .fl-button-group-field-option {
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.fl-button-group-tooltip-wrap:last-child .fl-button-group-field-option {
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
 }
 
 /* Compound Fields */
@@ -5008,8 +5083,9 @@ input[type=number].fl-field-popup-slider-focus {
 .fl-builder-edit .media-modal .media-frame-content * {
     color: #808080;
 }
-span.select2-container.select2-container--open {
+body > span.select2-container.select2-container--open {
     z-index: 9999999;
+	position: fixed !important;
 }
 
 /* Multiple Photo Fields */
@@ -5607,7 +5683,7 @@ li.as-result-item em {
 	color: #333 !important;
 	display: block;
 	float: none;
-	margin: 10px 0 0 0;
+	margin: 10px 0 0 0 !important;
 	padding: 10px;
 }
 .fl-builder-service-connect-row .fl-field-description a,
@@ -5710,22 +5786,40 @@ body > .fl-builder-tour-dimmed {
 	z-index: 110000;
 }
 .popover[class*=tour-] {
-	border: 1px solid #ccc;
+	background: transparent;
+	border: none;
 	border-radius: 0;
-	-webkit-box-shadow: 0 0 30px rgba(0,0,0,.3);
-	box-shadow: 0 0 40px rgba(0,0,0,.3);
+	-webkit-box-shadow: none;
+	box-shadow: none;
 	color: #666;
 	font-size: 13px;
 	font-family: var(--fl-builder-font-family);
 	font-weight: normal;
 	line-height: 18px;
 	max-width: none;
-	padding: 0;
+	padding: 10px;
 	width: 300px;
 	z-index: 100000001;
 }
+.popover[class*=tour-] .popover-canvas {
+	background: #fff;
+	border: 1px solid #ccc;
+	-webkit-box-shadow: 0 0 30px rgba(0,0,0,.3);
+	box-shadow: 0 0 40px rgba(0,0,0,.3);
+	z-index: 100000001;
+}
+.popover[class*=tour-].top > .arrow {
+	bottom: 0;
+}
+.popover[class*=tour-].left > .arrow {
+	right: 0;
+}
+.popover[class*=tour-].right > .arrow {
+	left: 0;
+}
 .popover[class*=tour-].bottom > .arrow {
 	border-bottom-color: #ccc;
+	top: 0;
 }
 .popover[class*=tour-].bottom > .arrow:after {
 	border-bottom-color: #f7f7f7;
@@ -5742,8 +5836,8 @@ body > .fl-builder-tour-dimmed {
 	font-size: 16px;
 	padding: 5px;
 	position: absolute;
-	right: 3px;
-	top: 2px;
+	right: 15px;
+	top: 15px;
 }
 .popover[class*=tour-] .fa-times:hover {
 	color: #666;

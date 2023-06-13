@@ -10,7 +10,7 @@
 			$wpautop = false;
 		}
 	}
-	echo true === $wpautop ? wpautop( $wp_embed->autoembed( $settings->text ) ) : $wp_embed->autoembed( $settings->text );
+	echo true === $wpautop ? FLBuilderUtils::wpautop( $wp_embed->autoembed( $settings->text ), $module ) : $wp_embed->autoembed( $settings->text );
 
 	?>
 </div>

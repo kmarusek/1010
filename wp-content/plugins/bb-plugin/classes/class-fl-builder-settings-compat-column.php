@@ -20,6 +20,9 @@ class FLBuilderSettingsCompatColumn extends FLBuilderSettingsCompatHelper {
 		$this->handle_opacity_inputs( $settings, 'border_opacity', 'border_color' );
 		$this->handle_border_inputs( $settings );
 		$this->handle_responsive_widths( $settings );
+		$this->filter_responsive_display_settings( $settings );
+		$this->filter_responsive_order_settings( $settings );
+
 		return $settings;
 	}
 

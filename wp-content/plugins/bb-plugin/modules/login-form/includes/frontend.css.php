@@ -1,8 +1,60 @@
 <?php
+
+$form_selector    = ".fl-node-$id .fl-login-form.login";
 $input_selector   = ".fl-node-$id .fl-login-form .fl-form-field input[type=text],.fl-node-$id .fl-login-form .fl-form-field input[type=password]";
 $buttons_selector = ".fl-node-$id .fl-form-button a.fl-button";
 $logout_settings  = $module->get_button_settings( 'lo_btn_' );
 $login_settings   = $module->get_button_settings( 'btn_' );
+
+
+
+// Form padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'form_padding',
+	'selector'     => $form_selector,
+	'unit'         => 'px',
+	'props'        => array(
+		'padding-top'    => 'form_padding_top',
+		'padding-right'  => 'form_padding_right',
+		'padding-bottom' => 'form_padding_bottom',
+		'padding-left'   => 'form_padding_left',
+	),
+) );
+
+// Form background color
+FLBuilderCSS::rule( array(
+	'selector' => $form_selector,
+	'props'    => array(
+		'background-color' => $settings->form_bg_color,
+	),
+) );
+
+// Form hover background
+FLBuilderCSS::rule( array(
+	'selector' => $form_selector . ':hover',
+	'props'    => array(
+		'background-color' => $settings->form_bg_hover_color,
+	),
+) );
+
+// Form Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'form_border',
+	'selector'     => $form_selector,
+) );
+
+// Form Border - Hover Settings
+if ( ! empty( $settings->form_border_hover ) && is_array( $settings->form_border ) ) {
+	$settings->form_border['color'] = $settings->form_border_hover;
+}
+
+FLBuilderCSS::border_field_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'form_border_hover',
+	'selector'     => $form_selector . ':hover',
+) );
 
 // Default input styles
 FLBuilderCSS::rule( array(
@@ -44,6 +96,28 @@ FLBuilderCSS::typography_field_rule( array(
 	'selector'     => $input_selector,
 ) );
 
+// Input color
+FLBuilderCSS::rule( array(
+	'selector' => ".fl-node-$id .fl-login-form .fl-form-field input[type=text]::placeholder, .fl-node-$id .fl-login-form .fl-form-field input[type=password]::placeholder," . $input_selector,
+	'enabled'  => ! empty( $settings->input_color ),
+	'props'    => array(
+		'color' => $settings->input_color,
+	),
+) );
+
+// Input Border
+FLBuilderCSS::border_field_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'input_border',
+	'selector'     => $input_selector,
+) );
+
+FLBuilderCSS::border_field_rule( array(
+	'settings'     => $settings,
+	'setting_name' => 'input_border_hover',
+	'selector'     => ".fl-node-$id .fl-login-form .fl-form-field input[type=text]:hover, .fl-node-$id .fl-login-form .fl-form-field input[type=password]:hover, .fl-node-$id .fl-login-form .fl-form-field input[type=text]:focus, .fl-node-$id .fl-login-form .fl-form-field input[type=password]:focus",
+) );
+
 // Input padding
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'     => $settings,
@@ -71,31 +145,6 @@ FLBuilderCSS::dimension_field_rule( array(
 		'padding-left'   => 'btn_padding_left',
 	),
 ) );
-// We only need border radius for inputs.
-if ( isset( $settings->btn_border ) && is_array( $settings->btn_border ) ) {
-	$settings->input_border           = $settings->btn_border;
-	$settings->input_border['style']  = '';
-	$settings->input_border['color']  = '';
-	$settings->input_border['shadow'] = '';
-}
-if ( isset( $settings->btn_border_large ) && is_array( $settings->btn_border_large ) ) {
-	$settings->input_border_large           = $settings->btn_border_large;
-	$settings->input_border_large['style']  = '';
-	$settings->input_border_large['color']  = '';
-	$settings->input_border_large['shadow'] = '';
-}
-if ( isset( $settings->btn_border_medium ) && is_array( $settings->btn_border_medium ) ) {
-	$settings->input_border_medium           = $settings->btn_border_medium;
-	$settings->input_border_medium['style']  = '';
-	$settings->input_border_medium['color']  = '';
-	$settings->input_border_medium['shadow'] = '';
-}
-if ( isset( $settings->btn_border_responsive ) && is_array( $settings->btn_border_responsive ) ) {
-	$settings->input_border_responsive           = $settings->btn_border_responsive;
-	$settings->input_border_responsive['style']  = '';
-	$settings->input_border_responsive['color']  = '';
-	$settings->input_border_responsive['shadow'] = '';
-}
 
 // Icon
 if ( isset( $settings->un_color ) && ! empty( $settings->un_color ) ) { ?>
@@ -164,8 +213,9 @@ FLBuilderCSS::border_field_rule( array(
 ) );
 
 // Button CSS
-FLBuilder::render_module_css( 'button', $id, $login_settings );
-
+if ( ! is_user_logged_in() || FLBuilderModel::is_builder_active() ) {
+	FLBuilder::render_module_css( 'button', $id, $login_settings );
+}
 
 // css for logout
 FLBuilderCSS::rule( array(
@@ -184,3 +234,11 @@ FLBuilderCSS::rule( array(
 		'background-color' => $logout_settings['bg_color_hover'],
 	),
 ) );
+
+// shared styles
+$logout_settings['text_color']       = $login_settings['text_color'];
+$logout_settings['text_hover_color'] = $login_settings['text_hover_color'];
+
+if ( is_user_logged_in() && ! FLBuilderModel::is_builder_active() ) {
+	FLBuilder::render_module_css( 'button', $id, $logout_settings );
+}

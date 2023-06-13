@@ -224,7 +224,7 @@
 		_init: function()
 		{
 			// Node Id
-			this.nodeId = $('.fl-builder-settings').data('node');
+			this.nodeId = $('.fl-builder-settings', window.parent.document).data('node');
 
 			// Save settings
 			this._saveSettings();
@@ -270,7 +270,7 @@
 		 */
 		_saveSettings: function()
 		{
-			var form = $('.fl-builder-settings-lightbox .fl-builder-settings');
+			var form = $('.fl-builder-settings-lightbox .fl-builder-settings', window.parent.document);
 
 			this._savedSettings = FLBuilder._getSettingsForChangedCheck( this.nodeId, form );
 		},
@@ -285,7 +285,7 @@
 		 */
 		_settingsHaveChanged: function()
 		{
-			var form 	 = $('.fl-builder-settings-lightbox .fl-builder-settings'),
+			var form 	 = $('.fl-builder-settings-lightbox .fl-builder-settings', window.parent.document),
 				settings = FLBuilder._getSettings( form );
 
 			return JSON.stringify( this._savedSettings ) != JSON.stringify( settings );
@@ -321,8 +321,8 @@
 
 			// Elements
 			$.extend(this.elements, {
-				settings        : $(this.classes.settings),
-				settingsHeader  : $(this.classes.settingsHeader),
+				settings        : $(this.classes.settings, window.parent.document),
+				settingsHeader  : $(this.classes.settingsHeader, window.parent.document),
 				node            : $(this.classes.node),
 				content         : $(this.classes.content)
 			});
@@ -707,7 +707,7 @@
 		 */
 		preview: function()
 		{
-			var form     = $('.fl-builder-settings-lightbox .fl-builder-settings'),
+			var form     = $('.fl-builder-settings-lightbox .fl-builder-settings', window.parent.document),
 				nodeId   = form.attr('data-node'),
 				settings = FLBuilder._getSettings(form);
 
@@ -717,7 +717,7 @@
 			// Abort an existing preview request.
 			this._cancelPreview();
 
-			settings      = FLBuilder._inputVarsCheck( settings );
+			settings = FLBuilder._inputVarsCheck( settings );
 
 			if ( 'error' === settings  ) {
 				return 0;
@@ -740,8 +740,8 @@
 		delayPreview: function(e)
 		{
 			var heading         = typeof e == 'undefined' ? [] : $(e.target).closest('tr').find('th'),
-				widgetHeading   = $('.fl-builder-widget-settings .fl-builder-settings-title'),
-				lightboxHeading = $('.fl-builder-settings .fl-lightbox-header'),
+				widgetHeading   = $('.fl-builder-widget-settings .fl-builder-settings-title', window.parent.document),
+				lightboxHeading = $('.fl-builder-settings .fl-lightbox-header', window.parent.document),
 				loaderSrc       = FLBuilderLayoutConfig.paths.pluginUrl + 'img/ajax-loader-small.svg',
 				loader          = $('<img class="fl-builder-preview-loader" src="' + loaderSrc + '" />');
 
@@ -749,7 +749,7 @@
 
 			this._loaderTimeout = setTimeout( function() {
 
-				$('.fl-builder-preview-loader').remove();
+				$('.fl-builder-preview-loader', window.parent.document).remove();
 
 				if(heading.length > 0) {
 					heading.append(loader);
@@ -822,7 +822,7 @@
 			 * 2.6.0.2 added 500ms delay to fix #2234
 			 */
 			setTimeout( function() {
-				$('.fl-builder-preview-loader').remove();
+				$('.fl-builder-preview-loader', window.parent.document).remove();
 			}, 500 );
 
 			// Fire the preview rendered event.
@@ -899,10 +899,10 @@
 		{
 			// Elements
 			$.extend(this.elements, {
-				textColor    : $(this.classes.settings + ' input[name=text_color]'),
-				linkColor    : $(this.classes.settings + ' input[name=link_color]'),
-				hoverColor 	 : $(this.classes.settings + ' input[name=hover_color]'),
-				headingColor : $(this.classes.settings + ' input[name=heading_color]')
+				textColor    : $(this.classes.settings + ' input[name=text_color]', window.parent.document),
+				linkColor    : $(this.classes.settings + ' input[name=link_color]', window.parent.document),
+				hoverColor 	 : $(this.classes.settings + ' input[name=hover_color]', window.parent.document),
+				headingColor : $(this.classes.settings + ' input[name=heading_color]', window.parent.document)
 			});
 
 			// Events
@@ -1018,24 +1018,24 @@
 		{
 			// Elements
 			$.extend(this.elements, {
-				bgType                      : $(this.classes.settings + ' select[name=bg_type]'),
-				bgColor                     : $(this.classes.settings + ' input[name=bg_color]'),
-				bgColorPicker               : $(this.classes.settings + ' .fl-picker-bg_color'),
-				bgGradientType              : $(this.classes.settings + ' select.fl-gradient-picker-type-select'),
-				bgVideoSource               : $(this.classes.settings + ' select[name=bg_video_source]'),
-				bgVideo                     : $(this.classes.settings + ' input[name=bg_video]'),
-				bgVideoServiceUrl           : $(this.classes.settings + ' input[name=bg_video_service_url]'),
-				bgVideoFallbackSrc          : $(this.classes.settings + ' select[name=bg_video_fallback_src]'),
-				bgSlideshowSource           : $(this.classes.settings + ' select[name=ss_source]'),
-				bgSlideshowPhotos           : $(this.classes.settings + ' input[name=ss_photos]'),
-				bgSlideshowFeedUrl          : $(this.classes.settings + ' input[name=ss_feed_url]'),
-				bgSlideshowSpeed            : $(this.classes.settings + ' input[name=ss_speed]'),
-				bgSlideshowTrans            : $(this.classes.settings + ' select[name=ss_transition]'),
-				bgSlideshowTransSpeed       : $(this.classes.settings + ' input[name=ss_transitionDuration]'),
-				bgParallaxImageSrc          : $(this.classes.settings + ' select[name=bg_parallax_image_src]'),
-				bgOverlayType               : $(this.classes.settings + ' select[name=bg_overlay_type]'),
-				bgOverlayColor              : $(this.classes.settings + ' input[name=bg_overlay_color]'),
-				bgOverlayGradient    		: $(this.classes.settings + ' #fl-field-bg_overlay_gradient select'),
+				bgType                      : $(this.classes.settings + ' select[name=bg_type]', window.parent.document),
+				bgColor                     : $(this.classes.settings + ' input[name=bg_color]', window.parent.document),
+				bgColorPicker               : $(this.classes.settings + ' .fl-picker-bg_color', window.parent.document),
+				bgGradientType              : $(this.classes.settings + ' select.fl-gradient-picker-type-select', window.parent.document),
+				bgVideoSource               : $(this.classes.settings + ' select[name=bg_video_source]', window.parent.document),
+				bgVideo                     : $(this.classes.settings + ' input[name=bg_video]', window.parent.document),
+				bgVideoServiceUrl           : $(this.classes.settings + ' input[name=bg_video_service_url]', window.parent.document),
+				bgVideoFallbackSrc          : $(this.classes.settings + ' select[name=bg_video_fallback_src]', window.parent.document),
+				bgSlideshowSource           : $(this.classes.settings + ' select[name=ss_source]', window.parent.document),
+				bgSlideshowPhotos           : $(this.classes.settings + ' input[name=ss_photos]', window.parent.document),
+				bgSlideshowFeedUrl          : $(this.classes.settings + ' input[name=ss_feed_url]', window.parent.document),
+				bgSlideshowSpeed            : $(this.classes.settings + ' input[name=ss_speed]', window.parent.document),
+				bgSlideshowTrans            : $(this.classes.settings + ' select[name=ss_transition]', window.parent.document),
+				bgSlideshowTransSpeed       : $(this.classes.settings + ' input[name=ss_transitionDuration]', window.parent.document),
+				bgParallaxImageSrc          : $(this.classes.settings + ' select[name=bg_parallax_image_src]', window.parent.document),
+				bgOverlayType               : $(this.classes.settings + ' select[name=bg_overlay_type]', window.parent.document),
+				bgOverlayColor              : $(this.classes.settings + ' input[name=bg_overlay_color]', window.parent.document),
+				bgOverlayGradient    		: $(this.classes.settings + ' #fl-field-bg_overlay_gradient select', window.parent.document),
 			});
 
 			// Events
@@ -1328,7 +1328,7 @@
 		{
 			// Elements
 			$.extend(this.elements, {
-				className : $(this.classes.settings + ' input[name=class]')
+				className : $(this.classes.settings + ' input[name=class]', window.parent.document)
 			});
 
 			// Events
@@ -1389,7 +1389,7 @@
 						inputName += '_' + devices[ k ].toLowerCase();
 					}
 
-					elements[ elementKey ] = $( settingsClass + ' input[name=' + inputName + ']');
+					elements[ elementKey ] = $( settingsClass + ' input[name=' + inputName + ']', window.parent.document );
 				}
 			}
 
@@ -1410,13 +1410,13 @@
 		{
 			// Elements
 			$.extend(this.elements, {
-				width           	: $(this.classes.settings + ' select[name=width]'),
-				contentWidth    	: $(this.classes.settings + ' select[name=content_width]'),
-				maxContentWidth 	: $(this.classes.settings + ' input[name=max_content_width]'),
-				maxContentWidthUnit : $(this.classes.settings + ' select[name=max_content_width_unit]'),
-				height          	: $(this.classes.settings + ' select[name=full_height]'),
-				minHeight          	: $(this.classes.settings + ' input[name=min_height]'),
-				align           	: $(this.classes.settings + ' select[name=content_alignment]')
+				width           	: $(this.classes.settings + ' select[name=width]', window.parent.document),
+				contentWidth    	: $(this.classes.settings + ' select[name=content_width]', window.parent.document),
+				maxContentWidth 	: $(this.classes.settings + ' input[name=max_content_width]', window.parent.document),
+				maxContentWidthUnit : $(this.classes.settings + ' select[name=max_content_width_unit]', window.parent.document),
+				height          	: $(this.classes.settings + ' select[name=full_height]', window.parent.document),
+				minHeight          	: $(this.classes.settings + ' input[name=min_height]', window.parent.document),
+				align           	: $(this.classes.settings + ' select[name=content_alignment]', window.parent.document)
 			});
 
 			// Events
@@ -1536,12 +1536,12 @@
 		 */
 		_rowHeightChange: function(e)
 		{
-			var row = this.elements.node,
-				content = this.elements.content;
+			var row = this.elements.node;
 
 			row.removeClass('fl-row-align-top');
 			row.removeClass('fl-row-align-center');
 			row.removeClass('fl-row-align-bottom');
+			row.removeClass('fl-row-default-height');
 			row.removeClass('fl-row-full-height');
 			row.removeClass('fl-row-custom-height');
 
@@ -1554,6 +1554,8 @@
 				row.addClass('fl-row-align-' + this.elements.align.val());
 				this.elements.minHeight.trigger( 'input' );
 			} else {
+				row.addClass('fl-row-default-height');
+				row.addClass('fl-row-align-' + this.elements.align.val());
 				this.elements.minHeight.val( '' ).trigger( 'input' );
 			}
 		},
@@ -1572,13 +1574,13 @@
 		{
 			// Elements
 			$.extend(this.elements, {
-				size         	: $(this.classes.settings + ' input[name=size]'),
-				sizeLarge       : $(this.classes.settings + ' input[name=size_large]'),
-				sizeMedium      : $(this.classes.settings + ' input[name=size_medium]'),
-				sizeResponsive  : $(this.classes.settings + ' input[name=size_responsive]'),
-				columnHeight 	: $(this.classes.settings + ' select[name=equal_height]'),
-				columnAlign     : $(this.classes.settings + ' select[name=content_alignment]'),
-				responsiveOrder : $(this.classes.settings + ' select[name=responsive_order]')
+				size         	: $(this.classes.settings + ' input[name=size]', window.parent.document),
+				sizeLarge       : $(this.classes.settings + ' input[name=size_large]', window.parent.document),
+				sizeMedium      : $(this.classes.settings + ' input[name=size_medium]', window.parent.document),
+				sizeResponsive  : $(this.classes.settings + ' input[name=size_responsive]', window.parent.document),
+				columnHeight 	: $(this.classes.settings + ' select[name=equal_height]', window.parent.document),
+				columnAlign     : $(this.classes.settings + ' select[name=content_alignment]', window.parent.document),
+				responsiveOrder : $(this.classes.settings + ' select[name=responsive_order]', window.parent.document)
 			});
 
 			// Events
@@ -1768,13 +1770,18 @@
 		 */
 		_colResponsiveOrder: function()
 		{
+			var parent    = this.elements.node.parent('.fl-col-group'),
+				enabledOn = this.elements.responsiveOrder.val().split(',');
 
-			var parent = this.elements.node.parent('.fl-col-group');
-
-			if(this.elements.responsiveOrder.val() == 'reversed') {
-				parent.addClass('fl-col-group-responsive-reversed');
+			if ( enabledOn.includes( 'medium' ) ) {
+				parent.addClass('fl-col-group-medium-reversed');
+			} else {
+				parent.removeClass('fl-col-group-medium-reversed');
 			}
-			else {
+			
+			if ( enabledOn.includes( 'mobile' ) ) {
+				parent.addClass('fl-col-group-responsive-reversed');
+			} else {
 				parent.removeClass('fl-col-group-responsive-reversed');
 			}
 		},
@@ -1867,7 +1874,7 @@
 		_initFieldCallbackPreview: function ( preview, field, fieldType, fields ) {
 			var callback,
 				callback_name = preview['callback'],
-				form = $( '.fl-builder-settings:visible' ),
+				form = $( '.fl-builder-settings:visible', window.parent.document ),
 				nodeID = form.data('node'),
 				node = $('.fl-builder-content .fl-node-' + nodeID );
 
@@ -2280,8 +2287,8 @@
 		{
 			var selector = this._getPreviewSelector( this.classes.node, preview.selector ),
 				element  = $( selector ),
-				editor   = typeof tinyMCE != 'undefined' ? tinyMCE.get(id) : null,
-				textarea = $('#' + id),
+				editor   = typeof window.parent.tinyMCE != 'undefined' ? window.parent.tinyMCE.get(id) : null,
+				textarea = $('#' + id, window.parent.document),
 				text     = '';
 
 			if(element.length > 0) {
@@ -2327,10 +2334,10 @@
 				return;
 			}
 
-			$('#' + id).on('keyup', callback);
+			$('#' + id, window.parent.document).on('keyup', callback);
 
-			if(typeof tinyMCE != 'undefined') {
-				editor = tinyMCE.get(id);
+			if(typeof window.parent.tinyMCE != 'undefined') {
+				editor = window.parent.tinyMCE.get(id);
 				editor.on('change', callback);
 				editor.on('keyup', callback);
 			}

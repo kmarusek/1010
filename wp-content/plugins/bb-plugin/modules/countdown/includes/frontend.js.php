@@ -1,21 +1,11 @@
-<?php
-
-	// set defaults
-	$time = $module->get_time();
-	$type = $settings->layout;
-
-?>
-
 (function($) {
-
 	$(function() {
-
 		new FLBuilderCountdown({
 			id: '<?php echo $id; ?>',
-			time: '<?php echo $time; ?>',
-			type: '<?php echo $type; ?>',
+			time: '<?php echo $module->get_time(); ?>',
+			type: '<?php echo $settings->layout; ?>',
+			redirect: '<?php echo $settings->redirect_when; ?>',
+			redirect_url: '<?php echo $settings->redirect_url; ?>',
 		});
-
 	});
-
 })(jQuery);

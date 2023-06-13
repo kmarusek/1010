@@ -520,7 +520,7 @@ for ( $i = 0; $i < count( $settings->items ); $i++ ) :
 	if ( ! empty( $settings->items[ $i ]->button_item_border_hover_color ) ) {
 		?>
 		<?php echo $button_group_button_id; ?> a.fl-button:hover {
-			border-color: #<?php echo $settings->items[ $i ]->button_item_border_hover_color; ?>;
+			border-color: <?php echo FLBuilderColor::hex_or_rgb( $settings->items[ $i ]->button_item_border_hover_color ); ?>;
 		}
 		<?php
 	}

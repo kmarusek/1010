@@ -16,6 +16,8 @@ class FLBuilderSettingsCompatModule extends FLBuilderSettingsCompatHelper {
 	 */
 	public function filter_settings( $settings ) {
 		$this->handle_animation_inputs( $settings );
+		$this->filter_responsive_display_settings( $settings );
+
 		return $settings;
 	}
 }

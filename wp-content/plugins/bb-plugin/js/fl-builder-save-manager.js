@@ -41,7 +41,7 @@
          */
         init: function() {
 	        this.messages = FLBuilderStrings.savedStatus;
-            this.$savingIndicator = $('.fl-builder--saving-indicator');
+            this.$savingIndicator = $('.fl-builder--saving-indicator', window.parent.document);
 
             FLBuilder.addHook('didBeginAJAX', this.onLayoutSaving.bind(this));
             FLBuilder.addHook('didCompleteAJAX', this.onLayoutSaved.bind(this));
@@ -52,7 +52,7 @@
             // we can't yet reliably set it to needing publish when settings are changed.
             FLBuilder.addHook('didShowLightbox', this.setLayoutNeedsPublish.bind(this));
 
-            if ( FLBuilderConfig.layoutHasDraftedChanges || ! FLBuilderConfig.builderEnabled ) {    
+            if ( FLBuilderConfig.layoutHasDraftedChanges || ! FLBuilderConfig.builderEnabled ) {
                 this.setLayoutNeedsPublish();
                 this.resetStatusMessage();
             }
@@ -66,7 +66,7 @@
         setLayoutNeedsPublish: function() {
             if ( !this.layoutNeedsPublish ) {
                 this.layoutNeedsPublish = true;
-                $('body').addClass('fl-builder--layout-has-drafted-changes');
+                $('body').add( 'body', window.parent.document ).addClass('fl-builder--layout-has-drafted-changes');
             }
         },
 
@@ -149,7 +149,7 @@
          */
         onLayoutPublished: function() {
             this.layoutNeedsPublish = false;
-            $('body').removeClass('fl-builder--layout-has-drafted-changes');
+            $('body').add( 'body', window.parent.document ).removeClass('fl-builder--layout-has-drafted-changes');
             this.resetStatusMessage();
         },
 
@@ -163,7 +163,7 @@
             this.$savingIndicator.html(message);
             if (! FLBuilder.isUndefined(toolTip)) {
                 this.$savingIndicator.attr('title', toolTip);
-                $('.fl-builder--saving-indicator').tipTip({
+                $('.fl-builder--saving-indicator', window.parent.document).tipTip({
 					defaultPosition: 'bottom',
 					edgeOffset: 14
 				});

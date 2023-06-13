@@ -42,13 +42,13 @@ final class FLBuilderFonts {
 		foreach ( array_unique( FLBuilderFonts::$preload_fa5 ) as $type ) {
 			switch ( $type ) {
 				case 'fas':
-					$icons['font-awesome-5'][] = FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-solid-900.woff2';
+					$icons['font-awesome-5'][] = FLBuilder::plugin_url() . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-solid-900.woff2';
 					break;
 				case 'far':
-					$icons['font-awesome-5'][] = FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-regular-400.woff2';
+					$icons['font-awesome-5'][] = FLBuilder::plugin_url() . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-regular-400.woff2';
 					break;
 				case 'fab':
-					$icons['font-awesome-5'][] = FL_BUILDER_URL . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-brands-400.woff2';
+					$icons['font-awesome-5'][] = FLBuilder::plugin_url() . 'fonts/fontawesome/' . $fa_version . '/webfonts/fa-brands-400.woff2';
 					break;
 			}
 		}

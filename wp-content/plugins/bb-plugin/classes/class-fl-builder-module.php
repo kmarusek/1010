@@ -193,7 +193,7 @@ class FLBuilderModule {
 			$this->url = trailingslashit( str_replace( trailingslashit( $abspath ), trailingslashit( home_url() ), $dir_path ) );
 			$this->dir = trailingslashit( $dir_path );
 		} else {
-			$this->url = trailingslashit( FL_BUILDER_URL . 'modules/' . $this->slug );
+			$this->url = trailingslashit( FLBuilder::plugin_url() . 'modules/' . $this->slug );
 			$this->dir = trailingslashit( FL_BUILDER_DIR . 'modules/' . $this->slug );
 		}
 		// Icon requires dir be defined before calling get_icon()
@@ -354,23 +354,27 @@ class FLBuilderModule {
 	 */
 	public function get_icon( $icon = '' ) {
 
-		// check if $icon is referencing an included icon.
-		if ( '' != $icon && file_exists( FL_BUILDER_DIR . 'img/svg/' . $icon ) ) {
-			$path = FL_BUILDER_DIR . 'img/svg/' . $icon;
-
-			// check if module directory includes an icon.svg file
-		} elseif ( file_exists( $this->dir . 'icon.svg' ) ) {
-			$path = $this->dir . 'icon.svg';
-
-			// default to included icon
-		} else {
-			$path = FL_BUILDER_DIR . 'img/svg/insert.svg';
+		// Inline svg icon
+		if ( 0 === strpos( trim( $icon ), '<svg' ) ) {
+			return $icon;
 		}
-		if ( file_exists( $path ) ) {
-			return file_get_contents( $path );
-		} else {
-			return '';
+
+		// Icon is referencing an included icon or dashicon
+		if ( '' !== $icon ) {
+			if ( file_exists( FL_BUILDER_DIR . 'img/svg/' . $icon ) ) {
+				return file_get_contents( FL_BUILDER_DIR . 'img/svg/' . $icon );
+			} else {
+				return "<span class='dashicon dashicons dashicons-$icon'></span>";
+			}
 		}
+
+		// Module directory includes an icon.svg file
+		if ( file_exists( $this->dir . 'icon.svg' ) ) {
+			return file_get_contents( $this->dir . 'icon.svg' );
+		}
+
+		// Default to insert icon
+		return file_get_contents( FL_BUILDER_DIR . 'img/svg/insert.svg' );
 	}
 
 	/**
