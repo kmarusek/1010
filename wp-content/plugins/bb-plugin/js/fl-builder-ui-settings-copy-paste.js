@@ -19,10 +19,10 @@
 			if (null !== type && 'undefined' !== type[1]) {
 				return type[1];
 			}
-			
+
 			return '';
 		},
-		
+
 		_setClipboard: function (data, win = false) {
 			// set to localStorage.
 			window.localStorage.setItem('clipboard', data);
@@ -41,27 +41,27 @@
 			if ('undefined' === typeof navigator.clipboard) {
 				// create temp el
 				const tempEl = document.createElement('textarea');
-	
+
 				// hide temp el
 				tempEl.style.position = 'absolute';
 				tempEl.style.left = '-100%';
-	
+
 				// set content of temp el
 				tempEl.value = data;
-	
+
 				// insert temp el in page
 				document.body.appendChild(tempEl);
-	
+
 				// select temp el
 				tempEl.select();
-	
+
 				// copy temp el content
 				document.execCommand('copy');
-	
+
 				// remove temp el
 				document.body.removeChild(tempEl);
 			} else {
-				navigator.clipboard.writeText(data);
+				window.parent.navigator.clipboard.writeText(data);
 			}
 		},
 

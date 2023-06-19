@@ -101,6 +101,7 @@
 }
 .fl-color-picker-ui .iris-picker .iris-strip .ui-slider-handle {
 	width: 6px;
+	height: auto;
 	position: absolute;
 	right: 0;
 	top: -2px;

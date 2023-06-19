@@ -23,7 +23,12 @@ if ( $query->have_posts() ) :
 
 				$query->the_post();
 
-				include $module->dir . 'includes/post-' . $layout . '-loop.php';
+				ob_start();
+
+				include apply_filters( 'fl_builder_posts_carousel_layout_path', $module->dir . 'includes/post-' . $layout . '-loop.php', $settings->layout, $settings, $module );
+
+				// Do shortcodes here so they are parsed in context of the current post.
+				echo do_shortcode( ob_get_clean() );
 
 			}
 

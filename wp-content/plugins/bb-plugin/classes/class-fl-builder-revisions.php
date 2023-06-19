@@ -28,7 +28,7 @@ final class FLBuilderRevisions {
 	 */
 	static public function ui_js_config( $config ) {
 		if ( isset( $_GET['norevisions'] ) ) {
-			$config['revisions'] = array(
+			$config['revisions']       = array(
 				'posts'   => array(),
 				'authors' => array(),
 			);

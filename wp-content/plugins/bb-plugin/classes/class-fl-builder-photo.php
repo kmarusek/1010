@@ -68,7 +68,7 @@ final class FLBuilderPhoto {
 	 */
 	static public function get_thumb( $photo ) {
 		if ( empty( $photo ) ) {
-			echo FL_BUILDER_URL . 'img/spacer.png';
+			echo FLBuilder::plugin_url() . 'img/spacer.png';
 		} elseif ( ! isset( $photo->sizes ) ) {
 			echo $photo->url;
 		} elseif ( ! empty( $photo->sizes->thumbnail ) ) {

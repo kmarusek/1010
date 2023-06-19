@@ -8,7 +8,7 @@ class FLBuilderGlobalImportExport {
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'allow_import' ), 10, 4 );
 
 		add_action( 'admin_enqueue_scripts', function() {
-			wp_enqueue_script( 'fl-builder-global-import-export', FL_BUILDER_URL . 'js/fl-builder-global-import-export.js', array( 'jquery' ), FL_BUILDER_VERSION );
+			wp_enqueue_script( 'fl-builder-global-import-export', FLBuilder::plugin_url() . 'js/fl-builder-global-import-export.js', array( 'jquery' ), FL_BUILDER_VERSION );
 			wp_localize_script( 'fl-builder-global-import-export', 'FLBuilderAdminImportExportConfig', array(
 				'select' => __( 'Import Settings', 'fl-builder' ),
 			));

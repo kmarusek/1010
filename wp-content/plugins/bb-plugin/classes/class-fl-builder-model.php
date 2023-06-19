@@ -205,9 +205,10 @@ final class FLBuilderModel {
 	 *
 	 * @since 1.0
 	 * @param int $post_id The post id to get an edit url for.
+	 * @param bool $include_ui Return the full UI URL or just the layout.
 	 * @return string
 	 */
-	static public function get_edit_url( $post_id = false ) {
+	static public function get_edit_url( $post_id = false, $include_ui = true ) {
 		if ( false === $post_id ) {
 			global $post;
 		} else {
@@ -217,8 +218,23 @@ final class FLBuilderModel {
 		preg_match( '/(https?)/', get_bloginfo( 'url' ), $matches );
 
 		$scheme = ( isset( $matches[1] ) ) ? $matches[1] : false;
+		$url    = set_url_scheme( get_permalink( $post->ID ), $scheme );
+		$url    = add_query_arg( 'fl_builder', '', $url );
 
-		$url = set_url_scheme( add_query_arg( 'fl_builder', '', get_permalink( $post->ID ) ), $scheme );
+		if ( FLBuilderUIIFrame::is_enabled() ) {
+			if ( $include_ui ) {
+				$url = add_query_arg( 'fl_builder_ui', '', $url );
+			} else {
+				/**
+				 * Preserve any query args and pass to the iframe
+				 */
+				$args = array();
+				parse_str( $_SERVER['QUERY_STRING'], $args );
+				$args['fl_builder_ui_iframe'] = '';
+				unset( $args['fl_builder_ui'] );
+				$url = add_query_arg( $args, $url );
+			}
+		}
 
 		/**
 		 * Filter the bb edit url.
@@ -268,8 +284,8 @@ final class FLBuilderModel {
 	 * @return string
 	 */
 	static public function get_relative_plugin_url() {
-		$url         = str_ireplace( home_url(), '', FL_BUILDER_URL );
-		$parsed_path = parse_url( FL_BUILDER_URL, PHP_URL_PATH );
+		$url         = str_ireplace( home_url(), '', FLBuilder::plugin_url() );
+		$parsed_path = parse_url( FLBuilder::plugin_url(), PHP_URL_PATH );
 
 		if ( strstr( $url, '://' ) && $parsed_path ) {
 			$url = $parsed_path;
@@ -4792,6 +4808,7 @@ final class FLBuilderModel {
 		 * @see fl_builder_enable_small_data_mode
 		 */
 		if ( apply_filters( 'fl_builder_enable_small_data_mode', false ) ) {
+			$data = self::slash_settings( self::clean_layout_data( $data ) );
 
 			if ( 'published' === $status ) {
 				foreach ( $data as $node_id => $node ) {
@@ -5302,7 +5319,7 @@ final class FLBuilderModel {
 			'name'     => $settings['name'],
 			'id'       => get_post_meta( $post_id, '_fl_builder_template_id', true ),
 			'postId'   => $post_id,
-			'image'    => FL_BUILDER_URL . 'img/templates/blank.jpg',
+			'image'    => FLBuilder::plugin_url() . 'img/templates/blank.jpg',
 			'kind'     => 'template',
 			'content'  => 'layout',
 			'type'     => 'user',
@@ -5366,10 +5383,10 @@ final class FLBuilderModel {
 				if ( is_array( $image_data ) ) {
 					$image = $image_data[0];
 				} else {
-					$image = FL_BUILDER_URL . 'img/templates/blank.jpg';
+					$image = FLBuilder::plugin_url() . 'img/templates/blank.jpg';
 				}
 			} else {
-				$image = FL_BUILDER_URL . 'img/templates/blank.jpg';
+				$image = FLBuilder::plugin_url() . 'img/templates/blank.jpg';
 			}
 
 			$templates[] = array(
@@ -5683,12 +5700,15 @@ final class FLBuilderModel {
 		if ( isset( $node->settings->visibility_display ) && ( '' !== $node->settings->visibility_display ) ) {
 			$rules = true;
 		}
-		if ( isset( $node->settings->responsive_display ) && ( '' !== $node->settings->responsive_display && 'desktop,large,medium,mobile' !== $node->settings->responsive_display ) ) {
-			$rules = true;
+		if ( isset( $node->settings->responsive_display ) && ( '' !== $node->settings->responsive_display ) ) {
+			$breakpoints = explode( ',', $node->settings->responsive_display );
+
+			if ( count( $breakpoints ) < 4 ) {
+				$rules = true;
+			}
 		}
 		return $rules;
 	}
-
 
 	/**
 	 * Returns visibility rule.
@@ -6659,7 +6679,7 @@ final class FLBuilderModel {
 			if ( strstr( $template->image, '://' ) || strstr( $template->image, ';base64,' ) ) {
 				$image = $template->image;
 			} else {
-				$image = FL_BUILDER_URL . 'img/templates/' . ( empty( $template->image ) ? 'blank.jpg' : $template->image );
+				$image = FLBuilder::plugin_url() . 'img/templates/' . ( empty( $template->image ) ? 'blank.jpg' : $template->image );
 			}
 
 			$templates[] = apply_filters( 'fl_builder_template_details', array(
@@ -6929,7 +6949,7 @@ final class FLBuilderModel {
 			return FLBuilderWhiteLabel::get_branding_icon();
 		}
 
-		return FL_BUILDER_URL . 'img/beaver.png';
+		return FLBuilder::plugin_url() . 'img/beaver.png';
 	}
 
 	/**

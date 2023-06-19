@@ -11,7 +11,7 @@ import classnames from 'classnames';
 /**
  * Create a Button wrapper Component
  */
-export default class customButton extends Component {
+export default class CustomButton extends Component {
 	render() {
 		return (
 			<div

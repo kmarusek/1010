@@ -138,28 +138,34 @@ class Pods implements Iterator {
 		if ( $pod && ! is_string( $pod ) && ! $pod instanceof Pod ) {
 			if ( $pod instanceof WP_Post ) {
 				// Post Type Singular.
-				$pod       = $pod->post_type;
-				$id_lookup = true;
+				if ( null === $id ) {
+					$id = $pod->ID;
+				}
+
+				$pod = $pod->post_type;
 			} elseif ( $pod instanceof WP_Term ) {
 				// Term Archive.
-				$pod       = $pod->taxonomy;
-				$id_lookup = true;
+				if ( null === $id ) {
+					$id = $pod->term_id;
+				}
+
+				$pod = $pod->taxonomy;
 			} elseif ( $pod instanceof WP_User ) {
 				// Author Archive.
-				$pod       = 'user';
-				$id_lookup = true;
+				if ( null === $id ) {
+					$id = $pod->ID;
+				}
+
+				$pod = 'user';
 			} elseif ( $pod instanceof WP_Post_Type ) {
 				// Post Type Archive.
-				$pod       = $pod->name;
-				$id_lookup = false;
+				$pod = $pod->name;
+			} elseif ( $pod instanceof WP_Taxonomy ) {
+				// Taxonomy object.
+				$pod = $pod->name;
 			} else {
 				// Unsupported pod object.
-				$pod       = null;
-				$id_lookup = false;
-			}
-
-			if ( null === $id && $id_lookup ) {
-				$id = get_queried_object_id();
+				$pod = null;
 			}
 		}//end if
 
@@ -1717,9 +1723,9 @@ class Pods implements Iterator {
 					$post_ID = $this->id();
 				}
 
-				$filter = pods_v( 'display_filter', $field_data );
+				$filter = pods_v( 'display_filter', $field_data, '', true );
 
-				if ( 0 < strlen( $filter ) ) {
+				if ( is_string( $filter ) && 0 < strlen( $filter ) ) {
 					$value_reset = false;
 
 					if ( $params->single || ! is_array( $value ) ) {
@@ -1870,7 +1876,7 @@ class Pods implements Iterator {
 			// Text fields.
 			$current_value = $pod->raw( $field );
 
-			if ( 0 < strlen( $current_value ) ) {
+			if ( is_string( $current_value ) && 0 < strlen( $current_value ) ) {
 				return stripos( $current_value, $value );
 			}
 		} else {
@@ -1978,7 +1984,7 @@ class Pods implements Iterator {
 			// Date fields.
 			$current_value = $pod->raw( $field );
 
-			if ( 0 < strlen( $current_value ) ) {
+			if ( is_string( $current_value ) && 0 < strlen( $current_value ) ) {
 				if ( strtotime( $current_value ) === strtotime( $value ) ) {
 					return true;
 				}
@@ -2821,7 +2827,7 @@ class Pods implements Iterator {
 			if ( 'pick' === $this->fields[ $field ]['type'] && in_array( $this->fields[ $field ]['pick_object'], PodsForm::simple_tableless_objects(), true ) ) {
 				$current_value = $pod->raw( $field );
 
-				if ( ! empty( $current_value ) || ( ! is_array( $current_value ) && 0 < strlen( $current_value ) ) ) {
+				if ( ! empty( $current_value ) || ( is_string( $current_value ) && 0 < strlen( $current_value ) ) ) {
 					$current_value = (array) $current_value;
 				} else {
 					$current_value = array();
@@ -2858,7 +2864,7 @@ class Pods implements Iterator {
 			// Date fields.
 			$current_value = $pod->raw( $field );
 
-			if ( 0 < strlen( $current_value ) ) {
+			if ( is_string( $current_value ) && 0 < strlen( $current_value ) ) {
 				$value = strtotime( $value, strtotime( $current_value ) );
 			} else {
 				$value = strtotime( $value );
@@ -2867,7 +2873,7 @@ class Pods implements Iterator {
 			// Text fields.
 			$current_value = $pod->raw( $field );
 
-			if ( 0 < strlen( $current_value ) ) {
+			if ( is_string( $current_value ) && 0 < strlen( $current_value ) ) {
 				$value = $current_value . $value;
 			}
 		}//end if
@@ -3000,7 +3006,7 @@ class Pods implements Iterator {
 
 			$current_value = $pod->raw( $field );
 
-			if ( 0 < strlen( $current_value ) ) {
+			if ( is_string( $current_value ) && 0 < strlen( $current_value ) ) {
 				$value = strtotime( $value, strtotime( $current_value ) );
 			} else {
 				$value = strtotime( $value );
@@ -3113,7 +3119,7 @@ class Pods implements Iterator {
 				$slug = pods( $this->pod, $id )->field( $this->pod_data['field_slug'] );
 			}
 
-			if ( 0 < strlen( $slug ) ) {
+			if ( is_string( $slug ) && 0 < strlen( $slug ) ) {
 				pods_cache_clear( $slug, 'pods_items_' . $this->pod );
 			}
 		}
@@ -3429,7 +3435,7 @@ class Pods implements Iterator {
 
 		$fields = $params['fields'];
 
-		if ( null !== $fields && ! is_array( $fields ) && 0 < strlen( $fields ) ) {
+		if ( null !== $fields && is_string( $fields ) && 0 < strlen( $fields ) ) {
 			$fields = explode( ',', $fields );
 		}
 
@@ -3951,7 +3957,7 @@ class Pods implements Iterator {
 
 		$form_fields = $params['fields'];
 
-		if ( null !== $form_fields && ! is_array( $form_fields ) && 0 < strlen( $form_fields ) ) {
+		if ( null !== $form_fields && is_string( $form_fields ) && 0 < strlen( $form_fields ) ) {
 			$form_fields = explode( ',', $form_fields );
 		}
 
@@ -4103,7 +4109,7 @@ class Pods implements Iterator {
 		$pod =& $this;
 
 		// Convert comma separated list of fields to an array.
-		if ( null !== $view_fields && ! is_array( $view_fields ) && 0 < strlen( $view_fields ) ) {
+		if ( null !== $view_fields && is_string( $view_fields ) && 0 < strlen( $view_fields ) ) {
 			$view_fields = explode( ',', $view_fields );
 		}
 
@@ -4517,7 +4523,7 @@ class Pods implements Iterator {
 
 			$detail_url = pods_v( 'detail_url', $this->pod_data );
 
-			if ( 0 < strlen( $detail_url ) ) {
+			if ( is_string( $detail_url ) && 0 < strlen( $detail_url ) ) {
 				$ui['actions_custom'] = array(
 					'view_url' => array(
 						'label' => 'View',

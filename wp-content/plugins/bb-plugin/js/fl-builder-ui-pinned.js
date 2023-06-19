@@ -30,8 +30,8 @@
 		 * @method bind
 		 */
 		bind: function() {
-			var win  = $( window ),
-				body = $( 'body' );
+			var win  = $( window.parent ),
+				body = $( 'body', window.parent.document );
 
 			win.on( 'resize', _.throttle( this.windowResize.bind( this ), 250 ) );
 
@@ -58,7 +58,7 @@
 		 * @return {Boolean}
 		 */
 		isPinned: function() {
-			return $( '.fl-builder--content-library-panel' ).hasClass( 'fl-builder-ui-pinned' );
+			return $( '.fl-builder--content-library-panel', window.parent.document ).hasClass( 'fl-builder-ui-pinned' );
 		},
 
 		/**
@@ -108,12 +108,12 @@
 		 */
 		pinOrUnpin: function()
 		{
-			var panel  = $( '.fl-builder--content-library-panel' ),
+			var panel  = $( '.fl-builder--content-library-panel', window.parent.document ),
 				pinned = this.isPinned();
 
 			if ( panel.hasClass( 'fl-builder-ui-pinned-hidden' ) ) {
 				return;
-			} else if ( window.innerWidth <= this.maxWidth ) {
+			} else if ( window.parent.innerWidth <= this.maxWidth ) {
 				if ( pinned ) {
 					this.unpin( false );
 				}
@@ -134,7 +134,7 @@
 		 */
 		show: function()
 		{
-			var panel = $( '.fl-builder--content-library-panel' );
+			var panel = $( '.fl-builder--content-library-panel', window.parent.document );
 
 			if ( panel.hasClass( 'fl-builder-ui-pinned-hidden' ) ) {
 				panel.removeClass( 'fl-builder-ui-pinned-hidden' );
@@ -151,8 +151,8 @@
 		 */
 		hide: function()
 		{
-			var body  = $( 'body' ),
-				panel = $( '.fl-builder--content-library-panel' );
+			var body  = $( 'body', window.parent.document ),
+				panel = $( '.fl-builder--content-library-panel', window.parent.document );
 
 			if ( this.isPinned() ) {
 				this.uncollapse();
@@ -171,11 +171,11 @@
 		 */
 		collapse: function()
 		{
-			var button   = $( this ).find('i:visible'),
-				body     = $( 'body' ),
+			var button   = $( this ).find( 'i:visible' ),
+				body     = $( 'body', window.parent.document ),
 				toggle   = button.data( 'toggle' ),
 				position = button.data( 'position' ),
-				panel 	 = $( '.fl-builder--content-library-panel' ),
+				panel 	 = $( '.fl-builder--content-library-panel', window.parent.document ),
 				width    = panel.outerWidth();
 
 			if ( 'hide' === toggle ) {
@@ -198,7 +198,7 @@
 		uncollapse: function()
 		{
 			if ( this.isCollapsed() ) {
-				$( '.fl-builder-ui-pinned-collapse:visible' ).trigger( 'click' );
+				$( '.fl-builder-ui-pinned-collapse:visible', window.parent.document ).trigger( 'click' );
 			}
 		},
 
@@ -209,7 +209,7 @@
 		 * @method isCollapsed
 		 */
 		isCollapsed: function() {
-			return $('body').hasClass('fl-builder-ui-pinned-is-collapsed');
+			return $( 'body', window.parent.document ).hasClass( 'fl-builder-ui-pinned-is-collapsed' );
 		},
 
 		/**
@@ -219,8 +219,8 @@
 		 * @method initPanel
 		 */
 		initPanel: function() {
-			var panel = $( '.fl-builder--content-library-panel' ),
-				button = $( '.fl-builder-content-panel-button' ),
+			var panel = $( '.fl-builder--content-library-panel', window.parent.document ),
+				button = $( '.fl-builder-content-panel-button', window.parent.document ),
 				panelHandle = button.length == 0 ? '.fl-builder--tabs, .fl-lightbox-header' : '.fl-builder--tabs';
 
 			panel.draggable( {
@@ -231,6 +231,7 @@
 				drag		: this.drag.bind( this ),
 				stop		: this.dragStop.bind( this ),
 				start		: this.dragStart.bind( this ),
+				iframeFix	: true
 			} ).resizable( {
 				handles		: 'e, w',
 				minHeight	: this.minHeight,
@@ -252,10 +253,10 @@
 		 * @param {String} position
 		 */
 		pinPanel: function( position ) {
-			var panel 	= $( '.fl-builder--content-library-panel' ),
+			var panel 	= $( '.fl-builder--content-library-panel', window.parent.document ),
 				width   = panel.outerWidth(),
-				body  	= $( 'body' ),
-				preview = $( '.fl-responsive-preview, .fl-responsive-preview-mask' ),
+				body  	= $( 'body', window.parent.document ),
+				preview = $( '.fl-responsive-preview, .fl-responsive-preview-mask', window.parent.document ),
 				content = $( FLBuilder._contentClass ).parentsUntil( 'body' ).last();
 
 			body.addClass( 'fl-builder-ui-is-pinned fl-builder-ui-is-pinned-' + position );
@@ -268,8 +269,8 @@
 			panel.on( 'resize', _.throttle( this.resize.bind( this ), 250 ) );
 			panel.attr( 'style', '' );
 			FLBuilder.ContentPanel.isShowing = true;
-			if( $( '.fl-builder-content-panel-button' ).length == 0 ) {
-				$('.fl-builder-panel-drag-handle').show();
+			if( $( '.fl-builder-content-panel-button', window.parent.document ).length == 0 ) {
+				$( '.fl-builder-panel-drag-handle', window.parent.document ).show();
 			}
 		},
 
@@ -280,10 +281,10 @@
          * @method unpinPanel
          */
 		unpinPanel: function() {
-			var panel   = $( '.fl-builder--content-library-panel' ),
+			var panel   = $( '.fl-builder--content-library-panel', window.parent.document ),
 				tab 	= panel.find( '.fl-builder--panel-content .is-showing' ).data( 'tab' ),
-				body    = $( 'body' ),
-				preview = $( '.fl-responsive-preview, .fl-responsive-preview-mask' ),
+				body    = $( 'body', window.parent.document ),
+				preview = $( '.fl-responsive-preview, .fl-responsive-preview-mask', window.parent.document ),
 				content = $( FLBuilder._contentClass ).parentsUntil( 'body' ).last();
 
 			body.css( 'margin-left', '' );
@@ -312,7 +313,7 @@
 		pinLightboxes: function() {
 			var self = this;
 
-			$( '.fl-lightbox-resizable' ).each( function() {
+			$( '.fl-lightbox-resizable', window.parent.document ).each( function() {
 				self.pinLightbox( $( this ) );
 			} );
 
@@ -327,7 +328,7 @@
 		 * @param {Object} lightbox
 		 */
 		pinLightbox: function( lightbox ) {
-			var panel   = $( '.fl-builder--content-library-panel' ),
+			var panel   = $( '.fl-builder--content-library-panel', window.parent.document ),
 				wrapper = lightbox.closest( '.fl-lightbox-wrap' );
 
 			if ( ! wrapper.closest( '.fl-builder-ui-pinned' ).length ) {
@@ -378,7 +379,7 @@
 		 * @method pinnedLightboxClosed
 		 */
 		pinnedLightboxClosed: function() {
-			var panel = $( '.fl-builder--content-library-panel' )
+			var panel = $( '.fl-builder--content-library-panel', window.parent.document )
 				tab   = null;
 
 			if ( this.isPinned() ) {
@@ -386,7 +387,7 @@
 				panel.find( '.fl-builder--tabs [data-tab=' + tab + ']' ).addClass( 'is-showing' );
 			}
 
-			$( '.fl-lightbox' ).removeClass( 'fl-lightbox-prevent-animation' );
+			$( '.fl-lightbox', window.parent.document ).removeClass( 'fl-lightbox-prevent-animation' );
 		},
 
 		/**
@@ -396,8 +397,8 @@
 		 * @method unpinLightboxes
 		 */
 		unpinLightboxes: function() {
-			var body  = $( 'body' ),
-				panel = $( '.fl-builder--content-library-panel' );
+			var body  = $( 'body', window.parent.document ),
+				panel = $( '.fl-builder--content-library-panel', window.parent.document );
 
 			panel.find( '.fl-lightbox-wrap' ).each( function() {
 				var wrapper  = $( this ),
@@ -462,7 +463,7 @@
 		 */
 		resizeStart: function()
 		{
-			$( 'body' ).addClass( 'fl-builder-resizable-is-resizing' );
+			$( 'body', window.parent.document ).addClass( 'fl-builder-resizable-is-resizing' );
 
 			FLBuilder._destroyOverlayEvents();
 			FLBuilder._removeAllOverlays();
@@ -476,9 +477,9 @@
 		 */
 		resize: function()
 		{
-			var body   	  = $( 'body' ),
-				preview   = $( '.fl-responsive-preview, .fl-responsive-preview-mask' ),
-				panel 	  = $( '.fl-builder--content-library-panel' ),
+			var body   	  = $( 'body', window.parent.document ),
+				preview   = $( '.fl-responsive-preview, .fl-responsive-preview-mask', window.parent.document ),
+				panel 	  = $( '.fl-builder--content-library-panel', window.parent.document ),
 				width     = panel.outerWidth();
 
 			if ( ! panel.is( ':visible' ) ) {
@@ -500,7 +501,7 @@
 		 */
 		resizeStop: function()
 		{
-			$( 'body' ).removeClass( 'fl-builder-resizable-is-resizing' );
+			$( 'body', window.parent.document ).removeClass( 'fl-builder-resizable-is-resizing' );
 
 			FLBuilder._bindOverlayEvents();
 			FLBuilder._resizeLayout();
@@ -515,11 +516,11 @@
 		 */
 		dragStart: function( e, ui )
 		{
-			var body 	= $( 'body' ),
-				target  = $( e.target ),
-				actions = $( '.fl-builder-bar-actions' );
+			var body 	= $( 'body', window.parent.document ),
+				target  = $( e.target, window.parent.document ),
+				actions = $( '.fl-builder-bar-actions', window.parent.document );
 
-			if ( ! $( '.fl-lightbox-resizable:visible' ).length ) {
+			if ( ! $( '.fl-lightbox-resizable:visible', window.parent.document ).length ) {
 				actions.addClass( 'fl-builder-content-panel-pin-zone' );
 			}
 
@@ -537,15 +538,15 @@
 		 */
 		drag: function( e, ui )
 		{
-			var body   	  = $( 'body' ),
-				preview   = $( '.fl-responsive-preview' ),
-				win 	  = $( window ),
+			var body   	  = $( 'body', window.parent.document ),
+				preview   = $( '.fl-responsive-preview', window.parent.document ),
+				win 	  = $( window.parent ),
 				winWidth  = preview.length ? preview.width() : win.width(),
 				scrollTop = win.scrollTop(),
-				panel     = $( '.fl-builder--content-library-panel' ),
+				panel     = $( '.fl-builder--content-library-panel', window.parent.document ),
 				offsetTop = panel.offset().top,
-				actions   = $( '.fl-builder-bar-actions' ),
-				target    = $( e.target );
+				actions   = $( '.fl-builder-bar-actions', window.parent.document ),
+				target    = $( e.target, window.parent.document );
 
 			if ( target.hasClass( 'fl-builder--content-library-panel' ) ) {
 				if ( e.clientX < winWidth - 75 && offsetTop - scrollTop < 46 ) {
@@ -576,13 +577,13 @@
 		 */
 		dragStop: function( e, ui )
 		{
-			var win      = $( window ),
-				body     = $( 'body' ),
-				actions  = $( '.fl-builder-bar-actions' ),
-				zones    = $( '.fl-builder-ui-pin-zone' ),
-				panel    = $( '.fl-builder--content-library-panel' ),
-				lightbox = $( '.fl-lightbox-resizable:visible' ),
-				target   = $( e.target );
+			var win      = $( window.parent ),
+				body     = $( 'body', window.parent.document ),
+				actions  = $( '.fl-builder-bar-actions', window.parent.document ),
+				zones    = $( '.fl-builder-ui-pin-zone', window.parent.document ),
+				panel    = $( '.fl-builder--content-library-panel', window.parent.document ),
+				lightbox = $( '.fl-lightbox-resizable:visible', window.parent.document ),
+				target   = $( e.target, window.parent.document );
 
 			body.removeClass( 'fl-builder-draggable-is-dragging' );
 			actions.removeClass( 'fl-builder-content-panel-pin-zone' );
@@ -622,8 +623,8 @@
 		 * @method disableDragAndResize
 		 */
 		disableDragAndResize: function() {
-			var panel 		= $( '.fl-builder--content-library-panel' ),
-				lightboxes 	= $( '.fl-lightbox-resizable' );
+			var panel 		= $( '.fl-builder--content-library-panel', window.parent.document ),
+				lightboxes 	= $( '.fl-lightbox-resizable', window.parent.document );
 
 			panel.draggable( 'disable' );
 			panel.resizable( 'disable' );
@@ -639,8 +640,8 @@
 		 * @method enableDragAndResize
 		 */
 		enableDragAndResize: function() {
-			var panel 		= $( '.fl-builder--content-library-panel' ),
-				lightboxes 	= $( '.fl-lightbox-resizable:not(.fl-lightbox-width-full)' );
+			var panel 		= $( '.fl-builder--content-library-panel', window.parent.document ),
+				lightboxes 	= $( '.fl-lightbox-resizable:not(.fl-lightbox-width-full)', window.parent.document );
 
 			panel.draggable( 'enable' );
 			panel.resizable( 'enable' );
@@ -659,8 +660,8 @@
 		 */
 		savePosition: function()
 		{
-			var panel 	 = $( '.fl-builder--content-library-panel' ),
-				lightbox = $( '.fl-lightbox-resizable:visible' ),
+			var panel 	 = $( '.fl-builder--content-library-panel', window.parent.document ),
+				lightbox = $( '.fl-lightbox-resizable:visible', window.parent.document ),
 				data  	 = {
 					pinned: {
 						width  	 : panel.outerWidth(),
@@ -701,7 +702,7 @@
 		 */
 		restorePosition: function()
 		{
-			var panel    = $( '.fl-builder--content-library-panel' ),
+			var panel    = $( '.fl-builder--content-library-panel', window.parent.document ),
 				settings = FLBuilderConfig.userSettings.pinned;
 
 			if ( settings && settings.position ) {

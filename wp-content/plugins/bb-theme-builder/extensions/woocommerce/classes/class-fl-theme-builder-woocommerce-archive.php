@@ -77,6 +77,10 @@ final class FLThemeBuilderWooCommerceArchive {
 			$is_woo_product = 'product' === strval( $settings->post_type );
 		}
 
+		if ( 'main_query' === $settings->data_source ) {
+			$is_woo_product = true;
+		}
+
 		if ( $is_woo_product && 'show' === $settings->woo_ordering ) {
 			$force = false;
 			if ( ! isset( $GLOBALS['woocommerce_loop'] ) ) {

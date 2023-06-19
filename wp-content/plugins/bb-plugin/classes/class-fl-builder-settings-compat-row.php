@@ -19,6 +19,8 @@ class FLBuilderSettingsCompatRow extends FLBuilderSettingsCompatHelper {
 		$this->handle_opacity_inputs( $settings, 'bg_overlay_opacity', 'bg_overlay_color' );
 		$this->handle_opacity_inputs( $settings, 'border_opacity', 'border_color' );
 		$this->handle_border_inputs( $settings );
+		$this->filter_responsive_display_settings( $settings );
+
 		return $settings;
 	}
 }

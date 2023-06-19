@@ -7,7 +7,7 @@ if ( ! is_multisite() ) {
 
 // Defines
 define( 'FL_BUILDER_MULTISITE_SETTINGS_DIR', FL_BUILDER_DIR . 'extensions/fl-builder-multisite-settings/' );
-define( 'FL_BUILDER_MULTISITE_SETTINGS_URL', FL_BUILDER_URL . 'extensions/fl-builder-multisite-settings/' );
+define( 'FL_BUILDER_MULTISITE_SETTINGS_URL', FLBuilder::plugin_url() . 'extensions/fl-builder-multisite-settings/' );
 
 // Classes
 require_once FL_BUILDER_MULTISITE_SETTINGS_DIR . 'classes/class-fl-builder-multisite-settings.php';

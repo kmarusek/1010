@@ -144,9 +144,9 @@ final class FLUpdater {
 					$transient->response[ $plugin ]->icons       = apply_filters(
 						'fl_updater_icon',
 						array(
-							'1x'      => FL_BUILDER_URL . 'img/beaver-128.png',
-							'2x'      => FL_BUILDER_URL . 'img/beaver-256.png',
-							'default' => FL_BUILDER_URL . 'img/beaver-256.png',
+							'1x'      => FLBuilder::plugin_url() . 'img/beaver-128.png',
+							'2x'      => FLBuilder::plugin_url() . 'img/beaver-256.png',
+							'default' => FLBuilder::plugin_url() . 'img/beaver-256.png',
 						),
 						$response,
 						$this->settings

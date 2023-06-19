@@ -124,9 +124,15 @@ class FLBuilderImportParserXML extends WXR_Parser_XML {
 				break;
 			default:
 				if ( $this->in_sub_tag ) {
+					if ( false === $this->sub_data ) {
+						$this->sub_data = array();
+					}
 					$this->sub_data[ $this->in_sub_tag ] = ! empty( $this->cdata ) ? $this->cdata : '';
 					$this->in_sub_tag                    = false;
 				} elseif ( $this->in_tag ) {
+					if ( false === $this->data ) {
+						$this->data = array();
+					}
 					$this->data[ $this->in_tag ] = ! empty( $this->cdata ) ? $this->cdata : '';
 					$this->in_tag                = false;
 				}
@@ -287,7 +293,7 @@ final class FLBuilderImporterDataFix {
 		if ( $linebreaks ) {
 			$data = preg_replace_callback('!([a-z-_0-9]+)";s:(\d+):"(.*?)";!', function( $m ) {
 				// new replace logic.
-				if ( 'css' === $m[1] || 'js' === $m[1] || 'html' === $m[1] ) {
+				if ( 'css' === $m[1] || 'js' === $m[1] || 'html' === $m[1] || 'bb_css_code' === $m[1] || 'bb_js_code' === $m[1] ) {
 					$m[3] = str_replace( '<br data-fl-fixed=true />', "\n", $m[3] );
 				}
 				$m[3] = str_replace( '<br data-fl-fixed=true />', '<br />', $m[3] );

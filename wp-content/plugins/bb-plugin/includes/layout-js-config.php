@@ -5,7 +5,7 @@ var FLBuilderLayoutConfig = {
 		offset 		: 100
 	},
 	paths : {
-		pluginUrl : '<?php echo FL_BUILDER_URL; ?>',
+		pluginUrl : '<?php echo FLBuilder::plugin_url(); ?>',
 		wpAjaxUrl : '<?php echo admin_url( 'admin-ajax.php' ); ?>'
 	},
 	breakpoints : {

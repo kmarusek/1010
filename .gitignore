@@ -67,5 +67,8 @@ Thumbs.db
 .idea/workspace.xml
 .htaccess
 
+# Wordfence #
+wp-content/wflogs/
+
 
 

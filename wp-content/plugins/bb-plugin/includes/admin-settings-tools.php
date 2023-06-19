@@ -102,8 +102,9 @@
 		<form id="theme-opts-form" action="<?php FLBuilderAdminSettings::render_form_action( 'tools' ); ?>" method="post">
 			<?php
 			foreach ( $theme_codes as $key ) {
+				$code = isset( $theme_opts[ $key ] ) ? $theme_opts[ $key ] : '';
 				printf( '<h3 class="fl-settings-form-header">Theme %s</h3>', str_replace( 'fl-', '', $key ) );
-				printf( '<p><textarea style="width:100%%" rows=10 name="%s">%s</textarea></p>', $key, esc_attr( $theme_opts[ $key ] ) );
+				printf( '<p><textarea style="width:100%%" rows=10 name="%s">%s</textarea></p>', $key, esc_attr( $code ) );
 			}
 			?>
 		<input type="submit" name="update-theme-opts" class="button-primary" value="<?php echo esc_attr__( 'Update Theme Code Settings', 'fl-builder' ); ?>" />

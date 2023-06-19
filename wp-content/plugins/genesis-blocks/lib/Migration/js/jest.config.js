@@ -1,6 +1,5 @@
 module.exports = {
 	rootDir: '../../../',
-	name: 'migration',
 	displayName: 'Migration unit tests',
 	...require( '@wordpress/scripts/config/jest-unit.config' ),
 	testMatch: [ '**/lib/Migration/js/**/*.test.[jt]s' ],

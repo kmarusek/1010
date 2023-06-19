@@ -15,7 +15,7 @@
 		 */
 		init: function()
 		{
-			var body = $('body');
+			var body = $('body', window.parent.document);
 
 			// Standard Events
 			body.on( 'change', '.fl-builder-service-select', this._serviceChange );
@@ -42,9 +42,9 @@
 		 */
 		_startSettingsLoading: function( ele )
 		{
-			var lightbox    = $( '.fl-builder-settings' ),
-				wrap        = ele.closest( '.fl-builder-service-settings' ),
-				error       = $( '.fl-builder-service-error' );
+			var lightbox    = $( '.fl-builder-settings', window.parent.document ),
+				wrap        = ele.closest( '.fl-builder-service-settings', window.parent.document ),
+				error       = $( '.fl-builder-service-error', window.parent.document );
 
 			lightbox.append( '<div class="fl-builder-loading"></div>' );
 			wrap.addClass( 'fl-builder-service-settings-loading' );
@@ -59,8 +59,8 @@
 		 */
 		_finishSettingsLoading: function()
 		{
-			var lightbox    = $( '.fl-builder-settings' ),
-				wrap        = $( '.fl-builder-service-settings-loading' );
+			var lightbox    = $( '.fl-builder-settings', window.parent.document ),
+				wrap        = $( '.fl-builder-service-settings-loading', window.parent.document );
 
 			lightbox.find( '.fl-builder-loading' ).remove();
 			wrap.removeClass( 'fl-builder-service-settings-loading' );
@@ -74,7 +74,7 @@
 		 */
 		_serviceChange: function()
 		{
-			var nodeId      = $( '.fl-builder-settings' ).data( 'node' ),
+			var nodeId      = $( '.fl-builder-settings', window.parent.document ).data( 'node' ),
 				select      = $( this ),
 				selectRow   = select.closest( 'tr' ),
 				service     = select.val();
@@ -82,7 +82,7 @@
 			selectRow.siblings( 'tr.fl-builder-service-account-row' ).remove();
 			selectRow.siblings( 'tr.fl-builder-service-connect-row' ).remove();
 			selectRow.siblings( 'tr.fl-builder-service-field-row' ).remove();
-			$( '.fl-builder-service-error' ).remove();
+			$( '.fl-builder-service-error', window.parent.document ).remove();
 
 			if ( '' === service ) {
 				return;
@@ -107,7 +107,7 @@
 		_serviceChangeComplete: function( response )
 		{
 			var data        = FLBuilder._jsonParse( response ),
-				wrap        = $( '.fl-builder-service-settings-loading' ),
+				wrap        = $( '.fl-builder-service-settings-loading', window.parent.document ),
 				selectRow   = wrap.find( '.fl-builder-service-select-row' );
 
 			selectRow.after( data.html );
@@ -123,7 +123,7 @@
 		 */
 		_connectClicked: function()
 		{
-			var nodeId          = $( '.fl-builder-settings' ).data( 'node' ),
+			var nodeId          = $( '.fl-builder-settings', window.parent.document ).data( 'node' ),
 				wrap            = $( this ).closest( '.fl-builder-service-settings' ),
 				select          = wrap.find( '.fl-builder-service-select' ),
 				connectRows     = wrap.find( '.fl-builder-service-connect-row' ),
@@ -159,7 +159,7 @@
 		_connectComplete: function( response )
 		{
 			var data        = FLBuilder._jsonParse( response ),
-				wrap        = $( '.fl-builder-service-settings-loading' ),
+				wrap        = $( '.fl-builder-service-settings-loading', window.parent.document ),
 				selectRow   = wrap.find( '.fl-builder-service-select-row' ),
 				select      = wrap.find( '.fl-builder-service-select' ),
 				accountRow  = wrap.find( '.fl-builder-service-account-row' ),
@@ -195,13 +195,13 @@
 		 */
 		_accountChange: function()
 		{
-			var nodeId      = $( '.fl-builder-settings' ).data( 'node' ),
+			var nodeId      = $( '.fl-builder-settings', window.parent.document ).data( 'node' ),
 				wrap        = $( this ).closest( '.fl-builder-service-settings' ),
 				select      = wrap.find( '.fl-builder-service-select' ),
 				account     = wrap.find( '.fl-builder-service-account-select' ),
 				connectRows = wrap.find( '.fl-builder-service-connect-row' ),
 				fieldRows   = wrap.find( 'tr.fl-builder-service-field-row' ),
-				error       = $( '.fl-builder-service-error' ),
+				error       = $( '.fl-builder-service-error', window.parent.document ),
 				value       = account.val(),
 				data        = null;
 
@@ -244,7 +244,7 @@
 		_accountChangeComplete: function( response )
 		{
 			var data        = FLBuilder._jsonParse( response ),
-				wrap        = $( '.fl-builder-service-settings-loading' ),
+				wrap        = $( '.fl-builder-service-settings-loading', window.parent.document ),
 				accountRow  = wrap.find( '.fl-builder-service-account-row' );
 
 			accountRow.after( data.html );
@@ -304,7 +304,7 @@
 		 */
 		_accountDeleteComplete: function()
 		{
-			var wrap   = $( '.fl-builder-service-settings-loading' ),
+			var wrap   = $( '.fl-builder-service-settings-loading', window.parent.document ),
 				select = wrap.find( '.fl-builder-service-select' );
 
 			FLBuilderServices._finishSettingsLoading();
@@ -323,7 +323,7 @@
 		 */
 		_campaignMonitorClientChange: function()
 		{
-			var nodeId      = $( '.fl-builder-settings' ).data( 'node' ),
+			var nodeId      = $( '.fl-builder-settings', window.parent.document ).data( 'node' ),
 				wrap        = $( this ).closest( '.fl-builder-service-settings' ),
 				select      = wrap.find( '.fl-builder-service-select' ),
 				account     = wrap.find( '.fl-builder-service-account-select' ),
@@ -359,7 +359,7 @@
 		_campaignMonitorClientChangeComplete: function( response )
 		{
 			var data    = FLBuilder._jsonParse( response ),
-				wrap    = $( '.fl-builder-service-settings-loading' ),
+				wrap    = $( '.fl-builder-service-settings-loading', window.parent.document ),
 				client  = wrap.find( '.fl-builder-campaign-monitor-client-select' );
 
 			client.closest( 'tr' ).after( data.html );
@@ -377,13 +377,13 @@
 		 */
 		_mailChimpListChange: function()
 		{
-			var nodeId      = $( '.fl-builder-settings' ).data( 'node' ),
+			var nodeId      = $( '.fl-builder-settings', window.parent.document ).data( 'node' ),
 				wrap        = $( this ).closest( '.fl-builder-service-settings' ),
 				select      = wrap.find( '.fl-builder-service-select' ),
 				account     = wrap.find( '.fl-builder-service-account-select' ),
 				list        = wrap.find( '.fl-builder-service-list-select' );
 
-			$( '.fl-builder-mailchimp-group-select' ).closest( 'tr' ).remove();
+			$( '.fl-builder-mailchimp-group-select', window.parent.document ).closest( 'tr' ).remove();
 
 			if ( '' === list.val() ) {
 				return;
@@ -410,7 +410,7 @@
 		_mailChimpListChangeComplete: function( response )
 		{
 			var data    = FLBuilder._jsonParse( response ),
-				wrap    = $( '.fl-builder-service-settings-loading' ),
+				wrap    = $( '.fl-builder-service-settings-loading', window.parent.document ),
 				list    = wrap.find( '.fl-builder-service-list-select' );
 
 			list.closest( 'tr' ).after( data.html );
@@ -428,7 +428,7 @@
 		 */
 		_activeCampaignChange: function()
 		{
-			var nodeId      = $( '.fl-builder-settings' ).data( 'node' ),
+			var nodeId      = $( '.fl-builder-settings', window.parent.document ).data( 'node' ),
 				wrap        = $( this ).closest( '.fl-builder-service-settings' ),
 				select      = wrap.find( '.fl-builder-service-select' ),
 				account     = wrap.find( '.fl-builder-service-account-select' ),
@@ -464,7 +464,7 @@
 		_activeCampaignTypeChangeComplete: function( response )
 		{
 			var data    	= FLBuilder._jsonParse( response ),
-				wrap    	= $( '.fl-builder-service-settings-loading' ),
+				wrap    	= $( '.fl-builder-service-settings-loading', window.parent.document ),
 				fieldRow  	= wrap.find( '.fl-builder-service-field-row' );
 
 			fieldRow.after( data.html );

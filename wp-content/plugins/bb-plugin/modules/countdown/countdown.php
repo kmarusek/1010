@@ -213,7 +213,7 @@ FLBuilder::register_module('FLCountdownModule', array(
 	'general' => array(
 		'title'    => __( 'General', 'fl-builder' ),
 		'sections' => array(
-			'date' => array(
+			'date'     => array(
 				'title'  => __( 'Date', 'fl-builder' ),
 				'fields' => array(
 					'ui_date' => array(
@@ -227,7 +227,7 @@ FLBuilder::register_module('FLCountdownModule', array(
 					),
 				),
 			),
-			'time' => array(
+			'time'     => array(
 				'title'  => __( 'Time', 'fl-builder' ),
 				'fields' => array(
 					'time'      => array(
@@ -246,7 +246,34 @@ FLBuilder::register_module('FLCountdownModule', array(
 					),
 				),
 			),
-
+			'redirect' => array(
+				'title'  => __( 'Redirect', 'fl-builder' ),
+				'fields' => array(
+					'redirect_when' => array(
+						'type'    => 'select',
+						'label'   => __( 'Redirect', 'fl-builder' ),
+						'default' => 'disabled',
+						'options' => array(
+							'disabled' => __( 'Disabled', 'fl-builder' ),
+							'once'     => __( 'Once After Countdown End', 'fl-builder' ),
+							'always'   => __( 'Always After Countdown End', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'once'   => array(
+								'fields' => array( 'redirect_url' ),
+							),
+							'always' => array(
+								'fields' => array( 'redirect_url' ),
+							),
+						),
+					),
+					'redirect_url'  => array(
+						'type'        => 'link',
+						'label'       => __( 'URL', 'fl-builder' ),
+						'connections' => array( 'url' ),
+					),
+				),
+			),
 		),
 	),
 	'style'   => array( // Tab

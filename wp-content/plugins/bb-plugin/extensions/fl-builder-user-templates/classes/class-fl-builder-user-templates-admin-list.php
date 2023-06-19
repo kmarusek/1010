@@ -41,7 +41,7 @@ final class FLBuilderUserTemplatesAdminList {
 		$slug    = 'fl-builder-user-templates-admin-';
 		$url     = FL_BUILDER_USER_TEMPLATES_URL;
 		$version = FL_BUILDER_VERSION;
-		$js_url  = FL_BUILDER_URL . 'js/';
+		$js_url  = FLBuilder::plugin_url() . 'js/';
 
 		if ( 'edit.php' == $pagenow && 'fl-builder-template' == $screen->post_type ) {
 

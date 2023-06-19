@@ -98,6 +98,7 @@ final class FLThemeBuilderSupportGenesis {
 			remove_action( 'genesis_header', 'genesis_header_markup_open', 5 );
 			remove_action( 'genesis_header', 'genesis_do_header' );
 			remove_action( 'genesis_header', 'genesis_header_markup_close', 15 );
+			remove_action( 'genesis_after_header', 'genesis_do_nav' );
 			add_action( 'genesis_header', 'FLThemeBuilderLayoutRenderer::render_header' );
 		}
 		if ( ! empty( $footer_ids ) ) {

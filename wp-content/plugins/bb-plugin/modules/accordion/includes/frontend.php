@@ -31,7 +31,7 @@
 				<div class="fl-accordion-content fl-clearfix" id="<?php echo $content_id; ?>" aria-labelledby="<?php echo 'fl-accordion-' . $module->node . '-tab-' . $i; ?>" aria-hidden="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'true' : 'false'; ?>" role="tabpanel" aria-live="polite">
 					<?php
 					if ( 'none' === $settings->items[ $i ]->saved_layout ) {
-						echo wpautop( $wp_embed->autoembed( $settings->items[ $i ]->content ) );
+						echo FLBuilderUtils::wpautop( $wp_embed->autoembed( $settings->items[ $i ]->content ), $module );
 					} else {
 						$post_id = $settings->items[ $i ]->{'saved_' . $settings->items[ $i ]->saved_layout};
 
@@ -73,7 +73,20 @@
 						<?php endif; ?>
 
 					</div>
-					<div class="fl-accordion-content fl-clearfix" id="<?php echo $content_id; ?>" aria-labelledby="<?php echo 'fl-accordion-' . $module->node . '-tab-' . $i; ?>" aria-hidden="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'true' : 'false'; ?>" role="tabpanel" aria-live="polite"><?php $module->render_content( get_the_ID() ); ?></div>
+					<div class="fl-accordion-content fl-clearfix" id="<?php echo $content_id; ?>" aria-labelledby="<?php echo 'fl-accordion-' . $module->node . '-tab-' . $i; ?>" aria-hidden="<?php echo ( $i > 0 || ! $settings->open_first ) ? 'true' : 'false'; ?>" role="tabpanel" aria-live="polite">
+					<?php
+
+					$post_id = get_the_id();
+					if ( ! empty( $settings->content_type ) && 'post_content' === $settings->content_type ) {
+						$module->render_content( $post_id );
+					} else {
+						$module->render_excerpt( $post_id );
+					}
+					$more_link_text = ( ! empty( $settings->more_link ) && 'show' === $settings->more_link ) ? $settings->more_link_text : '';
+					$module->render_more_link( $post_id, $more_link_text );
+
+					?>
+					</div>
 				</div>
 				<?php
 				$i++;

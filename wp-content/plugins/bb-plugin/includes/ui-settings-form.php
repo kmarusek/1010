@@ -76,7 +76,11 @@
 									if ( typeof section.collapsed !== 'undefined' ) {
 										isCollapsed = section.collapsed
 									}
+									if ( '' !== section.title && true === FLBuilderConfig.collapseSectionsDefault ) {
+										isCollapsed = true;
+									}
 									var collapsedClass = isCollapsed ? 'fl-builder-settings-section-collapsed' : '';
+
 								#>
 								<div id="fl-builder-settings-section-{{sectionId}}" class="fl-builder-settings-section {{collapsedClass}}">
 

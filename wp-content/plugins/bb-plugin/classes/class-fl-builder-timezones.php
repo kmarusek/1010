@@ -125,6 +125,56 @@ final class FLBuilderTimezones {
 		$structure[] = '<option ' . $selected . 'value="' . esc_attr__( 'UTC', 'fl-builder' ) . '">' . __( 'UTC', 'fl-builder' ) . '</option>';
 		$structure[] = '</optgroup>';
 
+		// Do manual UTC offsets.
+		$structure[]  = '<optgroup label="' . esc_attr__( 'Manual Offsets', 'fl-builder' ) . '">';
+		$offset_range = array(
+			-12,
+			-11,
+			-10,
+			-9,
+			-8,
+			-7,
+			-6,
+			-5,
+			-4,
+			-3,
+			-2,
+			-1,
+			0,
+			1,
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11,
+			12,
+			13,
+			14,
+		);
+		foreach ( $offset_range as $offset ) {
+			if ( 0 <= $offset ) {
+				$offset_name = '+' . $offset;
+			} else {
+				$offset_name = (string) $offset;
+			}
+
+			$offset_value = $offset_name;
+			$offset_name  = 'UTC ' . $offset_name;
+
+			$selected = '';
+			if ( $offset_value === $selected_zone ) {
+				$selected = 'selected="selected" ';
+			}
+			$structure[] = '<option ' . $selected . 'value="' . esc_attr( $offset_value ) . '">' . esc_html( $offset_name ) . '</option>';
+
+		}
+		$structure[] = '</optgroup>';
+
 		return join( "\n", $structure );
 	}
 }

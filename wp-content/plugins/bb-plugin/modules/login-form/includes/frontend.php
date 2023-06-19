@@ -46,11 +46,14 @@
 </div>
 <?php else : ?>
 	<div class="fl-login-form fl-login-form-<?php echo $settings->layout; ?> fl-form fl-clearfix logout" <?php if ( isset( $module->template_id ) ) { echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"';} ?>><?php // @codingStandardsIgnoreLine ?>
-		<?php wp_nonce_field( 'fl-login-form', 'fl-login-form-nonce' ); ?>
+		<?php if ( 'yes' == $settings->lo_btn_enabled ) : ?>
+			<?php wp_nonce_field( 'fl-login-form', 'fl-login-form-nonce' ); ?>
 		<div class="fl-form-button log-out" data-wait-text="<?php esc_attr_e( 'Please Wait...', 'fl-builder' ); ?>">
-		<?php FLBuilder::render_module_html( 'button', $module->get_button_settings( 'lo_btn_' ) ); ?>
-
+			<?php FLBuilder::render_module_html( 'button', $module->get_button_settings( 'lo_btn_' ) ); ?>
 		</div>
-
+		<?php endif; ?>
+		<?php if ( 'message' == $settings->redirect_to ) : ?>
+			<span class="fl-success-msg"><?php echo $settings->success_message; ?></span>
+		<?php endif; ?>
 	</div>
 <?php endif; ?>

@@ -170,7 +170,7 @@ FLBuilder::register_module('FLHeadingModule', array(
 							'h6' => 'h6',
 						),
 						'preview' => array(
-							'type' => 'none',
+							'type' => 'refresh',
 						),
 					),
 					'link'    => array(

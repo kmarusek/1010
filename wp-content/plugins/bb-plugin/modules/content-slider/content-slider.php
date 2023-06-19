@@ -152,7 +152,7 @@ class FLContentSliderModule extends FLBuilderModule {
 			echo '<' . $slide->title_tag . ' class="fl-slide-title">' . $slide->title . '</' . $slide->title_tag . '>';
 		}
 		if ( ! empty( $slide->text ) && 'none' != $slide->content_layout ) {
-			echo '<div class="fl-slide-text">' . wpautop( $wp_embed->autoembed( $slide->text ) ) . $this->render_link( $slide ) . '</div>';
+			echo '<div class="fl-slide-text">' . FLBuilderUtils::wpautop( $wp_embed->autoembed( $slide->text ), $this ) . $this->render_link( $slide ) . '</div>';
 		}
 
 		$this->render_button( $slide, $slide_index, $node_id );
@@ -465,7 +465,7 @@ FLBuilder::register_module('FLContentSliderModule', array(
 			'general' => array(
 				'title'  => '',
 				'fields' => array(
-					'height'    => array(
+					'height'               => array(
 						'type'     => 'unit',
 						'label'    => __( 'Height', 'fl-builder' ),
 						'default'  => '400',
@@ -477,7 +477,7 @@ FLBuilder::register_module('FLContentSliderModule', array(
 						),
 						'help'     => __( 'This setting is the minimum height of the content slider. Content will expand the height automatically.', 'fl-builder' ),
 					),
-					'max_width' => array(
+					'max_width'            => array(
 						'type'     => 'unit',
 						'label'    => __( 'Max Content Width', 'fl-builder' ),
 						'default'  => '1100',
@@ -488,6 +488,29 @@ FLBuilder::register_module('FLContentSliderModule', array(
 							'step' => 10,
 						),
 						'help'     => __( 'The max width that the content area will be within your slides.', 'fl-builder' ),
+					),
+					'common_text_color'    => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Text Color', 'fl-builder' ),
+						'default'     => 'ffffff',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type' => 'refresh',
+						),
+						'help'        => __( 'Text color shared by all slides. But take note that each slide has a set default Text Color of white.', 'fl-builder' ),
+					),
+					'common_text_bg_color' => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Text Background Color', 'fl-builder' ),
+						'help'        => __( 'The color applies to the overlay behind text over the background selections.', 'fl-builder' ),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type' => 'refresh',
+						),
 					),
 				),
 			),

@@ -34,6 +34,13 @@ final class FLBuilderAdminAdvanced {
 	 */
 	static public function get_settings() {
 		$settings = array(
+			'iframe_ui'              => array(
+				'label'       => __( 'Responsive Iframe UI', 'fl-builder' ),
+				'default'     => 1,
+				'callback'    => array( __CLASS__, 'disable_iframe_ui' ),
+				'group'       => 'ui',
+				'description' => __( 'Disables the iframe UI for accurate responsive editing. May cause issues with legacy add-ons.', 'fl-builder' ),
+			),
 			'outline_enabled'        => array(
 				'label'    => __( 'Outline Panel', 'fl-builder' ),
 				'default'  => 1,
@@ -68,6 +75,13 @@ final class FLBuilderAdminAdvanced {
 				'callback'    => array( __CLASS__, 'disable_rowshapes' ),
 				'group'       => 'ui',
 				'description' => __( 'When enabled a custom row shapes tab will be added to the Global Settings.', 'fl-builder' ),
+			),
+			'node_code'              => array(
+				'label'       => __( 'Enable Code Settings', 'fl-builder' ),
+				'default'     => 1,
+				'callback'    => array( __CLASS__, 'disable_node_code' ),
+				'group'       => 'ui',
+				'description' => __( 'When enabled CSS and JS settings will be available for rows, columns, and modules.', 'fl-builder' ),
 			),
 			'limitrevisions_enabled' => array(
 				'label'       => __( 'Limit WP revisions for layouts', 'fl-builder' ),
@@ -185,6 +199,20 @@ final class FLBuilderAdminAdvanced {
 				'group'    => 'ui',
 				'link'     => 'https://docs.wpbeaverbuilder.com/beaver-builder/advanced-builder-techniques/shortcodes/use-shortcodes-in-tools-menu-css-or-js/',
 			),
+			'acf_blocks_enabled'     => array(
+				'label'       => __( 'ACF Blocks', 'fl-builder' ),
+				'default'     => 1,
+				'callback'    => array( __CLASS__, 'disable_acf_blocks' ),
+				'group'       => 'ui',
+				'description' => __( 'Allow blocks built with ACF to be used in the builder.', 'fl-builder' ),
+			),
+			'collapse_default'       => array(
+				'label'       => __( 'Collapse All Settings', 'fl-builder' ),
+				'default'     => 0,
+				'callback'    => array( __CLASS__, 'collapse_default' ),
+				'group'       => 'ui',
+				'description' => __( 'Collapse all Settings Window setting sections', 'fl-builder' ),
+			),
 		);
 		if ( FLBuilderModel::is_white_labeled() ) {
 			unset( $settings['notifications_enabled'] );
@@ -194,6 +222,9 @@ final class FLBuilderAdminAdvanced {
 
 	static private function disable_sorting() {
 		add_filter( 'fl_builder_admin_edit_sort_bb_enabled', '__return_false', 11 );
+	}
+	static private function disable_iframe_ui() {
+		add_filter( 'fl_builder_iframe_ui_enabled', '__return_false', 11 );
 	}
 	static private function disable_outline() {
 		add_filter( 'fl_builder_outline_panel_enabled', '__return_false', 11 );
@@ -252,6 +283,10 @@ final class FLBuilderAdminAdvanced {
 		}, 11, 2 );
 	}
 
+	static private function disable_node_code() {
+		add_filter( 'fl_builder_enable_node_code_settings', '__return_false', 1000 );
+	}
+
 	static private function limit_revisions() {
 		add_filter( 'wp_revisions_to_keep', function( $num, $post ) {
 			$enabled = get_post_meta( $post->ID, '_fl_builder_enabled', true );
@@ -278,6 +313,14 @@ final class FLBuilderAdminAdvanced {
 
 	static private function shortcodes_enabled() {
 		add_filter( 'fl_enable_shortcode_css_js', '__return_true' );
+	}
+
+	static private function disable_acf_blocks() {
+		add_filter( 'fl_disable_acf_blocks', '__return_true' );
+	}
+
+	static private function collapse_default() {
+		add_filter( 'fl_builder_ui_collapse_sections', '__return_true' );
 	}
 
 	/**

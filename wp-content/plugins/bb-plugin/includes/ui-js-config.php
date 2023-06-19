@@ -24,7 +24,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'moduleGroups'               => FLBuilderModel::get_module_groups(),
 	'nestedColumns'              => ( ! defined( 'FL_BUILDER_NESTED_COLUMNS' ) || FL_BUILDER_NESTED_COLUMNS ),
 	'newUser'                    => FLBuilderModel::is_new_user(),
-	'pluginUrl'                  => FL_BUILDER_URL,
+	'pluginUrl'                  => FLBuilder::plugin_url(),
 	'relativePluginUrl'          => FLBuilderModel::get_relative_plugin_url(),
 	'postId'                     => $post_id,
 	'postStatus'                 => get_post_status(),
@@ -43,7 +43,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'userTemplateType'           => FLBuilderModel::get_user_template_type(),
 	'brandingIcon'               => FLBuilderModel::get_branding_icon(),
 	'url'                        => get_permalink(),
-	'editUrl'                    => add_query_arg( 'fl_builder', '', get_permalink() ),
+	'editUrl'                    => FLBuilderModel::get_edit_url(),
 	'shortlink'                  => add_query_arg( 'fl_builder', '', FLBuilderUtils::get_safe_url( $post_id ) ),
 	'previewUrl'                 => add_query_arg( 'fl_builder_preview', '', get_permalink() ),
 	'layoutHasDraftedChanges'    => FLBuilderModel::layout_has_drafted_changes(),
@@ -125,7 +125,8 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'wooActive'                  => class_exists( 'WooCommerce' ) ? true : false,
 	'uploadPath'                 => ( get_option( 'upload_path' ) && get_option( 'upload_path' ) != 'wp-content/uploads' ) ? true : false,
 	'uploadUrl'                  => admin_url( 'options-media.php' ),
-	'responsiveFields'           => array( 'align', 'border', 'dimension', 'unit', 'photo', 'select', 'typography', 'text' ),
+	'responsiveFields'           => array( 'align', 'border', 'gradient', 'dimension', 'unit', 'photo', 'select', 'typography', 'text' ),
+	'collapseSectionsDefault'    => apply_filters( 'fl_builder_ui_collapse_sections', false ),
 	/**
 	 * @see fl_builder_default_image_select_size
 	 */

@@ -29,7 +29,7 @@ if ( ! data.value || ! video ) {
 		<span class="fl-video-preview-filename">{{{video.filename}}}</span>
 		<# } else { #>
 		<div class="fl-video-preview-img">
-			<img src="<?php echo FL_BUILDER_URL; ?>img/spacer.png" />
+			<img src="<?php echo FLBuilder::plugin_url(); ?>img/spacer.png" />
 		</div>
 		<span class="fl-video-preview-filename"></span>
 		<# } #>

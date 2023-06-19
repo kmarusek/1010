@@ -483,7 +483,7 @@ final class BB_Logic_Rules_WordPress {
 	 * @return bool
 	 */
 	static public function post_type( $rule ) {
-		if ( empty( $rule->compare ) || ! is_singular( $rule->compare ) ) {
+		if ( empty( $rule->compare ) || ! is_singular() ) {
 			return false;
 		}
 

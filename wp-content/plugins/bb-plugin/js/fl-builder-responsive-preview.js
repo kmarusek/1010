@@ -15,6 +15,8 @@
 		 * @method enter
 		 */
 		enter: function() {
+			FL.Builder.getActions().displayPanel( null );
+			FLBuilder.UIIFrame.exitResponsiveEditing();
 			this.render();
 		},
 
@@ -65,7 +67,7 @@
 				src 	= FLBuilderConfig.previewUrl,
 				last	= $( '#fl-builder-preview-mask, #fl-builder-preview-frame' ),
 				mask	= $( '<div id="fl-builder-preview-mask"></div>' ),
-				frame 	= $( '<iframe id="fl-builder-preview-frame" src="' + src + '"></iframe>' );
+				frame 	= $( '<iframe id="fl-builder-preview-frame" frameborder="0" src="' + src + '"></iframe>' );
 
 			last.remove();
 			body.append( mask );

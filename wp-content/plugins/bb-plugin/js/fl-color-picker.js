@@ -450,11 +450,11 @@ var FLBuilderColorPicker;
 		_init: function(){
 
 			var self  = this,
-				el    = $( self.options.elements );
+				el    = $( self.options.elements, window.parent.document );
 
 			// Just prep the color inputs and bail early if the color picker
 			// markup has already been initialized in the DOM.
-			if( $('html').hasClass( 'fl-color-picker-init' ) ){
+			if( $( 'html', window.parent.document ).hasClass( 'fl-color-picker-init' ) ){
 				this._prepareColorFields();
 				return;
 			}
@@ -470,7 +470,7 @@ var FLBuilderColorPicker;
 
 			// appends color picker markup to the body
 			// check if there's already a color picker instance
-			self.picker = $( this._html ).appendTo( 'body' );
+			self.picker = $( this._html ).appendTo( $( 'body', window.parent.document ) );
 
 			// Browsers / Versions
 			// Feature detection doesn't work for these, and $.browser is deprecated
@@ -509,9 +509,9 @@ var FLBuilderColorPicker;
 			// COLOR PRESETS UI -------------------------------------//
 
 			// cache reference to the picker wrapper
-			this._ui 	  = $( '.fl-color-picker-ui' );
-			this._iris 	  = $( '.iris-picker' );
-			this._wrapper = $( 'body' );
+			this._ui 	  = $( '.fl-color-picker-ui', window.parent.document );
+			this._iris 	  = $( '.iris-picker', window.parent.document );
+			this._wrapper = $( 'body', window.parent.document );
 
 			this._ui
 				.prepend( this._hexHtml )
@@ -542,7 +542,7 @@ var FLBuilderColorPicker;
 			this._buildAlphaUI();
 
 			// now we know that the picker is already added to the body
-			$('html').addClass( 'fl-color-picker-init' );
+			$( 'html', window.parent.document ).addClass( 'fl-color-picker-init' );
 
 		},
 
@@ -555,7 +555,7 @@ var FLBuilderColorPicker;
 			var self = this;
 
 			// append presets initial html and trigger that toggles the picker
-			$('.fl-color-picker-value').each( function(){
+			$( '.fl-color-picker-value', window.parent.document ).each( function(){
 
 				var $this 			= $( this ),
 					$colorValue 	= $this.val(),
@@ -726,6 +726,7 @@ var FLBuilderColorPicker;
 						at: 'left bottom',
 						of: $this,
 						collision: 'flip',
+						within: window.parent,
 						using: function( position, feedback ){
 							self._togglePicker( position );
 						}
@@ -765,7 +766,8 @@ var FLBuilderColorPicker;
 							$(FLBuilder.colorPicker).trigger( 'presetSorted', { presets: presets } );
 						}
 					}
-					$( '.fl-color-picker-ui.fl-color-picker-active' ).removeClass( 'fl-color-picker-active' );
+					$( '.fl-color-picker-ui.fl-color-picker-active', window.parent.document )
+						.removeClass( 'fl-color-picker-active' );
 				}
 			});
 
@@ -924,9 +926,9 @@ var FLBuilderColorPicker;
 				return false;
 			}
 
-			var e = document.getElementById( 'divValidColor' );
+			var e = window.parent.document.getElementById( 'divValidColor' );
 			if ( !e ) {
-				e = document.createElement( 'div' );
+				e = window.parent.document.createElement( 'div' );
 				e.id = 'divValidColor';
 			}
 			e.style.borderColor = '';
@@ -1250,7 +1252,7 @@ var FLBuilderColorPicker;
 			}).on( 'mousedown mouseup', function( event ) {
 				var focusClass = 'ui-state-focus';
 				event.preventDefault();
-				if (event.type === 'mousedown' ) {
+				if ( event.type === 'mousedown' ) {
 					self.picker.find( '.' + focusClass ).removeClass( focusClass ).blur();
 					$(this).addClass( focusClass ).focus();
 				} else {

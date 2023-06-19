@@ -103,17 +103,17 @@
 		 * @since 1.8.1
 		 * @method reloadSlider
 		 */
-		reloadSlider: function( element )
+		reloadSlider: function( content )
 		{
-			var $element 	= 'undefined' == typeof element ? $( 'body' ) : $( element ),
-				bxContent	= $element.find('.bx-viewport > div').eq(0),
-				bxObject   	= null;
+			var $content = 'undefined' == typeof content ? $('body') : $(content);
 
-			if ( bxContent.length ) {
-				bxObject = bxContent.data( 'bxSlider');
-				if ( bxObject ) {
-					bxObject.reloadSlider();
-				}
+			// reload sliders.
+			if ($content.find('.bx-viewport > div').length > 0) {
+				$.each($content.find('.bx-viewport > div'), function (key, slider) {
+					setTimeout(function () {
+						$(slider).data('bxSlider').reloadSlider();
+					}, 100);
+				});
 			}
 		},
 

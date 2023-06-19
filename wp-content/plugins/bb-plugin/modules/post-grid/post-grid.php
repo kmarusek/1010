@@ -485,7 +485,7 @@ class FLPostGridModule extends FLBuilderModule {
 		} elseif ( has_custom_logo() ) {
 			$custom_logo_id = get_theme_mod( 'custom_logo' );
 			$logo           = wp_get_attachment_image_src( $custom_logo_id, 'full' );
-			$image          = $logo[0];
+			$image          = is_array( $logo ) ? $logo[0] : false;
 		}
 
 		/**
@@ -643,19 +643,18 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'toggle'  => array(
 							'columns' => array(
 								'sections' => array( 'posts', 'image', 'content', 'terms', 'post_style', 'text_style' ),
-								'fields'   => array( 'match_height', 'post_columns', 'post_spacing', 'post_padding', 'image', 'grid_image_position', 'grid_image_spacing', 'show_author', 'link_author', 'show_comments_grid', 'info_separator', 'image_size', 'image_fallback', 'show_image' ),
+								'fields'   => array( 'match_height', 'post_columns', 'post_spacing', 'post_padding', 'show_author', 'link_author', 'show_comments_grid', 'info_separator' ),
 							),
 							'grid'    => array(
 								'sections' => array( 'posts', 'image', 'content', 'terms', 'post_style', 'text_style' ),
-								'fields'   => array( 'match_height', 'post_width', 'post_spacing', 'post_padding', 'grid_image_position', 'grid_image_spacing', 'show_author', 'link_author', 'show_comments_grid', 'info_separator', 'image_fallback', 'image_size', 'show_image' ),
+								'fields'   => array( 'match_height', 'post_width', 'post_spacing', 'post_padding', 'show_author', 'link_author', 'show_comments_grid', 'info_separator' ),
 							),
 							'gallery' => array(
 								'sections' => array( 'gallery_general', 'overlay_style', 'icons', 'image' ),
-								'fields'   => array( 'image_fallback' ),
 							),
 							'feed'    => array(
 								'sections' => array( 'posts', 'image', 'content', 'terms', 'post_style', 'text_style' ),
-								'fields'   => array( 'feed_post_spacing', 'feed_post_padding', 'image_position', 'image_spacing', 'image_width', 'show_author', 'link_author', 'show_comments', 'info_separator', 'content_type', 'image_fallback', 'image_size', 'show_image' ),
+								'fields'   => array( 'feed_post_spacing', 'feed_post_padding', 'show_author', 'link_author', 'show_comments', 'info_separator', 'content_type' ),
 							),
 						),
 					),
@@ -755,9 +754,9 @@ FLBuilder::register_module('FLPostGridModule', array(
 						),
 					),
 					'posts_container_class'    => array(
-						'type'    => 'text',
-						'label'   => __( 'Posts Element Class', 'fl-builder' ),
-						'default' => '',
+						'type'        => 'text',
+						'label'       => __( 'Posts Element Class', 'fl-builder' ),
+						'default'     => '',
 						'connections' => array( 'string' ),
 					),
 					'posts_container_ul_class' => array(

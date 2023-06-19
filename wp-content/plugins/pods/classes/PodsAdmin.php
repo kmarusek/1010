@@ -1003,6 +1003,14 @@ class PodsAdmin {
 			$pod_type_label = null;
 			$pod_storage    = $pod['storage'];
 
+			if ( empty( $pod_type ) || ! is_string( $pod_type ) ) {
+				$pod_type = 'post_type';
+			}
+
+			if ( empty( $pod_storage ) || ! is_string( $pod_storage ) ) {
+				$pod_storage = 'meta';
+			}
+
 			$show_meta_count = 'meta' === $pod_storage || in_array( $pod['type'], [ 'post_type', 'taxonomy', 'user', 'comment' ], true );
 
 			if ( ! empty( $pod['internal'] ) ) {
@@ -1070,7 +1078,7 @@ class PodsAdmin {
 			$group_count = 0;
 			$field_count = 0;
 
-			if ( ! pods_is_types_only() ) {
+			if ( ! pods_is_types_only( false, $pod->get_name() ) ) {
 				$group_count = $pod->count_groups();
 				$field_count = $pod->count_fields();
 			}
@@ -1186,7 +1194,7 @@ class PodsAdmin {
 				'pod_object' => $pod,
 			];
 
-			if ( ! pods_is_types_only() ) {
+			if ( ! pods_is_types_only( false, $pod['name'] ) ) {
 				$pod['group_count'] = number_format_i18n( $group_count );
 				$pod['field_count'] = number_format_i18n( $field_count );
 
@@ -1552,6 +1560,10 @@ class PodsAdmin {
 
 		foreach ( $obj->data as $row ) {
 			if ( (int) $row['id'] === (int) $obj->id ) {
+				if ( ! isset( $row['field_count'] ) ) {
+					$row['field_count'] = 0;
+				}
+
 				$original_field_count = (int) $row['field_count'];
 
 				break;
@@ -1767,34 +1779,34 @@ class PodsAdmin {
 	/**
 	 * Get the global config for Pods admin.
 	 *
-	 * @since 2.8.0
-	 *
-	 * @param null|\Pods\Whatsit $pod
+	 * @param null|\Pods\Whatsit $current_pod
 	 *
 	 * @return array Global config array.
+	 *@since 2.8.0
+	 *
 	 */
-	public function get_global_config( $pod = null ) {
+	public function get_global_config( $current_pod = null ) {
 		$config_pod   = pods_container( Config_Pod::class );
 		$config_group = pods_container( Config_Group::class );
 		$config_field = pods_container( Config_Field::class );
 
 		// Pod: Backwards compatible configs and hooks.
-		$pod_tabs        = $config_pod->get_tabs( $pod );
-		$pod_tab_options = $config_pod->get_fields( $pod, $pod_tabs );
+		$pod_tabs        = $config_pod->get_tabs( $current_pod);
+		$pod_tab_options = $config_pod->get_fields( $current_pod, $pod_tabs );
 
 		$this->backcompat_convert_tabs_to_groups( $pod_tabs, $pod_tab_options, 'pod/_pods_pod' );
 
 		// If not types-only mode, handle groups/fields configs.
-		if ( ! pods_is_types_only() ) {
+		if ( ! pods_is_types_only( false, $current_pod->get_name() ) ) {
 			// Group: Backwards compatible methods and hooks.
-			$group_tabs        = $config_group->get_tabs( $pod );
-			$group_tab_options = $config_group->get_fields( $pod, $group_tabs );
+			$group_tabs        = $config_group->get_tabs( $current_pod);
+			$group_tab_options = $config_group->get_fields( $current_pod, $group_tabs );
 
 			$this->backcompat_convert_tabs_to_groups( $group_tabs, $group_tab_options, 'pod/_pods_group' );
 
 			// Field: Backwards compatible methods and hooks.
-			$field_tabs        = $config_field->get_tabs( $pod );
-			$field_tab_options = $config_field->get_fields( $pod, $field_tabs );
+			$field_tabs        = $config_field->get_tabs( $current_pod);
+			$field_tab_options = $config_field->get_fields( $current_pod, $field_tabs );
 
 			$this->backcompat_convert_tabs_to_groups( $field_tabs, $field_tab_options, 'pod/_pods_field' );
 		}
@@ -1820,8 +1832,8 @@ class PodsAdmin {
 			'name'        => '_pods_field',
 		] );
 
-		$pod = [
-			'showFields' => ! pods_is_types_only(),
+		$global_config = [
+			'showFields' => ! pods_is_types_only( false, $current_pod->get_name() ),
 			'pod'        => $pod_object->export( [
 				'include_groups'       => true,
 				'include_group_fields' => true,
@@ -1845,11 +1857,12 @@ class PodsAdmin {
 		/**
 		 * Allow hooking into the global config setup for a Pod.
 		 *
-		 * @param null|\Pods\Whatsit $pod The Pod object.
+		 * @param array              $global_config The global config object.
+		 * @param null|\Pods\Whatsit $current_pod   The Pod object.
 		 */
-		$pod = apply_filters( 'pods_admin_setup_global_config', $pod );
+		$global_config = apply_filters( 'pods_admin_setup_global_config', $global_config, $current_pod );
 
-		return $pod;
+		return $global_config;
 	}
 
 	/**
@@ -2574,7 +2587,7 @@ class PodsAdmin {
 			} elseif ( 'post_type' === $pod['type'] ) {
 				$capability_type = pods_v_sanitized( 'capability_type_custom', $pod['options'], pods_v( 'name', $pod ) );
 
-				if ( 'custom' === pods_v( 'capability_type', $pod['options'] ) && 0 < strlen( $capability_type ) ) {
+				if ( 'custom' === pods_v( 'capability_type', $pod['options'] ) && is_string( $capability_type ) && 0 < strlen( $capability_type ) ) {
 					$capabilities[] = 'read_' . $capability_type;
 					$capabilities[] = 'edit_' . $capability_type;
 					$capabilities[] = 'delete_' . $capability_type;
@@ -3020,6 +3033,7 @@ class PodsAdmin {
 				'label'             => __( 'Field Mode', 'pods' ),
 				'help'              => __( 'Specify how you would like your values returned in the REST API responses. If you choose to show Both raw and rendered values then an object will be returned for each field that contains the value and rendered properties.', 'pods' ),
 				'type'              => 'pick',
+				'pick_format_single' => 'dropdown',
 				'default'           => 'value',
 				'depends-on'        => [ 'rest_enable' => true ],
 				'data'       => [
@@ -3068,6 +3082,7 @@ class PodsAdmin {
 				'label'      => __( 'Response Type', 'pods' ),
 				'help'       => __( 'This will determine what amount of data for the related items will be returned.', 'pods' ),
 				'type'       => 'pick',
+				'pick_format_single' => 'dropdown',
 				'default'    => 'array',
 				'depends-on' => [
 					'type' => 'pick',
@@ -3156,6 +3171,8 @@ class PodsAdmin {
 
 		$fields = $settings->get_setting_fields();
 
+		$settings_values = $settings->get_settings();
+
 		$auto_start = pods_v( $auto_start, $fields['session_auto_start']['data'], __( 'Unknown', 'pods' ) );
 
 		global $wpdb;
@@ -3226,7 +3243,7 @@ class PodsAdmin {
 				],
 				'pods-memory-current-usage'          => [
 					'label' => __( 'Current Memory Usage', 'pods' ),
-					'value' => number_format_i18n( memory_get_usage() / 1024 / 1024, 3 ) . 'M',
+					'value' => number_format_i18n( memory_get_usage() / 1024 / 1024, 3 ) . 'M' . ( defined( 'WP_MEMORY_LIMIT' ) ? ' / ' . WP_MEMORY_LIMIT : '' ),
 				],
 				'pods-memory-current-usage-real'     => [
 					'label' => __( 'Current Memory Usage (real)', 'pods' ),
@@ -3251,6 +3268,10 @@ class PodsAdmin {
 				'pods-relationship-table-enabled'    => [
 					'label' => __( 'Pods Relationship Table Enabled', 'pods' ),
 					'value' => ( pods_podsrel_enabled() ) ? __( 'Yes', 'pods' ) : __( 'No', 'pods' ),
+				],
+				'pods-relationship-table-status'              => [
+					'label' => __( 'Pods Relationship Table Count' ),
+					'value' => ( ! pods_tableless() ? number_format( (float) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}podsrel" ) ) : 'No table' ),
 				],
 				'pods-light-mode'                    => [
 					'label' => __( 'Pods Light Mode Activated', 'pods' ),
@@ -3280,12 +3301,41 @@ class PodsAdmin {
 					'label' => __( 'Pods Can Use Sessions' ),
 					'value' => ( pods_can_use_sessions( true ) ) ? __( 'Yes', 'pods' ) : __( 'No', 'pods' ),
 				],
-				'pods-relationship-table-status'              => [
-					'label' => __( 'Pods Relationship Table Count' ),
-					'value' => ( ! pods_tableless() ? number_format( (float) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}podsrel" ) ) : 'No table' ),
-				],
 			],
 		];
+
+		$settings_to_show = [
+			'types_only'            => __( 'Setting: Types only', 'pods' ),
+			'watch_changed_fields'  => __( 'Setting: Watch Changed fields', 'pods' ),
+			'metadata_integration'  => __( 'Setting: Watch WP Metadata calls', 'pods' ),
+			'metadata_override_get' => __( 'Setting: Override WP Metadata values', 'pods' ),
+		];
+
+		foreach ( $settings_to_show as $setting => $label ) {
+			$setting_key = 'pods-settings-' . sanitize_title_with_dashes( $setting );
+
+			$value = ucwords(
+				str_replace(
+					[ '_', '-' ],
+					' ',
+					(string) pods_v( $setting, $settings_values, __( 'Unknown', 'pods' )
+					)
+				)
+			);
+
+			if ( '0' === $value ) {
+				$value = __( 'No', 'pods' );
+			} elseif ( '1' === $value ) {
+				$value = __( 'Yes', 'pods' );
+			}
+
+			$info['pods']['fields'][ $setting_key ] = [
+				'label' => $label,
+				'value' => $value,
+			];
+		}
+
+		// @todo Later we should add which components are active.
 
 		return $info;
 	}

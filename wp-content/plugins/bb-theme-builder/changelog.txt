@@ -1,3 +1,11 @@
+<h4>1.4.6.1 - 06/01/2023</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Posts Module: Fix WooCommerce not appearing when using Main Query (#770)</li>
+	<li>Fix conditional logic not working properly when setting to does not equal a certain post type (#785)</li>
+	<li>Fix Genesis theme menu still being visible when using a Header layout (#778)</li>
+</ul>
+
 <h4>1.4.6 - 05/11/2023</h4>
 <p><strong>Enhancements</strong></p>
 <ul>

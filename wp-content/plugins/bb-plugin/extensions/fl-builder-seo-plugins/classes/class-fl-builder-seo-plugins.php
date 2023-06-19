@@ -166,7 +166,7 @@ class FLBuilderSeoPlugins {
 
 	function yoast_templates( $args ) {
 		if ( defined( 'WPSEO_VERSION' ) ) {
-			$args['public'] = false;
+			$args['public']  = false;
 			$args['show_ui'] = true;
 		}
 		return $args;

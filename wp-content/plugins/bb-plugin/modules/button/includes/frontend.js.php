@@ -16,13 +16,19 @@ if ( isset( $settings->click_action ) && 'lightbox' == $settings->click_action )
 		},
 		callbacks: {
 			open: function() {
-				var divWrap = $( $(this.content)[0] ).find('> div');
+				var content = $(this.content),
+					divWrap = $(content[0]).find('> div');
+
 				divWrap.css('display', 'block');
 
 				// Triggers select change in we have multiple forms in a page
 				if ( divWrap.find('form select').length > 0 ) {
 					divWrap.find('form select').trigger('change');
 				}
+
+				// reload sliders.
+				FLBuilderLayout.reloadSlider(content);
+				FLBuilderLayout.resizeSlideshow();
 			},
 		},
 		<?php endif; ?>

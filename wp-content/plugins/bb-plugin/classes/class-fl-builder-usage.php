@@ -39,8 +39,8 @@ final class FLBuilderUsage {
 	}
 
 	public static function scripts() {
-		wp_enqueue_style( 'fl-builder-admin-usage', FL_BUILDER_URL . 'css/fl-builder-admin-usage.css', array(), FL_BUILDER_VERSION );
-		wp_enqueue_script( 'fl-builder-admin-usage', FL_BUILDER_URL . 'js/fl-builder-admin-usage.js', array( 'jquery' ), FL_BUILDER_VERSION );
+		wp_enqueue_style( 'fl-builder-admin-usage', FLBuilder::plugin_url() . 'css/fl-builder-admin-usage.css', array(), FL_BUILDER_VERSION );
+		wp_enqueue_script( 'fl-builder-admin-usage', FLBuilder::plugin_url() . 'js/fl-builder-admin-usage.js', array( 'jquery' ), FL_BUILDER_VERSION );
 	}
 
 	/**

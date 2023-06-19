@@ -47,20 +47,25 @@ FLBuilder::register_settings_form('module_advanced', array(
 			'title'  => __( 'Visibility', 'fl-builder' ),
 			'fields' => array(
 				'responsive_display'         => array(
-					'type'    => 'select',
-					'label'   => __( 'Breakpoint', 'fl-builder' ),
-					'options' => array(
-						''               => __( 'All', 'fl-builder' ),
-						'xl'             => __( 'Extra Large Devices Only', 'fl-builder' ),
-						'desktop'        => __( 'Extra Large &amp; Large Devices Only', 'fl-builder' ),
-						'desktop-medium' => __( 'Extra Large, Large &amp; Medium Devices Only', 'fl-builder' ),
-						'large'          => __( 'Large Devices Only', 'fl-builder' ),
-						'large-medium'   => __( 'Large &amp; Medium Devices Only', 'fl-builder' ),
-						'medium'         => __( 'Medium Devices Only', 'fl-builder' ),
-						'medium-mobile'  => __( 'Medium &amp; Small Devices Only', 'fl-builder' ),
-						'mobile'         => __( 'Small Devices Only', 'fl-builder' ),
+					'type'         => 'button-group',
+					'label'        => __( 'Breakpoint', 'fl-builder' ),
+					'options'      => array(
+						'desktop' => '<i class="dashicons dashicons-desktop"></i>',
+						'large'   => '<i class="dashicons dashicons-laptop"></i>',
+						'medium'  => '<i class="dashicons dashicons-tablet"></i>',
+						'mobile'  => '<i class="dashicons dashicons-smartphone"></i>',
 					),
-					'preview' => array(
+					'tooltip'      => array(
+						'desktop' => __( 'Extra Large', 'fl-builder' ),
+						'large'   => __( 'Large', 'fl-builder' ),
+						'medium'  => __( 'Medium', 'fl-builder' ),
+						'mobile'  => __( 'Mobile', 'fl-builder' ),
+					),
+					'default'      => 'desktop,large,medium,mobile',
+					'multi-select' => array(
+						'min' => 1,
+					),
+					'preview'      => array(
 						'type' => 'none',
 					),
 				),
@@ -159,8 +164,9 @@ FLBuilder::register_settings_form('module_advanced', array(
 			),
 		),
 		'export_import' => array(
-			'title'  => __( 'Export/Import', 'fl-builder' ),
-			'fields' => array(
+			'title'     => __( 'Export/Import', 'fl-builder' ),
+			'collapsed' => true,
+			'fields'    => array(
 				'export' => array(
 					'type'    => 'raw',
 					'label'   => __( 'Export', 'fl-builder' ),

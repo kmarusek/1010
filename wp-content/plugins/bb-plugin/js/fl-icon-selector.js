@@ -72,7 +72,7 @@
 			}
 			else {
 				FLIconSelector._lightbox.open();
-				$('.fl-icons-filter-text-live').focus();
+				$('.fl-icons-filter-text-live', window.parent.document).focus();
 			}
 
 			FLIconSelector._lightbox.on('icon-selected', function(event, icon){
@@ -115,36 +115,35 @@
 		{
 			var data = FLBuilder._jsonParse(response);
 
-
 			FLIconSelector._content = data.html;
 			FLIconSelector._lightbox.setContent(data.html);
 
-			$('.fl-icons-filter-text-live').on('keyup', $.debounce( 1000, FLIconSelector.livefilter ));
-			$('.fl-icons-filter-text-live').focus();
-			$('.fl-icons-list i').on('click', FLIconSelector._select);
-			$('.fl-icon-selector-cancel').on('click', $.proxy(FLIconSelector._lightbox.close, FLIconSelector._lightbox));
+			$('.fl-icons-filter-text-live', window.parent.document).on('keyup', $.debounce( 1000, FLIconSelector.livefilter ));
+			$('.fl-icons-filter-text-live', window.parent.document).focus();
+			$('.fl-icons-list i', window.parent.document).on('click', FLIconSelector._select);
+			$('.fl-icon-selector-cancel', window.parent.document).on('click', $.proxy(FLIconSelector._lightbox.close, FLIconSelector._lightbox));
 			FLIconSelector.renderRecent();
 		},
 
 		renderRecent: function() {
 			var recent   = FLBuilderConfig.recentIcons;
 			if ( recent.length < 1 ) {
-				$('.fl-icons-section.recent h2.recent').hide();
+				$('.fl-icons-section.recent h2.recent', window.parent.document).hide();
 				return false;
 			}
-			$('.fl-icons-section.recent h2.recent').show();
-			$('.fl-icons-section.recent').show()
-			$('.recent-icons').html('');
+			$('.fl-icons-section.recent h2.recent', window.parent.document).show();
+			$('.fl-icons-section.recent', window.parent.document).show()
+			$('.recent-icons', window.parent.document).html('');
 			$.each(recent, function( i, icon ) {
-				$('.recent-icons').append( '<i class="' + icon + '"></i>');
+				$('.recent-icons', window.parent.document).append( '<i class="' + icon + '"></i>');
 			});
-			$('.recent-icons').show();
-			$('.recent-icons i').on('click', FLIconSelector._select);
+			$('.recent-icons', window.parent.document).show();
+			$('.recent-icons i', window.parent.document).on('click', FLIconSelector._select);
 
 			// check if recent icons have ::before, if they dont the css for set is missing, so hide icon
-			recents = $('.recent-icons i');
+			var recents = $('.recent-icons i', window.parent.document);
 			$.each( recents, function( i,icon ) {
-				var str = window.getComputedStyle($(icon)[0], ':before').getPropertyValue('content');
+				var str = window.parent.getComputedStyle($(icon)[0], ':before').getPropertyValue('content');
 				if ( 'none' == str ) {
 					$(icon).hide();
 				}
@@ -152,22 +151,22 @@
 		},
 
 		livefilter: function() {
-			var text    = $( '.fl-icons-filter-text-live' ).val();
+			var text = $( '.fl-icons-filter-text-live', window.parent.document ).val();
 
 			if ( text === FLIconSelector._liveFilterText ) {
 				return false;
 			}
 
-			$('.fl-icons-section.results').html('')
+			$( '.fl-icons-section.results', window.parent.document ).html('')
 
 			if ( '' === text ) {
 				FLIconSelector._liveFilterText = '';
-				$( '.fl-icons-section' ).show();
+				$( '.fl-icons-section', window.parent.document ).show();
 				FLIconSelector.renderRecent();
 			} else {
-				$('.fl-icons-section.recent').hide();
-				$('.fl-icons-section.all-icons').hide()
-				$('.fl-icons-section.results').html('<i class="fas fa-spinner fa-spin"></i>')
+				$('.fl-icons-section.recent', window.parent.document).hide();
+				$('.fl-icons-section.all-icons', window.parent.document).hide()
+				$('.fl-icons-section.results', window.parent.document).html('<i class="fas fa-spinner fa-spin"></i>')
 				FLIconSelector._liveFilterText = text;
 
 				FLBuilder.ajax({
@@ -180,8 +179,8 @@
 
 		_query_result: function(result) {
 
-			var results = $('.fl-icons-section.results'),
-						html = '';
+			var results = $('.fl-icons-section.results', window.parent.document),
+				   html = '';
 
 			if ( ! result || '[]' === result ) {
 				html = '<h2>No Icons Found</h2>'
@@ -229,10 +228,9 @@
 					});
 			})
 
-		//	FLBuilder.hideAjaxLoader()
 			results.html(html);
 			results.show();
-			$('.fl-icons-section.results i').on('click', FLIconSelector._select);
+			$('.fl-icons-section.results i', window.parent.document).on('click', FLIconSelector._select);
 		},
 
 		/**
@@ -245,26 +243,26 @@
 		 */
 		_filter: function()
 		{
-			var section = $( '.fl-icons-filter-select' ).val(),
-				text    = $( '.fl-icons-filter-text' ).val() || '';
+			var section = $( '.fl-icons-filter-select', window.parent.document ).val(),
+				text    = $( '.fl-icons-filter-text', window.parent.document ).val() || '';
 
 			// Filter sections.
 			if ( 'all' == section ) {
-				$( '.fl-icons-section' ).show();
+				$( '.fl-icons-section', window.parent.document ).show();
 			}
 			else {
-				$( '.fl-icons-section' ).hide();
-				$( '.fl-' + section ).show();
+				$( '.fl-icons-section', window.parent.document ).hide();
+				$( '.fl-' + section, window.parent.document ).show();
 			}
 
 			// Filter icons.
 			FLIconSelector._filterText = text;
 
 			if ( '' !== text ) {
-				$( '.fl-icons-list i' ).each( FLIconSelector._filterIcon );
+				$( '.fl-icons-list i', window.parent.document ).each( FLIconSelector._filterIcon );
 			}
 			else {
-				$( '.fl-icons-list i' ).show();
+				$( '.fl-icons-list i', window.parent.document ).show();
 			}
 		},
 

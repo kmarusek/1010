@@ -185,7 +185,6 @@
             this.renderGroupSelector();
             this.isShowing = true;
             this.$el.addClass('is-showing');
-
             this.$el.find('.fl-nanoscroller-content').scrollTop(0);
         },
 
@@ -413,7 +412,7 @@
 
             this.$items.on('click', this.onTemplateClick.bind(this));
 
-            this.$userTemplateSections = $('.fl-user-templates');
+            this.$userTemplateSections = $('.fl-user-templates', window.parent.document);
 
             this.$userTemplates = this.$el.find('.fl-user-template, .fl-builder--save-new-user-template');
 
@@ -708,7 +707,7 @@
             var viewName = item.data( 'view' );
 
 			if ( item.hasClass( 'fl-has-children' ) ) {
-				var children = $( '[data-parent="' + viewName + '"]' );
+				var children = $( '[data-parent="' + viewName + '"]', window.parent.document );
 
 				if ( ! children.is( ':visible' ) ) {
 					this.items[ viewName ].hasChildrenOpen = true;
@@ -805,8 +804,8 @@
         * @return void
         */
         render: function() {
-            $('body').prepend(this.template(this));
-            this.$el = $(".fl-builder--content-library-panel");
+            $('body', window.parent.document).prepend(this.template(this));
+            this.$el = $(".fl-builder--content-library-panel", window.parent.document);
             this.bindEvents();
             this.$groupSelect = this.$el.find('.fl-builder-content-group-select');
 			$(this).trigger('afterRender');
@@ -859,7 +858,7 @@
             var $panel = this.$el,
                 panelOffset = null,
                 $arrow = this.$el.find('.fl-builder--panel-arrow'),
-                $button = $('.fl-builder-content-panel-button'),
+                $button = $('.fl-builder-content-panel-button', window.parent.document),
                 arrowOffset,
                 arrowX,
                 animationDuration = this.$el.css('animation-duration');
@@ -915,7 +914,7 @@
 				return;
 			}
 
-            $('body').addClass('fl-builder-content-panel-is-showing');
+            $('body', window.parent.document).addClass('fl-builder-content-panel-is-showing');
             this.isShowing = true;
             $(this).trigger('onShow');
             FLBuilder.triggerHook('didShowContentPanel');
@@ -939,7 +938,7 @@
 	            return;
             }
 
-            $('body').removeClass('fl-builder-content-panel-is-showing');
+            $('body', window.parent.document).removeClass('fl-builder-content-panel-is-showing');
             this.isShowing = false;
             $(this).trigger('onHide');
             FLBuilder.triggerHook('didHideContentPanel');
@@ -1016,7 +1015,7 @@
             this.$search.addClass('is-showing-input');
             this.$search.find('input[name="search-term"]').focus();
 
-            $('.fl-builder--selector-display-label').attr('tabindex', -1 );
+            $('.fl-builder--selector-display-label', window.parent.document).attr('tabindex', -1 );
             this.$searchBtn.attr('tabindex', -1 );
 
             $(this).trigger('didShowSearchControls');
@@ -1026,7 +1025,7 @@
             this.$search.removeClass('is-showing-input');
             this.clearSearchInput();
             this.hideSearchResults();
-            $('.fl-builder--selector-display-label').attr('tabindex', null );
+            $('.fl-builder--selector-display-label', window.parent.document).attr('tabindex', null );
             this.$searchBtn.attr('tabindex', null );
         },
 
@@ -1065,7 +1064,7 @@
                 var $html = $(this.renderNoResults(data));
     			this.$searchPanel.html($html);
             }
-			$('body').addClass('fl-builder-search-results-panel-is-showing');
+			$('body', window.parent.document).addClass('fl-builder-search-results-panel-is-showing');
         },
 
         /**
@@ -1073,7 +1072,7 @@
         * @return void
         */
         hideSearchResults: function() {
-        	$('body').removeClass('fl-builder-search-results-panel-is-showing');
+        	$('body', window.parent.document).removeClass('fl-builder-search-results-panel-is-showing');
         },
 
     });

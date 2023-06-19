@@ -314,7 +314,7 @@
 	<div class="fl-pro-message-title">{{data.feature}} is a Pro Feature</div>
 	<div class="fl-pro-message-content">We're sorry, {{data.feature}} is not available on your plan. Please upgrade to unlock all these awesome features.</div>
 	<div class="fl-pro-message-button">
-		<button class="fl-builder-upgrade-button fl-builder-button" onclick="FLBuilder._upgradeClicked()">
+		<button class="fl-builder-upgrade-button fl-builder-button">
 			<?php _ex( 'Upgrade', 'Link to learn more about premium Beaver Builder', 'fl-builder' ); ?>
 		</button>
 	</div>
@@ -862,17 +862,17 @@
 		</div>
 		<div class="fl-builder-blocks-pro-overlay"></div>
 	</div>
-	<button class="fl-builder-button fl-builder-button-silent fl-builder-blocks-pro-expand" onclick="FLBuilder._toggleProModules()">
+	<button class="fl-builder-button fl-builder-button-silent fl-builder-blocks-pro-expand">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" height="20px" width="20px">
 			<path d="M5 6l5 5 5-5 2 1-7 7-7-7z"></path>
 		</svg>
 	</button>
 	<div class="fl-builder--panel-cta">
-		<img src="<?php echo FL_BUILDER_URL; ?>img/beaver.png" />
+		<img src="<?php echo FLBuilder::plugin_url(); ?>img/beaver.png" />
 		<a href="https://www.wpbeaverbuilder.com/?utm_medium=bb-lite&amp;utm_source=builder-ui&amp;utm_campaign=modules-panel-cta" target="_blank">
 			<?php _e( 'Get more time-saving features, modules, and expert support.', 'fl-builder' ); ?>
 		</a>
-		<button class="fl-builder-upgrade-button fl-builder-button" onclick="FLBuilder._upgradeClicked()">
+		<button class="fl-builder-upgrade-button fl-builder-button">
 			<?php _ex( 'Learn More', 'Link to learn more about premium Beaver Builder', 'fl-builder' ); ?>
 		</button>
 	</div>
@@ -909,11 +909,11 @@
 
 		<# if (FLBuilderConfig.lite) { #>
 		<div class="fl-builder--panel-cta">
-			<img src="<?php echo FL_BUILDER_URL; ?>img/beaver.png" />
+			<img src="<?php echo FLBuilder::plugin_url(); ?>img/beaver.png" />
 			<a href="https://www.wpbeaverbuilder.com/?utm_medium=bb-lite&amp;utm_source=builder-ui&amp;utm_campaign=modules-panel-cta" target="_blank">
 				<?php _e( 'Get more time-saving features, modules, and expert support.', 'fl-builder' ); ?>
 			</a>
-			<button class="fl-builder-upgrade-button fl-builder-button" onclick="FLBuilder._upgradeClicked()">
+			<button class="fl-builder-upgrade-button fl-builder-button">
 				<?php _ex( 'Learn More', 'Link to learn more about premium Beaver Builder', 'fl-builder' ); ?>
 			</button>
 		</div>
@@ -985,11 +985,11 @@
 	</div>
 	<# if (FLBuilderConfig.lite) { #>
 	<div class="fl-builder--panel-cta">
-		<img src="<?php echo FL_BUILDER_URL; ?>img/beaver.png" />
+		<img src="<?php echo FLBuilder::plugin_url(); ?>img/beaver.png" />
 		<a href="https://www.wpbeaverbuilder.com/?utm_medium=bb-lite&amp;utm_source=builder-ui&amp;utm_campaign=modules-panel-cta" target="_blank">
 			<?php _ex( 'Save and reuse your layouts or kick-start your creativity with dozens of professionally designed templates.', 'Upgrade message that displays in the templates tab in lite installs.', 'fl-builder' ); ?>
 		</a>
-		<button class="fl-builder-upgrade-button fl-builder-button" onclick="FLBuilder._upgradeClicked()">
+		<button class="fl-builder-upgrade-button fl-builder-button">
 			<?php _ex( 'Learn More', 'Link to learn more about premium Beaver Builder', 'fl-builder' ); ?>
 		</button>
 	</div>

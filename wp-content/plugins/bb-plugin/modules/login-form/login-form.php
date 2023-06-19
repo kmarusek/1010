@@ -81,7 +81,7 @@ class FLLoginFormModule extends FLBuilderModule {
 				}
 
 				$args = array(
-					'url' => ( 'url' === $settings->redirect_to ) ? ( empty( $settings->success_url ) ? 'current' : $settings->success_url ) : $settings->redirect_to,
+					'url' => ( 'url' === $settings->redirect_to ) ? ( empty( $settings->success_url ) ? 'current' : $settings->success_url ) : ( 'message' === $settings->redirect_to ? 'current' : $settings->redirect_to ),
 				);
 
 				do_action( 'fl_builder_login_form_submission_complete', $settings, $password, $name, $template_id, $post_id );
@@ -298,7 +298,7 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 			'btn_general' => array(
 				'title'  => '',
 				'fields' => array(
-					'btn_text'    => array(
+					'btn_text'        => array(
 						'type'    => 'text',
 						'label'   => __( 'Button Text', 'fl-builder' ),
 						'default' => __( 'Login', 'fl-builder' ),
@@ -307,7 +307,7 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'selector' => '.fl-button-text',
 						),
 					),
-					'redirect_to' => array(
+					'redirect_to'     => array(
 						'type'    => 'select',
 						'label'   => __( 'Redirect To', 'fl-builder' ),
 						'default' => 'url',
@@ -315,14 +315,32 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'url'      => __( 'URL', 'fl-builder' ),
 							'current'  => __( 'Current URL', 'fl-builder' ),
 							'referrer' => __( 'Referrer URL', 'fl-builder' ),
+							'message'  => __( 'Show Message', 'fl-builder' ),
 						),
 						'toggle'  => array(
-							'url' => array(
+							'message' => array(
+								'fields' => array( 'success_message' ),
+							),
+							'url'     => array(
 								'fields' => array( 'success_url' ),
 							),
 						),
+						'preview' => array(
+							'type' => 'none',
+						),
 					),
-					'success_url' => array(
+					'success_message' => array(
+						'type'          => 'editor',
+						'label'         => '',
+						'media_buttons' => false,
+						'rows'          => 1,
+						'default'       => __( 'You are logged in successfully!', 'fl-builder' ),
+						'preview'       => array(
+							'type' => 'none',
+						),
+						'connections'   => array( 'string' ),
+					),
+					'success_url'     => array(
 						'type'        => 'link',
 						'label'       => __( 'Redirect URL', 'fl-builder' ),
 						'preview'     => array(
@@ -363,6 +381,36 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 					),
 				),
 			),
+			'btn_style'   => array(
+				'title'  => __( 'Button Style', 'fl-builder' ),
+				'fields' => array(
+					'btn_width' => array(
+						'type'    => 'select',
+						'label'   => __( 'Button Width', 'fl-builder' ),
+						'default' => 'full',
+						'options' => array(
+							'auto' => _x( 'Auto', 'Width.', 'fl-builder' ),
+							'full' => __( 'Full Width', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'auto' => array(
+								'fields' => array( 'btn_align' ),
+							),
+						),
+					),
+					'btn_align' => array(
+						'type'       => 'align',
+						'label'      => __( 'Button Align', 'fl-builder' ),
+						'default'    => 'left',
+						'responsive' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '.fl-button-wrap',
+							'property' => 'text-align',
+						),
+					),
+				),
+			),
 			'btn_colors'  => array(
 				'title'  => __( 'Button Background', 'fl-builder' ),
 				'fields' => array(
@@ -388,10 +436,34 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'type' => 'none',
 						),
 					),
-
 				),
 			),
-
+			'btn_border'  => array(
+				'title'  => __( 'Button Border', 'fl-builder' ),
+				'fields' => array(
+					'btn_border'             => array(
+						'type'       => 'border',
+						'label'      => __( 'Button Border', 'fl-builder' ),
+						'responsive' => true,
+						'preview'    => array(
+							'type'      => 'css',
+							'selector'  => 'a.fl-button',
+							'important' => true,
+						),
+					),
+					'btn_border_hover_color' => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Button Border Hover Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type' => 'none',
+						),
+					),
+				),
+			),
 		),
 	),
 	'logout_button' => array(
@@ -408,6 +480,12 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 						'options' => array(
 							'yes' => __( 'Yes', 'fl-builder' ),
 							'no'  => __( 'No', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'yes' => array(
+								'fields'   => array( 'lo_btn_text', 'lo_success_url' ),
+								'sections' => array( 'lo_btn_icon', 'lo_btn_border', 'lo_btn_style', 'lo_btn_colors' ),
+							),
 						),
 					),
 					'lo_btn_text'    => array(
@@ -460,6 +538,34 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 					),
 				),
 			),
+			'lo_btn_style'   => array(
+				'title'  => __( 'Button Style', 'fl-builder' ),
+				'fields' => array(
+					'lo_btn_width' => array(
+						'type'    => 'select',
+						'label'   => __( 'Button Width', 'fl-builder' ),
+						'default' => 'full',
+						'options' => array(
+							'auto' => _x( 'Auto', 'Width.', 'fl-builder' ),
+							'full' => __( 'Full Width', 'fl-builder' ),
+						),
+						'toggle'  => array(
+							'auto' => array(
+								'fields' => array( 'lo_btn_align' ),
+							),
+						),
+					),
+					'lo_btn_align' => array(
+						'type'       => 'align',
+						'label'      => __( 'Button Align', 'fl-builder' ),
+						'default'    => 'left',
+						'responsive' => true,
+						'preview'    => array(
+							'type' => 'none',
+						),
+					),
+				),
+			),
 			'lo_btn_colors'  => array(
 				'title'  => __( 'Button Background', 'fl-builder' ),
 				'fields' => array(
@@ -487,13 +593,37 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 					),
 				),
 			),
+			'lo_btn_border'  => array(
+				'title'  => __( 'Button Border', 'fl-builder' ),
+				'fields' => array(
+					'lo_btn_border'             => array(
+						'type'       => 'border',
+						'label'      => __( 'Button Border', 'fl-builder' ),
+						'responsive' => true,
+						'preview'    => array(
+							'type' => 'none',
+						),
+					),
+					'lo_btn_border_hover_color' => array(
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'label'       => __( 'Button Border Hover Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
+							'type' => 'none',
+						),
+					),
+				),
+			),
 		),
 	),
 	'style'         => array(
 		'title'    => __( 'Shared Styles', 'fl-builder' ),
 		'sections' => array(
-			'style' => array(
-				'title'  => '',
+			'style'             => array(
+				'title'  => 'Button',
 				'fields' => array(
 					'btn_padding'          => array(
 						'type'       => 'dimension',
@@ -504,18 +634,6 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 						'preview'    => array(
 							'type'     => 'css',
 							'selector' => 'a.fl-button',
-							'property' => 'padding',
-						),
-					),
-					'input_padding'        => array(
-						'type'       => 'dimension',
-						'label'      => __( 'Input Field Padding', 'fl-builder' ),
-						'responsive' => true,
-						'slider'     => true,
-						'units'      => array( 'px' ),
-						'preview'    => array(
-							'type'     => 'css',
-							'selector' => '.fl-form-field input[type=text],.fl-form-field input[type=password]',
 							'property' => 'padding',
 						),
 					),
@@ -556,13 +674,114 @@ FLBuilder::register_module( 'FLLoginFormModule', array(
 							'selector' => 'a.fl-button',
 						),
 					),
-					'input_typography'     => array(
+				),
+			),
+			'shared_inp_style'  => array(
+				'title'  => 'Input',
+				'fields' => array(
+					'input_padding'      => array(
+						'type'       => 'dimension',
+						'label'      => __( 'Input Field Padding', 'fl-builder' ),
+						'responsive' => true,
+						'slider'     => true,
+						'units'      => array( 'px' ),
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '.fl-form-field input[type=text],.fl-form-field input[type=password]',
+							'property' => 'padding',
+						),
+					),
+					'input_color'        => array(
+						'type'       => 'color',
+						'label'      => __( 'Color', 'fl-builder' ),
+						'show_reset' => true,
+						'show_alpha' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '{node} .fl-form-field input[type=text],{node} .fl-form-field input[type=password],{node} .fl-form-field input[type=text]::placeholder,{node} .fl-form-field input[type=password]::placeholder',
+							'property' => 'color',
+						),
+					),
+					'input_typography'   => array(
 						'type'       => 'typography',
 						'label'      => __( 'Input Typography', 'fl-builder' ),
 						'responsive' => true,
 						'preview'    => array(
 							'type'     => 'css',
 							'selector' => '.fl-form-field input[type=text],.fl-form-field input[type=password]',
+						),
+					),
+					'input_border'       => array(
+						'type'    => 'border',
+						'label'   => __( 'Border', 'fl-builder' ),
+						'preview' => array(
+							'type'      => 'css',
+							'selector'  => '{node} .fl-form-field input[type=text],{node} .fl-form-field input[type=password]',
+							'important' => true,
+						),
+					),
+					'input_border_hover' => array(
+						'type'    => 'border',
+						'label'   => __( 'Border Hover', 'fl-builder' ),
+						'preview' => array(
+							'type' => 'none',
+						),
+					),
+				),
+			),
+			'shared_form_style' => array(
+				'title'  => 'Form',
+				'fields' => array(
+					'form_padding'        => array(
+						'type'       => 'dimension',
+						'label'      => __( 'Padding', 'fl-builder' ),
+						'default'    => '10',
+						'responsive' => true,
+						'slider'     => true,
+						'units'      => array( 'px' ),
+						'preview'    => array(
+							'type'     => 'css',
+							'selector' => '{node}.fl-module-login-form .fl-login-form.login',
+							'property' => 'padding',
+						),
+					),
+					'form_bg_color'       => array(
+						'type'        => 'color',
+						'label'       => __( 'Background Color', 'fl-builder' ),
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'connections' => array( 'color' ),
+						'preview'     => array(
+							'type'     => 'css',
+							'selector' => '{node}.fl-module-login-form .fl-login-form.login',
+							'property' => 'background-color',
+						),
+					),
+					'form_bg_hover_color' => array(
+						'type'        => 'color',
+						'label'       => __( 'Background Hover Color', 'fl-builder' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'connections' => array( 'color' ),
+						'preview'     => array(
+							'type' => 'none',
+						),
+					),
+					'form_border'         => array(
+						'type'    => 'border',
+						'label'   => __( 'Border', 'fl-builder' ),
+						'preview' => array(
+							'type'      => 'css',
+							'selector'  => '{node}.fl-module-login-form .fl-login-form.login',
+							'important' => true,
+						),
+					),
+					'form_border_hover'   => array(
+						'type'    => 'border',
+						'label'   => __( 'Border Hover', 'fl-builder' ),
+						'preview' => array(
+							'type' => 'none',
 						),
 					),
 				),
