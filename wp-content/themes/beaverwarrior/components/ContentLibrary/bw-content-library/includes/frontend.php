@@ -163,13 +163,17 @@ foreach( $postCats as $cat ){
         // The URL for the post
         $post_url               = get_permalink( $post_id );
         // Post Category Class 
-        $categoriesClass        = $module->getPostCategoryString( $post_id )
-        
-     
+        $categoriesClass        = $module->getPostCategoryString( $post_id );
+        // Hide yes/no
+        $hide                   = get_field('content_hide', $post_id);
 ?>
+    <?php if($hide === true){
+        //remove post from archive results.
+        } else{?>
         <a class="ContentLibrary-post-link" href="<?php echo $post_url?>" data-category="<?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" data-post-id="<?php echo $post_id;?>">
-            <li class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" > 
+            <li class="ContentLibrary-post <?php echo $categoriesClass = str_replace(' ','-', $categoriesClass);?>" >
                     <div class="ContentLibrary-content-container">
+                        <p><?php echo the_field('content_hide', $post_id);?> test</p> 
                         <p class="ContentLibrary-categories categories"><?php echo $post_categories_string;?></p>
                         <h2 class="ContentLibrary-title title"><?php  echo $post_title;?></h2>
                     </div>
@@ -178,6 +182,7 @@ foreach( $postCats as $cat ){
                     </div>
             </li>
         </a>
+    <?php };?>
 <?php
 }
 ?>
